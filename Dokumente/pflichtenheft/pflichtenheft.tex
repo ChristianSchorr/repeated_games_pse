@@ -1,8 +1,8 @@
 \documentclass[parskip=full,11pt,twoside]{scrartcl}
 \usepackage[utf8]{inputenc}
 
-\title{ATURL: Actually Tiny URLs}
-\author{Kaylee Frye, Derrial Book}
+\title{Simulator für wiederholte Spiele}
+\author{Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing}
 
 % section numbers in margins:
 \renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
@@ -35,44 +35,21 @@
 
 \usepackage{pflichtenheft}
 
+\def\adapt{Adaptionsschritt}
+\def\adapts{Adaptionsschritte}
+
 \begin{document}
 \maketitle
 
 \section{Einleitung}
 
-Das Universum braucht einen besseren URL Shortener.
+Ziel dieses Projekts ist die Entwicklung einer Simulationsumgebung für wiederholte Spiele. Sie ist aus der Forschung motiviert und für den Einsatz in der Forschung ausgelegt. Die Simulationsumgebung wird verwendet, um das Entstehen von Gleichgewichtszuständen bei wiederholten Spielen mehrerer Agenten zu untersuchen. 
 
-URL Shortening erzeugt kurze URLs,
-die nur Weiterleitungen sind zu sehr viel längeren URLs.
-Das ist nützlich, weil Kurz-URLs besser zu merken sind
-und leichter mündlich weiterzugeben.
-Ebenfalls nützlich sind sie,
-wenn URLs im Text auftauchen (bspw. IRC).
+Es folgt eine Erläuterung des dem Simulator zugrundeliegenden Ablaufs. Dazu sei auch auf %\cref{} verwiesen.
 
-Eine URL besteht aus mehreren Komponenten:
+Eine Simulation besteht aus mehreren Wiederholungen. Eine Wiederholung beginnt mit der Initialisierung der Agenten mit Strategien, Kapital und Gruppenzugehörigkeit. Anzahl der Agenten, Zuweisungsverfahren von Anfangsstrategien und Anfangskapital sowie Gruppeneinteilung werden vom Nutzer spezifiziert. Insbesondere legt der Nutzer die Menge aller möglichen Strategien fest. Danach folgen wiederholt \adapts, bis sich ein Gleichgewicht eingestellt hat oder eine konfigurierbare Höchstzahl an \adapts n erreicht ist. Ein \adapt\ besteht aus einer festen Zahl an Runden. In jeder Runde werden zunächst gemäß eines konfigurierbaren Algorithmus' Paare aus Agenten gebildet. Diese spielen dann gemäß ihrer aktuellen Strategie das dieser Simulation zugrundeliegende Stufenspiel. Nach Ablauf der Runden wird der Erfolg jedes Agenten in den zurückliegenden Runden quantifiziert und daraus eine Rangliste aller Agenten erstellt. Die Agenten passen nun ihre Strategien gemäß eines vom Nutzer spezifizierbaren Adaptionsmechanismus an. Ziel ist dabei nicht die Maximierung des Absolutkapitals, sondern eine möglichst hohe Position auf der Rangliste.
 
-\begin{center}
-\urlpart{http}{protocol}%
-\texttt{://}%
-\urlpart{web.io}{host}%
-\texttt{/}%
-\urlpart{index}{path}%
-\texttt{?}%
-\urlpart{argument=somevalue}{parameter}%
-\texttt{\#}%
-\urlpart{theAnchor}{fragment}
-\end{center}
-
-Für Kurz-URLs ist der path (engl.\ Pfad) relevant.
-Das Protokoll ist HTTP oder HTTPS, abhängig vom Besucher.
-Die Wahl des host-Namens ist nicht Teil der Softwareentwicklung,
-sondern des Betreibers.
-Parameter und Fragment werden nicht genutzt,
-da es mindestens einen zusätzlichen Buchstaben braucht
-und damit die URL verlängert.
-
-Im weiteren Text nehmen wir an,
-dass der Dienst unter dem Hostnamen \texttt{atu.rl} angeboten wird.
+Nachdem alle Wiederholungen abgeschlossen sind, erfolgt die Ausgabe der Ergebnisse der einzelnen Wiederholungen. Wenn sich ein Gleichgewicht eingestellt hat, werden die Zahl der durchgeführten \adapts, die endgültigen Strategien und die endgültige Rangliste ausgegeben.
 
 \pagebreak
 \section{Kriterien}
@@ -81,48 +58,63 @@ dass der Dienst unter dem Hostnamen \texttt{atu.rl} angeboten wird.
 
 \subsection{Muss}
 
-\criterium{Beschränkte Länge}{crt:length}
+\criterium{Starten einer Simulation}{crt:startsim}	
 
-Der Pfad von Kurz-URLs ist exakt 3 ASCII Buchstaben oder Ziffern lang.
-Das beschränkt die Anzahl der möglichen URLs auf knapp 200.000 Kurz-URLs.
+Der Nutzer kann eine Simulation starten, welche dann mit den aktuell festgelegten Parametern durchgeführt wird.
 
-\criterium{Schnelle Weiterleitung Kurz- zu Lang-URL}{crt:fast}
+\criterium{Ausgabe der Simulationsergebnisse}{crt:simresults_std}
 
-\criterium{Authentifizieren mit E-Mail oder Facebook}{crt:login}
+Nach Durchführung einer Simulation wird für jede der Wiederholungen ausgegeben, ob sich ein Gleichgewicht eingestellt hat. Falls ja, werden die Zahl der durchgeführten \adapts, die endgültigen Strategien und die endgültige Rangliste ausgegeben.
 
-\criterium{Rechtlichte Vorgaben werden eingehalten}{crt:tmg}
+\criterium{Abbrechen einer Simulation}{crt:interruptsim}
 
-Der Dienst befolgt alle in Deutschland geltenden Richtlinien,
-insbesondere das Telemediengesetz.
+Der Nutzer kann eine laufende Simulation abbrechen.
+
+\criterium{Anpassen von Simulationsparametern}{crt:simparam_std}
+
+Der Nutzer hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
+\begin{itemize} \itemsep -10pt
+\item Anzahl der Agenten
+\item zugrundeliegendes Stufenspiel
+\item Anzahl verschiedener Gruppen und jeweils Anzahl zugehöriger Agenten
+\item Zuweisungsverfahren für initiale Strategien
+\item Menge aller möglichen Strategien
+\item Zuweisungsverfahren für initiales Kapital
+\item Algorithmus zur Bildung von Paaren beim Beginn einer Runde
+\item Erfolgsquantifizierung zur Erstellung der Rangliste am Ende eines \adapt s
+\item Adaptionsmechanismus, nach dem Agenten am Ende eines \adapt s ihre Strategien anpassen
+\end{itemize}
 
 \subsection{Kann}
 
-\criteriumOptional{Authentifizieren mit Github}{crt:github}
+\criteriumOptional{Detailliertere Ausgabe}{crt:simresults_add}
+Nach Ablauf einer Simulation können für jede Wiederholung Rangliste und Strategien am Ende aller Adaptionsschritte eingesehen werden.
 
-\criteriumOptional{Seite mit Betreiberinfo}{crt:about}
+\criteriumOptional{Anpassen der Abbruchbedingungen}{crt:exitcondition}
+Es können mehrere Kriterien für den Abbruch einer Wiederholung verwendet werden.
 
-Der Dienst bietet eine Seite \enquote{Über Uns},
-mit Informationen zum Betreiber.
+\criteriumOptional{Erweiterte Gruppenfunktionalität}{crt:groupfunc}
+Zuweisungsverfahren für initiales Kapital und initiale Strategien können für jede Gruppe separat festgelegt werden.
+
+\criteriumOptional{Erstellen eigener Strategien}{crt:createstrat}
+Es können eigene Strategien erstellt werden.
+
+\criteriumOptional{Erstellen eigener Stufenspiele}{crt:creategame}
+Es können eigene Stufenspiele erstellt werden.
 
 \subsection{Abgrenzung}
 
-\criteriumNot{Keine Wahl Kurz-URL}{crt:no-choice}
+\criteriumNot{Kein alternativer Simulationsablauf}{crt:not_altsim}
+Der zugrundeliegende Ablauf der Simulation, wie in der Einleitung erklärt, kann nicht verändert werden.
 
-Ein Nutzer hat keine Möglichkeit die Auswahl einer Kurz-URL zu beeinflussen.
+\criteriumNot{Keine komplexen Stufenspiele}{crt:not_complexgames}
+Als Stufenspiele sind nur solche zugelassen, die sich als \(2 \times 2\) - Bimatrix mit konstanten Auszahlungen darstellen lassen.
 
 \pagebreak
 %%%%%%%%%%%%%%
 \section{Produkteinsatz}
 
-Das Produkt soll mit minimalen Administrationskenntnissen zu betreiben sein.
-
-Besucher des Diensts sollen diesen ohne Schulung oder andere Information benutzen können.
-
 \section{Produktumgebung}
-
-Das Programm soll als Servlet in einem Apache Tomcat betrieben werden.
-
-Es stehen mindestens 2 AMD64 Kerne mit insgesamt 2GB shared RAM zur Verfügung.
 
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
@@ -231,14 +223,14 @@ Wie das genau implementiert wird, ist nicht Teil dieses Projekts.
 % made via https://gomockingbird.com/projects/mnf0cwf/4gXVnC
 
 \begin{figure}[hb]
-\fbox{\includegraphics[width=\textwidth]{image/login.png}}
+%\fbox{\includegraphics[width=\textwidth]{image/login.png}}
 \caption{\label{fig:homepage}
 Homepage mit Login-Funktion
 }
 \end{figure}
 
 \begin{figure}[hb]
-\fbox{\includegraphics[width=\textwidth]{image/form.png}}
+%\fbox{\includegraphics[width=\textwidth]{image/form.png}}
 \caption{\label{fig:form}
 Formular zur Generierung einer Kurz-URL.
 Getestet beispielsweise in \testlink{tst:create}.
@@ -246,7 +238,7 @@ Getestet beispielsweise in \testlink{tst:create}.
 \end{figure}
 
 \begin{figure}[hb]
-\fbox{\includegraphics[width=\textwidth]{image/generated.png}}
+%\fbox{\includegraphics[width=\textwidth]{image/generated.png}}
 \caption{\label{fig:generated}
 Anzeige der generierten Kurz-URL.
 Das Textfeld mit der Lang-URL kann nicht geändert werden.
@@ -255,17 +247,22 @@ Das Textfeld mit der Lang-URL kann nicht geändert werden.
 
 \section{Glossar}
 
-\textbf{Besucher}:
-Eine Person, welche den Dienst nutzt.
-Kann eingeloggt sein oder nicht.
+\textbf{Gleichgewicht}:
+Ein Gleichgewicht im Simulationsablauf ist erreicht, wenn keiner der Agenten mehr seine Strategie ändert.
 
-\textbf{Dienst}:
-Die Software im laufenden Betrieb. Software as a Service.
+\textbf{Stufenspiel:}
+Ein spieltheoretisches Spiel, welches sich als Bimatrix darstellen lässt. (z.B. das Gefangenen-Dilemma)
 
-\textbf{Homepage}:
-Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch \enquote{Startseite}.
+\textbf{Erfolg:}
+Der Erfolg eines Agenten in einer Folge von Runden wird aus dessen Kapitalauszahlungen in diesen Runden berechnet. Er ist Konfigurationsparameter der Simulation. Beispiel ist die Summe aller Auszahlungen.
+
+\textbf{Kapital:}
+Jedem Agenten wird im Laufe einer Wiederholung eine Zahl zugeordnet, die sich aus dem Initialisierungswert zu Beginn der Wiederholung und der Summe der Auszahlungen aus den Stufenspielen der bisherigen Runden zusammensetzt.
+
+\textbf{Gruppenzugehörigkeit:}
+In einer Simulation sind die Agenten in eine feste, wohldefinierte Anzahl von Gruppen partitioniert. Die Strategien der Agenten können auf die Gruppenzugehörigkeiten anderer Agenten Bezug nehmen.
 
 \textbf{Nutzer}:
-Ein eingeloggter Besucher.
+Eine Person, welche das Programm nutzt.
 
 \end{document}
