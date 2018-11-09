@@ -64,13 +64,13 @@ Nachdem alle Wiederholungen abgeschlossen sind, erfolgt die Ausgabe der Ergebnis
 
 \criterium{Starten einer Simulation}{crt:startsim}	
 
-Der Nutzer kann eine Simulation starten, welche dann mit den aktuell festgelegten Parametern durchgeführt wird.
+Der Nutzer kann eine Simulation starten, welche dann mit der aktuell gewählten Konfiguration durchgeführt wird.
 
 \criterium{Ausgabe der Simulationsergebnisse}{crt:simresults_std}
 
 Nach Durchführung einer Simulation wird für jede der Wiederholungen ausgegeben, ob sich ein Gleichgewicht eingestellt hat. Falls ja, werden die Zahl der durchgeführten \adapts, die endgültigen Strategien und die endgültige Rangliste ausgegeben.
 
-\criterium{Abbrechen einer Simulation}{crt:interruptsim}
+\criterium{Abbrechen einer Simulation}{crt:cancelsim}
 
 Der Nutzer kann eine laufende Simulation abbrechen.
 
@@ -94,6 +94,9 @@ Der Nutzer hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
 \criteriumOptional{Detailliertere Ausgabe}{crt:simresults_add}
 Nach Ablauf einer Simulation können für jede Wiederholung Rangliste und Strategien am Ende aller Adaptionsschritte eingesehen werden.
 
+\criteriumOptional{Starten mehrerer Simulationen}{crt:multisim}
+Es können mehrere Simulationen gleichzeitig laufen. Das Programm kann währenddessen unverändert verwendet werden und es wird eine Übersicht über alle gestarteten Simulationen und deren Ausführungsstatus angezeigt.
+
 \criteriumOptional{Anpassen der Abbruchbedingungen}{crt:exitcondition}
 Es können mehrere Kriterien für den Abbruch einer Wiederholung verwendet werden.
 
@@ -109,6 +112,9 @@ Es können eigene Strategien erstellt werden.
 \criteriumOptional{Erstellen eigener Stufenspiele}{crt:creategame}
 Es können eigene Stufenspiele erstellt werden.
 
+\criteriumOptional{Multikonfiguration}{crt:multikonf}
+Der Nutzer kann eine Menge von Konfigurationen spezifizieren, in denen die Größe einer Gruppe oder die eines \segment s einer Gruppe eine festgelegte Folge von Werten durchläuft. Die so spezifizierten Simulationen werden gleichzeitig gestartet.
+
 \subsection{Abgrenzung}
 
 \criteriumNot{Kein alternativer Simulationsablauf}{crt:not_altsim}
@@ -117,20 +123,56 @@ Der zugrundeliegende Ablauf der Simulation, wie in der Einleitung erklärt, kann
 \criteriumNot{Keine komplexen Stufenspiele}{crt:not_complexgames}
 Als Stufenspiele sind nur solche zugelassen, die sich als \(2 \times 2\) - Bimatrix mit konstanten Auszahlungen darstellen lassen.
 
+\criteriumNot{Lokalisierung}{crt:local}
+Die Anwendung soll nur in deutscher Sprache verfügbar sein.
+
 \pagebreak
 
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Festlegen der Menge aller möglichen Strategien}{fnc:stratset}
+\functionality{Festlegung der Anzahl von Agenten}{fnc:agentcount}
+\fulfills{crt:simparam_std}
+Der Nutzer hat die Möglichkeit, die Anzahl von Agenten in einem Simulationsdurchlauf festzulegen.
+
+Die gewünschte Zahl kann im Konfigurationsfenster über einen Slider eingestellt werden. Zugelassen sind gerade Zahlen zwischen \(2\) und \(10.000\). Im Textfeld rechts des Sliders wird der eingestellte Zahlenwert angezeigt. Das Festlegen des Wertes ist auch durch direkte Eingabe in das Textfeld möglich, der Slider wird dann automatisch auf die entsprechende Position gesetzt. Voreingestellt sind \(100\) Agenten.
+
+\functionality{Festlegung des Stufenspiels}{fnc:selectgame}
+\fulfills{crt:simparam_std}
+Der Nutzer kann das einem Simulationsdurchlauf zugrundeliegende Stufenspiel festlegen.
+
+Dazu befindet sich im Konfigurationsfenster ein Dropdown-Menü. Wird dieses angeklickt, so kann ein Stufenspiel aus einer Liste aller im System hinterlegten Stufenspiele ausgewählt werden. Rechts des Dropdown-Menüs wird eine kurze Beschreibung des aktuell eingestellten Stufenspiels angezeigt (siehe \cref{}).
+
+Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im System hinterlegt:
+\begin{itemize} \itemsep -10pt
+\item Gefangenendilemma
+\item Hirschjagd
+\item Feiglingsspiel
+\item Kampf der Geschlechter
+\item Vertrauensspiel
+\item Elfmeterschießen
+\end{itemize}
+Voreingestellt ist das Gefangenendilemma.
+
+\functionality{Festlegung der Anzahl von Runden}{fnc:rounds}
+\fulfills{crt:simparam_std}
+Der Nutzer hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden festzulegen.
+
+Wie die Anzahl von Agenten kann die Anzahl von Runden im Konfigurationsfenster mittels Slider bzw. Textfeld eingestellt werden. Zugelassen sind natürliche Zahlen zwischen \(50\) und \(1000\). Voreingestellt sind \(100\) Runden.
+
+\functionality{Festlegung der Anzahl von Wiederholungen}{fnc:repeats}
+\fulfills{crt:simparam_std}
+Der Nutzer hat die Möglichkeit, die Anzahl pro Simulation durchgeführter Wiederholungen festzulegen.
+
+Wie die Anzahl von Agenten kann die Anzahl von Wiederholungen im Konfigurationsfenster mittels Slider bzw. Textfeld eingegeben werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(10\). Voreingestellt sind \(5\) Wiederholungen.
+
+\functionality{Festlegung der Menge aller möglichen Strategien}{fnc:stratset}
 \fulfills{crt:simparam_std}
 Der Nutzer kann bei der Konfiguration einer Simulation die Menge aller Strategien festlegen, die in dieser Simulation von Agenten verwendet werden können.
 
 Dazu befindet sich im Konfigurationsfenster ein 'Strategie hinzufügen'-Knopf. Darunter befindet sich eine Liste aller bereits hinzugefügten Strategien (siehe \cref{}). Bei Betätigen des 'Strategie hinzufügen'-Knopfes öffnet sich ein Fenster mit einer Liste aller im System hinterlegten Strategien. Mittels üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere Strategien ausgewählt werden. Bereits hinzugefügte Strategien sind ausgegraut und können nicht ausgewählt werden (siehe \cref{}). Beim Betätigen des 'Bestätigen'-Knopfes wird das Fenster geschlossen und alle ausgewählten Strategien werden zu der Liste hinzugefügt. Beim Betätigen des 'Abbrechen'-Knopfes wird das Fenster geschlossen und keine Strategien werden hinzugefügt. Unter der Liste der hinzugefügten Strategien befindet sich eine Checkbox mit der Bezeichnung 'gemischte Strategien'. Ist diese aktiviert, so können Agenten im Laufe der Simulation gemischte Strategien entwickeln. Ist die Checkbox deaktiviert, werden nur reine Strategien verwendet.
 
 In der Liste der ausgewählten Strategien befindet sich neben jeder Strategie ein '\(\circleddash\)'-Knopf. Wird dieser betätigt, wird die Strategie aus der Liste entfernt.
-
-Wird der Mauszeiger im Auswahlfenster oder in der Liste über eine Strategie bewegt, so öffnet sich ein Tooltip mit einer kurzen Beschreibung der Strategie.
 
 Abgesehen von selbst erstellten Strategien sind folgende Strategien im System hinterlegt:
 \begin{itemize} \itemsep -10pt
@@ -171,7 +213,7 @@ Der Nutzer kann das Zuweisungsverfahren für die initialen Strategien der Agente
 
 Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit 'Initiale Strategien' beschrifteter Unterabschnitt. In diesem befinden sich zwei nebeneinander angeordnete List-Boxen (siehe \cref{}). Die Linke ist beschriftet mit 'Alle Strategien', die Rechte mit 'Gewählte Strategien'. In der linken Box sind alle Strategien aufgelistet, die der Nutzer für diese Simulation zugelassen hat. Die rechte Box ist zunächst leer. Per üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere Strategien in der linken Box ausgewählt werden. Betätigen des 'Hinzufügen'-Knopfes zwischen den beiden Boxen entfernt alle ausgewählten Strategien aus der linken Box und fügt sie in die rechte Box ein. Analog können Strategien in der rechten Box ausgewählt und mittels Betätigen des 'Entfernen'-Knopfes aus der rechten Box entfernt und in die Linke wieder eingefügt werden.
 
-Zu Beginn jeder Wiederholung im so konfigurierten Simulationsablauf wird jedem Agent aus dem aktuell konfigurierten \segment\ zufällig eine Strategie aus der Liste der gewählten Strategien zugeordnet. Ist diese Liste leer, werden den Agenten zufällige Strategien aus der Menge aller zugelassenen Strategien zugeordnet. Insbesondere werden Agenten immer mit reinen Strategien initialisiert.
+Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ zufällig eine Strategie aus der Liste der gewählten Strategien zugeordnet. Ist diese Liste leer, werden den Agenten zufällige Strategien aus der Menge aller zugelassenen Strategien zugeordnet. Insbesondere werden Agenten immer mit reinen Strategien initialisiert.
 
 \functionality{Konfiguration des Zuweisungsverfahrens für initiales Kapital}{fnc:initialcap}
 \fulfills{crt:simparam_std}
@@ -197,7 +239,39 @@ Beim festen Ergebnis muss der Parameter \(a \in \mathbb{N}_0\), der das feste Er
 
 Bei fehlerhafter Eingabe eines Parameters wird die Eingabe auf den nächsten zugelassene Wert abgeändert.
 
-Zu Beginn jeder Wiederholung im so konfigurierten Simulationsablauf wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag als initiales Kapital zugewiesen, gezogen aus der eingestellten Wahrscheinlichkeitsverteilung.
+Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag als initiales Kapital zugewiesen, gezogen aus der eingestellten Wahrscheinlichkeitsverteilung.
+
+\functionality{Multikonfiguration von Gruppen}{fnc:multikonfgr}
+\fulfills{crt:multikonf}
+Beträgt die Anzahl von Gruppen in einer Konfiguration genau Eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \glqq Multikonfiguration\grqq\ unter dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \glqq Gruppe hinzufügen\grqq -Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{}). Im Abschnitt \glqq Erweiterte Einstellungen\grqq\ unter den Gruppeneinstellungen befindet sich ein mit \glqq Multikonfiguration\grqq\ beschrifteter Unterabschnitt (siehe \cref{}). Mit einem Range-Slider kann dort ein Teilintervall von \([0,100]\%\) eingestellt werden, wobei für linke und rechte Grenze nur Vielfache von \(10\%\) möglich sind. Über einen Slider kann die Schrittgröße eingestellt werden, wobei nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich sind.
+
+Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der die Größe der Gruppe einen entsprechenden Anteil an der Zahl aller Agenten hat. Die restlichen Konfigurationsparameter bleiben gleich.
+
+Ist die aktuell eingestellte Anzahl von Gruppen nicht Eins oder wurde für eine Gruppe bereits die \segment -Multikonfiguration aktiviert, so kann die Gruppen-Multikonfiguration nicht aktiviert werden.
+
+\functionality{Multikonfiguration von \segments n}{fnc:multikonfseg}
+\fulfills{crt:multikonf}
+Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \glqq Multikonfiguration\grqq\ unter dem Slider zur Einstellung der \segment größen aktiviert werden. Daraufhin werden der Slider zur Einstellung der \segment größen und der \glqq \segment\ hinzufügen\grqq -Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{}). Wie bei der Gruppen-Multikonfiguration können nun im Unterabschnitt \glqq Multikonfiguration\grqq\ im Abschnitt \glqq Erweiterte Einstellungen\grqq\ Intervall und Schrittgröße eingegeben werden.
+
+Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der das erste \segment\ der Gruppe entsprechend groß ist und das zweite \segment\ den Rest der Gruppe einnimmt. Die restlichen Konfigurationsparameter bleiben gleich.
+
+Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder wurde die Gruppen-Multikonfiguration oder die \segment -Multikonfiguration für eine andere Gruppe bereits aktiviert, so kann die \segment -Multikonfiguration für diese Gruppe nicht aktiviert werden.
+
+\functionality{Simulation starten}{fnc:simstart}
+\fulfills{crt:startsim}
+\fulfills{crt:multisim}
+Der Nutzer kann eine Simulation starten, in dem er den \glqq Play\grqq -Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während dem Simulationsdurchlauf weiterhin unverändert verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(20\) laufenden Simulationen erreicht, ist der \glqq Play\grqq -Knopf ausgegraut und kann nicht mehr betätigt werden.
+
+\functionality{Anzeige laufender und abgeschlossener Simulationen}{fnc:anzeigesim}
+\fulfills{crt:multisim}
+Im Startfenster wird eine Liste aller gestarteten Simulationen angezeigt (siehe \cref{}). Jeder Listeneintrag beinhaltet den Ausführungsstatus der zugehörigen Simulation. Eine Menge von durch Multikonfiguration gestarteten Simulationen nimmt nur einen Listeneintrag ein. Dieser gibt Auskunft über den Ausführungsstatus aller zugehörigen Simulationen.
+
+Ist eine Simulation abgeschlossen, so fungiert der zugehörige Listeneintrag als Knopf. Wird dieser betätigt, so werden rechts der Liste Informationen über die Ergebnisse der Simulation angezeigt.
+
+\functionality{Abbrechen einer Simulation}{fnc:cancelsim}
+\fulfills{crt:cancelsim}
+Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der Mauszeiger über den entsprechenden Listeneintrag im Startfenster bewegt werden. Wird der dann erscheinende mit \glqq X\grqq\ beschriftete Knopf betätigt, so wird die Simulation abgebrochen und aus der Liste entfernt. Der Abbruch einer Menge von durch Multikonfiguration gestarteten Simulationen führt zum Abbruch aller zugehörigen Simulationen und zum Löschen der Ergebnisse der möglicherweise bereits abgeschlossenen Simulationen.
+
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
@@ -305,6 +379,9 @@ In einer Simulation sind die Agenten in eine feste, wohldefinierte Anzahl von Gr
 \textbf{Gruppenloser Agent:}
 Ein Agent, der keiner Gruppe angehört.
 
+\textbf{Konfiguration:}
+Festlegung aller initialen Parameter für einen Simulationslauf.
+
 \textbf{Nutzer:}
 Eine Person, welche das Programm nutzt.
 
@@ -313,5 +390,8 @@ Ein Schieberegler mit mehreren möglichen Schiebe-Knöpfen.
 
 \textbf{Slider-Abschnitt:}
 Bereich auf dem Slider, der nach rechts und links durch den nächstgelegensten Schiebe-Knopf bzw. den Rand des Sliders begrenzt wird.
+
+\textbf{Ausführungsstatus:}
+Der Ausführungsstatus einer Simulation beschreibt, ob die Simulation auf Durchführung wartet, gerade durchgeführt wird oder bereits abgeschlossen ist. 
 
 \end{document}
