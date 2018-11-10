@@ -42,6 +42,8 @@
 \def\segment{Segment}
 \def\segments{Segmente}
 
+\DeclareMathOperator*{\argmin}{arg\,min}
+
 \begin{document}
 \maketitle
 
@@ -187,6 +189,7 @@ Abgesehen von selbst erstellten Strategien sind folgende Strategien im System hi
 \item Immer Kooperation
 \item Nie Kooperation
 \end{itemize}
+Voreingestellt sind Tit-for-tat, Grim und \glqq Immer Kooperation\grqq.
 
 \functionality{Konfiguration von Anzahl und Größe der Gruppen}{fnc:groups}
 \fulfills{crt:simparam_std}
@@ -237,9 +240,59 @@ Bei der Poisson-Verteilung muss der Parameter \(\lambda \in \mathbb{N}_0\) in ei
 
 Beim festen Ergebnis muss der Parameter \(a \in \mathbb{N}_0\), der das feste Ergebnis angibt, in einem Textfeld angegeben werden. Voreingestellt ist \(a = 0\) (siehe \cref{}).
 
-Bei fehlerhafter Eingabe eines Parameters wird die Eingabe auf den nächsten zugelassene Wert abgeändert.
+Bei fehlerhafter Eingabe eines Parameters wird die Eingabe auf den nächsten zugelassenen Wert abgeändert.
 
 Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag als initiales Kapital zugewiesen, gezogen aus der eingestellten Wahrscheinlichkeitsverteilung.
+
+\functionality{Festlegen des Algorithmus zur Paarbildung}{fnc:algopaar}
+\fulfills{crt:simparam_std}
+
+\functionality{Festlegen der Erfolgsquantifizierung}{fnc:erfolg}
+\fulfills{crt:simparam_std}
+
+\functionality{Festlegen des Adaptionsmechanismus}{fnc:algoadapt}
+\fulfills{crt:simparam_std}
+Der Nutzer hat die Möglichkeit, den Mechanismus festzulegen, mit dem die Agenten am Ende eines \adapt s ihre Strategien anpassen.
+
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \glqq Erweiterte Einstellungen\grqq\ ein Dropdown-Menü mit der Bezeichnung \glqq Adaptionsmechanismus\grqq. Über dieses kann einer der folgenden Mechanismen ausgewählt werden:
+
+\textbf{Replicator Dynamic:}
+Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,1)\), und einen Wert \(\beta \in (0,\frac{1}{N-1})\), wobei \(N\) die Anzahl der Agenten bezeichnet. Für jeden Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine Strategie nicht. Andernfalls wird ein ein anderer Agent B zufällig gewählt. \(\Delta r\) bezeichne nun die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine Strategie nicht. Ist \(\Delta r > 0\) und sind nur reine Strategien zugelassen, so übernimmt Agent A mit Wahrscheinlichkeit \(\delta := \beta \cdot \Delta r \in (0,1)\) die Strategie von Agent B. Sind gemischte Strategien erlaubt, so wird stattdessen mit Parameter \(\delta\) zwischen Strategie von A und Strategie von B linear interpoliert und das Ergebnis auf die in der Summennorm nächstmögliche gültige Strategie gerundet, d.h.
+\[
+\omega_\text{A}^\text{(neu)} = \underset{\omega \in \Omega}{\operatorname{arg min}} \|\omega - \omega^*\|_1 \text{  mit  } \omega^* = \omega_\text{A} + \delta \cdot (\omega_\text{B} - \omega_\text{A}),
+\]
+wobei \(\Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=0}^n \omega_i = 1\}\) die Menge aller gültigen gemischten Strategien, \(n\) die Anzahl von in diesem Simulationslauf möglichen Strategien und \(\omega_\text{A}\), \(\omega_\text{B}\) die aktuellen Strategien von A und B bezeichnen. Voreinstellungen für die Parameter sind \(\alpha = 0.5\) und \(\beta = \frac{0.5}{N - 1}\).
+
+\textbf{Preferential Adaption:}
+Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,1)\), und einen Wert \(\beta \in (0,\frac{1}{N-1})\), wobei \(N\) die Anzahl der Agenten bezeichnet. Es sei nun \(p_{ij}\) für \(i,j \in \{1,...,N\}, i \neq j\) die Wahrscheinlichkeit, dass der \(i\)-te Agent nach aktueller Strategie mit dem \(j\)-ten Agenten kooperieren würde\footnote{Sind nur reine Strategien zugelassen, ist also \(p_{ij} \in \{0,1\} \forall i,j \in \{1,...,N\}, i \neq j\)}. Für den \(i\)-ten Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine Strategie nicht. Andernfalls wird ein anderer Agent B zufällig gewählt. Die Wahrscheinlichkeit \(p_j\), dabei den \(j\)-ten Agenten zu wählen, beträgt
+\[
+p_j = \frac{p_{ij}}{\sum_{l \neq i} p_{il}}.
+\]
+Ist nun der \(j\)-te Agent B gewählt, so bezeichne \(\Delta r\) die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine Strategie nicht. Ist \(\Delta r > 0\), so sei \(\delta := p_{ij} \cdot \beta \cdot \Delta r\). Wie bei \glqq Replicator Dynamic\grqq\ wird nun die Strategie von B mit Wahrscheinlichkeit \(\delta\) übernommen bzw. linear interpoliert. Voreingestellt sind \(\alpha = 0.5\) und \(\beta = \frac{0.5}{N - 1}\).
+
+Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \glqq Replicator Dynamic\grqq.
+
+\functionality{Festlegen der Abbruchbedingungen}{fnc:exitcondition}
+\fulfills{crt:exitcondition}
+Der Nutzer hat die Möglichkeit, die Abbruchbedingungen für Wiederholungen festzulegen. Einerseits kann er ein Gleichgewichtskriterium festlegen. Andererseits kann er eine maximale Anzahl durchzuführender \adapts\ angeben. Wird in einer Wiederholung im so konfigurierten Simulationslauf ein Gleichgewicht oder die festgelegte Schranke an \adapts n erreicht, so wird die Wiederholung beendet und gegebenenfalls die nächste gestartet.
+
+Zur Einstellung befindet sich im Konfigurationsfenster im Abschnitt \glqq Erweiterte Einstellungen\grqq\ ein Dropdown-Menü mit der Bezeichnung \glqq Abbruchbedingung\grqq. Über dieses kann eines der folgenden Gleichgewichtskriterien ausgewählt werden:
+
+\textbf{Gleichgewicht nach Strategien:}
+Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ wird auf folgende Art ein Maß \(\Delta_\text{S}\) für die Änderungen in den Strategien der Agenten berechnet: Sind nur reine Strategien zugelassen, ist \(\Delta_\text{S}\)  die Zahl aller Agenten, die ihre Strategie geändert haben. Sind gemischte Strategien zugelassen, so bezeichne \(\omega_i\) bzw. \(\omega_i'\) die Strategie des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann ist
+\[
+\Delta_\text{S} :=\frac 12 \sum_{i=1}^N \|\omega_i - \omega_i'\|_1.
+\]
+Ist nun \(\Delta_\text{S} < \alpha \cdot nN\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Strategien erreicht.
+
+\textbf{Gleichgewicht nach Rang:}
+Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ bezeichne \(r_i\) bzw. \(r_i'\) den Rang des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann wird gemäß
+\[
+\Delta_\text{R} := \sum_{i=1}^N |r_i - r_i'|,
+\]
+ein Maß für die Änderungen in der Rangliste zwischen den aufeinanderfolgenden \adapts n berechnet. Ist nun \(\Delta_\text{R} < \alpha \cdot \frac{N^2}{2}\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Rang erreicht.
+
+Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \glqq Gleichgewicht nach Strategien\grqq\ mit \(\alpha = 0.1\) und \(G = 100\). Ebenfalls unter dem Dropdown-Menü befindet sich ein Slider zur Einstellung der maximalen Anzahl durchzuführender \adapts\. Möglich sin natürliche Zahlen zwischen \(100\) und \(10.000\). Voreingestellt sind \(3.000\).
 
 \functionality{Multikonfiguration von Gruppen}{fnc:multikonfgr}
 \fulfills{crt:multikonf}
@@ -411,5 +464,8 @@ Bereich auf dem Slider, der nach rechts und links durch den nächstgelegensten S
 
 \textbf{Ausführungsstatus:}
 Der Ausführungsstatus einer Simulation beschreibt, ob die Simulation auf Durchführung wartet, gerade durchgeführt wird oder bereits abgeschlossen ist. 
+
+\textbf{Gemischte Strategie:}
+Seien \(S_1,...,S_n\) die in einem Simulationsdurchlauf zugelassenen reinen Strategien. Eine gemischte Strategie ist dann ein Tupel \((\omega_1,...,\omega_n) \in \{0,\frac{1}{10},...,\frac{9}{10},1\}^n\) mit \(\sum_{i=1}^n \omega_i = 1\). \(\omega_i\) entspricht dann der Wahrscheinlichkeit, in einer Runde mit Strategie \(S_i\) zu spielen.
 
 \end{document}
