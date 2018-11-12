@@ -261,7 +261,7 @@ Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,
 \[
 \omega_\text{A}^\text{(neu)} = \underset{\omega \in \Omega}{\operatorname{arg min}} \|\omega - \omega^*\|_1 \text{  mit  } \omega^* = \omega_\text{A} + \delta \cdot (\omega_\text{B} - \omega_\text{A}),
 \]
-wobei \(\Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=0}^n \omega_i = 1\}\) die Menge aller gültigen gemischten Strategien, \(n\) die Anzahl von in diesem Simulationslauf möglichen Strategien und \(\omega_\text{A}\), \(\omega_\text{B}\) die aktuellen Strategien von A und B bezeichnen. Voreinstellungen für die Parameter sind \(\alpha = 0.5\) und \(\beta = \frac{0.5}{N - 1}\).
+wobei \(\Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=1}^n \omega_i = 1\}\) die Menge aller gültigen gemischten Strategien, \(n\) die Anzahl von in diesem Simulationslauf möglichen Strategien und \(\omega_\text{A}\), \(\omega_\text{B}\) die aktuellen Strategien von A und B bezeichnen. Voreinstellungen für die Parameter sind \(\alpha = 0.5\) und \(\beta = \frac{0.5}{N - 1}\).
 
 \textbf{Preferential Adaption:}
 Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,1)\), und einen Wert \(\beta \in (0,\frac{1}{N-1})\), wobei \(N\) die Anzahl der Agenten bezeichnet. Es sei nun \(p_{ij}\) für \(i,j \in \{1,...,N\}, i \neq j\) die Wahrscheinlichkeit, dass der \(i\)-te Agent nach aktueller Strategie mit dem \(j\)-ten Agenten kooperieren würde\footnote{Sind nur reine Strategien zugelassen, ist also \(p_{ij} \in \{0,1\} \forall i,j \in \{1,...,N\}, i \neq j\)}. Für den \(i\)-ten Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine Strategie nicht. Andernfalls wird ein anderer Agent B zufällig gewählt. Die Wahrscheinlichkeit \(p_j\), dabei den \(j\)-ten Agenten zu wählen, beträgt
@@ -283,7 +283,7 @@ Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und
 \[
 \Delta_\text{S} :=\frac 12 \sum_{i=1}^N \|\omega_i - \omega_i'\|_1.
 \]
-Ist nun \(\Delta_\text{S} < \alpha \cdot nN\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Strategien erreicht.
+Ist nun \(\Delta_\text{S} < \alpha \cdot N\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Strategien erreicht.
 
 \textbf{Gleichgewicht nach Rang:}
 Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ bezeichne \(r_i\) bzw. \(r_i'\) den Rang des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann wird gemäß
