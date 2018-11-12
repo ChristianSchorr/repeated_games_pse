@@ -329,21 +329,39 @@ Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
 
-\nonFunctionality{Modernes Design}{nfc:design}
+\nonFunctionality{Design}{nfc:design}
 
-Das Design soll modern und seriös wirken.
-
-\nonFunctionality{Persistenz}{nfc:persistence}
-
-Sollten in Zukunft Erweiterungen oder Updates notwendig werden,
-müssen die Daten (Kurz-URLs, E-Mailaddressen) erhalten bleiben.
+Das Design soll modern und seriös wirken. Es soll schnörkellos sein und sich auf die für die Wissenschaft relevanten Dinge fokussieren.
 
 \nonFunctionality{Erweiterbarkeit}{nfc:extensibility}
 
 Das Produkt muss dahingehend erweiterbar sein,
-das die Liste der E-Mail-URL Abbildung von authentifizierten Nutzern
-abgerufen werden kann.
-Wie das genau implementiert wird, ist nicht Teil dieses Projekts.
+dass neue Stufenspiele, neue Strategien, neue Adaptionsalgorithmen und neue Erfolgsquantifizierungsalgorthmen eingefügt werden können.
+
+\nonFunctionality{Implementierung}{nfc:implementation}
+
+Das Produkt soll in Java implementiert werden. Es soll aus objektorientiertem, gut dokumentierten Code bestehen und den Architekturstil MVC(Model-View-Control) einhalten.
+
+\nonFunctionality{Zuverlässigkeit}{nfc:reliability}
+
+Das Produkt soll ohne Verzögerungen funktionieren und möglichst unabhängig von äusseren Parameter agieren.
+
+\nonFunctionality{Umgebungsbedingungen}{nfc:environment}
+
+Das Produkt soll auf allen Plattformen laufen.
+
+\nonFunctionality{Leistung und Effizienz}{nfc:power}
+
+Das Podukt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen alle möglichen Eingaben resistent sein und nicht einfrieren.
+Die Laufzeit soll als obere Schranke eine polynomielle Funktion haben.
+
+\nonFunctionality{Benutzbarkeit}{nfc:usability}
+
+Ein Benutzer ohne erweiterten Kenntnissen in der Spieltheorie soll das Produkt benutzen können.
+Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erklärt werden. 
+
+\nonFunctionality{Benutzeroberfläche}{nfc:user interface}
+Hier gilt: Funktionalität vor Design. 
 
 %%%%%%%%%%%
 \section{Tests}
