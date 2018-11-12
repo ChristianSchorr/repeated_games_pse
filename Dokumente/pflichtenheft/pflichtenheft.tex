@@ -247,8 +247,24 @@ Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Ag
 \functionality{Festlegen des Algorithmus zur Paarbildung}{fnc:algopaar}
 \fulfills{crt:simparam_std}
 
+Im Konfigurationsfenster kann der Nutzer durch einen Klick auf \enquote{Erweiterte Einstellungen} das \enquote{Paarbildungs}-DropDown-Menü anzeigen lassen. Durch Betätigen des \enquote{Paarbildungs}-DropDown-Menü werden ihm die Möglichkeiten:\begin{itemize} \itemsep -10pt
+\item zufällige Paarbildung
+\newline Erklärung: Jedem Agenten wird ein zufälliger Spielpartner zugeordnet.
+\item unter Berücksichtigung der Kooperationswahrscheinlichkeit
+\newline Erklärung: Jedem Agenten wird ein Spieler mit einer hohen Wahrscheinlichkeit das er kooperiert (beruhend auf vergangenen Spielrunden) zugeordnet.
+\item unter Berücksichtigung der Gruppe
+\newline Erklärung: Jedem Agenten wird ein Mitglied seiner Gruppe zugeordnet, falls dies möglich ist.
+\end{itemize}angezeigt. Durch Klicken auf zufällige Paarbildung, unter Berücksichtigung der Kooperationswahrscheinlichkeit oder unter Berücksichtigung der Gruppe legt der Nutzer den Algorithmus zur Paarbildung fest.
+
 \functionality{Festlegen der Erfolgsquantifizierung}{fnc:erfolg}
 \fulfills{crt:simparam_std}
+
+Im Konfigurationsfenster kann der Nutzer durch einen Klick auf \enquote{Erweiterte Einstellungen} das \enquote{Erfolgsquantifizierungs}-DropDown-Menü anzeigen lassen. Durch Betätigen des \enquote{Erfolgsquantifizierungs}-DropDown-Menü werden ihm die Möglichkeiten:\begin{itemize} \itemsep -10pt
+\item durchschnittliche Absolutauszahlung
+\newline Erklärung: Das arithmetische Mittel der Auszahlungen über alle bisherigen Runden.
+\item gleitender Durschnitt
+\newline Erklärung: Nach dem Prinzip des SMA(Simple Moving Average) wird das arithmetische Mittel über die Zeitspanne der letzen X Runden gebildet. X ist hierbei ein prozentualer Anteil von der Gesamtzahl der bisher gespielten Runden.
+\end{itemize}angezeigt. Durch Klicken auf Absolutauszahlung beziehungsweise gleitender Durchschnitt legt er diese als Erfolgsquantifizierung fest.
 
 \functionality{Festlegen des Adaptionsmechanismus}{fnc:algoadapt}
 \fulfills{crt:simparam_std}
@@ -325,6 +341,25 @@ Ist eine Simulation abgeschlossen, so fungiert der zugehörige Listeneintrag als
 \fulfills{crt:cancelsim}
 Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der Mauszeiger über den entsprechenden Listeneintrag im Startfenster bewegt werden. Wird der dann erscheinende mit \glqq X\grqq\ beschriftete Knopf betätigt, so wird die Simulation abgebrochen und aus der Liste entfernt. Der Abbruch einer Menge von durch Multikonfiguration gestarteten Simulationen führt zum Abbruch aller zugehörigen Simulationen und zum Löschen der Ergebnisse der möglicherweise bereits abgeschlossenen Simulationen.
 
+\functionality{Stufenspiel erstellen}{fnc:createNewGame}
+\fulfills{crt:creategame}
+
+Der Nutzer kann im Konfigurations- und Hauptfenster in der Menüleiste den Reiter Erweiterungen auswählen und Stufenspiel erstellen anklicken. Alternativ kann er im Konfigurationsfenster den \enquote{Stufenspiel erstellen}-Button in der Toolbar anklicken. Daraufhin öffnet sich das Stufenspielerstellenfenster \textbf{(siehe Bild)}. Im Textfeld hinter der Schrift Name: kann der Name des Stufenspiels eingetragen werden. Der Nutzer kann in die Bimatrix die jeweiligen Auszahlungen schreiben. Es sind die Auszahlungen bei nicht-Kooperation beider Spieler, Kooperation beider Spieler, nicht-Kooperation von Spieler 1 und Kooperation von Spieler 2 und Kooperation von Spieler 1 und nicht-Kooperation von Spieler 2 jeweils mit der Auszahlung für Spieler 1 und der Auszahlung von Spieler 2 zu füllen. Im Textbereich Beschreibung kann eine Beschreibung des Spiels Stufenspiel eingegeben werden. Durch Betätigen des \enquote{Speichern}-Buttons kann das Stufenspiel gespeichert werden. Das Stufenspiel erscheint dann in der Stufenspielauswahl des Konfigurationsfensters. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Button abgebrochen werden.
+
+\functionality{Konfiguration bearbeiten}{fnc:editConfig}
+\fulfills{crt:simparam_std}
+
+Der Nutzer kann im Hauptfenster den \enquote{Konfiguration bearbeiten}-Button \textbf{(siehe Bild)} auswählen und damit das Konfigurationsfenster öffnen. Dies ermöglicht ihm die aktuelle Konfiguration zu ändern.
+
+\functionality{Konfiguration laden}{fnc:loadConfig}
+\fulfills{crt:saveloadconfig}
+
+Der Nutzer kann im Konfigurationsfenster und im Hauptfenster auf die Menüleiste \textbf{(siehe Bild)} zugreifen. Durch auswählen des Reiters Datei und anschließendem Klick auf Konfiguration laden öffnet sich ein neues Fenster(Datei-öffnen Dialog). Alternativ kann dieses Fenster auch im Konfigurationsfenster durch einen Klick auf den \enquote{Konfiguration laden}-Button in der Toolbar \textbf{(siehe Bild)} geöffnet werden. In dem neu geöffneten Fenster wird das Verzeichnis, in dem die Konfigurationen standardmäßig abgespeichert werden, angezeigt. Die Konfigurationen können mit einem Klick auf diese und anschließendem Klick auf den \enquote{Laden}-Button geladen werden. Daraufhin schließt sich das Fenster und die geladenen Konfigurationsdaten erscheinen im geöffneten Fenster. Alternativ kann man den Vorgang mit einem Klick auf den \enquote{Abbrechen}-Button abbrechen und das Fenster schließt sich.
+
+\functionality{Konfiguration speichern}{fnc:saveConfig}
+\fulfills{crt:saveloadconfig}
+
+Der Nutzer kann im Konfigurationsfenster und im Hauptfenster auf die Menüleiste \textbf{(siehe Bild)} zugreifen. Durch auswählen des Reiters Datei und anschließendem Klick auf Konfiguration speichern öffnet sich ein neues Fenster(Datei- speichern Dialog). Alternativ kann dieses Fenster auch im Konfigurationsfenster durch einen Klick auf den \enquote{Konfiguration speichern}-Button in der Toolbar \textbf{(siehe Bild)} geöffnet werden. In dem neu geöffnete Fenster zeigt das Verzeichnis in dem die Konfigurationen gespeichert werden. Nun kann der Nutzer den Namen seiner Konfiguration in das Textfeld Dateiname eingeben. Die Konfiguration kann mit einem Klick auf den \enquote{Speichern}-Button gespeichert werden. Daraufhin schließt sich das Fenster. Alternativ kann man den Vorgang mit einem Klick auf den \enquote{Abbrechen}-Button abbrechen und das Fenster schließt sich.
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
