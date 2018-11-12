@@ -26,6 +26,7 @@
 \usepackage[section]{placeins}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{subfig}
 \hypersetup{
 	pdftitle={Pflichtenheft},
 	bookmarks=true,
@@ -478,34 +479,150 @@ Hier gilt: Funktionalität vor Design.
 
 %%%%%%%%%%%%%
 \appendix
-
+\newpage
 \section{Seitenentwürfe}
 
-% made via https://gomockingbird.com/projects/mnf0cwf/4gXVnC
+Nach dem Starten des Programms öffnet sich das Hauptfenster des Simulators \\(siehe \cref{fig:home}).
 
 \begin{figure}[hb]
-%\fbox{\includegraphics[width=\textwidth]{image/login.png}}
-\caption{\label{fig:homepage}
-Homepage mit Login-Funktion
-}
+	\includegraphics[width=\textwidth]{images/home.png}
+	\caption{\label{fig:home}
+		Hauptfenster des Simulators}
+\end{figure}
+
+Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählten Konfiguration angezeigt (siehe \cref{fig:home_top}). Rechts davon befindet sich ein Knopf zum Bearbeiten der Konfiguration und ein weiterer Knopf zum Starten der Simulation (siehe \cref{fig:main_btn}).
+ 
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=\textwidth]{images/home_top.png}
+	\caption{\label{fig:home_top}
+	Zusammenfassung der aktuell gewählten Konfiguration}
+\end{figure} 
+ 
+\begin{figure}[ht]
+	\centering
+ 	\includegraphics{images/main_btn.png}
+ 	\caption{\label{fig:main_btn}
+ 		Knöpfe zum Konfigurieren und Starten einer Simulation}
+\end{figure}
+
+
+\newpage
+Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, abgebrochenen und noch laufenden Simulationen (siehe \cref{fig:history}). Wird ein Eintrag angeklickt, erscheint rechts eine Zusammenfassung der Ergebnisse der ausgewählten Simulation (siehe \cref{fig:home_output}). Mit den Knöpfen (siehe \cref{fig:out_btn}) kann die Simulation wiederholt werden und die detailierten Ergebnisse als \(.csv\) Datei exportiert werden. Mit Schiebereglern wird die Wiederholung und im Falle einer Multikonfiguration die Konfiguration ausgewählt, für welche die Ergebnisse angezeigt werden.
+
+
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[height=0.5\linewidth ]{images/history.png}
+	\caption{\label{fig:history}
+		Simulationshistorie }
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{images/out_btn.png}
+	\caption{\label{fig:out_btn}
+		Knöpfe zum Wiederholen und Exportieren der Ergebnisse einer Simulation}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/home_output.png}
+	\caption{\label{fig:home_output}
+		Ausgabe der Ergebnisse einer Simulation}
+\end{figure}
+\newpage
+Über das Dateinmenü in der Menüleiste können Konfigurationen gespeichert und geladen oder eine Simulation gestartet werden (siehe \cref{fig:menu1}).
+Das Erweiterungsmenü enthält Optionen zum erstellen eines neuen Stufenspiels oder einer neuen Strategie (siehe \cref{fig:menu2}). Im Hilfemenü finden sich Bedienhilfen und Informationen über den Simulator (siehe \cref{fig:menu3}).
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[Dateimenü
+	\label{fig:menu1}]{%
+		\includegraphics[height=0.25\linewidth]{images/Menu1.png}}
+	\qquad
+	\subfloat[Erweiterungsmenü
+	\label{fig:menu2}]{%
+		\includegraphics[width=0.25\linewidth]{images/Menu2.png}}
+	\qquad
+	\subfloat[Hilfemenü
+	\label{fig:menu3}]{%
+		\includegraphics[width=0.25\linewidth]{images/Menu3.png}}
+	\caption{\label{fig:menu}
+		Funktionen der Menüleiste
+	}
+\end{figure}
+\newpage
+Drückt man den Knopf zum Bearbeiten einer Konfiguration, öffnet sich das Konfigurationsfenster (siehe \cref{fig:konfig}).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig.png}
+	\caption{\label{fig:konfig}
+		Konfigurationsfenster}
+\end{figure} 
+
+Das Konfigrationsfenster ist in drei Bereiche unterteilt, die jeweils ein- und ausgeklappt werden können:
+\begin{itemize} \itemsep -10pt
+	\item Grundeinstellungen
+	\item Gruppeneinstellungen
+	\item Erweiterte Einstellungen
+\end{itemize}
+
+Grundeinstellungen konfigurieren die fundamentalsten Simulationsparameter (siehe \cref{fig:konfig_main}).
+
+In den Gruppeneinstellungen können Gruppen angelegt und mit einem Multislider die Agenten frei in diese verteilt werden. Für jede Gruppe gibt es einen Tab (siehe \cref{fig:konfig_group}). Dort kann die Gruppe in gleicher Weise weiter in Segmente eingeteilt werden. Für jedes Segment kann das Startkapital der Agenten gemäß einer gewählten Verteilung festgelegt werden (siehe \cref{fig:konfig_cap} und die Initialstrategien eingestellt werden (siehe \cref{fig:konfig_strat}).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_main.png}
+	\caption{\label{fig:konfig_main}
+		Grundeinstellungen im Konfigurationsfenster}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_group.png}
+	\caption{\label{fig:konfig_group}
+		Gruppeneinstellungen im Konfigurationsfenster}
+\end{figure}
+
+
+In den erweiterten Einstellungen können spezialisierte Konfigurationen per Dropdowns eingestellt werden. Zudem kann hier der variable Konfigurationsparameter eingestellt werden, falls dieser in den Gruppen- bzw. Segementeinstellungen ausgewählt wurde. Dazu wird ein prozentualer Start- und Endwert angegeben und eine Schrittweite festgelegt \\(siehe \cref{fig:konfig_adv}). Hierdurch wird eine Multikonfiguration erstellt.
+
+
+\newpage
+Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu} und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, Konfigurationen zu laden, zu speichern und die aktuelle Konfiguration auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer Stufenspiele und Strategien. Eine Simulation mit der gewählten Konfiguration kann über die Werkzeugleiste gestartet werden.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_tool.png}
+	\caption{\label{fig:konfig_tool}
+		Werkzeugleiste des Konfigurationsfenster}
 \end{figure}
 
 \begin{figure}[hb]
-%\fbox{\includegraphics[width=\textwidth]{image/form.png}}
-\caption{\label{fig:form}
-Formular zur Generierung einer Kurz-URL.
-Getestet beispielsweise in \testlink{tst:create}.
-}
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_cap.png}
+	\caption{\label{fig:konfig_cap}
+		Auswahl der Kapitalverteilung für ein Segment}
 \end{figure}
 
 \begin{figure}[hb]
-%\fbox{\includegraphics[width=\textwidth]{image/generated.png}}
-\caption{\label{fig:generated}
-Anzeige der generierten Kurz-URL.
-Das Textfeld mit der Lang-URL kann nicht geändert werden.
-}
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_strat.png}
+	\caption{\label{fig:konfig_strat}
+		Auswahl der möglichen Initialstrategien für ein Segment}
 \end{figure}
 
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_adv.png}
+	\caption{\label{fig:konfig_adv}
+		erweiterte Simulationsparameter und Multikonfigurationseinstellungen}
+\end{figure}
+
+\newpage
 \section{Glossar}
 
 \textbf{Gleichgewicht}:
