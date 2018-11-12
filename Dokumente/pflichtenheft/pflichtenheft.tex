@@ -247,8 +247,24 @@ Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Ag
 \functionality{Festlegen des Algorithmus zur Paarbildung}{fnc:algopaar}
 \fulfills{crt:simparam_std}
 
+Im Konfigurationsfenster kann der Nutzer durch einen Klick auf \enquote{Erweiterte Einstellungen} das \enquote{Paarbildungs}-DropDown-Menü anzeigen lassen. Durch Betätigen des \enquote{Paarbildungs}-DropDown-Menü werden ihm die Möglichkeiten:\begin{itemize} \itemsep -10pt
+\item zufällige Paarbildung
+\newline Erklärung: Jedem Agenten wird ein zufälliger Spielpartner zugeordnet.
+\item unter Berücksichtigung der Kooperationswahrscheinlichkeit
+\newline Erklärung: Jedem Agenten wird ein Spieler mit einer hohen Wahrscheinlichkeit das er kooperiert (beruhend auf vergangenen Spielrunden) zugeordnet.
+\item unter Berücksichtigung der Gruppe
+\newline Erklärung: Jedem Agenten wird ein Mitglied seiner Gruppe zugeordnet, falls dies möglich ist.
+\end{itemize}angezeigt. Durch Klicken auf zufällige Paarbildung, unter Berücksichtigung der Kooperationswahrscheinlichkeit oder unter Berücksichtigung der Gruppe legt der Nutzer den Algorithmus zur Paarbildung fest.
+
 \functionality{Festlegen der Erfolgsquantifizierung}{fnc:erfolg}
 \fulfills{crt:simparam_std}
+
+Im Konfigurationsfenster kann der Nutzer durch einen Klick auf \enquote{Erweiterte Einstellungen} das \enquote{Erfolgsquantifizierungs}-DropDown-Menü anzeigen lassen. Durch Betätigen des \enquote{Erfolgsquantifizierungs}-DropDown-Menü werden ihm die Möglichkeiten:\begin{itemize} \itemsep -10pt
+\item durchschnittliche Absolutauszahlung
+\newline Erklärung: Das arithmetische Mittel der Auszahlungen über alle bisherigen Runden.
+\item gleitender Durschnitt
+\newline Erklärung: Nach dem Prinzip des SMA(Simple Moving Average) wird das arithmetische Mittel über die Zeitspanne der letzen X Runden gebildet. X ist hierbei ein prozentualer Anteil von der Gesamtzahl der bisher gespielten Runden.
+\end{itemize}angezeigt. Durch Klicken auf Absolutauszahlung beziehungsweise gleitender Durchschnitt legt er diese als Erfolgsquantifizierung fest.
 
 \functionality{Festlegen des Adaptionsmechanismus}{fnc:algoadapt}
 \fulfills{crt:simparam_std}
@@ -325,6 +341,25 @@ Ist eine Simulation abgeschlossen, so fungiert der zugehörige Listeneintrag als
 \fulfills{crt:cancelsim}
 Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der Mauszeiger über den entsprechenden Listeneintrag im Startfenster bewegt werden. Wird der dann erscheinende mit \glqq X\grqq\ beschriftete Knopf betätigt, so wird die Simulation abgebrochen und aus der Liste entfernt. Der Abbruch einer Menge von durch Multikonfiguration gestarteten Simulationen führt zum Abbruch aller zugehörigen Simulationen und zum Löschen der Ergebnisse der möglicherweise bereits abgeschlossenen Simulationen.
 
+\functionality{Stufenspiel erstellen}{fnc:createNewGame}
+\fulfills{crt:creategame}
+
+Der Nutzer kann im Konfigurations- und Hauptfenster in der Menüleiste den Reiter Erweiterungen auswählen und Stufenspiel erstellen anklicken. Alternativ kann er im Konfigurationsfenster den \enquote{Stufenspiel erstellen}-Button in der Toolbar anklicken. Daraufhin öffnet sich das Stufenspielerstellenfenster \textbf{(siehe Bild)}. Im Textfeld hinter der Schrift Name: kann der Name des Stufenspiels eingetragen werden. Der Nutzer kann in die Bimatrix die jeweiligen Auszahlungen schreiben. Es sind die Auszahlungen bei nicht-Kooperation beider Spieler, Kooperation beider Spieler, nicht-Kooperation von Spieler 1 und Kooperation von Spieler 2 und Kooperation von Spieler 1 und nicht-Kooperation von Spieler 2 jeweils mit der Auszahlung für Spieler 1 und der Auszahlung von Spieler 2 zu füllen. Im Textbereich Beschreibung kann eine Beschreibung des Spiels Stufenspiel eingegeben werden. Durch Betätigen des \enquote{Speichern}-Buttons kann das Stufenspiel gespeichert werden. Das Stufenspiel erscheint dann in der Stufenspielauswahl des Konfigurationsfensters. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Button abgebrochen werden.
+
+\functionality{Konfiguration bearbeiten}{fnc:editConfig}
+\fulfills{crt:simparam_std}
+
+Der Nutzer kann im Hauptfenster den \enquote{Konfiguration bearbeiten}-Button \textbf{(siehe Bild)} auswählen und damit das Konfigurationsfenster öffnen. Dies ermöglicht ihm die aktuelle Konfiguration zu ändern.
+
+\functionality{Konfiguration laden}{fnc:loadConfig}
+\fulfills{crt:saveloadconfig}
+
+Der Nutzer kann im Konfigurationsfenster und im Hauptfenster auf die Menüleiste \textbf{(siehe Bild)} zugreifen. Durch auswählen des Reiters Datei und anschließendem Klick auf Konfiguration laden öffnet sich ein neues Fenster(Datei-öffnen Dialog). Alternativ kann dieses Fenster auch im Konfigurationsfenster durch einen Klick auf den \enquote{Konfiguration laden}-Button in der Toolbar \textbf{(siehe Bild)} geöffnet werden. In dem neu geöffneten Fenster wird das Verzeichnis, in dem die Konfigurationen standardmäßig abgespeichert werden, angezeigt. Die Konfigurationen können mit einem Klick auf diese und anschließendem Klick auf den \enquote{Laden}-Button geladen werden. Daraufhin schließt sich das Fenster und die geladenen Konfigurationsdaten erscheinen im geöffneten Fenster. Alternativ kann man den Vorgang mit einem Klick auf den \enquote{Abbrechen}-Button abbrechen und das Fenster schließt sich.
+
+\functionality{Konfiguration speichern}{fnc:saveConfig}
+\fulfills{crt:saveloadconfig}
+
+Der Nutzer kann im Konfigurationsfenster und im Hauptfenster auf die Menüleiste \textbf{(siehe Bild)} zugreifen. Durch auswählen des Reiters Datei und anschließendem Klick auf Konfiguration speichern öffnet sich ein neues Fenster(Datei- speichern Dialog). Alternativ kann dieses Fenster auch im Konfigurationsfenster durch einen Klick auf den \enquote{Konfiguration speichern}-Button in der Toolbar \textbf{(siehe Bild)} geöffnet werden. In dem neu geöffnete Fenster zeigt das Verzeichnis in dem die Konfigurationen gespeichert werden. Nun kann der Nutzer den Namen seiner Konfiguration in das Textfeld Dateiname eingeben. Die Konfiguration kann mit einem Klick auf den \enquote{Speichern}-Button gespeichert werden. Daraufhin schließt sich das Fenster. Alternativ kann man den Vorgang mit einem Klick auf den \enquote{Abbrechen}-Button abbrechen und das Fenster schließt sich.
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
@@ -366,41 +401,117 @@ Hier gilt: Funktionalität vor Design.
 %%%%%%%%%%%
 \section{Tests}
 
-\test{Kurz-URL Erstellen}{tst:create}
-\tests{fnc:login}
+\test{Grundeinstellungen konfigurieren}{tst:simplekonfigs}
+\tests{fnc:}
 
-\teststep{Besucher \enquote{Zoe Washburne} hat einen Browser geöffnet.}
-{Zoe navigiert auf die Homepage \texttt{http://atu.rl/}.}
-{Die Homepage wird angezeigt wie in \cref{fig:homepage}.}
+\teststep{Alice hat die Anwendung auf ihrem Computer installiert.}
+{Alice startet das Programm.}
+{Das Startfenster wird angezeigt (siehe \cref{??}).}
 
-\teststep{Zoe hat einen Facebook-Account.}%
-{Zoe drückt den \enquote{Login via Facebook} Knopf.}%
-{Zoe wird eingeloggt und auf die Erstellseite wie in \cref{fig:form} weitergeleitet.}
+\teststep{Alice sieht eine voreingestellte Simulation im Startfenster.}
+{Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf.}%
+{Das Konfigurationsfenster (siehe \cref{??}) öffnet sich.}
 
-\teststep{}
-{Zoe befüllt das Feld \enquote{URL} mit \texttt{sehrlangedomain.com/undganzlangeURL.html} und drückt auf \enquote{Kurz-URL erstellen}.}%
-{Ihr wird eine Kurz-URL angezeigt wie z.B.\ \texttt{atu.rl/abc}
- wie in \cref{fig:generated}.
- Statt \enquote{abc}, dürfen beliebige andere Buchstaben und Zahl angezeigt werden, allerdings exakt drei.}
+\teststep{Das Konfigurationsfenster mit allen Einstellungen zu einer Konfiguration wird angezeigt.}
+{Alice klickt auf das Dropdown Menü \enquote{Sufenspiel festlegen}.}%
+{Eine Liste mit den Namen aller Stufenspiele klappt nach unten auf.}
 
 \teststep{}
-{Zoe navigiert auf die eben generierte Kurz-URL, z.B.\ \texttt{http://atu.rl/abc}.}
-{Sie wird zu \texttt{sehrlangedomain.com/undganzlang  eURL.html} weitergeleitet.}
+{Alice wählt das Stufenspiel \enquote{Falke und Taube} aus.}
+{Das Dropdown Menü schließt sich und zeigt \enquote{Falke und Taube} an. Dies ist nun das gewählte Stufenspiel.}
 
-\test{Betreiberinfos lesen}{tst:tmg}
-\tests{fnc:impressum-link}
-\tests{fnc:datenschutz-link}
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Alice zieht den Slider \enquote{Agenten} auf ihre gewünschte Postion. Sie entscheidet sich für 12 Agenten.}%
+{Im Textfeld rechts neben dem Slider wird die Anzahl der Agenten, also \enquote{12} angezeigt.}
 
-\teststep{Besucher \enquote{Jayne Cobb} ist auf der Homepage}
-{Er folgt dem Link mit dem Text \enquote{Datenschutz}}
-{Ein Text mit allen Datenschutzinformationen wird ihm angezeigt.}
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Alice zieht den Slider \enquote{Runden} auf ihre gewünschte Postion. Sie entscheidet sich für 200 Runden.}%
+{Im Textfeld rechts neben dem Slider wird die Rundenzahl \enquote{200} angezeigt.}
+
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Im Textfeld \enquote{Wiederholungen} tippt Alice \enquote{7} ein.}%
+{Die Anzahl an Wiederholungen wurde wie gewollt auf 7 gesetzt.}
+
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Alice betätigt den ??-Knopf}
+{Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
+
+
+\test{Strategien hinzufügen und entfernen}{tst:stratkonfig}
+\tests{fnc:}
+\tests{fnc:}
+
+\teststep{Bob befindet sich im Konfigurationsfenster.}%
+{Bob drückt auf den \enquote{Strategie hinzufügen} Knopf (siehe \cref{??}).}
+{Ein Fenster mit einer Liste aller im Programm hinterlegten Strategien öffnet sich.}
 
 \teststep{}
-{Jayne folgt dem Link mit dem Text \enquote{Impressum}}
-{Ein Text mit Informationen des Betreibers wird ihm angezeigt.}
+{Bob wählt die Strategie \enquote{Nie Kooperation} aus und betätigt den den \enquote{Bestätigen}-Knopf.}
+{Das Fenster mit der Liste aller Strategien schließt sich. Die Strategie \enquote{Nie Kooperation} wird nun in der Liste mit allen ausgewählten Strategien geführt}
+
+\teststep{Bob befindet sich im Konfigurationsfenster.}
+{Bob betätigt nochmals den  \enquote{Strategie hinzufügen} Knopf.}
+{Wieder öffnet sich das Fenster mit der Liste aller im Programm hinterlegten Strategien.}
+
+\teststep{}
+{Bob klickt mehrere Strategien an und hält dabei die SHIFT-Taste gedrückt.}
+{Alle angeklickten Strategien sind gerade ausgewählt.}
+
+\teststep{}
+{Bob betätigt den \encode{Abbrechen}-Knopf.}
+{Das Fenster mit der Liste der Strategien schließt sich. Keine Strategie wurde zu den ausgewählten Strategien hinzugefügt.}
+
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Bob drückt in der Liste aller ausgewählten Strategien den '\(\circleddash\)'-Knopf neben der Strategie \enquote{Immer Kooperation}.}
+{Die Strategie \enquote{Immer Kooperation} verschwindet aus der Liste aller ausgewählten Strategien.}
+
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Bob aktiviert die Checkbox \encode{gemischte Strategien} per Mausklick.}
+{Während der Simulation können die Agenten nun gemischte Strategien entwickeln. Ist die Checkbox hingegen deaktiviert, so sind nur pure Strategien zulässig.}
+
+\test{Simulation starten und abbrechen}{tst:runsim}
+\tests{fnc:}
+
+\teststep{Alice hat die gewünschte Einstellungen bereits in den Konfigurationen festgelegt. Sie befindet sich im Startfenster.}
+{Sie betätigt den \enquote{Play}-Knopf im oberen rechten Bereich des Startfensters. (siehe \cref{??}).}
+{Das Programm führt den Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Im Startfenster wird der aktuelle Simulationslauf der Liste aller gestarteten Simulationen hinzugefügt (siehe \cref{??}). Ein Ladebalken zeigt an wie weit der Simulationslauf fortgeschritten ist.}
+
+\teststep{Die Simulation von Alice' Konfiguartion läuft gerade. Alice befindet sich im Startfenster.}
+{Sie bewegt den Mauszeiger über ihre laufende Simulation, die in der Liste aller gestarteten Simulationen angezeigt wird.}
+{Es erscheint ein 'X'-Knopf.}
+
+\teststep{}
+{Alice betätigt den angezeigten 'X'-Knopf.}
+{Der Simulationslauf wird abgebrochen und in der Liste entsprechend gekennzeichnet.}
+
+\test{Konfigurationsdatei abspeichern und hochladen}{tst:loadkonfig}
+\tests{fnc:}
+
+\teststep{Donald befindet sich im Konfigurationsfenster.}
+{Er klickt auf das 'Download'-Zeichen (siehe \cref{??}) in der Toolbar.}
+{Ein Datei-Dialog öffnet sich.}
+
+\teststep{Donald wird ein Datei-Dialog angezeigt.}
+{Er wählt als Speicherort den Desktop aus und gibt den Dateinamen \enquote{Testkonfiguration} an. Dann bestätigt er seine Eingabe mit Klick auf den 'Save'-Button.}
+{Der Datei-Dialog schließt sich. Auf dem Desktop von Donald befindet sich jetzt eine Konfiguartionsdatei namens \enquote{Testkonfiguration}. Da drin ist die gesamte Konfiguration abgespeichert.}
+
+\teststep{Donald hat eine Konfigurationsdatei auf seinem Desktop abgespeichert. Seine Kollegin Alice will auch darauf zugreifen können. Donald schickt ihr die Datei per E-Mail und Alice speichert sie auf dem Desktop ab.}
+{Alice startet die Anwendung.}
+{Das Startfenster öffnet sich.}
+
+\teststep{Alice befindet sich im Startfenster.}
+{Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf (siehe \cref{??}).}
+{Das Konfiguartionsfenster öffnet sich.}
+
+\teststep{Alice befindet sich im Konfigurationsfenster.}
+{Sie klickt auf das 'Upload'-Zeichen (siehe \cref{??}) in der Toolbar.}
+{Ein Datei-Dialog öffnet sich.}
+
+\teststep{}
+{Alice navigiert zum Desktop und wählt die Konfigurationsdatei. Sie bestätigt ihre Wahl mit Mausklick auf den 'Öffen'-Button.}
+{Der Datei-Dialog schließt sich. Die Konfigurationsdatei wird importiert. Im Konfigurationsfenster befinden sich nun genau die Einstellungen, die Donald gewählt und dann abgespeichert hatte.}
 
 %%%%%%%%%%%%%
-\pagebreak
 \appendix
 
 \section{Seitenentwürfe}
