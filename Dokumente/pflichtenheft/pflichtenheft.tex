@@ -19,6 +19,7 @@
 \usepackage[yyyymmdd]{datetime} % must be after babel
 \renewcommand{\dateseparator}{-} % ISO8601 date format
 \usepackage{hyperref}
+\usepackage{bbm}
 \usepackage{amsmath} % for $\text{}$
 \usepackage{amssymb}
 \usepackage[nameinlink]{cleveref}
@@ -270,7 +271,7 @@ möglichst maximal wird.
 
 Voreingestellt ist \enquote{Zufällige Paarbildung}.
 
-\functionality{Festlegen der Erfolgsquantifizierung}{fnc:erfolg}
+\functionality{Festlegung der Erfolgsquantifizierung}{fnc:erfolg}
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, den Mechanismus zur Erfolgsquantifizierung am Ende eines \adapt s festzulegen.
 
@@ -292,7 +293,7 @@ also den durchschnittlichen Rang von \(i\) in den \(R\) Runden.
 
 Unter dem Dropdown-Menü befinden sich Textfelder und Slider zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \enquote{Absolute Auszahlung}. 
 
-\functionality{Festlegen des Adaptionsmechanismus}{fnc:algoadapt}
+\functionality{Festlegung des Adaptionsmechanismus}{fnc:algoadapt}
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, den Mechanismus festzulegen, mit dem die Agenten am Ende eines \adapt s ihre Strategien anpassen.
 
@@ -372,6 +373,28 @@ Ist die Simulation abgeschlossen, ist der Eintrag grün gefärbt. Er enthält zu
 Wurde die Simulation abgebrochen, ist der Eintrag rot gefärbt und mit \enquote{Abgebrochen!} beschriftet.
 
 Läuft die Simulation noch, ist der Eintrag gelb gefärbt und zeigt durch einen Slider an, wie viele Wiederholungen bereits abgeschlossen wurden. Im Falle einer Menge von durch Multikonfiguration gestarteten Wiederholungen wird angezeigt, wie viele der zugehörigen Simulationen bereits abgeschlossen wurden.
+
+\functionality{Ausgabe von Simulationsergebnissen}{fnc:simresults}
+\fulfills{crt:simresults_std}
+Der Nutzer kann sich Informationen über das Ergebnis einer abgeschlossenen Simulation anzeigen lassen.
+
+Wird der Listeneintrag einer abgeschlossenen Simulation im Startfenster angeklickt, erscheint im Fensterabschnitt rechts der Liste eine Zusammenfassung der Simulationsergebnisse (siehe \cref{fig:home_output}). Am oberen Ende des Abschnitts werden der Name des Stufenspiels und die Identifikationsnummer der Simulation angezeigt. Darunter werden Gleichgewichtsbedingung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, der Multikonfigurations-Parameter und dessen Wertemenge angezeigt.
+
+Darunter befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Konfiguration. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein Gleichgewicht eingestellt hat. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
+
+\textbf{Strategieverteilung:}
+Die Verteilung der Strategien in einem wählbaren Quantil der Menge aller Agenten wird in einem Kuchendiagramm angezeigt. Dazu seien die \(N\) Agenten in der Reihenfolge ihres finalen Rangs mit \(1\) bis \(N\) durchnummeriert. \(\omega_i\) (\(i \in \{1,...,N\}\)) bezeichne die Strategie des \(i\)-ten Agenten\footnote{\(\omega_i \in \{S_1,...,S_n\}\) für reine Strategien und \(\omega_i = (\omega_i^{(j)})_{j=1}^n \in \Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=1}^n \omega_i = 1\}\) für gemischte Strategien.}. Über einen Rangeslider kann nun ein Intervall \([p_\text{min},p_\text{max}] \subset [0,100]\%\) eingestellt werden, wobei \(p_\text{min}\) und \(p_\text{max}\) auf Vielfache von \(5\%\) eingeschränkt sind. Mit \(N' := \lfloor p_\text{max} \cdot N \rfloor - \lceil p_\text{min} \cdot N \rceil + 1\) hat dann die Strategie \(S\) am Kuchendiagramm den Anteil\footnote{Für eine Aussage \(A\) sei \(\mathbbm{1}\{A\} := \begin{cases} 1 & , A \text{ ist wahr} \\ 0 &, \text{sonst}\end{cases}\).}
+\[
+S_\% = \frac{1}{N'} \sum_{i=\lceil p_\text{min} \cdot N \rceil}^{\lfloor p_\text{max} \cdot N \rfloor} \mathbbm{1}\{S = \omega_i\},
+\]
+falls nur reine Strategien zugelassen sind, und
+\[
+S_\% = \frac{1}{N'} \sum_{i=\lceil p_\text{min} \cdot N \rceil}^{\lfloor p_\text{max} \cdot N \rfloor} \omega_i^{(j)}  \ (\text{falls } j \in \{1,...,n\} \text{ so, dass } S = S_j)
+\]
+im Falle von gemischten Strategien.
+
+\textbf{Kapitalverteilung:}
+Die Verteilung des finalen Absolutkapitals wird in einem Stabdiagramm angezeigt. Über denselben Slider wie oben wird auch hier die Menge aller in die Verteilung einzubeziehenden Agenten festgelegt. In der Verteilung sind die verschiedenen Gruppen farblich voneinander getrennt.
 
 \functionality{Abbrechen einer Simulation}{fnc:cancelsim}
 \fulfills{crt:cancelsim}
