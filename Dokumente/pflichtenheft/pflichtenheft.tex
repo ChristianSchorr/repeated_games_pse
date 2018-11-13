@@ -403,7 +403,11 @@ Hier gilt: Funktionalität vor Design.
 \section{Tests}
 
 \test{Grundeinstellungen konfigurieren}{tst:simplekonfigs}
-\tests{fnc:}
+\tests{fnc:editConfig}
+\tests{fnc:agentcount}
+\tests{fnc:selectgame}
+\tests{fnc:rounds}
+\tests{fnc:repeats}
 
 \teststep{Alice hat die Anwendung auf ihrem Computer installiert.}
 {Alice startet das Programm.}
@@ -439,8 +443,7 @@ Hier gilt: Funktionalität vor Design.
 
 
 \test{Strategien hinzufügen und entfernen}{tst:stratkonfig}
-\tests{fnc:}
-\tests{fnc:}
+\tests{fnc:stratset}
 
 \teststep{Bob befindet sich im Konfigurationsfenster.}%
 {Bob drückt auf den \enquote{Strategie hinzufügen} Knopf (siehe \cref{??}).}
@@ -471,7 +474,8 @@ Hier gilt: Funktionalität vor Design.
 {Während der Simulation können die Agenten nun gemischte Strategien entwickeln. Ist die Checkbox hingegen deaktiviert, so sind nur pure Strategien zulässig.}
 
 \test{Simulation starten und abbrechen}{tst:runsim}
-\tests{fnc:}
+\tests{fnc:simstart}
+\tests{fnc:cancelsim}
 
 \teststep{Alice hat die gewünschte Einstellungen bereits in den Konfigurationen festgelegt. Sie befindet sich im Startfenster.}
 {Sie betätigt den \enquote{Play}-Knopf im oberen rechten Bereich des Startfensters. (siehe \cref{??}).}
@@ -486,7 +490,8 @@ Hier gilt: Funktionalität vor Design.
 {Der Simulationslauf wird abgebrochen und in der Liste entsprechend gekennzeichnet.}
 
 \test{Konfigurationsdatei abspeichern und hochladen}{tst:loadkonfig}
-\tests{fnc:}
+\tests{fnc:loadConfig}
+\tests{fnc:saveConfig}
 
 \teststep{Donald befindet sich im Konfigurationsfenster.}
 {Er klickt auf das 'Download'-Zeichen (siehe \cref{??}) in der Toolbar.}
@@ -511,6 +516,113 @@ Hier gilt: Funktionalität vor Design.
 \teststep{}
 {Alice navigiert zum Desktop und wählt die Konfigurationsdatei. Sie bestätigt ihre Wahl mit Mausklick auf den 'Öffen'-Button.}
 {Der Datei-Dialog schließt sich. Die Konfigurationsdatei wird importiert. Im Konfigurationsfenster befinden sich nun genau die Einstellungen, die Donald gewählt und dann abgespeichert hatte.}
+
+\test{Gruppen- und Segmenteinteilung}
+\tests{fnc:groups}
+\tests{fnc:segments}
+\tests{fnc:initialstrat}
+\tests{fnc:initialcap}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit der Agentenzahl 100.}
+{Sie klickt den Knopf am linken Rand des \enquote{Gruppeneinstellungen}-Separators.}
+{Der Abschnitt Gruppeneinstellungen wird ausgeklappt. Es sind null Gruppen eingestellt.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt.}
+{Sie klickt auf den \enquote{Gruppe hinzufügen}-Knopf.}
+{Eine neue Gruppe mit null Mitgliedern wird hinzugefügt und ein neuer Punkt erscheint auf dem Multislider der die Gruppen anzeigt.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt.}
+{Sie zieht den Punkt im Multislider von ganz links in die Mitte.}
+{Der Abschnitt links vom Punkt auf dem Multislider färbt sich in der Gruppenfarbe. Der rechte Abschnitt bleibt weiß für die Gruppenlosen. Über dem linken und dem rechten Abschnitt auf dem Multislider steht jeweils die Zahl 50.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt.}
+{Sie klickt auf den rechten Abschnitt, der in der weiß markiert ist, des Multisliders.}
+{Unterhalb des Sliders befindet sich nun der Abschnitt zur Konfiguration der gruppenlosen Agenten. In diesem ist der \enquote{Segment löschen}-Knopf ausgegraut.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten. Der \enquote{Segment löschen}-Knopf ist ausgegraut}
+{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
+{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 2 Segmente aufgeteilt.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 2 Segmenten.}
+{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
+{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 3 Segmente aufgeteilt.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 3 Segmenten.}
+{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
+{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 4 Segmente aufgeteilt.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 4 Segmenten.}
+{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
+{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 5 Segmente aufgeteilt. Der \enquote{Segment hinzufügen}-Knopf ist ausgegraut.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 5 Segmenten.}
+{Sie zieht die Punkte der Segmente auf 1/5, 2/5, 3/5 und 4/5 der Länge des Multisliders}
+{Über den Abschnitten des Multisliders erscheint jeweils die Zahl 10}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 5 Segmenten. Die Konfiguration des 5. Segments wird angezeigt.}
+{Sie klickt auf den Tap 4.Segment.}
+{Die Konfiguration des 4.Segments wird angezeigt.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 5 Segmenten. Die Konfiguration des 4. Segments wird angezeigt.}
+{Sie betätigt den \enquote{X}-Knopf im Tab des 4.Segments.}
+{Der Bestätigungs-Dialog zum Löschen des 4.Segments wird angezeigt.}
+
+\teststep{Anna befindet sich im Bestätigungs-Dialog um das 4.Segment zu löschen.}
+{Sie klickt auf bestätigen.}
+{Der Bestätigungs-Dialog schließt sich. Das 4. Segment wird entfernt und über dem rechtesten Abschnitt des Multisliders steht die Zahl 20.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 4 Segmenten.}
+{Sie klickt das letze Segment im Multislider an.}
+{Unterhalb des Sliders wird die Konfiguration des Segments dargestellt.}
+
+\teststep{Anna befindet sich in der Konfiguration des 4. Segments der gruppenlosen Agenten}
+{Sie wählt bei der Kapitalverteilung Normalverteilung aus, gibt den Mittelwert 70 und die Standardabweichung 10 ein.}
+{Normalverteilung ist ausgewählt, das \enquote{Mittelwert}-Textfeld hat den Wert 70 und das \enquote{Standardabweichung}-Textfeld hat den Wert 10. Rechts daneben wird die Verteilung mit einem Schaubild dargestellt. Das Initialkapital des 4.Segments der gruppenlosen Agenten ist normalverteilt auf die 20 Agenten mit dem Wert 70 und einer Abweichung von 10.}
+
+\teststep{Anna befindet sich in der Konfiguration des 4. Segments der gruppenlosen Agenten}
+{Sie klickt bei der Strategieeinteilung in der Rubrik verfügbare Strategien auf Grim und betätigt den \enquote{>}-Knopf.}
+{Grim steht nicht mehr bei den verfügbaren Strategien. Grim steht bei den ausgewählten Strategien. Die Initialstrategie des 4.Segments der gruppenlosen Agenten ist Grim.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 4 Segmenten.}
+{Sie klickt auf den Separator des Gruppeneinstellungs-Abschnitt}
+{Die Gruppeneinstellungs-Abschnitt klappt sich zu.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster.}
+{Anna betätigt den ??-Knopf.}
+{Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
+
+\test{Stufenspiel erstellen}
+\tests{fnc:creategame}
+
+\teststep{Frank befindet sich im Hauptfenster.}
+{Er bewegt die Maus über den Reiter Erweiterungen in der Menüleiste.}
+{Es öffnet sich ein Dropdown-Menü.}
+
+\teststep{Frank befindet sich im Hauptfenster, das Dropdownmenü Erweiterungen ist geöffnet.}
+{Er klickt auf Stufenspiel erstellen.}
+{Das Stufenspielerstellenfenster öffnet sich.}
+
+\teststep{Frank befindet sich im Stufenspielerstellenfenster.}
+{Er schreibt in das \enquote{Name}-Textfeld den Namen \enquote{modefiziertes Gefangenendilemma} ein.}
+{Im \enquote{Name}-Textfeld steht modefiziertes Gefangenendilemma}
+
+\teststep{Frank befindet sich im Stufenspielerstellenfenster.}
+{Er füllt die Bimatrix wie folgt aus:
+\begin{itemize}
+\item Feld links-oben(Kooperation beider Spieler): 5\textbackslash 5
+\item Feld links-unten(nicht-Kooperation von Spieler1 und Kooperation von Spieler2): 0\textbackslash 1
+\item Feld rechts-oben(Kooperation von Spieler1 und nicht-Kooperation von Spieler2): 1\textbackslash 0
+\item Feld rechts-unten(nicht-Kooperation von beiden Spielern): 7\textbackslash 7
+\end{itemize}}
+{Die eingegebenen Daten stehen in an der entsprechenden Stelle in der Bimatrix.}
+
+\teststep{Frank befindet sich im Stufenspielerstellenfenster.}
+{Er schreibt in das \enquote{Beschreibung}-Textfeld: \enquote{Eine modifizierte Variante des Gefangenendilemma bei dem Kooperation des einen und nicht-Kooperation des anderen sinvoll ist.}}
+{Die eingegebene Beschreibung steht im \enquote{Beschreibung}-Textfeld}
+
+\teststep{Frank befindet sich im Stufenspielerstellenfenster und hat einen Namen und eine Beschreibung eingegeben und die Bimatrix ausgefüllt.}
+{Er klickt auf den \enquote{Speichern}-Knopf.}
+{Das Fenster schließt sich und das Stufenspiel wird gespeichert. Es erscheint im Konfigurationsfenster in der Stufenspielauswahl.}
 
 %%%%%%%%%%%%%
 \appendix
