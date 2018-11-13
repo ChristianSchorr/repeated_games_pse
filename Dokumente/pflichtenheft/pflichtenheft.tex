@@ -71,37 +71,40 @@ Der Nutzer kann eine Simulation starten, welche dann mit der aktuell gewählten 
 
 \criterium{Ausgabe der Simulationsergebnisse}{crt:simresults_std}
 
-Nach Durchführung einer Simulation wird für jede der Wiederholungen ausgegeben, ob sich ein Gleichgewicht eingestellt hat. Falls ja, werden die Zahl der durchgeführten \adapts, die endgültigen Strategien und die endgültige Rangliste ausgegeben.
+Nach Durchführung einer Simulation wird für jede Wiederholung ausgegeben, ob sich ein Gleichgewicht eingestellt hat. Weiter werden Informationen über Strategie- und Kapitalverteilung am Ende jeder Wiederholung ausgegeben.
 
 \criterium{Abbrechen einer Simulation}{crt:cancelsim}
 
 Der Nutzer kann eine laufende Simulation abbrechen.
 
-\criterium{Anpassen von Simulationsparametern}{crt:simparam_std}
+\criterium{Festlegung von Simulationsparametern}{crt:simparam_std}
 
 Der Nutzer hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
 \begin{itemize} \itemsep -10pt
 \item Anzahl der Agenten
 \item zugrundeliegendes Stufenspiel
+\item Anzahl pro \adapt\ durchgeführter Runden
 \item Anzahl verschiedener Gruppen und jeweils Anzahl zugehöriger Agenten
+\item Anzahl durchgeführter Wiederholungen
 \item Zuweisungsverfahren für initiale Strategien
 \item Menge aller möglichen Strategien
 \item Zuweisungsverfahren für initiales Kapital
 \item Algorithmus zur Bildung von Paaren beim Beginn einer Runde
 \item Erfolgsquantifizierung zur Erstellung der Rangliste am Ende eines \adapt s
 \item Adaptionsmechanismus, nach dem Agenten am Ende eines \adapt s ihre Strategien anpassen
+\item Maximale Zahl durchzuführender \adapts.
 \end{itemize}
 
 \subsection{Kann}
 
-\criteriumOptional{Detailliertere Ausgabe}{crt:simresults_add}
-Nach Ablauf einer Simulation können für jede Wiederholung Rangliste und Strategien am Ende aller Adaptionsschritte eingesehen werden.
+\criteriumOptional{Abstrahierte Ausgabe}{crt:simresults_abs}
+TODO
 
 \criteriumOptional{Starten mehrerer Simulationen}{crt:multisim}
 Es können mehrere Simulationen gleichzeitig laufen. Das Programm kann währenddessen unverändert verwendet werden und es wird eine Übersicht über alle gestarteten Simulationen und deren Ausführungsstatus angezeigt.
 
-\criteriumOptional{Anpassen der Abbruchbedingungen}{crt:exitcondition}
-Es können mehrere Kriterien für den Abbruch einer Wiederholung verwendet werden.
+\criteriumOptional{Anpassen der Gleichgewichtsbedingung}{crt:equicondition}
+Es können mehrere Kriterien für das Erreichen eines Gleichgewichts im Simulationsablauf verwendet werden.
 
 \criteriumOptional{Erweiterte Gruppenfunktionalität}{crt:groupfunc}
 Gruppen und die Menge der gruppenlosen Agenten können jeweils in \segments\ unterteilt werden. Für jedes \segment\ können Zuweisungsverfahren für initiale Strategien und initiales Kapital separat festgelegt werden.
@@ -134,19 +137,25 @@ Die Anwendung soll nur in deutscher Sprache verfügbar sein.
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
+\functionality{Konfiguration bearbeiten}{fnc:editConfig}
+\fulfills{crt:simparam_std}
+Der Nutzer hat die Möglichkeit, die aktuelle Konfiguration zu bearbeiten.
+
+Dazu kann in der Menüleiste des Startfensters der Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration bearbeiten} oder der mit einem Zahnrad-Symbol beschriftete Knopf am oberen rechten Ende des Startfensters betätigt werden (siehe \cref{?}). Daraufhin öffnet sich das Konfigurationsfenster, in dem alle variablen Simulationsparameter festgelegt werden können. Wird der \enquote{Bestätigen}-Knopf am unteren Ende des Konfigurationsfensters betätigt, wird das Konfigurationsfenster geschlossen und die festgelegten Parameter als aktuelle Konfiguration abgespeichert.
+
 \functionality{Festlegung der Anzahl von Agenten}{fnc:agentcount}
 \fulfills{crt:simparam_std}
-Der Nutzer hat die Möglichkeit, die Anzahl von Agenten in einem Simulationsdurchlauf festzulegen.
+Der Nutzer hat die Möglichkeit, die Anzahl von Agenten in einer Konfiguration festzulegen.
 
 Die gewünschte Zahl kann im Konfigurationsfenster über einen Slider eingestellt werden. Zugelassen sind gerade Zahlen zwischen \(2\) und \(10.000\). Im Textfeld rechts des Sliders wird der eingestellte Zahlenwert angezeigt. Das Festlegen des Wertes ist auch durch direkte Eingabe in das Textfeld möglich, der Slider wird dann automatisch auf die entsprechende Position gesetzt. Voreingestellt sind \(100\) Agenten.
 
 \functionality{Festlegung des Stufenspiels}{fnc:selectgame}
 \fulfills{crt:simparam_std}
-Der Nutzer kann das einem Simulationsdurchlauf zugrundeliegende Stufenspiel festlegen.
+Der Nutzer kann das zugrundeliegende Stufenspiel einer Konfiguration festlegen.
 
 Dazu befindet sich im Konfigurationsfenster ein Dropdown-Menü. Wird dieses angeklickt, so kann ein Stufenspiel aus einer Liste aller im System hinterlegten Stufenspiele ausgewählt werden. Rechts des Dropdown-Menüs wird eine kurze Beschreibung des aktuell eingestellten Stufenspiels angezeigt (siehe \cref{?}).
 
-Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im System hinterlegt:
+Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im System hinterlegt (siehe Anhang):
 \begin{itemize} \itemsep -10pt
 \item Gefangenendilemma
 \item Hirschjagd
@@ -159,25 +168,25 @@ Voreingestellt ist das Gefangenendilemma.
 
 \functionality{Festlegung der Anzahl von Runden}{fnc:rounds}
 \fulfills{crt:simparam_std}
-Der Nutzer hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden festzulegen.
+Der Nutzer hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden in einer Konfiguration festzulegen.
 
 Wie die Anzahl von Agenten kann die Anzahl von Runden im Konfigurationsfenster mittels Slider bzw. Textfeld eingestellt werden. Zugelassen sind natürliche Zahlen zwischen \(50\) und \(1000\). Voreingestellt sind \(100\) Runden.
 
 \functionality{Festlegung der Anzahl von Wiederholungen}{fnc:repeats}
 \fulfills{crt:simparam_std}
-Der Nutzer hat die Möglichkeit, die Anzahl pro Simulation durchgeführter Wiederholungen festzulegen.
+Der Nutzer hat die Möglichkeit, die Anzahl durchgeführter Wiederholungen in einer Konfiguration festzulegen.
 
 Wie die Anzahl von Agenten kann die Anzahl von Wiederholungen im Konfigurationsfenster mittels Slider bzw. Textfeld eingegeben werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(10\). Voreingestellt sind \(5\) Wiederholungen.
 
 \functionality{Festlegung der Menge aller möglichen Strategien}{fnc:stratset}
 \fulfills{crt:simparam_std}
-Der Nutzer kann bei der Konfiguration einer Simulation die Menge aller Strategien festlegen, die in dieser Simulation von Agenten verwendet werden können.
+Der Nutzer kann in einer Konfiguration die Menge aller Strategien festlegen, die von Agenten verwendet werden können.
 
-Dazu befindet sich im Konfigurationsfenster ein 'Strategie hinzufügen'-Knopf. Darunter befindet sich eine Liste aller bereits hinzugefügten Strategien (siehe \cref{?}). Bei Betätigen des 'Strategie hinzufügen'-Knopfes öffnet sich ein Fenster mit einer Liste aller im System hinterlegten Strategien. Mittels üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere Strategien ausgewählt werden. Bereits hinzugefügte Strategien sind ausgegraut und können nicht ausgewählt werden (siehe \cref{?}). Beim Betätigen des 'Bestätigen'-Knopfes wird das Fenster geschlossen und alle ausgewählten Strategien werden zu der Liste hinzugefügt. Beim Betätigen des 'Abbrechen'-Knopfes wird das Fenster geschlossen und keine Strategien werden hinzugefügt. Unter der Liste der hinzugefügten Strategien befindet sich eine Checkbox mit der Bezeichnung 'gemischte Strategien'. Ist diese aktiviert, so können Agenten im Laufe der Simulation gemischte Strategien entwickeln. Ist die Checkbox deaktiviert, werden nur reine Strategien verwendet.
+Dazu befindet sich im Konfigurationsfenster ein mit \enquote{Menge aller möglichen Strategien} betiteltes Dropdown-Menü. Wird auf das Menü geklickt, klappt nach unten eine Liste aller im Programm hinterlegten Strategien aus. Neben jeder Strategie befindet sich eine Checkbox. Durch Aktivieren der entsprechenden Checkboxen kann die Menge von Strategien festgelegt werden.
 
-In der Liste der ausgewählten Strategien befindet sich neben jeder Strategie ein '\(\circleddash\)'-Knopf. Wird dieser betätigt, wird die Strategie aus der Liste entfernt.
+Unter dem Dropdown-Menü befindet sich eine Checkbox mit der Bezeichnung \enquote{Gemischte Strategien zulassen}. Ist diese aktiviert, so können Agenten im Laufe der so konfigurierten Simulation gemischte Strategien entwickeln. Ist die Checkbox deaktiviert, werden nur reine Strategien verwendet.
 
-Abgesehen von selbst erstellten Strategien sind folgende Strategien im System hinterlegt:
+Abgesehen von selbst erstellten Strategien sind folgende Strategien im Programm hinterlegt (siehe Anhang):
 \begin{itemize} \itemsep -10pt
 \item Tit-for-tat
 \item Grim
@@ -190,48 +199,47 @@ Abgesehen von selbst erstellten Strategien sind folgende Strategien im System hi
 \item Immer Kooperation
 \item Nie Kooperation
 \end{itemize}
-Voreingestellt sind Tit-for-tat, Grim und \glqq Immer Kooperation\grqq.
+Voreingestellt sind Tit-for-tat, Grim und \enquote{Immer Kooperation}.
 
-\functionality{Konfiguration von Anzahl und Größe der Gruppen}{fnc:groups}
+\functionality{Festlegung von Anzahl und Größe der Gruppen}{fnc:groups}
 \fulfills{crt:simparam_std}
-Der Nutzer hat die Möglichkeit, die Anzahl verschiedener Gruppen in einem Simulationsdurchlauf festzulegen. Weiterhin kann er angeben, wie viele Agenten den einzelnen Gruppen und wie viele Agenten keiner Gruppe zugehörig sind.
+Der Nutzer hat die Möglichkeit, die Anzahl verschiedener Gruppen in einer Konfiguration festzulegen. Weiterhin kann er angeben, wie viele Agenten den einzelnen Gruppen und wie viele Agenten keiner Gruppe zugehörig sind.
 
-Dazu muss im Konfigurationsfenster der Abschnitt 'Gruppeneinstellungen' durch Drücken des Knopfes am linken Rand des entsprechend benannten Separators ausgeklappt werden (siehe \cref[{}). Voreingestellt sind null Gruppen. Eine neue Gruppe kann durch Betätigen des 'Gruppe hinzufügen'-Knopfes hinzugefügt werden (siehe \cref{?}). Jeder Gruppe wird bei Erstellung eine zufällige, unter allen Gruppen eindeutige Farbe zugeordnet. Ist die maximale Anzahl von fünf Gruppen erreicht, ist der 'Gruppe hinzufügen'-Knopf ausgegraut und kann nicht mehr betätigt werden.
+Dazu muss im Konfigurationsfenster zu dem Abschnitt \enquote{Gruppeneinstellungen} navigiert werden (siehe \cref{}). Voreingestellt sind null Gruppen. Eine neue Gruppe kann durch Betätigen des \enquote{Gruppe hinzufügen}-Knopfes hinzugefügt werden (siehe \cref{?}). Jeder Gruppe wird bei Erstellung eine zufällige, unter allen Gruppen eindeutige Farbe zugeordnet. Ist die maximale Anzahl von fünf Gruppen erreicht, ist der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
-Eine Gruppe wird beim Hinzufügen mit null Mitgliedern initialisiert. Die Anzahl der Mitglieder einer Gruppe kann über den Multislider links des 'Gruppe hinzufügen'-Knopfes verändert werden. Für jede Gruppe befindet sich ein entsprechend gefärbter Schiebe-Knopf auf dem Multislider. Der Slider-Abschnitt links des Knopfes wird ebenfalls mit der Gruppenfarbe gefärbt. Die relative Größe jeder Gruppe entspricht genau der relativen Größe des entsprechend gefärbten Abschnitts auf dem Slider. Der rechtsgelegenste Abschnitt ist weiß gefärbt und gibt die Anzahl der gruppenlosen Agenten an. Über jedem Abschnitt wird die Zahl von Agenten angezeigt, die diesem Abschnitt angehören (siehe \cref{?}). Wird durch Verschieben eines Sliders die Größe einer Gruppe verändert, so ändern sich die Größen anderer Gruppen nicht. Beim Vergrößern einer Gruppe sinkt also die Zahl der gruppenlosen Agenten, beim Verkleinern einer Gruppe vergrößert sie sich. Folglich kann keine Gruppe vergrößert werden, wenn bereits alle Agenten einer Gruppe angehören.
+Eine Gruppe wird beim Hinzufügen mit null Mitgliedern initialisiert. Die Anzahl der Mitglieder einer Gruppe kann über den Multislider links des \enquote{Gruppe hinzufügen}-Knopfes verändert werden. Für jede Gruppe befindet sich ein entsprechend gefärbter Schiebe-Knopf auf dem Multislider. Der Slider-Abschnitt links des Knopfes wird ebenfalls mit der Gruppenfarbe gefärbt. Die relative Größe jeder Gruppe entspricht genau der relativen Größe des entsprechend gefärbten Abschnitts auf dem Slider. Der rechtsgelegenste Abschnitt ist weiß gefärbt und repräsentiert die gruppenlosen Agenten. Über jedem Abschnitt wird die Zahl von Agenten angezeigt, die diesem Abschnitt angehören (siehe \cref{?}). Wird durch Verschieben eines Sliders die Größe einer Gruppe verändert, so ändern sich die Größen anderer Gruppen nicht. Beim Vergrößern einer Gruppe sinkt also die Zahl der gruppenlosen Agenten, beim Verkleinern einer Gruppe vergrößert sie sich. Folglich kann keine Gruppe vergrößert werden, wenn bereits alle Agenten einer Gruppe angehören.
 
-Die Abschnitte des Sliders fungieren als Tab-Control. Unterhalb des Sliders befindet sich ein Abschnitt zur Konfiguration der aktuell per Tab-Control ausgewählten Gruppe bzw. der gruppenlosen Agenten (siehe \cref{?}). Im Konfigurationsabschnitt einer Gruppe befindet sich ein 'Gruppe löschen'-Knopf. Wird dieser betätigt, öffnet sich ein Bestätigungs-Dialog (siehe \cref{?}). Wird in diesem auf 'Abbrechen' gedrückt, schließt sich der Dialog und die Konfiguration bleibt unverändert. Wird auf 'Bestätigen' gedrückt, schließt sich der Dialog und die Gruppe wird gelöscht. Das Tab-Control wechselt zu den gruppenlosen Agenten und die Mitglieder der gelöschten Gruppe werden gruppenlos.
+Unter dem Slider befindet sich ein Tab-Control-Element mit einem Tab für jede Gruppe und einem Tab für die gruppenlosen Agenten (siehe \cref{?}). Jeder Tab fungiert als Konfigurationsabschnitt der entsprechenden Gruppe bzw. der gruppenlosen Agenten. Am rechten Rand des Tabs jeder Gruppe befindet sich ein mit \enquote{X} beschrifteter Knopf. Wird dieser betätigt, wird die entsprechende Gruppe gelöscht. Der Tab der gruppenlosen Agenten wird angezeigt und die Mitglieder der gelöschten Gruppe werden gruppenlos.
 
 \functionality{Einteilung von Gruppen in \segments}{fnc:segments}
 \fulfills{crt:groupfunc}
 Der Nutzer kann jede Gruppe und die Menge der gruppenlosen Agenten in ein bis fünf \segments\ unterteilen. Für jedes \segment\ können die Zuweisungsverfahren für initiale Strategien und initiales Kapital separat konfiguriert werden.
 
-Die Unterteilung erfolgt im Konfigurationsabschnitt einer Gruppe bzw. der gruppenlosen Agenten. Am oberen Ende des Abschnittes befindet sich eine Überschrift '\segment einstellungen', darunter ein Multislider und ein '\segment\ hinzufügen'-Knopf (siehe \cref{?}). Voreingestellt ist ein Segment. Ein neues Segment kann durch Betätigen des '\segment\ hinzufügen'-Knopfes hinzugefügt werden. Ist die maximale Anzahl von fünf \segments n erreicht, ist der '\segment\ hinzufügen'-Knopf ausgegraut und kann nicht mehr betätigt werden. Für jedes hinzugefügte Segment erscheint auf dem Multislider ein Schiebe-Knopf. Wie bei den Gruppeneinstellungen entspricht jeder Abschnitt auf dem Slider einem \segment. Durch Verschieben der Schiebe-Knöpfe kann so die Größe der \segments\ verändert werden. Die Abschnitte fungieren als Tab-Control, und unter dem Slider befindet sich ein Konfigurationsabschnitt für das aktuell ausgewählte \segment. Der Konfigurationsabschnitt enthält die Einstellungen für das Zuweisungsverfahren für initiale Strategien und initiales Kapital.
+Die Unterteilung erfolgt im Konfigurationsabschnitt einer Gruppe bzw. der gruppenlosen Agenten. Am oberen Ende des Abschnittes befindet sich eine Überschrift \enquote{\segment einstellungen}, darunter ein Multislider und ein \enquote{\segment\ hinzufügen}-Knopf (siehe \cref{?}). Voreingestellt ist ein Segment. Ein neues Segment kann durch Betätigen des \enquote{\segment\ hinzufügen}-Knopfes hinzugefügt werden. Ist die maximale Anzahl von fünf \segments n erreicht, ist der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden. Für jedes hinzugefügte Segment erscheint auf dem Multislider ein Schiebe-Knopf. Wie bei den Gruppeneinstellungen entspricht jeder Abschnitt auf dem Slider einem \segment. Durch Verschieben der Schiebe-Knöpfe kann die Größe der \segments\ verändert werden. Unter dem Slider befindet sich ein Tab-Control-Element mit einem Tab pro \segment. Jeder Tab fungiert als Konfigurationsabschnitt für das entsprechende \segment. Der Konfigurationsabschnitt enthält die Einstellungen für das Zuweisungsverfahren für initiale Strategien und initiales Kapital.
 
-Am unteren Ende des Konfigurationsabschnittes eines \segment s befindet sich ein '\segment\ löschen'-Knopf. Betätigen des Knopfes öffnet einen Bestätigungs-Dialog. Wird in diesem auf 'Abbrechen' gedrückt, so schließt sich der Dialog und die Konfiguration bleibt unverändert. Wird in dem Dialog auf 'Bestätigen' gedrückt, so schließt sich der Dialog und das \segment\ wird entfernt. Gibt es nur noch ein \segment, so ist der '\segment\ löschen'-Knopf ausgegraut und kann nicht betätigt werden.
+Am rechten Rand des Tabs jedes \segment s befindet sich ein mit \enquote{X} beschrifteter Knopf. Wird dieser betätigt, so wird das entsprechende \segment\ gelöscht. Gibt es nur noch ein \\segment, so ist der \enquote{X}-Knopf ausgegraut und kann nicht betätigt werden.
 
-\functionality{Konfiguration des Zuweisungsverfahrens für initiale Strategien}{fnc:initialstrat}
+\functionality{Festlegung des Zuweisungsverfahrens für initiale Strategien}{fnc:initialstrat}
 \fulfills{crt:simparam_std}
 \fulfills{crt:groupfunc}
-Der Nutzer kann das Zuweisungsverfahren für die initialen Strategien der Agenten beim Beginn einer Wiederholung einstellen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
+Der Nutzer kann das Zuweisungsverfahren für die initialen Strategien der Agenten beim Beginn einer Wiederholung festlegen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
 
-Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit 'Initiale Strategien' beschrifteter Unterabschnitt. In diesem befinden sich zwei nebeneinander angeordnete List-Boxen (siehe \cref{?}). Die Linke ist beschriftet mit 'Alle Strategien', die Rechte mit 'Gewählte Strategien'. In der linken Box sind alle Strategien aufgelistet, die der Nutzer für diese Simulation zugelassen hat. Die rechte Box ist zunächst leer. Per üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere Strategien in der linken Box ausgewählt werden. Betätigen des 'Hinzufügen'-Knopfes zwischen den beiden Boxen entfernt alle ausgewählten Strategien aus der linken Box und fügt sie in die rechte Box ein. Analog können Strategien in der rechten Box ausgewählt und mittels Betätigen des 'Entfernen'-Knopfes aus der rechten Box entfernt und in die Linke wieder eingefügt werden.
+Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit \enquote{Initiale Strategien} beschrifteter Unterabschnitt. In diesem befinden sich zwei nebeneinander angeordnete List-Boxen (siehe \cref{?}). Die Linke ist beschriftet mit \enquote{Verfügbare Strategien}, die Rechte mit \enquote{Gewählte Strategien}. In der linken Box sind zunächst alle Strategien aufgelistet, die für diese Konfiguration zugelassen sind. Die rechte Box ist zunächst leer. Per üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere Strategien in der linken Box ausgewählt werden. Betätigen des mit \enquote{\(>\)} beschrifteten Knopfes zwischen den beiden Boxen entfernt alle ausgewählten Strategien aus der linken Box und fügt sie in die rechte Box ein. Analog können Strategien in der rechten Box ausgewählt und mittels Betätigen des \enquote{\(<\)}-Knopfes aus der rechten Box entfernt und in die Linke eingefügt werden. Betätigen des \enquote{\(\gg\)}-Knopfes entfernt alle Strategien aus der linken Box und fügt sie in die rechte Box ein. Betätigen des \enquote{\(\ll\)}-Knopfes entfernt alle Strategien aus der rechten Box und fügt sie in die linke Box ein.
 
-Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ zufällig eine Strategie aus der Liste der gewählten Strategien zugeordnet. Ist diese Liste leer, werden den Agenten zufällige Strategien aus der Menge aller zugelassenen Strategien zugeordnet. Insbesondere werden Agenten immer mit reinen Strategien initialisiert.
+Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ zufällig eine Strategie aus der Liste der gewählten Strategien zugeordnet. Ist diese Liste leer, werden den Agenten zufällige Strategien aus der Menge aller möglichen Strategien zugeordnet. Insbesondere werden Agenten immer mit reinen Strategien initialisiert.
 
-\functionality{Konfiguration des Zuweisungsverfahrens für initiales Kapital}{fnc:initialcap}
+\functionality{Festlegung des Zuweisungsverfahrens für initiales Kapital}{fnc:initialcap}
 \fulfills{crt:simparam_std}
 \fulfills{crt:groupfunc}
-Der Nutzer kann das Zuweisungsverfahren für das initiale Kapital der Agenten beim Beginn einer Wiederholung einstellen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
+Der Nutzer kann das Zuweisungsverfahren für das initiale Kapital der Agenten beim Beginn einer Wiederholung festlegen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
 
-Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit 'Initiales Kapital' beschrifteter Unterabschnitt (siehe \cref{?}). Mittels Radiobuttons kann eine der folgenden Wahrscheinlichkeitsverteilungen gewählt werden:
+Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit \enquote{Initiales Kapital} beschrifteter Unterabschnitt (siehe \cref{?}). Mittels Radiobuttons kann eine der folgenden Wahrscheinlichkeitsverteilungen gewählt werden:
 \begin{itemize}
 \item Gleichverteilung
 \item Binomialverteilung
 \item Poissonverteilung
-\item festes Ergebnis
 \end{itemize}
-Unter den Radiobuttons befinden sich Eingabemöglichkeiten zur Parametrisierung der aktuell gewählten Verteilung, eine kurze Beschreibung und ein Graph der Verteilung. Voreingestellt ist das feste Ergebnis \(0\), also kein Anfangskapital.
+Unter den Radiobuttons befinden sich Eingabemöglichkeiten zur Parametrisierung der aktuell gewählten Verteilung, eine kurze Beschreibung und ein Graph der Verteilung. Voreingestellt ist die Gleichverteilung.
 
 Für die Gleichverteilung müssen die beiden Intervallgrenzen \(a,b \in \mathbb{N}_0, \ a < b\) in Textfeldern angegeben werden. Voreingestellt ist \(a = 0, b = 100\) (siehe \cref{?}).
 
@@ -239,39 +247,56 @@ Bei der Binomialverteilung müssen die Intervallgrenzen \(a,b \in \mathbb{N}_0, 
 
 Bei der Poisson-Verteilung muss der Parameter \(\lambda \in \mathbb{N}_0\) in einem Textfeld angegeben werden. Voreingestellt ist \(\lambda = 50\) (siehe \cref{?}).
 
-Beim festen Ergebnis muss der Parameter \(a \in \mathbb{N}_0\), der das feste Ergebnis angibt, in einem Textfeld angegeben werden. Voreingestellt ist \(a = 0\) (siehe \cref{?}).
-
 Bei fehlerhafter Eingabe eines Parameters wird die Eingabe auf den nächsten zugelassenen Wert abgeändert.
 
-Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag als initiales Kapital zugewiesen, gezogen aus der eingestellten Wahrscheinlichkeitsverteilung.
+Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag aus der festgelegten Wahrscheinlichkeitsverteilung als initiales Kapital zugewiesen.
 
-\functionality{Festlegen des Algorithmus zur Paarbildung}{fnc:algopaar}
+\functionality{Festlegung des Algorithmus zur Paarbildung}{fnc:algopaar}
 \fulfills{crt:simparam_std}
 
-Im Konfigurationsfenster kann der Nutzer durch einen Klick auf \enquote{Erweiterte Einstellungen} das \enquote{Paarbildungs}-DropDown-Menü anzeigen lassen. Durch Betätigen des \enquote{Paarbildungs}-DropDown-Menü werden ihm die Möglichkeiten:\begin{itemize} \itemsep -10pt
-\item zufällige Paarbildung
-\newline Erklärung: Jedem Agenten wird ein zufälliger Spielpartner zugeordnet.
-\item unter Berücksichtigung der Kooperationswahrscheinlichkeit
-\newline Erklärung: Jedem Agenten wird ein Spieler mit einer hohen Wahrscheinlichkeit das er kooperiert (beruhend auf vergangenen Spielrunden) zugeordnet.
-\item unter Berücksichtigung der Gruppe
-\newline Erklärung: Jedem Agenten wird ein Mitglied seiner Gruppe zugeordnet, falls dies möglich ist.
-\end{itemize}angezeigt. Durch Klicken auf zufällige Paarbildung, unter Berücksichtigung der Kooperationswahrscheinlichkeit oder unter Berücksichtigung der Gruppe legt der Nutzer den Algorithmus zur Paarbildung fest.
+Der Nutzer hat die Möglichkeit, den Algorithmus festzulegen, der die Agenten zu Beginn jeder Runde in Paare einteilt.
+
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Paarbildungsalgorithmus}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten gewählt werden:
+
+\textbf{Zufällige Paarbildung:}
+Die Agenten werden zufällig zu Paaren zusammengefasst.
+
+\textbf{Paarbildung mit Wunsch:}
+Dieser Mechanismus berücksichtigt die Kooperationswahrscheinlichkeiten der Agenten untereinander. Es bezeichne \(p_{ij}\) für \(i,j \in \{1,...,N\}, i \neq j\) (mit der Gesamtzahl \(N\) aller Agenten) die Wahrscheinlichkeit, mit der Agent \(i\) nach aktueller Strategie mit Agent \(j\) kooperieren würde. Dann wird ein Matching \(M\) gebildet, sodass
+\[
+\sum_{\{i,j\} \in M} \left(p_{ij} + p_{ji}\right)
+\]
+möglichst maximal wird.
+
+Voreingestellt ist \enquote{Zufällige Paarbildung}.
 
 \functionality{Festlegen der Erfolgsquantifizierung}{fnc:erfolg}
 \fulfills{crt:simparam_std}
+Der Nutzer hat die Möglichkeit, den Mechanismus zur Erfolgsquantifizierung am Ende eines \adapt s festzulegen.
 
-Im Konfigurationsfenster kann der Nutzer durch einen Klick auf \enquote{Erweiterte Einstellungen} das \enquote{Erfolgsquantifizierungs}-DropDown-Menü anzeigen lassen. Durch Betätigen des \enquote{Erfolgsquantifizierungs}-DropDown-Menü werden ihm die Möglichkeiten:\begin{itemize} \itemsep -10pt
-\item durchschnittliche Absolutauszahlung
-\newline Erklärung: Das arithmetische Mittel der Auszahlungen über alle bisherigen Runden.
-\item gleitender Durschnitt
-\newline Erklärung: Nach dem Prinzip des SMA(Simple Moving Average) wird das arithmetische Mittel über die Zeitspanne der letzen X Runden gebildet. X ist hierbei ein prozentualer Anteil von der Gesamtzahl der bisher gespielten Runden.
-\end{itemize}angezeigt. Durch Klicken auf Absolutauszahlung beziehungsweise gleitender Durchschnitt legt er diese als Erfolgsquantifizierung fest.
+Dazu befindet sich im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Erfolgsquantifizierung}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten ausgewählt werden:
+
+\textbf{Absolute Auszahlung:}
+Der Erfolg eines Agenten ist die Summe aller Auszahlungen aus den Stufenspielen in den vergangenen Runden des aktuellen \adapt s.
+
+\textbf{Gleitender Durchschnitt:}
+Dieser Mechanismus hat einen Konfigurationsparameter \(w \in \{1,...,R\}\) (falls \(R\) die Anzahl von Runden pro \adapt\ bezeichnet). Es bezeichne \(a_i^{(k)}\) die Auszahlung des \(i\)-ten Agenten in der \(k\)-ten Runde (\(i \in \{1,...,N\}, k \in \{1,...,R\}\) mit der Anzahl \(N\) aller Agenten). Für die \(k\)-te Runde sei dann
+\[
+A_i^{(k)} := \sum_{l = \max\{1,k-w+1\}}^k a_i^{(l)} \text{  für jedes  } i \in \{1,...,N\}
+\]
+die Summe der Auszahlungen von \(i\) in den letzten \(w\) Runden. Sei nun \(r_i^{(k)}\) der Rang des \(i\)-ten Agenten in der Liste aller Agenten, absteigend sortiert nach den \(A_i^{(k)}\)\footnote{\(r_i^{(k)} = N - |\{j \in \{1,...,N\} \setminus \{i\} | A_i^{(k)} \geq A_j^{(k)}\}|\)}. Dann ist der Erfolg des \(i\)-ten Agenten nach Ablauf der \(R\) Runden gegeben durch
+\[
+E_i := \frac 1R \sum_{k=1}^R r_i^{(k)},
+\]
+also den durchschnittlichen Rang von \(i\) in den \(R\) Runden.
+
+Unter dem Dropdown-Menü befinden sich Textfelder und Slider zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \enquote{Absolute Auszahlung}. 
 
 \functionality{Festlegen des Adaptionsmechanismus}{fnc:algoadapt}
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, den Mechanismus festzulegen, mit dem die Agenten am Ende eines \adapt s ihre Strategien anpassen.
 
-Dazu befindet sich im Konfigurationsfenster im Abschnitt \glqq Erweiterte Einstellungen\grqq\ ein Dropdown-Menü mit der Bezeichnung \glqq Adaptionsmechanismus\grqq. Über dieses kann einer der folgenden Mechanismen ausgewählt werden:
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Adaptionsmechanismus}. Über das Dropdown-Menü kann einer der folgenden Mechanismen ausgewählt werden:
 
 \textbf{Replicator Dynamic:}
 Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,1)\), und einen Wert \(\beta \in (0,\frac{1}{N-1})\), wobei \(N\) die Anzahl der Agenten bezeichnet. Für jeden Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine Strategie nicht. Andernfalls wird ein ein anderer Agent B zufällig gewählt. \(\Delta r\) bezeichne nun die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine Strategie nicht. Ist \(\Delta r > 0\) und sind nur reine Strategien zugelassen, so übernimmt Agent A mit Wahrscheinlichkeit \(\delta := \beta \cdot \Delta r \in (0,1)\) die Strategie von Agent B. Sind gemischte Strategien erlaubt, so wird stattdessen mit Parameter \(\delta\) zwischen Strategie von A und Strategie von B linear interpoliert und das Ergebnis auf die in der Summennorm nächstmögliche gültige Strategie gerundet, d.h.
@@ -285,35 +310,41 @@ Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,
 \[
 p_j = \frac{p_{ij}}{\sum_{l \neq i} p_{il}}.
 \]
-Ist nun der \(j\)-te Agent B gewählt, so bezeichne \(\Delta r\) die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine Strategie nicht. Ist \(\Delta r > 0\), so sei \(\delta := p_{ij} \cdot \beta \cdot \Delta r\). Wie bei \glqq Replicator Dynamic\grqq\ wird nun die Strategie von B mit Wahrscheinlichkeit \(\delta\) übernommen bzw. linear interpoliert. Voreingestellt sind \(\alpha = 0.5\) und \(\beta = \frac{0.5}{N - 1}\).
+Ist nun der \(j\)-te Agent B gewählt, so bezeichne \(\Delta r\) die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine Strategie nicht. Ist \(\Delta r > 0\), so sei \(\delta := p_{ij} \cdot \beta \cdot \Delta r\). Wie bei \enquote{Replicator Dynamic} wird nun die Strategie von B mit Wahrscheinlichkeit \(\delta\) übernommen bzw. linear interpoliert. Voreingestellt sind \(\alpha = 0.5\) und \(\beta = \frac{0.5}{N - 1}\).
 
-Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \glqq Replicator Dynamic\grqq.
+Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \enquote{Replicator Dynamic}.
 
-\functionality{Festlegen der Abbruchbedingungen}{fnc:exitcondition}
-\fulfills{crt:exitcondition}
-Der Nutzer hat die Möglichkeit, die Abbruchbedingungen für Wiederholungen festzulegen. Einerseits kann er ein Gleichgewichtskriterium festlegen. Andererseits kann er eine maximale Anzahl durchzuführender \adapts\ angeben. Wird in einer Wiederholung im so konfigurierten Simulationslauf ein Gleichgewicht oder die festgelegte Schranke an \adapts n erreicht, so wird die Wiederholung beendet und gegebenenfalls die nächste gestartet.
+\functionality{Festlegung des Gleichgewichtskriteriums}{fnc:equicondition}
+\fulfills{crt:equicondition}
+Der Nutzer hat die Möglichkeit, das Gleichgewichtskriterium festzulegen. Dieses entscheidet, wann im Laufe einer Wiederholung ein Gleichgewicht erreicht ist und die Wiederholung beendet werden kann.
 
-Zur Einstellung befindet sich im Konfigurationsfenster im Abschnitt \glqq Erweiterte Einstellungen\grqq\ ein Dropdown-Menü mit der Bezeichnung \glqq Abbruchbedingung\grqq. Über dieses kann eines der folgenden Gleichgewichtskriterien ausgewählt werden:
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Gleichgewichtskriterium}. Über dieses kann eines der folgenden Gleichgewichtskriterien ausgewählt werden:
 
-\textbf{Gleichgewicht nach Strategien:}
+\textbf{Strategiegleichgewicht:}
 Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ wird auf folgende Art ein Maß \(\Delta_\text{S}\) für die Änderungen in den Strategien der Agenten berechnet: Sind nur reine Strategien zugelassen, ist \(\Delta_\text{S}\)  die Zahl aller Agenten, die ihre Strategie geändert haben. Sind gemischte Strategien zugelassen, so bezeichne \(\omega_i\) bzw. \(\omega_i'\) die Strategie des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann ist
 \[
 \Delta_\text{S} :=\frac 12 \sum_{i=1}^N \|\omega_i - \omega_i'\|_1.
 \]
 Ist nun \(\Delta_\text{S} < \alpha \cdot N\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Strategien erreicht.
 
-\textbf{Gleichgewicht nach Rang:}
+\textbf{Ranggleichgewicht:}
 Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ bezeichne \(r_i\) bzw. \(r_i'\) den Rang des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann wird gemäß
 \[
 \Delta_\text{R} := \sum_{i=1}^N |r_i - r_i'|,
 \]
 ein Maß für die Änderungen in der Rangliste zwischen den aufeinanderfolgenden \adapts n berechnet. Ist nun \(\Delta_\text{R} < \alpha \cdot \frac{N^2}{2}\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Rang erreicht.
 
-Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \glqq Gleichgewicht nach Strategien\grqq\ mit \(\alpha = 0.1\) und \(G = 100\). Ebenfalls unter dem Dropdown-Menü befindet sich ein Slider zur Einstellung der maximalen Anzahl durchzuführender \adapts\. Möglich sin natürliche Zahlen zwischen \(100\) und \(10.000\). Voreingestellt sind \(3.000\).
+Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \enquote{Gleichgewicht nach Strategien} mit \(\alpha = 0.1\) und \(G = 100\). Ebenfalls unter dem Dropdown-Menü befindet sich ein Slider zur Einstellung der maximalen Anzahl durchzuführender \adapts\. Möglich sind natürliche Zahlen zwischen \(100\) und \(10.000\). Voreingestellt ist \(3.000\).
+
+\functionality{Festlegung der maximalen Zahl durchzuführender \adapts}{fnc:maxadapts}
+\fulfills{crt:simparam_std}
+Der Nutzer kann die maximale Zahl durchzuführender \adapts\ festlegen. Wird in einer Wiederholung einer so konfigurierten Simulation diese Zahl durchgeführter \adapts\ erreicht, wird die Wiederholung beendet.
+
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein mit \enquote{Schranke für \adapts} beschriftetes Textfeld. Zugelassen sind alle natürlichen Zahlen. Voreingestellt ist \(10.000\).
 
 \functionality{Multikonfiguration von Gruppen}{fnc:multikonfgr}
 \fulfills{crt:multikonf}
-Beträgt die Anzahl von Gruppen in einer Konfiguration genau Eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \glqq Multikonfiguration\grqq\ unter dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \glqq Gruppe hinzufügen\grqq -Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{?}). Im Abschnitt \glqq Erweiterte Einstellungen\grqq\ unter den Gruppeneinstellungen befindet sich ein mit \glqq Multikonfiguration\grqq\ beschrifteter Unterabschnitt (siehe \cref{?}). Mit einem Range-Slider kann dort ein Teilintervall von \([0,100]\%\) eingestellt werden, wobei für linke und rechte Grenze nur Vielfache von \(10\%\) möglich sind. Über einen Slider kann die Schrittgröße eingestellt werden, wobei nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich sind.
+Beträgt die Anzahl von Gruppen in einer Konfiguration genau Eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{Multikonfiguration} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{?}). Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{?}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der die Größe der Gruppe einen entsprechenden Anteil an der Zahl aller Agenten hat. Die restlichen Konfigurationsparameter bleiben gleich.
 
@@ -321,7 +352,7 @@ Ist die aktuell eingestellte Anzahl von Gruppen nicht Eins oder wurde für eine 
 
 \functionality{Multikonfiguration von \segments n}{fnc:multikonfseg}
 \fulfills{crt:multikonf}
-Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \glqq Multikonfiguration\grqq\ unter dem Slider zur Einstellung der \segment größen aktiviert werden. Daraufhin werden der Slider zur Einstellung der \segment größen und der \glqq \segment\ hinzufügen\grqq -Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{?}). Wie bei der Gruppen-Multikonfiguration können nun im Unterabschnitt \glqq Multikonfiguration\grqq\ im Abschnitt \glqq Erweiterte Einstellungen\grqq\ Intervall und Schrittgröße eingegeben werden.
+Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{Multikonfiguration} neben dem Slider zur Einstellung der \segment größen aktiviert werden. Daraufhin werden der Slider zur Einstellung der \segment größen und der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{?}). Wie bei der Gruppen-Multikonfiguration können nun im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} Intervall und Schrittgröße eingegeben werden.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der das erste \segment\ der Gruppe entsprechend groß ist und das zweite \segment\ den Rest der Gruppe einnimmt. Die restlichen Konfigurationsparameter bleiben gleich.
 
@@ -330,37 +361,39 @@ Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder w
 \functionality{Simulation starten}{fnc:simstart}
 \fulfills{crt:startsim}
 \fulfills{crt:multisim}
-Der Nutzer kann eine Simulation starten, in dem er den \glqq Play\grqq -Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{?}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während dem Simulationsdurchlauf weiterhin unverändert verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(20\) laufenden Simulationen erreicht, ist der \glqq Play\grqq -Knopf ausgegraut und kann nicht mehr betätigt werden.
+Der Nutzer kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{?}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während dem Simulationsdurchlauf weiterhin unverändert verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(20\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
 \functionality{Anzeige laufender und abgeschlossener Simulationen}{fnc:anzeigesim}
 \fulfills{crt:multisim}
-Im Startfenster wird eine Liste aller gestarteten Simulationen angezeigt (siehe \cref{?}). Jeder Listeneintrag beinhaltet den Ausführungsstatus der zugehörigen Simulation. Eine Menge von durch Multikonfiguration gestarteten Simulationen nimmt nur einen Listeneintrag ein. Dieser gibt Auskunft über den Ausführungsstatus aller zugehörigen Simulationen.
+Im Startfenster wird eine Liste aller gestarteten Simulationen angezeigt (siehe \cref{?}). Eine Menge von durch Multikonfiguration gestarteten Simulationen nimmt nur einen Listeneintrag ein. Jeder Listeneintrag beinhaltet den Namen des der entsprechenden Simulation zugrundeliegenden Stufenspiels und deren Identifikationsnummer\footnote{Beginnend bei \(1\) werden den Simulationen aufsteigend in der Reihenfolge ihres Starts Identifikationsnummern zugeordnet. Der Zähler wird bei jedem Programmstart zurückgesetzt.}. Abhängig vom Ausführungsstatus der Simulation werden noch weitere Informationen angezeigt:
 
-Ist eine Simulation abgeschlossen, so fungiert der zugehörige Listeneintrag als Knopf. Wird dieser betätigt, so werden rechts der Liste Informationen über die Ergebnisse der Simulation angezeigt.
+Ist die Simulation abgeschlossen, ist der Eintrag grün gefärbt. Er enthält zudem die Laufzeit der Simulation und den Zeitpunkt, zu dem sie abgeschlossen wurde (siehe \cref{?}). Der Listeneintrag fungiert in diesem Fall als Knopf. Wird dieser betätigt, so werden rechts der Liste Informationen über die Ergebnisse der Simulation angezeigt (siehe \cref{?}).
+
+Wurde die Simulation abgebrochen, ist der Eintrag rot gefärbt und mit \enquote{Abgebrochen!} beschriftet.
+
+Läuft die Simulation noch, ist der Eintrag gelb gefärbt und zeigt durch einen Slider an, wie viele Wiederholungen bereits abgeschlossen wurden. Im Falle einer Menge von durch Multikonfiguration gestarteten Wiederholungen wird angezeigt, wie viele der zugehörigen Simulationen bereits abgeschlossen wurden.
 
 \functionality{Abbrechen einer Simulation}{fnc:cancelsim}
 \fulfills{crt:cancelsim}
-Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der Mauszeiger über den entsprechenden Listeneintrag im Startfenster bewegt werden. Wird der dann erscheinende mit \glqq X\grqq\ beschriftete Knopf betätigt, so wird die Simulation abgebrochen und aus der Liste entfernt. Der Abbruch einer Menge von durch Multikonfiguration gestarteten Simulationen führt zum Abbruch aller zugehörigen Simulationen und zum Löschen der Ergebnisse der möglicherweise bereits abgeschlossenen Simulationen.
+Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der Mauszeiger über den entsprechenden Listeneintrag im Startfenster bewegt werden. Wird der dann erscheinende mit \enquote{X} beschriftete Knopf betätigt, so wird die Simulation abgebrochen. Der Abbruch einer Menge von durch Multikonfiguration gestarteten Simulationen führt zum Abbruch aller zugehörigen Simulationen und zum Löschen der Ergebnisse der möglicherweise bereits abgeschlossenen Simulationen.
 
 \functionality{Stufenspiel erstellen}{fnc:createNewGame}
 \fulfills{crt:creategame}
+Der Nutzer hat die Möglichkeit, eigene Stufenspiele zu erstellen. Diese werden dann im Programm persistent gespeichert und können von da an in Konfigurationen verwendet werden.
 
-Der Nutzer kann im Konfigurations- und Hauptfenster in der Menüleiste den Reiter Erweiterungen auswählen und Stufenspiel erstellen anklicken. Alternativ kann er im Konfigurationsfenster den \enquote{Stufenspiel erstellen}-Button in der Toolbar anklicken. Daraufhin öffnet sich das Stufenspielerstellenfenster \textbf{(siehe Bild)}. Im Textfeld hinter der Schrift Name: kann der Name des Stufenspiels eingetragen werden. Der Nutzer kann in die Bimatrix die jeweiligen Auszahlungen schreiben. Es sind die Auszahlungen bei nicht-Kooperation beider Spieler, Kooperation beider Spieler, nicht-Kooperation von Spieler 1 und Kooperation von Spieler 2 und Kooperation von Spieler 1 und nicht-Kooperation von Spieler 2 jeweils mit der Auszahlung für Spieler 1 und der Auszahlung von Spieler 2 zu füllen. Im Textbereich Beschreibung kann eine Beschreibung des Spiels Stufenspiel eingegeben werden. Durch Betätigen des \enquote{Speichern}-Buttons kann das Stufenspiel gespeichert werden. Das Stufenspiel erscheint dann in der Stufenspielauswahl des Konfigurationsfensters. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Button abgebrochen werden.
-
-\functionality{Konfiguration bearbeiten}{fnc:editConfig}
-\fulfills{crt:simparam_std}
-
-Der Nutzer kann im Hauptfenster den \enquote{Konfiguration bearbeiten}-Button \textbf{(siehe Bild)} auswählen und damit das Konfigurationsfenster öffnen. Dies ermöglicht ihm die aktuelle Konfiguration zu ändern.
-
-\functionality{Konfiguration laden}{fnc:loadConfig}
-\fulfills{crt:saveloadconfig}
-
-Der Nutzer kann im Konfigurationsfenster und im Hauptfenster auf die Menüleiste \textbf{(siehe Bild)} zugreifen. Durch auswählen des Reiters Datei und anschließendem Klick auf Konfiguration laden öffnet sich ein neues Fenster(Datei-öffnen Dialog). Alternativ kann dieses Fenster auch im Konfigurationsfenster durch einen Klick auf den \enquote{Konfiguration laden}-Button in der Toolbar \textbf{(siehe Bild)} geöffnet werden. In dem neu geöffneten Fenster wird das Verzeichnis, in dem die Konfigurationen standardmäßig abgespeichert werden, angezeigt. Die Konfigurationen können mit einem Klick auf diese und anschließendem Klick auf den \enquote{Laden}-Button geladen werden. Daraufhin schließt sich das Fenster und die geladenen Konfigurationsdaten erscheinen im geöffneten Fenster. Alternativ kann man den Vorgang mit einem Klick auf den \enquote{Abbrechen}-Button abbrechen und das Fenster schließt sich.
+Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Stufenspiel erstellen} oder der \enquote{Stufenspiel erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In diesem befinden sich ein mit \enquote{Name} betiteltes Textfeld, eine Bimatrix und ein mit \enquote{Beschreibung} betiteltes Textfeld (siehe \cref{?}). In den Textfeldern müssen Name und eine kurze Beschreibung des Stufenspiels eingegeben werden. In die Bimatrix müssen die Auszahlungen beider Spieler für die vier möglichen Spielausgänge eingetragen werden. Alle Einträge sind mit \(0\) initialisiert. Durch Betätigen des \enquote{Speichern}-Knopfes wird das Stufenspiel erstellt und gespeichert. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Knopf abgebrochen werden. In beiden Fällen schließt sich das Fenster.
 
 \functionality{Konfiguration speichern}{fnc:saveConfig}
 \fulfills{crt:saveloadconfig}
+Der Nutzer hat die Möglichkeit, die aktuelle Konfiguration als \textit{.config}-Datei abzuspeichern.
 
-Der Nutzer kann im Konfigurationsfenster und im Hauptfenster auf die Menüleiste \textbf{(siehe Bild)} zugreifen. Durch auswählen des Reiters Datei und anschließendem Klick auf Konfiguration speichern öffnet sich ein neues Fenster(Datei- speichern Dialog). Alternativ kann dieses Fenster auch im Konfigurationsfenster durch einen Klick auf den \enquote{Konfiguration speichern}-Button in der Toolbar \textbf{(siehe Bild)} geöffnet werden. In dem neu geöffnete Fenster zeigt das Verzeichnis in dem die Konfigurationen gespeichert werden. Nun kann der Nutzer den Namen seiner Konfiguration in das Textfeld Dateiname eingeben. Die Konfiguration kann mit einem Klick auf den \enquote{Speichern}-Button gespeichert werden. Daraufhin schließt sich das Fenster. Alternativ kann man den Vorgang mit einem Klick auf den \enquote{Abbrechen}-Button abbrechen und das Fenster schließt sich.
+Dazu muss er im Startfenster den Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration speichern} oder im Konfigurationsfenster den \enquote{Konfiguration speichern}-Knopf in der Toolbar betätigen. Daraufhin öffnet sich ein Datei-Dialog. Hier kann der Nutzer Speicherort und Dateiname wählen. Wird der \enquote{Speichern}-Knopf betätigt, schließt sich der Dialog und eine \textit{.config}-Datei mit dem angegebenen Namen wird am angegebenen Ort abgespeichert. Diese enthält Informationen zu allen durch die aktuelle Konfiguration festgelegten Parameter. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
+
+\functionality{Konfiguration laden}{fnc:loadConfig}
+\fulfills{crt:saveloadconfig}
+Der Nutzer kann eine von diesem Programm erstellte \textit{.config}-Datei laden und so die aktuelle Konfiguration ersetzen.
+
+Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration laden} oder im Konfigurationsfenster der \enquote{Konfiguration laden}-Knopf in der Toolbar betätigt werden. Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen \textit{.config}-Datei navigiert und diese ausgewählt, so wird die aktuelle Konfiguration durch die in der geladenen Datei spezifizierte Konfiguration ersetzt. Wird eine ungültige Datei ausgewählt, wird eine entsprechende Fehlermeldung angezeigt. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
@@ -372,7 +405,7 @@ Das Design soll modern und seriös wirken. Es soll schnörkellos sein und sich a
 \nonFunctionality{Erweiterbarkeit}{nfc:extensibility}
 
 Das Produkt muss dahingehend erweiterbar sein,
-dass neue Stufenspiele, neue Strategien, neue Adaptionsalgorithmen und neue Erfolgsquantifizierungsalgorithmen eingefügt werden können.
+dass neue Stufenspiele, neue Strategien, neue Adaptionsalgorithmen und neue Erfolgsquantifizierungsalgorthmen eingefügt werden können.
 
 \nonFunctionality{Implementierung}{nfc:implementation}
 
@@ -597,7 +630,7 @@ Drückt man den Knopf zum Bearbeiten einer Konfiguration, öffnet sich das Konfi
 		Konfigurationsfenster}
 \end{figure} 
 
-Das Konfigrationsfenster ist in drei Bereiche unterteilt, die jeweils ein- und ausgeklappt werden können:
+Das Konfigurationsfenster ist in drei Bereiche unterteilt, die jeweils ein- und ausgeklappt werden können:
 \begin{itemize} \itemsep -10pt
 	\item Grundeinstellungen
 	\item Gruppeneinstellungen
@@ -666,6 +699,9 @@ Ein Gleichgewicht im Simulationsablauf ist erreicht, wenn keiner der Agenten meh
 \textbf{Stufenspiel:}
 Ein spieltheoretisches Spiel, welches sich als Bimatrix darstellen lässt. (z.B. das Gefangenen-Dilemma)
 
+\textbf{Bimatrix:}
+Eine Matrix \(A \in (\mathbb{Z} \times \mathbb{Z})^{2 \times 2}\). Ein Stufenspiel wird eindeutig durch die Bimatrix seiner Auszahlungen definiert (siehe Anhang).
+
 \textbf{Erfolg:}
 Der Erfolg eines Agenten in einer Folge von Runden wird aus dessen Kapitalauszahlungen in diesen Runden berechnet. Er ist Konfigurationsparameter der Simulation. Beispiel ist die Summe aller Auszahlungen.
 
@@ -679,7 +715,10 @@ In einer Simulation sind die Agenten in eine feste, wohldefinierte Anzahl von Gr
 Ein Agent, der keiner Gruppe angehört.
 
 \textbf{Konfiguration:}
-Festlegung aller initialen Parameter für einen Simulationslauf.
+Menge aller variablen Simulationsparameter. Diese sind in den Muss- und Kann-Kriterien aufgelistet.
+
+\textbf{aktuelle Konfiguration:}
+Die aktuelle Konfiguration ist die, mit der eine Simulation beim Betätigen des \enquote{Play}-Knopfes gestartet wird.
 
 \textbf{Nutzer:}
 Eine Person, welche das Programm nutzt.
@@ -690,10 +729,10 @@ Ein Schieberegler mit mehreren möglichen Schiebe-Knöpfen.
 \textbf{Slider-Abschnitt:}
 Bereich auf dem Slider, der nach rechts und links durch den nächstgelegensten Schiebe-Knopf bzw. den Rand des Sliders begrenzt wird.
 
-\textbf{Ausführungsstatus:}
-Der Ausführungsstatus einer Simulation beschreibt, ob die Simulation auf Durchführung wartet, gerade durchgeführt wird oder bereits abgeschlossen ist. 
-
 \textbf{Gemischte Strategie:}
 Seien \(S_1,...,S_n\) die in einem Simulationsdurchlauf zugelassenen reinen Strategien. Eine gemischte Strategie ist dann ein Tupel \((\omega_1,...,\omega_n) \in \{0,\frac{1}{10},...,\frac{9}{10},1\}^n\) mit \(\sum_{i=1}^n \omega_i = 1\). \(\omega_i\) entspricht dann der Wahrscheinlichkeit, in einer Runde mit Strategie \(S_i\) zu spielen.
+
+\textbf{Matching:}
+Ein Matching der Menge \(\{1,...,N\}\) aller Agenten ist eine Menge \(M \subset \{\{i,j\} \subset \{1,...,N\} | i \neq j\}\), sodass gilt: \(\forall i \in \{1,...,N\}: \ |\{A \in M | i \in A\}| = 1\).
 
 \end{document}
