@@ -205,7 +205,7 @@ Voreingestellt sind Tit-for-tat, Grim und \enquote{Immer Kooperation}.
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, die Anzahl verschiedener Gruppen in einer Konfiguration festzulegen. Weiterhin kann er angeben, wie viele Agenten den einzelnen Gruppen und wie viele Agenten keiner Gruppe zugehörig sind.
 
-Dazu muss im Konfigurationsfenster zu dem Abschnitt \enquote{Gruppeneinstellungen} navigiert werden (siehe \cref{}). Voreingestellt sind null Gruppen. Eine neue Gruppe kann durch Betätigen des \enquote{Gruppe hinzufügen}-Knopfes hinzugefügt werden (siehe \cref{?}). Jeder Gruppe wird bei Erstellung eine zufällige, unter allen Gruppen eindeutige Farbe zugeordnet. Ist die maximale Anzahl von fünf Gruppen erreicht, ist der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden.
+Dazu muss im Konfigurationsfenster zu dem Abschnitt \enquote{Gruppeneinstellungen} navigiert werden (siehe \cref{?}). Voreingestellt sind null Gruppen. Eine neue Gruppe kann durch Betätigen des \enquote{Gruppe hinzufügen}-Knopfes hinzugefügt werden (siehe \cref{?}). Jeder Gruppe wird bei Erstellung eine zufällige, unter allen Gruppen eindeutige Farbe zugeordnet. Ist die maximale Anzahl von fünf Gruppen erreicht, ist der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
 Eine Gruppe wird beim Hinzufügen mit null Mitgliedern initialisiert. Die Anzahl der Mitglieder einer Gruppe kann über den Multislider links des \enquote{Gruppe hinzufügen}-Knopfes verändert werden. Für jede Gruppe befindet sich ein entsprechend gefärbter Schiebe-Knopf auf dem Multislider. Der Slider-Abschnitt links des Knopfes wird ebenfalls mit der Gruppenfarbe gefärbt. Die relative Größe jeder Gruppe entspricht genau der relativen Größe des entsprechend gefärbten Abschnitts auf dem Slider. Der rechtsgelegenste Abschnitt ist weiß gefärbt und repräsentiert die gruppenlosen Agenten. Über jedem Abschnitt wird die Zahl von Agenten angezeigt, die diesem Abschnitt angehören (siehe \cref{?}). Wird durch Verschieben eines Sliders die Größe einer Gruppe verändert, so ändern sich die Größen anderer Gruppen nicht. Beim Vergrößern einer Gruppe sinkt also die Zahl der gruppenlosen Agenten, beim Verkleinern einer Gruppe vergrößert sie sich. Folglich kann keine Gruppe vergrößert werden, wenn bereits alle Agenten einer Gruppe angehören.
 
@@ -474,7 +474,6 @@ Hier gilt: Funktionalität vor Design.
 {Alice betätigt den ??-Knopf}
 {Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
 
-
 \test{Strategien hinzufügen und entfernen}{tst:stratkonfig}
 \tests{fnc:stratset}
 
@@ -551,6 +550,7 @@ Hier gilt: Funktionalität vor Design.
 {Der Datei-Dialog schließt sich. Die Konfigurationsdatei wird importiert. Im Konfigurationsfenster befinden sich nun genau die Einstellungen, die Donald gewählt und dann abgespeichert hatte.}
 
 \test{Gruppen- und Segmenteinteilung}
+{tst:group/segmentclassification}
 \tests{fnc:groups}
 \tests{fnc:segments}
 \tests{fnc:initialstrat}
@@ -621,11 +621,12 @@ Hier gilt: Funktionalität vor Design.
 {Die Gruppeneinstellungs-Abschnitt klappt sich zu.}
 
 \teststep{Anna befindet sich im Konfigurationsfenster.}
-{Anna betätigt den ??-Knopf.}
+{Anna betätigt den \enquote{Haken}-Knopf in der Toolbar.}
 {Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
 
 \test{Stufenspiel erstellen}
-\tests{fnc:creategame}
+{tst:creategame}
+\tests{fnc:createNewGame}
 
 \teststep{Frank befindet sich im Hauptfenster.}
 {Er bewegt die Maus über den Reiter Erweiterungen in der Menüleiste.}
