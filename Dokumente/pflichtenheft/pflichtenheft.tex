@@ -189,18 +189,18 @@ Unter dem Dropdown-Menü befindet sich eine Checkbox mit der Bezeichnung \enquot
 
 Abgesehen von selbst erstellten Strategien sind folgende Strategien im Programm hinterlegt (siehe Anhang):
 \begin{itemize} \itemsep -10pt
-\item Tit-for-tat
+\item Tit-for-Tat
 \item Grim
-\item Kooperation mit Agenten mit ähnlichem Absolutkapital\footnote{Das Absolutkapital zweier Agenten ist ähnlich, genau dann wenn sich der Rang der Agenten, aufgelistet nach Absolutkapital, höchstens um \(20\%\) der Gesamtzahl aller Agenten unterscheidet.}, ansonsten keine Kooperation
-\item Tit-for-tat mit Agenten mit ähnlichem Absolutkapital, ansonsten keine Kooperation
-\item Keine Kooperation mit Agenten mit höherem Absolutkapital, ansonsten tit-for-tat
-\item Keine Kooperation mit Agenten mit niedrigerem Absolutkapital, ansonsten tit-for-tat
+\item Kooperation mit Agenten mit ähnlichem Absolutkapital, ansonsten keine Kooperation
+\item Tit-for-Tat mit Agenten mit ähnlichem Absolutkapital, ansonsten keine Kooperation
+\item Keine Kooperation mit Agenten mit höherem Absolutkapital, ansonsten Tit-for-Tat
+\item Keine Kooperation mit Agenten mit niedrigerem Absolutkapital, ansonsten Tit-for-Tat
 \item Kooperation mit Agenten derselben Gruppenzugehörigkeit, ansonsten keine Kooperation
-\item Tit-for-tat mit Agenten derselben Gruppenzugehörigkeit, ansonsten keine Kooperation
+\item Tit-for-Tat mit Agenten derselben Gruppenzugehörigkeit, ansonsten keine Kooperation
 \item Immer Kooperation
 \item Nie Kooperation
 \end{itemize}
-Voreingestellt sind Tit-for-tat, Grim und \enquote{Immer Kooperation}.
+Voreingestellt sind Tit-for-Tat, Grim und \enquote{Immer Kooperation}.
 
 \functionality{Festlegung von Anzahl und Größe der Gruppen}{fnc:groups}
 \fulfills{crt:simparam_std}
@@ -402,9 +402,23 @@ Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der
 
 \functionality{Stufenspiel erstellen}{fnc:createNewGame}
 \fulfills{crt:creategame}
-Der Nutzer hat die Möglichkeit, eigene Stufenspiele zu erstellen. Diese werden dann im Programm persistent gespeichert und können von da an in Konfigurationen verwendet werden.
+Der Nutzer hat die Möglichkeit, eigene Stufenspiele zu erstellen. Diese werden dann persistent gespeichert und können von da an in Konfigurationen verwendet werden.
 
-Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Stufenspiel erstellen} oder der \enquote{Stufenspiel erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In diesem befinden sich ein mit \enquote{Name} betiteltes Textfeld, eine Bimatrix und ein mit \enquote{Beschreibung} betiteltes Textfeld (siehe \cref{?}). In den Textfeldern müssen Name und eine kurze Beschreibung des Stufenspiels eingegeben werden. In die Bimatrix müssen die Auszahlungen beider Spieler für die vier möglichen Spielausgänge eingetragen werden. Alle Einträge sind mit \(0\) initialisiert. Durch Betätigen des \enquote{Speichern}-Knopfes wird das Stufenspiel erstellt und gespeichert. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Knopf abgebrochen werden. In beiden Fällen schließt sich das Fenster.
+Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Stufenspiel erstellen} oder der \enquote{Stufenspiel erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In diesem befinden sich ein mit \enquote{Name} betiteltes Textfeld, eine Bimatrix und ein mit \enquote{Beschreibung} betiteltes Textfeld (siehe \cref{?}). In den Textfeldern müssen Name und eine kurze Beschreibung des Stufenspiels eingegeben werden. In die Bimatrix müssen die Auszahlungen beider Spieler für die vier möglichen Spielausgänge eingetragen werden. Alle Einträge sind mit \(0\) initialisiert.
+
+Durch Betätigen des \enquote{Speichern}-Knopfes wird das Stufenspiel erstellt und gespeichert. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Knopf abgebrochen werden. In beiden Fällen schließt sich das Fenster.
+
+\functionality{Strategie erstellen}{fnc:createstrat}
+\fulfills{crt:createstrat}
+Der Nutzer hat die Möglichkeit, eigene Strategien zu erstellen. Diese werden dann persistent gespeichert und können von da an in Konfigurationen verwendet werden.
+
+Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Strategie erstellen} oder der \enquote{Strategie erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In das mit \enquote{Name} bezeichnete Textfeld muss ein Name für die zu erstellende Strategie eingegeben werden. Über einen Drag-and-Drop-Editor (siehe \cref{?}) kann ein Boole'scher Ausdruck \(X\) aus den für Strategien verfügbaren Variablen (siehe Glossar) hinter einer Schrift \enquote{Wenn:} zusammengesetzt werden. In zwei mit \enquote{Dann:} und \enquote{Sonst:} betitelten Dropdown-Menüs können je zwei der bisher im System hinterlegten Strategien \(S_\text{Dann}\) und \(S_\text{Sonst}\) ausgewählt werden. Die so konfigurierte Strategie ist dann
+\[
+(X \Rightarrow S_\text{Dann}) \land (\lnot X \Rightarrow S_\text{Sonst}), \text{ oder äquivalent } (X \land S_\text{Dann}) \lor (\lnot X \land S_\text{Sonst}),
+\]
+also \enquote{Verwende Strategie \(S_\text{Dann}\), wenn \(X\) erfüllt ist, und \(S_\text{Sonst}\) sonst}. Voreingestellt ist \(X\) leer, \(S_\text{Dann} =\) \enquote{Kooperieren} und \(S_\text{Sonst} =\) \enquote{Nicht Kooperieren}.
+
+Durch Betätigen des \enquote{Reset}-Knopfes am oberen rechten Ende des Fensters wird das gesamte Fenster in den voreingestellten Zustand zurückgesetzt. Durch Betätigen des \enquote{Speichern}-Knopfes wird die Strategie erstellt und gespeichert.
 
 \functionality{Konfiguration speichern}{fnc:saveConfig}
 \fulfills{crt:saveloadconfig}
@@ -875,6 +889,18 @@ Ein Schieberegler mit mehreren möglichen Schiebe-Knöpfen.
 
 \textbf{Slider-Abschnitt:}
 Bereich auf dem Slider, der nach rechts und links durch den nächstgelegensten Schiebe-Knopf bzw. den Rand des Sliders begrenzt wird.
+
+\textbf{Strategie:}
+Eine Strategie ist ein boole'scher Ausdruck (dessen Variablen von Spieler A und Gegenspieler B abhängen können), der bei Auswertung für zwei Spieler A und B genau dann wahr ist, wenn A unter Verwendung dieser Strategie beim Spiel gegen B kooperiert. Es folgt eine Liste aller Variablen, die in einer Strategie als Literal vorkommen können:
+\begin{itemize}
+\item A/B hat (bei bisherigen Spielen zwischen A und B im aktuellen \adapt) immer/nie/letztes Mal/wenigstens einmal kooperiert
+\item B hat ein höheres/niedrigeres Absolutkapital als A
+\item B hat einen höheren/niedrigeren Rang als A (im aktuellen \adapt)
+\item A und B haben dieselbe Gruppenzugehörigkeit
+\item A und B haben ähnliches Absolutkapital\footnote{Das Absolutkapital zweier Agenten ist ähnlich, genau dann wenn sich der Rang der Agenten, aufgelistet nach Absolutkapital, höchstens um \(20\%\) der Gesamtzahl aller Agenten unterscheidet.}
+\item Die Konstanten true und false
+Insbesondere sind Tit-for-Tat und Grim mögliche Strategien.
+\end{itemize}
 
 \textbf{Gemischte Strategie:}
 Seien \(S_1,...,S_n\) die in einem Simulationsdurchlauf zugelassenen reinen Strategien. Eine gemischte Strategie ist dann ein Tupel \((\omega_1,...,\omega_n) \in \{0,\frac{1}{10},...,\frac{9}{10},1\}^n\) mit \(\sum_{i=1}^n \omega_i = 1\). \(\omega_i\) entspricht dann der Wahrscheinlichkeit, in einer Runde mit Strategie \(S_i\) zu spielen.
