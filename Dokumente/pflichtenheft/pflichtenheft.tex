@@ -879,7 +879,7 @@ In den erweiterten Einstellungen können spezialisierte Konfigurationen per Drop
 
 Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu}) und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, Konfigurationen zu laden, zu speichern und die aktuelle Konfiguration auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer Stufenspiele und Strategien. Eine Simulation mit der gewählten Konfiguration kann über die Werkzeugleiste gestartet oder das Konfigurationsfenster verlassen werden.
 
-\begin{figure}[ht]
+\begin{figure}[hb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/konfig_tool2.png}
 	\caption{\label{fig:konfig_tool}
@@ -900,6 +900,37 @@ Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie bei
 		Auswahl der möglichen Initialstrategien für ein Segment}
 \end{figure}
 
+\newpage
+
+
+Die Option zum Erstellen einer neuen Strategie öffnet ein neues Fenster (siehe \cref{fig:strategy}). Hier können vorgegebene Bedingungen mit logischen Operatoren zu einem logischen Ausdruck verknüpft werden. Einzelne Aspekte der Bedingungen können angepasst werden (siehe \cref{fig:strategy_drop}). Per Dropdown werden die Aktionen gewählt, die nach Auswertung des Ausdrucks angewendet werden.
+
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=\textwidth]{images/strategy.png}
+	\caption{\label{fig:strategy}
+		Erstellung einer neuen Strategie}
+\end{figure}
+
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/strategy_drop.png}
+	\caption{\label{fig:strategy_drop}
+		Anpassung von Bedingungen}
+\end{figure}
+
+Die Wahl der Option zum Ersellen eines neuen Stufenspiels öffnet ebenfalls ein neues Fenster (siehe \cref{fig:new_game}). Ein neues Spiel wird in seiner Normalform in die gegebene Bimatrix eingetragen.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/game.png}
+	\caption{\label{fig:new_game}
+		Erstellung eines neuen Stufenspiels}
+\end{figure}
+
+
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=\textwidth]{images/konfig_adv.png}
@@ -907,7 +938,6 @@ Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie bei
 		erweiterte Simulationsparameter und Multikonfigurationseinstellungen}
 \end{figure}
 
-\newpage
 
 \section{Szenarien}
 
