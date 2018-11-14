@@ -719,7 +719,7 @@ Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählt
  
 \begin{figure}[ht]
 	\centering
- 	\includegraphics{images/main_btn.png}
+ 	\includegraphics[width=0.25\linewidth]{images/main_btn.png}
  	\caption{\label{fig:main_btn}
  		Knöpfe zum Konfigurieren und Starten einer Simulation}
 \end{figure}
@@ -750,7 +750,7 @@ Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, ab
 		Ausgabe der Ergebnisse einer Simulation}
 \end{figure}
 \newpage
-Über das Dateinmenü in der Menüleiste können Konfigurationen gespeichert und geladen oder eine Simulation gestartet werden (siehe \cref{fig:menu1}).
+Über das Dateinmenü in der Menüleiste können Konfigurationen bearbeitet, gespeichert und geladen oder eine Simulation gestartet werden (siehe \cref{fig:menu1}).
 Das Erweiterungsmenü enthält Optionen zum erstellen eines neuen Stufenspiels oder einer neuen Strategie (siehe \cref{fig:menu2}). Im Hilfemenü finden sich Bedienhilfen und Informationen über den Simulator (siehe \cref{fig:menu3}).
 
 \begin{figure}[ht]
@@ -787,9 +787,14 @@ Das Konfigurationsfenster ist in drei Bereiche unterteilt, die jeweils ein- und 
 	\item Erweiterte Einstellungen
 \end{itemize}
 
-Grundeinstellungen konfigurieren die fundamentalsten Simulationsparameter (siehe \cref{fig:konfig_main}).
+Grundeinstellungen konfigurieren die fundamentalsten Simulationsparameter. Im rechten Teil wird das ausgewählte Stufenspiel in Normalform als Bimatrix dargestellt (siehe \cref{fig:konfig_main}). Über ein spezielles Dropdownmenü mit Checkboxen können für die Simulation zugelassene Strategien ausgewählt werden (siehe \cref{fig:konfig_strat_detail}).
 
-In den Gruppeneinstellungen können Gruppen angelegt und mit einem Multislider die Agenten frei in diese verteilt werden. Für jede Gruppe gibt es einen Tab (siehe \cref{fig:konfig_group}). Dort kann die Gruppe in gleicher Weise weiter in Segmente eingeteilt werden. Für jedes Segment kann das Startkapital der Agenten gemäß einer gewählten Verteilung festgelegt werden (siehe \cref{fig:konfig_cap} und die Initialstrategien eingestellt werden (siehe \cref{fig:konfig_strat}).
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.25\textwidth]{images/konfig_strat_detail.png}
+	\caption{\label{fig:konfig_strat_detail}
+		Auswahl der zugelassenen Strategien}
+\end{figure}
 
 \begin{figure}[ht]
 	\centering
@@ -797,6 +802,10 @@ In den Gruppeneinstellungen können Gruppen angelegt und mit einem Multislider d
 	\caption{\label{fig:konfig_main}
 		Grundeinstellungen im Konfigurationsfenster}
 \end{figure}
+\newpage
+In den Gruppeneinstellungen können Gruppen angelegt und mit einem Multislider die Agenten frei in diese verteilt werden. Für jede Gruppe gibt es einen Tab (siehe \cref{fig:konfig_group}). Dort kann die Gruppe in gleicher Weise weiter in Segmente eingeteilt werden. Für jedes Segment kann das Startkapital der Agenten gemäß einer gewählten Verteilung festgelegt werden (siehe \cref{fig:konfig_cap} und die Initialstrategien eingestellt werden (siehe \cref{fig:konfig_strat}).
+
+
 
 \begin{figure}[ht]
 	\centering
@@ -808,13 +817,11 @@ In den Gruppeneinstellungen können Gruppen angelegt und mit einem Multislider d
 
 In den erweiterten Einstellungen können spezialisierte Konfigurationen per Dropdowns eingestellt werden. Zudem kann hier der variable Konfigurationsparameter eingestellt werden, falls dieser in den Gruppen- bzw. Segementeinstellungen ausgewählt wurde. Dazu wird ein prozentualer Start- und Endwert angegeben und eine Schrittweite festgelegt \\(siehe \cref{fig:konfig_adv}). Hierdurch wird eine Multikonfiguration erstellt.
 
-
-\newpage
-Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu} und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, Konfigurationen zu laden, zu speichern und die aktuelle Konfiguration auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer Stufenspiele und Strategien. Eine Simulation mit der gewählten Konfiguration kann über die Werkzeugleiste gestartet werden.
+Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu}) und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, Konfigurationen zu laden, zu speichern und die aktuelle Konfiguration auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer Stufenspiele und Strategien. Eine Simulation mit der gewählten Konfiguration kann über die Werkzeugleiste gestartet oder das Konfigurationsfenster verlassen werden.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{images/konfig_tool.png}
+	\includegraphics[width=0.5\textwidth]{images/konfig_tool2.png}
 	\caption{\label{fig:konfig_tool}
 		Werkzeugleiste des Konfigurationsfenster}
 \end{figure}
