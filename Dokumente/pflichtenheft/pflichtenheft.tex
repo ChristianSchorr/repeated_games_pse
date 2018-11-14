@@ -491,7 +491,7 @@ Hier gilt: Funktionalität vor Design.
 {Alice klickt auf das Dropdown Menü \enquote{Sufenspiel festlegen}.}%
 {Eine Liste mit den Namen aller Stufenspiele klappt nach unten auf.}
 
-\teststep{}
+\teststep{Das Dropdown-Menü zu den Stufenspielen ist nach unten aufgeklappt.}
 {Alice wählt das Stufenspiel \enquote{Falke und Taube} aus.}
 {Das Dropdown Menü schließt sich und zeigt \enquote{Falke und Taube} an. Dies ist nun das gewählte Stufenspiel.}
 
@@ -518,7 +518,7 @@ Hier gilt: Funktionalität vor Design.
 {Bob drückt auf den \enquote{Strategie hinzufügen} Knopf (siehe \cref{??}).}
 {Ein Fenster mit einer Liste aller im Programm hinterlegten Strategien öffnet sich.}
 
-\teststep{}
+\teststep{Das Fenster mit der Liste aller im Programm hinterlegten Strategien ist geöffnet.}
 {Bob wählt die Strategie \enquote{Nie Kooperation} aus und betätigt den den \enquote{Bestätigen}-Knopf.}
 {Das Fenster mit der Liste aller Strategien schließt sich. Die Strategie \enquote{Nie Kooperation} wird nun in der Liste mit allen ausgewählten Strategien geführt}
 
@@ -526,11 +526,11 @@ Hier gilt: Funktionalität vor Design.
 {Bob betätigt nochmals den  \enquote{Strategie hinzufügen} Knopf.}
 {Wieder öffnet sich das Fenster mit der Liste aller im Programm hinterlegten Strategien.}
 
-\teststep{}
+\teststep{Das Fenster mit der Liste aller im Programm hinterlegten Strategien ist geöffnet.}
 {Bob klickt mehrere Strategien an und hält dabei die SHIFT-Taste gedrückt.}
 {Alle angeklickten Strategien sind gerade ausgewählt.}
 
-\teststep{}
+\teststep{Im Fenster mit der Liste aller im Programm hinterlegten Strategien sind eine oder mehrere Strategien ausgewählt.}
 {Bob betätigt den \enquote{Abbrechen}-Knopf.}
 {Das Fenster mit der Liste der Strategien schließt sich. Keine Strategie wurde zu den ausgewählten Strategien hinzugefügt.}
 
@@ -554,7 +554,7 @@ Hier gilt: Funktionalität vor Design.
 {Sie bewegt den Mauszeiger über ihre laufende Simulation, die in der Liste aller gestarteten Simulationen angezeigt wird.}
 {Es erscheint ein 'X'-Knopf.}
 
-\teststep{}
+\teststep{Der 'X'-Knopf wird über einer laufenden Simulation angezeigt.}
 {Alice betätigt den angezeigten 'X'-Knopf.}
 {Der Simulationslauf wird abgebrochen und in der Liste entsprechend gekennzeichnet.}
 
@@ -582,7 +582,7 @@ Hier gilt: Funktionalität vor Design.
 {Sie klickt auf das 'Upload'-Zeichen (siehe \cref{??}) in der Toolbar.}
 {Ein Datei-Dialog öffnet sich.}
 
-\teststep{}
+\teststep{Der Datei-Dialog ist geöffnet.}
 {Alice navigiert zum Desktop und wählt die Konfigurationsdatei. Sie bestätigt ihre Wahl mit Mausklick auf den 'Öffen'-Button.}
 {Der Datei-Dialog schließt sich. Die Konfigurationsdatei wird importiert. Im Konfigurationsfenster befinden sich nun genau die Einstellungen, die Donald gewählt und dann abgespeichert hatte.}
 
@@ -694,6 +694,66 @@ Hier gilt: Funktionalität vor Design.
 \teststep{Frank befindet sich im Stufenspielerstellenfenster und hat einen Namen und eine Beschreibung eingegeben und die Bimatrix ausgefüllt.}
 {Er klickt auf den \enquote{Speichern}-Knopf.}
 {Das Fenster schließt sich und das Stufenspiel wird gespeichert. Es erscheint im Konfigurationsfenster in der Stufenspielauswahl.}
+
+\test{Festlegung des Algorithmus zur Paarbildung}{tst:matchalgo}
+\tests{fnc:algopaar}
+
+\teststep{Donald befindet sich im Konfigurationsfenster}
+{Er betätigt den Knopf am linken Rand des \enquote{Erweiterte Einstellungen}-Separators.}
+{Der Abschnitt mit den erweiterten Einstellungen wird ausgeklappt.}
+
+\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+{Donald klickt auf das Dropdown-Menu \enquote{Paarbildungsalgorithmus}.}
+{Eine Liste mit 2 Möglichkeiten klappt nach unten auf, \enquote{Zufällige Paarbildung} sowie \enquote{Paarbildung nach Wunsch} sind möglich}
+
+\teststep{Das Dropdown-Menü zu dem Paarbildungsalgorithmus ist aufgeklappt.}
+{Donald wählt  \enquote{Paarbildung nach Wunsch} per Mausklick aus.}
+{Das Dropdown-Menü schließt sich. Bei der Paarbildung nach jeder Runde wird nun die Kooperationswahrscheinlichkeit der Agenten untereinander berücksichtigt.}
+
+\test{Festlegung der Erfolgsquantifizierung}{tst:success}
+\tests{fnc:erfolg}
+
+\teststep{Im Kongigurationsfesnter ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+{Anna klickt auf das Dropdown-Menü \enquote{Erfolgsquantifizierung}.}
+{Eine Liste mit den Möglichkeiten \enquote{Absolute Auszahlung} und  \enquote{Gleitender Durchschnitt} klappt nach unten auf.}
+
+\teststep{Das Dropdown-Menü zur Erfolgsquantifizierung ist aufgeklappt.}
+{Anna wählt \enquote{Gleitender Durchschnitt} per Mausklick aus.}
+{Das Dropdown-Menü schließt sich. Der Erfolg eines Agenten wird anhand eines gleitenden Durchschnitts gemessen.}
+
+\teststep{Im Dropdown-Menü zur Erfolgsquantifizierung wurde \enquote{Gleitender Durchschnitt} gewählt.}
+{Mit dem Slider direkt unter dem Dropdown-Menü setzt Anna den notwendigen Parameter \(w\) auf \(R/2\), wobei \(R\) der Rundenzahl entspricht.}
+{Der Erfolg eines Agenten wird anhand eines gleitenden Durchschnitts über die letzen \(w\) Runden gemessen. Die Anzahl \(w\) wird in dem Textfeld rechts neben dem Slider angezeigt.}
+
+\test{Festlegung des Adaptionsmechanismus}{tst:adapt}
+\tests{fnc:algoadapt}
+
+\teststep{Im Kongigurationsfesnter ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+{Alice klickt auf das Dropdown-Menü \enquote{Adaptionsmechanismus}.}
+{Eine Liste mit den Möglichkeiten \enquote{Replicator Dynamic} und  \enquote{Preferential Adoption} klappt nach unten auf.}
+
+\teststep{Das Dropdown-Menü zum Adaptionsmechanismus ist aufgeklappt.}
+{Alice wählt \enquote{Preferential Adoption} per Mausklick aus.}
+{Das Dropdown-Menü schließt sich. Anhand der Methode  \enquote{Preferential Adoption} passen sich die Agenten an die Strategien der anderen Agenten an.}
+
+\teststep{Die Methode \enquote{Preferential Adoption} wurde als Adaptionsmechanismus ausgewählt.}
+{Unter dem dem Dropdown-Menü befinden sich 2 Slider für die nötigen Parameter \alpha\) und \beta\). Mit den Slidern wählt Alice den Wert 0.3 für \alpha\) und \(\frac{0.7}{N - 1}\) für  \beta\). \(N\) bezeichnet dabei die Anzahl der Agenten.}
+{Beide Werte werden in die entprechenden Textfelder rechts neben den Slidern eingetragen. Die Methode \enquote{Preferential Adoption} wurde nun mit diesen beiden Parametern konfiguriert.}
+
+\test{Gleichgewichtskriterium festlegen}{tst:equilibrium}
+\tests{fnc:equicondition}
+
+\teststep{Im Kongigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+{Bob klickt auf das Dropdown-Menü \enquote{Gleichgewichtskriterium}.}
+{Eine Liste mit den Möglichkeiten \enquote{Strategiegleichgewicht} und  \enquote{Ranggleichgewicht} klappt nach unten auf.}
+
+\teststep{Das Dropdown-Menü zum Gleichgewichtskriterium ist aufgeklappt.}
+{Bob wählt \enquote{Ranggleichgewicht} per Mausklick aus.}
+{Das Dropdown-Menü schließt sich. Ein Gleichgewicht ist nun vom Rang der Spieler abhängig.}
+
+\teststep{Das Kriterium \enquote{Ranggleichgewicht} wurde als  Gleichgewichtskriterium ausgewählt.}
+{Direkt unter dem Dropdown-Menü befinden sich 2 Slider, einen für den Wert \alpha\) der die Stärke des Gleichgewichts aussagt, der andere für \(G\) der die Konstanz des Gleichgewichts aussagt. Bob setzt mit den Slidern \alpha\) auf 0.1 und  \(G\) auf 120.}
+{Die mit den Slidern festgelgte Werte werden in die Textfelder rechts daneben eingetragen. Das Ranggleichgewicht wird mit diesen Parametern konfiguriert.}
 
 %%%%%%%%%%%%%
 \appendix
