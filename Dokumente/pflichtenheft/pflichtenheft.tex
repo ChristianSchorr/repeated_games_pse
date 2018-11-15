@@ -72,7 +72,7 @@ Der Nutzer kann eine Simulation starten, welche dann mit der aktuell gewählten 
 
 \criterium{Ausgabe der Simulationsergebnisse}{crt:simresults_std}
 
-Nach Durchführung einer Simulation wird für jede Wiederholung ausgegeben, ob sich ein Gleichgewicht eingestellt hat. Weiter werden Informationen über Strategie- und Kapitalverteilung am Ende jeder Wiederholung ausgegeben.
+Nach Durchführung einer Simulation werden dem Nutzer Informationen über Gleichgewichtshäufigkeit sowie Effizienz und Einstellungsdauer der erreichten Gleichgewichte in den zugehörigen Wiederholungen angezeigt. Weiter können Strategie- und Kapitalverteilungen am Ende der einzelnen Wiederholungen eingesehen werden.
 
 \criterium{Abbrechen einer Simulation}{crt:cancelsim}
 
@@ -97,9 +97,6 @@ Der Nutzer hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
 \end{itemize}
 
 \subsection{Kann}
-
-\criteriumOptional{Abstrahierte Ausgabe}{crt:simresults_abs}
-TODO
 
 \criteriumOptional{Starten mehrerer Simulationen}{crt:multisim}
 Es können mehrere Simulationen gleichzeitig laufen. Das Programm kann währenddessen unverändert verwendet werden und es wird eine Übersicht über alle gestarteten Simulationen und deren Ausführungsstatus angezeigt.
@@ -378,9 +375,26 @@ Läuft die Simulation noch, ist der Eintrag gelb gefärbt und zeigt durch einen 
 \fulfills{crt:simresults_std}
 Der Nutzer kann sich Informationen über das Ergebnis einer abgeschlossenen Simulation anzeigen lassen.
 
-Wird der Listeneintrag einer abgeschlossenen Simulation im Startfenster angeklickt, erscheint im Fensterabschnitt rechts der Liste eine Zusammenfassung der Simulationsergebnisse (siehe \cref{fig:home_output}). Am oberen Ende des Abschnitts werden der Name des Stufenspiels und die Identifikationsnummer der Simulation angezeigt. Darunter werden Gleichgewichtsbedingung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, der Multikonfigurations-Parameter und dessen Wertemenge angezeigt.
+Wird der Listeneintrag einer abgeschlossenen Simulation im Startfenster angeklickt, erscheint im Fensterabschnitt rechts der Liste eine Zusammenfassung der Simulationsergebnisse (siehe \cref{fig:home_output}): Am oberen Ende des Abschnitts werden der Name des Stufenspiels und die Identifikationsnummer der Simulation angezeigt. Darunter werden Gleichgewichtsbedingung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, der Multikonfigurations-Parameter und dessen Wertemenge angezeigt.
 
-Darunter befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Konfiguration. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein Gleichgewicht eingestellt hat. Falls ja, wird daneben die Anzahl durchgeführter \adapts\ angezeigt. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
+Darunter, abgespalten durch einen Separator, befindet sich eine von zwei (für reguläre Simulationen) bzw. drei Seiten (für Multikonfigurationen): \enquote{Simulationsergebnisse}, \enquote{Wiederholungsergebnisse} und im Falle einer Multikonfiguration \enquote{Multikonfigurationsergebnisse}. Zwischen diesen kann mittels zweier mit \enquote{>} und \enquote{<} beschrifteter Knöpfen navigiert werden.
+
+Initial wird die Seite \enquote{Simulationsergebnisse} angezeigt. Im Falle einer durch Multikonfiguration erstellten Menge von Simulationen befindet sich unter dem Separator ein Slider zur Auswahl der betrachteten Simulation. Darunter befindet sich eine Darstellung der Gleichgewichtshäufigkeit sowie der Effizienz und Einstellungsdauer der erreichten Gleichgewichte in den zugehörigen Wiederholungen.
+
+\textbf{Gleichgewichtshäufigkeit:}
+Hat sich in \(W_\text{G}\) der \(W\) zugehörigen Wiederholungen ein Gleichgewicht eingestellt, so ist die Gleichgewichtshäufigkeit gegeben durch \(r_\text{G} := \frac{W_\text{G}}{W}\). Diese wird als Prozentzahl unter der Bezeichnung \enquote{Gleichgewichtshäufigkeit} angezeigt.
+
+\textbf{Effizienz:}
+Die Effizienzen der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(E_i \in [0,1]\) die Effizienz der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Für das Histogramm wird das Intervall \([0,1]\) in \(10\) gleich große Teilintervalle \(I_j := [\frac{j-1}{10},\frac{j}{10}) \ (j \in \{1,...,10\})\)\footnote{wobei \(I_{10} = [\frac{9}{10},1]\), um genau zu sein.} aufgespalten und über jedem Teilintervall \(I_j\) ein Balken der Höhe
+\[
+h_j = |\{i \in \{1,...,W_\text{G}\} | E_i \in I_j\}|
+\]
+eingezeichnet.
+
+\textbf{Einstellungsdauer:}
+Die Einstellungsdauern der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die Einstellungsdauer der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der Effizienz ein entsprechendes Histogramm gezeichnet.
+
+Durch Navigation nach rechts mittels \enquote{>} gelangt der Nutzer auf die Seite \enquote{Wiederholungsergebnisse}. Unter dem Separator befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Simulation. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein Gleichgewicht eingestellt hat. Falls ja, wird daneben die Anzahl durchgeführter \adapts\ angezeigt. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
 
 \textbf{Strategieverteilung:}
 Die Verteilung der Strategien in einem wählbaren Quantil der Menge aller Agenten wird in einem Kuchendiagramm angezeigt. Dazu seien die \(N\) Agenten in der Reihenfolge ihres finalen Rangs mit \(1\) bis \(N\) durchnummeriert. \(\omega_i\) (\(i \in \{1,...,N\}\)) bezeichne die Strategie des \(i\)-ten Agenten\footnote{\(\omega_i \in \{S_1,...,S_n\}\) für reine Strategien und \(\omega_i = (\omega_i^{(j)})_{j=1}^n \in \Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=1}^n \omega_i = 1\}\) für gemischte Strategien.}. Über einen Rangeslider kann nun ein Intervall \([p_\text{min},p_\text{max}] \subset [0,100]\%\) eingestellt werden, wobei \(p_\text{min}\) und \(p_\text{max}\) auf Vielfache von \(5\%\) eingeschränkt sind. Mit \(N' := \lfloor p_\text{max} \cdot N \rfloor - \lceil p_\text{min} \cdot N \rceil + 1\) hat dann die Strategie \(S\) am Kuchendiagramm den Anteil\footnote{Für eine Aussage \(A\) sei \(\mathbbm{1}\{A\} := \begin{cases} 1 & , A \text{ ist wahr} \\ 0 &, \text{sonst}\end{cases}\).}
@@ -395,6 +409,8 @@ im Falle von gemischten Strategien.
 
 \textbf{Kapitalverteilung:}
 Die Verteilung des finalen Absolutkapitals wird in einem Stabdiagramm angezeigt. Über denselben Slider wie oben wird auch hier die Menge aller in die Verteilung einzubeziehenden Agenten festgelegt. In der Verteilung sind die verschiedenen Gruppen farblich voneinander getrennt.
+
+Im Falle einer Menge von durch Multikonfiguration erstellten Simulationen kann von der initial angezeigten Seite mittels \enquote{<} zur Seite \enquote{Multikonfigurationsergebnisse} navigiert werden. Dort befinden sich Auftragungen von Gleichgewichtshäufigkeit, Effizienz und Einstellungsdauer über den Multikonfigurationsparameter. Für Effizienz und Einstellungsdauer wird dazu pro zugehöriger Simulation über alle Wiederholungen (in denen sich ein Gleichgewicht eingestellt hat) gemittelt.
 
 \functionality{Abbrechen einer Simulation}{fnc:cancelsim}
 \fulfills{crt:cancelsim}
@@ -713,7 +729,7 @@ Hier gilt: Funktionalität vor Design.
 \test{Festlegung der Erfolgsquantifizierung}{tst:success}
 \tests{fnc:erfolg}
 
-\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+\teststep{Im Kongigurationsfesnter ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
 {Anna klickt auf das Dropdown-Menü \enquote{Erfolgsquantifizierung}.}
 {Eine Liste mit den Möglichkeiten \enquote{Absolute Auszahlung} und  \enquote{Gleitender Durchschnitt} klappt nach unten auf.}
 
@@ -728,7 +744,7 @@ Hier gilt: Funktionalität vor Design.
 \test{Festlegung des Adaptionsmechanismus}{tst:adapt}
 \tests{fnc:algoadapt}
 
-\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+\teststep{Im Kongigurationsfesnter ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
 {Alice klickt auf das Dropdown-Menü \enquote{Adaptionsmechanismus}.}
 {Eine Liste mit den Möglichkeiten \enquote{Replicator Dynamic} und  \enquote{Preferential Adoption} klappt nach unten auf.}
 
@@ -737,13 +753,13 @@ Hier gilt: Funktionalität vor Design.
 {Das Dropdown-Menü schließt sich. Anhand der Methode  \enquote{Preferential Adoption} passen sich die Agenten an die Strategien der anderen Agenten an.}
 
 \teststep{Die Methode \enquote{Preferential Adoption} wurde als Adaptionsmechanismus ausgewählt.}
-{Unter dem dem Dropdown-Menü befinden sich 2 Slider für die nötigen Parameter \(\alpha\) und \(\beta\). Mit den Slidern wählt Alice den Wert 0.3 für \(\alpha\) und \(\frac{0.7}{N - 1}\) für  \(\beta\). \(N\) bezeichnet dabei die Anzahl der Agenten.}
+{Unter dem dem Dropdown-Menü befinden sich 2 Slider für die nötigen Parameter \(\alpha\)) und \(\beta\)). Mit den Slidern wählt Alice den Wert 0.3 für \(\alpha\)) und \(\frac{0.7}{N - 1}\) für  \(\beta\)). \(N\) bezeichnet dabei die Anzahl der Agenten.}
 {Beide Werte werden in die entprechenden Textfelder rechts neben den Slidern eingetragen. Die Methode \enquote{Preferential Adoption} wurde nun mit diesen beiden Parametern konfiguriert.}
 
 \test{Gleichgewichtskriterium festlegen}{tst:equilibrium}
 \tests{fnc:equicondition}
 
-\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+\teststep{Im Kongigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
 {Bob klickt auf das Dropdown-Menü \enquote{Gleichgewichtskriterium}.}
 {Eine Liste mit den Möglichkeiten \enquote{Strategiegleichgewicht} und  \enquote{Ranggleichgewicht} klappt nach unten auf.}
 
@@ -752,7 +768,7 @@ Hier gilt: Funktionalität vor Design.
 {Das Dropdown-Menü schließt sich. Ein Gleichgewicht ist nun vom Rang der Spieler abhängig.}
 
 \teststep{Das Kriterium \enquote{Ranggleichgewicht} wurde als  Gleichgewichtskriterium ausgewählt.}
-{Direkt unter dem Dropdown-Menü befinden sich 2 Slider, einen für den Wert \(\alpha\) der die Stärke des Gleichgewichts aussagt, der andere für \(G\) der die Konstanz des Gleichgewichts aussagt. Bob setzt mit den Slidern \(\alpha\) auf 0.1 und  \(G\) auf 120.}
+{Direkt unter dem Dropdown-Menü befinden sich 2 Slider, einen für den Wert \(\alpha\)) der die Stärke des Gleichgewichts aussagt, der andere für \(G\) der die Konstanz des Gleichgewichts aussagt. Bob setzt mit den Slidern \(\alpha\)) auf 0.1 und  \(G\) auf 120.}
 {Die mit den Slidern festgelgte Werte werden in die Textfelder rechts daneben eingetragen. Das Ranggleichgewicht wird mit diesen Parametern konfiguriert.}
 
 %%%%%%%%%%%%%
@@ -999,13 +1015,22 @@ Eine Strategie ist ein boole'scher Ausdruck (dessen Variablen von Spieler A und 
 \item A und B haben dieselbe Gruppenzugehörigkeit
 \item A und B haben ähnliches Absolutkapital\footnote{Das Absolutkapital zweier Agenten ist ähnlich, genau dann wenn sich der Rang der Agenten, aufgelistet nach Absolutkapital, höchstens um \(20\%\) der Gesamtzahl aller Agenten unterscheidet.}
 \item Die Konstanten true und false
-Insbesondere sind Tit-for-Tat und Grim mögliche Strategien.
 \end{itemize}
+Insbesondere sind Tit-for-Tat und Grim mögliche Strategien.
 
 \textbf{Gemischte Strategie:}
 Seien \(S_1,...,S_n\) die in einem Simulationsdurchlauf zugelassenen reinen Strategien. Eine gemischte Strategie ist dann ein Tupel \((\omega_1,...,\omega_n) \in \{0,\frac{1}{10},...,\frac{9}{10},1\}^n\) mit \(\sum_{i=1}^n \omega_i = 1\). \(\omega_i\) entspricht dann der Wahrscheinlichkeit, in einer Runde mit Strategie \(S_i\) zu spielen.
 
 \textbf{Matching:}
 Ein Matching der Menge \(\{1,...,N\}\) aller Agenten ist eine Menge \(M \subset \{\{i,j\} \subset \{1,...,N\} | i \neq j\}\), sodass gilt: \(\forall i \in \{1,...,N\}: \ |\{A \in M | i \in A\}| = 1\).
+
+\textbf{Effizienz:}
+Die Effizienz eines Gleichgewichtes ist ein Maß für die Kooperationsbereitschaft der Agenten im Gleichgewichtszustand. Es bezeichne \(p_{ij}\) für \(i,j \in \{1,...,N\}, i \neq j\) die Wahrscheinlichkeit, dass der \(i\)-te Agent nach finaler Strategie mit dem \(j\)-ten Agenten kooperieren würde\footnote{Sind nur reine Strategien zugelassen, ist also \(p_{ij} \in \{0,1\} \forall i,j \in \{1,...,N\}, i \neq j\). \(N\) ist die Anzahl von Agenten.}. Dann ist die Effizienz \(E \in (0,1)\) definiert durch
+\[
+E = \frac{1}{N(N - 1)} \sum_{i \neq j} p_{ij}.
+\]
+
+\textbf{Einstellungsdauer:}
+Anzahl durchgeführter \adapts\ bis zum Erreichen eines Gleichgewichtszustandes in einer Wiederholung.
 
 \end{document}
