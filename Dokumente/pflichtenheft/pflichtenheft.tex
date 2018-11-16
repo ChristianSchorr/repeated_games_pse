@@ -771,6 +771,65 @@ Hier gilt: Funktionalität vor Design.
 {Direkt unter dem Dropdown-Menü befinden sich 2 Slider, einen für den Wert \(\alpha\)) der die Stärke des Gleichgewichts aussagt, der andere für \(G\) der die Konstanz des Gleichgewichts aussagt. Bob setzt mit den Slidern \(\alpha\)) auf 0.1 und  \(G\) auf 120.}
 {Die mit den Slidern festgelgte Werte werden in die Textfelder rechts daneben eingetragen. Das Ranggleichgewicht wird mit diesen Parametern konfiguriert.}
 
+\test{Multikonfiguration von Gruppen}
+{tst:multikonfgr}
+\tests{fnc:multikonfgr}
+\tests{fnc:groups}
+
+\teststep{Max befindet sich im Konfigurationsfenster in der Konfiguration der Gruppen. Es sind zwei Gruppen ausgewählt mit jeweils 50 Agenten. Die \enquote{Gruppen-Multikonfigurations}-Checkbox ist nicht auswählbar.}
+{Er betätigt den \enquote{X}-Knopf im Tap der zweiten Gruppe.}
+{Die zweite Gruppe wird gelöscht und die 50 Agenten von Gruppe2 sind nun gruppenlos. Die \enquote{Gruppen-Multikonfigurations}-Checkbox ist nun auswählbar.}
+
+\teststep{Max befindet sich im Konfigurationsfenster in der Konfiguration der Gruppen. Es ist gibt eine Gruppe mit 50 Agenten und 50 gruppenlose Agenten.}
+{Er klickt auf die \enquote{Gruppen-Multikonfiguration}-Checkbox.}
+{Der Slider zum Einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen ist der \enquote{Multikonfiguration}-Unterabschnitt veränderbar.}
+
+\teststep{Max befindet sich im \enquote{Multikonfiguration}-Unterabschnitt des \enquote{Erweiterte Einstellungen}-Abschnitt.}
+{Er gibt in das \enquote{Startwert}-Textfeld 20, in das \enquote{Endwert}-Textfeld 80 und in das \enquote{Schnittweite}-Textfeld 10 ein.}
+{Die eingegebenen Werte stehen in den entsprechenden Textfeldern und für die Multikonfiguration verwendet.}
+
+\teststep{Max befindet sich im Konfigurationsfenster.}
+{Er klickt in der Toolbar auf den \enquote{Haken}-Knopf.}
+{Das Konfigurationsfenster schließt sich und das Hauptfenster öffnet sich. Eine Zusammenfassung der Konfiguration wird angezeigt.}
+
+\test{Multikonfiguration von Segmenten}
+{tst:multikonfseg}
+\tests{fnc:multikonfseg}
+\tests{fnc:segments}
+
+\teststep{Anna befindet sich im Konfigurationsfenster in der Konfiguration der Segmente. Es ist ein Segment eingestellt. Die \enquote{Segment-Multikonfiguration}-Checkbox ist nicht auswählbar.}
+{Sie betätigt den \enquote{Segment hinzufügen}-Knopf.}
+{Auf dem Multislider erscheint ein Schiebe-Knopf. Ein neuer Tab öffnet sich unterhalb des Multisliders mit den Konfigurationen des 2.Segemnts. Es sind zwei Segment eingestellt. Die \enquote{Segment-Multikonfiguration}-Checkbox ist auswählbar.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster in der Konfiguration der Segmente. Es sind zwei Segment eingestellt. Die \enquote{Segment-Multikonfiguration}-Checkbox ist auswählbar.}
+{Sie klickt auf die \enquote{Segment-Multikonfiguration}-Checkbox.}
+{Der Slider zur Einstellung der Segmentgröße und der \enquote{Segment hinzufügen}-Knopf werden ausgegraut. Der Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} ist nun einstellbar.}
+
+\teststep{Anna befindet sich im Unterabschnitt \enquote{Multikonfiguration} des Abschnitt \enquote{Erweiterte Einstellungen} im Konfigurationsfenster.}
+{Sie gibt in das \enquote{Startwert}-Textfeld 30, in das \enquote{Endwert}-Textfeld 70 und in das \enquote{Schnittweite}-Textfeld 5 ein.}
+{Die eingegebenen Werte stehen in den entsprechenden Textfeldern und für die Multikonfiguration verwendet.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster.}
+{Sie klickt in der Toolbar auf den \enquote{Haken}-Knopf.}
+{Das Konfigurationsfenster schließt sich und das Hauptfenster öffnet sich. Eine Zusammenfassung der Konfiguration wird angezeigt.}
+
+\test{Strategie erstellen}
+{tst:createstrat}
+\tests{fnc:createstrat}
+
+\teststep{Hans befindet sich im Hauptfenster.}
+{Er klickt in der Menüleiste auf \enquote{Erweiterungen} und anschließend auf \enquote{Strategie erstellen}.}
+{Es öffnet sich das \enquote{Strategie erstellen}-Fenster.}
+
+\teststep{Hans befindet sich im \enquote{Strategie erstellen}-Fenster. Der \enquote{Wenn}-Ausdruck ist leer, das \enquote{Dann}-Dropdownmenü ist auf Kooperieren und das \enquote{Sonst}-Dropdownmenü auf Nicht-Kooperieren eingestellt.}
+{Er wählt im \enquote{Dann}-Dropdownmenü \enquote{Tit for Tat} aus und im \enquote{Sonst}-Dropdownmenü \enquote{grim} aus. Anschließend drückt er den \enquote{Reset}-Knopf}
+{Das \enquote{Strategie erstellen}-Fenster wird auf die Voreinstellungen (siehe Stand) zurückgesetzt.}
+
+\teststep{Hans befindet sich im \enquote{Strategie erstellen}-Fenster. Der \enquote{Wenn}-Ausdruck ist leer, das \enquote{Dann}-Dropdownmenü ist auf Kooperieren und das \enquote{Sonst}-Dropdownmenü auf Nicht-Kooperieren eingestellt.}
+{Er zieht per Drag-and-Drop den Ausdruck \enquote{(} \enquote{Der Gegenspieler hat letzes Mal kooperiert} \enquote{AND} \enquote{Der Gegenspieler hat ein höheres Absolutkapital} \enquote{)} in die \enquote{Wenn}-Bedingung. Er gibt den Namen \enquote{modifizierte Tit for Tat Variante} in das \enquote{Name}-Textfeld ein. Anschließend drückt er den \enquote{Speichern}-Knopf.}
+{Das \enquote{Strategie erstellen}-Fenster schließt sich. Die \enquote{modifizierte Tit for Tat Variante}-Strategie ist gespeichert und kann als Strategie ausgewählt werden.}
+
+
 %%%%%%%%%%%%%
 \appendix
 \newpage
