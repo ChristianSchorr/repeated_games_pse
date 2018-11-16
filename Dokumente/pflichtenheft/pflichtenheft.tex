@@ -28,6 +28,8 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{subfig}
+\usepackage{float} % für Fließumgebungen; Platzierung H verschiebt nicht
+\restylefloat{figure}
 \hypersetup{
 	pdftitle={Pflichtenheft},
 	bookmarks=true,
@@ -861,7 +863,7 @@ Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählt
 
 
 \newpage
-Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, abgebrochenen und noch laufenden Simulationen (siehe \cref{fig:history}). Wird ein Eintrag angeklickt, erscheint rechts eine Zusammenfassung der Ergebnisse der ausgewählten Simulation (siehe \cref{fig:home_output}). Mit den Knöpfen (siehe \cref{fig:out_btn}) kann die Simulation wiederholt werden und die detailierten Ergebnisse als \(.csv\) Datei exportiert werden. Mit Schiebereglern wird die Wiederholung und im Falle einer Multikonfiguration die Konfiguration ausgewählt, für welche die Ergebnisse angezeigt werden.
+Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, abgebrochenen und noch laufenden Simulationen (siehe \cref{fig:history}). Wird ein Eintrag angeklickt, erscheint rechts eine Zusammenfassung der Ergebnisse der ausgewählten Simulation. Mit den Knöpfen (siehe \cref{fig:out_btn}) kann die Simulation wiederholt werden oder die verwendete Konfiguration als Datei exportiert werden. Die Ausgabe besteht aus drei Seiten, zwischen denen beliebig gewechselt werden kann.Die erste Seite zeigt eine detailierte Aufführung der Strategie- und Kapitalverteilung zu jeder Wiederholung (siehe \cref{fig:home_out_1}). Die zweite Seite zeigt in einer abstrahierten Ausgabe die Effizienz und die Einstellungsdauer von Gleichgewichten (siehe \cref{fig:home_out_2}). Im Falle einer Multikonfiguration wird auf der dritten Seite eine abstrahierte Ausgabe in Abhängigkeit des multikonfigurationsparameter gezeigt (siehe \cref{fig:home_out_3}).
 
 
 
@@ -878,13 +880,25 @@ Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, ab
 	\caption{\label{fig:out_btn}
 		Knöpfe zum Wiederholen und Exportieren der Ergebnisse einer Simulation}
 \end{figure}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/home_output.png}
-	\caption{\label{fig:home_output}
-		Ausgabe der Ergebnisse einer Simulation}
+	\includegraphics[width=0.9\textwidth]{images/home_out_1.png}
+	\caption{\label{fig:home_out_1}
+		Detailierte Ausgabe der Ergebnisse einer Simulation}
 \end{figure}
-\newpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/home_out_2.png}
+	\caption{\label{fig:home_out_2}
+		Detailierte Ausgabe der Ergebnisse einer Simulation}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/home_out_3.png}
+	\caption{\label{fig:home_out_3}
+		Detailierte Ausgabe der Ergebnisse einer Simulation}
+\end{figure}
+
 Über das Dateinmenü in der Menüleiste können Konfigurationen bearbeitet, gespeichert und geladen oder eine Simulation gestartet werden (siehe \cref{fig:menu1}).
 Das Erweiterungsmenü enthält Optionen zum erstellen eines neuen Stufenspiels oder einer neuen Strategie (siehe \cref{fig:menu2}). Im Hilfemenü finden sich Bedienhilfen und Informationen über den Simulator (siehe \cref{fig:menu3}).
 
