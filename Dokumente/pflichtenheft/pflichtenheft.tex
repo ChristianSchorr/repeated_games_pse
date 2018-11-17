@@ -831,6 +831,35 @@ Hier gilt: Funktionalität vor Design.
 {Er zieht per Drag-and-Drop den Ausdruck \enquote{(} \enquote{Der Gegenspieler hat letzes Mal kooperiert} \enquote{AND} \enquote{Der Gegenspieler hat ein höheres Absolutkapital} \enquote{)} in die \enquote{Wenn}-Bedingung. Er gibt den Namen \enquote{modifizierte Tit for Tat Variante} in das \enquote{Name}-Textfeld ein. Anschließend drückt er den \enquote{Speichern}-Knopf.}
 {Das \enquote{Strategie erstellen}-Fenster schließt sich. Die \enquote{modifizierte Tit for Tat Variante}-Strategie ist gespeichert und kann als Strategie ausgewählt werden.}
 
+\test{Ausgabe von Simulationsergebnissen}
+{tst:ausgabe}
+\tests{fnc:anzeigesim}
+\tests{fnc:simresults}
+
+\teststep{Klemens befindet sich im Startfenster.}
+{Er betätigt den \enquote{Play}-Knopf.}
+{In der Liste aller gestarteten Simulationen erscheint ein Eintrag für die soeben gestartete Simulation.}
+
+\teststep{Klemens befindet sich im Startfenster. Eine zuvor gestartete Simulation läuft gerade.}
+{Klemens fährt mit der Maus über den Listeneintrag der Simulation.}
+{Ein mit \enquote{X} beschrifteter Knopf erscheint auf dem Listeneintrag.}
+
+\teststep{Klemens' Maus befindet sich über dem Listeneintrag einer laufenden Simulation und ein mit \enquote{X} beschrifteter Knopf befindet sich darauf.}
+{Klemens betätigt den mit \enquote{X} beschrifteten Knopf.}
+{Die Simulation wird abgebrochen. Der Listeneintrag verhält sich wie spezifiziert.}
+
+\teststep{Klemens befindet sich im Startfenster. Eine zuvor gestartete Simulation ist abgeschlossen.}
+{Er klickt in der Liste auf den Eintrag der Simulation.}
+{Im Fensterabschnitt rechts der Liste erscheint die Seite \enquote{Simulationsergebnisse}. Dort werden wie spezifiziert Informationen zum Ablauf der gewählten Simulation angezeigt.}
+
+\teststep{Die Ausgabeseite \enquote{Simulationsergebnisse} einer abgeschlossenen Simulation wird angezeigt.}
+{Klemens betätigt den \enquote{>}-Knopf}
+{Die Anzeige wechselt zur Seite \enquote{Wiederholungsergebnisse}. Diese verhält sich wie spezifiziert}
+
+\teststep{Die Ausgabeseite \enquote{Simulationsergebnisse} einer Menge von durch Multikonfiguration gestarteten Simulationen wird angezeigt.}
+{Klemens betätigt den \enquote{<}-Knopf.}
+{Die Seite \enquote{Multikonfigurationsergebnisse} wird angezeigt. Diese verhält sich wie spezifiziert.}
+
 
 %%%%%%%%%%%%%
 \appendix
