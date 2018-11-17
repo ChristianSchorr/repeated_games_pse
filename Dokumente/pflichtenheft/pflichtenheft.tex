@@ -499,11 +499,11 @@ Hier gilt: Funktionalität vor Design.
 
 \teststep{Alice hat die Anwendung auf ihrem Computer installiert.}
 {Alice startet das Programm.}
-{Das Startfenster wird angezeigt (siehe \cref{??}).}
+{Das Startfenster wird angezeigt (siehe \cref{fig:home}).}
 
 \teststep{Alice sieht eine voreingestellte Simulation im Startfenster.}
 {Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf.}%
-{Das Konfigurationsfenster (siehe \cref{??}) öffnet sich.}
+{Das Konfigurationsfenster (siehe \cref{fig:konfig}) öffnet sich.}
 
 \teststep{Das Konfigurationsfenster mit allen Einstellungen zu einer Konfiguration wird angezeigt.}
 {Alice klickt auf das Dropdown Menü \enquote{Sufenspiel festlegen}.}%
@@ -560,8 +560,10 @@ Hier gilt: Funktionalität vor Design.
 {Bob aktiviert die Checkbox \enquote{gemischte Strategien} per Mausklick.}
 {Während der Simulation können die Agenten nun gemischte Strategien entwickeln. Ist die Checkbox hingegen deaktiviert, so sind nur pure Strategien zulässig.}
 
-\test{Simulation starten und abbrechen}{tst:runsim}
+\test{Simulationen starten, abbrechen und Ergebnisanzeige }{tst:runsim}
 \tests{fnc:simstart}
+\tests{fnc:anzeigesim}
+\tests{fnc:simresults}
 \tests{fnc:cancelsim}
 
 \teststep{Alice hat die gewünschte Einstellungen bereits in den Konfigurationen festgelegt. Sie befindet sich im Startfenster.}
@@ -575,6 +577,18 @@ Hier gilt: Funktionalität vor Design.
 \teststep{Der 'X'-Knopf wird über einer laufenden Simulation angezeigt.}
 {Alice betätigt den angezeigten 'X'-Knopf.}
 {Der Simulationslauf wird abgebrochen und in der Liste entsprechend gekennzeichnet.}
+
+\teststep{Alice befindet sich im Startfenster. In der Liste aller laufenden, abgeschlossenen und abgebrochenen Simulationen befindet sich die abgeschlosse Simulation mit Multikonfiguration \enquote{Gefangenendilemma} \#003.}
+{Alice klickt mit der Maus auf diese Simulation.}
+{Im Fensterabschnitt rechts neben der Liste wird die Seite 'Simulationsergebnisse' angezeigt (siehe \cref{fig:home_out_1}).}
+
+\teststep{Im Startfenster wird die Seite 'Simulationsergebnisse' angezeigt (siehe \cref{fig:home_out_1}).}
+{Alice drückt auf den \enquote{>} Knopf rechts unten im Fenster.}
+{Im Fensterabschnitt wird die Seite 'Wiederholungsergebnisse' angezeigt (siehe \cref{fig:home_out_2}).}
+
+\teststep{Im Startfenster wird die Seite 'Simulationsergebnisse' angezeigt (siehe \cref{fig:home_out_2}).}
+{Alice drückt auf den \enquote{>} Knopf rechts unten im Fenster.}
+{Im Fensterabschnitt wird die Seite 'Multikonfigurationsergebnisse' angezeigt (siehe \cref{fig:home_out_3}).}
 
 \test{Konfigurationsdatei abspeichern und hochladen}{tst:loadkonfig}
 \tests{fnc:loadConfig}
@@ -743,10 +757,11 @@ Hier gilt: Funktionalität vor Design.
 {Mit dem Slider direkt unter dem Dropdown-Menü setzt Anna den notwendigen Parameter \(w\) auf \(R/2\), wobei \(R\) der Rundenzahl entspricht.}
 {Der Erfolg eines Agenten wird anhand eines gleitenden Durchschnitts über die letzen \(w\) Runden gemessen. Die Anzahl \(w\) wird in dem Textfeld rechts neben dem Slider angezeigt.}
 
-\test{Festlegung des Adaptionsmechanismus}{tst:adapt}
+\test{Adaptionsmechanismus und maximale Anzahl an Adaptionen}{tst:adapt}
 \tests{fnc:algoadapt}
+\tests{fnc:maxadapts}
 
-\teststep{Im Kongigurationsfesnter ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
 {Alice klickt auf das Dropdown-Menü \enquote{Adaptionsmechanismus}.}
 {Eine Liste mit den Möglichkeiten \enquote{Replicator Dynamic} und  \enquote{Preferential Adoption} klappt nach unten auf.}
 
@@ -757,6 +772,10 @@ Hier gilt: Funktionalität vor Design.
 \teststep{Die Methode \enquote{Preferential Adoption} wurde als Adaptionsmechanismus ausgewählt.}
 {Unter dem dem Dropdown-Menü befinden sich 2 Slider für die nötigen Parameter \(\alpha\)) und \(\beta\)). Mit den Slidern wählt Alice den Wert 0.3 für \(\alpha\)) und \(\frac{0.7}{N - 1}\) für  \(\beta\)). \(N\) bezeichnet dabei die Anzahl der Agenten.}
 {Beide Werte werden in die entprechenden Textfelder rechts neben den Slidern eingetragen. Die Methode \enquote{Preferential Adoption} wurde nun mit diesen beiden Parametern konfiguriert.}
+
+\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+{Alice tippt im Textfeld \enquote{"Schranke für Adaptionsschritte"} 5.000 ein.}
+{Spätestens nach 5.000 Adaptionen bricht die Simulation ab.}
 
 \test{Gleichgewichtskriterium festlegen}{tst:equilibrium}
 \tests{fnc:equicondition}
@@ -772,6 +791,7 @@ Hier gilt: Funktionalität vor Design.
 \teststep{Das Kriterium \enquote{Ranggleichgewicht} wurde als  Gleichgewichtskriterium ausgewählt.}
 {Direkt unter dem Dropdown-Menü befinden sich 2 Slider, einen für den Wert \(\alpha\)) der die Stärke des Gleichgewichts aussagt, der andere für \(G\) der die Konstanz des Gleichgewichts aussagt. Bob setzt mit den Slidern \(\alpha\)) auf 0.1 und  \(G\) auf 120.}
 {Die mit den Slidern festgelgte Werte werden in die Textfelder rechts daneben eingetragen. Das Ranggleichgewicht wird mit diesen Parametern konfiguriert.}
+
 
 \test{Multikonfiguration von Gruppen}
 {tst:multikonfgr}
