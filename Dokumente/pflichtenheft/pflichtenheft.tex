@@ -522,15 +522,15 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
 {Alice zieht den Slider \enquote{Agenten} auf \(12\).}
-{Im Textfeld rechts des Sliders wird die Anzahl der Agenten, also \enquote{\(12\)} angezeigt.}
+{Im Textfeld rechts des Sliders wird die Anzahl der Agenten, also \(12\) angezeigt.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
 {Alice zieht den Slider \enquote{Runden} auf \(200\).}%
 {Im Textfeld rechts des Sliders wird die Rundenzahl \enquote{200} angezeigt.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
-{Im Textfeld \enquote{Wiederholungen} tippt Alice \enquote{7} ein.}
-{Die Anzahl an Wiederholungen wird wie gewollt auf 7 gesetzt.}
+{Im Textfeld \enquote{Wiederholungen} tippt Alice \(7\) ein.}
+{Die Anzahl an Wiederholungen wird wie gewollt auf \(7\) gesetzt.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
 {Alice betätigt den \enquote{\checkmark}-Knopf in der Toolbar.}
@@ -583,28 +583,20 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 \tests{fnc:saveConfig}
 
 \teststep{Donald befindet sich im Konfigurationsfenster.}
-{Er klickt auf den \enquote{Konfiguration Speichern}-Knopf in der Toolbar.}
+{Er betätigt den \enquote{Konfiguration speichern}-Knopf in der Toolbar.}
 {Ein Datei-Dialog öffnet sich.}
 
 \teststep{Donald wird der Datei-Dialog zum Speichern der aktuellen Konfiguration angezeigt.}
-{Er wählt als Speicherort den Desktop und gibt den Dateinamen \enquote{Testkonfiguration} ein. Dann bestätigt er den \enquote{Speichern}-Knopf.}
+{Er wählt als Speicherort den Desktop und gibt den Dateinamen \enquote{Testkonfiguration} ein. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Der Datei-Dialog schließt sich. Auf dem Desktop von Donald befindet sich jetzt eine Konfigurationsdatei namens \enquote{Testkonfiguration}.}
 
-\teststep{Donald hat eine Konfigurationsdatei auf seinem Desktop abgespeichert. Seine Kollegin Alice will auch darauf zugreifen können. Donald schickt ihr die Datei per E-Mail und Alice speichert sie auf dem Desktop ab.}
-{Alice startet die Anwendung.}
-{Das Startfenster öffnet sich.}
-
-\teststep{Alice befindet sich im Startfenster.}
-{Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf (siehe \cref{??}).}
-{Das Konfiguartionsfenster öffnet sich.}
-
 \teststep{Alice befindet sich im Konfigurationsfenster.}
-{Sie klickt auf das 'Upload'-Zeichen (siehe \cref{??}) in der Toolbar.}
-{Ein Datei-Dialog öffnet sich.}
+{Sie betätigt den \enquote{Konfiguration laden}-Knopf in der Toolbar.}
+{Ein Datei-Dialog öffnet sich}
 
-\teststep{Der Datei-Dialog ist geöffnet.}
-{Alice navigiert zum Desktop und wählt die Konfigurationsdatei. Sie bestätigt ihre Wahl mit Mausklick auf den 'Öffen'-Button.}
-{Der Datei-Dialog schließt sich. Die Konfigurationsdatei wird importiert. Im Konfigurationsfenster befinden sich nun genau die Einstellungen, die Donald gewählt und dann abgespeichert hatte.}
+\teststep{Alice wird der Datei-Dialog zum Laden einer Konfiguration angezeigt.}
+{Sie navigiert zum Desktop und wählt eine Datei namens \enquote{Testkonfiguration}, die ihr Kollege Donald ihr per E-Mail geschickt hat. Dann betätigt sie den \enquote{Laden}-Knopf.}
+{Der Datei-Dialog schließt sich und die aktuelle Konfiguration wird ersetzt durch die aktuelle Konfiguration Donalds, als er die Datei erstellte.}
 
 \test{Gruppen- und Segmenteinteilung}
 {tst:group/segmentclassification}
@@ -613,231 +605,156 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 \tests{fnc:initialstrat}
 \tests{fnc:initialcap}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit der Agentenzahl 100.}
-{Sie klickt den Knopf am linken Rand des \enquote{Gruppeneinstellungen}-Separators.}
-{Der Abschnitt Gruppeneinstellungen wird ausgeklappt. Es sind null Gruppen eingestellt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Die eingestellte Agentenzahl beträgt \(100\). Der Abschnitt \enquote{Gruppeneinstellungen} wird angezeigt.}
+{Sie betätigt den \enquote{Gruppe hinzufügen}-Knopf.}
+{Eine neue Gruppe mit \(50\) Mitgliedern wird hinzugefügt. Auf dem Multislider erscheint ein Schiebeknopf und der Abschnitt links des Schiebeknopfes wird gefärbt. Unter dem Slider erscheint ein neuer Tab \enquote{Gruppe 1}.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt.}
-{Sie klickt auf den \enquote{Gruppe hinzufügen}-Knopf.}
-{Eine neue Gruppe mit null Mitgliedern wird hinzugefügt und ein neuer Punkt erscheint auf dem Multislider der die Gruppen anzeigt.}
+\teststep{Der Abschnitt \enquote{Gruppeneinstellungen} wird angezeigt.}
+{Anna klickt auf den mit \enquote{Gruppenlose Agenten} beschrifteten Tab.}
+{Unter dem Slider wird der Abschnitt zur Konfiguration der gruppenlosen Agenten angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt.}
-{Sie zieht den Punkt im Multislider von ganz links in die Mitte.}
-{Der Abschnitt links vom Punkt auf dem Multislider färbt sich in der Gruppenfarbe. Der rechte Abschnitt bleibt weiß für die Gruppenlosen. Über dem linken und dem rechten Abschnitt auf dem Multislider steht jeweils die Zahl 50.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt.}
+{Sie betätigt den \enquote{Segment hinzufügen}-Knopf.}
+{Ein neues Segment wird hinzugefügt. Auf dem Slider erscheint ein Schiebeknopf und ein neuer Tab \enquote{2. Segment} erscheint unter dem Slider.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt.}
-{Sie klickt auf den rechten Abschnitt, der in der weiß markiert ist, des Multisliders.}
-{Unterhalb des Sliders befindet sich nun der Abschnitt zur Konfiguration der gruppenlosen Agenten. In diesem ist der \enquote{Segment löschen}-Knopf ausgegraut.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt.}
+{Sie betätigt drei weitere Male den \enquote{Segment hinzufügen}-Knopf.}
+{Multislider und Tab-Control verhalten sich wie spezifiziert. Der \enquote{Segment hinzufügen}-Knopf ist ausgegraut.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten. Der \enquote{Segment löschen}-Knopf ist ausgegraut}
-{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
-{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 2 Segmente aufgeteilt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt.}
+{Sie zieht die Schiebeknöpfe der Segmente auf \(1/5,\ 2/5,\ 3/5 \text{ und } 4/5\) der Länge des Multisliders.}
+{Über den Abschnitten des Multisliders wird jeweils die Zahl \(10\) angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 2 Segmenten.}
-{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
-{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 3 Segmente aufgeteilt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
+{Sie betätigt den \enquote{X}-Knopf im aktuellen Tab.}
+{Das \(5\)te Segment wird gelöscht und der Tab \enquote{4. Segment} wird angezeigt. Der rechtsgelegenste Schiebeknopf auf dem Slider verschwindet und auf dem rechtsgelegensten Abschnitt wird die Zahl \(20\) angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 3 Segmenten.}
-{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
-{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 4 Segmente aufgeteilt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
+{Im Abschnitt \enquote{Initiales Kapital} wählt sie die Binomialverteilung und stellt die Parameter \(p = 0.7\) sowie \(80\) und \(90\) für untere und obere Schranke ein.}
+{Ein Graph der eingestellten Verteilung wird rechts der Parameter angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 4 Segmenten.}
-{Sie betätigt den \enquote{Segment hinzufügen}-Knopf der sich unterhalb der enquote{Segmenteinstellungen}-Überschrift befindet.}
-{Im Multislider der Segmenteinstellungen erscheint ein neuer Punkt. Die gruppenlosen Agenten sind in 5 Segmente aufgeteilt. Der \enquote{Segment hinzufügen}-Knopf ist ausgegraut.}
-
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 5 Segmenten.}
-{Sie zieht die Punkte der Segmente auf 1/5, 2/5, 3/5 und 4/5 der Länge des Multisliders}
-{Über den Abschnitten des Multisliders erscheint jeweils die Zahl 10}
-
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 5 Segmenten. Die Konfiguration des 5. Segments wird angezeigt.}
-{Sie klickt auf den Tap 4.Segment.}
-{Die Konfiguration des 4.Segments wird angezeigt.}
-
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 5 Segmenten. Die Konfiguration des 4. Segments wird angezeigt.}
-{Sie betätigt den \enquote{X}-Knopf im Tab des 4.Segments.}
-{Der Bestätigungs-Dialog zum Löschen des 4.Segments wird angezeigt.}
-
-\teststep{Anna befindet sich im Bestätigungs-Dialog um das 4.Segment zu löschen.}
-{Sie klickt auf bestätigen.}
-{Der Bestätigungs-Dialog schließt sich. Das 4. Segment wird entfernt und über dem rechtesten Abschnitt des Multisliders steht die Zahl 20.}
-
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 4 Segmenten.}
-{Sie klickt das letze Segment im Multislider an.}
-{Unterhalb des Sliders wird die Konfiguration des Segments dargestellt.}
-
-\teststep{Anna befindet sich in der Konfiguration des 4. Segments der gruppenlosen Agenten}
-{Sie wählt bei der Kapitalverteilung Normalverteilung aus, gibt den Mittelwert 70 und die Standardabweichung 10 ein.}
-{Normalverteilung ist ausgewählt, das \enquote{Mittelwert}-Textfeld hat den Wert 70 und das \enquote{Standardabweichung}-Textfeld hat den Wert 10. Rechts daneben wird die Verteilung mit einem Schaubild dargestellt. Das Initialkapital des 4.Segments der gruppenlosen Agenten ist normalverteilt auf die 20 Agenten mit dem Wert 70 und einer Abweichung von 10.}
-
-\teststep{Anna befindet sich in der Konfiguration des 4. Segments der gruppenlosen Agenten}
-{Sie klickt bei der Strategieeinteilung in der Rubrik verfügbare Strategien auf Grim und betätigt den \enquote{>}-Knopf.}
-{Grim steht nicht mehr bei den verfügbaren Strategien. Grim steht bei den ausgewählten Strategien. Die Initialstrategie des 4.Segments der gruppenlosen Agenten ist Grim.}
-
-\teststep{Anna befindet sich im Konfigurationsfenster mit ausgeklapptem Gruppeneinstellungs-Abschnitt in der Konfiguration der gruppenlosen Agenten mit 4 Segmenten.}
-{Sie klickt auf den Separator des Gruppeneinstellungs-Abschnitt}
-{Die Gruppeneinstellungs-Abschnitt klappt sich zu.}
-
-\teststep{Anna befindet sich im Konfigurationsfenster.}
-{Anna betätigt den \enquote{Haken}-Knopf in der Toolbar.}
-{Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
+{Im Abschnitt \enquote{Initiale Strategien} klickt sie in der Liste \enquote{verfügbare Strategien} auf Grim und betätigt den \enquote{>}-Knopf.}
+{Grim steht nicht mehr bei den verfügbaren Strategien. Grim steht bei den ausgewählten Strategien.}
 
 \test{Stufenspiel erstellen}
 {tst:creategame}
 \tests{fnc:createNewGame}
 
-\teststep{Frank befindet sich im Hauptfenster.}
-{Er bewegt die Maus über den Reiter Erweiterungen in der Menüleiste.}
-{Es öffnet sich ein Dropdown-Menü.}
+\teststep{Frank befindet sich im Startfenster.}
+{Er navigiert in der Menüleiste zum Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Stufenspiel erstellen} und betätigt ihn.}
+{Das Fenster zur Erstellung eines Stufenspiels öffnet sich.}
 
-\teststep{Frank befindet sich im Hauptfenster, das Dropdownmenü Erweiterungen ist geöffnet.}
-{Er klickt auf Stufenspiel erstellen.}
-{Das Stufenspielerstellenfenster öffnet sich.}
-
-\teststep{Frank befindet sich im Stufenspielerstellenfenster.}
-{Er schreibt in das \enquote{Name}-Textfeld den Namen \enquote{modefiziertes Gefangenendilemma} ein.}
-{Im \enquote{Name}-Textfeld steht modefiziertes Gefangenendilemma}
-
-\teststep{Frank befindet sich im Stufenspielerstellenfenster.}
-{Er füllt die Bimatrix wie folgt aus:
-\begin{itemize}
-\item Feld links-oben(Kooperation beider Spieler): 5\textbackslash 5
-\item Feld links-unten(nicht-Kooperation von Spieler1 und Kooperation von Spieler2): 0\textbackslash 1
-\item Feld rechts-oben(Kooperation von Spieler1 und nicht-Kooperation von Spieler2): 1\textbackslash 0
-\item Feld rechts-unten(nicht-Kooperation von beiden Spielern): 7\textbackslash 7
-\end{itemize}}
-{Die eingegebenen Daten stehen in an der entsprechenden Stelle in der Bimatrix.}
-
-\teststep{Frank befindet sich im Stufenspielerstellenfenster.}
-{Er schreibt in das \enquote{Beschreibung}-Textfeld: \enquote{Eine modifizierte Variante des Gefangenendilemma bei dem Kooperation des einen und nicht-Kooperation des anderen sinvoll ist.}}
-{Die eingegebene Beschreibung steht im \enquote{Beschreibung}-Textfeld}
-
-\teststep{Frank befindet sich im Stufenspielerstellenfenster und hat einen Namen und eine Beschreibung eingegeben und die Bimatrix ausgefüllt.}
-{Er klickt auf den \enquote{Speichern}-Knopf.}
-{Das Fenster schließt sich und das Stufenspiel wird gespeichert. Es erscheint im Konfigurationsfenster in der Stufenspielauswahl.}
+\teststep{Frank befindet sich im Fenster zur Erstellung eines Stufenspiels.}
+{Er trägt als Namen \enquote{modifiziertes Gefangenendilemma} und als Beschreibung \enquote{Eine modifizierte Variante des Gefangenendilemmas, bei der Nicht-Kooperation beider Spieler stärker bestraft wird.} in die entsprechenden Textfelder ein. Die Bimatrix füllt er gemäß
+\[
+\left[ \begin{array}{rr}
+-2 / -2 & -1 / -6 \\
+-6 / -1 & -5 / -5 \\
+\end{array}\right]
+\]
+aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
+{Das Fenster schließt sich und ein neues Stufenspiel mit Namen, Beschreibung und Auszahlungen wie eingetragen wird im Programm hinterlegt.}
 
 \test{Festlegung des Algorithmus zur Paarbildung}{tst:matchalgo}
 \tests{fnc:algopaar}
 
-\teststep{Donald befindet sich im Konfigurationsfenster}
-{Er betätigt den Knopf am linken Rand des \enquote{Erweiterte Einstellungen}-Separators.}
-{Der Abschnitt mit den erweiterten Einstellungen wird ausgeklappt.}
+\teststep{Donald befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt.}
+{Donald klickt auf das Dropdown-Menü \enquote{Paarbildungsalgorithmus}.}
+{Eine Liste mit den Einträgen \enquote{Zufällige Paarbildung} und \enquote{Paarbildung mit Wunsch} klappt auf.}
 
-\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
-{Donald klickt auf das Dropdown-Menu \enquote{Paarbildungsalgorithmus}.}
-{Eine Liste mit 2 Möglichkeiten klappt nach unten auf, \enquote{Zufällige Paarbildung} sowie \enquote{Paarbildung nach Wunsch} sind möglich}
-
-\teststep{Das Dropdown-Menü zu dem Paarbildungsalgorithmus ist aufgeklappt.}
-{Donald wählt  \enquote{Paarbildung nach Wunsch} per Mausklick aus.}
-{Das Dropdown-Menü schließt sich. Bei der Paarbildung nach jeder Runde wird nun die Kooperationswahrscheinlichkeit der Agenten untereinander berücksichtigt.}
+\teststep{Das Dropdown-Menü zum Paarbildungsalgorithmus ist ausgeklappt.}
+{Donald klickt auf den Eintrag \enquote{Paarbildung mit Wunsch}.}
+{Das Dropdown-Menü schließt sich und zeigt \enquote{Paarbildung mit Wunsch} an.}
 
 \test{Festlegung der Erfolgsquantifizierung}{tst:success}
 \tests{fnc:erfolg}
 
-\teststep{Im Kongigurationsfesnter ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+\teststep{Donald befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt.}
 {Anna klickt auf das Dropdown-Menü \enquote{Erfolgsquantifizierung}.}
-{Eine Liste mit den Möglichkeiten \enquote{Absolute Auszahlung} und  \enquote{Gleitender Durchschnitt} klappt nach unten auf.}
+{Eine Liste mit den Einträgen \enquote{Absolute Auszahlung} und  \enquote{Gleitender Durchschnitt} klappt aus.}
 
-\teststep{Das Dropdown-Menü zur Erfolgsquantifizierung ist aufgeklappt.}
-{Anna wählt \enquote{Gleitender Durchschnitt} per Mausklick aus.}
-{Das Dropdown-Menü schließt sich. Der Erfolg eines Agenten wird anhand eines gleitenden Durchschnitts gemessen.}
+\teststep{Das Dropdown-Menü zur Erfolgsquantifizierung ist ausgeklappt.}
+{Anna klickt auf den Eintrag \enquote{Gleitender Durchschnitt}.}
+{Das Dropdown-Menü schließt sich und zeigt \enquote{Gleitender Durchschnitt} an. Darunter befindet sich ein mit \enquote{Fenstergröße} betitelter Slider zur Einstellung des Parameters \(w\).}
 
-\teststep{Im Dropdown-Menü zur Erfolgsquantifizierung wurde \enquote{Gleitender Durchschnitt} gewählt.}
-{Mit dem Slider direkt unter dem Dropdown-Menü setzt Anna den notwendigen Parameter \(w\) auf \(R/2\), wobei \(R\) der Rundenzahl entspricht.}
-{Der Erfolg eines Agenten wird anhand eines gleitenden Durchschnitts über die letzen \(w\) Runden gemessen. Die Anzahl \(w\) wird in dem Textfeld rechts neben dem Slider angezeigt.}
+\teststep{Anna befindet sich im Abschnitt \enquote{Erweiterte Einstellungen}. Als Erfolgsquantifizierung ist \enquote{Gleitender Durchschnitt} eingestellt. In der aktuellen Konfiguration sind \(200\) Runden pro \adapt\ eingestellt.}
+{Anna zieht den Schiebeknopf auf dem mit \enquote{Fenstergröße} betitelten Slider auf die Mitte.}
+{Im Textfeld rechts des Sliders wird \(100\) angezeigt.}
 
-\test{Adaptionsmechanismus und maximale Anzahl an Adaptionen}{tst:adapt}
+\test{Adaptionsmechanismus festlegen}{tst:adapt}
 \tests{fnc:algoadapt}
+
+\teststep{Alice befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt.}
+{Alice klickt auf das Dropdown-Menü \enquote{Adaptionsmechanismus}.}
+{Eine Liste mit den Einträgen \enquote{Replicator Dynamic} und  \enquote{Preferential Adaption} klappt aus.}
+
+\teststep{Das Dropdown-Menü zum Adaptionsmechanismus ist ausgeklappt.}
+{Alice klickt auf den Eintrag \enquote{Preferential Adaption}.}
+{Das Dropdown-Menü schließt sich und zeigt \enquote{Preferential Adoption} an. Unter dem Menü befinden sich zwei Slider und Textfelder zur Einstellung der Parameter \(\alpha\) und \(\beta\) (siehe \cref{fig:konfig_adv}).}
+
+\teststep{Alice befindet sich im Abschnitt \enquote{Erweiterte Einstellungen}. Als Adaptionsmechanismus ist \enquote{Preferential Adaption} eingestellt.}
+{Alice stellt mit den Slidern die Werte \(0.3\) und \(0.7\) für \(\alpha\) und \(\beta\) ein.}
+{Beide Werte werden in den entsprechenden Textfeldern rechts der Slider angezeigt.}
+
+\test{Gleichgewichtskriterium und Schranke für \adapts\ festlegen}{tst:equilibrium}
+\tests{fnc:equicondition}
 \tests{fnc:maxadapts}
 
-\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
-{Alice klickt auf das Dropdown-Menü \enquote{Adaptionsmechanismus}.}
-{Eine Liste mit den Möglichkeiten \enquote{Replicator Dynamic} und  \enquote{Preferential Adoption} klappt nach unten auf.}
-
-\teststep{Das Dropdown-Menü zum Adaptionsmechanismus ist aufgeklappt.}
-{Alice wählt \enquote{Preferential Adoption} per Mausklick aus.}
-{Das Dropdown-Menü schließt sich. Anhand der Methode  \enquote{Preferential Adoption} passen sich die Agenten an die Strategien der anderen Agenten an.}
-
-\teststep{Die Methode \enquote{Preferential Adoption} wurde als Adaptionsmechanismus ausgewählt.}
-{Unter dem dem Dropdown-Menü befinden sich 2 Slider für die nötigen Parameter \(\alpha\)) und \(\beta\)). Mit den Slidern wählt Alice den Wert 0.3 für \(\alpha\)) und \(\frac{0.7}{N - 1}\) für  \(\beta\)). \(N\) bezeichnet dabei die Anzahl der Agenten.}
-{Beide Werte werden in die entprechenden Textfelder rechts neben den Slidern eingetragen. Die Methode \enquote{Preferential Adoption} wurde nun mit diesen beiden Parametern konfiguriert.}
-
-\teststep{Im Konfigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
-{Alice tippt im Textfeld \enquote{"Schranke für Adaptionsschritte"} 5.000 ein.}
-{Spätestens nach 5.000 Adaptionen bricht die Simulation ab.}
-
-\test{Gleichgewichtskriterium festlegen}{tst:equilibrium}
-\tests{fnc:equicondition}
-
-\teststep{Im Kongigurationsfenster ist der Abschnitt zu den erweiterten Einstellungen aufgeklappt.}
+\teststep{Bob befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt.}
 {Bob klickt auf das Dropdown-Menü \enquote{Gleichgewichtskriterium}.}
-{Eine Liste mit den Möglichkeiten \enquote{Strategiegleichgewicht} und  \enquote{Ranggleichgewicht} klappt nach unten auf.}
+{Eine Liste mit den Einträgen \enquote{Strategiegleichgewicht} und  \enquote{Ranggleichgewicht} klappt aus.}
 
-\teststep{Das Dropdown-Menü zum Gleichgewichtskriterium ist aufgeklappt.}
-{Bob wählt \enquote{Ranggleichgewicht} per Mausklick aus.}
-{Das Dropdown-Menü schließt sich. Ein Gleichgewicht ist nun vom Rang der Spieler abhängig.}
+\teststep{Das Dropdown-Menü zum Gleichgewichtskriterium ist ausgeklappt.}
+{Bob klickt auf den Eintrag \enquote{Ranggleichgewicht}.}
+{Das Dropdown-Menü schließt sich und zeigt \enquote{Ranggleichgewicht} an. Unter dem Menü befinden sich Slider und Textfelder zur Einstellung der Parameter \(\alpha\) und \(G\) (siehe \cref{fig:konfig_adv}.}
 
-\teststep{Das Kriterium \enquote{Ranggleichgewicht} wurde als  Gleichgewichtskriterium ausgewählt.}
-{Direkt unter dem Dropdown-Menü befinden sich 2 Slider, einen für den Wert \(\alpha\)) der die Stärke des Gleichgewichts aussagt, der andere für \(G\) der die Konstanz des Gleichgewichts aussagt. Bob setzt mit den Slidern \(\alpha\)) auf 0.1 und  \(G\) auf 120.}
-{Die mit den Slidern festgelgte Werte werden in die Textfelder rechts daneben eingetragen. Das Ranggleichgewicht wird mit diesen Parametern konfiguriert.}
+\teststep{Bob befindet sich im Abschnitt \enquote{Erweiterte Einstellungen}. Als Gleichgewichtskriterium ist \enquote{Ranggleichgewicht} eingestellt.}
+{Bob stellt mit den Slidern \(0.1\) und \(120\) für \(\alpha\) und \(G\) ein.}
+{Beide Werte werden in den entsprechenden Textfeldern rechts der Slider angezeigt.}
 
+\teststep{Bob befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt.}
+{Alice tippt im Textfeld \enquote{Schranke für Adaptionsschritte} \(5.000\) ein.}
+{Der Inhalt des Textfelds wird wie gewollt abgeändert.}
 
-\test{Multikonfiguration von Gruppen}
+\test{Multikonfiguration von Gruppen und Segmenten}
 {tst:multikonfgr}
 \tests{fnc:multikonfgr}
 \tests{fnc:groups}
-
-\teststep{Max befindet sich im Konfigurationsfenster in der Konfiguration der Gruppen. Es sind zwei Gruppen ausgewählt mit jeweils 50 Agenten. Die \enquote{Gruppen-Multikonfigurations}-Checkbox ist nicht auswählbar.}
-{Er betätigt den \enquote{X}-Knopf im Tap der zweiten Gruppe.}
-{Die zweite Gruppe wird gelöscht und die 50 Agenten von Gruppe2 sind nun gruppenlos. Die \enquote{Gruppen-Multikonfigurations}-Checkbox ist nun auswählbar.}
-
-\teststep{Max befindet sich im Konfigurationsfenster in der Konfiguration der Gruppen. Es ist gibt eine Gruppe mit 50 Agenten und 50 gruppenlose Agenten.}
-{Er klickt auf die \enquote{Gruppen-Multikonfiguration}-Checkbox.}
-{Der Slider zum einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen ist der \enquote{Multikonfiguration}-Unterabschnitt veränderbar.}
-
-\teststep{Max befindet sich im \enquote{Multikonfiguration}-Unterabschnitt des \enquote{Erweiterte Einstellungen}-Abschnitt.}
-{Er gibt in das \enquote{Startwert}-Textfeld 20, in das \enquote{Endwert}-Textfeld 80 und in das \enquote{Schnittweite}-Textfeld 10 ein.}
-{Die eingegebenen Werte stehen in den entsprechenden Textfeldern und für die Multikonfiguration verwendet.}
-
-\teststep{Max befindet sich im Konfigurationsfenster.}
-{Er klickt in der Toolbar auf den \enquote{Haken}-Knopf.}
-{Das Konfigurationsfenster schließt sich und das Hauptfenster öffnet sich. Eine Zusammenfassung der Konfiguration wird angezeigt.}
-
-\test{Multikonfiguration von Segmenten}
-{tst:multikonfseg}
 \tests{fnc:multikonfseg}
 \tests{fnc:segments}
 
-\teststep{Anna befindet sich im Konfigurationsfenster in der Konfiguration der Segmente. Es ist ein Segment eingestellt. Die \enquote{Segment-Multikonfiguration}-Checkbox ist nicht auswählbar.}
-{Sie betätigt den \enquote{Segment hinzufügen}-Knopf.}
-{Auf dem Multislider erscheint ein Schiebe-Knopf. Ein neuer Tab öffnet sich unterhalb des Multisliders mit den Konfigurationen des 2.Segemnts. Es sind zwei Segment eingestellt. Die \enquote{Segment-Multikonfiguration}-Checkbox ist auswählbar.}
+\teststep{Max befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Gruppeneinstellungen} ist geöffnet. Es ist eine Gruppe eingestellt.}
+{Er aktiviert die \enquote{Multikonfiguration}-Checkbox.}
+{Der Slider zum Einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} erscheint der Unterabschnitt \enquote{Multikonfiguration}.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster in der Konfiguration der Segmente. Es sind zwei Segment eingestellt. Die \enquote{Segment-Multikonfiguration}-Checkbox ist auswählbar.}
-{Sie klickt auf die \enquote{Segment-Multikonfiguration}-Checkbox.}
-{Der Slider zur Einstellung der Segmentgröße und der \enquote{Segment hinzufügen}-Knopf werden ausgegraut. Der Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} ist nun einstellbar.}
+\teststep{Die Multikonfiguration für Gruppen ist aktiviert. Max befindet sich im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen}.}
+{Er gibt in das \enquote{Startwert}-Textfeld \(20\%\), in das \enquote{Endwert}-Textfeld \(80\%\) und in das \enquote{Schnittweite}-Textfeld \(10\%\) ein.}
+{Die eingegebenen Werte werden in die Textfelder übernommen.}
 
-\teststep{Anna befindet sich im Unterabschnitt \enquote{Multikonfiguration} des Abschnitt \enquote{Erweiterte Einstellungen} im Konfigurationsfenster.}
-{Sie gibt in das \enquote{Startwert}-Textfeld 30, in das \enquote{Endwert}-Textfeld 70 und in das \enquote{Schnittweite}-Textfeld 5 ein.}
-{Die eingegebenen Werte stehen in den entsprechenden Textfeldern und für die Multikonfiguration verwendet.}
+\teststep{Anna befindet sich im Konfigurationsfenster und der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt. Es ist ein Segment eingestellt.}
+{Sie aktiviert die \enquote{Multikonfiguration}-Checkbox.}
+{Der Slider zur Einstellung der Segmentgröße und der \enquote{Segment hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} erscheint der Unterabschnitt \enquote{Multikonfiguration}.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster.}
-{Sie klickt in der Toolbar auf den \enquote{Haken}-Knopf.}
-{Das Konfigurationsfenster schließt sich und das Hauptfenster öffnet sich. Eine Zusammenfassung der Konfiguration wird angezeigt.}
+\teststep{Die Multikonfiguration für Segmente bei den gruppenlosen Agenten ist aktiviert. Anna befindet sich im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen}.}
+{Sie gibt in das \enquote{Startwert}-Textfeld \(30\%\), in das \enquote{Endwert}-Textfeld \(70\%\) und in das \enquote{Schrittweite}-Textfeld \(5\%\) ein.}
+{Die eingegebenen Werte werden in die Textfelder übernommen.}
 
 \test{Strategie erstellen}
 {tst:createstrat}
 \tests{fnc:createstrat}
 
-\teststep{Hans befindet sich im Hauptfenster.}
-{Er klickt in der Menüleiste auf \enquote{Erweiterungen} und anschließend auf \enquote{Strategie erstellen}.}
-{Es öffnet sich das \enquote{Strategie erstellen}-Fenster.}
+\teststep{Hans befindet sich im Startfenster.}
+{Er navigiert in der Menüleiste zum Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Strategie erstellen} und betätigt ihn.}
+{Das Fenster zur Erstellung einer Strategie öffnet sich.}
 
-\teststep{Hans befindet sich im \enquote{Strategie erstellen}-Fenster. Der \enquote{Wenn}-Ausdruck ist leer, das \enquote{Dann}-Dropdownmenü ist auf Kooperieren und das \enquote{Sonst}-Dropdownmenü auf Nicht-Kooperieren eingestellt.}
-{Er wählt im \enquote{Dann}-Dropdownmenü \enquote{Tit for Tat} aus und im \enquote{Sonst}-Dropdownmenü \enquote{grim} aus. Anschließend drückt er den \enquote{Reset}-Knopf}
-{Das \enquote{Strategie erstellen}-Fenster wird auf die Voreinstellungen (siehe Stand) zurückgesetzt.}
+\teststep{Hans befindet sich im Fenster zur Erstellung einer Strategie.}
+{Er wählt im \enquote{Dann}-Dropdown-Menü \enquote{Tit-for-Tat} und im \enquote{Sonst}-Dropdown-Menü \enquote{Grim} aus. Anschließend drückt er den \enquote{Reset}-Knopf.}
+{Das Fenster wird auf die Voreinstellungen zurückgesetzt.}
 
-\teststep{Hans befindet sich im \enquote{Strategie erstellen}-Fenster. Der \enquote{Wenn}-Ausdruck ist leer, das \enquote{Dann}-Dropdownmenü ist auf Kooperieren und das \enquote{Sonst}-Dropdownmenü auf Nicht-Kooperieren eingestellt.}
-{Er zieht per Drag-and-Drop den Ausdruck \enquote{(} \enquote{Der Gegenspieler hat letzes Mal kooperiert} \enquote{AND} \enquote{Der Gegenspieler hat ein höheres Absolutkapital} \enquote{)} in die \enquote{Wenn}-Bedingung. Er gibt den Namen \enquote{modifizierte Tit for Tat Variante} in das \enquote{Name}-Textfeld ein. Anschließend drückt er den \enquote{Speichern}-Knopf.}
-{Das \enquote{Strategie erstellen}-Fenster schließt sich. Die \enquote{modifizierte Tit for Tat Variante}-Strategie ist gespeichert und kann als Strategie ausgewählt werden.}
+\teststep{Hans befindet sich im Fenster zur Erstellung einer Strategie.}
+{Er erstellt den Ausdruck \enquote{(Der Gegenspieler hat letztes Mal kooperiert AND Der Gegenspieler hat ein höheres Absolutkapital)} als \enquote{Wenn}-Bedingung und gibt als Namen \enquote{Tit-for-Tat Variante} in das entsprechende Textfeld ein. Anschließend drückt er den \enquote{Speichern}-Knopf.}
+{Das Fenster schließt sich und eine neue Strategie mit Namen und Boole'schem Ausdruck wie spezifiziert wird im Programm hinterlegt.}
 
 
 %%%%%%%%%%%%%
