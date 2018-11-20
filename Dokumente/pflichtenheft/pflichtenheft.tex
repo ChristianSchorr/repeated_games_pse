@@ -53,7 +53,7 @@
 
 \section{Einleitung}
 
-Ziel dieses Projekts ist die Entwicklung einer Simulationsumgebung für wiederholte Spiele. Sie ist aus der Forschung motiviert und für den Einsatz in der Forschung ausgelegt. Die Simulationsumgebung wird verwendet, um das Entstehen von Gleichgewichtszuständen bei wiederholten Spielen mehrerer Agenten zu untersuchen. 
+Ziel dieses Projekts ist die Entwicklung einer Simulationsumgebung für wiederholte Spiele. Sie ist aus der Forschung motiviert und für den einsatz in der Forschung ausgelegt. Die Simulationsumgebung wird verwendet, um das Entstehen von Gleichgewichtszuständen bei wiederholten Spielen mehrerer Agenten zu untersuchen. 
 
 Es folgt eine Erläuterung des dem Simulator zugrundeliegenden Ablaufs. Dazu sei auch auf \cref{?} verwiesen.
 
@@ -266,7 +266,7 @@ Dieser Mechanismus berücksichtigt die Kooperationswahrscheinlichkeiten der Agen
 \[
 \sum_{\{i,j\} \in M} \left(p_{ij} + p_{ji}\right)
 \]
-möglichst maximal wird.
+möglichst maximal wird\footnote{Zur Laufzeit-Verbesserung dürfen hier Heuristiken zum einsatz kommen, die nur approximativ maximale Lösungen finden.}.
 
 Voreingestellt ist \enquote{Zufällige Paarbildung}.
 
@@ -334,7 +334,7 @@ Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und
 \]
 ein Maß für die Änderungen in der Rangliste zwischen den aufeinanderfolgenden \adapts n berechnet. Ist nun \(\Delta_\text{R} < \alpha \cdot \frac{N^2}{2}\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Rang erreicht.
 
-Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \enquote{Gleichgewicht nach Strategien} mit \(\alpha = 0.1\) und \(G = 100\). Ebenfalls unter dem Dropdown-Menü befindet sich ein Slider zur Einstellung der maximalen Anzahl durchzuführender \adapts\. Möglich sind natürliche Zahlen zwischen \(100\) und \(10.000\). Voreingestellt ist \(3.000\).
+Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \enquote{Gleichgewicht nach Strategien} mit \(\alpha = 0.1\) und \(G = 100\).
 
 \functionality{Festlegung der maximalen Zahl durchzuführender \adapts}{fnc:maxadapts}
 \fulfills{crt:simparam_std}
@@ -344,11 +344,11 @@ Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Ein
 
 \functionality{Multikonfiguration von Gruppen}{fnc:multikonfgr}
 \fulfills{crt:multikonf}
-Beträgt die Anzahl von Gruppen in einer Konfiguration genau Eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{Multikonfiguration} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{?}). Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{?}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
+Beträgt die Anzahl von Gruppen in einer Konfiguration genau eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{Multikonfiguration} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden (siehe \cref{?}). Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{?}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der die Größe der Gruppe einen entsprechenden Anteil an der Zahl aller Agenten hat. Die restlichen Konfigurationsparameter bleiben gleich.
 
-Ist die aktuell eingestellte Anzahl von Gruppen nicht Eins oder wurde für eine Gruppe bereits die \segment -Multikonfiguration aktiviert, so kann die Gruppen-Multikonfiguration nicht aktiviert werden.
+Ist die aktuell eingestellte Anzahl von Gruppen nicht eins oder wurde bereits die Multikonfiguration eines anderen Parameters oder für eine Gruppe die \segment -Multikonfiguration aktiviert, so kann die Gruppen-Multikonfiguration nicht aktiviert werden.
 
 \functionality{Multikonfiguration von \segments n}{fnc:multikonfseg}
 \fulfills{crt:multikonf}
@@ -356,12 +356,25 @@ Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \s
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der das erste \segment\ der Gruppe entsprechend groß ist und das zweite \segment\ den Rest der Gruppe einnimmt. Die restlichen Konfigurationsparameter bleiben gleich.
 
-Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder wurde die Gruppen-Multikonfiguration oder die \segment -Multikonfiguration für eine andere Gruppe bereits aktiviert, so kann die \segment -Multikonfiguration für diese Gruppe nicht aktiviert werden.
+Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder wurde die Gruppen-Multikonfiguration, die \segment -Multikonfiguration für eine andere Gruppe oder die Multikonfiguration eines anderen Parameters bereits aktiviert, so kann die \segment -Multikonfiguration für diese Gruppe nicht aktiviert werden.
+
+\functionality{Multikonfiguration weiterer Parameter}{fnc:multikonfpar}
+\fulfills{crt:multikonf}
+Die Multikonfiguration kann für einen der folgenden Parameter mittels Checkbox aktiviert werden:
+\begin{itemize} \itemsep -10pt
+\item Die Parameter des ausgewählten Gleichgewichtskriteriums
+\item Die Parameter des Adaptionsmechanismus
+\end{itemize}
+Im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen} können Unter- und Obergrenze sowie Schrittgröße des Multikonfigurations-Parameters festgelegt werden.
+
+Beim Starten einer so konfigurierten Simulation wird für jeden Wert zwischen den festgelegten Grenzen gemäß der festgelegten Schrittgröße eine Simulation gestartet, in der der Multikonfigurations-Parameter den entsprechenden Wert annimmt. Alle anderen Konfigurationsparameter bleiben gleich.
+
+Ist bereits die Multikonfiguration für eine Gruppe, ein Segment oder einen anderen Parameter aktiviert, so kann die Multikonfiguration nicht aktiviert werden.
 
 \functionality{Simulation starten}{fnc:simstart}
 \fulfills{crt:startsim}
 \fulfills{crt:multisim}
-Der Nutzer kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{?}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während des Simulationsdurchlaufs ohne Einschränkung weiter verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(32\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
+Der Nutzer kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{?}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während des Simulationsdurchlaufs ohne einschränkung weiter verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(32\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
 \functionality{Anzeige laufender und abgeschlossener Simulationen}{fnc:anzeigesim}
 \fulfills{crt:multisim}
@@ -800,7 +813,7 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 
 \teststep{Max befindet sich im Konfigurationsfenster in der Konfiguration der Gruppen. Es ist gibt eine Gruppe mit 50 Agenten und 50 gruppenlose Agenten.}
 {Er klickt auf die \enquote{Gruppen-Multikonfiguration}-Checkbox.}
-{Der Slider zum Einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen ist der \enquote{Multikonfiguration}-Unterabschnitt veränderbar.}
+{Der Slider zum einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen ist der \enquote{Multikonfiguration}-Unterabschnitt veränderbar.}
 
 \teststep{Max befindet sich im \enquote{Multikonfiguration}-Unterabschnitt des \enquote{Erweiterte Einstellungen}-Abschnitt.}
 {Er gibt in das \enquote{Startwert}-Textfeld 20, in das \enquote{Endwert}-Textfeld 80 und in das \enquote{Schnittweite}-Textfeld 10 ein.}
@@ -981,7 +994,7 @@ Das Konfigurationsfenster ist in drei Bereiche unterteilt, die jeweils ein- und 
 	\item Erweiterte Einstellungen
 \end{itemize}
 
-Grundeinstellungen konfigurieren die fundamentalsten Simulationsparameter. Im rechten Teil wird das ausgewählte Stufenspiel in Normalform als Bimatrix dargestellt (siehe \cref{fig:konfig_main}). Über ein spezielles Dropdownmenü mit Checkboxen können für die Simulation zugelassene Strategien ausgewählt werden (siehe \cref{fig:konfig_strat_detail}).
+GrundEinstellungen konfigurieren die fundamentalsten Simulationsparameter. Im rechten Teil wird das ausgewählte Stufenspiel in Normalform als Bimatrix dargestellt (siehe \cref{fig:konfig_main}). Über ein spezielles Dropdownmenü mit Checkboxen können für die Simulation zugelassene Strategien ausgewählt werden (siehe \cref{fig:konfig_strat_detail}).
 
 \begin{figure}[ht]
 	\centering
@@ -1009,7 +1022,7 @@ In den Gruppeneinstellungen können Gruppen angelegt und mit einem Multislider d
 \end{figure}
 
 
-In den erweiterten Einstellungen können spezialisierte Konfigurationen per Dropdowns eingestellt werden. Zudem kann hier der variable Konfigurationsparameter eingestellt werden, falls dieser in den Gruppen- bzw. Segementeinstellungen ausgewählt wurde. Dazu wird ein prozentualer Start- und Endwert angegeben und eine Schrittweite festgelegt \\(siehe \cref{fig:konfig_adv}). Hierdurch wird eine Multikonfiguration erstellt.
+In den erweiterten Einstellungen können spezialisierte Konfigurationen per Dropdowns eingestellt werden. Zudem kann hier der variable Konfigurationsparameter eingestellt werden, falls dieser in den Gruppen- bzw. SegementEinstellungen ausgewählt wurde. Dazu wird ein prozentualer Start- und Endwert angegeben und eine Schrittweite festgelegt \\(siehe \cref{fig:konfig_adv}). Hierdurch wird eine Multikonfiguration erstellt.
 
 Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu}) und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, Konfigurationen zu laden, zu speichern und die aktuelle Konfiguration auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer Stufenspiele und Strategien. Eine Simulation mit der gewählten Konfiguration kann über die Werkzeugleiste gestartet oder das Konfigurationsfenster verlassen werden.
 
@@ -1069,7 +1082,7 @@ Die Wahl der Option zum Ersellen eines neuen Stufenspiels öffnet ebenfalls ein 
 	\centering
 	\includegraphics[width=\textwidth]{images/konfig_adv.png}
 	\caption{\label{fig:konfig_adv}
-		erweiterte Simulationsparameter und Multikonfigurationseinstellungen}
+		erweiterte Simulationsparameter und MultikonfigurationsEinstellungen}
 \end{figure}
 
 
