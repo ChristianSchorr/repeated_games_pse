@@ -29,6 +29,7 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{float} % für Fließumgebungen; Platzierung H verschiebt nicht
+\usepackage{multirow}
 \restylefloat{figure}
 \hypersetup{
 	pdftitle={Pflichtenheft},
@@ -955,6 +956,7 @@ Die Wahl der Option zum Ersellen eines neuen Stufenspiels öffnet ebenfalls ein 
 
 \section{Szenarien}
 
+
 \subsection{Szenario 1}
 Jonas hat die Anwendung auf seinem PC installiert und möchte das Stufenspiel Gefangenendilemma mit 10 Agenten simulieren, wobei von Anfang an eine Hälfte arm und eine Hälfte reich sein soll. Dazu öffnet Jonas die Anwendung und landet im Hauptfenster. Jonas drückt auf das Zahnrad um die von ihm gewünschte Konfiguration einzustellen. Das Konfigurationsfenster öffnet sich und Jonas wählt nun \enquote{Gefangenendilemma} bei der Auswahl des Stufenspiel aus und stellt den Slider bei Anzahl der Agenten auf 10. Die Anzahl der Runden und Wiederholungen lässt er auf den voreingestellten Werten. 
 Um die Agenten jetzt in 2 Gruppen einzuteilen, erstellt Jonas unter Gruppeneinstellungen 2 neue Gruppen in dem er 2 mal auf das Plus mit \enquote{Gruppe hinzufügen} klickt. Er versetzt den Multislider nun so, dass in der einen Gruppe 6 Agenten sind und in der anderen Gruppe 4. Er klickt auf den Bereich des Multislider der an Gruppe 1 zugeteilt wurde und stellt im Unterpunkt Kapitalverteilung eine Normalverteilung mit Mittelwert 200 und Standardabweichung 5 ein. Gleiches tut er für Gruppe 2, jedoch wählt er hier als Mittelpunkt 40. Für beide Gruppen wählt er unter Strategieeinteilung nur \enquote{Grim}.
@@ -963,8 +965,110 @@ Er wird zurück ins Hauptfenster navigiert und sieht seine Simulation nun in der
 
 
 \subsection{Szenario 2}
+
 Bob möchte eine Simulation des \enquote{Falke und Taube}-Stufenspiel mit 20 Agenten durchführen und die Verteilung der 2 Anfangsstrategien \enquote{Immer Kooperation} und Nie Kooperation so variieren lassen, dass in der ersten Simulation 10\% \enquote{Immer Kooperation} und 90\% \enquote{Nie Kooperation} als Anfangsstrategie haben und diese Verteilung sich in jeder Simulation um 10\% verschiebt(20:80, 30:70...). Dazu startet Bob die Anwendung und wählt das dementsprechende Stufenspiel und die Agentenzahl in den Grundeinstellungen. Den Raum der Strategien hat er auf \enquote{Nie Kooperation} und \enquote{Immer Kooperation} eingestellt und kann nun in den erweiterten Einstellungen seine Einstellung für den variablen Konfigurationsparameter treffen. Er stellt den Startwert auf 10\%, den Endwert auf 90\% und die Schrittweite auf 10\%. Er bestätigt die Konfiguration in dem er auf den grünen Haken in der Headerleiste klickt und gelangt zurück zum Hauptfenster. Im Hauptfenster kann er sich noch einmal die Zusammenfassung seiner aktuellen Konfiguration anschauen und überprüft ob er die wichtigen Dinge eingestellt hat. Nachdem er sich davon überzeugt hat, klickt er auf den grünen Play-Button um die Simulation zu starten. Er kann jetzt in der Simulationshistorie verfolgen wie viele von seinen 9 Simulationen schon beendet wurden. Nachdem alle Simulationen beendet sind, klickt er auf die Simulationsgruppe und kann sich nun eine Abstraktion der Simulationen anzeigen lassen um den Einfluss, den die Variation seines Parameter auf das Endergebnis hatte, auszuwerten. Bob findet ,dass diese eine interessante Auswirkung auf die Kapitalverteilung hatte und will die Konfiguration speichern um die Simulationen nächste Woche noch einmal durchzuführen. Dazu klickt er unter \enquote{Datei} auf \enquote{Konfiguration speichern} und kann nun einen Ablageort auswählen. Nach dem Speichern, schließt Bob die Anwendung und schickt die Konfigurationsdatei per E-Mail an seinen Kollegen Jonas, damit dieser die Simulation auch starten kann. Jonas kann die Konfiguration mittels \enquote{Konfiguration laden} öffnen und dann ganz normal starten.
 
+\newpage
+
+\section{Stufenspiele}
+Im folgenden findet sich eine kurze Beschreibung der verfügbaren Stufenspiele.
+
+\textbf{Gefangenendilemma:}
+Zwei Verdächtige werden ohne vorherige Absprachen getrennt voneinander verhört. Beide haben die Möglichkeit das Verbrechen zu gestehen und damit den anderen zu verraten, oder zu schweigen. Die Dauer ihrer Haftstrafe hängt von ihrer eigenen Aussage und der Aussage des anderen ab.
+\begin{table}[ht]
+\center
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\cline{1-6}
+		\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{schweigt} & \multicolumn{2}{c|}{gesteht} \\ \cline{1-6}
+		\multirow{2}{*}{Spieler 1} & schweigt & -2 & -2 & -6 & -1  \\ \cline{2-6}               
+		& \multicolumn{1}{ |c| }{gesteht} & -1 & -6 & -4 & -4 \\ \cline{1-6}
+		
+	\end{tabular}
+
+\caption{Normalform Gefangenendilemma}
+
+\end{table}
+
+\textbf{Hirschjagd:}
+Zwei Jäger befinden sich auf der Hirschjagd. Es kommt ein Hase vorbei und beide haben die Wahl: Entweder sie schießen den Hasen bevor es der andere tut und vergeben die Chance auf das gemeinsame erlegen eines Hirschs, oder sie geben die Gelegenheit nicht her und laufen Gefahr weder Hasen noch Hirsch zu bekommen.
+\begin{table}[ht]
+	\center
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\cline{1-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Hirschjagd} & \multicolumn{2}{c|}{Hasenjagd} \\ \cline{1-6}
+	\multirow{2}{*}{Spieler 1} & Hirschjagd & 4 & 4 & 0 & 3  \\ \cline{2-6}               
+	& \multicolumn{1}{ |c| }{Hasenjagd} & 3 & 0 & 3 & 3 \\ \cline{1-6}
+\end{tabular}
+	
+	\caption{Normalform Hirschjagd}
+	
+\end{table}
+
+\textbf{Feiglingsspiel:}
+Wegen einer Mutprobe rasen zwei Personen mit Autos aufeinander zu. Wer Ausweicht, gilt gegenüber dem andere als Feigling und hat die Wette verloren. Weicht keiner von beiden aus, verlieren sie bei der Kollision ihr leben.
+\begin{table}[ht]
+	\center
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\cline{1-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Ausweichen} & \multicolumn{2}{c|}{Weiterfahren} \\ \cline{1-6}
+	\multirow{2}{*}{Spieler 1} & Ausweichen & 4 & 4 & 2 & 6  \\ \cline{2-6}               
+	& \multicolumn{1}{ |c| }{Weiterfahren} & 6 & 2 & 0 & 0 \\ \cline{1-6}
+\end{tabular}
+	
+	\caption{Normalform Feiglingsspiel}
+	
+\end{table}
+\newpage
+\textbf{Kampf der Geschlechter:}
+Ein Mann und eine Frau wollen zusammen ausgehen, haben aber keinen Treffpunkt vereinbart. Zur Wahl steht entweder ein Fußballspiel oder ein Konzert. Beide müssen sich entscheiden mit der Gefahr sich nicht zu treffen. Der Mann bevorzugt das Fußballspiel, während die Frau lieber auf das Konzert geht.
+\begin{table}[ht]
+	\center
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\cline{1-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Fußball} & \multicolumn{2}{c|}{Konzert} \\ \cline{1-6}
+	\multirow{2}{*}{Spieler 1} & Fußball & 3 & 1 & 0 & 0  \\ \cline{2-6}               
+	& \multicolumn{1}{ |c| }{Konzert} & 0 & 0 & 1 & 3 \\ \cline{1-6}
+\end{tabular}
+	
+	\caption{Normalform Kapf der Geschlechter}
+	
+\end{table}
+
+\textbf{Vertrauensspiel:}
+Ein Treugeber kann einem Treuhänder eine Aufgabe betrauen. Entscheidet sich der Treugeber dem Treuhänder nicht zu vertrauen, so kommt kein Geschäft zustande. Anderenfalls hat dr Treuhänder die Möglichkeit das ihm entgegengebrachte Vertrauen zu missbrauchen, oder zu honorieren.
+\begin{table}[ht]
+	\center
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\cline{1-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Missbrauch} & \multicolumn{2}{c|}{Honorierung} \\ \cline{1-6}
+	\multirow{2}{*}{Spieler 1} & vertrauen & -1 & 2 & 1 & 1  \\ \cline{2-6}               
+	& \multicolumn{1}{ |c| }{nicht vertrauen} & 0 & 0 & 0 & 0 \\ \cline{1-6}
+\end{tabular}
+	
+	\caption{Normalform Vertrauensspiel}
+	
+\end{table}
+
+\textbf{Elfmeterschießen:}
+Beim Elfmeterschießen müssen sich Schütze und Torwart zwischen der linken und der rechten Torhälfte entscheiden. Dabei will der Torwart die gleiche Seite wählen wie der Schütze, um den Ball zu halten und der Schütze möchte eine andere Seite wählen als der Torwart, um ein Tor zu erziehlen.
+\begin{table}[ht]
+	\center
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\cline{1-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
+	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{links} & \multicolumn{2}{c|}{rechts} \\ \cline{1-6}
+	\multirow{2}{*}{Spieler 1} & links & 3 & 1 & 0 & 0  \\ \cline{2-6}               
+	& \multicolumn{1}{ |c| }{rechts} & 0 & 0 & 1 & 3 \\ \cline{1-6}
+\end{tabular}
+	
+	\caption{Normalform Elfmeterschießen}
+	
+\end{table}
 \newpage
 \section{Glossar}
 
