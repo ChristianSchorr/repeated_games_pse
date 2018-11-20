@@ -57,7 +57,7 @@ Ziel dieses Projekts ist die Entwicklung einer Simulationsumgebung für wiederho
 
 Es folgt eine Erläuterung des dem Simulator zugrundeliegenden Ablaufs. Dazu sei auch auf \cref{?} verwiesen.
 
-Eine Simulation besteht aus mehreren Wiederholungen. Eine Wiederholung beginnt mit der Initialisierung der Agenten mit Strategien, Kapital und Gruppenzugehörigkeit. Anzahl der Agenten, Zuweisungsverfahren von Anfangsstrategien und Anfangskapital sowie Gruppeneinteilung werden vom Nutzer spezifiziert. Insbesondere legt der Nutzer die Menge aller möglichen Strategien fest. Danach folgen wiederholt \adapts, bis sich ein Gleichgewicht eingestellt hat oder eine konfigurierbare Höchstzahl an \adapts n erreicht ist. Ein \adapt\ besteht aus einer festen Zahl an Runden. In jeder Runde werden zunächst gemäß eines konfigurierbaren Algorithmus' Paare aus Agenten gebildet. Diese spielen dann gemäß ihrer aktuellen Strategie das dieser Simulation zugrundeliegende Stufenspiel. Nach Ablauf der Runden wird der Erfolg jedes Agenten in den zurückliegenden Runden quantifiziert und daraus eine Rangliste aller Agenten erstellt. Die Agenten passen nun ihre Strategien gemäß eines vom Nutzer spezifizierbaren Adaptionsmechanismus an. Ziel ist dabei nicht die Maximierung des Absolutkapitals, sondern eine möglichst hohe Position auf der Rangliste.
+Eine Simulation besteht aus mehreren Wiederholungen. Eine Wiederholung beginnt mit der Initialisierung der Agenten mit Strategien, Kapital und Gruppenzugehörigkeit. Anzahl der Agenten, Zuweisungsverfahren von Anfangsstrategien und Anfangskapital sowie Gruppeneinteilung werden vom Nutzer spezifiziert. Insbesondere legt der Nutzer die Menge aller möglichen Strategien fest. Danach folgen wiederholt \adapts, bis sich ein Gleichgewicht eingestellt hat oder eine konfigurierbare Höchstzahl an \adapts n erreicht ist. Ein \adapt\ besteht aus einer festen Zahl an Runden. In jeder Runde werden zunächst gemäß eines konfigurierbaren Algorithmus' Paare aus Agenten gebildet. Diese spielen dann gemäß ihrer aktuellen Strategie das dieser Simulation zugrundeliegende Stufenspiel. Nach Ablauf der Runden wird der Erfolg jedes Agenten in den zurückliegenden Runden quantifiziert und daraus eine Rangliste aller Agenten erstellt. Die Agenten passen nun ihre Strategien gemäß eines vom Nutzer spezifizierbaren Adaptionsmechanismus an. Ziel dabei ist nicht die Maximierung des Absolutkapitals, sondern eine möglichst hohe Position auf der Rangliste.
 
 Nachdem alle Wiederholungen abgeschlossen sind, erfolgt die Ausgabe der Ergebnisse der einzelnen Wiederholungen. Wenn sich ein Gleichgewicht eingestellt hat, werden die Zahl der durchgeführten \adapts, die endgültigen Strategien und die endgültige Rangliste ausgegeben.
 
@@ -87,8 +87,8 @@ Der Nutzer hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
 \item Anzahl der Agenten
 \item zugrundeliegendes Stufenspiel
 \item Anzahl pro \adapt\ durchgeführter Runden
-\item Anzahl verschiedener Gruppen und jeweils Anzahl zugehöriger Agenten
 \item Anzahl durchgeführter Wiederholungen
+\item Anzahl verschiedener Gruppen und jeweils Anzahl zugehöriger Agenten
 \item Zuweisungsverfahren für initiale Strategien
 \item Menge aller möglichen Strategien
 \item Zuweisungsverfahren für initiales Kapital
@@ -107,7 +107,7 @@ Es können mehrere Simulationen gleichzeitig laufen. Das Programm kann währendd
 Es können mehrere Kriterien für das Erreichen eines Gleichgewichts im Simulationsablauf verwendet werden.
 
 \criteriumOptional{Erweiterte Gruppenfunktionalität}{crt:groupfunc}
-Gruppen und die Menge der gruppenlosen Agenten können jeweils in \segments\ unterteilt werden. Für jedes \segment\ können Zuweisungsverfahren für initiale Strategien und initiales Kapital separat festgelegt werden.
+Gruppen und die Menge gruppenloser Agenten können jeweils in \segments\ unterteilt werden. Für jedes \segment\ können Zuweisungsverfahren für initiale Strategien und initiales Kapital separat festgelegt werden.
 
 \criteriumOptional{Speichern und Laden von Konfigurationen}{crt:saveloadconfig}
 Eine Konfiguration kann als Datei abgespeichert werden. Eine solche Konfigurationsdatei kann wiederum geladen werden.
@@ -127,7 +127,7 @@ Der Nutzer kann eine Menge von Konfigurationen spezifizieren, in denen die Grö�
 Der zugrundeliegende Ablauf der Simulation, wie in der Einleitung erklärt, kann nicht verändert werden.
 
 \criteriumNot{Keine komplexen Stufenspiele}{crt:not_complexgames}
-Als Stufenspiele sind nur solche zugelassen, die sich als \(2 \times 2\) - Bimatrix mit konstanten Auszahlungen darstellen lassen.
+Als Stufenspiele sind nur solche zugelassen, die sich als \(2 \times 2\) - Bimatrix mit konstanten Koeffizienten darstellen lassen.
 
 \criteriumNot{Lokalisierung}{crt:local}
 Die Anwendung soll nur in deutscher Sprache verfügbar sein.
@@ -141,13 +141,13 @@ Die Anwendung soll nur in deutscher Sprache verfügbar sein.
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, die aktuelle Konfiguration zu bearbeiten.
 
-Dazu kann in der Menüleiste des Startfensters der Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration bearbeiten} oder der mit einem Zahnrad-Symbol beschriftete Knopf am oberen rechten Ende des Startfensters betätigt werden (siehe \cref{?}). Daraufhin öffnet sich das Konfigurationsfenster, in dem alle variablen Simulationsparameter festgelegt werden können. Wird der \enquote{Bestätigen}-Knopf in der Toolbar des Konfigurationsfensters betätigt, wird das Konfigurationsfenster geschlossen und die festgelegten Parameter als aktuelle Konfiguration abgespeichert.
+Dazu kann in der Menüleiste des Startfensters der Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration bearbeiten} oder der mit einem Zahnrad-Symbol beschriftete Knopf am oberen rechten Ende des Startfensters betätigt werden (siehe \cref{?}). Daraufhin öffnet sich das Konfigurationsfenster, in dem alle variablen Simulationsparameter festgelegt werden können. Wird der \enquote{Bestätigen}-Knopf in der Toolbar des Konfigurationsfensters betätigt, wird das Konfigurationsfenster geschlossen und die festgelegten Parameter als aktuelle Konfiguration übernommen.
 
 \functionality{Festlegung der Anzahl von Agenten}{fnc:agentcount}
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, die Anzahl von Agenten in einer Konfiguration festzulegen.
 
-Die gewünschte Zahl kann im Konfigurationsfenster über einen Slider eingestellt werden. Zugelassen sind gerade Zahlen zwischen \(2\) und \(10.000\). Im Textfeld rechts des Sliders wird der eingestellte Zahlenwert angezeigt. Das Festlegen des Wertes ist auch durch direkte Eingabe in das Textfeld möglich, der Slider wird dann automatisch auf die entsprechende Position gesetzt. Voreingestellt sind \(100\) Agenten.
+Die gewünschte Zahl kann im Konfigurationsfenster über einen Slider eingestellt werden. Im Textfeld rechts des Sliders wird der eingestellte Zahlenwert angezeigt. Das Festlegen des Wertes ist auch durch direkte Eingabe in das Textfeld möglich, der Slider wird dann automatisch auf die entsprechende Position gesetzt. Zugelassen sind gerade Zahlen zwischen \(2\) und \(10.000\). Voreingestellt sind \(100\) Agenten.
 
 \functionality{Festlegung des Stufenspiels}{fnc:selectgame}
 \fulfills{crt:simparam_std}
@@ -217,7 +217,7 @@ Der Nutzer kann jede Gruppe und die Menge der gruppenlosen Agenten in ein bis f�
 
 Die Unterteilung erfolgt im Konfigurationsabschnitt einer Gruppe bzw. der gruppenlosen Agenten. Am oberen Ende des Abschnittes befindet sich eine Überschrift \enquote{\segment einstellungen}, darunter ein Multislider und ein \enquote{\segment\ hinzufügen}-Knopf (siehe \cref{?}). Voreingestellt ist ein Segment. Ein neues Segment kann durch Betätigen des \enquote{\segment\ hinzufügen}-Knopfes hinzugefügt werden. Ist die maximale Anzahl von fünf \segments n erreicht, ist der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden. Für jedes hinzugefügte Segment erscheint auf dem Multislider ein Schiebe-Knopf. Wie bei den Gruppeneinstellungen entspricht jeder Abschnitt auf dem Slider einem \segment. Durch Verschieben der Schiebe-Knöpfe kann die Größe der \segments\ verändert werden. Unter dem Slider befindet sich ein Tab-Control-Element mit einem Tab pro \segment. Jeder Tab fungiert als Konfigurationsabschnitt für das entsprechende \segment. Der Konfigurationsabschnitt enthält die Einstellungen für das Zuweisungsverfahren für initiale Strategien und initiales Kapital.
 
-Am rechten Rand des Tabs jedes \segment s befindet sich ein mit \enquote{X} beschrifteter Knopf. Wird dieser betätigt, so wird das entsprechende \segment\ gelöscht. Gibt es nur noch ein \\segment, so ist der \enquote{X}-Knopf ausgegraut und kann nicht betätigt werden.
+Am rechten Rand des Tabs jedes \segment s befindet sich ein mit \enquote{X} beschrifteter Knopf. Wird dieser betätigt, so wird das entsprechende \segment\ gelöscht. Gibt es nur noch ein \segment, so ist der \enquote{X}-Knopf ausgegraut und kann nicht betätigt werden.
 
 \functionality{Festlegung des Zuweisungsverfahrens für initiale Strategien}{fnc:initialstrat}
 \fulfills{crt:simparam_std}
@@ -234,7 +234,7 @@ Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Ag
 Der Nutzer kann das Zuweisungsverfahren für das initiale Kapital der Agenten beim Beginn einer Wiederholung festlegen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
 
 Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit \enquote{Initiales Kapital} beschrifteter Unterabschnitt (siehe \cref{?}). Mittels Radiobuttons kann eine der folgenden Wahrscheinlichkeitsverteilungen gewählt werden:
-\begin{itemize}
+\begin{itemize}\itemsep -10pt
 \item Gleichverteilung
 \item Binomialverteilung
 \item Poissonverteilung
