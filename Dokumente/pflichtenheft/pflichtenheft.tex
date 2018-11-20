@@ -241,11 +241,11 @@ Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort be
 \end{itemize}
 Unter den Radiobuttons befinden sich Eingabemöglichkeiten zur Parametrisierung der aktuell gewählten Verteilung, eine kurze Beschreibung und ein Graph der Verteilung. Voreingestellt ist die Gleichverteilung.
 
-Für die Gleichverteilung müssen die beiden Intervallgrenzen \(a,b \in \mathbb{N}_0, \ a < b\) in Textfeldern angegeben werden. Voreingestellt ist \(a = 0, b = 100\) (siehe \cref{?}).
+Für die Gleichverteilung müssen die beiden Intervallgrenzen \(a,b \in \mathbb{N}_0, \ a < b\) in Textfeldern angegeben werden. Voreingestellt ist \(a = 0, b = 100\).
 
-Bei der Binomialverteilung müssen die Intervallgrenzen \(a,b \in \mathbb{N}_0, \ a < b\) in Textfeldern und der Parameter \(p \in (0,1)\) mittels Slider angegeben werden. Voreingestellt ist \(a = 0, b = 100, p = 0.5\) (siehe \cref{?}).
+Bei der Binomialverteilung müssen die Intervallgrenzen \(a,b \in \mathbb{N}_0, \ a < b\) in Textfeldern und der Parameter \(p \in (0,1)\) mittels Slider angegeben werden. Voreingestellt ist \(a = 0, b = 100, p = 0.5\).
 
-Bei der Poisson-Verteilung muss der Parameter \(\lambda \in \mathbb{N}_0\) in einem Textfeld angegeben werden. Voreingestellt ist \(\lambda = 50\) (siehe \cref{?}).
+Bei der Poisson-Verteilung muss der Parameter \(\lambda \in \mathbb{N}_0\) in einem Textfeld angegeben werden. Voreingestellt ist \(\lambda = 50\).
 
 Bei fehlerhafter Eingabe eines Parameters wird die Eingabe auf den nächsten zugelassenen Wert abgeändert.
 
@@ -361,7 +361,7 @@ Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder w
 \functionality{Simulation starten}{fnc:simstart}
 \fulfills{crt:startsim}
 \fulfills{crt:multisim}
-Der Nutzer kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{?}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während dem Simulationsdurchlauf weiterhin unverändert verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(20\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
+Der Nutzer kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{?}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während des Simulationsdurchlaufs ohne Einschränkung weiter verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(32\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
 \functionality{Anzeige laufender und abgeschlossener Simulationen}{fnc:anzeigesim}
 \fulfills{crt:multisim}
@@ -371,7 +371,7 @@ Ist die Simulation abgeschlossen, ist der Eintrag grün gefärbt. Er enthält zu
 
 Wurde die Simulation abgebrochen, ist der Eintrag rot gefärbt und mit \enquote{Abgebrochen!} beschriftet.
 
-Läuft die Simulation noch, ist der Eintrag gelb gefärbt und zeigt durch einen Slider an, wie viele Wiederholungen bereits abgeschlossen wurden. Im Falle einer Menge von durch Multikonfiguration gestarteten Wiederholungen wird angezeigt, wie viele der zugehörigen Simulationen bereits abgeschlossen wurden.
+Läuft die Simulation noch, ist der Eintrag gelb gefärbt und zeigt an, wie viele Wiederholungen bereits abgeschlossen wurden. Im Falle einer Menge von durch Multikonfiguration gestarteten Wiederholungen wird angezeigt, wie viele der zugehörigen Simulationen bereits abgeschlossen wurden.
 
 \functionality{Ausgabe von Simulationsergebnissen}{fnc:simresults}
 \fulfills{crt:simresults_std}
@@ -430,25 +430,25 @@ Durch Betätigen des \enquote{Speichern}-Knopfes wird das Stufenspiel erstellt u
 \fulfills{crt:createstrat}
 Der Nutzer hat die Möglichkeit, eigene Strategien zu erstellen. Diese werden dann persistent gespeichert und können von da an in Konfigurationen verwendet werden.
 
-Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Strategie erstellen} oder der \enquote{Strategie erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In das mit \enquote{Name} bezeichnete Textfeld muss ein Name für die zu erstellende Strategie eingegeben werden. Über einen Drag-and-Drop-Editor (siehe \cref{?}) kann ein Boole'scher Ausdruck \(X\) aus den für Strategien verfügbaren Variablen (siehe Glossar) hinter einer Schrift \enquote{Wenn:} zusammengesetzt werden. In zwei mit \enquote{Dann:} und \enquote{Sonst:} betitelten Dropdown-Menüs können je zwei der bisher im System hinterlegten Strategien \(S_\text{Dann}\) und \(S_\text{Sonst}\) ausgewählt werden. Die so konfigurierte Strategie \(S\) ist dann
+Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Strategie erstellen} oder der \enquote{Strategie erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In das mit \enquote{Name} bezeichnete Textfeld muss ein Name für die zu erstellende Strategie eingegeben werden. Über einen Editor (siehe \cref{?}) kann ein Boole'scher Ausdruck \(X\) aus den für Strategien verfügbaren Variablen (siehe Glossar) hinter einer Schrift \enquote{Wenn:} zusammengesetzt werden. In zwei mit \enquote{Dann:} und \enquote{Sonst:} betitelten Dropdown-Menüs können je zwei der bisher im System hinterlegten Strategien \(S_\text{Dann}\) und \(S_\text{Sonst}\) ausgewählt werden. Die so konfigurierte Strategie \(S\) ist dann
 \[
 S := (X \Rightarrow S_\text{Dann}) \land (\lnot X \Rightarrow S_\text{Sonst}), \text{ oder äquivalent } (X \land S_\text{Dann}) \lor (\lnot X \land S_\text{Sonst}),
 \]
-also \enquote{Verwende Strategie \(S_\text{Dann}\), wenn \(X\) erfüllt ist, und \(S_\text{Sonst}\) sonst}. Voreingestellt ist \(X\) leer, \(S_\text{Dann} =\) \enquote{Kooperieren} und \(S_\text{Sonst} =\) \enquote{Nicht Kooperieren}.
+also \enquote{Verwende Strategie \(S_\text{Dann}\), wenn \(X\) erfüllt ist, andernfalls \(S_\text{Sonst}\)}. Voreingestellt ist \(X\) leer, \(S_\text{Dann} =\) \enquote{Kooperieren} und \(S_\text{Sonst} =\) \enquote{Nicht Kooperieren}.
 
 Durch Betätigen des \enquote{Reset}-Knopfes am oberen rechten Ende des Fensters wird das gesamte Fenster in den voreingestellten Zustand zurückgesetzt. Durch Betätigen des \enquote{Speichern}-Knopfes wird die Strategie erstellt und gespeichert.
 
 \functionality{Konfiguration speichern}{fnc:saveConfig}
 \fulfills{crt:saveloadconfig}
-Der Nutzer hat die Möglichkeit, die aktuelle Konfiguration als \textit{.config}-Datei abzuspeichern.
+Der Nutzer hat die Möglichkeit, die aktuelle Konfiguration als \textit{.cnf}-Datei abzuspeichern.
 
-Dazu muss er im Startfenster den Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration speichern} oder im Konfigurationsfenster den \enquote{Konfiguration speichern}-Knopf in der Toolbar betätigen. Daraufhin öffnet sich ein Datei-Dialog. Hier kann der Nutzer Speicherort und Dateiname wählen. Wird der \enquote{Speichern}-Knopf betätigt, schließt sich der Dialog und eine \textit{.config}-Datei mit dem angegebenen Namen wird am angegebenen Ort abgespeichert. Diese enthält Informationen zu allen durch die aktuelle Konfiguration festgelegten Parameter. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
+Dazu muss er im Startfenster den Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration speichern} oder im Konfigurationsfenster den \enquote{Konfiguration speichern}-Knopf in der Toolbar betätigen. Daraufhin öffnet sich ein Datei-Dialog. Hier kann der Nutzer Speicherort und Dateiname wählen. Wird der \enquote{Speichern}-Knopf betätigt, schließt sich der Dialog und eine \textit{.cnf}-Datei mit dem angegebenen Namen wird am angegebenen Ort abgespeichert. Diese enthält Informationen zu allen durch die aktuelle Konfiguration festgelegten Parameter. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
 
 \functionality{Konfiguration laden}{fnc:loadConfig}
 \fulfills{crt:saveloadconfig}
-Der Nutzer kann eine von diesem Programm erstellte \textit{.config}-Datei laden und so die aktuelle Konfiguration ersetzen.
+Der Nutzer kann eine von diesem Programm erstellte \textit{.cnf}-Datei laden und so die aktuelle Konfiguration ersetzen.
 
-Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration laden} oder im Konfigurationsfenster der \enquote{Konfiguration laden}-Knopf in der Toolbar betätigt werden. Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen \textit{.config}-Datei navigiert und diese ausgewählt, so wird die aktuelle Konfiguration durch die in der geladenen Datei spezifizierte Konfiguration ersetzt. Wird eine ungültige Datei ausgewählt, wird eine entsprechende Fehlermeldung angezeigt. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
+Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration laden} oder im Konfigurationsfenster der \enquote{Konfiguration laden}-Knopf in der Toolbar betätigt werden. Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen \textit{.cnf}-Datei navigiert und diese ausgewählt, so wird die aktuelle Konfiguration durch die in der geladenen Datei spezifizierte Konfiguration ersetzt. Wird eine ungültige Datei ausgewählt, wird eine entsprechende Fehlermeldung angezeigt. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
@@ -477,15 +477,11 @@ Das Produkt soll auf allen Plattformen laufen.
 \nonFunctionality{Leistung und Effizienz}{nfc:power}
 
 Das Podukt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen alle möglichen Eingaben resistent sein und nicht einfrieren.
-Die Laufzeit soll als obere Schranke eine polynomielle Funktion haben.
 
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
 
 Ein Benutzer ohne erweiterten Kenntnissen in der Spieltheorie soll das Produkt benutzen können.
-Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erklärt werden. 
-
-\nonFunctionality{Benutzeroberfläche}{nfc:user interface}
-Hier gilt: Funktionalität vor Design. 
+Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erklärt werden.
 
 %%%%%%%%%%%
 \section{Tests}
@@ -1038,18 +1034,19 @@ Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie bei
 		Auswahl der möglichen Initialstrategien für ein Segment}
 \end{figure}
 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\textwidth]{images/konfig_adv.png}
-	\caption{\label{fig:konfig_adv}
-		erweiterte Simulationsparameter und Multikonfigurationseinstellungen}
-\end{figure}
-
 \newpage
 
 
 Die Option zum Erstellen einer neuen Strategie öffnet ein neues Fenster (siehe \cref{fig:strategy}). Hier können vorgegebene Bedingungen mit logischen Operatoren zu einem logischen Ausdruck verknüpft werden. Einzelne Aspekte der Bedingungen können angepasst werden (siehe \cref{fig:strategy_drop}). Per Dropdown werden die Aktionen gewählt, die nach Auswertung des Ausdrucks angewendet werden.
+
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=\textwidth]{images/strategy.png}
+	\caption{\label{fig:strategy}
+		Erstellung einer neuen Strategie}
+\end{figure}
+
 
 \begin{figure}[hb]
 	\centering
@@ -1058,21 +1055,21 @@ Die Option zum Erstellen einer neuen Strategie öffnet ein neues Fenster (siehe 
 		Anpassung von Bedingungen}
 \end{figure}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.9\textwidth]{images/strategy.png}
-	\caption{\label{fig:strategy}
-		Erstellung einer neuen Strategie}
-\end{figure}
-
-
 Die Wahl der Option zum Ersellen eines neuen Stufenspiels öffnet ebenfalls ein neues Fenster (siehe \cref{fig:new_game}). Ein neues Spiel wird in seiner Normalform in die gegebene Bimatrix eingetragen.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/game.png}
+	\includegraphics[width=\textwidth]{images/game.png}
 	\caption{\label{fig:new_game}
 		Erstellung eines neuen Stufenspiels}
+\end{figure}
+
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=\textwidth]{images/konfig_adv.png}
+	\caption{\label{fig:konfig_adv}
+		erweiterte Simulationsparameter und Multikonfigurationseinstellungen}
 \end{figure}
 
 
