@@ -46,8 +46,6 @@
 \def\segment{Segment}
 \def\segments{Segmente}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
-
 \begin{document}
 \maketitle
 
@@ -504,69 +502,51 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 \tests{fnc:selectgame}
 \tests{fnc:rounds}
 \tests{fnc:repeats}
+\tests{fnc:stratset}
 
 \teststep{Alice hat die Anwendung auf ihrem Computer installiert.}
 {Alice startet das Programm.}
 {Das Startfenster wird angezeigt (siehe \cref{fig:home}).}
 
-\teststep{Alice sieht eine voreingestellte Simulation im Startfenster.}
-{Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf.}%
+\teststep{Das Startfenster wird angezeigt.}
+{Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf.}
 {Das Konfigurationsfenster (siehe \cref{fig:konfig}) öffnet sich.}
 
-\teststep{Das Konfigurationsfenster mit allen Einstellungen zu einer Konfiguration wird angezeigt.}
-{Alice klickt auf das Dropdown Menü \enquote{Sufenspiel festlegen}.}%
-{Eine Liste mit den Namen aller Stufenspiele klappt nach unten auf.}
+\teststep{Das Konfigurationsfenster wird angezeigt.}
+{Alice klickt auf das Dropdown Menü \enquote{Sufenspiel festlegen}.}
+{Eine Liste mit den Namen aller Stufenspiele klappt aus.}
 
-\teststep{Das Dropdown-Menü zu den Stufenspielen ist nach unten aufgeklappt.}
-{Alice wählt das Stufenspiel \enquote{Falke und Taube} aus.}
-{Das Dropdown Menü schließt sich und zeigt \enquote{Falke und Taube} an. Dies ist nun das gewählte Stufenspiel.}
+\teststep{Das Dropdown-Menü zu den Stufenspielen ist ausgeklappt.}
+{Alice klickt auf den Eintrag \enquote{Falke und Taube}.}
+{Das Dropdown Menü schließt sich und zeigt \enquote{Falke und Taube} an.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
-{Alice zieht den Slider \enquote{Agenten} auf ihre gewünschte Postion. Sie entscheidet sich für 12 Agenten.}%
-{Im Textfeld rechts neben dem Slider wird die Anzahl der Agenten, also \enquote{12} angezeigt.}
+{Alice zieht den Slider \enquote{Agenten} auf \(12\).}
+{Im Textfeld rechts des Sliders wird die Anzahl der Agenten, also \enquote{\(12\)} angezeigt.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
-{Alice zieht den Slider \enquote{Runden} auf ihre gewünschte Postion. Sie entscheidet sich für 200 Runden.}%
-{Im Textfeld rechts neben dem Slider wird die Rundenzahl \enquote{200} angezeigt.}
+{Alice zieht den Slider \enquote{Runden} auf \(200\).}%
+{Im Textfeld rechts des Sliders wird die Rundenzahl \enquote{200} angezeigt.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
-{Im Textfeld \enquote{Wiederholungen} tippt Alice \enquote{7} ein.}%
-{Die Anzahl an Wiederholungen wurde wie gewollt auf 7 gesetzt.}
+{Im Textfeld \enquote{Wiederholungen} tippt Alice \enquote{7} ein.}
+{Die Anzahl an Wiederholungen wird wie gewollt auf 7 gesetzt.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
-{Alice betätigt den ??-Knopf}
+{Alice betätigt den \enquote{\checkmark}-Knopf in der Toolbar.}
 {Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
 
-\test{Strategien hinzufügen und entfernen}{tst:stratkonfig}
-\tests{fnc:stratset}
-
-\teststep{Bob befindet sich im Konfigurationsfenster.}%
-{Bob drückt auf den \enquote{Strategie hinzufügen} Knopf (siehe \cref{??}).}
-{Ein Fenster mit einer Liste aller im Programm hinterlegten Strategien öffnet sich.}
-
-\teststep{Das Fenster mit der Liste aller im Programm hinterlegten Strategien ist geöffnet.}
-{Bob wählt die Strategie \enquote{Nie Kooperation} aus und betätigt den den \enquote{Bestätigen}-Knopf.}
-{Das Fenster mit der Liste aller Strategien schließt sich. Die Strategie \enquote{Nie Kooperation} wird nun in der Liste mit allen ausgewählten Strategien geführt}
-
 \teststep{Bob befindet sich im Konfigurationsfenster.}
-{Bob betätigt nochmals den  \enquote{Strategie hinzufügen} Knopf.}
-{Wieder öffnet sich das Fenster mit der Liste aller im Programm hinterlegten Strategien.}
+{Bob klickt auf das mit \enquote{Menge der möglichen Strategien} betitelte Dropdown-Menü.}
+{Ein Liste aller im Programm hinterlegten Strategien klappt aus.}
 
-\teststep{Das Fenster mit der Liste aller im Programm hinterlegten Strategien ist geöffnet.}
-{Bob klickt mehrere Strategien an und hält dabei die SHIFT-Taste gedrückt.}
-{Alle angeklickten Strategien sind gerade ausgewählt.}
-
-\teststep{Im Fenster mit der Liste aller im Programm hinterlegten Strategien sind eine oder mehrere Strategien ausgewählt.}
-{Bob betätigt den \enquote{Abbrechen}-Knopf.}
-{Das Fenster mit der Liste der Strategien schließt sich. Keine Strategie wurde zu den ausgewählten Strategien hinzugefügt.}
-
-\teststep{Das Konfigurationsfenster wird angezeigt.}
-{Bob drückt in der Liste aller ausgewählten Strategien den '\(\circleddash\)'-Knopf neben der Strategie \enquote{Immer Kooperation}.}
-{Die Strategie \enquote{Immer Kooperation} verschwindet aus der Liste aller ausgewählten Strategien.}
+\teststep{Das Dropdown-Menü zu den Strategien ist ausgeklappt.}
+{Bob deaktiviert die Checkboxen neben \enquote{Immer kooperieren} und \enquote{Grim} und aktiviert die neben \enquote{Nie kooperieren}. Dann klickt er erneut auf das Dropdown-Menü.}
+{Das Dropdown-Menü schließt sich und zeigt nun \enquote{Tit-for-Tat, Nie kooperieren} an.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
 {Bob aktiviert die Checkbox \enquote{gemischte Strategien} per Mausklick.}
-{Während der Simulation können die Agenten nun gemischte Strategien entwickeln. Ist die Checkbox hingegen deaktiviert, so sind nur pure Strategien zulässig.}
+{Die Checkbox ist nun aktiviert.}
 
 \test{Simulationen starten, abbrechen und Ergebnisanzeige }{tst:runsim}
 \tests{fnc:simstart}
@@ -574,41 +554,41 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 \tests{fnc:simresults}
 \tests{fnc:cancelsim}
 
-\teststep{Alice hat die gewünschte Einstellungen bereits in den Konfigurationen festgelegt. Sie befindet sich im Startfenster.}
-{Sie betätigt den \enquote{Play}-Knopf im oberen rechten Bereich des Startfensters. (siehe \cref{??}).}
-{Das Programm führt den Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Im Startfenster wird der aktuelle Simulationslauf der Liste aller gestarteten Simulationen hinzugefügt (siehe \cref{??}). Ein Ladebalken zeigt an wie weit der Simulationslauf fortgeschritten ist.}
+\teststep{Alice befindet sich im Startfenster.}
+{Sie betätigt den \enquote{Play}-Knopf.}
+{Das Programm führt den Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. In der Liste aller gestarteten Simulationen erscheint ein Eintrag für die soeben gestartete Simulation. Dieser verhält sich wie spezifiziert.}
 
-\teststep{Die Simulation von Alice' Konfiguartion läuft gerade. Alice befindet sich im Startfenster.}
-{Sie bewegt den Mauszeiger über ihre laufende Simulation, die in der Liste aller gestarteten Simulationen angezeigt wird.}
-{Es erscheint ein 'X'-Knopf.}
+\teststep{Alice befindet sich im Startfenster. Eine zuvor gestartete Simulation läuft gerade.}
+{Alice fährt mit der Maus über den Listeneintrag der Simulation.}
+{Ein mit \enquote{X} beschrifteter Knopf erscheint auf dem Listeneintrag.}
 
-\teststep{Der 'X'-Knopf wird über einer laufenden Simulation angezeigt.}
-{Alice betätigt den angezeigten 'X'-Knopf.}
-{Der Simulationslauf wird abgebrochen und in der Liste entsprechend gekennzeichnet.}
+\teststep{Alice' Maus befindet sich über dem Listeneintrag einer laufenden Simulation und ein mit \enquote{X} beschrifteter Knopf befindet sich darauf.}
+{Alice betätigt den mit \enquote{X} beschrifteten Knopf.}
+{Die Simulation wird abgebrochen. Der Listeneintrag verhält sich wie spezifiziert.}
 
-\teststep{Alice befindet sich im Startfenster. In der Liste aller laufenden, abgeschlossenen und abgebrochenen Simulationen befindet sich die abgeschlosse Simulation mit Multikonfiguration \enquote{Gefangenendilemma} \#003.}
-{Alice klickt mit der Maus auf diese Simulation.}
-{Im Fensterabschnitt rechts neben der Liste wird die Seite 'Simulationsergebnisse' angezeigt (siehe \cref{fig:home_out_1}).}
+\teststep{Alice befindet sich im Startfenster. Eine zuvor gestartete Simulation ist abgeschlossen.}
+{Er klickt in der Liste auf den Eintrag der Simulation.}
+{Im Fensterabschnitt rechts der Liste erscheint die Seite \enquote{Simulationsergebnisse}. Dort werden wie spezifiziert Informationen zum Ablauf der gewählten Simulation angezeigt.}
 
-\teststep{Im Startfenster wird die Seite 'Simulationsergebnisse' angezeigt (siehe \cref{fig:home_out_1}).}
-{Alice drückt auf den \enquote{>} Knopf rechts unten im Fenster.}
-{Im Fensterabschnitt wird die Seite 'Wiederholungsergebnisse' angezeigt (siehe \cref{fig:home_out_2}).}
+\teststep{Die Ausgabeseite \enquote{Simulationsergebnisse} einer abgeschlossenen Simulation wird angezeigt.}
+{Alice betätigt den \enquote{>}-Knopf}
+{Die Anzeige wechselt zur Seite \enquote{Wiederholungsergebnisse}. Diese verhält sich wie spezifiziert}
 
-\teststep{Im Startfenster wird die Seite 'Simulationsergebnisse' angezeigt (siehe \cref{fig:home_out_2}).}
-{Alice drückt auf den \enquote{>} Knopf rechts unten im Fenster.}
-{Im Fensterabschnitt wird die Seite 'Multikonfigurationsergebnisse' angezeigt (siehe \cref{fig:home_out_3}).}
+\teststep{Die Ausgabeseite \enquote{Simulationsergebnisse} einer Menge von durch Multikonfiguration gestarteten Simulationen wird angezeigt.}
+{Alice betätigt den \enquote{<}-Knopf.}
+{Die Seite \enquote{Multikonfigurationsergebnisse} wird angezeigt. Diese verhält sich wie spezifiziert.}
 
 \test{Konfigurationsdatei abspeichern und hochladen}{tst:loadkonfig}
 \tests{fnc:loadConfig}
 \tests{fnc:saveConfig}
 
 \teststep{Donald befindet sich im Konfigurationsfenster.}
-{Er klickt auf das 'Download'-Zeichen (siehe \cref{??}) in der Toolbar.}
+{Er klickt auf den \enquote{Konfiguration Speichern}-Knopf in der Toolbar.}
 {Ein Datei-Dialog öffnet sich.}
 
-\teststep{Donald wird ein Datei-Dialog angezeigt.}
-{Er wählt als Speicherort den Desktop aus und gibt den Dateinamen \enquote{Testkonfiguration} an. Dann bestätigt er seine Eingabe mit Klick auf den 'Save'-Button.}
-{Der Datei-Dialog schließt sich. Auf dem Desktop von Donald befindet sich jetzt eine Konfiguartionsdatei namens \enquote{Testkonfiguration}. Da drin ist die gesamte Konfiguration abgespeichert.}
+\teststep{Donald wird der Datei-Dialog zum Speichern der aktuellen Konfiguration angezeigt.}
+{Er wählt als Speicherort den Desktop und gibt den Dateinamen \enquote{Testkonfiguration} ein. Dann bestätigt er den \enquote{Speichern}-Knopf.}
+{Der Datei-Dialog schließt sich. Auf dem Desktop von Donald befindet sich jetzt eine Konfigurationsdatei namens \enquote{Testkonfiguration}.}
 
 \teststep{Donald hat eine Konfigurationsdatei auf seinem Desktop abgespeichert. Seine Kollegin Alice will auch darauf zugreifen können. Donald schickt ihr die Datei per E-Mail und Alice speichert sie auf dem Desktop ab.}
 {Alice startet die Anwendung.}
@@ -858,35 +838,6 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 \teststep{Hans befindet sich im \enquote{Strategie erstellen}-Fenster. Der \enquote{Wenn}-Ausdruck ist leer, das \enquote{Dann}-Dropdownmenü ist auf Kooperieren und das \enquote{Sonst}-Dropdownmenü auf Nicht-Kooperieren eingestellt.}
 {Er zieht per Drag-and-Drop den Ausdruck \enquote{(} \enquote{Der Gegenspieler hat letzes Mal kooperiert} \enquote{AND} \enquote{Der Gegenspieler hat ein höheres Absolutkapital} \enquote{)} in die \enquote{Wenn}-Bedingung. Er gibt den Namen \enquote{modifizierte Tit for Tat Variante} in das \enquote{Name}-Textfeld ein. Anschließend drückt er den \enquote{Speichern}-Knopf.}
 {Das \enquote{Strategie erstellen}-Fenster schließt sich. Die \enquote{modifizierte Tit for Tat Variante}-Strategie ist gespeichert und kann als Strategie ausgewählt werden.}
-
-\test{Ausgabe von Simulationsergebnissen}
-{tst:ausgabe}
-\tests{fnc:anzeigesim}
-\tests{fnc:simresults}
-
-\teststep{Klemens befindet sich im Startfenster.}
-{Er betätigt den \enquote{Play}-Knopf.}
-{In der Liste aller gestarteten Simulationen erscheint ein Eintrag für die soeben gestartete Simulation.}
-
-\teststep{Klemens befindet sich im Startfenster. Eine zuvor gestartete Simulation läuft gerade.}
-{Klemens fährt mit der Maus über den Listeneintrag der Simulation.}
-{Ein mit \enquote{X} beschrifteter Knopf erscheint auf dem Listeneintrag.}
-
-\teststep{Klemens' Maus befindet sich über dem Listeneintrag einer laufenden Simulation und ein mit \enquote{X} beschrifteter Knopf befindet sich darauf.}
-{Klemens betätigt den mit \enquote{X} beschrifteten Knopf.}
-{Die Simulation wird abgebrochen. Der Listeneintrag verhält sich wie spezifiziert.}
-
-\teststep{Klemens befindet sich im Startfenster. Eine zuvor gestartete Simulation ist abgeschlossen.}
-{Er klickt in der Liste auf den Eintrag der Simulation.}
-{Im Fensterabschnitt rechts der Liste erscheint die Seite \enquote{Simulationsergebnisse}. Dort werden wie spezifiziert Informationen zum Ablauf der gewählten Simulation angezeigt.}
-
-\teststep{Die Ausgabeseite \enquote{Simulationsergebnisse} einer abgeschlossenen Simulation wird angezeigt.}
-{Klemens betätigt den \enquote{>}-Knopf}
-{Die Anzeige wechselt zur Seite \enquote{Wiederholungsergebnisse}. Diese verhält sich wie spezifiziert}
-
-\teststep{Die Ausgabeseite \enquote{Simulationsergebnisse} einer Menge von durch Multikonfiguration gestarteten Simulationen wird angezeigt.}
-{Klemens betätigt den \enquote{<}-Knopf.}
-{Die Seite \enquote{Multikonfigurationsergebnisse} wird angezeigt. Diese verhält sich wie spezifiziert.}
 
 
 %%%%%%%%%%%%%

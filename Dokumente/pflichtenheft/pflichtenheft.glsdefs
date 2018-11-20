@@ -1,0 +1,30 @@
+\ifglsentryexists{matching}{}%
+{%
+\gls@defglossaryentry{matching}%
+{%
+name={Matching description},%
+sort={Matching description},%
+type={main},%
+first={Matching description},%
+firstplural={Matching descriptions},%
+text={Matching description},%
+plural={Matching descriptions},%
+description={\PackageError {glossaries} {description key required in \string \newglossaryentry \space for entry `\@glo@label '}{You haven't specified the entry description}},%
+descriptionplural={\PackageError {glossaries} {description key required in \string \newglossaryentry \space for entry `\@glo@label '}{You haven't specified the entry description}},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
