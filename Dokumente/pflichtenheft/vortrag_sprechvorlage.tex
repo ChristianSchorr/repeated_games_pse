@@ -1,0 +1,75 @@
+\documentclass[parskip=full,11pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage{bbm}
+\usepackage{amsmath} % for $\text{}$
+\usepackage{amssymb}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float} % für Fließumgebungen; Platzierung H verschiebt nicht
+\restylefloat{figure}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+
+\begin{document}
+
+Ziel dieses Projektes ist die Entwicklung einer Simulationsumgebung zur Untersuchung von Gleichgewichtszuständen bei wiederholten Spielen
+In einer Simulation wird eine Menge von Agenten betrachtet.
+Agenten werden zu Paaren zusammengefasst und spielen das der Simulation zugrundeliegende Stufenspiel gemäß ihren aktuellen Strategien gegeneinander. Diese Abfolge wird als Runde bezeichnet und viele Male wiederholt. Nach der letzten Runde wird anhand der erhaltenen Auszahlungen eine Rangliste aller Agenten erstellt. Die Agenten passen daraufhin ihre Strategien an; nicht mit dem Ziel, ihr Absolutkapital zu maximieren, sondern einen möglichst hohen Rang zu erreichen. Eine solche Folge nennen wir einen Adaptionsschritt.\\
+Adaptionsschritte werden ebenfalls wiederholt; und zwar so lange, bis sich ein Gleichgewichtszustand eingestellt hat oder eine maximale Zahl von Schritten durchgeführt wurde. Vor dem ersten Adaptionsschritt werden die Agenten mit Strategien und Kapital initialisiert. Dieser ganze Ablauf wird nun als eine Wiederholung bezeichnet.\\
+In einer ganzen Simulation werden nun mehrere Wiederholungen durchgeführt, damit eine aussagekräftige Statistik erstellt werden kann. Am Schluss der Simulation werden die Ergebnisse präsentiert.
+
+Dabei soll der Simulator möglichst frei konfigurierbar sein, bspw. Sollen Agentenzahl und Stufenspiel, aber auch komplexere Aspekte wie der Algorithmus zur Paarbildung oder der Mechanismus zur Strategieanpassung vom Nutzer eingestellt werden können.
+
+-------------Max. 2 min
+
+Für uns ergaben sich bei der Konzeption des Simulators drei wichtige Fragestellungen:\\
+ - Welche Parameter sollen konfigurierbar sein.\\
+ - Was genau bedeutet Gleichgewichtszustand.\\
+ - in welcher Form sollen die Ergebnisse einer Simulation aufbereitet werden.
+
+Unser Lösungsansatz und dessen Umsetzung wollen wir anhand einer Beispielinteraktion vorstellen.
+
+Wenn man das Programm startet, öffnet sich zunächst dieses Fenster. Es ist bereits eine Standardkonfiguration voreingestellt, von der hier eine Zusammenfassung angezeigt wird. Würden wir jetzt den Start-Knopf drücken, würde eine Simulation mit dieser Konfiguration gestartet werden. Wir wollen aber die Konfiguration erstmal bearbeiten und klicken dazu auf das Zahnrad. Dann öffnet sich das Konfigurationsfenster.
+
+Der erste Abschnitt sind die Grundeinstellungen. Hier können einige grundlegende Einstellungen wie die Anzahl der Agenten, das zugrundeliegende Stufenspiel oder die Menge aller in diesem Simulationslauf erlaubten Strategien eingestellt werden. Wollen wir die Menge zugelassener Strategien verändern, klicken wir auf dieses Dropdown Menü und wählen über die Checkboxen aus der Liste alle gewünschten Strategien aus. Wollen wir gemischte Strategien zulassen, aktivieren wir diese Checkbox.
+
+Als nächstes haben wir uns Gedanken gemacht, wie wir die initiale Kapital- und Strategieverteilung realisieren wollen. Die Schwierigkeit, die sich dabei ergeben hat, ist das die Konfiguration einerseits möglichst einfach, andererseits aber auch sehr flexibel sein soll. Zum Beispiel soll so etwas möglich sein wie 70\(\%\) der Agenten spielen Tit-for-Tat, die anderen Grim und das initiale Kapital ist Poissonverteilt.
+Außerdem wollten wir das Einteilen der Agenten in verschiedene Gruppen, also zb rote, blaue und grüne Agenten ermöglichen.\\
+(-> Gruppenfolie)\\
+Zunächst kann man also die Agenten in Gruppen einteilen, wobei es auch gruppenlose Agenten geben darf. Als erstes war dann unsere Idee, dass man dann für jede dieser Gruppen unabhängig initiale Strategien und initiales Kapital festlegen kann. Das heißt einerseits kann man die Verteilung für das initiale Kapital festlegen, das heißt für jeden der Agenten aus dieser Gruppe wird das Anfangskapital zufällig aus der gewählten Verteilung gezogen. Andererseits kann man eine Menge von Anfangsstrategien festlegen; dann wird jeder Agent dieser Gruppe mit einer zufällig gewählten Strategie aus dieser Menge initialisiert.\\
+Dann ist uns aber aufgefallen, dass so Initialkapital -bzw. Strategien zu eng an die Gruppen gekoppelt sind(, die drei sollen aber eigentlich unabhängig voneinander konfiguriert werden können). Es ist so zb nicht möglich, eine Gruppe zu erstellen, in der \(70\%\) der Agenten Tit-for-Tat und \(30\%\) Grim benutzen.\\
+Daher haben wir das Konzept von Segmenten eingeführt. Anstatt die Konfiguration für jede Gruppe zu machen, können die Gruppen jeweils nochmal in Segmente eingeteilt werden. Die Konfiguration für initiales Kapital und initiale Strategien wird dann für jedes Segment einzeln vorgenommen. Die Segmente sind also Hilfskonstruktionen für die Initialisierung und haben ab da keinen Einfluss mehr auf den Simulationsablauf. Grob gesagt: Die Agenten kennen ihre Gruppe, aber nicht ihr Segment.
+
+Nachdem wir nun dieses Konzept erklärt haben, kommen wir zurück zum Konfigurationsfenster. Unter den Grundeinstellungen ist der Abschnitt für die Gruppeneinstellungen. Über diesen Knopf können wir neue Gruppen erstellen, und so sieht es aus, nachdem wir zwei Gruppen hinzugefügt haben. Über den Slider können die Gruppengrößen eingestellt werden. Die farbigen Abschnitte stehen für die Gruppen, der weiße für die gruppenlosen Agenten. Für die Segmenteinstellungen gibt es für die Gruppen und die gruppenlosen jeweils einen Tab. (Über das X auf dem Tab kann eine Gruppe wieder gelöscht werden.)\\
+In den Segmenteinstellungen einer Gruppe können auf ähnliche Weise Segmente gebildet werden. Wie ich vorhin erklärt habe, kann nun für jedes der Segmente die Verteilung für das initiale Kapital und die Menge der initialen Strategien konfiguriert werden. (kurz GUI erklären, 3-4 Sätze).
+
+Als nächstes kommt noch der Abschnitt zu den Erweiterten Einstellungen. Hier können der Algorithmus zur Paarbildung, die Erfolgsquantifizierung, der Adaptionsmechanismus und das Gleichgewichtskriterium ausgewählt und parametrisiert werden. Auf das Gleichgewichtskriterium und diesen Abschnitt hier kommen wir später nochmal zurück. Indem wir jetzt auf den Haken in der Toolbar klicken, gelangen wir zurück ins Startfenster und können unsere Simulation starten. Die laufende Simulation erscheint dann in dieser Liste und die Progress-Bar zeigt an, wie viele der Wiederholungen bereits abgeschlossen wurden.
+
+Sobald die Simulation abgeschlossen ist, erhalten wir durch Klicken auf den Listeneintrag die Simulationsergebnisse. Diese besteht aus zwei Seiten. Auf der ersten Seite können finale Strategie- und Kapitalverteilung der Agenten für die einzelnen Wiederholungen eingesehen werden. Die betrachtete Wiederholung kann über diesen Slider eingestellt werden. Über den Range-Slider kann ein Quantil der Agenten eingestellt werden, deren Verteilung betrachtet werden soll. Zieht man zb den rechten Knopf bis ganz rechts und den linken in die Mitte, werden die Verteilungen für die besten \(50\%\) der Agenten gebildet. Will man die WIederholungen nicht einzekn betrachten, kann man diese Checkbox aktivieren. Dann werden in den Verteilungen Mittelwerte über alle Wiederholungen angezeigt.\\
+Auf der zweiten Seite sind Informationen zu Gleichgewichtshäufigkeit, Gleichgewichtseffizienz und Einstellungsdauer. Effizienz ist ein Maß für die Kooperativität des Gleichgewichts; 0 heißt, das überhaupt niemand kooperiert, 1 dass jeder mit jedem kooperiert. Die Einstellungsdauer ist die Anzahl von Adaptionsschritten, bis es zum Gleichgewicht kam. Die Abbildungen sind als Histogramme zu verstehen, dass heißt dieser Balken bedeutet etwa,.... Darunter wird jeweils noch der Mittelwert angezeigt.
+\end{document}
