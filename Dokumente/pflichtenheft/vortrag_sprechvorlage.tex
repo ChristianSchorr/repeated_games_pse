@@ -39,15 +39,18 @@
 
 Ziel dieses Projektes ist die Entwicklung einer Simulationsumgebung zur Untersuchung von Gleichgewichtszuständen bei wiederholten Spielen
 In einer Simulation wird eine Menge von Agenten betrachtet.
-Agenten werden zu Paaren zusammengefasst und spielen das der Simulation zugrundeliegende Stufenspiel gemäß ihren aktuellen Strategien gegeneinander. Diese Abfolge wird als Runde bezeichnet und viele Male wiederholt. Nach der letzten Runde wird anhand der erhaltenen Auszahlungen eine Rangliste aller Agenten erstellt. Die Agenten passen daraufhin ihre Strategien an; nicht mit dem Ziel, ihr Absolutkapital zu maximieren, sondern einen möglichst hohen Rang zu erreichen. Eine solche Folge nennen wir einen Adaptionsschritt.
-Adaptionsschritte werden ebenfalls wiederholt; und zwar so lange, bis sich ein Gleichgewichtszustand eingestellt hat oder eine maximale Zahl von Schritten durchgeführt wurde. Vor dem ersten Adaptionsschritt werden die Agenten mit Strategien und Kapital initialisiert. Dieser ganze Ablauf wird nun als eine Wiederholung bezeichnet.
+Agenten werden zu Paaren zusammengefasst und spielen das der Simulation zugrundeliegende Stufenspiel gemäß ihren aktuellen Strategien gegeneinander. Diese Abfolge wird als Runde bezeichnet und viele Male wiederholt. Nach der letzten Runde wird anhand der erhaltenen Auszahlungen eine Rangliste aller Agenten erstellt. Die Agenten passen daraufhin ihre Strategien an; nicht mit dem Ziel, ihr Absolutkapital zu maximieren, sondern einen möglichst hohen Rang zu erreichen. Eine solche Folge nennen wir einen Adaptionsschritt.\\
+Adaptionsschritte werden ebenfalls wiederholt; und zwar so lange, bis sich ein Gleichgewichtszustand eingestellt hat oder eine maximale Zahl von Schritten durchgeführt wurde. Vor dem ersten Adaptionsschritt werden die Agenten mit Strategien und Kapital initialisiert. Dieser ganze Ablauf wird nun als eine Wiederholung bezeichnet.\\
 In einer ganzen Simulation werden nun mehrere Wiederholungen durchgeführt, damit eine aussagekräftige Statistik erstellt werden kann. Am Schluss der Simulation werden die Ergebnisse präsentiert.
 
 Dabei soll der Simulator möglichst frei konfigurierbar sein, bspw. Sollen Agentenzahl und Stufenspiel, aber auch komplexere Aspekte wie der Algorithmus zur Paarbildung oder der Mechanismus zur Strategieanpassung vom Nutzer eingestellt werden können.
+
 -------------Max. 2 min
-Für uns ergaben sich bei der Konzeption des Simulators drei wichtige Fragestellungen: 
- - Welche Parameter sollen konfigurierbar sein.
- - Was genau bedeutet Gleichgewichtszustand.
+
+Für uns ergaben sich bei der Konzeption des Simulators drei wichtige Fragestellungen:\\
+ - Welche Parameter sollen konfigurierbar sein.\\
+ - Was genau bedeutet Gleichgewichtszustand.\\
  - in welcher Form sollen die Ergebnisse einer Simulation aufbereitet werden.
+
 Unser Lösungsansatz und dessen Umsetzung wollen wir anhand einer Beispielinteraktion vorstellen.
 \end{document}
