@@ -86,9 +86,9 @@ Der Nutzer hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
 \item zugrundeliegendes Stufenspiel
 \item Anzahl pro \adapt\ durchgeführter Runden
 \item Anzahl durchgeführter Wiederholungen
+\item Menge aller möglichen Strategien
 \item Anzahl verschiedener Gruppen und jeweils Anzahl zugehöriger Agenten
 \item Zuweisungsverfahren für initiale Strategien
-\item Menge aller möglichen Strategien
 \item Zuweisungsverfahren für initiales Kapital
 \item Algorithmus zur Bildung von Paaren beim Beginn einer Runde
 \item Erfolgsquantifizierung zur Erstellung der Rangliste am Ende eines \adapt s
@@ -164,7 +164,7 @@ Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im Syst
 \end{itemize}
 Voreingestellt ist das Gefangenendilemma.
 
-\functionality{Festlegung der Anzahl von Runden}{fnc:rounds}
+\functionality{Festlegung der Anzahl von Runden pro \adapt}{fnc:rounds}
 \fulfills{crt:simparam_std}
 Der Nutzer hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden in einer Konfiguration festzulegen.
 
@@ -254,7 +254,7 @@ Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Ag
 
 Der Nutzer hat die Möglichkeit, den Algorithmus festzulegen, der die Agenten zu Beginn jeder Runde in Paare einteilt.
 
-Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} (siehe \cref{fig:konfig_adv}) ein Dropdown-Menü mit der Bezeichnung \enquote{Paarungsalgorithmus}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten gewählt werden:
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} (siehe \cref{fig:konfig_adv}) ein Dropdown-Menü mit der Bezeichnung \enquote{Paarbildungsalgorithmus}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten gewählt werden:
 
 \textbf{Zufällige Paarbildung:}
 Die Agenten werden zufällig zu Paaren zusammengefasst.
@@ -363,7 +363,7 @@ Die Multikonfiguration kann für einen der folgenden Parameter mittels Checkbox 
 \item Die Parameter des ausgewählten Gleichgewichtskriteriums
 \item Die Parameter des Adaptionsmechanismus
 \end{itemize}
-Im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen} können Unter- und Obergrenze sowie Schrittgröße des Multikonfigurations-Parameters festgelegt werden (siehe \cref{fig:konfig_adv}).
+Im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen} können Unter- und Obergrenze sowie Schrittgröße des Multikonfigurations-Parameters festgelegt werden (siehe \cref{fig:konfig_adv}). Wird die Multikonfiguration für einen Parameter aktiviert, so werden Slider und Textfeld zur Einstellung des Parameters ausgegraut und können nicht mehr bedient werden.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert zwischen den festgelegten Grenzen gemäß der festgelegten Schrittgröße eine Simulation gestartet, in der der Multikonfigurations-Parameter den entsprechenden Wert annimmt. Alle anderen Konfigurationsparameter bleiben gleich.
 
@@ -718,14 +718,15 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Alice tippt im Textfeld \enquote{Schranke für Adaptionsschritte} \(5.000\) ein.}
 {Der Inhalt des Textfelds wird wie gewollt abgeändert.}
 
-\test{Multikonfiguration von Gruppen und Segmenten}
+\test{Multikonfiguration}
 {tst:multikonfgr}
 \tests{fnc:multikonfgr}
 \tests{fnc:groups}
 \tests{fnc:multikonfseg}
 \tests{fnc:segments}
+\tests{fnc:multikonfpar}
 
-\teststep{Max befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Gruppeneinstellungen} ist geöffnet. Es ist eine Gruppe eingestellt.}
+\teststep{Max befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Gruppeneinstellungen} wird angezeigt. Es ist eine Gruppe eingestellt.}
 {Er aktiviert die \enquote{Multikonfiguration}-Checkbox.}
 {Der Slider zum Einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} erscheint der Unterabschnitt \enquote{Multikonfiguration}.}
 
@@ -739,6 +740,14 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 
 \teststep{Die Multikonfiguration für Segmente bei den gruppenlosen Agenten ist aktiviert. Anna befindet sich im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen}.}
 {Sie gibt in das \enquote{Startwert}-Textfeld \(30\%\), in das \enquote{Endwert}-Textfeld \(70\%\) und in das \enquote{Schrittweite}-Textfeld \(5\%\) ein.}
+{Die eingegebenen Werte werden in die Textfelder übernommen.}
+
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt. Als Adaptionsmechanismus ist \enquote{Preferential Adaption} eingestellt.}
+{Anna aktiviert die Checkbox \enquote{Multikonfiguration} neben der Einstellung für den Parameter \enquote{Vergleichswahrscheinlichkeit} unter dem Dropdown-Menü \enquote{Adaptionsmechanismus}.}
+{Der Slider und das Textfeld zur Einstellung der \enquote{Vergleichswahrscheinlichkeit} werden ausgegraut. Der Unterabschnitt \enquote{Multikonfiguration} erscheint.}
+
+\teststep{Anna befindet sich im Abschnitt \enquote{Erweiterte Einstellungen} und als Adaptionsmechanismus ist \enquote{Preferential Adaption} eingestellt. Die Multikonfiguration für den Parameter \enquote{Vergleichswahrscheinlichkeit} ist aktiviert.}
+{Anna gibt im Unterabschnitt \enquote{Multikonfiguration} als \enquote{Startwert} \(0.2\), als \enquote{Endwert} \(0.8\) und als \enquote{Schrittweite} \(0.1\) ein.}
 {Die eingegebenen Werte werden in die Textfelder übernommen.}
 
 \test{Strategie erstellen}
@@ -757,6 +766,31 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Er erstellt den Ausdruck \enquote{(Der Gegenspieler hat letztes Mal kooperiert AND Der Gegenspieler hat ein höheres Absolutkapital)} als \enquote{Wenn}-Bedingung und gibt als Namen \enquote{Tit-for-Tat Variante} in das entsprechende Textfeld ein. Anschließend drückt er den \enquote{Speichern}-Knopf.}
 {Das Fenster schließt sich und eine neue Strategie mit Namen und Boole'schem Ausdruck wie spezifiziert wird im Programm hinterlegt.}
 
+\test{Fehlerbehandlung}{tst:fehlerbehandlung}
+
+\teststep{Paul befindet sich im Konfigurationsfenster.}
+{Er gibt im Textfeld \enquote{Anzahl an Agenten} \(667\) ein.}
+{Der Inhalt des Textfeldes wird auf \(666\) gesetzt.}
+
+\teststep{Paul befindet sich im Konfigurationsfenster.}
+{Er gibt im Textfeld \enquote{Anzahl der Runden pro Wiederholung} \(12\) ein.}
+{Der Inhalt des Textfelds wird auf \(10\) gesetzt.}
+
+\teststep{Paul befindet sich im Konfigurationsfenster. Im ersten Segment der gruppenlosen Agenten ist \enquote{Tit-for-Tat} in den \enquote{ausgewählten Strategien}.}
+{Paul klickt im Dropdown-Menü \enquote{Menge aller möglichen Strategien} auf die (aktivierte) Checkbox neben \enquote{Tit-for-Tat}.}
+{Die Checkbox bleibt aktiviert.}
+
+\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Gruppeneinstellungen} wird angezeigt und es sind fünf Gruppen eingestellt.}
+{Paul klickt auf den (ausgegrauten) \enquote{Gruppe hinzufügen}-Knopf.}
+{Es wird keine Gruppe hinzugefügt.}
+
+\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{1. Segment} ist geöffnet.}
+{Paul wählt als Verteilung die Binomialverteilung und gibt für den Parameter \enquote{Wahrscheinlichkeit} \(31\) ein.}
+{Der Inhalt des Textfeldes wird auf \(1.0\) gesetzt.}
+
+\teststep{Paul befindet sich im Konfigurationsfenster. Die Segment-Multikonfiguration für die gruppenlosen Agenten ist aktiviert.}
+{Paul klickt auf die (ausgegraute) Checkbox \enquote{Multikonfiguration} neben dem Slider zur Einstellung der Gruppengrößen.}
+{Die Checkbox bleibt deaktiviert.}
 
 %%%%%%%%%%%%%
 \appendix
@@ -1007,7 +1041,7 @@ Zwei Jäger befinden sich auf der Hirschjagd. Es kommt ein Hase vorbei und beide
 \end{table}
 
 \textbf{Feiglingsspiel:}
-Wegen einer Mutprobe rasen zwei Personen mit Autos aufeinander zu. Wer Ausweicht, gilt gegenüber dem andere als Feigling und hat die Wette verloren. Weicht keiner von beiden aus, verlieren sie bei der Kollision ihr leben.
+Wegen einer Mutprobe rasen zwei Personen mit Autos aufeinander zu. Wer Ausweicht, gilt gegenüber dem andere als Feigling und hat die Wette verloren. Weicht keiner von beiden aus, verlieren sie bei der Kollision ihr Leben.
 \begin{table}[ht]
 	\center
 	\begin{tabular}{|c|c|c|c|c|c|}
