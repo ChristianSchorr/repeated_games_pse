@@ -248,7 +248,7 @@ Es können eigene \Glspl{Strategie} erstellt werden.
 Es können eigene Stufenspiele erstellt werden.
 
 \criteriumOptional{Multikonfiguration}{crt:multikonf}
-Der \Gls{Nutzer} kann eine Menge von Konfigurationen spezifizieren, in denen die Größe einer Gruppe oder die eines \segment s einer Gruppe eine festgelegte Folge von Werten durchläuft. Die so spezifizierten Simulationen werden gleichzeitig gestartet.
+Der \Gls{Nutzer} kann eine Menge von Konfigurationen spezifizieren, in denen die Größe eines bestimmten Parameters eine festgelegte Folge von Werten durchläuft. Die so spezifizierten Simulationen werden gleichzeitig gestartet.
 
 \subsection{Abgrenzung}
 
@@ -282,9 +282,9 @@ Die gewünschte Zahl kann im Konfigurationsfenster über einen Slider eingestell
 \fulfills{crt:simparam_std}
 Der \Gls{Nutzer} kann das zugrundeliegende Stufenspiel einer Konfiguration festlegen.
 
-Dazu befindet sich im Konfigurationsfenster ein Dropdown-Menü. Wird dieses angeklickt, so kann ein Stufenspiel aus einer Liste aller im System hinterlegten Stufenspiele ausgewählt werden. Rechts des Dropdown-Menüs wird eine kurze Beschreibung des aktuell eingestellten Stufenspiels angezeigt (siehe \cref{fig:konfig_main}).
+Dazu befindet sich im Konfigurationsfenster ein Dropdown-Menü. Wird dieses angeklickt, so kann ein Stufenspiel aus einer Liste aller im Programm hinterlegten Stufenspiele ausgewählt werden. Rechts des Dropdown-Menüs wird eine kurze Beschreibung des aktuell eingestellten Stufenspiels angezeigt (siehe \cref{fig:konfig_main}).
 
-Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im System hinterlegt (siehe Anhang):
+Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im Programm hinterlegt (siehe Anhang):
 \begin{itemize} \itemsep -10pt
 \item Gefangenendilemma
 \item Hirschjagd
@@ -299,13 +299,13 @@ Voreingestellt ist das Gefangenendilemma.
 \fulfills{crt:simparam_std}
 Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden in einer Konfiguration festzulegen.
 
-Wie die Anzahl von Agenten kann die Anzahl von Runden im Konfigurationsfenster mittels Slider bzw. Textfeld eingestellt werden. Zugelassen sind natürliche Zahlen zwischen \(50\) und \(1000\). Voreingestellt sind \(100\) Runden (siehe \cref{fig:konfig_main}).
+Wie die Anzahl von Agenten kann die Anzahl von Runden im Konfigurationsfenster mittels Slider bzw. Textfeld eingestellt werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(1000\). Voreingestellt sind \(100\) Runden (siehe \cref{fig:konfig_main}).
 
 \functionality{Festlegung der Anzahl von Wiederholungen}{fnc:repeats}
 \fulfills{crt:simparam_std}
 Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl durchgeführter Wiederholungen in einer Konfiguration festzulegen.
 
-Wie die Anzahl von Agenten kann die Anzahl von Wiederholungen im Konfigurationsfenster mittels Slider bzw. Textfeld eingegeben werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(10\). Voreingestellt sind \(5\) Wiederholungen (siehe \cref{fig:konfig_main}).
+Wie die Anzahl von Agenten kann die Anzahl von Wiederholungen im Konfigurationsfenster mittels Slider bzw. Textfeld eingegeben werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(500\). Voreingestellt sind \(100\) Wiederholungen (siehe \cref{fig:konfig_main}).
 
 \functionality{Festlegung der Menge aller möglichen \Glspl{Strategie}}{fnc:stratset}
 \fulfills{crt:simparam_std}
@@ -357,6 +357,8 @@ Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort be
 
 Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ zufällig eine \Gls{Strategie} aus der Liste der gewählten \Glspl{Strategie} zugeordnet. Ist diese Liste leer, werden den Agenten zufällige \Glspl{Strategie} aus der Menge aller möglichen \Glspl{Strategie} zugeordnet. Insbesondere werden Agenten immer mit reinen \Glspl{Strategie} initialisiert.
 
+Eine \Gls{Strategie}, die sich in einem Segment in den \enquote{ausgewählten \Glspl{Strategie}} befindet, kann in den Grundeinstellungen nicht aus der Menge aller möglichen \Glspl{Strategie} entfernt werden. Die entsprechende Checkbox im Dropdown-Menü ist ausgegraut.
+
 \functionality{Festlegung des Zuweisungsverfahrens für initiales Kapital}{fnc:initialcap}
 \fulfills{crt:simparam_std}
 \fulfills{crt:groupfunc}
@@ -385,7 +387,7 @@ Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Ag
 
 Der \Gls{Nutzer} hat die Möglichkeit, den Algorithmus festzulegen, der die Agenten zu Beginn jeder Runde in Paare einteilt.
 
-Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} (siehe \cref{fig:konfig_adv}) ein Dropdown-Menü mit der Bezeichnung \enquote{Paarbildungsalgorithmus}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten gewählt werden:
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} (siehe \cref{fig:konfig_adv}) ein Dropdown-Menü mit der Bezeichnung \enquote{Agentenpaarung}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten gewählt werden:
 
 \textbf{Zufällige Paarbildung:}
 Die Agenten werden zufällig zu Paaren zusammengefasst.
@@ -395,9 +397,12 @@ Dieser Mechanismus berücksichtigt die Kooperationswahrscheinlichkeiten der Agen
 \[
 \sum_{\{i,j\} \in M} \left(p_{ij} + p_{ji}\right)
 \]
-möglichst maximal wird\footnote{Zur Laufzeit-Verbesserung dürfen hier Heuristiken zum einsatz kommen, die nur approximativ maximale Lösungen finden.}.
+möglichst maximal wird\footnote{Zur Laufzeit-Verbesserung dürfen hier Heuristiken zum Einsatz kommen, die nur approximativ maximale Lösungen finden.}.
 
-Voreingestellt ist \enquote{Zufällige Paarbildung}.
+\textbf{Paarbildung nach Wunsch mit Zufall:}
+Dieser Mechanismus hat als Konfigurationsparameter den \enquote{Zufallsfaktor} \(\alpha \in [0,1]\). Zu Beginn jeder Runde werden die Agenten dann mit Wahrscheinlichkeit \(\alpha\) zufällig gepaart und ansonsten nach Wunsch (siehe oben).
+
+Die Parameter des gewählten Algorithmus' können gegebenenfalls unter dem Dropdown-Menü mittels Slider und Textfeldern eingegeben werden. Voreingestellt ist \enquote{Zufällige Paarbildung}.
 
 \functionality{Festlegung der Erfolgsquantifizierung}{fnc:erfolg}
 \fulfills{crt:simparam_std}
@@ -409,7 +414,7 @@ Dazu befindet sich im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-
 Der Erfolg eines Agenten ist die Summe aller Auszahlungen aus den Stufenspielen in den vergangenen Runden des aktuellen \adapt s.
 
 \textbf{Gleitender Durchschnitt:}
-Dieser Mechanismus hat einen Konfigurationsparameter \(w \in \{1,...,R\}\) (falls \(R\) die Anzahl von Runden pro \adapt\ bezeichnet). Es bezeichne \(a_i^{(k)}\) die Auszahlung des \(i\)-ten Agenten in der \(k\)-ten Runde (\(i \in \{1,...,N\}, k \in \{1,...,R\}\) mit der Anzahl \(N\) aller Agenten). Für die \(k\)-te Runde sei dann
+Dieser Mechanismus hat als Konfigurationsparameter die \enquote{Fenstergröße} \(w \in \{1,...,R\}\) (falls \(R\) die Anzahl von Runden pro \adapt\ bezeichnet). Es bezeichne \(a_i^{(k)}\) die Auszahlung des \(i\)-ten Agenten in der \(k\)-ten Runde (\(i \in \{1,...,N\}, k \in \{1,...,R\}\) mit der Anzahl \(N\) aller Agenten). Für die \(k\)-te Runde sei dann
 \[
 A_i^{(k)} := \sum_{l = \max\{1,k-w+1\}}^k a_i^{(l)} \text{  für jedes  } i \in \{1,...,N\}
 \]
@@ -421,6 +426,12 @@ also den durchschnittlichen Rang von \(i\) in den \(R\) Runden.
 
 Unter dem Dropdown-Menü befinden sich Textfelder und Slider zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \enquote{Absolute Auszahlung}.
 
+\textbf{Absolutkapital:}
+Der Erfolg eines Agenten ist sein aktuelles Absolutkapital, also die Summe aller Auszahlungen aus allen seit Beginn der Wiederholung gespielten Runden plus das initiale Kapital.
+
+\textbf{Absolutkapital ohne Initialkapital:}
+Der Erfolg eines Agenten ist sein aktuelles Absolutkapital ohne Initialkapital, also die Summe aller Auszahlungen aus allen seit Beginn der Wiederholung gespielten Runden.
+
 \functionality{Festlegung des Adaptionsmechanismus}{fnc:algoadapt}
 \fulfills{crt:simparam_std}
 Der \Gls{Nutzer} hat die Möglichkeit, den Mechanismus festzulegen, mit dem die Agenten am Ende eines \adapt s ihre \Glspl{Strategie} anpassen.
@@ -428,14 +439,14 @@ Der \Gls{Nutzer} hat die Möglichkeit, den Mechanismus festzulegen, mit dem die 
 Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Adaptionsmechanismus}. Über das Dropdown-Menü kann einer der folgenden Mechanismen ausgewählt werden (siehe \cref{fig:konfig_adv}):
 
 \textbf{Replicator Dynamic:}
-Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,1)\) und einen Wert \(\beta \in (0,1)\). Dann sei \(\beta' := \frac{\beta}{N-1}\), wobei \(N\) die Anzahl der Agenten bezeichnet. Für jeden Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine \Gls{Strategie} nicht. Andernfalls wird ein ein anderer Agent B zufällig gewählt. \(\Delta r\) bezeichne nun die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine \Gls{Strategie} nicht. Ist \(\Delta r > 0\) und sind nur reine \Glspl{Strategie} zugelassen, so übernimmt Agent A mit Wahrscheinlichkeit \(\delta := \beta' \cdot \Delta r \in (0,1)\) die \Gls{Strategie} von Agent B. Sind \glspl{gemischte Strategie} erlaubt, so wird stattdessen mit Parameter \(\delta\) zwischen \Gls{Strategie} von A und \Gls{Strategie} von B linear interpoliert und das Ergebnis auf die in der Summennorm nächstmögliche gültige \Gls{Strategie} gerundet, d.h.
+Dieser Mechanismus hat zwei Konfigurationsparameter: Die \enquote{Vergleichswahrscheinlichkeit} \(\alpha \in (0,1)\) und die \enquote{Adaptionswahrscheinlichkeit} \(\beta \in (0,1)\). Dann sei \(\beta' := \frac{\beta}{N-1}\), wobei \(N\) die Anzahl der Agenten bezeichnet. Für jeden Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine \Gls{Strategie} nicht. Andernfalls wird ein ein anderer Agent B zufällig gewählt. \(\Delta r\) bezeichne nun die Differenz der Ränge von A und B. Ist \(\Delta r < 0\), so ändert A seine \Gls{Strategie} nicht. Ist \(\Delta r > 0\) und sind nur reine \Glspl{Strategie} zugelassen, so übernimmt Agent A mit Wahrscheinlichkeit \(\delta := \beta' \cdot \Delta r \in (0,1)\) die \Gls{Strategie} von Agent B. Sind \glspl{gemischte Strategie} erlaubt, so wird stattdessen mit Parameter \(\delta\) zwischen \Gls{Strategie} von A und \Gls{Strategie} von B linear interpoliert und das Ergebnis auf die in der Summennorm nächstmögliche gültige \Gls{Strategie} gerundet, d.h.
 \[
 \omega_\text{A}^\text{(neu)} = \underset{\omega \in \Omega}{\operatorname{arg min}} \|\omega - \omega^*\|_1 \text{  mit  } \omega^* = \omega_\text{A} + \delta \cdot (\omega_\text{B} - \omega_\text{A}),
 \]
 wobei \(\Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=1}^n \omega_i = 1\}\) die Menge aller gültigen gemischten Strategien, \(n\) die Anzahl von in diesem Simulationslauf möglichen \Glspl{Strategie} und \(\omega_\text{A}\), \(\omega_\text{B}\) die aktuellen \Glspl{Strategie} von A und B bezeichnen\footnote{\(\|\cdot\|_1 : \mathbb{R}^n \rightarrow [0,\infty), \ x = (x_i)_{i=1}^n \mapsto \sum_{i=1}^n |x_i|\) bezeichnet die Summennorm auf \(\mathbb{R}^n\).}. Voreinstellungen für die Parameter sind \(\alpha = 0.5\) und \(\beta = 0.5\).
 
 \textbf{Preferential Adaption:}
-Dieser Mechanismus hat zwei Konfigurationsparameter: Einen Wert \(\alpha \in (0,1)\), und einen Wert \(\beta \in (0,1)\). Dann sei \(\beta' := \frac{\beta}{N-1}\), wobei \(N\) die Anzahl der Agenten bezeichnet. Es sei nun \(p_{ij}\) für \(i,j \in \{1,...,N\}, i \neq j\) die Wahrscheinlichkeit, dass der \(i\)-te Agent nach aktueller \Gls{Strategie} mit dem \(j\)-ten Agenten kooperieren würde\footnote{Sind nur reine \Glspl{Strategie} zugelassen, ist also \(p_{ij} \in \{0,1\} \forall i,j \in \{1,...,N\}, i \neq j\)}. Für den \(i\)-ten Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine \Gls{Strategie} nicht. Andernfalls wird ein anderer Agent B zufällig gewählt. Die Wahrscheinlichkeit \(p_j\), dabei den \(j\)-ten Agenten zu wählen, beträgt
+Dieser Mechanismus hat zwei Konfigurationsparameter: Die \enquote{Vergleichswahrscheinlichkeit} \(\alpha \in (0,1)\) und die \enquote{Adaptionswahrscheinlichkeit} \(\beta \in (0,1)\). Dann sei \(\beta' := \frac{\beta}{N-1}\), wobei \(N\) die Anzahl der Agenten bezeichnet. Es sei nun \(p_{ij}\) für \(i,j \in \{1,...,N\}, i \neq j\) die Wahrscheinlichkeit, dass der \(i\)-te Agent nach aktueller \Gls{Strategie} mit dem \(j\)-ten Agenten kooperieren würde\footnote{Sind nur reine \Glspl{Strategie} zugelassen, ist also \(p_{ij} \in \{0,1\} \forall i,j \in \{1,...,N\}, i \neq j\)}. Für den \(i\)-ten Agenten A passiert dann nach der Erstellung der Rangliste am Ende eines \adapt s folgendes: Mit der Wahrscheinlichkeit \(1 - \alpha\) ändert A seine \Gls{Strategie} nicht. Andernfalls wird ein anderer Agent B zufällig gewählt. Die Wahrscheinlichkeit \(p_j\), dabei den \(j\)-ten Agenten zu wählen, beträgt
 \[
 p_j = \frac{p_{ij}}{\sum_{l \neq i} p_{il}}.
 \]
@@ -450,14 +461,14 @@ Der \Gls{Nutzer} hat die Möglichkeit, das Gleichgewichtskriterium festzulegen. 
 Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Gleichgewichtskriterium}. Über dieses kann eines der folgenden Gleichgewichtskriterien ausgewählt werden (siehe \cref{fig:konfig_main}):
 
 \textbf{Strategiegleichgewicht:}
-Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ wird auf folgende Art ein Maß \(\Delta_\text{S}\) für die Änderungen in den \Glspl{Strategie} der Agenten berechnet: Sind nur reine \Glspl{Strategie} zugelassen, ist \(\Delta_\text{S}\)  die Zahl aller Agenten, die ihre \Gls{Strategie} geändert haben. Sind \glspl{gemischte Strategie} zugelassen, so bezeichne \(\omega_i\) bzw. \(\omega_i'\) die \Gls{Strategie} des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann ist
+Dieses Kriterium hat zwei freie Konfigurationsparameter: Die \enquote{Gleichgewichtsstabilität} \(\alpha \in (0,1)\) und die \enquote{Gleichgewichtsdauer} \(G \in \{1,...,200\}\). Für zwei aufeinanderfolgende \adapts\ wird auf folgende Art ein Maß \(\Delta_\text{S}\) für die Änderungen in den \Glspl{Strategie} der Agenten berechnet: Sind nur reine \Glspl{Strategie} zugelassen, ist \(\Delta_\text{S}\)  die Zahl aller Agenten, die ihre \Gls{Strategie} geändert haben. Sind \glspl{gemischte Strategie} zugelassen, so bezeichne \(\omega_i\) bzw. \(\omega_i'\) die \Gls{Strategie} des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann ist
 \[
 \Delta_\text{S} :=\frac 12 \sum_{i=1}^N \|\omega_i - \omega_i'\|_1.
 \]
 Ist nun \(\Delta_\text{S} < \alpha \cdot N\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach \Glspl{Strategie} erreicht.
 
 \textbf{Ranggleichgewicht:}
-Dieses Kriterium hat zwei freie Konfigurationsparameter \(\alpha \in (0,1)\) und \(G \in \{10,...,200\}\). Für zwei aufeinanderfolgende \adapts\ bezeichne \(r_i\) bzw. \(r_i'\) den Rang des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann wird gemäß
+Dieses Kriterium hat zwei freie Konfigurationsparameter: Die \enquote{Gleichgewichtsstabilität} \(\alpha \in (0,1)\) und die \enquote{Gleichgewichtsdauer} \(G \in \{1,...,200\}\). Für zwei aufeinanderfolgende \adapts\ bezeichne \(r_i\) bzw. \(r_i'\) den Rang des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann wird gemäß
 \[
 \Delta_\text{R} := \sum_{i=1}^N |r_i - r_i'|,
 \]
@@ -469,11 +480,11 @@ Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der fü
 \fulfills{crt:simparam_std}
 Der \Gls{Nutzer} kann die maximale Zahl durchzuführender \adapts\ festlegen. Wird in einer Wiederholung einer so konfigurierten Simulation diese Zahl durchgeführter \adapts\ erreicht, wird die Wiederholung beendet.
 
-Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein mit \enquote{Schranke für \adapts} beschriftetes Textfeld. Zugelassen sind alle natürlichen Zahlen. Voreingestellt ist \(10.000\).
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein mit \enquote{Maximale Zahl der \adapts} beschriftetes Textfeld. Zugelassen sind alle natürlichen Zahlen. Voreingestellt ist \(10.000\).
 
 \functionality{Multikonfiguration von Gruppen}{fnc:multikonfgr}
 \fulfills{crt:multikonf}
-Beträgt die Anzahl von Gruppen in einer Konfiguration genau eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{Multikonfiguration} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{fig:konfig_adv}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
+Beträgt die Anzahl von Gruppen in einer Konfiguration genau eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{variable Gruppengröße} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{fig:konfig_adv}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der die Größe der Gruppe einen entsprechenden Anteil an der Zahl aller Agenten hat. Die restlichen Konfigurationsparameter bleiben gleich.
 
@@ -481,7 +492,7 @@ Ist die aktuell eingestellte Anzahl von Gruppen nicht eins oder wurde bereits di
 
 \functionality{Multikonfiguration von \segments n}{fnc:multikonfseg}
 \fulfills{crt:multikonf}
-Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{Multikonfiguration} neben dem Slider zur Einstellung der \segment größen aktiviert werden. Daraufhin werden der Slider zur Einstellung der \segment größen und der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Wie bei der Gruppen-Multikonfiguration können nun im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} Intervall und Schrittgröße eingegeben werden.
+Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{variable Segmentgröße} neben dem Slider zur Einstellung der \segment größen aktiviert werden. Daraufhin werden der Slider zur Einstellung der \segment größen und der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Wie bei der Gruppen-Multikonfiguration können nun im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} Intervall und Schrittgröße eingegeben werden.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der das erste \segment\ der Gruppe entsprechend groß ist und das zweite \segment\ den Rest der Gruppe einnimmt. Die restlichen Konfigurationsparameter bleiben gleich.
 
@@ -489,16 +500,22 @@ Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder w
 
 \functionality{Multikonfiguration weiterer Parameter}{fnc:multikonfpar}
 \fulfills{crt:multikonf}
-Die Multikonfiguration kann für einen der folgenden Parameter mittels Checkbox aktiviert werden:
+Die Multikonfiguration kann für einen der folgenden Parameter aktiviert werden:
 \begin{itemize} \itemsep -10pt
+\item Anzahl an Agenten
+\item Anzahl von Runden pro \adapt
+\item Anzahl von Wiederholungen
+\item Die Parameter des ausgewählten Paarbildungsalgorithmus
+\item Die Parameter der ausgewählten Erfolgsquantifizierung
+\item Die Parameter des Adaptionsmechanismus 
 \item Die Parameter des ausgewählten Gleichgewichtskriteriums
-\item Die Parameter des Adaptionsmechanismus
+\item Maximale Zahl durchzuführender Adaptionsschritte
 \end{itemize}
-Im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen} können Unter- und Obergrenze sowie Schrittgröße des Multikonfigurations-Parameters festgelegt werden (siehe \cref{fig:konfig_adv}). Wird die Multikonfiguration für einen Parameter aktiviert, so werden Slider und Textfeld zur Einstellung des Parameters ausgegraut und können nicht mehr bedient werden.
+Dazu muss im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen} in dem mit \enquote{Multikonfigurationsparameter} betitelten Dropdownmenü der entsprechende Parameter ausgewählt werden. Darunter können Unter- und Obergrenze sowie Schrittgröße des Multikonfigurations-Parameters festgelegt werden (siehe \cref{fig:konfig_adv}). Wird die Multikonfiguration für einen Parameter aktiviert, so werden Slider und Textfeld zur Einstellung des Parameters ausgegraut und können nicht mehr bedient werden. Handelt es sich um einen Parameter des Paarbildungsalgorithmus', der Erfolgsquantifizierung, des Adaptionsmechanismus' oder des Gleichgewichtskriteriums, so ist das Dropdown-Menü zur Auswahl des- bzw. derjenigen ebenfalls ausgegraut.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert zwischen den festgelegten Grenzen gemäß der festgelegten Schrittgröße eine Simulation gestartet, in der der Multikonfigurations-Parameter den entsprechenden Wert annimmt. Alle anderen Konfigurationsparameter bleiben gleich.
 
-Ist bereits die Multikonfiguration für eine Gruppe, ein Segment oder einen anderen Parameter aktiviert, so kann die Multikonfiguration nicht aktiviert werden.
+Ist bereits die Multikonfiguration für eine Gruppe oder ein Segment aktiviert, so zeigt das Dropdown-Menü zur Auswahl des Multikonfigurationsparameters \enquote{Gruppengröße} bzw. \enquote{Segmentgröße} an und kann nicht bedient werden.
 
 \functionality{Simulation starten}{fnc:simstart}
 \fulfills{crt:startsim}
@@ -521,24 +538,9 @@ Der \Gls{Nutzer} kann sich Informationen über das Ergebnis einer abgeschlossene
 
 Wird der Listeneintrag einer abgeschlossenen Simulation im Startfenster angeklickt, erscheint im Fensterabschnitt rechts der Liste eine Zusammenfassung der Simulationsergebnisse (siehe \cref{fig:home_out_1}): Am oberen Ende des Abschnitts werden der Name des Stufenspiels und die Identifikationsnummer der Simulation angezeigt. Darunter werden Gleichgewichtsbedingung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, der Multikonfigurations-Parameter und dessen Wertemenge angezeigt.
 
-Darunter befindet sich eine von zwei (für reguläre Simulationen) bzw. drei Seiten (für Multikonfigurationen): \enquote{Simulationsergebnisse}, \enquote{Wiederholungsergebnisse} und im Falle einer Multikonfiguration \enquote{Multikonfigurationsergebnisse}. Zwischen diesen kann mittels zweier mit \enquote{>} und \enquote{<} beschrifteter Knöpfen navigiert werden.
+Darunter befindet sich eine von zwei (für reguläre Simulationen) bzw. drei Seiten (für Multikonfigurationen): \enquote{Wiederholungsergebnisse}, \enquote{Simulationsergebnisse}, und im Falle einer Multikonfiguration \enquote{Multikonfigurationsergebnisse}. Zwischen diesen kann mittels zweier mit \enquote{>} und \enquote{<} beschrifteter Knöpfen navigiert werden.
 
-Initial wird die Seite \enquote{Simulationsergebnisse} angezeigt. Im Falle einer durch Multikonfiguration erstellten Menge von Simulationen befindet sich hier ein Slider zur Auswahl der betrachteten Simulation. Darunter befindet sich eine Darstellung der Gleichgewichtshäufigkeit sowie der \Gls{Effizienz} und \Gls{Einstellungsdauer} der erreichten Gleichgewichte in den zugehörigen Wiederholungen (siehe \cref{fig:home_out_1}).
-
-\textbf{Gleichgewichtshäufigkeit:}
-Hat sich in \(W_\text{G}\) der \(W\) zugehörigen Wiederholungen ein Gleichgewicht eingestellt, so ist die Gleichgewichtshäufigkeit gegeben durch \(r_\text{G} := \frac{W_\text{G}}{W}\). Diese wird als Prozentzahl unter der Bezeichnung \enquote{Gleichgewichtshäufigkeit} angezeigt.
-
-\textbf{\Gls{Effizienz}:}
-Die \Glspl{Effizienz} der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(E_i \in [0,1]\) die \Gls{Effizienz} der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Für das Histogramm wird das Intervall \([0,1]\) in \(10\) gleich große Teilintervalle \(I_j := [\frac{j-1}{10},\frac{j}{10}) \ (j \in \{1,...,10\})\)\footnote{wobei \(I_{10} = [\frac{9}{10},1]\), um genau zu sein.} aufgespalten und über jedem Teilintervall \(I_j\) ein Balken der Höhe
-\[
-h_j = |\{i \in \{1,...,W_\text{G}\} | E_i \in I_j\}|
-\]
-eingezeichnet.
-
-\textbf{\Gls{Einstellungsdauer}:}
-Die \Glspl{Einstellungsdauer} der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die \Gls{Einstellungsdauer} der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der \Gls{Effizienz} ein entsprechendes Histogramm gezeichnet.
-
-Durch Navigation nach rechts mittels \enquote{>} gelangt der \Gls{Nutzer} auf die Seite \enquote{Wiederholungsergebnisse}. Im oberen Teil befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Simulation. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein Gleichgewicht eingestellt hat. Falls ja, wird daneben die Anzahl durchgeführter \adapts\ angezeigt. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
+Initial wird die Seite \enquote{Wiederholungsergebnisse} angezeigt. Im oberen Teil befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Simulation. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein Gleichgewicht eingestellt hat. Falls ja, wird daneben die Anzahl durchgeführter \adapts\ und die \Gls{Effizienz} des Gleichgewichtes angezeigt. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
 
 \textbf{Strategieverteilung:}
 Die Verteilung der \Glspl{Strategie} in einem wählbaren Quantil der Menge aller Agenten wird in einem Kuchendiagramm angezeigt. Dazu seien die \(N\) Agenten in der Reihenfolge ihres finalen Rangs mit \(1\) bis \(N\) durchnummeriert. \(\omega_i\) (\(i \in \{1,...,N\}\)) bezeichne die \Gls{Strategie} des \(i\)-ten Agenten\footnote{\(\omega_i \in \{S_1,...,S_n\}\) für reine \Glspl{Strategie} und \(\omega_i = (\omega_i^{(j)})_{j=1}^n \in \Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=1}^n \omega_i = 1\}\) für \glspl{gemischte Strategie}.}. Über einen Rangeslider kann nun ein Intervall \([p_\text{min},p_\text{max}] \subset [0,100]\%\) eingestellt werden, wobei \(p_\text{min}\) und \(p_\text{max}\) auf Vielfache von \(5\%\) eingeschränkt sind. Mit \(N' := \lfloor p_\text{max} \cdot N \rfloor - \lceil p_\text{min} \cdot N \rceil + 1\) hat dann die \Gls{Strategie} \(S\) am Kuchendiagramm den Anteil\footnote{Für eine Aussage \(A\) sei \(\mathbbm{1}\{A\} := \begin{cases} 1 & , A \text{ ist wahr} \\ 0 &, \text{sonst}\end{cases}\).}
@@ -554,7 +556,28 @@ im Falle von gemischten Strategien.
 \textbf{Kapitalverteilung:}
 Die Verteilung des finalen Absolutkapitals wird in einem Stabdiagramm angezeigt. Über denselben Slider wie oben wird auch hier die Menge aller in die Verteilung einzubeziehenden Agenten festgelegt. In der Verteilung sind die verschiedenen Gruppen farblich voneinander getrennt.
 
-Im Falle einer Menge von durch Multikonfiguration erstellten Simulationen kann von der initial angezeigten Seite mittels \enquote{<} zur Seite \enquote{Multikonfigurationsergebnisse} navigiert werden. Dort befinden sich Auftragungen von Gleichgewichtshäufigkeit, \Gls{Effizienz} und \Gls{Einstellungsdauer} über den Multikonfigurationsparameter. Für \Gls{Effizienz} und \Gls{Einstellungsdauer} wird dazu pro zugehöriger Simulation über alle Wiederholungen (in denen sich ein Gleichgewicht eingestellt hat) gemittelt.
+Ist die Checkbox \enquote{Durchschnitt über alle Wiederholungen bilden} aktiviert, so werden in beiden Verteilungen Mittelwerte über alle Wiederholungen angezeigt. Bezeichnet etwa \(S_\%^{(i)}\) den Anteil von Strategie \(S\) am Kuchendiagramm in der \(i\)-ten Wiederholung (von insgesamt \(W\)) bei einer festen Einstellung des Rangesliders, so hat die Strategie \(S\) am nun angezeigten Kuchendiagramm den Anteil
+\[
+S_\% = \frac 1W \sum_{i=1}^W S_\%^{(i)}.
+\]
+Genauso wird mit den einzelnen Histogrammbalken in der Kapitalverteilung verfahren.
+
+Durch Navigation nach rechts mittels \enquote{>} gelangt der \Gls{Nutzer} auf die Seite \enquote{Simulationsergebnisse}. Im Falle einer durch Multikonfiguration erstellten Menge von Simulationen befindet sich hier ein Slider zur Auswahl der betrachteten Simulation. Darunter befindet sich eine Darstellung der Gleichgewichtshäufigkeit sowie der \Gls{Effizienz} und \Gls{Einstellungsdauer} der erreichten Gleichgewichte in den zugehörigen Wiederholungen (siehe \cref{fig:home_out_1}).
+
+\textbf{Gleichgewichtshäufigkeit:}
+Hat sich in \(W_\text{G}\) der \(W\) zugehörigen Wiederholungen ein Gleichgewicht eingestellt, so ist die Gleichgewichtshäufigkeit gegeben durch \(r_\text{G} := \frac{W_\text{G}}{W}\). Diese wird als Prozentzahl unter der Bezeichnung \enquote{Gleichgewichtshäufigkeit} angezeigt.
+
+\textbf{\Gls{Effizienz}:}
+Die \Glspl{Effizienz} der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(E_i \in [0,1]\) die \Gls{Effizienz} der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Für das Histogramm wird das Intervall \([\min_{i = 1,...,W_\text{G}} E_i, \max_{i = 1,...,W_\text{G}} E_i]\) in \(10\) gleich große Teilintervalle \(I_j  \ (j \in \{1,...,10\})\) aufgespalten und über jedem Teilintervall \(I_j\) ein Balken der Höhe
+\[
+h_j = |\{i \in \{1,...,W_\text{G}\} | E_i \in I_j\}|
+\]
+eingezeichnet.
+
+\textbf{\Gls{Einstellungsdauer}:}
+Die \Glspl{Einstellungsdauer} der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die \Gls{Einstellungsdauer} der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der \Gls{Effizienz} ein entsprechendes Histogramm gezeichnet. 
+
+Im Falle einer Menge von durch Multikonfiguration erstellten Simulationen kann mittels \enquote{>} noch zur Seite \enquote{Multikonfigurationsergebnisse} navigiert werden. Dort befinden sich Auftragungen von Gleichgewichtshäufigkeit, \Gls{Effizienz} und \Gls{Einstellungsdauer} über den Multikonfigurationsparameter. Für \Gls{Effizienz} und \Gls{Einstellungsdauer} wird dazu pro zugehöriger Simulation über alle Wiederholungen (in denen sich ein Gleichgewicht eingestellt hat) gemittelt.
 
 \functionality{Abbrechen einer Simulation}{fnc:cancelsim}
 \fulfills{crt:cancelsim}
