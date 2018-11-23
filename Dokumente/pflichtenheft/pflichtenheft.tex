@@ -650,22 +650,17 @@ Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enq
 %%%%%%%%%%% Klemens stinkt
 \section{Nicht-Funktionale Anforderungen}
 
-\nonFunctionality{Design}{nfc:design}
+\nonFunctionality{Benutzbarkeit}{nfc:usability}
 
-Das Design soll modern und seriös wirken. Es soll schnörkellos sein und sich auf die für die Wissenschaft relevanten Dinge fokussieren.
+Ein \Gls{Nutzer} mit grundlegenden Kenntnissen in der Spieltheorie soll das Produkt benutzen können. Die Konfiguration soll einfach sein und durch Tooltips erklärt werden.
 
 \nonFunctionality{Erweiterbarkeit}{nfc:extensibility}
 
-Das Produkt muss dahingehend erweiterbar sein,
-dass neue Stufenspiele, neue \Glspl{Strategie}, neue Adaptionsalgorithmen und neue Erfolgsquantifizierungsalgorthmen eingefügt werden können.
+Das Produkt soll ohne Änderungen des Entwurfs um neue Stufenspiele, neue \Glspl{Strategie}, neue Paarbildungsalgorithmen, neue Adaptionsmechanismen, neue Erfolgsquantifizierungen und neue Gleichgewichtskriterien erweitert werden können.
 
 \nonFunctionality{Implementierung}{nfc:implementation}
 
-Das Produkt soll in Java implementiert werden. Es soll aus objektorientiertem, gut dokumentierten Code bestehen und den Architekturstil MVC(Model-View-Control) einhalten.
-
-\nonFunctionality{Zuverlässigkeit}{nfc:reliability}
-
-Das Produkt soll ohne Verzögerungen funktionieren und möglichst unabhängig von äusseren Parameter agieren.
+Das Produkt soll in Java implementiert werden. Es soll aus gut dokumentiertem Code bestehen und den Architekturstil MVC(Model-View-Controller) einhalten.
 
 \nonFunctionality{Umgebungsbedingungen}{nfc:environment}
 
@@ -673,12 +668,7 @@ Das Produkt soll auf allen Plattformen laufen.
 
 \nonFunctionality{Leistung und Effizienz}{nfc:power}
 
-Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen alle möglichen Eingaben resistent sein und nicht einfrieren.
-
-\nonFunctionality{Benutzbarkeit}{nfc:usability}
-
-Ein Benutzer ohne erweiterten Kenntnissen in der Spieltheorie soll das Produkt benutzen können.
-Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erklärt werden.
+Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehlerhafte Eingaben resistent sein und nicht einfrieren.
 
 %%%%%%%%%%%
 \section{Tests}
@@ -976,14 +966,21 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Das Fenster schließt sich und eine neue \Gls{Strategie} mit Namen und Boole'schem Ausdruck wie spezifiziert wird im Programm hinterlegt.}
 
 \test{Fehlerbehandlung}{tst:fehlerbehandlung}
+\tests{fnc:agentcount}
+\tests{fnc:repeats}
+\tests{fnc:stratset}
+\tests{fnc:groups}
+\tests{fnc:segments}
+\tests{fnc:multikonfgr}
+\tests{fnc:multikonfseg}
 
 \teststep{Paul befindet sich im Konfigurationsfenster.}
 {Er gibt im Textfeld \enquote{Anzahl an Agenten} \(667\) ein.}
 {Der Inhalt des Textfeldes wird auf \(666\) gesetzt.}
 
 \teststep{Paul befindet sich im Konfigurationsfenster.}
-{Er gibt im Textfeld \enquote{Anzahl der Runden pro Wiederholung} \(12\) ein.}
-{Der Inhalt des Textfelds wird auf \(10\) gesetzt.}
+{Er gibt im Textfeld \enquote{Anzahl der Runden pro Wiederholung} \(-12\) ein.}
+{Der Inhalt des Textfelds wird auf \(1\) gesetzt.}
 
 \teststep{Paul befindet sich im Konfigurationsfenster. Im ersten Segment der gruppenlosen Agenten ist \enquote{Tit-for-Tat} in den \enquote{ausgewählten Strategien}.}
 {Paul klickt im Dropdown-Menü \enquote{Menge aller möglichen Strategien} auf die (aktivierte) Checkbox neben \enquote{Tit-for-Tat}.}
