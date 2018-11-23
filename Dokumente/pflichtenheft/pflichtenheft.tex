@@ -239,7 +239,11 @@ Es können mehrere Kriterien für das Erreichen eines Gleichgewichts im Simulati
 Gruppen und die Menge gruppenloser Agenten können jeweils in \segments\ unterteilt werden. Für jedes \segment\ können Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales Kapital separat festgelegt werden.
 
 \criteriumOptional{Speichern und Laden von Konfigurationen}{crt:saveloadconfig}
-Eine Konfiguration kann als Datei abgespeichert werden. Eine solche Konfigurationsdatei kann wiederum geladen werden.
+Eine Konfiguration kann als Datei abgespeichert werden. Eine solche Konfigurationsdatei kann wiederum geladen werden. Außerdem kann die Konfiguration einer bereits abgeschlossenen Simulation als aktuelle Konfiguration übernommen werden.
+
+\criteriumOptional{Speichern und Laden von Simulationsergebnissen}
+{crt:saveloadsim}
+Eine abgeschlossene Simulation kann als Datei abgespeichert werden. Eine solche Datei kann wiederum geladen werden.
 
 \criteriumOptional{Erstellen eigener \Glspl{Strategie}}{crt:createstrat}
 Es können eigene \Glspl{Strategie} erstellt werden.
@@ -615,7 +619,23 @@ Der \Gls{Nutzer} kann eine von diesem Programm erstellte \textit{.cnf}-Datei lad
 
 Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration laden} oder im Konfigurationsfenster der \enquote{Konfiguration laden}-Knopf in der Toolbar betätigt werden (siehe \cref{fig:menu1}). Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen \textit{.cnf}-Datei navigiert und diese ausgewählt, so wird die aktuelle Konfiguration durch die in der geladenen Datei spezifizierte Konfiguration ersetzt. Wird eine ungültige Datei ausgewählt, wird eine entsprechende Fehlermeldung angezeigt. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
 
-%%%%%%%%%%%
+\functionality{Konfiguration einer abgeschlossenen Simulation laden}{fnc:loadconfigsim}
+\fulfills{crt:saveloadconfig}
+Der \Gls{Nutzer} kann die Konfiguration einer bereits abgeschlossenen Simulation als aktuelle Konfiguration übernehmen. Dazu muss er den Listeneintrag der Simulation im Startfenster auswählen und im oberen Bereich der Ergebnisanzeige auf das \enquote{Konfiguration laden}-Symbol klicken. Daraufhin wird die aktuelle Konfiguration durch die Konfiguration der betrachteten Simulation ersetzt.
+
+\functionality{Simulationsergebnis speichern}{fnc:savesim}
+\fulfills{crt:saveloadsim}
+Der \Gls{Nutzer} hat die Möglichkeit, die Ergebnisse einer abgeschlossenen Simulation als \textit{.csv}-Datei abzuspeichern.
+
+Dazu muss er den Listeneintrag der Simulation im Startfenster auswählen und im oberen Bereich der Ergebnisanzeige auf das \enquote{Speichern}-Symbol klicken. Daraufhin öffnet sich ein Datei-Dialog. Hier kann der \Gls{Nutzer} Speicherort und Dateiname wählen. Wird der \enquote{Speichern}-Knopf betätigt, schließt sich der Dialog und eine \textit{.csv}-Datei mit dem angegebenen Namen wird am angegebenen Ort abgespeichert. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
+
+\functionality{Simulationsergebnis laden}{fnc:loadsim}
+\fulfills{crt:saveloadsim}
+Der \Gls{Nutzer} kann eine von diesem Programm erstellte \textit{.csv}-Datei laden und sich die entsprechenden Simulationsergebnisse anzeigen lassen.
+
+Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Simulation laden} betätigt werden (siehe \cref{fig:menu1}). Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen, von diesem Programm erstellten \textit{.csv}-Datei navigiert und diese ausgewählt, so erscheint in der Liste im Startfenster an oberster Stelle ein neuer Eintrag für die geladene Simulation. Der Eintrag verhält sich so, als wäre die geladene Simulation im aktuellen Programmlauf gestartet und abgeschlossen worden. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Datei-Dialog schließt.
+
+%%%%%%%%%%% Klemens stinkt
 \section{Nicht-Funktionale Anforderungen}
 
 \nonFunctionality{Design}{nfc:design}
@@ -733,9 +753,12 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 {Alice betätigt den \enquote{<}-Knopf.}
 {Die Seite \enquote{Multikonfigurationsergebnisse} wird angezeigt. Diese verhält sich wie spezifiziert.}
 
-\test{Konfigurationsdatei abspeichern und hochladen}{tst:loadkonfig}
+\test{Konfigurationen und Simulationen speichern und laden}{tst:loadkonfig}
 \tests{fnc:loadConfig}
 \tests{fnc:saveConfig}
+\tests{fnc:loadconfigsim}
+\tests{fnc:loadsim}
+\tests{fnc:savesim}
 
 \teststep{Donald befindet sich im Konfigurationsfenster.}
 {Er betätigt den \enquote{Konfiguration speichern}-Knopf in der Toolbar.}
@@ -752,6 +775,26 @@ Die einzelnen Einstellungsmöglichkeiten sollen eindeutig zuweisbar sein und erk
 \teststep{Alice wird der Datei-Dialog zum Laden einer Konfiguration angezeigt.}
 {Sie navigiert zum Desktop und wählt eine Datei namens \enquote{Testkonfiguration}, die ihr Kollege Donald ihr per E-Mail geschickt hat. Dann betätigt sie den \enquote{Laden}-Knopf.}
 {Der Datei-Dialog schließt sich und die aktuelle Konfiguration wird ersetzt durch die aktuelle Konfiguration Donalds, als er die Datei erstellte.}
+
+\teststep{Heinrich befindet sich im Startfenster. Im aktuellen Programmlauf wurde bereits eine Simulation abgeschlossen}
+{Er klickt auf den Eintrag der abgeschlossenen Simulation und betätigt den \enquote{Speichern}-Knopf am oberen Ende des Ausgabeabschnitts.}
+{Ein Datei-Dialog öffnet sich.}
+
+\teststep{Heinrich wird der Datei-Dialog zum Speichern einer Simulation angezeigt.}
+{Er wählt als Speicherort den Desktop und gibt den Dateinamen \enquote{HeinrichRules} ein. Dann betätigt er den \enquote{Speichern}-Knopf.}
+{Der Datei-Dialog schließt sich. Auf dem Desktop von Heinrich befindet sich jetzt eine \textit{.csv}-Datei namens \enquote{HeinrichRules}.}
+
+\teststep{Margaret befindet sich im Startfenster des Programms, am Computer ihres Mannes Heinrich.}
+{Sie betätigt den Menüeintrag \enquote{Datei} \(\rightarrow\) \enquote{Simulation laden}.}
+{Ein Datei-Dialog öffnet sich.}
+
+\teststep{Margaret wird der Datei-Dialog zum Laden einer Simulation angezeigt.}
+{Sie navigiert zum Desktop und findet die Datei \enquote{HeinrichRules}, die ihr Mann dort zuvor abgelegt hat. Sie wählt die Datei aus und bestätigt den Dialog.}
+{Der Datei-Dialog schließt sich und im Startfenster erscheint ein Listeneintrag mit der Simulation, die Heinrich zuvor in der geladenen Datei gespeichert hat.}
+
+\teststep{Margaret befindet sich im Startfenster.}
+{Sie klickt auf den Listeneintrag der Simulation, die sie aus der Datei \enquote{HeinrichRules} geladen hat. Im Ausgabeabschnitt betätigt sie den Knopf zum Laden der zugehörigen Konfiguration.}
+{Die aktuelle Konfiguration wird ersetzt durch die Konfiguration der betrachteten Simulation.}
 
 \test{Gruppen- und Segmenteinteilung}
 {tst:group/segmentclassification}
@@ -881,24 +924,24 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 \tests{fnc:multikonfpar}
 
 \teststep{Max befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Gruppeneinstellungen} wird angezeigt. Es ist eine Gruppe eingestellt.}
-{Er aktiviert die \enquote{Multikonfiguration}-Checkbox.}
-{Der Slider zum Einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} erscheint der Unterabschnitt \enquote{Multikonfiguration}.}
+{Er aktiviert die \enquote{variable Gruppengröße}-Checkbox.}
+{Der Slider zum Einstellen der Gruppengröße und der \enquote{Gruppe hinzufügen}-Knopf werden ausgegraut. Im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} erscheint im Dropdown-Menü zur Einstellung des Multikonfigurationsparameters der Text \enquote{Gruppengröße}.}
 
 \teststep{Die Multikonfiguration für Gruppen ist aktiviert. Max befindet sich im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen}.}
 {Er gibt in das \enquote{Startwert}-Textfeld \(20\%\), in das \enquote{Endwert}-Textfeld \(80\%\) und in das \enquote{Schnittweite}-Textfeld \(10\%\) ein.}
 {Die eingegebenen Werte werden in die Textfelder übernommen.}
 
 \teststep{Anna befindet sich im Konfigurationsfenster und der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt. Es ist ein Segment eingestellt.}
-{Sie aktiviert die \enquote{Multikonfiguration}-Checkbox.}
-{Der Slider zur Einstellung der Segmentgröße und der \enquote{Segment hinzufügen}-Knopf werden ausgegraut. Im Abschnitt \enquote{Erweiterte Einstellungen} erscheint der Unterabschnitt \enquote{Multikonfiguration}.}
+{Sie aktiviert die \enquote{variable Segmentgröße}-Checkbox.}
+{Der Slider zur Einstellung der Segmentgröße und der \enquote{Segment hinzufügen}-Knopf werden ausgegraut. Im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} erscheint im Dropdown-Menü zur Einstellung des Multikonfigurationsparameters der Text \enquote{Segmentgröße}.}
 
 \teststep{Die Multikonfiguration für Segmente bei den gruppenlosen Agenten ist aktiviert. Anna befindet sich im Unterabschnitt \enquote{Multikonfiguration} in den \enquote{Erweiterten Einstellungen}.}
 {Sie gibt in das \enquote{Startwert}-Textfeld \(30\%\), in das \enquote{Endwert}-Textfeld \(70\%\) und in das \enquote{Schrittweite}-Textfeld \(5\%\) ein.}
 {Die eingegebenen Werte werden in die Textfelder übernommen.}
 
 \teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt \enquote{Erweiterte Einstellungen} wird angezeigt. Als Adaptionsmechanismus ist \enquote{Preferential Adaption} eingestellt.}
-{Anna aktiviert die Checkbox \enquote{Multikonfiguration} neben der Einstellung für den Parameter \enquote{Vergleichswahrscheinlichkeit} unter dem Dropdown-Menü \enquote{Adaptionsmechanismus}.}
-{Der Slider und das Textfeld zur Einstellung der \enquote{Vergleichswahrscheinlichkeit} werden ausgegraut. Der Unterabschnitt \enquote{Multikonfiguration} erscheint.}
+{Anna wählt im Dropdown-Menü zur Auswahl des Multikonfigurationsparameters im Unterabschnitt \enquote{Multikonfiguration} den Eintrag \enquote{Preferential Adaption: Vergleichswahrscheinlichkeit}.}
+{Der Slider und das Textfeld zur Einstellung der \enquote{Vergleichswahrscheinlichkeit} sowie das Dropdown-Menü zur Auswahl des Adaptionsmechanismus werden ausgegraut.}
 
 \teststep{Anna befindet sich im Abschnitt \enquote{Erweiterte Einstellungen} und als Adaptionsmechanismus ist \enquote{Preferential Adaption} eingestellt. Die Multikonfiguration für den Parameter \enquote{Vergleichswahrscheinlichkeit} ist aktiviert.}
 {Anna gibt im Unterabschnitt \enquote{Multikonfiguration} als \enquote{Startwert} \(0.2\), als \enquote{Endwert} \(0.8\) und als \enquote{Schrittweite} \(0.1\) ein.}
