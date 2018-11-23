@@ -998,7 +998,11 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Der Inhalt des Textfeldes wird auf \(1.0\) gesetzt.}
 
 \teststep{Paul befindet sich im Konfigurationsfenster. Die Segment-Multikonfiguration für die gruppenlosen Agenten ist aktiviert.}
-{Paul klickt auf die (ausgegraute) Checkbox \enquote{Multikonfiguration} neben dem Slider zur Einstellung der Gruppengrößen.}
+{Paul klickt auf die (ausgegraute) Checkbox \enquote{variable Gruppengröße} neben dem Slider zur Einstellung der Gruppengrößen.}
+{Die Checkbox bleibt deaktiviert.}
+
+\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt. Es sind drei Segmente eingestellt.}
+{Paul klickt auf die (ausgegraute) Checkbox \enquote{variable Segmentgröße} neben dem Slider zur Einstellung der Segmentgrößen.}
 {Die Checkbox bleibt deaktiviert.}
 
 %%%%%%%%%%%%%
@@ -1218,99 +1222,93 @@ Im folgenden findet sich eine kurze Beschreibung der verfügbaren Stufenspiele.
 
 \textbf{Gefangenendilemma:}
 Zwei Verdächtige werden ohne vorherige Absprachen getrennt voneinander verhört. Beide haben die Möglichkeit das Verbrechen zu gestehen und damit den anderen zu verraten, oder zu schweigen. Die Dauer ihrer Haftstrafe hängt von ihrer eigenen Aussage und der Aussage des anderen ab.
+
 \begin{table}[ht]
-\center
-	\begin{tabular}{|c|c|c|c|c|c|}
-		\cline{1-6}
-		\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
-		\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{schweigt} & \multicolumn{2}{c|}{gesteht} \\ \cline{1-6}
-		\multirow{2}{*}{Spieler 1} & schweigt & -2 & -2 & -6 & -1  \\ \cline{2-6}
-		& \multicolumn{1}{ |c| }{gesteht} & -1 & -6 & -4 & -4 \\ \cline{1-6}
-
+	\center
+	\begin{tabular}{|c|c|c|c|}
+		\cline{1-4}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{ c| }{Spieler 2} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{} & schweigt & gesteht \\ \cline{1-4}
+		\multirow{2}{*}{Spieler 1} & schweigt & -2 / -2 & -6 / -1  \\ \cline{2-4}
+		& \multicolumn{1}{ |c| }{gesteht} & -1 / -6 & -4 / -4 \\ \cline{1-4}
 	\end{tabular}
-
-\caption{Normalform Gefangenendilemma}
-
+	\caption{Bimatrix zum Gefangenendilemma}
 \end{table}
 
 \textbf{Hirschjagd:}
-Zwei Jäger befinden sich auf der Hirschjagd. Es kommt ein Hase vorbei und beide haben die Wahl: Entweder sie schießen den Hasen bevor es der andere tut und vergeben die Chance auf das gemeinsame erlegen eines Hirschs, oder sie geben die Gelegenheit nicht her und laufen Gefahr weder Hasen noch Hirsch zu bekommen.
+Zwei Jäger befinden sich auf der Hirschjagd. Es kommt ein Hase vorbei und beide haben die Wahl: Entweder sie schießen den Hasen und vergeben die Chance auf das gemeinsame Erlegen eines Hirschs, oder sie geben die Gelegenheit nicht her und laufen Gefahr, weder Hasen noch Hirsch zu bekommen.
+
 \begin{table}[ht]
 	\center
-	\begin{tabular}{|c|c|c|c|c|c|}
-	\cline{1-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Hirschjagd} & \multicolumn{2}{c|}{Hasenjagd} \\ \cline{1-6}
-	\multirow{2}{*}{Spieler 1} & Hirschjagd & 4 & 4 & 0 & 3  \\ \cline{2-6}
-	& \multicolumn{1}{ |c| }{Hasenjagd} & 3 & 0 & 3 & 3 \\ \cline{1-6}
-\end{tabular}
-
-	\caption{Normalform Hirschjagd}
-
+	\begin{tabular}{|c|c|c|c|}
+		\cline{1-4}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{ c| }{Spieler 2} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{} & Hirschjagd & Hasenjagd \\ \cline{1-4}
+		\multirow{2}{*}{Spieler 1} & Hirschjagd & 4 / 4 & 0 / 3  \\ \cline{2-4}
+		& \multicolumn{1}{ |c| }{Hasenjagd} & 3 / 0 & 3 / 3 \\ \cline{1-4}
+	\end{tabular}
+	\caption{Bimatrix zur Hirschjagd}
 \end{table}
 
 \textbf{Feiglingsspiel:}
-Wegen einer Mutprobe rasen zwei Personen mit Autos aufeinander zu. Wer Ausweicht, gilt gegenüber dem andere als Feigling und hat die Wette verloren. Weicht keiner von beiden aus, verlieren sie bei der Kollision ihr Leben.
+Wegen einer Mutprobe rasen zwei Personen mit Autos aufeinander zu. Wer ausweicht, gilt als Feigling und hat die Wette verloren. Weicht keiner von beiden aus, verlieren sie bei der Kollision ihr Leben.
+
 \begin{table}[ht]
 	\center
-	\begin{tabular}{|c|c|c|c|c|c|}
-	\cline{1-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Ausweichen} & \multicolumn{2}{c|}{Weiterfahren} \\ \cline{1-6}
-	\multirow{2}{*}{Spieler 1} & Ausweichen & 4 & 4 & 2 & 6  \\ \cline{2-6}
-	& \multicolumn{1}{ |c| }{Weiterfahren} & 6 & 2 & 0 & 0 \\ \cline{1-6}
-\end{tabular}
-
-	\caption{Normalform Feiglingsspiel}
-
+	\begin{tabular}{|c|c|c|c|}
+		\cline{1-4}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{ c| }{Spieler 2} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{} & Ausweichen & Weiterfahren \\ \cline{1-4}
+		\multirow{2}{*}{Spieler 1} & Ausweichen & 4 / 4 & 2 / 6  \\ \cline{2-4}
+		& \multicolumn{1}{ |c| }{Weiterfahren} & 6 / 2 & 0 / 0 \\ \cline{1-4}
+	\end{tabular}
+	\caption{Bimatrix zum Feiglingsspiel}
 \end{table}
+
 \newpage
 \textbf{Kampf der Geschlechter:}
-Ein Mann und eine Frau wollen zusammen ausgehen, haben aber keinen Treffpunkt vereinbart. Zur Wahl steht entweder ein Fußballspiel oder ein Konzert. Beide müssen sich entscheiden mit der Gefahr sich nicht zu treffen. Der Mann bevorzugt das Fußballspiel, während die Frau lieber auf das Konzert geht.
+Ein Mann und eine Frau wollen zusammen ausgehen, haben aber keinen Treffpunkt vereinbart. Zur Wahl steht entweder ein Fußballspiel oder ein Konzert. Beide müssen sich entscheiden, mit der Gefahr sich nicht zu treffen. Der Mann bevorzugt das Fußballspiel, während die Frau lieber auf das Konzert geht.
+
 \begin{table}[ht]
 	\center
-	\begin{tabular}{|c|c|c|c|c|c|}
-	\cline{1-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Fußball} & \multicolumn{2}{c|}{Konzert} \\ \cline{1-6}
-	\multirow{2}{*}{Spieler 1} & Fußball & 3 & 1 & 0 & 0  \\ \cline{2-6}
-	& \multicolumn{1}{ |c| }{Konzert} & 0 & 0 & 1 & 3 \\ \cline{1-6}
-\end{tabular}
-
-	\caption{Normalform Kapf der Geschlechter}
-
+	\begin{tabular}{|c|c|c|c|}
+		\cline{1-4}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{ c| }{Spieler 2} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{} & Fußball & Konzert \\ \cline{1-4}
+		\multirow{2}{*}{Spieler 1} & Fußball & 3 / 1 & 0 / 0  \\ \cline{2-4}
+		& \multicolumn{1}{ |c| }{Konzert} & 0 / 0 & 1 / 3 \\ \cline{1-4}
+	\end{tabular}
+	\caption{Bimatrix zum Kampf der Geschlechter}
 \end{table}
 
 \textbf{Vertrauensspiel:}
-Ein Treugeber kann einem Treuhänder eine Aufgabe betrauen. Entscheidet sich der Treugeber dem Treuhänder nicht zu vertrauen, so kommt kein Geschäft zustande. Anderenfalls hat dr Treuhänder die Möglichkeit das ihm entgegengebrachte Vertrauen zu missbrauchen, oder zu honorieren.
+Ein Treugeber kann einen Treuhänder mit einer Aufgabe betrauen. Entscheidet sich der Treugeber dem Treuhänder nicht zu vertrauen, so kommt kein Geschäft zustande. Anderenfalls hat der Treuhänder die Möglichkeit, das ihm entgegengebrachte Vertrauen zu missbrauchen oder zu honorieren.
+
 \begin{table}[ht]
 	\center
-	\begin{tabular}{|c|c|c|c|c|c|}
-	\cline{1-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{Missbrauch} & \multicolumn{2}{c|}{Honorierung} \\ \cline{1-6}
-	\multirow{2}{*}{Spieler 1} & vertrauen & -1 & 2 & 1 & 1  \\ \cline{2-6}
-	& \multicolumn{1}{ |c| }{nicht vertrauen} & 0 & 0 & 0 & 0 \\ \cline{1-6}
-\end{tabular}
-
-	\caption{Normalform Vertrauensspiel}
-
+	\begin{tabular}{|c|c|c|c|}
+		\cline{1-4}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{ c| }{Spieler 2} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{} & honorieren & missbrauchen \\ \cline{1-4}
+		\multirow{2}{*}{Spieler 1} & vertrauen & 1 / 1 & -1 / 2  \\ \cline{2-4}
+		& \multicolumn{1}{ |c| }{misstrauen} & 0 / 0 & 0 / 0 \\ \cline{1-4}
+	\end{tabular}
+	\caption{Bimatrix zum Vertrauensspiel}
 \end{table}
 
 \textbf{Elfmeterschießen:}
-Beim Elfmeterschießen müssen sich Schütze und Torwart zwischen der linken und der rechten Torhälfte entscheiden. Dabei will der Torwart die gleiche Seite wählen wie der Schütze, um den Ball zu halten und der Schütze möchte eine andere Seite wählen als der Torwart, um ein Tor zu erziehlen.
+Beim Elfmeterschießen müssen sich Schütze und Torwart zwischen der linken und der rechten Torhälfte entscheiden. Dabei will der Torwart die gleiche Seite wählen wie der Schütze, um den Ball zu halten und der Schütze möchte eine andere Seite wählen als der Torwart, um ein Tor zu erzielen.
+
 \begin{table}[ht]
 	\center
-	\begin{tabular}{|c|c|c|c|c|c|}
-	\cline{1-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{4}{ c| }{Spieler 2} \\ \cline{3-6}
-	\multicolumn{2}{|c|}{} & \multicolumn{2}{c|}{links} & \multicolumn{2}{c|}{rechts} \\ \cline{1-6}
-	\multirow{2}{*}{Spieler 1} & links & 3 & 1 & 0 & 0  \\ \cline{2-6}
-	& \multicolumn{1}{ |c| }{rechts} & 0 & 0 & 1 & 3 \\ \cline{1-6}
-\end{tabular}
-
-	\caption{Normalform Elfmeterschießen}
-
+	\begin{tabular}{|c|c|c|c|}
+		\cline{1-4}
+		\multicolumn{2}{|c|}{} & \multicolumn{2}{ c| }{Spieler 2} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{} & links & rechts \\ \cline{1-4}
+		\multirow{2}{*}{Spieler 1} & links & 3 / 1 & 0 / 0  \\ \cline{2-4}
+		& \multicolumn{1}{ |c| }{rechts} & 0 / 0 & 1 / 3 \\ \cline{1-4}
+	\end{tabular}
+	\caption{Bimatrix zum Elfmeterschießen}
 \end{table}
 \newpage
 
