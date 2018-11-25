@@ -527,7 +527,7 @@ Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \s
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der das erste \segment\ der Gruppe entsprechend groß ist und das zweite \segment\ den Rest der Gruppe einnimmt. Die restlichen Konfigurationsparameter bleiben gleich.
 
-Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht Zwei oder wurde die Gruppen-Multikonfiguration, die \segment -Multikonfiguration für eine andere Gruppe oder die Multikonfiguration eines anderen Parameters bereits aktiviert, so kann die \segment -Multikonfiguration für diese Gruppe nicht aktiviert werden.
+Ist die aktuell eingestellte Zahl von \segments n einer Gruppe nicht zwei oder wurde die Gruppen-Multikonfiguration, die \segment -Multikonfiguration für eine andere Gruppe oder die Multikonfiguration eines anderen Parameters bereits aktiviert, so kann die \segment -Multikonfiguration für diese Gruppe nicht aktiviert werden.
 
 \functionality{Multikonfiguration weiterer Parameter}{fnc:multikonfpar}
 \fulfills{crt:multikonf}
@@ -538,7 +538,7 @@ Die Multikonfiguration kann für einen der folgenden Parameter aktiviert werden:
 \item Anzahl von Wiederholungen
 \item Die Parameter des ausgewählten Paarbildungsalgorithmus
 \item Die Parameter der ausgewählten Erfolgsquantifizierung
-\item Die Parameter des Adaptionsmechanismus 
+\item Die Parameter des Adaptionsmechanismus
 \item Die Parameter des ausgewählten Gleichgewichtskriteriums
 \item Maximale Zahl durchzuführender Adaptionsschritte
 \end{itemize}
@@ -606,7 +606,7 @@ h_j = |\{i \in \{1,...,W_\text{G}\} | E_i \in I_j\}|
 eingezeichnet.
 
 \textbf{\Gls{Einstellungsdauer}:}
-Die \Glspl{Einstellungsdauer} der erreichten \Glspl{Gleichgewicht} in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die \Gls{Einstellungsdauer} der \(i\)-ten Wiederholung, bei der sich ein \Gls{Gleichgewicht} eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der \Gls{Effizienz} ein entsprechendes Histogramm gezeichnet. 
+Die \Glspl{Einstellungsdauer} der erreichten \Glspl{Gleichgewicht} in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die \Gls{Einstellungsdauer} der \(i\)-ten Wiederholung, bei der sich ein \Gls{Gleichgewicht} eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der \Gls{Effizienz} ein entsprechendes Histogramm gezeichnet.
 
 Im Falle einer Menge von durch Multikonfiguration erstellten Simulationen kann mittels \enquote{>} noch zur Seite \enquote{Multikonfigurationsergebnisse} navigiert werden. Dort befinden sich Auftragungen von Gleichgewichtshäufigkeit, \Gls{Effizienz} und \Gls{Einstellungsdauer} über den Multikonfigurationsparameter. Für \Gls{Effizienz} und \Gls{Einstellungsdauer} wird dazu pro zugehöriger Simulation über alle Wiederholungen (in denen sich ein \Gls{Gleichgewicht} eingestellt hat) gemittelt.
 
@@ -1031,14 +1031,14 @@ Nach dem Starten des Programms öffnet sich das Hauptfenster des Simulators \\(s
 \end{figure}
 
 Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählten \Gls{Konfiguration} angezeigt (siehe \cref{fig:home_top}). Rechts davon befindet sich ein Knopf zum Bearbeiten der \Gls{Konfiguration} und ein weiterer Knopf zum Starten der Simulation (siehe \cref{fig:main_btn}).
- 
+
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=\textwidth]{images/home_top.png}
 	\caption{\label{fig:home_top}
 	Zusammenfassung der aktuell gewählten \Gls{Konfiguration}}
-\end{figure} 
- 
+\end{figure}
+
 \begin{figure}[ht]
 	\centering
  	\includegraphics[width=0.25\linewidth]{images/main_btn.png}
