@@ -1,8 +1,8 @@
 \documentclass[parskip=full,11pt]{scrartcl}
 \usepackage[utf8]{inputenc}
 
-\title{Simulator für wiederholte Spiele}
-\author{Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing}
+%\title{Simulator für wiederholte Spiele}
+%\author{Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing}
 
 % section numbers in margins:
 \renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
@@ -184,10 +184,25 @@ E = \frac{1}{N(N - 1)} \sum_{i \neq j} p_{ij}.
 }
 
 \begin{document}
-\maketitle
+%\maketitle
+
+\begin{titlepage}
+	\centering
+	\vspace*{5cm}
+	\includegraphics[width = 0.7\linewidth]{images/Logos/loop.png}\par
+	{\huge\bfseries Ein Simulator für wiederholte Spiele\par}
+	\vspace{2cm}
+	{\Large\itshape Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing\par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+
+\pagebreak
 
 \section{Einleitung}
-
+\vfill
 Ziel dieses Projekts ist die Entwicklung einer Simulationsumgebung für wiederholte Spiele. Sie ist aus wissenschaftlichem Interesse motiviert und für den Einsatz in der Forschung ausgelegt. Die Simulationsumgebung wird verwendet, um das Entstehen von \Gls{Gleichgewicht}szuständen bei wiederholten Spielen mehrerer Agenten zu untersuchen.
 
 Es folgt eine Erläuterung des dem Simulator zugrundeliegenden Ablaufs. Dazu sei auch auf \cref{fig:schema} verwiesen.
@@ -1196,23 +1211,6 @@ Die Wahl der Option zum Ersellen eines neuen \Gls{Stufenspiel}s öffnet ebenfall
 	\caption{\label{fig:konfig_adv}
 		erweiterte Simulationsparameter und MultikonfigurationsEinstellungen}
 \end{figure}
-
-
-\section{Szenarien}
-
-
-\subsection{Szenario 1}
-Jonas hat die Anwendung auf seinem PC installiert und möchte das \Gls{Stufenspiel} Gefangenendilemma mit 10 Agenten simulieren, wobei von Anfang an eine Hälfte arm und eine Hälfte reich sein soll. Dazu öffnet Jonas die Anwendung und landet im Hauptfenster. Jonas drückt auf das Zahnrad um die von ihm gewünschte \Gls{Konfiguration} einzustellen. Das Konfigurationsfenster öffnet sich und Jonas wählt nun \enquote{Gefangenendilemma} bei der Auswahl des \Gls{Stufenspiel} aus und stellt den Slider bei Anzahl der Agenten auf 10. Die Anzahl der Runden und Wiederholungen lässt er auf den voreingestellten Werten. 
-Um die Agenten jetzt in 2 Gruppen einzuteilen, erstellt Jonas unter Gruppeneinstellungen 2 neue Gruppen in dem er 2 mal auf das Plus mit \enquote{Gruppe hinzufügen} klickt. Er versetzt den \Gls{Multislider} nun so, dass in der einen Gruppe 6 Agenten sind und in der anderen Gruppe 4. Er klickt auf den Bereich des \Gls{Multislider} der an Gruppe 1 zugeteilt wurde und stellt im Unterpunkt Kapitalverteilung eine Normalverteilung mit Mittelwert 200 und Standardabweichung 5 ein. Gleiches tut er für Gruppe 2, jedoch wählt er hier als Mittelpunkt 40. Für beide Gruppen wählt er unter Strategieeinteilung nur \enquote{Grim}.
-Jonas ist zufrieden mit seiner \Gls{Konfiguration} und startet diese nun mit einem Klick auf den grünen Play-Button in der Header-Leiste.
-Er wird zurück ins Hauptfenster navigiert und sieht seine Simulation nun in der Simulationshistorie. Sie ist gelb eingefärbt (Sie läuft noch. Nach einer halben Stunde schaut Jonas noch mal nach, seine Simulation ist jetzt grün eingefärbt (Sie ist beendet). Mit einem Klick auf die Simulation öffnet Jonas die Zusammenfassung für seine Simulation und schaut sich nun die Kapitalverteilung für die einzelnen Gruppen an und wertet sie aus. Jonas ist zufrieden mit seinem Ergebnis und schließt die Anwendung wieder.
-
-
-\subsection{Szenario 2}
-
-Bob möchte eine Simulation des \enquote{Falke und Taube}-\Gls{Stufenspiel} mit 20 Agenten durchführen und die Verteilung der 2 Anfangsstrategien \enquote{Immer Kooperation} und Nie Kooperation so variieren lassen, dass in der ersten Simulation 10\% \enquote{Immer Kooperation} und 90\% \enquote{Nie Kooperation} als Anfangsstrategie haben und diese Verteilung sich in jeder Simulation um 10\% verschiebt(20:80, 30:70...). Dazu startet Bob die Anwendung und wählt das dementsprechende \Gls{Stufenspiel} und die Agentenzahl in den Grundeinstellungen. Den Raum der \Glspl{Strategie} hat er auf \enquote{Nie Kooperation} und \enquote{Immer Kooperation} eingestellt und kann nun in den erweiterten Einstellungen seine Einstellung für den variablen Konfigurationsparameter treffen. Er stellt den Startwert auf 10\%, den Endwert auf 90\% und die Schrittweite auf 10\%. Er bestätigt die \Gls{Konfiguration} in dem er auf den grünen Haken in der Headerleiste klickt und gelangt zurück zum Hauptfenster. Im Hauptfenster kann er sich noch einmal die Zusammenfassung seiner aktuellen \Gls{Konfiguration} anschauen und überprüft ob er die wichtigen Dinge eingestellt hat. Nachdem er sich davon überzeugt hat, klickt er auf den grünen Play-Button um die Simulation zu starten. Er kann jetzt in der Simulationshistorie verfolgen wie viele von seinen 9 Simulationen schon beendet wurden. Nachdem alle Simulationen beendet sind, klickt er auf die Simulationsgruppe und kann sich nun eine Abstraktion der Simulationen anzeigen lassen um den Einfluss, den die Variation seines Parameter auf das Endergebnis hatte, auszuwerten. Bob findet ,dass diese eine interessante Auswirkung auf die Kapitalverteilung hatte und will die \Gls{Konfiguration} speichern um die Simulationen nächste Woche noch einmal durchzuführen. Dazu klickt er unter \enquote{Datei} auf \enquote{\Gls{Konfiguration} speichern} und kann nun einen Ablageort auswählen. Nach dem Speichern, schließt Bob die Anwendung und schickt die Konfigurationsdatei per E-Mail an seinen Kollegen Jonas, damit dieser die Simulation auch starten kann. Jonas kann die \Gls{Konfiguration} mittels \enquote{\Gls{Konfiguration} laden} öffnen und dann ganz normal starten.
-
-\newpage
 
 \section{Stufenspiele}
 Im folgenden findet sich eine kurze Beschreibung der verfügbaren \Glspl{Stufenspiel}.
