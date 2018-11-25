@@ -145,7 +145,7 @@
 \item A/B hat (bei bisherigen Spielen zwischen A und B im aktuellen \adapt) immer/nie/letztes Mal/wenigstens einmal kooperiert
 \item B hat ein höheres/niedrigeres Absolutkapital als A
 \item B hat einen höheren/niedrigeren Rang als A (im aktuellen \adapt)
-\item A und B haben dieselbe Gruppenzugehörigkeit
+\item A und B haben dieselbe \Gls{Gruppenzugehoerigkeit}
 \item A und B haben ähnliches Absolutkapital\footnote{Das Absolutkapital zweier Agenten ist ähnlich, genau dann wenn sich der Rang der Agenten, aufgelistet nach Absolutkapital, höchstens um \(20\%\) der Gesamtzahl aller Agenten unterscheidet.}
 \item Die Konstanten true und false
 \end{itemize}
@@ -192,7 +192,7 @@ Ziel dieses Projekts ist die Entwicklung einer Simulationsumgebung für wiederho
 
 Es folgt eine Erläuterung des dem Simulator zugrundeliegenden Ablaufs. Dazu sei auch auf \cref{fig:schema} verwiesen.
 
-Eine Simulation besteht aus mehreren Wiederholungen. Eine Wiederholung beginnt mit der Initialisierung der Agenten mit \Glspl{Strategie}, \Gls{Kapital} und \Gls{Gruppenzugehoerigkeit}. Anzahl der Agenten, Zuweisungsverfahren von Anfangsstrategien und Anfangskapital sowie Gruppeneinteilung werden vom \Gls{Nutzer} spezifiziert. Insbesondere legt der \Gls{Nutzer} die Menge aller möglichen \Glspl{Strategie} fest. Danach folgen wiederholt \adapts, bis sich ein Gleichgewicht eingestellt hat oder eine konfigurierbare Höchstzahl an \adapts n erreicht ist. Ein \adapt\ besteht aus einer festen Zahl an Runden. In jeder Runde werden zunächst gemäß eines konfigurierbaren Algorithmus' Paare aus Agenten gebildet. Diese spielen dann unter Betrachtung ihrer aktuellen \Gls{Strategie} das der aktuellen Simulation zugrundeliegende \Gls{Stufenspiel}. Nach Ablauf der Runden wird der \Gls{Erfolg} jedes Agenten in den zurückliegenden Runden quantifiziert und daraus eine Rangliste aller Agenten erstellt. Die Agenten passen nun ihre \Glspl{Strategie} gemäß eines vom \Gls{Nutzer} spezifizierbaren Adaptionsmechanismus an. Ziel dabei ist nicht die Maximierung des Absolutkapitals, sondern eine möglichst hohe Position auf der Rangliste.\newline
+Eine Simulation besteht aus mehreren Wiederholungen. Eine Wiederholung beginnt mit der Initialisierung der Agenten mit \Glspl{Strategie}, \Gls{Kapital} und \Gls{Gruppenzugehoerigkeit}. Anzahl der Agenten, Zuweisungsverfahren von Anfangsstrategien und Anfangskapital sowie Gruppeneinteilung werden vom \Gls{Nutzer} spezifiziert. Insbesondere legt der \Gls{Nutzer} die Menge aller möglichen \Glspl{Strategie} fest. Danach folgen wiederholt \adapts, bis sich ein \Gls{Gleichgewicht} eingestellt hat oder eine konfigurierbare Höchstzahl an \adapts n erreicht ist. Ein \adapt\ besteht aus einer festen Zahl an Runden. In jeder Runde werden zunächst gemäß eines konfigurierbaren Algorithmus' Paare aus Agenten gebildet. Diese spielen dann unter Betrachtung ihrer aktuellen \Gls{Strategie} das der aktuellen Simulation zugrundeliegende \Gls{Stufenspiel}. Nach Ablauf der Runden wird der \Gls{Erfolg} jedes Agenten in den zurückliegenden Runden quantifiziert und daraus eine Rangliste aller Agenten erstellt. Die Agenten passen nun ihre \Glspl{Strategie} gemäß eines vom \Gls{Nutzer} spezifizierbaren Adaptionsmechanismus an. Ziel dabei ist nicht die Maximierung des Absolutkapitals, sondern eine möglichst hohe Position auf der Rangliste.\newline
 Nachdem alle Wiederholungen abgeschlossen sind, erfolgt die Ausgabe der Simulationsergebnisse.
 
 \begin{figure}
@@ -215,7 +215,7 @@ Der \Gls{Nutzer} kann eine Simulation starten, welche dann mit der aktuell gewä
 
 \criterium{Ausgabe der Simulationsergebnisse}{crt:simresults_std}
 
-Nach Durchführung einer Simulation werden dem \Gls{Nutzer} Informationen über Gleichgewichtshäufigkeit sowie \Gls{Effizienz} und \Gls{Einstellungsdauer} der erreichten Gleichgewichte in den zugehörigen Wiederholungen angezeigt. Weiter können Strategie- und Kapitalverteilungen am Ende der einzelnen Wiederholungen eingesehen werden.
+Nach Durchführung einer Simulation werden dem \Gls{Nutzer} Informationen über Gleichgewichtshäufigkeit sowie \Gls{Effizienz} und \Gls{Einstellungsdauer} der erreichten \Glspl{Gleichgewicht} in den zugehörigen Wiederholungen angezeigt. Weiter können Strategie- und Kapitalverteilungen am Ende der einzelnen Wiederholungen eingesehen werden.
 
 \criterium{Abbrechen einer Simulation}{crt:cancelsim}
 
@@ -226,13 +226,13 @@ Der \Gls{Nutzer} kann eine laufende Simulation abbrechen.
 Der \Gls{Nutzer} hat die Möglichkeit, die folgenden Simulationsparameter festzulegen:
 \begin{itemize} \itemsep -10pt
 \item Anzahl der Agenten
-\item zugrundeliegendes Stufenspiel
+\item zugrundeliegendes \Gls{Stufenspiel}
 \item Anzahl pro \adapt\ durchgeführter Runden
 \item Anzahl durchgeführter Wiederholungen
 \item Menge aller möglichen \Glspl{Strategie}
 \item Anzahl verschiedener Gruppen und jeweils Anzahl zugehöriger Agenten
 \item Zuweisungsverfahren für initiale \Glspl{Strategie}
-\item Zuweisungsverfahren für initiales Kapital
+\item Zuweisungsverfahren für initiales \Gls{Kapital}
 \item Algorithmus zur Bildung von Paaren beim Beginn einer Runde
 \item Erfolgsquantifizierung zur Erstellung der Rangliste am Ende eines \adapt s
 \item Adaptionsmechanismus, nach dem Agenten am Ende eines \adapt s ihre \Glspl{Strategie} anpassen
@@ -245,13 +245,13 @@ Der \Gls{Nutzer} hat die Möglichkeit, die folgenden Simulationsparameter festzu
 Es können mehrere Simulationen gleichzeitig laufen. Das Programm kann währenddessen unverändert verwendet werden und es wird eine Übersicht über alle gestarteten Simulationen und deren Ausführungsstatus angezeigt.
 
 \criteriumOptional{Anpassen der Gleichgewichtsbedingung}{crt:equicondition}
-Es können mehrere Kriterien für das Erreichen eines Gleichgewichts im Simulationsablauf verwendet werden.
+Es können mehrere Kriterien für das Erreichen eines \Gls{Gleichgewicht}s im Simulationsablauf verwendet werden.
 
 \criteriumOptional{Erweiterte Gruppenfunktionalität}{crt:groupfunc}
-Gruppen und die Menge \gls{gruppenloser Agent}en können jeweils in \segments\ unterteilt werden. Für jedes \segment\ können Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales Kapital separat festgelegt werden.
+Gruppen und die Menge \gls{gruppenloser Agent}en können jeweils in \segments\ unterteilt werden. Für jedes \segment\ können Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales \Gls{Kapital} separat festgelegt werden.
 
-\criteriumOptional{Speichern und Laden von Konfigurationen}{crt:saveloadconfig}
-Eine Konfiguration kann als Datei abgespeichert werden. Eine solche Konfigurationsdatei kann wiederum geladen werden. Außerdem kann die Konfiguration einer bereits abgeschlossenen Simulation als \gls{aktuelle Konfiguration} übernommen werden.
+\criteriumOptional{Speichern und Laden von \Glspl{Konfiguration}}{crt:saveloadconfig}
+Eine \Gls{Konfiguration} kann als Datei abgespeichert werden. Eine solche Konfigurationsdatei kann wiederum geladen werden.
 
 \criteriumOptional{Speichern und Laden von Simulationsergebnissen}
 {crt:saveloadsim}
@@ -260,19 +260,19 @@ Eine abgeschlossene Simulation kann als Datei abgespeichert werden. Eine solche 
 \criteriumOptional{Erstellen eigener \Glspl{Strategie}}{crt:createstrat}
 Es können eigene \Glspl{Strategie} erstellt werden.
 
-\criteriumOptional{Erstellen eigener Stufenspiele}{crt:creategame}
-Es können eigene Stufenspiele erstellt werden.
+\criteriumOptional{Erstellen eigener \Glspl{Stufenspiel}}{crt:creategame}
+Es können eigene \Glspl{Stufenspiel} erstellt werden.
 
 \criteriumOptional{Multikonfiguration}{crt:multikonf}
-Der \Gls{Nutzer} kann eine Menge von Konfigurationen spezifizieren, in denen die Größe eines bestimmten Parameters eine festgelegte Folge von Werten durchläuft. Die so spezifizierten Simulationen werden gleichzeitig gestartet.
+Der \Gls{Nutzer} kann eine Menge von \Glspl{Konfiguration} spezifizieren, in denen die Größe einer Gruppe oder die eines \segment s einer Gruppe eine festgelegte Folge von Werten durchläuft. Die so spezifizierten Simulationen werden gleichzeitig gestartet.
 
 \subsection{Abgrenzung}
 
 \criteriumNot{Kein alternativer Simulationsablauf}{crt:not_altsim}
 Der zugrundeliegende Ablauf der Simulation, wie in der Einleitung erklärt, kann nicht verändert werden.
 
-\criteriumNot{Keine komplexen Stufenspiele}{crt:not_complexgames}
-Als Stufenspiele sind nur solche zugelassen, die sich als \(2 \times 2\) - \Gls{Bimatrix} mit konstanten Koeffizienten darstellen lassen.
+\criteriumNot{Keine komplexen \Glspl{Stufenspiel}}{crt:not_complexgames}
+Als \Glspl{Stufenspiel} sind nur solche zugelassen, die sich als \(2 \times 2\) - \Gls{Bimatrix} mit konstanten Koeffizienten darstellen lassen.
 
 \criteriumNot{Lokalisierung}{crt:local}
 Die Anwendung soll nur in deutscher Sprache verfügbar sein.
@@ -282,25 +282,25 @@ Die Anwendung soll nur in deutscher Sprache verfügbar sein.
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Konfiguration bearbeiten}{fnc:editConfig}
+\functionality{\Gls{Konfiguration} bearbeiten}{fnc:editConfig}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} hat die Möglichkeit, die aktuelle Konfiguration zu bearbeiten.
+Der \Gls{Nutzer} hat die Möglichkeit, die \Gls{aktuelle Konfiguration} zu bearbeiten.
 
-Dazu kann in der Menüleiste des Startfensters der Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration bearbeiten} oder der mit einem Zahnrad-Symbol beschriftete Knopf am oberen rechten Ende des Startfensters betätigt werden (siehe \cref{fig:home}). Daraufhin öffnet sich das Konfigurationsfenster, in dem alle variablen Simulationsparameter festgelegt werden können. Wird der \enquote{Bestätigen}-Knopf in der Toolbar des Konfigurationsfensters betätigt, wird das Konfigurationsfenster geschlossen und die festgelegten Parameter als aktuelle Konfiguration übernommen (siehe \cref{fig:konfig}).
+Dazu kann in der Menüleiste des Startfensters der Eintrag \enquote{Datei} \(\rightarrow\) \enquote{\Gls{Konfiguration} bearbeiten} oder der mit einem Zahnrad-Symbol beschriftete Knopf am oberen rechten Ende des Startfensters betätigt werden (siehe \cref{fig:home}). Daraufhin öffnet sich das Konfigurationsfenster, in dem alle variablen Simulationsparameter festgelegt werden können. Wird der \enquote{Bestätigen}-Knopf in der Toolbar des Konfigurationsfensters betätigt, wird das Konfigurationsfenster geschlossen und die festgelegten Parameter als \Gls{aktuelle Konfiguration} übernommen (siehe \cref{fig:konfig}).
 
 \functionality{Festlegung der Anzahl von Agenten}{fnc:agentcount}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl von Agenten in einer Konfiguration festzulegen.
+Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl von Agenten in einer \Gls{Konfiguration} festzulegen.
 
 Die gewünschte Zahl kann im Konfigurationsfenster über einen Slider eingestellt werden. Im Textfeld rechts des Sliders wird der eingestellte Zahlenwert angezeigt. Das Festlegen des Wertes ist auch durch direkte Eingabe in das Textfeld möglich, der Slider wird dann automatisch auf die entsprechende Position gesetzt. Zugelassen sind gerade Zahlen zwischen \(2\) und \(10.000\). Voreingestellt sind \(100\) Agenten (siehe \cref{fig:konfig_main}).
 
-\functionality{Festlegung des Stufenspiels}{fnc:selectgame}
+\functionality{Festlegung des \Gls{Stufenspiel}s}{fnc:selectgame}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} kann das zugrundeliegende Stufenspiel einer Konfiguration festlegen.
+Der \Gls{Nutzer} kann das zugrundeliegende \Gls{Stufenspiel} einer \Gls{Konfiguration} festlegen.
 
-Dazu befindet sich im Konfigurationsfenster ein Dropdown-Menü. Wird dieses angeklickt, so kann ein Stufenspiel aus einer Liste aller im Programm hinterlegten Stufenspiele ausgewählt werden. Rechts des Dropdown-Menüs wird eine kurze Beschreibung des aktuell eingestellten Stufenspiels angezeigt (siehe \cref{fig:konfig_main}).
+Dazu befindet sich im Konfigurationsfenster ein Dropdown-Menü. Wird dieses angeklickt, so kann ein \Gls{Stufenspiel} aus einer Liste aller im Programm hinterlegten \Glspl{Stufenspiel} ausgewählt werden. Rechts des Dropdown-Menüs wird eine kurze Beschreibung des aktuell eingestellten \Gls{Stufenspiel}s angezeigt (siehe \cref{fig:konfig_main}).
 
-Abgesehen von selbst erstellten Stufenspielen sind folgende Stufenspiele im Programm hinterlegt (siehe Anhang):
+Abgesehen von selbst erstellten \Gls{Stufenspiel}en sind folgende \Glspl{Stufenspiel} im Programm hinterlegt (siehe Anhang):
 \begin{itemize} \itemsep -10pt
 \item Gefangenendilemma
 \item Hirschjagd
@@ -313,19 +313,19 @@ Voreingestellt ist das Gefangenendilemma.
 
 \functionality{Festlegung der Anzahl von Runden pro \adapt}{fnc:rounds}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden in einer Konfiguration festzulegen.
+Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl pro \adapt\ durchgeführter Runden in einer \Gls{Konfiguration} festzulegen.
 
 Wie die Anzahl von Agenten kann die Anzahl von Runden im Konfigurationsfenster mittels Slider bzw. Textfeld eingestellt werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(1000\). Voreingestellt sind \(100\) Runden (siehe \cref{fig:konfig_main}).
 
 \functionality{Festlegung der Anzahl von Wiederholungen}{fnc:repeats}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl durchgeführter Wiederholungen in einer Konfiguration festzulegen.
+Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl durchgeführter Wiederholungen in einer \Gls{Konfiguration} festzulegen.
 
 Wie die Anzahl von Agenten kann die Anzahl von Wiederholungen im Konfigurationsfenster mittels Slider bzw. Textfeld eingegeben werden. Zugelassen sind natürliche Zahlen zwischen \(1\) und \(500\). Voreingestellt sind \(100\) Wiederholungen (siehe \cref{fig:konfig_main}).
 
 \functionality{Festlegung der Menge aller möglichen \Glspl{Strategie}}{fnc:stratset}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} kann in einer Konfiguration die Menge aller \Glspl{Strategie} festlegen, die von Agenten verwendet werden können.
+Der \Gls{Nutzer} kann in einer \Gls{Konfiguration} die Menge aller \Glspl{Strategie} festlegen, die von Agenten verwendet werden können.
 
 Dazu befindet sich im Konfigurationsfenster ein mit \enquote{Menge aller möglichen \Glspl{Strategie}} betiteltes Dropdown-Menü. Wird auf das Menü geklickt, klappt nach unten eine Liste aller im Programm hinterlegten \Glspl{Strategie} aus. Neben jeder \Gls{Strategie} befindet sich eine Checkbox. Durch Aktivieren der entsprechenden Checkboxen kann die Menge von \Glspl{Strategie} festgelegt werden (siehe \cref{fig:konfig_strat_detail}).
 
@@ -339,8 +339,8 @@ Abgesehen von selbst erstellten \Glspl{Strategie} sind folgende \Glspl{Strategie
 \item Tit-for-Tat mit Agenten mit ähnlichem Absolutkapital, ansonsten keine Kooperation
 \item Keine Kooperation mit Agenten mit höherem Absolutkapital, ansonsten Tit-for-Tat
 \item Keine Kooperation mit Agenten mit niedrigerem Absolutkapital, ansonsten Tit-for-Tat
-\item Kooperation mit Agenten derselben Gruppenzugehörigkeit, ansonsten keine Kooperation
-\item Tit-for-Tat mit Agenten derselben Gruppenzugehörigkeit, ansonsten keine Kooperation
+\item Kooperation mit Agenten derselben \Gls{Gruppenzugehoerigkeit}, ansonsten keine Kooperation
+\item Tit-for-Tat mit Agenten derselben \Gls{Gruppenzugehoerigkeit}, ansonsten keine Kooperation
 \item Immer Kooperation
 \item Nie Kooperation
 \end{itemize}
@@ -348,7 +348,7 @@ Voreingestellt sind Tit-for-Tat, Grim und \enquote{Immer Kooperation}.
 
 \functionality{Festlegung von Anzahl und Größe der Gruppen}{fnc:groups}
 \fulfills{crt:simparam_std}
-Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl verschiedener Gruppen in einer Konfiguration festzulegen. Weiterhin kann er angeben, wie viele Agenten den einzelnen Gruppen und wie viele Agenten keiner Gruppe zugehörig sind.
+Der \Gls{Nutzer} hat die Möglichkeit, die Anzahl verschiedener Gruppen in einer \Gls{Konfiguration} festzulegen. Weiterhin kann er angeben, wie viele Agenten den einzelnen Gruppen und wie viele Agenten keiner Gruppe zugehörig sind.
 
 Dazu muss im Konfigurationsfenster zu dem Abschnitt \enquote{Gruppeneinstellungen} navigiert werden (siehe \cref{fig:konfig_group}). Voreingestellt sind null Gruppen. Eine neue Gruppe kann durch Betätigen des \enquote{Gruppe hinzufügen}-Knopfes hinzugefügt werden. Jeder Gruppe wird bei Erstellung eine zufällige, unter allen Gruppen eindeutige Farbe zugeordnet. Ist die maximale Anzahl von fünf Gruppen erreicht, ist der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
@@ -358,9 +358,9 @@ Unter dem Slider befindet sich ein Tab-Control-Element mit einem Tab für jede G
 
 \functionality{Einteilung von Gruppen in \segments}{fnc:segments}
 \fulfills{crt:groupfunc}
-Der \Gls{Nutzer} kann jede Gruppe und die Menge der gruppenlosen Agenten in ein bis fünf \segments\ unterteilen. Für jedes \segment\ können die Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales Kapital separat konfiguriert werden.
+Der \Gls{Nutzer} kann jede Gruppe und die Menge der gruppenlosen Agenten in ein bis fünf \segments\ unterteilen. Für jedes \segment\ können die Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales \Gls{Kapital} separat konfiguriert werden.
 
-Die Unterteilung erfolgt im Konfigurationsabschnitt einer Gruppe bzw. der gruppenlosen Agenten. Am oberen Ende des Abschnittes befindet sich eine Überschrift \enquote{\segment einstellungen}, darunter ein \Gls{Multislider} und ein \enquote{\segment\ hinzufügen}-Knopf (siehe \cref{fig:konfig_group}). Voreingestellt ist ein Segment. Ein neues Segment kann durch Betätigen des \enquote{\segment\ hinzufügen}-Knopfes hinzugefügt werden. Ist die maximale Anzahl von fünf \segments n erreicht, ist der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden. Für jedes hinzugefügte Segment erscheint auf dem \Gls{Multislider} ein Schiebe-Knopf. Wie bei den Gruppeneinstellungen entspricht jeder Abschnitt auf dem Slider einem \segment. Durch Verschieben der Schiebe-Knöpfe kann die Größe der \segments\ verändert werden. Unter dem Slider befindet sich ein Tab-Control-Element mit einem Tab pro \segment. Jeder Tab fungiert als Konfigurationsabschnitt für das entsprechende \segment. Der Konfigurationsabschnitt enthält die Einstellungen für das Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales Kapital.
+Die Unterteilung erfolgt im Konfigurationsabschnitt einer Gruppe bzw. der gruppenlosen Agenten. Am oberen Ende des Abschnittes befindet sich eine Überschrift \enquote{\segment einstellungen}, darunter ein \Gls{Multislider} und ein \enquote{\segment\ hinzufügen}-Knopf (siehe \cref{fig:konfig_group}). Voreingestellt ist ein Segment. Ein neues Segment kann durch Betätigen des \enquote{\segment\ hinzufügen}-Knopfes hinzugefügt werden. Ist die maximale Anzahl von fünf \segments n erreicht, ist der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und kann nicht mehr betätigt werden. Für jedes hinzugefügte Segment erscheint auf dem \Gls{Multislider} ein Schiebe-Knopf. Wie bei den Gruppeneinstellungen entspricht jeder Abschnitt auf dem Slider einem \segment. Durch Verschieben der Schiebe-Knöpfe kann die Größe der \segments\ verändert werden. Unter dem Slider befindet sich ein Tab-Control-Element mit einem Tab pro \segment. Jeder Tab fungiert als Konfigurationsabschnitt für das entsprechende \segment. Der Konfigurationsabschnitt enthält die Einstellungen für das Zuweisungsverfahren für initiale \Glspl{Strategie} und initiales \Gls{Kapital}.
 
 Am rechten Rand des Tabs jedes \segment s befindet sich ein mit \enquote{X} beschrifteter Knopf. Wird dieser betätigt, so wird das entsprechende \segment\ gelöscht. Gibt es nur noch ein \segment, so ist der \enquote{X}-Knopf ausgegraut und kann nicht betätigt werden.
 
@@ -369,16 +369,16 @@ Am rechten Rand des Tabs jedes \segment s befindet sich ein mit \enquote{X} besc
 \fulfills{crt:groupfunc}
 Der \Gls{Nutzer} kann das Zuweisungsverfahren für die initialen \Glspl{Strategie} der Agenten beim Beginn einer Wiederholung festlegen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
 
-Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit \enquote{Initiale \Glspl{Strategie}} beschrifteter Unterabschnitt. In diesem befinden sich zwei nebeneinander angeordnete List-Boxen (siehe \cref{fig:konfig_segment})). Die Linke ist beschriftet mit \enquote{Verfügbare \Glspl{Strategie}}, die Rechte mit \enquote{Gewählte \Glspl{Strategie}}. In der linken Box sind zunächst alle \Glspl{Strategie} aufgelistet, die für diese Konfiguration zugelassen sind. Die rechte Box ist zunächst leer. Per üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere \Glspl{Strategie} in der linken Box ausgewählt werden. Betätigen des mit \enquote{\(>\)} beschrifteten Knopfes zwischen den beiden Boxen entfernt alle ausgewählten \Glspl{Strategie} aus der linken Box und fügt sie in die rechte Box ein. Analog können \Glspl{Strategie} in der rechten Box ausgewählt und mittels Betätigen des \enquote{\(<\)}-Knopfes aus der rechten Box entfernt und in die Linke eingefügt werden. Betätigen des \enquote{\(\gg\)}-Knopfes entfernt alle \Glspl{Strategie} aus der linken Box und fügt sie in die rechte Box ein. Betätigen des \enquote{\(\ll\)}-Knopfes entfernt alle \Glspl{Strategie} aus der rechten Box und fügt sie in die linke Box ein.
+Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit \enquote{Initiale \Glspl{Strategie}} beschrifteter Unterabschnitt. In diesem befinden sich zwei nebeneinander angeordnete List-Boxen (siehe \cref{fig:konfig_strat})). Die Linke ist beschriftet mit \enquote{Verfügbare \Glspl{Strategie}}, die Rechte mit \enquote{Gewählte \Glspl{Strategie}}. In der linken Box sind zunächst alle \Glspl{Strategie} aufgelistet, die für diese \Gls{Konfiguration} zugelassen sind. Die rechte Box ist zunächst leer. Per üblicher \textsf{CTRL}- und \textsf{SHIFT}-Klick-Funktionalität können eine oder mehrere \Glspl{Strategie} in der linken Box ausgewählt werden. Betätigen des mit \enquote{\(>\)} beschrifteten Knopfes zwischen den beiden Boxen entfernt alle ausgewählten \Glspl{Strategie} aus der linken Box und fügt sie in die rechte Box ein. Analog können \Glspl{Strategie} in der rechten Box ausgewählt und mittels Betätigen des \enquote{\(<\)}-Knopfes aus der rechten Box entfernt und in die Linke eingefügt werden. Betätigen des \enquote{\(\gg\)}-Knopfes entfernt alle \Glspl{Strategie} aus der linken Box und fügt sie in die rechte Box ein. Betätigen des \enquote{\(\ll\)}-Knopfes entfernt alle \Glspl{Strategie} aus der rechten Box und fügt sie in die linke Box ein.
 
 Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ zufällig eine \Gls{Strategie} aus der Liste der gewählten \Glspl{Strategie} zugeordnet. Ist diese Liste leer, werden den Agenten zufällige \Glspl{Strategie} aus der Menge aller möglichen \Glspl{Strategie} zugeordnet. Insbesondere werden Agenten immer mit reinen \Glspl{Strategie} initialisiert.
 
 Eine \Gls{Strategie}, die sich in einem Segment in den \enquote{ausgewählten \Glspl{Strategie}} befindet, kann in den Grundeinstellungen nicht aus der Menge aller möglichen \Glspl{Strategie} entfernt werden. Die entsprechende Checkbox im Dropdown-Menü ist ausgegraut.
 
-\functionality{Festlegung des Zuweisungsverfahrens für initiales Kapital}{fnc:initialcap}
+\functionality{Festlegung des Zuweisungsverfahrens für initiales \Gls{Kapital}}{fnc:initialcap}
 \fulfills{crt:simparam_std}
 \fulfills{crt:groupfunc}
-Der \Gls{Nutzer} kann das Zuweisungsverfahren für das initiale Kapital der Agenten beim Beginn einer Wiederholung festlegen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
+Der \Gls{Nutzer} kann das Zuweisungsverfahren für das initiale \Gls{Kapital} der Agenten beim Beginn einer Wiederholung festlegen. Diese Einstellung findet für jedes \segment\ einer Gruppe und für jedes \segment\ der gruppenlosen Agenten separat statt.
 
 Die Einstellung erfolgt in dem Konfigurationsabschnitt eines \segment s. Dort befindet sich ein mit \enquote{Kapitalverteilung} beschrifteter Unterabschnitt (siehe \cref{fig:konfig_cap})). Mittels Radiobuttons kann eine der folgenden Wahrscheinlichkeitsverteilungen gewählt werden:
 \begin{itemize}\itemsep -10pt
@@ -396,7 +396,7 @@ Bei der Poisson-Verteilung muss der Parameter \(\lambda \in \mathbb{N}_0\) in ei
 
 Bei fehlerhafter Eingabe eines Parameters wird die Eingabe auf den nächsten zugelassenen Wert abgeändert.
 
-Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag aus der festgelegten Wahrscheinlichkeitsverteilung als initiales Kapital zugewiesen.
+Zu Beginn jeder Wiederholung in einer so konfigurierten Simulation wird jedem Agent aus dem aktuell konfigurierten \segment\ ein zufälliger Betrag aus der festgelegten Wahrscheinlichkeitsverteilung als initiales \Gls{Kapital} zugewiesen.
 
 \functionality{Festlegung des Algorithmus zur Paarbildung}{fnc:algopaar}
 \fulfills{crt:simparam_std}
@@ -427,14 +427,14 @@ Der \Gls{Nutzer} hat die Möglichkeit, den Mechanismus zur Erfolgsquantifizierun
 Dazu befindet sich im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Erfolgsquantifizierung}. Über das Dropdown-Menü kann eine der folgenden Möglichkeiten ausgewählt werden (siehe \cref{fig:konfig_adv}):
 
 \textbf{Absolute Auszahlung:}
-Der Erfolg eines Agenten ist die Summe aller Auszahlungen aus den Stufenspielen in den vergangenen Runden des aktuellen \adapt s.
+Der \Gls{Erfolg} eines Agenten ist die Summe aller Auszahlungen aus den \Gls{Stufenspiel}en in den vergangenen Runden des aktuellen \adapt s.
 
 \textbf{Gleitender Durchschnitt:}
 Dieser Mechanismus hat als Konfigurationsparameter die \enquote{Fenstergröße} \(w \in \{1,...,R\}\) (falls \(R\) die Anzahl von Runden pro \adapt\ bezeichnet). Es bezeichne \(a_i^{(k)}\) die Auszahlung des \(i\)-ten Agenten in der \(k\)-ten Runde (\(i \in \{1,...,N\}, k \in \{1,...,R\}\) mit der Anzahl \(N\) aller Agenten). Für die \(k\)-te Runde sei dann
 \[
 A_i^{(k)} := \sum_{l = \max\{1,k-w+1\}}^k a_i^{(l)} \text{  für jedes  } i \in \{1,...,N\}
 \]
-die Summe der Auszahlungen von \(i\) in den letzten \(w\) Runden. Sei nun \(r_i^{(k)}\) der Rang des \(i\)-ten Agenten in der Liste aller Agenten, absteigend sortiert nach den \(A_i^{(k)}\)\footnote{\(r_i^{(k)} = N - |\{j \in \{1,...,N\} \setminus \{i\} | A_i^{(k)} \geq A_j^{(k)}\}|\)}. Dann ist der Erfolg des \(i\)-ten Agenten nach Ablauf der \(R\) Runden gegeben durch
+die Summe der Auszahlungen von \(i\) in den letzten \(w\) Runden. Sei nun \(r_i^{(k)}\) der Rang des \(i\)-ten Agenten in der Liste aller Agenten, absteigend sortiert nach den \(A_i^{(k)}\)\footnote{\(r_i^{(k)} = N - |\{j \in \{1,...,N\} \setminus \{i\} | A_i^{(k)} \geq A_j^{(k)}\}|\)}. Dann ist der \Gls{Erfolg} des \(i\)-ten Agenten nach Ablauf der \(R\) Runden gegeben durch
 \[
 E_i := \frac 1R \sum_{k=1}^R r_i^{(k)},
 \]
@@ -443,10 +443,10 @@ also den durchschnittlichen Rang von \(i\) in den \(R\) Runden.
 Unter dem Dropdown-Menü befinden sich Textfelder und Slider zur Eingabe der für den ausgewählten Mechanismus notwendigen Parameter. Voreingestellt ist \enquote{Absolute Auszahlung}.
 
 \textbf{Absolutkapital:}
-Der Erfolg eines Agenten ist sein aktuelles Absolutkapital, also die Summe aller Auszahlungen aus allen seit Beginn der Wiederholung gespielten Runden plus das initiale Kapital.
+Der \Gls{Erfolg} eines Agenten ist sein aktuelles Absolutkapital, also die Summe aller Auszahlungen aus allen seit Beginn der Wiederholung gespielten Runden plus das initiale \Gls{Kapital}.
 
 \textbf{Absolutkapital ohne Initialkapital:}
-Der Erfolg eines Agenten ist sein aktuelles Absolutkapital ohne Initialkapital, also die Summe aller Auszahlungen aus allen seit Beginn der Wiederholung gespielten Runden.
+Der \Gls{Erfolg} eines Agenten ist sein aktuelles Absolutkapital ohne Initialkapital, also die Summe aller Auszahlungen aus allen seit Beginn der Wiederholung gespielten Runden.
 
 \functionality{Festlegung des Adaptionsmechanismus}{fnc:algoadapt}
 \fulfills{crt:simparam_std}
@@ -472,7 +472,7 @@ Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der fü
 
 \functionality{Festlegung des Gleichgewichtskriteriums}{fnc:equicondition}
 \fulfills{crt:equicondition}
-Der \Gls{Nutzer} hat die Möglichkeit, das Gleichgewichtskriterium festzulegen. Dieses entscheidet, wann im Laufe einer Wiederholung ein Gleichgewicht erreicht ist und die Wiederholung beendet werden kann.
+Der \Gls{Nutzer} hat die Möglichkeit, das Gleichgewichtskriterium festzulegen. Dieses entscheidet, wann im Laufe einer Wiederholung ein \Gls{Gleichgewicht} erreicht ist und die Wiederholung beendet werden kann.
 
 Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein Dropdown-Menü mit der Bezeichnung \enquote{Gleichgewichtskriterium}. Über dieses kann eines der folgenden Gleichgewichtskriterien ausgewählt werden (siehe \cref{fig:konfig_main}):
 
@@ -481,26 +481,26 @@ Dieses Kriterium hat zwei freie Konfigurationsparameter: Die \enquote{Gleichgewi
 \[
 \Delta_\text{S} :=\frac 12 \sum_{i=1}^N \|\omega_i - \omega_i'\|_1.
 \]
-Ist nun \(\Delta_\text{S} < \alpha \cdot N\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach \Glspl{Strategie} erreicht.
+Ist nun \(\Delta_\text{S} < \alpha \cdot N\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein \Gls{Gleichgewicht} nach \Glspl{Strategie} erreicht.
 
 \textbf{Ranggleichgewicht:}
 Dieses Kriterium hat zwei freie Konfigurationsparameter: Die \enquote{Gleichgewichtsstabilität} \(\alpha \in (0,1)\) und die \enquote{Gleichgewichtsdauer} \(G \in \{1,...,200\}\). Für zwei aufeinanderfolgende \adapts\ bezeichne \(r_i\) bzw. \(r_i'\) den Rang des \(i\)-ten Agenten in den beiden \adapts n (\(i \in \{1,...,N\}\) mit der Anzahl \(N\) aller Agenten). Dann wird gemäß
 \[
 \Delta_\text{R} := \sum_{i=1}^N |r_i - r_i'|,
 \]
-ein Maß für die Änderungen in der Rangliste zwischen den aufeinanderfolgenden \adapts n berechnet. Ist nun \(\Delta_\text{R} < \alpha \cdot \frac{N^2}{2}\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein Gleichgewicht nach Rang erreicht.
+ein Maß für die Änderungen in der Rangliste zwischen den aufeinanderfolgenden \adapts n berechnet. Ist nun \(\Delta_\text{R} < \alpha \cdot \frac{N^2}{2}\) in \(G\) aufeinanderfolgenden \adapts n, so ist ein \Gls{Gleichgewicht} nach Rang erreicht.
 
-Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \enquote{Gleichgewicht nach \Glspl{Strategie}} mit \(\alpha = 0.1\) und \(G = 100\).
+Unter dem Dropdown-Menü befinden sich Slider und Textfelder zur Eingabe der für das ausgewählte Gleichgewichtskriterium notwendigen Parameter. Voreingestellt ist \enquote{\Gls{Gleichgewicht} nach \Glspl{Strategie}} mit \(\alpha = 0.1\) und \(G = 100\).
 
 \functionality{Festlegung der maximalen Zahl durchzuführender \adapts}{fnc:maxadapts}
 \fulfills{crt:simparam_std}
 Der \Gls{Nutzer} kann die maximale Zahl durchzuführender \adapts\ festlegen. Wird in einer Wiederholung einer so konfigurierten Simulation diese Zahl durchgeführter \adapts\ erreicht, wird die Wiederholung beendet.
 
-Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein mit \enquote{Maximale Zahl der \adapts} beschriftetes Textfeld. Zugelassen sind alle natürlichen Zahlen. Voreingestellt ist \(10.000\).
+Dazu befindet sich im Konfigurationsfenster im Abschnitt \enquote{Erweiterte Einstellungen} ein mit \enquote{Maximale Zahl der \adapts} beschriftetes Textfeld (siehe \cref{fig:konfig_adv}). Zugelassen sind alle natürlichen Zahlen. Voreingestellt ist \(10.000\).
 
 \functionality{Multikonfiguration von Gruppen}{fnc:multikonfgr}
 \fulfills{crt:multikonf}
-Beträgt die Anzahl von Gruppen in einer Konfiguration genau eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{variable Gruppengröße} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden. Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{fig:konfig_adv}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
+Beträgt die Anzahl von Gruppen in einer \Gls{Konfiguration} genau eins, kann die Gruppen - Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die Gruppengröße alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{variable Gruppengröße} neben dem Slider zur Einstellung der Gruppengröße aktiviert werden (siehe \cref{fig:konfig_group}). Daraufhin werden der Slider zur Einstellung der Gruppengrößen und der \enquote{Gruppe hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Im Abschnitt \enquote{Erweiterte Einstellungen} unter den Gruppeneinstellungen befindet sich ein mit \enquote{Multikonfiguration} beschrifteter Unterabschnitt (siehe \cref{fig:konfig_adv}). Über Textfelder und Slider können dort ein Teilintervall von \([0,100]\%\) und eine Schrittgröße eingestellt werden. Für linke und rechte Grenze des Intervalls sind nur Vielfache von \(10\%\) zulässig. Für die Schrittgröße sind nur Vielfache von \(5\%\) zwischen \(5\%\) und der Breite des eingestellten Intervalls möglich.
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der die Größe der Gruppe einen entsprechenden Anteil an der Zahl aller Agenten hat. Die restlichen Konfigurationsparameter bleiben gleich.
 
@@ -508,7 +508,7 @@ Ist die aktuell eingestellte Anzahl von Gruppen nicht eins oder wurde bereits di
 
 \functionality{Multikonfiguration von \segments n}{fnc:multikonfseg}
 \fulfills{crt:multikonf}
-Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{variable Segmentgröße} neben dem Slider zur Einstellung der \segment größen aktiviert werden. Daraufhin werden der Slider zur Einstellung der \segment größen und der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Wie bei der Gruppen-Multikonfiguration können nun im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} Intervall und Schrittgröße eingegeben werden.
+Besteht eine Gruppe aus genau zwei \segments n, so kann für diese Gruppe die \segment -Multikonfiguration aktiviert werden. Diese ermöglicht das gleichzeitige Starten mehrerer Simulationen, in denen die \segment größe des ersten \segment s der so konfigurierten Gruppe alle Werte in einem spezifizierbaren Intervall mit einer spezifizierbaren Schrittgröße einmal annimmt. Dazu muss eine Checkbox mit der Bezeichnung \enquote{variable Segmentgröße} neben dem Slider zur Einstellung der \segment größen aktiviert werden (siehe \cref{fig:konfig_group}). Daraufhin werden der Slider zur Einstellung der \segment größen und der \enquote{\segment\ hinzufügen}-Knopf ausgegraut und können nicht mehr bedient werden. Wie bei der Multikonfiguration von Gruppen können nun im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} Intervall und Schrittgröße eingegeben werden (siehe \cref{fig:konfig_adv}).
 
 Beim Starten einer so konfigurierten Simulation wird für jeden Wert im spezifizierten Intervall gemäß der spezifizierten Schrittgröße eine Simulation gestartet, in der das erste \segment\ der Gruppe entsprechend groß ist und das zweite \segment\ den Rest der Gruppe einnimmt. Die restlichen Konfigurationsparameter bleiben gleich.
 
@@ -536,11 +536,11 @@ Ist bereits die Multikonfiguration für eine Gruppe oder ein Segment aktiviert, 
 \functionality{Simulation starten}{fnc:simstart}
 \fulfills{crt:startsim}
 \fulfills{crt:multisim}
-Der \Gls{Nutzer} kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{fig:home_top}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. Das Programm kann während des Simulationsdurchlaufs ohne einschränkung weiter verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(32\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
+Der \Gls{Nutzer} kann eine Simulation starten, in dem er den \enquote{Play}-Knopf im oberen rechten Bereich des Start-Fensters betätigt (siehe \cref{fig:home_top}). Das Programm führt dann den in der Einleitung beschriebenen Simulationsablauf mit den in der aktuellen \Gls{Konfiguration} festgelegten Parametern durch. Das Programm kann während des Simulationsdurchlaufs ohne einschränkung weiter verwendet werden. Insbesondere können weitere Simulationen gestartet werden. Ist die maximale Anzahl von \(32\) laufenden Simulationen erreicht, ist der \enquote{Play}-Knopf ausgegraut und kann nicht mehr betätigt werden.
 
 \functionality{Anzeige laufender und abgeschlossener Simulationen}{fnc:anzeigesim}
 \fulfills{crt:multisim}
-Im Startfenster wird eine Liste aller gestarteten Simulationen angezeigt (siehe \cref{fig:history}). Eine Menge von durch Multikonfiguration gestarteten Simulationen nimmt nur einen Listeneintrag ein. Jeder Listeneintrag beinhaltet den Namen des der entsprechenden Simulation zugrundeliegenden Stufenspiels und deren Identifikationsnummer\footnote{Beginnend bei \(1\) werden den Simulationen aufsteigend in der Reihenfolge ihres Starts Identifikationsnummern zugeordnet. Der Zähler wird bei jedem Programmstart zurückgesetzt.}. Abhängig vom Ausführungsstatus der Simulation werden noch weitere Informationen angezeigt:
+Im Startfenster wird eine Liste aller gestarteten Simulationen angezeigt (siehe \cref{fig:history}). Eine Menge von durch Multikonfiguration gestarteten Simulationen nimmt nur einen Listeneintrag ein. Jeder Listeneintrag beinhaltet den Namen des der entsprechenden Simulation zugrundeliegenden \Gls{Stufenspiel}s und deren Identifikationsnummer\footnote{Beginnend bei \(1\) werden den Simulationen aufsteigend in der Reihenfolge ihres Starts Identifikationsnummern zugeordnet. Der Zähler wird bei jedem Programmstart zurückgesetzt.}. Abhängig vom Ausführungsstatus der Simulation werden noch weitere Informationen angezeigt:
 
 Ist die Simulation abgeschlossen, ist der Eintrag grün gefärbt. Er enthält zudem die Laufzeit der Simulation und den Zeitpunkt, zu dem sie abgeschlossen wurde. Der Listeneintrag fungiert in diesem Fall als Knopf. Wird dieser betätigt, so werden rechts der Liste Informationen über die Ergebnisse der Simulation angezeigt (siehe \cref{fig:home_out_1}).
 
@@ -552,11 +552,11 @@ Läuft die Simulation noch, ist der Eintrag gelb gefärbt und zeigt an, wie viel
 \fulfills{crt:simresults_std}
 Der \Gls{Nutzer} kann sich Informationen über das Ergebnis einer abgeschlossenen Simulation anzeigen lassen.
 
-Wird der Listeneintrag einer abgeschlossenen Simulation im Startfenster angeklickt, erscheint im Fensterabschnitt rechts der Liste eine Zusammenfassung der Simulationsergebnisse (siehe \cref{fig:home_out_1}): Am oberen Ende des Abschnitts werden der Name des Stufenspiels und die Identifikationsnummer der Simulation angezeigt. Darunter werden Gleichgewichtsbedingung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, der Multikonfigurations-Parameter und dessen Wertemenge angezeigt.
+Wird der Listeneintrag einer abgeschlossenen Simulation im Startfenster angeklickt, erscheint im Fensterabschnitt rechts der Liste eine Zusammenfassung der Simulationsergebnisse (siehe \cref{fig:home_out_1}): Am oberen Ende des Abschnitts werden der Name des \Gls{Stufenspiel}s und die Identifikationsnummer der Simulation angezeigt. Darunter werden Gleichgewichtsbedingung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, der Multikonfigurations-Parameter und dessen Wertemenge angezeigt.
 
 Darunter befindet sich eine von zwei (für reguläre Simulationen) bzw. drei Seiten (für Multikonfigurationen): \enquote{Wiederholungsergebnisse}, \enquote{Simulationsergebnisse}, und im Falle einer Multikonfiguration \enquote{Multikonfigurationsergebnisse}. Zwischen diesen kann mittels zweier mit \enquote{>} und \enquote{<} beschrifteter Knöpfen navigiert werden.
 
-Initial wird die Seite \enquote{Wiederholungsergebnisse} angezeigt. Im oberen Teil befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Simulation. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein Gleichgewicht eingestellt hat. Falls ja, wird daneben die Anzahl durchgeführter \adapts\ und die \Gls{Effizienz} des Gleichgewichtes angezeigt. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
+Initial wird die Seite \enquote{Wiederholungsergebnisse} angezeigt. Im oberen Teil befindet sich ein Slider zur Auswahl der betrachteten Wiederholung und, falls es sich um eine durch Multikonfiguration erstellte Menge von Simulationen handelt, ein Slider zur Auswahl der betrachteten Simulation. Unter den Slidern wird angezeigt, ob sich bei der ausgewählten Wiederholung ein \Gls{Gleichgewicht} eingestellt hat. Falls ja, wird daneben die Anzahl durchgeführter \adapts\ und die \Gls{Effizienz} des \Gls{Gleichgewicht}es angezeigt. Weiterhin befindet sich dort eine Darstellung von Strategieverteilung und Kapitalverteilung am Ende des letzten \adapt s.
 
 \textbf{Strategieverteilung:}
 Die Verteilung der \Glspl{Strategie} in einem wählbaren Quantil der Menge aller Agenten wird in einem Kuchendiagramm angezeigt. Dazu seien die \(N\) Agenten in der Reihenfolge ihres finalen Rangs mit \(1\) bis \(N\) durchnummeriert. \(\omega_i\) (\(i \in \{1,...,N\}\)) bezeichne die \Gls{Strategie} des \(i\)-ten Agenten\footnote{\(\omega_i \in \{S_1,...,S_n\}\) für reine \Glspl{Strategie} und \(\omega_i = (\omega_i^{(j)})_{j=1}^n \in \Omega = \{\omega \in \{0,\frac{1}{10},...,1\}^n | \sum_{i=1}^n \omega_i = 1\}\) für \glspl{gemischte Strategie}.}. Über einen Rangeslider kann nun ein Intervall \([p_\text{min},p_\text{max}] \subset [0,100]\%\) eingestellt werden, wobei \(p_\text{min}\) und \(p_\text{max}\) auf Vielfache von \(5\%\) eingeschränkt sind. Mit \(N' := \lfloor p_\text{max} \cdot N \rfloor - \lceil p_\text{min} \cdot N \rceil + 1\) hat dann die \Gls{Strategie} \(S\) am Kuchendiagramm den Anteil\footnote{Für eine Aussage \(A\) sei \(\mathbbm{1}\{A\} := \begin{cases} 1 & , A \text{ ist wahr} \\ 0 &, \text{sonst}\end{cases}\).}
@@ -578,38 +578,38 @@ S_\% = \frac 1W \sum_{i=1}^W S_\%^{(i)}.
 \]
 Genauso wird mit den einzelnen Histogrammbalken in der Kapitalverteilung verfahren.
 
-Durch Navigation nach rechts mittels \enquote{>} gelangt der \Gls{Nutzer} auf die Seite \enquote{Simulationsergebnisse}. Im Falle einer durch Multikonfiguration erstellten Menge von Simulationen befindet sich hier ein Slider zur Auswahl der betrachteten Simulation. Darunter befindet sich eine Darstellung der Gleichgewichtshäufigkeit sowie der \Gls{Effizienz} und \Gls{Einstellungsdauer} der erreichten Gleichgewichte in den zugehörigen Wiederholungen (siehe \cref{fig:home_out_1}).
+Durch Navigation nach rechts mittels \enquote{>} gelangt der \Gls{Nutzer} auf die Seite \enquote{Simulationsergebnisse}. Im Falle einer durch Multikonfiguration erstellten Menge von Simulationen befindet sich hier ein Slider zur Auswahl der betrachteten Simulation. Darunter befindet sich eine Darstellung der Gleichgewichtshäufigkeit sowie der \Gls{Effizienz} und \Gls{Einstellungsdauer} der erreichten \Glspl{Gleichgewicht} in den zugehörigen Wiederholungen (siehe \cref{fig:home_out_1}).
 
 \textbf{Gleichgewichtshäufigkeit:}
-Hat sich in \(W_\text{G}\) der \(W\) zugehörigen Wiederholungen ein Gleichgewicht eingestellt, so ist die Gleichgewichtshäufigkeit gegeben durch \(r_\text{G} := \frac{W_\text{G}}{W}\). Diese wird als Prozentzahl unter der Bezeichnung \enquote{Gleichgewichtshäufigkeit} angezeigt.
+Hat sich in \(W_\text{G}\) der \(W\) zugehörigen Wiederholungen ein \Gls{Gleichgewicht} eingestellt, so ist die Gleichgewichtshäufigkeit gegeben durch \(r_\text{G} := \frac{W_\text{G}}{W}\). Diese wird als Prozentzahl unter der Bezeichnung \enquote{Gleichgewichtshäufigkeit} angezeigt.
 
 \textbf{\Gls{Effizienz}:}
-Die \Glspl{Effizienz} der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(E_i \in [0,1]\) die \Gls{Effizienz} der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Für das Histogramm wird das Intervall \([\min_{i = 1,...,W_\text{G}} E_i, \max_{i = 1,...,W_\text{G}} E_i]\) in \(10\) gleich große Teilintervalle \(I_j  \ (j \in \{1,...,10\})\) aufgespalten und über jedem Teilintervall \(I_j\) ein Balken der Höhe
+Die \Glspl{Effizienz} der erreichten \Glspl{Gleichgewicht} in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(E_i \in [0,1]\) die \Gls{Effizienz} der \(i\)-ten Wiederholung, bei der sich ein \Gls{Gleichgewicht} eingestellt hat. Für das Histogramm wird das Intervall \([\min_{i = 1,...,W_\text{G}} E_i, \max_{i = 1,...,W_\text{G}} E_i]\) in \(10\) gleich große Teilintervalle \(I_j  \ (j \in \{1,...,10\})\) aufgespalten und über jedem Teilintervall \(I_j\) ein Balken der Höhe
 \[
 h_j = |\{i \in \{1,...,W_\text{G}\} | E_i \in I_j\}|
 \]
 eingezeichnet.
 
 \textbf{\Gls{Einstellungsdauer}:}
-Die \Glspl{Einstellungsdauer} der erreichten Gleichgewichte in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die \Gls{Einstellungsdauer} der \(i\)-ten Wiederholung, bei der sich ein Gleichgewicht eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der \Gls{Effizienz} ein entsprechendes Histogramm gezeichnet. 
+Die \Glspl{Einstellungsdauer} der erreichten \Glspl{Gleichgewicht} in den verschiedenen Wiederholungen werden als Histogramm dargestellt. Es bezeichne \(D_i \in \mathbb{N}\) die \Gls{Einstellungsdauer} der \(i\)-ten Wiederholung, bei der sich ein \Gls{Gleichgewicht} eingestellt hat. Dann wird das Intervall \([\min_{i = 1,...,W_\text{G}} D_i, \max_{i = 1,...,W_\text{G}} D_i]\) in \(10\) gleich große Teilintervalle aufgespalten und wie bei der \Gls{Effizienz} ein entsprechendes Histogramm gezeichnet. 
 
-Im Falle einer Menge von durch Multikonfiguration erstellten Simulationen kann mittels \enquote{>} noch zur Seite \enquote{Multikonfigurationsergebnisse} navigiert werden. Dort befinden sich Auftragungen von Gleichgewichtshäufigkeit, \Gls{Effizienz} und \Gls{Einstellungsdauer} über den Multikonfigurationsparameter. Für \Gls{Effizienz} und \Gls{Einstellungsdauer} wird dazu pro zugehöriger Simulation über alle Wiederholungen (in denen sich ein Gleichgewicht eingestellt hat) gemittelt.
+Im Falle einer Menge von durch Multikonfiguration erstellten Simulationen kann mittels \enquote{>} noch zur Seite \enquote{Multikonfigurationsergebnisse} navigiert werden. Dort befinden sich Auftragungen von Gleichgewichtshäufigkeit, \Gls{Effizienz} und \Gls{Einstellungsdauer} über den Multikonfigurationsparameter. Für \Gls{Effizienz} und \Gls{Einstellungsdauer} wird dazu pro zugehöriger Simulation über alle Wiederholungen (in denen sich ein \Gls{Gleichgewicht} eingestellt hat) gemittelt.
 
 \functionality{Abbrechen einer Simulation}{fnc:cancelsim}
 \fulfills{crt:cancelsim}
 Eine noch nicht abgeschlossene Simulation kann abgebrochen werden. Dazu muss der Mauszeiger über den entsprechenden Listeneintrag im Startfenster bewegt werden. Wird der dann erscheinende mit \enquote{X} beschriftete Knopf betätigt, so wird die Simulation abgebrochen. Der Abbruch einer Menge von durch Multikonfiguration gestarteten Simulationen führt zum Abbruch aller zugehörigen Simulationen und zum Löschen der Ergebnisse der möglicherweise bereits abgeschlossenen Simulationen.
 
-\functionality{Stufenspiel erstellen}{fnc:createNewGame}
+\functionality{\Gls{Stufenspiel} erstellen}{fnc:createNewGame}
 \fulfills{crt:creategame}
-Der \Gls{Nutzer} hat die Möglichkeit, eigene Stufenspiele zu erstellen. Diese werden dann persistent gespeichert und können von da an in Konfigurationen verwendet werden.
+Der \Gls{Nutzer} hat die Möglichkeit, eigene \Glspl{Stufenspiel} zu erstellen. Diese werden dann persistent gespeichert und können von da an in \Glspl{Konfiguration} verwendet werden.
 
-Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Stufenspiel erstellen} oder der \enquote{Stufenspiel erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden (siehe \cref{fig:menu2}). Daraufhin öffnet sich ein neues Fenster. In diesem befinden sich ein mit \enquote{Name} betiteltes Textfeld, eine Bimatrix und ein mit \enquote{Beschreibung} betiteltes Textfeld (siehe \cref{fig:new_game}). In den Textfeldern müssen Name und eine kurze Beschreibung des Stufenspiels eingegeben werden. In die Bimatrix müssen die Auszahlungen beider Spieler für die vier möglichen Spielausgänge eingetragen werden. Alle Einträge sind mit \(0\) initialisiert.
+Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{\Gls{Stufenspiel} erstellen} oder der \enquote{\Gls{Stufenspiel} erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden (siehe \cref{fig:menu2}). Daraufhin öffnet sich ein neues Fenster. In diesem befinden sich ein mit \enquote{Name} betiteltes Textfeld, eine \Gls{Bimatrix} und ein mit \enquote{Beschreibung} betiteltes Textfeld (siehe \cref{fig:new_game}). In den Textfeldern müssen Name und eine kurze Beschreibung des \Gls{Stufenspiel}s eingegeben werden. In die \Gls{Bimatrix} müssen die Auszahlungen beider Spieler für die vier möglichen Spielausgänge eingetragen werden. Alle Einträge sind mit \(0\) initialisiert.
 
-Durch Betätigen des \enquote{Speichern}-Knopfes wird das Stufenspiel erstellt und gespeichert. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Knopf abgebrochen werden. In beiden Fällen schließt sich das Fenster.
+Durch Betätigen des \enquote{Speichern}-Knopfes wird das \Gls{Stufenspiel} erstellt und gespeichert. Alternativ kann der Vorgang über den \enquote{Abbrechen}-Knopf abgebrochen werden. In beiden Fällen schließt sich das Fenster.
 
 \functionality{\Gls{Strategie} erstellen}{fnc:createstrat}
 \fulfills{crt:createstrat}
-Der \Gls{Nutzer} hat die Möglichkeit, eigene \Glspl{Strategie} zu erstellen. Diese werden dann persistent gespeichert und können von da an in Konfigurationen verwendet werden.
+Der \Gls{Nutzer} hat die Möglichkeit, eigene \Glspl{Strategie} zu erstellen. Diese werden dann persistent gespeichert und können von da an in \Glspl{Konfiguration} verwendet werden.
 
 Dazu muss in der Menüleiste des Startfensters der Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{\Gls{Strategie} erstellen} oder der \enquote{\Gls{Strategie} erstellen}-Knopf in der Toolbar des Konfigurationsfensters betätigt werden. Daraufhin öffnet sich ein neues Fenster. In das mit \enquote{Name} bezeichnete Textfeld muss ein Name für die zu erstellende \Gls{Strategie} eingegeben werden. Über einen Editor (siehe \cref{fig:strategy}) kann ein Boole'scher Ausdruck \(X\) aus den für \Glspl{Strategie} verfügbaren Variablen (siehe Glossar) hinter einer Schrift \enquote{Wenn:} zusammengesetzt werden. In zwei mit \enquote{Dann:} und \enquote{Sonst:} betitelten Dropdown-Menüs können je zwei der bisher im System hinterlegten \Glspl{Strategie} \(S_\text{Dann}\) und \(S_\text{Sonst}\) ausgewählt werden. Die so konfigurierte \Gls{Strategie} \(S\) ist dann
 \[
@@ -619,21 +619,21 @@ also \enquote{Verwende \Gls{Strategie} \(S_\text{Dann}\), wenn \(X\) erfüllt is
 
 Durch Betätigen des \enquote{Reset}-Knopfes am oberen rechten Ende des Fensters wird das gesamte Fenster in den voreingestellten Zustand zurückgesetzt. Durch Betätigen des \enquote{Speichern}-Knopfes wird die \Gls{Strategie} erstellt und gespeichert.
 
-\functionality{Konfiguration speichern}{fnc:saveConfig}
+\functionality{\Gls{Konfiguration} speichern}{fnc:saveConfig}
 \fulfills{crt:saveloadconfig}
-Der \Gls{Nutzer} hat die Möglichkeit, die aktuelle Konfiguration als \textit{.cnf}-Datei abzuspeichern.
+Der \Gls{Nutzer} hat die Möglichkeit, die \Gls{aktuelle Konfiguration} als \textit{.cnf}-Datei abzuspeichern.
 
-Dazu muss er im Startfenster den Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration speichern} oder im Konfigurationsfenster den \enquote{Konfiguration speichern}-Knopf in der Toolbar betätigen (siehe \cref{fig:menu1}). Daraufhin öffnet sich ein Datei-Dialog. Hier kann der \Gls{Nutzer} Speicherort und Dateiname wählen. Wird der \enquote{Speichern}-Knopf betätigt, schließt sich der Dialog und eine \textit{.cnf}-Datei mit dem angegebenen Namen wird am angegebenen Ort abgespeichert. Diese enthält Informationen zu allen durch die aktuelle Konfiguration festgelegten Parameter. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
+Dazu muss er im Startfenster den Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{\Gls{Konfiguration} speichern} oder im Konfigurationsfenster den \enquote{\Gls{Konfiguration} speichern}-Knopf in der Toolbar betätigen (siehe \cref{fig:menu1}). Daraufhin öffnet sich ein Datei-Dialog. Hier kann der \Gls{Nutzer} Speicherort und Dateiname wählen. Wird der \enquote{Speichern}-Knopf betätigt, schließt sich der Dialog und eine \textit{.cnf}-Datei mit dem angegebenen Namen wird am angegebenen Ort abgespeichert. Diese enthält Informationen zu allen durch die \Gls{aktuelle Konfiguration} festgelegten Parameter. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
 
-\functionality{Konfiguration laden}{fnc:loadConfig}
+\functionality{\Gls{Konfiguration} laden}{fnc:loadConfig}
 \fulfills{crt:saveloadconfig}
-Der \Gls{Nutzer} kann eine von diesem Programm erstellte \textit{.cnf}-Datei laden und so die aktuelle Konfiguration ersetzen.
+Der \Gls{Nutzer} kann eine von diesem Programm erstellte \textit{.cnf}-Datei laden und so die \Gls{aktuelle Konfiguration} ersetzen.
 
-Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{Konfiguration laden} oder im Konfigurationsfenster der \enquote{Konfiguration laden}-Knopf in der Toolbar betätigt werden (siehe \cref{fig:menu1}). Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen \textit{.cnf}-Datei navigiert und diese ausgewählt, so wird die aktuelle Konfiguration durch die in der geladenen Datei spezifizierte Konfiguration ersetzt. Wird eine ungültige Datei ausgewählt, wird eine entsprechende Fehlermeldung angezeigt. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
+Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enquote{\Gls{Konfiguration} laden} oder im Konfigurationsfenster der \enquote{\Gls{Konfiguration} laden}-Knopf in der Toolbar betätigt werden (siehe \cref{fig:menu1}). Daraufhin öffnet sich ein Datei-Dialog. Wird hier zu einer gültigen \textit{.cnf}-Datei navigiert und diese ausgewählt, so wird die \Gls{aktuelle Konfiguration} durch die in der geladenen Datei spezifizierte \Gls{Konfiguration} ersetzt. Wird eine ungültige Datei ausgewählt, wird eine entsprechende Fehlermeldung angezeigt. Alternativ kann der Vorgang mit einem Klick auf den \enquote{Abbrechen}-Knopf abgebrochen werden, woraufhin sich der Dialog schließt.
 
-\functionality{Konfiguration einer abgeschlossenen Simulation laden}{fnc:loadconfigsim}
+\functionality{\Gls{Konfiguration} einer abgeschlossenen Simulation laden}{fnc:loadconfigsim}
 \fulfills{crt:saveloadconfig}
-Der \Gls{Nutzer} kann die Konfiguration einer bereits abgeschlossenen Simulation als aktuelle Konfiguration übernehmen. Dazu muss er den Listeneintrag der Simulation im Startfenster auswählen und im oberen Bereich der Ergebnisanzeige auf das \enquote{Konfiguration laden}-Symbol klicken. Daraufhin wird die aktuelle Konfiguration durch die Konfiguration der betrachteten Simulation ersetzt.
+Der \Gls{Nutzer} kann die \Gls{Konfiguration} einer bereits abgeschlossenen Simulation als aktuelle Konfiguration übernehmen. Dazu muss er den Listeneintrag der Simulation im Startfenster auswählen und im oberen Bereich der Ergebnisanzeige auf das \enquote{\Gls{Konfiguration} laden}-Symbol klicken. Daraufhin wird die \Gls{aktuelle Konfiguration} durch die \Gls{Konfiguration} der betrachteten Simulation ersetzt.
 
 \functionality{Simulationsergebnis speichern}{fnc:savesim}
 \fulfills{crt:saveloadsim}
@@ -652,11 +652,11 @@ Dazu muss im Startfenster der Menü-Eintrag \enquote{Datei} \(\rightarrow\) \enq
 
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
 
-Ein \Gls{Nutzer} mit grundlegenden Kenntnissen in der Spieltheorie soll das Produkt benutzen können. Die Konfiguration soll einfach sein und durch Tooltips erklärt werden.
+Ein \Gls{Nutzer} mit grundlegenden Kenntnissen in der Spieltheorie soll das Produkt benutzen können. Die \Gls{Konfiguration} soll einfach sein und durch Tooltips erklärt werden.
 
 \nonFunctionality{Erweiterbarkeit}{nfc:extensibility}
 
-Das Produkt soll ohne Änderungen des Entwurfs um neue Stufenspiele, neue \Glspl{Strategie}, neue Paarbildungsalgorithmen, neue Adaptionsmechanismen, neue Erfolgsquantifizierungen und neue Gleichgewichtskriterien erweitert werden können.
+Das Produkt soll ohne Änderungen des Entwurfs um neue \Glspl{Stufenspiel}, neue \Glspl{Strategie}, neue Paarbildungsalgorithmen, neue Adaptionsmechanismen, neue Erfolgsquantifizierungen und neue Gleichgewichtskriterien erweitert werden können.
 
 \nonFunctionality{Implementierung}{nfc:implementation}
 
@@ -686,14 +686,14 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 {Das Startfenster wird angezeigt (siehe \cref{fig:home}).}
 
 \teststep{Das Startfenster wird angezeigt.}
-{Alice drückt auf den \enquote{Konfiguration bearbeiten} Knopf.}
+{Alice drückt auf den \enquote{\Gls{Konfiguration} bearbeiten} Knopf.}
 {Das Konfigurationsfenster (siehe \cref{fig:konfig}) öffnet sich.}
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
 {Alice klickt auf das Dropdown Menü \enquote{Sufenspiel festlegen}.}
-{Eine Liste mit den Namen aller Stufenspiele klappt aus.}
+{Eine Liste mit den Namen aller \Glspl{Stufenspiel} klappt aus.}
 
-\teststep{Das Dropdown-Menü zu den Stufenspielen ist ausgeklappt.}
+\teststep{Das Dropdown-Menü zu den \Gls{Stufenspiel}en ist ausgeklappt.}
 {Alice klickt auf den Eintrag \enquote{Falke und Taube}.}
 {Das Dropdown Menü schließt sich und zeigt \enquote{Falke und Taube} an.}
 
@@ -711,7 +711,7 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 
 \teststep{Das Konfigurationsfenster wird angezeigt.}
 {Alice betätigt den \enquote{\checkmark}-Knopf in der Toolbar.}
-{Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen Konfiguration ist sichtbar.}
+{Das Konfigurationsfenster schließt sich und das Startfenster wird wieder angezeigt. Eine grobe Zusammenfassung der aktuellen \Gls{Konfiguration} ist sichtbar.}
 
 \teststep{Bob befindet sich im Konfigurationsfenster.}
 {Bob klickt auf das mit \enquote{Menge der möglichen \Glspl{Strategie}} betitelte Dropdown-Menü.}
@@ -733,7 +733,7 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 
 \teststep{Alice befindet sich im Startfenster.}
 {Sie betätigt den \enquote{Play}-Knopf.}
-{Das Programm führt den Simulationsablauf mit den in der aktuellen Konfiguration festgelegten Parametern durch. In der Liste aller gestarteten Simulationen erscheint ein Eintrag für die soeben gestartete Simulation. Dieser verhält sich wie spezifiziert.}
+{Das Programm führt den Simulationsablauf mit den in der aktuellen \Gls{Konfiguration} festgelegten Parametern durch. In der Liste aller gestarteten Simulationen erscheint ein Eintrag für die soeben gestartete Simulation. Dieser verhält sich wie spezifiziert.}
 
 \teststep{Alice befindet sich im Startfenster. Eine zuvor gestartete Simulation läuft gerade.}
 {Alice fährt mit der Maus über den Listeneintrag der Simulation.}
@@ -755,7 +755,7 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 {Alice betätigt den \enquote{<}-Knopf.}
 {Die Seite \enquote{Multikonfigurationsergebnisse} wird angezeigt. Diese verhält sich wie spezifiziert.}
 
-\test{Konfigurationen und Simulationen speichern und laden}{tst:loadkonfig}
+\test{\Glspl{Konfiguration} und Simulationen speichern und laden}{tst:loadkonfig}
 \tests{fnc:loadConfig}
 \tests{fnc:saveConfig}
 \tests{fnc:loadconfigsim}
@@ -763,20 +763,20 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 \tests{fnc:savesim}
 
 \teststep{Donald befindet sich im Konfigurationsfenster.}
-{Er betätigt den \enquote{Konfiguration speichern}-Knopf in der Toolbar.}
+{Er betätigt den \enquote{\Gls{Konfiguration} speichern}-Knopf in der Toolbar.}
 {Ein Datei-Dialog öffnet sich.}
 
-\teststep{Donald wird der Datei-Dialog zum Speichern der aktuellen Konfiguration angezeigt.}
+\teststep{Donald wird der Datei-Dialog zum Speichern der aktuellen \Gls{Konfiguration} angezeigt.}
 {Er wählt als Speicherort den Desktop und gibt den Dateinamen \enquote{Testkonfiguration} ein. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Der Datei-Dialog schließt sich. Auf dem Desktop von Donald befindet sich jetzt eine Konfigurationsdatei namens \enquote{Testkonfiguration}.}
 
 \teststep{Alice befindet sich im Konfigurationsfenster.}
-{Sie betätigt den \enquote{Konfiguration laden}-Knopf in der Toolbar.}
+{Sie betätigt den \enquote{\Gls{Konfiguration} laden}-Knopf in der Toolbar.}
 {Ein Datei-Dialog öffnet sich}
 
-\teststep{Alice wird der Datei-Dialog zum Laden einer Konfiguration angezeigt.}
+\teststep{Alice wird der Datei-Dialog zum Laden einer \Gls{Konfiguration} angezeigt.}
 {Sie navigiert zum Desktop und wählt eine Datei namens \enquote{Testkonfiguration}, die ihr Kollege Donald ihr per E-Mail geschickt hat. Dann betätigt sie den \enquote{Laden}-Knopf.}
-{Der Datei-Dialog schließt sich und die aktuelle Konfiguration wird ersetzt durch die aktuelle Konfiguration Donalds, als er die Datei erstellte.}
+{Der Datei-Dialog schließt sich und die \Gls{aktuelle Konfiguration} wird ersetzt durch die \Gls{aktuelle Konfiguration} Donalds, als er die Datei erstellte.}
 
 \teststep{Heinrich befindet sich im Startfenster. Im aktuellen Programmlauf wurde bereits eine Simulation abgeschlossen}
 {Er klickt auf den Eintrag der abgeschlossenen Simulation und betätigt den \enquote{Speichern}-Knopf am oberen Ende des Ausgabeabschnitts.}
@@ -795,8 +795,8 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 {Der Datei-Dialog schließt sich und im Startfenster erscheint ein Listeneintrag mit der Simulation, die Heinrich zuvor in der geladenen Datei gespeichert hat.}
 
 \teststep{Margaret befindet sich im Startfenster.}
-{Sie klickt auf den Listeneintrag der Simulation, die sie aus der Datei \enquote{HeinrichRules} geladen hat. Im Ausgabeabschnitt betätigt sie den Knopf zum Laden der zugehörigen Konfiguration.}
-{Die aktuelle Konfiguration wird ersetzt durch die Konfiguration der betrachteten Simulation.}
+{Sie klickt auf den Listeneintrag der Simulation, die sie aus der Datei \enquote{HeinrichRules} geladen hat. Im Ausgabeabschnitt betätigt sie den Knopf zum Laden der zugehörigen \Gls{Konfiguration}.}
+{Die \Gls{aktuelle Konfiguration} wird ersetzt durch die \Gls{Konfiguration} der betrachteten Simulation.}
 
 \test{Gruppen- und Segmenteinteilung}
 {tst:group/segmentclassification}
@@ -810,43 +810,43 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 {Eine neue Gruppe mit \(50\) Mitgliedern wird hinzugefügt. Auf dem \Gls{Multislider} erscheint ein Schiebeknopf und der Abschnitt links des Schiebeknopfes wird gefärbt. Unter dem Slider erscheint ein neuer Tab \enquote{Gruppe 1}.}
 
 \teststep{Der Abschnitt \enquote{Gruppeneinstellungen} wird angezeigt.}
-{Anna klickt auf den mit \enquote{Gruppenlose Agenten} beschrifteten Tab.}
-{Unter dem Slider wird der Abschnitt zur Konfiguration der gruppenlosen Agenten angezeigt.}
+{Anna klickt auf den mit \enquote{\Glspl{gruppenloser Agent}} beschrifteten Tab.}
+{Unter dem Slider wird der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt.}
 {Sie betätigt den \enquote{Segment hinzufügen}-Knopf.}
 {Ein neues Segment wird hinzugefügt. Auf dem Slider erscheint ein Schiebeknopf und ein neuer Tab \enquote{2. Segment} erscheint unter dem Slider.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt.}
 {Sie betätigt drei weitere Male den \enquote{Segment hinzufügen}-Knopf.}
 {\Gls{Multislider} und Tab-Control verhalten sich wie spezifiziert. Der \enquote{Segment hinzufügen}-Knopf ist ausgegraut.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt.}
 {Sie zieht die Schiebeknöpfe der Segmente auf \(1/5,\ 2/5,\ 3/5 \text{ und } 4/5\) der Länge des \Glspl{Multislider}.}
 {Über den Abschnitten des \Glspl{Multislider} wird jeweils die Zahl \(10\) angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
 {Sie betätigt den \enquote{X}-Knopf im aktuellen Tab.}
 {Das \(5\)te Segment wird gelöscht und der Tab \enquote{4. Segment} wird angezeigt. Der rechtsgelegenste Schiebeknopf auf dem Slider verschwindet und auf dem rechtsgelegensten Abschnitt wird die Zahl \(20\) angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
-{Im Abschnitt \enquote{Initiales Kapital} wählt sie die Binomialverteilung und stellt die Parameter \(p = 0.7\) sowie \(80\) und \(90\) für untere und obere Schranke ein.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
+{Im Abschnitt \enquote{Initiales \Gls{Kapital}} wählt sie die Binomialverteilung und stellt die Parameter \(p = 0.7\) sowie \(80\) und \(90\) für untere und obere Schranke ein.}
 {Ein Graph der eingestellten Verteilung wird rechts der Parameter angezeigt.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
+\teststep{Anna befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt und der Tab \enquote{5. Segment} ist geöffnet.}
 {Im Abschnitt \enquote{Initiale \Glspl{Strategie}} klickt sie in der Liste \enquote{verfügbare \Glspl{Strategie}} auf Grim und betätigt den \enquote{>}-Knopf.}
 {Grim steht nicht mehr bei den verfügbaren \Glspl{Strategie}. Grim steht bei den ausgewählten \Glspl{Strategie}.}
 
-\test{Stufenspiel erstellen}
+\test{\Gls{Stufenspiel} erstellen}
 {tst:creategame}
 \tests{fnc:createNewGame}
 
 \teststep{Frank befindet sich im Startfenster.}
-{Er navigiert in der Menüleiste zum Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{Stufenspiel erstellen} und betätigt ihn.}
-{Das Fenster zur Erstellung eines Stufenspiels öffnet sich.}
+{Er navigiert in der Menüleiste zum Eintrag \enquote{Erweiterungen} \(\rightarrow\) \enquote{\Gls{Stufenspiel} erstellen} und betätigt ihn.}
+{Das Fenster zur Erstellung eines \Gls{Stufenspiel}s öffnet sich.}
 
-\teststep{Frank befindet sich im Fenster zur Erstellung eines Stufenspiels.}
-{Er trägt als Namen \enquote{modifiziertes Gefangenendilemma} und als Beschreibung \enquote{Eine modifizierte Variante des Gefangenendilemmas, bei der Nicht-Kooperation beider Spieler stärker bestraft wird.} in die entsprechenden Textfelder ein. Die Bimatrix füllt er gemäß
+\teststep{Frank befindet sich im Fenster zur Erstellung eines \Gls{Stufenspiel}s.}
+{Er trägt als Namen \enquote{modifiziertes Gefangenendilemma} und als Beschreibung \enquote{Eine modifizierte Variante des Gefangenendilemmas, bei der Nicht-Kooperation beider Spieler stärker bestraft wird.} in die entsprechenden Textfelder ein. Die \Gls{Bimatrix} füllt er gemäß
 \[
 \left[ \begin{array}{rr}
 -2 / -2 & -1 / -6 \\
@@ -854,7 +854,7 @@ Das Produkt soll mehrere Simulationen gleichzeitig erlauben. Es soll gegen fehle
 \end{array}\right]
 \]
 aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
-{Das Fenster schließt sich und ein neues Stufenspiel mit Namen, Beschreibung und Auszahlungen wie eingetragen wird im Programm hinterlegt.}
+{Das Fenster schließt sich und ein neues \Gls{Stufenspiel} mit Namen, Beschreibung und Auszahlungen wie eingetragen wird im Programm hinterlegt.}
 
 \test{Festlegung des Algorithmus zur Paarbildung}{tst:matchalgo}
 \tests{fnc:algopaar}
@@ -878,7 +878,7 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Anna klickt auf den Eintrag \enquote{Gleitender Durchschnitt}.}
 {Das Dropdown-Menü schließt sich und zeigt \enquote{Gleitender Durchschnitt} an. Darunter befindet sich ein mit \enquote{Fenstergröße} betitelter Slider zur Einstellung des Parameters \(w\).}
 
-\teststep{Anna befindet sich im Abschnitt \enquote{Erweiterte Einstellungen}. Als Erfolgsquantifizierung ist \enquote{Gleitender Durchschnitt} eingestellt. In der aktuellen Konfiguration sind \(200\) Runden pro \adapt\ eingestellt.}
+\teststep{Anna befindet sich im Abschnitt \enquote{Erweiterte Einstellungen}. Als Erfolgsquantifizierung ist \enquote{Gleitender Durchschnitt} eingestellt. In der aktuellen \Gls{Konfiguration} sind \(200\) Runden pro \adapt\ eingestellt.}
 {Anna zieht den Schiebeknopf auf dem mit \enquote{Fenstergröße} betitelten Slider auf die Mitte.}
 {Im Textfeld rechts des Sliders wird \(100\) angezeigt.}
 
@@ -933,7 +933,7 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Er gibt in das \enquote{Startwert}-Textfeld \(20\%\), in das \enquote{Endwert}-Textfeld \(80\%\) und in das \enquote{Schnittweite}-Textfeld \(10\%\) ein.}
 {Die eingegebenen Werte werden in die Textfelder übernommen.}
 
-\teststep{Anna befindet sich im Konfigurationsfenster und der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt. Es ist ein Segment eingestellt.}
+\teststep{Anna befindet sich im Konfigurationsfenster und der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt. Es ist ein Segment eingestellt.}
 {Sie aktiviert die \enquote{variable Segmentgröße}-Checkbox.}
 {Der Slider zur Einstellung der Segmentgröße und der \enquote{Segment hinzufügen}-Knopf werden ausgegraut. Im Unterabschnitt \enquote{Multikonfiguration} im Abschnitt \enquote{Erweiterte Einstellungen} erscheint im Dropdown-Menü zur Einstellung des Multikonfigurationsparameters der Text \enquote{Segmentgröße}.}
 
@@ -990,7 +990,7 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Paul klickt auf den (ausgegrauten) \enquote{Gruppe hinzufügen}-Knopf.}
 {Es wird keine Gruppe hinzugefügt.}
 
-\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt und der Tab \enquote{1. Segment} ist geöffnet.}
+\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt und der Tab \enquote{1. Segment} ist geöffnet.}
 {Paul wählt als Verteilung die Binomialverteilung und gibt für den Parameter \enquote{Wahrscheinlichkeit} \(31\) ein.}
 {Der Inhalt des Textfeldes wird auf \(1.0\) gesetzt.}
 
@@ -998,7 +998,7 @@ aus. Dann betätigt er den \enquote{Speichern}-Knopf.}
 {Paul klickt auf die (ausgegraute) Checkbox \enquote{variable Gruppengröße} neben dem Slider zur Einstellung der Gruppengrößen.}
 {Die Checkbox bleibt deaktiviert.}
 
-\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt zur Konfiguration der gruppenlosen Agenten wird angezeigt. Es sind drei Segmente eingestellt.}
+\teststep{Paul befindet sich im Konfigurationsfenster. Der Abschnitt zur \Gls{Konfiguration} der gruppenlosen Agenten wird angezeigt. Es sind drei Segmente eingestellt.}
 {Paul klickt auf die (ausgegraute) Checkbox \enquote{variable Segmentgröße} neben dem Slider zur Einstellung der Segmentgrößen.}
 {Die Checkbox bleibt deaktiviert.}
 
@@ -1015,15 +1015,15 @@ Nach dem Starten des Programms öffnet sich das Hauptfenster des Simulators \\(s
 		Hauptfenster des Simulators}
 \end{figure}
 
-Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählten Konfiguration angezeigt (siehe \cref{fig:home_top}). Rechts davon befindet sich ein Knopf zum Bearbeiten der Konfiguration und ein weiterer Knopf zum Starten der Simulation (siehe \cref{fig:main_btn}).
-
+Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählten \Gls{Konfiguration} angezeigt (siehe \cref{fig:home_top}). Rechts davon befindet sich ein Knopf zum Bearbeiten der \Gls{Konfiguration} und ein weiterer Knopf zum Starten der Simulation (siehe \cref{fig:main_btn}).
+ 
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=\textwidth]{images/home_top.png}
 	\caption{\label{fig:home_top}
-	Zusammenfassung der aktuell gewählten Konfiguration}
-\end{figure}
-
+	Zusammenfassung der aktuell gewählten \Gls{Konfiguration}}
+\end{figure} 
+ 
 \begin{figure}[ht]
 	\centering
  	\includegraphics[width=0.25\linewidth]{images/main_btn.png}
@@ -1033,7 +1033,7 @@ Im oberen Drittel des Fensters wird eine Zusammenfassung der aktuell ausgewählt
 
 
 \newpage
-Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, abgebrochenen und noch laufenden Simulationen (siehe \cref{fig:history}). Wird ein Eintrag angeklickt, erscheint rechts eine Zusammenfassung der Ergebnisse der ausgewählten Simulation. Mit den Knöpfen (siehe \cref{fig:out_btn}) kann die Konfiguration der Simulation geladen werden oder die Ergebnisse als Datei exportiert werden. Die Ausgabe besteht aus drei Seiten, zwischen denen beliebig gewechselt werden kann.Die erste Seite zeigt eine detailierte Aufführung der Strategie- und Kapitalverteilung zu jeder Wiederholung (siehe \cref{fig:home_out_1}). Die zweite Seite zeigt in einer abstrahierten Ausgabe die \Gls{Effizienz} und die \Gls{Einstellungsdauer} von Gleichgewichten (siehe \cref{fig:home_out_2}). Im Falle einer Multikonfiguration wird auf der dritten Seite eine abstrahierte Ausgabe in Abhängigkeit des multikonfigurationsparameter gezeigt (siehe \cref{fig:home_out_3}).
+Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, abgebrochenen und noch laufenden Simulationen (siehe \cref{fig:history}). Wird ein Eintrag angeklickt, erscheint rechts eine Zusammenfassung der Ergebnisse der ausgewählten Simulation. Mit den Knöpfen (siehe \cref{fig:out_btn}) kann die \Gls{Konfiguration} der Simulation geladen werden oder die Ergebnisse als Datei exportiert werden. Die Ausgabe besteht aus drei Seiten, zwischen denen beliebig gewechselt werden kann.Die erste Seite zeigt eine detailierte Aufführung der Strategie- und Kapitalverteilung zu jeder Wiederholung (siehe \cref{fig:home_out_1}). Die zweite Seite zeigt in einer abstrahierten Ausgabe die \Gls{Effizienz} und die \Gls{Einstellungsdauer} von Gleichgewichten (siehe \cref{fig:home_out_2}). Im Falle einer Multikonfiguration wird auf der dritten Seite eine abstrahierte Ausgabe in Abhängigkeit des multikonfigurationsparameter gezeigt (siehe \cref{fig:home_out_3}).
 
 
 
@@ -1069,8 +1069,8 @@ Im unteren Teil des Fenster befindet sich links eine Historie der gelaufenen, ab
 		Detailierte Ausgabe der Ergebnisse einer Simulation}
 \end{figure}
 
-Über das Dateinmenü in der Menüleiste können Konfigurationen bearbeitet, gespeichert und geladen oder eine Simulation gestartet werden (siehe \cref{fig:menu1}).
-Das Erweiterungsmenü enthält Optionen zum erstellen eines neuen Stufenspiels oder einer neuen \Gls{Strategie} (siehe \cref{fig:menu2}). Im Hilfemenü finden sich Bedienhilfen und Informationen über den Simulator (siehe \cref{fig:menu3}).
+Über das Dateinmenü in der Menüleiste können \Glspl{Konfiguration} bearbeitet, gespeichert und geladen oder eine Simulation gestartet werden (siehe \cref{fig:menu1}).
+Das Erweiterungsmenü enthält Optionen zum erstellen eines neuen \Gls{Stufenspiel}s oder einer neuen \Gls{Strategie} (siehe \cref{fig:menu2}). Im Hilfemenü finden sich Bedienhilfen und Informationen über den Simulator (siehe \cref{fig:menu3}).
 
 \begin{figure}[ht]
 	\centering
@@ -1090,7 +1090,7 @@ Das Erweiterungsmenü enthält Optionen zum erstellen eines neuen Stufenspiels o
 	}
 \end{figure}
 \newpage
-Drückt man den Knopf zum Bearbeiten einer Konfiguration, öffnet sich das Konfigurationsfenster (siehe \cref{fig:konfig}).
+Drückt man den Knopf zum Bearbeiten einer \Gls{Konfiguration}, öffnet sich das Konfigurationsfenster (siehe \cref{fig:konfig}).
 
 \begin{figure}[ht]
 	\centering
@@ -1106,7 +1106,7 @@ Das Konfigurationsfenster ist in drei Bereiche unterteilt, die jeweils ein- und 
 	\item Erweiterte Einstellungen
 \end{itemize}
 
-GrundEinstellungen konfigurieren die fundamentalsten Simulationsparameter. Im rechten Teil wird das ausgewählte Stufenspiel in Normalform als Bimatrix dargestellt (siehe \cref{fig:konfig_main}). Über ein spezielles Dropdownmenü mit Checkboxen können für die Simulation zugelassene \Glspl{Strategie} ausgewählt werden (siehe \cref{fig:konfig_strat_detail}).
+GrundEinstellungen konfigurieren die fundamentalsten Simulationsparameter. Im rechten Teil wird das ausgewählte \Gls{Stufenspiel} in Normalform als \Gls{Bimatrix} dargestellt (siehe \cref{fig:konfig_main}). Über ein spezielles Dropdownmenü mit Checkboxen können für die Simulation zugelassene \Glspl{Strategie} ausgewählt werden (siehe \cref{fig:konfig_strat_detail}).
 
 \begin{figure}[ht]
 	\centering
@@ -1134,9 +1134,9 @@ In den Gruppeneinstellungen können Gruppen angelegt und mit einem \Gls{Multisli
 \end{figure}
 
 
-In den erweiterten Einstellungen können spezialisierte Konfigurationen per Dropdowns eingestellt werden. Zudem kann hier der variable Konfigurationsparameter eingestellt werden, falls dieser in den Gruppen- bzw. SegementEinstellungen ausgewählt wurde. Dazu wird ein prozentualer Start- und Endwert angegeben und eine Schrittweite festgelegt \\(siehe \cref{fig:konfig_adv}). Hierdurch wird eine Multikonfiguration erstellt.
+In den erweiterten Einstellungen können spezialisierte \Glspl{Konfiguration} per Dropdowns eingestellt werden. Zudem kann hier der variable Konfigurationsparameter eingestellt werden, falls dieser in den Gruppen- bzw. SegementEinstellungen ausgewählt wurde. Dazu wird ein prozentualer Start- und Endwert angegeben und eine Schrittweite festgelegt \\(siehe \cref{fig:konfig_adv}). Hierdurch wird eine Multikonfiguration erstellt.
 
-Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu}) und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, Konfigurationen zu laden, zu speichern und die aktuelle Konfiguration auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer Stufenspiele und \Glspl{Strategie}. Eine Simulation mit der gewählten Konfiguration kann über die Werkzeugleiste gestartet oder das Konfigurationsfenster verlassen werden.
+Am oberen Rand des Konfigurationsfenster befindet sich das gleiche Menü wie beim Hauptfenster (siehe \cref{fig:menu}) und darunter eine Werkzeugleiste (siehe \cref{fig:konfig_tool}). Über die Werkzeugleiste ist es möglich, \Glspl{Konfiguration} zu laden, zu speichern und die \Gls{aktuelle Konfiguration} auf die Standardwerte zurückzusetzen.\\Darüber hinaus gibt es hier Knöpfe zum Erstellen neuer \Glspl{Stufenspiel} und \Glspl{Strategie}. Eine Simulation mit der gewählten \Gls{Konfiguration} kann über die Werkzeugleiste gestartet oder das Konfigurationsfenster verlassen werden.
 
 \begin{figure}[hb]
 	\centering
@@ -1180,13 +1180,13 @@ Die Option zum Erstellen einer neuen \Gls{Strategie} öffnet ein neues Fenster (
 		Anpassung von Bedingungen}
 \end{figure}
 
-Die Wahl der Option zum Ersellen eines neuen Stufenspiels öffnet ebenfalls ein neues Fenster (siehe \cref{fig:new_game}). Ein neues Spiel wird in seiner Normalform in die gegebene Bimatrix eingetragen.
+Die Wahl der Option zum Ersellen eines neuen \Gls{Stufenspiel}s öffnet ebenfalls ein neues Fenster (siehe \cref{fig:new_game}). Ein neues Spiel wird in seiner Normalform in die gegebene \Gls{Bimatrix} eingetragen.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{images/game.png}
 	\caption{\label{fig:new_game}
-		Erstellung eines neuen Stufenspiels}
+		Erstellung eines neuen \Gls{Stufenspiel}s}
 \end{figure}
 
 
@@ -1202,20 +1202,20 @@ Die Wahl der Option zum Ersellen eines neuen Stufenspiels öffnet ebenfalls ein 
 
 
 \subsection{Szenario 1}
-Jonas hat die Anwendung auf seinem PC installiert und möchte das Stufenspiel Gefangenendilemma mit 10 Agenten simulieren, wobei von Anfang an eine Hälfte arm und eine Hälfte reich sein soll. Dazu öffnet Jonas die Anwendung und landet im Hauptfenster. Jonas drückt auf das Zahnrad um die von ihm gewünschte Konfiguration einzustellen. Das Konfigurationsfenster öffnet sich und Jonas wählt nun \enquote{Gefangenendilemma} bei der Auswahl des Stufenspiel aus und stellt den Slider bei Anzahl der Agenten auf 10. Die Anzahl der Runden und Wiederholungen lässt er auf den voreingestellten Werten.
+Jonas hat die Anwendung auf seinem PC installiert und möchte das \Gls{Stufenspiel} Gefangenendilemma mit 10 Agenten simulieren, wobei von Anfang an eine Hälfte arm und eine Hälfte reich sein soll. Dazu öffnet Jonas die Anwendung und landet im Hauptfenster. Jonas drückt auf das Zahnrad um die von ihm gewünschte \Gls{Konfiguration} einzustellen. Das Konfigurationsfenster öffnet sich und Jonas wählt nun \enquote{Gefangenendilemma} bei der Auswahl des \Gls{Stufenspiel} aus und stellt den Slider bei Anzahl der Agenten auf 10. Die Anzahl der Runden und Wiederholungen lässt er auf den voreingestellten Werten. 
 Um die Agenten jetzt in 2 Gruppen einzuteilen, erstellt Jonas unter Gruppeneinstellungen 2 neue Gruppen in dem er 2 mal auf das Plus mit \enquote{Gruppe hinzufügen} klickt. Er versetzt den \Gls{Multislider} nun so, dass in der einen Gruppe 6 Agenten sind und in der anderen Gruppe 4. Er klickt auf den Bereich des \Gls{Multislider} der an Gruppe 1 zugeteilt wurde und stellt im Unterpunkt Kapitalverteilung eine Normalverteilung mit Mittelwert 200 und Standardabweichung 5 ein. Gleiches tut er für Gruppe 2, jedoch wählt er hier als Mittelpunkt 40. Für beide Gruppen wählt er unter Strategieeinteilung nur \enquote{Grim}.
-Jonas ist zufrieden mit seiner Konfiguration und startet diese nun mit einem Klick auf den grünen Play-Button in der Header-Leiste.
+Jonas ist zufrieden mit seiner \Gls{Konfiguration} und startet diese nun mit einem Klick auf den grünen Play-Button in der Header-Leiste.
 Er wird zurück ins Hauptfenster navigiert und sieht seine Simulation nun in der Simulationshistorie. Sie ist gelb eingefärbt (Sie läuft noch. Nach einer halben Stunde schaut Jonas noch mal nach, seine Simulation ist jetzt grün eingefärbt (Sie ist beendet). Mit einem Klick auf die Simulation öffnet Jonas die Zusammenfassung für seine Simulation und schaut sich nun die Kapitalverteilung für die einzelnen Gruppen an und wertet sie aus. Jonas ist zufrieden mit seinem Ergebnis und schließt die Anwendung wieder.
 
 
 \subsection{Szenario 2}
 
-Bob möchte eine Simulation des \enquote{Falke und Taube}-Stufenspiel mit 20 Agenten durchführen und die Verteilung der 2 Anfangsstrategien \enquote{Immer Kooperation} und Nie Kooperation so variieren lassen, dass in der ersten Simulation 10\% \enquote{Immer Kooperation} und 90\% \enquote{Nie Kooperation} als Anfangsstrategie haben und diese Verteilung sich in jeder Simulation um 10\% verschiebt(20:80, 30:70...). Dazu startet Bob die Anwendung und wählt das dementsprechende Stufenspiel und die Agentenzahl in den Grundeinstellungen. Den Raum der \Glspl{Strategie} hat er auf \enquote{Nie Kooperation} und \enquote{Immer Kooperation} eingestellt und kann nun in den erweiterten Einstellungen seine Einstellung für den variablen Konfigurationsparameter treffen. Er stellt den Startwert auf 10\%, den Endwert auf 90\% und die Schrittweite auf 10\%. Er bestätigt die Konfiguration in dem er auf den grünen Haken in der Headerleiste klickt und gelangt zurück zum Hauptfenster. Im Hauptfenster kann er sich noch einmal die Zusammenfassung seiner aktuellen Konfiguration anschauen und überprüft ob er die wichtigen Dinge eingestellt hat. Nachdem er sich davon überzeugt hat, klickt er auf den grünen Play-Button um die Simulation zu starten. Er kann jetzt in der Simulationshistorie verfolgen wie viele von seinen 9 Simulationen schon beendet wurden. Nachdem alle Simulationen beendet sind, klickt er auf die Simulationsgruppe und kann sich nun eine Abstraktion der Simulationen anzeigen lassen um den Einfluss, den die Variation seines Parameter auf das Endergebnis hatte, auszuwerten. Bob findet ,dass diese eine interessante Auswirkung auf die Kapitalverteilung hatte und will die Konfiguration speichern um die Simulationen nächste Woche noch einmal durchzuführen. Dazu klickt er unter \enquote{Datei} auf \enquote{Konfiguration speichern} und kann nun einen Ablageort auswählen. Nach dem Speichern, schließt Bob die Anwendung und schickt die Konfigurationsdatei per E-Mail an seinen Kollegen Jonas, damit dieser die Simulation auch starten kann. Jonas kann die Konfiguration mittels \enquote{Konfiguration laden} öffnen und dann ganz normal starten.
+Bob möchte eine Simulation des \enquote{Falke und Taube}-\Gls{Stufenspiel} mit 20 Agenten durchführen und die Verteilung der 2 Anfangsstrategien \enquote{Immer Kooperation} und Nie Kooperation so variieren lassen, dass in der ersten Simulation 10\% \enquote{Immer Kooperation} und 90\% \enquote{Nie Kooperation} als Anfangsstrategie haben und diese Verteilung sich in jeder Simulation um 10\% verschiebt(20:80, 30:70...). Dazu startet Bob die Anwendung und wählt das dementsprechende \Gls{Stufenspiel} und die Agentenzahl in den Grundeinstellungen. Den Raum der \Glspl{Strategie} hat er auf \enquote{Nie Kooperation} und \enquote{Immer Kooperation} eingestellt und kann nun in den erweiterten Einstellungen seine Einstellung für den variablen Konfigurationsparameter treffen. Er stellt den Startwert auf 10\%, den Endwert auf 90\% und die Schrittweite auf 10\%. Er bestätigt die \Gls{Konfiguration} in dem er auf den grünen Haken in der Headerleiste klickt und gelangt zurück zum Hauptfenster. Im Hauptfenster kann er sich noch einmal die Zusammenfassung seiner aktuellen \Gls{Konfiguration} anschauen und überprüft ob er die wichtigen Dinge eingestellt hat. Nachdem er sich davon überzeugt hat, klickt er auf den grünen Play-Button um die Simulation zu starten. Er kann jetzt in der Simulationshistorie verfolgen wie viele von seinen 9 Simulationen schon beendet wurden. Nachdem alle Simulationen beendet sind, klickt er auf die Simulationsgruppe und kann sich nun eine Abstraktion der Simulationen anzeigen lassen um den Einfluss, den die Variation seines Parameter auf das Endergebnis hatte, auszuwerten. Bob findet ,dass diese eine interessante Auswirkung auf die Kapitalverteilung hatte und will die \Gls{Konfiguration} speichern um die Simulationen nächste Woche noch einmal durchzuführen. Dazu klickt er unter \enquote{Datei} auf \enquote{\Gls{Konfiguration} speichern} und kann nun einen Ablageort auswählen. Nach dem Speichern, schließt Bob die Anwendung und schickt die Konfigurationsdatei per E-Mail an seinen Kollegen Jonas, damit dieser die Simulation auch starten kann. Jonas kann die \Gls{Konfiguration} mittels \enquote{\Gls{Konfiguration} laden} öffnen und dann ganz normal starten.
 
 \newpage
 
 \section{Stufenspiele}
-Im folgenden findet sich eine kurze Beschreibung der verfügbaren Stufenspiele.
+Im folgenden findet sich eine kurze Beschreibung der verfügbaren \Glspl{Stufenspiel}.
 
 \textbf{Gefangenendilemma:}
 Zwei Verdächtige werden ohne vorherige Absprachen getrennt voneinander verhört. Beide haben die Möglichkeit das Verbrechen zu gestehen und damit den anderen zu verraten, oder zu schweigen. Die Dauer ihrer Haftstrafe hängt von ihrer eigenen Aussage und der Aussage des anderen ab.
@@ -1229,7 +1229,7 @@ Zwei Verdächtige werden ohne vorherige Absprachen getrennt voneinander verhört
 		\multirow{2}{*}{Spieler 1} & schweigt & -2 / -2 & -6 / -1  \\ \cline{2-4}
 		& \multicolumn{1}{ |c| }{gesteht} & -1 / -6 & -4 / -4 \\ \cline{1-4}
 	\end{tabular}
-	\caption{Bimatrix zum Gefangenendilemma}
+	\caption{\Gls{Bimatrix} zum Gefangenendilemma}
 \end{table}
 
 \textbf{Hirschjagd:}
@@ -1244,7 +1244,7 @@ Zwei Jäger befinden sich auf der Hirschjagd. Es kommt ein Hase vorbei und beide
 		\multirow{2}{*}{Spieler 1} & Hirschjagd & 4 / 4 & 0 / 3  \\ \cline{2-4}
 		& \multicolumn{1}{ |c| }{Hasenjagd} & 3 / 0 & 3 / 3 \\ \cline{1-4}
 	\end{tabular}
-	\caption{Bimatrix zur Hirschjagd}
+	\caption{\Gls{Bimatrix} zur Hirschjagd}
 \end{table}
 
 \textbf{Feiglingsspiel:}
@@ -1259,7 +1259,7 @@ Wegen einer Mutprobe rasen zwei Personen mit Autos aufeinander zu. Wer ausweicht
 		\multirow{2}{*}{Spieler 1} & Ausweichen & 4 / 4 & 2 / 6  \\ \cline{2-4}
 		& \multicolumn{1}{ |c| }{Weiterfahren} & 6 / 2 & 0 / 0 \\ \cline{1-4}
 	\end{tabular}
-	\caption{Bimatrix zum Feiglingsspiel}
+	\caption{\Gls{Bimatrix} zum Feiglingsspiel}
 \end{table}
 
 \newpage
@@ -1275,7 +1275,7 @@ Ein Mann und eine Frau wollen zusammen ausgehen, haben aber keinen Treffpunkt ve
 		\multirow{2}{*}{Spieler 1} & Fußball & 3 / 1 & 0 / 0  \\ \cline{2-4}
 		& \multicolumn{1}{ |c| }{Konzert} & 0 / 0 & 1 / 3 \\ \cline{1-4}
 	\end{tabular}
-	\caption{Bimatrix zum Kampf der Geschlechter}
+	\caption{\Gls{Bimatrix} zum Kampf der Geschlechter}
 \end{table}
 
 \textbf{Vertrauensspiel:}
@@ -1290,7 +1290,7 @@ Ein Treugeber kann einen Treuhänder mit einer Aufgabe betrauen. Entscheidet sic
 		\multirow{2}{*}{Spieler 1} & vertrauen & 1 / 1 & -1 / 2  \\ \cline{2-4}
 		& \multicolumn{1}{ |c| }{misstrauen} & 0 / 0 & 0 / 0 \\ \cline{1-4}
 	\end{tabular}
-	\caption{Bimatrix zum Vertrauensspiel}
+	\caption{\Gls{Bimatrix} zum Vertrauensspiel}
 \end{table}
 
 \textbf{Elfmeterschießen:}
@@ -1305,7 +1305,7 @@ Beim Elfmeterschießen müssen sich Schütze und Torwart zwischen der linken und
 		\multirow{2}{*}{Spieler 1} & links & 3 / 1 & 0 / 0  \\ \cline{2-4}
 		& \multicolumn{1}{ |c| }{rechts} & 0 / 0 & 1 / 3 \\ \cline{1-4}
 	\end{tabular}
-	\caption{Bimatrix zum Elfmeterschießen}
+	\caption{\Gls{Bimatrix} zum Elfmeterschießen}
 \end{table}
 \newpage
 
