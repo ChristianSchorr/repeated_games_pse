@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import org.controlsfx.control.RangeSlider?>
+<?import org.controlsfx.glyphfont.Glyph?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2500.0" prefWidth="1167.0" style="-fx-background-color: #EAEAeA;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar style="-fx-padding: 0; -fx-background-color: white">
+        <menus>
+            <Menu text="Datei">
+                <items>
+                    <MenuItem text="Konfiguration bearbeiten" >
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                    <MenuItem text="Konfiguration laden">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="UPLOAD" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                    <MenuItem text="Konfiguration speichern">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                    <SeparatorMenuItem  />
+                    <MenuItem text="Simulation starten">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="PLAY" style="-fx-text-fill: #008A00"/>
+                        </graphic>
+                    </MenuItem>
+                    <SeparatorMenuItem  />
+                    <MenuItem text="Simulator verlassen">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                </items>
+            </Menu>
+            <Menu text="Erweiterungen">
+                <items>
+                    <MenuItem text="Neues Stufenspiel erstellen">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="CUBES" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                    <MenuItem text="Neue Strategie erstellen">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                </items>
+            </Menu>
+            <Menu text="Hilfe">
+                <items>
+                    <MenuItem text="Hilfe">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="QUESTION" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </MenuItem>
+                    <MenuItem text="Über den Simulator">
+
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="INFO" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </MenuItem>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+<GridPane style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@style.css" vgap="10">
+    <rowConstraints>
+        <RowConstraints percentHeight="30"/>
+        <RowConstraints percentHeight="70"/>
+    </rowConstraints>
+
+    <VBox styleClass="card" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" style="-fx-padding: 16 16 0 16">
+        <GridPane maxHeight="Infinity">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="80"/>
+                <ColumnConstraints percentWidth="20"/>
+            </columnConstraints>
+            <VBox>
+                <Label styleClass="card-title" text="Grundeinstellungen"/>
+                <Label prefWidth="400.0" text="Eine Zusammenfassung der Konfigurationsparameter" wrapText="true"/>
+                <GridPane hgap="20" style="-fx-padding: 20, 0, 20, 0" vgap="5">
+                    <columnConstraints>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                    </columnConstraints>
+                    <Separator orientation="VERTICAL" style="-fx-padding: -4, 16, -4, 16" GridPane.rowSpan="4"/>
+                    <Label styleClass="control-label" text="Stufenspiel:" GridPane.columnIndex="1"
+                           GridPane.rowIndex="0"/>
+                    <Label text="Gefangenendilemma" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <Label styleClass="control-label" text="Agentenzahl:" GridPane.columnIndex="3"
+                           GridPane.rowIndex="0"/>
+                    <Label text="200" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+                    <Label styleClass="control-label" text="Wiederholungen:" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                    <Label text="10" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <Label styleClass="control-label" text="Runden pro Wdh.:" GridPane.columnIndex="3"
+                           GridPane.rowIndex="1"/>
+                    <Label text="1000" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                    <Label styleClass="control-label" text="Mögliche Strategien:" GridPane.columnIndex="1"
+                           GridPane.rowIndex="2"/>
+                    <Label text="Tit for Tat, Grim, Immer kooperieren" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                    <Label styleClass="control-label" text="Gemischte Strategien:" GridPane.columnIndex="3"
+                           GridPane.rowIndex="2"/>
+                    <Label text="ja" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                    <rowConstraints>
+                        <RowConstraints/>
+                        <RowConstraints/>
+                        <RowConstraints/>
+                        <RowConstraints/>
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
+            <GridPane GridPane.columnIndex="1">
+                <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: -16 0 0 0"
+                           GridPane.columnIndex="0"/>
+                <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" spacing="20">
+
+                    <Button styleClass="setting-button">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="50" icon="GEAR" style="-fx-text-fill: grey"/>
+                        </graphic>
+                    </Button>
+                    <Button>
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="70" icon="PLAY" style="-fx-text-fill: #008A00"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+                <columnConstraints>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+
+        </GridPane>
+    </VBox>
+    <VBox styleClass="card" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="27"/>
+                <ColumnConstraints percentWidth="73"/>
+            </columnConstraints>
+            <VBox spacing="1" style="-fx-padding: -16 3 0 -16">
+                <HBox styleClass="task-card-green">
+                    <Rectangle fill="#008A00" height="100" width="10"/>
+                    <VBox spacing="1" style="-fx-padding: 10 0 0 10">
+                        <HBox alignment="CENTER" spacing="10">
+                            <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                            <Label style="-fx-text-fill: #008A00" styleClass="card-subtitle" text="Gefangenendilemma"/>
+                            <Label style="-fx-text-fill: #008A00" styleClass="card-subtitle" text="#001"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Glyph fontFamily="FontAwesome" fontSize="20" icon="CLOCK_ALT"/>
+                            <Label text="Laufzeit: "/>
+                            <Label text="33 min"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Glyph fontFamily="FontAwesome" fontSize="20" icon="CALENDAR"/>
+                            <Label text="Beendet:"/>
+                            <Label text="vor 2h"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+                <HBox styleClass="task-card-red">
+                    <Rectangle fill="E51400" height="100" width="10"/>
+                    <VBox spacing="1" style="-fx-padding: 10 0 0 10">
+                        <HBox alignment="CENTER" spacing="10">
+                            <Glyph fontFamily="FontAwesome" fontSize="30" icon="TIMES" style="-fx-text-fill: #E51400"/>
+                            <Label style="-fx-text-fill: #E51400" styleClass="card-subtitle" text="Falke und Taube"/>
+                            <Label style="-fx-text-fill: #E51400" styleClass="card-subtitle" text="#002"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label style="-fx-text-fill: #E51400" styleClass="card-subtitle" text="Abgebrochen!"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+                <HBox styleClass="task-card-yellow">
+                    <Rectangle fill="FEDE06" height="100" width="10"/>
+                    <VBox spacing="5" style="-fx-padding: 10 0 0 10">
+                        <HBox alignment="CENTER" spacing="10">
+                            <Glyph fontFamily="FontAwesome" fontSize="30" icon="AREA_CHART"
+                                   style="-fx-text-fill: #FEDE06"/>
+                            <Label style="-fx-text-fill: #FEDE06" styleClass="card-subtitle" text="Gefangenendilemma"/>
+                            <Label style="-fx-text-fill: #FEDE06" styleClass="card-subtitle" text="#003"/>
+                        </HBox>
+                        <ProgressBar maxHeight="10" maxWidth="Infinity" progress="0.33" GridPane.hgrow="ALWAYS"/>
+                        <Label style="-fx-padding: 0 0 0 10" styleClass="control-label" text="3/10"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <GridPane style="-fx-padding: -16 -16 -16 0" GridPane.columnIndex="1">
+                <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0"/>
+                <VBox style="-fx-padding: 16" styleClass="task-card-green" GridPane.columnIndex="1"
+                      GridPane.hgrow="ALWAYS">
+                    <GridPane>
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="70"/>
+                            <ColumnConstraints percentWidth="20"/>
+                        </columnConstraints>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                            <Label style="-fx-text-fill: #008A00" styleClass="card-title" text="Gefangenendilemma"/>
+                            <Label style="-fx-text-fill: #008A00" styleClass="card-title" text="#001"/>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" >
+                            <Separator orientation="VERTICAL" style="-fx-padding: 10 0" />
+                            <Button styleClass="setting-button">
+                                <graphic>
+                                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="ROTATE_RIGHT" style="-fx-text-fill: grey"/>
+                                </graphic>
+                            </Button>
+                            <Button>
+                                <graphic>
+                                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                                </graphic>
+                            </Button>
+
+                        </HBox>
+                    </GridPane>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label styleClass="control-label" text="Abbruchbedingung: "/>
+                        <Label text="Strategiegleichgewicht"/>
+                        <Label styleClass="control-label" text="Multikonfiguration: "/>
+                        <Label text="ja" />
+                        <Label styleClass="control-label" text="Multikonfig. Parameter: "/>
+                        <Label text="Agentenzahl"/>
+                    </HBox>
+                    <Separator style="-fx-padding: 10 0"/>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Wdh.   33/100"/>
+                        <Slider value="30"/>
+                        <Label text="Konfig.   8/10"/>
+                        <Slider value="80"/>
+                        <Label styleClass="control-label" text="Agentenzahl:"/>
+                        <Label text="1000"/>
+                    </HBox>
+                    <GridPane hgap="10">
+                        <VBox>
+                            <Label styleClass="card-subtitle" text="Strategieverteilung:" wrapText="true"/>
+                            <PieChart id="pie" labelLineLength="1.0" labelsVisible="false" prefHeight="300"
+                                      prefWidth="300"/>
+                            <RangeSlider highValue="0.9" lowValue="0.1"/>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1">
+                            <Label styleClass="card-subtitle" text="Kapitalverteilung:"/>
+                            <BarChart id="bar">
+                                <xAxis>
+                                    <CategoryAxis side="BOTTOM"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis side="LEFT"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints/>
+                        </rowConstraints>
+                    </GridPane>
+                    <HBox alignment="CENTER_RIGHT" spacing="5">
+                        <Button>
+                            <graphic>
+                                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ANGLE_LEFT" style="-fx-text-fill: grey" />
+                            </graphic>
+                        </Button>
+                        <Label text="1" style="-fx-font-size: 12pt"/>
+                        <Label text="2" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt"/>
+                        <Label text="3" style=" -fx-font-size: 12pt"/>
+                        <Button>
+                            <graphic>
+                                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ANGLE_RIGHT" style="-fx-text-fill: grey" />
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+                <columnConstraints>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+        </GridPane>
+    </VBox>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+</GridPane>
+</VBox>
