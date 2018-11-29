@@ -21,14 +21,15 @@ fg=red</panel_attributes>
     <coordinates>
       <x>300</x>
       <y>70</y>
-      <w>190</w>
-      <h>140</h>
+      <w>260</w>
+      <h>150</h>
     </coordinates>
-    <panel_attributes>BasicsController
+    <panel_attributes>MainController
 -
 -actualStrategy : Strategy
 -strategyName : String
 -
++BasicsController(StrategyController)
 +getStrategyname() : String
 +setStrategyname(String)
 +getStrategy(): Strategy
@@ -41,9 +42,11 @@ fg=red</panel_attributes>
       <x>520</x>
       <y>320</y>
       <w>180</w>
-      <h>30</h>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>ChoiceController</panel_attributes>
+    <panel_attributes>ChoiceController
+-
++ChoiceController()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -51,7 +54,7 @@ fg=red</panel_attributes>
     <coordinates>
       <x>110</x>
       <y>320</y>
-      <w>230</w>
+      <w>290</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>StrategyController
@@ -59,6 +62,7 @@ fg=red</panel_attributes>
 -strategy : Strategy
 -expressionIds : List
 -
++StrategyController(ChoiceController)
 +getStrategy() : Strategy
 +addExpression(id:int, position:int)
 +deleteExpression()</panel_attributes>
