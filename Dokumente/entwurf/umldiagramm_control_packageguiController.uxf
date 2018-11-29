@@ -6,21 +6,23 @@
     <coordinates>
       <x>220</x>
       <y>90</y>
-      <w>420</w>
+      <w>460</w>
       <h>320</h>
     </coordinates>
-    <panel_attributes>CentralController
+    <panel_attributes>HeadController
 --
--mainWindow : MainController
--configWindow : ConfigController
--newGameWindow : NewGameController
--newStrategyWindow : NewStrategyController
+-mainWindow : mainController.MainController
+-configWindow : configController.MainwController
+-newGameWindow : newGameController.MainController
+-newStrategyWindow : newStrategyController.MainController
 -simulator : Simulator
 -configuration : Configuration
 -
-+CentralController(Simulator, MainController, ConfigController, 
-NewStrategyController, NewGameController)
-+CentralController(Simulator, MainController, ConfigController)
++CentralController(Simulator, mainController.MainController,
+configController.MainController, newStrategyController.MainController,
+newGameController.MainController)
++CentralController(Simulator, mainController.MainController,
+configController.mainController)
 
 +setConfiguration(Configuraiton)
 +getConfiguration(): Configuration
