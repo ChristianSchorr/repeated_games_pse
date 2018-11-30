@@ -11,7 +11,7 @@
     </coordinates>
     <panel_attributes>AgentInitializer
 -
-+initializeAgents(conf: Configuration): Collection&lt;Agent&gt;
++initializeAgents(segment: Segment): Collection&lt;Agent&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -24,7 +24,7 @@
       <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-CapitalPicker
+CapitalDistribution
 -
 +pickOne(): int
 +pickMany(n : int): Collection&lt;int&gt;</panel_attributes>
@@ -38,7 +38,7 @@ CapitalPicker
       <w>390</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>BinomialPicker
+    <panel_attributes>BinomialDistribution
 -
 +BinomialPicker(min: int, max: int, p: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
@@ -51,7 +51,7 @@ CapitalPicker
       <w>260</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>PoissonPicker
+    <panel_attributes>PoissonDistribution
 -
 +PoissonPicker(lambda: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
@@ -64,7 +64,7 @@ CapitalPicker
       <w>290</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>EqualPicker
+    <panel_attributes>EqualDistribution
 -
 +EqualPicker(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
@@ -133,7 +133,7 @@ uses</panel_attributes>
       <w>410</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>/StrategyPicker/
+    <panel_attributes>/StrategyDistribution/
 -
 +StrategyPicker(stragySet: Collection&lt;Strategy) &lt;&lt;ctor&gt;&gt;
 +pickOne(): Strategy
