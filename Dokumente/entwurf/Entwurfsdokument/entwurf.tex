@@ -43,8 +43,173 @@
 
 \usepackage[nonumberlist]{glossaries}
 
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.85]{beramono}
+
 \begin{document}
 \section{Einleitung}
+TODO
 
+\section{Pakete und Klassen}
+\subsection{Paket \texttt{edu.kit.loop.model}}
+Das Modell beinhaltet Klassen und Methoden zum Starten und Abbrechen von Simulationen, sowie zum Erstellen und Speichern von Konfigurationen, Stufenspielen, Strategien und Populationen.
+
+\subsubsection{Class \texttt{UserConfiguration}}
+//vielleicht im falschen Package
+
+Diese Klasse repräsentiert eine vom Nutzer erstellte Konfiguration. Sie bietet Methoden zum Lesen aller zugehörigen Parameter.
+
+Konstruktoren:
+
+Methoden:
+
+\subsubsection{Class \texttt{Configuration}}
+Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederholung und enthält alle Informationen zum Start einer solchen:
+\begin{itemize}\itemsep -10pt
+\item Stufenspiel
+\item Anzahl von Agenten
+\item Runden pro Wiederholung
+\item Ob gemischte Strategien zugelassen sind
+\item Gruppen-/Segmenteinteilungen
+\item Kapital- und Strategieinitialisierung der Segmente
+\item Agentenpaarung
+\item Erfolgsquantifizierung
+\item Adaptionsmechanismus
+\item Gleichgewichtskriterium
+\item Maximale Zahl von Adaptionsschritten
+\end{itemize}
+
+Konstruktoren:
+
+Methoden:
+
+\subsection{Paket \texttt{edu.kit.loop.model.simulator}}
+Dieses Paket enthält das Interface \texttt{Simulator}. Dieses bietet eine Schnittstelle zum Starten und Abbrechen von Simulationen. Beim Start einer Simulation wird eine Referenz auf ein \texttt{Simulation}-Objekt zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der Simulation abgefragt werden können.
+
+\subsubsection{Class \texttt{Simulation}}
+Ein \texttt{Simulation}-Objekt enthält Informationen zu einer gestarteten Simulation, etwa deren Konfiguration, Ausführungsstatus, \texttt{id} und gegebenenfalls die Ergebnisse der Simulation. Es wird von einem \texttt{Simulator} erzeugt und bereitgestellt, wenn eine Simulation gestartet wird.
+
+Die Klasse unterscheidet nicht zwischen Multikonfigurationen und Nicht-Multikonfigurationen, geht also allgemein von mehreren zugrundeliegenden elementaren Konfigurationen aus.
+
+Konstruktoren:
+\begin{itemize} \itemsep -10pt
+\item \texttt{Simulator(UserConfiguration config, int id)}
+\item[] Erzeugt ein neues \texttt{Simulation}-Objekt mit der gegebenen \texttt{UserConfiguration} und der gegebenen \texttt{id}.
+\item[] \texttt{config}: die Konfiguration der Simulation
+\item[] \texttt{id}: die \texttt{id} dieser Simulation
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{protected void addIterationResult(IterationResult result, int i)}
+\item[] Fügt ein Wiederholungsergebnis zur \texttt{i}-ten elementaren Konfiguration dieser Simulation als \texttt{IterationResult} hinzu.
+\item[] \texttt{result}: das Wiederholungsergebnis, das hinzugefügt werden soll
+\item[] \texttt{i}: die elementare Konfiguration, zu der das Wiederholungsergebnis hinzugefügt werden soll
+
+\item \texttt{void registerIterationFinished(Consumer<IterationResult> action)}
+\item[] Registriert eine Aktion, die jedes mal ausgeführt wird, wenn eine Wiederholung dieser Simulation abgeschlossen wird. Der Aktion wird als Argument das Ergebnis der Wiederholung als \texttt{IterationResult} übergeben.
+\item[] \texttt{action}: Die Aktion, die bei Abschluss jeder Wiederholung dieser Simulation ausgeführt werden soll
+
+\item \texttt{List<IterationResult> getIterationResults(int i)}
+\item[] Gibt eine Liste der Wiederholungsergebnisse der bisher abgeschlossenen Wiederholungen mit der \texttt{i}-ten zugrundeliegenden elementaren Konfiguration als \texttt{IterationResult}s zurück.
+\item[] \texttt{i}: die elementare Konfiguration, zu der die Wiederholungsergebnisse zurückgegeben werden sollen
+\item[] Returns: die Wiederholungsergebnisse der bisher abgeschlossenen Wiederholungen mit der \texttt{i}-ten zugrundeliegenden elementaren Konfiguration
+
+\item \texttt{UserConfiguration getUserConfiguration()}
+\item[] Gibt die \texttt{UserConfiguration} dieser Simulation zurück.
+\item[] Returns: die \texttt{UserConfiguration} dieser Simulation
+
+\item \texttt{int getConfigurationCount()}
+\item[] Gibt die Zahl der dieser Simulation zugrundeliegenden elementaren Konfigurationen zurück. Im Falle einer Multikonfiguration also die Anzahl verschiedener Werte des Multikonfigurationsparameters, ansonsten \(1\).
+\item[] Returns: die Zahl der dieser Simulation zugrundeliegenden elementaren Konfigurationen
+
+\item \texttt{int getId()}
+\item[] Gibt die \texttt{id} dieser Simulation zurück.
+\item[] Returns: die \texttt{id} dieser Simulation
+\end{itemize}
+
+\subsubsection{interface \texttt{Simulator}}
+Über einen Simulator können Simulationen gestartet und abgebrochen werden. Zum Starten einer Simulation muss dem \texttt{Simulator} eine \texttt{UserConfiguration} übergeben werden, die die durchzuführende Simulation spezifiziert. Daraufhin wird ein \texttt{Simulation}-Objekt erzeugt und zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der gestarteten Simulation abgefragt werden können. Jeder Simulation wird beim Start eine eindeutige \texttt{id} zugewiesen.
+
+Methoden:
+\begin{itemize} \itemsep -10pt
+\item \texttt{Simulation startSimulation(UserConfiguration config)}
+\item[] Startet eine Simulation mit der gegebenen \texttt{UserConfiguration} und gibt ein \texttt{Simulation}-Objekt zu der gestarteten Simulation zurück.
+\item[]\texttt{config}: die Konfiguration, mit der die Simulation ausgeführt werden soll
+\item[] Returns: ein \texttt{Simulation}-Objekt zu der gestarteten Simulation
+
+\item \texttt{Simulation startSimulation(UserConfiguration config, Consumer<Simulation> action)}
+\item[] Startet eine Simulation mit der gegebenen Konfiguration und gibt ein \texttt{Simulation}-Objekt zu der gestarteten Simulation zurück. Führt die gegebene Aktion mit der zurückgegebenen \texttt{Simulation} als Argument aus, sobald die Ausführung der Simulation abgeschlossen ist.
+\item[] \texttt{config}: die Konfiguration, mit der die Simulation ausgeführt werden soll
+\item[] \texttt{action}: Die Aktion, die ausgeführt werden soll, sobald die Simulation abgeschlossen ist
+\item[] Returns: ein \texttt{Simulation}-Objekt zu der gestarteten Simulation
+
+\item \texttt{boolean stopSimulation(Simulation sim)}
+\item[] Falls die gegebene Simulation aktuell läuft, wird diese abgebrochen und \texttt{true} zurückgegeben. Andernfalls wird \texttt{false} zurückgegeben.
+\item[] \texttt{sim}: Die Simulation, die abgebrochen werden soll
+\item[] Returns: \texttt{true}, wenn die Simulation erfolgreich abgebrochen wurde, \texttt{false} sonst
+
+\item \texttt{boolean stopSimulation(int id)}
+\item[] Falls eine Simulation mit der gegebenen \texttt{id} läuft, wird diese abgebrochen und \texttt{true} zurückgegeben. Andernfalls wird \texttt{false} zurückgegeben.
+\item[] \texttt{id}: Die \texttt{id} der Simulation, die abgebrochen werden soll
+\item[] Returns: \texttt{true}, wenn die Simulation erfolgreich abgebrochen wurde, \texttt{false} sonst
+
+\item \texttt{void stopAllSimulation()}
+\item[] Bricht die Ausführung aller gestarteten Simulationen ab.
+
+\item \texttt{Simulation getSimulation(int id)}
+\item[] Gibt das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id} zurück, falls existent. Ansonsten \texttt{null}.
+\item[] \texttt{id}: Die \texttt{id} der Simulation, deren \texttt{Simulation}-Objekt zurückgegeben werden soll
+\item[] Returns: das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id}, falls existent. Ansonsten \texttt{null}.
+\end{itemize}
+
+\subsubsection{Class \texttt{ThreadPoolSimulator}}
+Implements: \texttt{Simulator}
+
+Eine Implementierung des \texttt{Simulator}-Interfaces. Führt die Wiederholungen parallel in einem \texttt{ThreadPool} aus.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{ThreadPoolSimulator()}
+\item[] Erzeugt einen neuen \texttt{ThreadPoolSimulator}.
+
+\item \texttt{ThreadPoolSimulator(int maxThreads)}
+\item[] Erzeugt einen neuen \texttt{ThreadPoolSimulator} mit der gegebenen maximalen Anzahl von \texttt{Thread}s.
+\item[] \texttt{maxThreads}: die maximale Anzahl von \texttt{Thread}s im \texttt{ThreadPool}
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getRunningIterationCount()}
+\item[] Gibt die Zahl aktuell ausgeführter Wiederholungen zurück.
+\item[] Returns: die Zahl aktuell ausgeführter Wiederholungen
+
+\item \texttt{int getQueuedIterationCount()}
+\item[] Gibt die Zahl aktuell auf Ausführung wartender Wiederholungen zurück.
+\item[] Returns: die Zahl aktuell auf Ausführung wartender Wiederholungen
+\end{itemize}
+
+\subsubsection{Class \texttt{ConfigurationCreator}}
+Diese Klasse nimmt eine \texttt{UserConfiguration} entgegen und extrahiert daraus alle zugehörigen elementaren Konfigurationen. Diese werden als \texttt{Configuration}s zurückgegeben.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{ConfigurationCreator()}
+\item[] Erzeugt einen neuen \texttt{ConfigurationCreator}.
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{List<Configuration> generateConfigurations(UserConfiguration config)}
+\item[] Erzeugt alle zu der gegebenen \texttt{UserConfiguration} gehörigen elementaren Konfigurationen und gibt sie als \texttt{Configuration}s zurück.
+\item[] \texttt{config}: Die \texttt{UserConfiguration}, zu der alle elementaren Konfigurationen generiert werden sollen
+\item[] Returns: alle zu der gegebenen \texttt{UserConfiguration} gehörigen elementaren Konfigurationen als \texttt{Configuration}s
+\end{itemize}
+
+\subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
+
+\section{Glossar}
+\textbf{Elementare Konfiguration:}
+Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
 
 \end{document}
