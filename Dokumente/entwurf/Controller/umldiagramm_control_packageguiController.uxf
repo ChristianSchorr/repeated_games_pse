@@ -7,21 +7,21 @@
       <x>220</x>
       <y>90</y>
       <w>460</w>
-      <h>320</h>
+      <h>380</h>
     </coordinates>
     <panel_attributes>HeadController
 --
--mainWindow : mainController.MainController
--configWindow : configController.MainwController
+-mainWindow : startController.MainController
+-configWindow : configController.MainController
 -newGameWindow : newGameController.MainController
 -newStrategyWindow : newStrategyController.MainController
 -simulator : Simulator
 -configuration : Configuration
 -
-+CentralController(Simulator, mainController.MainController,
++CentralController(Simulator, startController.MainController,
 configController.MainController, newStrategyController.MainController,
 newGameController.MainController)
-+CentralController(Simulator, mainController.MainController,
++CentralController(Simulator, startController.MainController,
 configController.mainController)
 
 +setConfiguration(Configuraiton)
@@ -31,7 +31,8 @@ configController.mainController)
 +saveGame()
 +saveConfiguration()
 +updateUI()
-+runSimulation(Configuration)</panel_attributes>
++runSimulation(Configuration)
++notificate(id)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -40,7 +41,7 @@ configController.mainController)
       <x>120</x>
       <y>50</y>
       <w>620</w>
-      <h>400</h>
+      <h>440</h>
     </coordinates>
     <panel_attributes>guiController
 --

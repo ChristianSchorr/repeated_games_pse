@@ -28,7 +28,7 @@ fontsize=10
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>27</x>
+      <x>18</x>
       <y>9</y>
       <w>1008</w>
       <h>513</h>
@@ -63,7 +63,7 @@ fg=red</panel_attributes>
       <w>144</w>
       <h>153</h>
     </coordinates>
-    <panel_attributes>package mainController
+    <panel_attributes>package startController
 --
 
 bg=gray
@@ -165,5 +165,53 @@ uses
 uses
 </panel_attributes>
     <additional_attributes>151.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>513</x>
+      <y>171</y>
+      <w>90</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;280.0;80.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>486</x>
+      <y>171</y>
+      <w>90</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+notificate</panel_attributes>
+    <additional_attributes>40.0;10.0;40.0;280.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>513</x>
+      <y>171</y>
+      <w>468</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0;500.0;370.0;500.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>171</y>
+      <w>414</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>440.0;10.0;440.0;370.0;10.0;370.0;10.0;340.0</additional_attributes>
   </element>
 </diagram>
