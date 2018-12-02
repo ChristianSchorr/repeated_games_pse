@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>70</x>
+      <y>30</y>
+      <w>560</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>newGameController
+--
+
+bg=gray
+fg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>100</y>
+      <w>420</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>MainController
+-
+-head : HeadController
+-game : Game
+-
++MainController(HeadController)
++getGame():Game
++setName()
++setDescription()
++setPayments()
++save()
++reset()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

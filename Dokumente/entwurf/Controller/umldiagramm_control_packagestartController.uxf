@@ -39,7 +39,7 @@ fg=red</panel_attributes>
 +saveConfiguration()
 +loadConfiguration()
 +addGame()
-+addStrategy
++addStrategy()
 +close()</panel_attributes>
     <additional_attributes/>
   </element>

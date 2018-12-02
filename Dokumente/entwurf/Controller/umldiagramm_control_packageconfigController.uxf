@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>72</x>
+      <y>0</y>
+      <w>936</w>
+      <h>882</h>
+    </coordinates>
+    <panel_attributes>configController
+--
+bg=gray
+fg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>45</y>
+      <w>198</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>MenuController
+-
+-main : MainController
+-
++MenuController(MainController)
++saveConfiguration()
++loadConfiguration()
++addGame()
++addStrategy
++close()
++run(Configuration)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>45</y>
+      <w>270</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>MainController
+-
+-head : guiController.HeadController
+-menu : MenuController
+-basics : BasicController
+-group : GroupController
+-configuration : Configuraiton
+-
++MainController(guiController.HeadController)
++run(Configuration)
++configure()
++setConfiguration(Configuration)
++getConfiguration(): Configuration
++saveConfiguration()
++loadConfiguration()
++reload()
++close()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>387</x>
+      <y>63</y>
+      <w>351</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+triggers</panel_attributes>
+    <additional_attributes>10.0;20.0;370.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>324</y>
+      <w>207</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>BascisController
+-
+-main : MainController
+-
++BasicsController(MainController)
++setConfiguration(Configuration)
++setValues()
++setGame(Game)
++getGame() : Game
++setNumberOfAgents(int)
++getNumberOfAgents() : int
++setNumberOfRounds(int)
++getNumberOfRounds() : int
++setNumberOfRepetitions(int)
++getNumberOfRepititions() : int
++addStrategy(Strategy)
++deleteStrategy(Strategy)
++isMixedStrategys() : Boolean
++setMixedStrategys(Boolean)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>225</y>
+      <w>279</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>GroupConfigurationController
+-
+-main : MainController
+-groups : List
+-
++GroupConfigurationController(MainController)
++setConfiguration(Configuration)
++addGroup()
++deleteGroup(GroupID)
++setGroupSize(GroupId, int)
++getGroupSize(GroupId): int
++isGroupSizeVariable(): Boolean
++setGroupSizeVariable(Boolean)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>414</x>
+      <y>324</y>
+      <w>252</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>ExtendedController
+-
+-main : MainController
+-
++ExtendedController(MainController)
++setConfiguration(Configuration)
++setValues()
++setPairAlgorithm(String)
++getPairAlgorithm(): String
++setSuccesMethod(String)
++getSuccesMethod(): String
++setAdaptionAlgorithm(String)
++getAdaptionAlgorithm(): String
++setComparisionProbability(double)
++getComparisionPorbability(): double
++setAdaptionProbability(double)
++getAdaptionProbablitiy(): double
++setBalanceType(String)
++getBalanceType(): String
++setBalanceStability(Double)
++getBalanceStability(): Double
++setBalanceDurability(int)
++getBalanceDurability(): int
++setMaximumOfAdaptions(int)
++getMaximumOfAdaptions(): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>225</y>
+      <w>234</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;210.0;10.0;210.0;80.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>387</x>
+      <y>216</y>
+      <w>189</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+manages</panel_attributes>
+    <additional_attributes>130.0;120.0;130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>216</x>
+      <y>288</y>
+      <w>306</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0;320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>459</y>
+      <w>279</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>GroupController
+--
+-groupconf : GroupConfigurationController
+-segments : List
+--
++GroupController(GroupConfigurationController)
++setConfiguration(Configuration)
++addSegment()
++deleteSegment(SegmentID)
++setSegmentSize(SegmentId, int)
++getSegmentSize(SegmentId): int
++isSegmentSizeVariable(): Boolean
++setSegmentSizeVariable(Boolean)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>810</x>
+      <y>396</y>
+      <w>45</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>693</y>
+      <w>279</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>SegmentController
+--
+group : GroupController
+--
++addStrategy(String)
++deleteStrategy() : String
++selectCapitalDistibution(String)
++getCapitalDistribution(): String
++showDistributionGraph()
++setDistributionParameters(Strategy)
++getDistribution(Distribution)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>819</x>
+      <y>630</y>
+      <w>45</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+</diagram>
