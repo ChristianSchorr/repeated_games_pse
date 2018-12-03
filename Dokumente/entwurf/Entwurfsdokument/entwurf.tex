@@ -445,7 +445,7 @@ Konstruktoren:
 \end{itemize}
 
 \subsubsection{Class \texttt{CustomStrategy}}
-//siehe Notizen
+//vorläufig
 
 \subsubsection{Class \texttt{MixedStrategy}}
 Implements: \texttt{Strategy}
@@ -460,6 +460,39 @@ Konstruktoren://vorläufig
 \item[] \texttt{pureStrategies}: die reinen Strategien, aus denen diese Strategie besteht
 \item[] \texttt{probabilities}: die Wahrscheinlichkeiten der gegebenen reinen Strategien
 \end{itemize}
+
+\subsubsection{Class \texttt{Segment}}
+Diese Klasse repräsentiert ein Segment. Dieses wird charakterisiert durch die Anzahl zugehöriger Agenten, die \texttt{id} der Gruppe, zu der das Segment gehört sowie initiale Kapital- und Strategieverteilung.
+
+Konstruktoren:
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getAgentCount()}
+\item[] Gibt die Anzahl der Agenten in diesem Segment zurück.
+\item[] Returns: die Anzahl der Agenten in diesem Segment
+
+\item \texttt{int getGroupId()}
+\item[] Gibt die \texttt{id} der Gruppe zurück, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört.
+\item[]die \texttt{id} der Gruppe, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört
+
+\item \texttt{CapitalDistribution getCapitalDistribution()}
+//vorläufig
+\item \texttt{StrategyDistribution getStrategyDistribution()}
+//vorläufig
+\end{itemize}
+
+\subsubsection{Interface \texttt{PairBuilder}}
+//TODO
+
+\subsubsection{Interface \texttt{SuccessQuantifier}}
+//TODO
+
+\subsubsection{Interface \texttt{StrategyAdjuster}}
+//TODO
+
+\subsubsection{Interface \texttt{EquilibriumCriterion}}
+//TODO
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
