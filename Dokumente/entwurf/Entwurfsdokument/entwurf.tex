@@ -93,7 +93,7 @@ Die Klasse unterscheidet nicht zwischen Multikonfigurationen und Nicht-Multikonf
 
 Konstruktoren:
 \begin{itemize} \itemsep -10pt
-\item \texttt{Simulator(UserConfiguration config, int id)}
+\item \texttt{Simulation(UserConfiguration config, int id)}
 \item[] Erzeugt ein neues \texttt{Simulation}-Objekt mit der gegebenen \texttt{UserConfiguration} und der gegebenen \texttt{id}.
 \item[] \texttt{config}: die Konfiguration der Simulation
 \item[] \texttt{id}: die \texttt{id} dieser Simulation
@@ -128,7 +128,7 @@ Methoden:
 \item[] Returns: die \texttt{id} dieser Simulation
 \end{itemize}
 
-\subsubsection{interface \texttt{Simulator}}
+\subsubsection{Interface \texttt{Simulator}}
 Über einen Simulator können Simulationen gestartet und abgebrochen werden. Zum Starten einer Simulation muss dem \texttt{Simulator} eine \texttt{UserConfiguration} übergeben werden, die die durchzuführende Simulation spezifiziert. Daraufhin wird ein \texttt{Simulation}-Objekt erzeugt und zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der gestarteten Simulation abgefragt werden können. Jeder Simulation wird beim Start eine eindeutige \texttt{id} zugewiesen.
 
 Methoden:
