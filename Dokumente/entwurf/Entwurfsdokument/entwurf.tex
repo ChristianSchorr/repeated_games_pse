@@ -208,6 +208,74 @@ Methoden:
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
 
+\subsubsection{Class \texttt{GameResult}}
+
+Diese Klasse speichert das Ergebnis einer Runde zwischen zwei Agenten. Das Ergebnis besteht aus:
+\begin{itemize}\itemsep -10pt
+	\item Den beteiligten Agenten
+	\item Den Aktionen der beteiligten Agenten
+	\item Die erhaltenen Auszahlungen der Agenten
+\end{itemize}
+	
+Konstruktor:
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{Agent getMainAgent()}
+	\item[]Gibt den Hauptspieler der zum Ergebnis gehörenden Runde zurück.
+	\item[]Returns: Der Hauptagent der Runde
+	\item \texttt{Agent getOpponentAgent()}
+	\item[]Gibt den Gegenspieler der zum Ergebnis gehörenden Runde zurück.
+	\item[]Returns: Der Gegenspieler der Runde
+	\item \texttt{int getMainAgentPayoff()}
+	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Hauptspielers zurück.
+	\item[]Returns: Die erzielte Auszahlung
+	\item \texttt{int getOpponentAgentPayoff()}
+	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Gegenspielers zurück.
+	\item[]Returns: Die erzielte Auszahlung
+	\item \texttt{boolean hasMainAgentCooperated()}
+	\item[]Gibt zurück, ob der Hauptspieler in der zugehörigen Runde kooperiert hat oder nicht.
+	\item[]Returns: 
+	\item \texttt{boolean hasOpponentAgentCooperated()}
+	\item[]Gibt zurück, ob der Gegenspieler in der zugehörigen Runde kooperiert hat oder nicht.
+	\item[]Returns: 
+\end{itemize}
+
+
+\subsubsection{Interface \texttt{SimulationHistory}}
+Eine Implementierung des \texttt{SimulationHistory}-Interfaces speichert für jeden Agenten die Ergebnisse aller bisherigen Runden eines Adaptionsschrittes. Es werden Methoden zum Hinzufügen ne bereitgestellt:
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void addResult(GameResult result)}
+	\item[] Fügt der Historie ein neues Rundenergebnis hinzu.
+	\item[] \texttt{result}: Das \texttt{GameResult}, das zur Historie hinzugefügt werden soll
+	\item \texttt{List<GameResult> getAllResults()}
+	\item[]Gibt alle Rundenergebnisse  aller Agenten als Liste zurück.
+	\item[]Returns: Die Liste der Rundenergebnisse
+	\item \texttt{List<GameResult> getResultsByAgent(agent: Agent)}
+	\item[]Gibt alle Rundenergebnisse des gegebenen Agenten als Liste zurück.
+	\item[] \texttt{agent}: Der Agent dessen Ergebnisse abgefragt werden
+	\item[]Returns: Die Liste der Rundenergebnisse
+	\item \texttt{List<GameResult> getLatestResults()}
+	\item[]Gibt das letzte Rundenergebnis aller Agenten als Liste zurück.
+	\item[]Returns: Die Liste der Rundenergebnisse
+	\item \texttt{GameResult getLatestResultByAgent(agent: Agent)}
+	\item[] Gibt das letzte Rundenergebnis des gegebenen Agenten zurück.
+	\item[] \texttt{agent}: Der Agent dessen letztes Ergebnis abgefragt wird
+	\item[]Returns: Das letzte RundenErgebnis des Agenten als \texttt{GameResult}
+	\item \texttt{Iterable<GameResult> queryAllResults(condition: Predicate<GameResult>)}
+	\item[] Filtert alle Rundenergebnisse gemäß einer gegebenen Filterbedingung und liefert sie in Form eines \texttt{Iterable} zurück.
+	\item[]\texttt{condition}: Die Filterbedinung als Prädikat mit einem \texttt{GameResult} als Parameter.
+	\item[]Returns: Die gefilterten Rundenergebnisse als \texttt{Iterable}
+\end{itemize}
+
+\subsubsection{Class \texttt{SimulationHistoryTable}}
+Implements: \texttt{SimulationHistory}
+
+Diese Klasse implementiert das \texttt{SimulationHistory}-Interface.
+
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
