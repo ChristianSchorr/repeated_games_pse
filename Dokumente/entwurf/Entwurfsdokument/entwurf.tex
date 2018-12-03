@@ -68,7 +68,7 @@ Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederh
 \begin{itemize}\itemsep -10pt
 \item Stufenspiel
 \item Anzahl von Agenten
-\item Runden pro Wiederholung
+\item Runden pro Adaptionsschritt
 \item Ob gemischte Strategien zugelassen sind
 \item Gruppen-/Segmenteinteilungen
 \item Kapital- und Strategieinitialisierung der Segmente
@@ -80,8 +80,62 @@ Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederh
 \end{itemize}
 
 Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
+\item[] Erstellt eine neue \texttt{Configuration} mit den gegebenen Parametern.
+\item[] \texttt{game}: Das Stufenspiel dieser Konfiguration
+\item[] \texttt{roundCount}: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+\item[] \texttt{mixedStrategies}: gibt an, ob gemischte Strategien in dieser Konfiguration erlaubt sind
+\item[] \texttt{segments}: alle Segmente dieser Konfiguration
+\item[] \texttt{pairBuilder}: Der Paarbildungsalgorithmus dieser Konfiguration
+\item[] \texttt{successQuantifier}: die Erfolgsquantifizierung dieser Konfiguration
+\item[] \texttt{strategyAdjuster}: der Adaptionsmechanismus dieser Konfiguration
+\item[] \texttt{equilibriumCriterion}: das Gleichgewichtskriterium dieser Konfiguration
+\item[] \texttt{maxAdapts}: die maximale Zahl durchzuführender Adaptionsschritte dieser Konfiguration
+\end{itemize}
 
 Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Game getGame()}
+\item[] Gibt das Stufenspiel dieser Konfiguration zurück.
+\item[] Returns: das Stufenspiel dieser Konfiguration
+
+\item \texttt{int getAgentCount()}
+\item[] Gibt die Anzahl von Agenten in dieser Konfiguration zurück.
+\item[] Returns: die Anzahl von Agenten in dieser Konfiguration
+
+\item \texttt{int getRoundCount()}
+\item[] Gibt die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration zurück.
+\item[] Returns: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+
+\item \texttt{boolean allowsMixedStrategies()}
+\item[] Gibt zurück, ob in dieser Konfiguration gemischte Strategien zugelassen sind.
+\item[] Returns: \texttt{true}, falls in dieser Konfiguration gemischte Strategien zugelassen sind; \texttt{false} sonst
+
+\item \texttt{Collection<Segment> getSegments()}
+\item[] Gibt alle zu dieser Konfiguration gehörenden Segmente zurück.
+\item[] Returns: eine \texttt{Collection} aller \texttt{Segment}e dieser Konfiguration
+
+\item \texttt{PairBuilder getPairBuilder()}
+\item[] Gibt den Paarbildungsalgorithmus dieser Konfiguration zurück.
+\item[] Returns: den Paarbildungsalgorithmus dieser Konfiguration
+
+\item \texttt{SuccessQuantifier getSuccessQuantifier()}
+\item[] Gibt die Erfolgsquantifizierung dieser Konfiguration zurück.
+\item[] Returns: die Erfolgsquantifizierung dieser Konfiguration
+
+\item \texttt{StrategyAdjuster getStrategyAdjuster()}
+\item[] Gibt den Adaptionsmechanismus dieser Konfiguration zurück.
+\item[] Returns: den Adaptionsmechanismus dieser Konfiguration
+
+\item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
+\item[] Gibt das Gleichgewichtskriterium dieser Konfiguration zurück.
+\item[] Returns: das Gleichgewichtskriterium dieser Konfiguration
+
+\item \texttt{int getMaxAdapts()}
+\item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
+\item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
+\end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
 Dieses Paket enthält das Interface \texttt{Simulator}. Dieses bietet eine Schnittstelle zum Starten und Abbrechen von Simulationen. Beim Start einer Simulation wird eine Referenz auf ein \texttt{Simulation}-Objekt zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der Simulation abgefragt werden können.
@@ -208,42 +262,26 @@ Methoden:
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
 
-\subsubsection{Class \texttt{GameResult}}
+Dieses Paket beinhaltet die Klasse \texttt{SimulationEngine}, mit der eine einzelne Wiederholung zu einer bestimmten elementaren Konfiguration ausgeführt werden kann.
 
-Diese Klasse speichert das Ergebnis einer Runde zwischen zwei Agenten. Das Ergebnis besteht aus:
+\subsubsection{Class \texttt{AgentInitializer}}
+Ein \texttt{AgentInitializer} kann verwendet werden, um die Agenten eines gegebenen Segments zu erstellen und mit Kapital, Strategien und Gruppenzugehörigkeit zu initialisieren.
+
+Konstruktoren:
 \begin{itemize}\itemsep -10pt
-	\item Den beteiligten Agenten
-	\item Den Aktionen der beteiligten Agenten
-	\item Die erhaltenen Auszahlungen der Agenten
+\item \texttt{AgentInitializer()}
+\item[] Erzeugt einen neuen \texttt{AgentInitializer}.
 \end{itemize}
-	
-Konstruktor:
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{Agent getMainAgent()}
-	\item[]Gibt den Hauptspieler der zum Ergebnis gehörenden Runde zurück.
-	\item[]Returns: Der Hauptagent der Runde
-	\item \texttt{Agent getOpponentAgent()}
-	\item[]Gibt den Gegenspieler der zum Ergebnis gehörenden Runde zurück.
-	\item[]Returns: Der Gegenspieler der Runde
-	\item \texttt{int getMainAgentPayoff()}
-	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Hauptspielers zurück.
-	\item[]Returns: Die erzielte Auszahlung
-	\item \texttt{int getOpponentAgentPayoff()}
-	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Gegenspielers zurück.
-	\item[]Returns: Die erzielte Auszahlung
-	\item \texttt{boolean hasMainAgentCooperated()}
-	\item[]Gibt zurück, ob der Hauptspieler in der zugehörigen Runde kooperiert hat oder nicht.
-	\item[]Returns: 
-	\item \texttt{boolean hasOpponentAgentCooperated()}
-	\item[]Gibt zurück, ob der Gegenspieler in der zugehörigen Runde kooperiert hat oder nicht.
-	\item[]Returns: 
+\item \texttt{Collection<Agent> initializeAgents(Segment segment)}
+\item[] Erzeugt die Agenten des gegebenen Segments und initialisiert sie mit Kapital, Strategien und Gruppenzugehörigkeiten. Gibt die Agenten als \texttt{Collection} zurück.
+\item[] Returns: die initialisierten Agenten als \texttt{Collection}
 \end{itemize}
 
-
 \subsubsection{Interface \texttt{SimulationHistory}}
-Eine Implementierung des \texttt{SimulationHistory}-Interfaces speichert für jeden Agenten die Ergebnisse aller bisherigen Runden eines Adaptionsschrittes. Es werden Methoden zum Hinzufügen ne bereitgestellt:
+Eine Implementierung des \texttt{SimulationHistory}-Interfaces speichert für jeden Agenten die Ergebnisse aller bisherigen Runden eines Adaptionsschrittes.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
@@ -279,6 +317,149 @@ Implements: \texttt{SimulationHistory}
 
 Diese Klasse implementiert das \texttt{SimulationHistory}-Interface.
 
+\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.core}}
+Dieses Paket beinhaltet für den Simulationsablauf zentrale Klassen wie den \texttt{Agent}, das Stufenspiel (\texttt{Game}) oder die \texttt{Strategy}.
+
+\subsubsection{Class \texttt{Agent}}
+Diese Klasse repräsentiert einen einzelnen Agenten in einem Simulationsdurchlauf. Sie enthält Informationen über den Agenten wie dessen Gruppenzugehörigkeit, sein aktuelles und initiales Kapital oder seine aktuelle Strategie.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Agent(int initialCapital, Strategy initialStrategy, int groupId)}
+\item[] Erstellt einen neuen Agenten mit gegebenem Anfangskapital, gegebener Strategie und gegebener Gruppenzugehörigkeit
+\item[] \texttt{initialCaptial}: das initiale Kapital des Agenten
+\item[] \texttt{initialStrategy}: die initiale Strategie des Agenten
+\item[] \texttt{groupId}: die \texttt{id} der Gruppe, der dieser Agent zugehörig ist; \(-1\), falls dieser Agent gruppenlos ist.
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getCapital()}
+\item[] Gibt das aktuelle Kapital des Agenten zurück.
+\item[] Returns: das aktuelle Kapital des Agenten
+
+\item \texttt{int getInitialCapital()}
+\item[] Gibt das initiale Kapital des Agenten zurück.
+\item[] Returns: das initiale Kapital des Agenten
+
+\item \texttt{void addCapital(int capital)}
+\item[] Erhöht das Kapital des Agenten um den gegebenen Wert.
+
+\item \texttt{Strategy getStrategy()}
+\item[] Gibt die aktuelle Strategie des Agenten zurück.
+\item[] Returns: die aktuelle Strategie des Agenten
+
+\item\texttt{void setStrategy(Strategy strategy)}
+\item[] Setze die Strategie des Agenten auf die gegebene Strategie.
+
+\item \texttt{int getGroupId()}
+\item[] Gibt die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
+\item[] Returns: die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
+\end{itemize}
+
+\subsubsection{Class \texttt{GameResult}}
+
+Diese Klasse speichert das Ergebnis eines Spiels zwischen zwei Agenten. Das Ergebnis besteht aus:
+\begin{itemize}\itemsep -10pt
+	\item Den beteiligten Agenten
+	\item Den Aktionen der beteiligten Agenten
+	\item Die erhaltenen Auszahlungen der Agenten
+\end{itemize}
+	
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{GameResult(Agent player1, Agent player2, int payOff1, int payOff2, boolean hasCooperated1, boolean hasCooperated2)}
+\item[] Erzeugt ein neues \texttt{GameResult}-Objekt.
+\item[] \texttt{player1}: der erste Spieler
+\item[] \texttt{player2}: der zweite Spieler
+\item[] \texttt{payOff1}: die erhaltene Auszahlung des ersten Spielers
+\item[] \texttt{payOff2}: die erhaltene Auszahlung des zweiten Spielers
+\item[] \texttt{hasCooperated1}: \texttt{true}, falls der erste Spieler kooperiert hat; \texttt{false} sonst
+\item[] \texttt{hasCooperated2}: \texttt{true}, falls der zweite Spieler kooperiert hat; \texttt{false} sonst
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{Agent getMainAgent()}
+	\item[]Gibt den Hauptspieler der zum Ergebnis gehörenden Runde zurück.
+	\item[]Returns: Der Hauptagent der Runde
+	\item \texttt{Agent getOpponentAgent()}
+	\item[]Gibt den Gegenspieler der zum Ergebnis gehörenden Runde zurück.
+	\item[]Returns: Der Gegenspieler der Runde
+	\item \texttt{int getMainAgentPayoff()}
+	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Hauptspielers zurück.
+	\item[]Returns: Die erzielte Auszahlung
+	\item \texttt{int getOpponentAgentPayoff()}
+	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Gegenspielers zurück.
+	\item[]Returns: Die erzielte Auszahlung
+	\item \texttt{boolean hasMainAgentCooperated()}
+	\item[]Gibt zurück, ob der Hauptspieler in der zugehörigen Runde kooperiert hat oder nicht.
+	\item[]Returns: 
+	\item \texttt{boolean hasOpponentAgentCooperated()}
+	\item[]Gibt zurück, ob der Gegenspieler in der zugehörigen Runde kooperiert hat oder nicht.
+	\item[]Returns: 
+\end{itemize}
+
+\subsubsection{Interface \texttt{Game}}
+Dieses Interface repräsentiert ein Stufenspiel.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{String getName()}
+\item[] Gibt den Namen des Stufenspiels zurück.
+\item[] Returns: den Namen des Stufenspiels
+
+\item \texttt{String getDescription()}
+\item[] Gibt die Beschreibung dieses Stufenspiels zurück.
+\item[] Returns: die Beschreibung dieses Stufenspiels
+
+\item[] \texttt{GameResult play(Agent player1, Agent player2)}
+\item[] Lässt die gegebenen Agenten gemäß ihrer aktuellen Strategien dieses Stufenspiel spielen und gibt das Ergebnis des Spiels als \texttt{GameResult}-Objekt zurück.
+\item[] Returns: das Ergebnis des Spiels als \texttt{GameResult}-Objekt
+\end{itemize}
+
+\subsubsection{Interface \texttt{Strategy}}
+Repräsentiert eine Strategie. Diese kann, aber muss nicht gemischt sein.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{boolean isCooperative(Agent player, Agent opponent, SimulationHistory history)}
+\item[] Gibt zurück, ob der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde. Ist die Strategie gemischt, wird entsprechend ein zufälliges Ergebnis ausgegeben.
+\item[] Returns: ob der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde
+
+\item \texttt{double getCooperationProbability(Agent player, Agent opponent, SimulationHistory history)}
+\item[] Gibt die Wahrscheinlichkeit zurück, mit der der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde.
+\item[] Returns: die Wahrscheinlichkeit, mit der der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde
+\end{itemize}
+
+\subsubsection{Class \texttt{PureStrategy}}
+Implements: \texttt{Strategy}
+
+Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt durch eine Bedingung an den gegnerischen Agenten, repräsentiert als \texttt{Predicate<Agent>}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PureStrategy(Predicate<Agent> condition)}
+\item[] Erzeugt ein neues \texttt{PureStrategy}-Objekt.
+\item[] \texttt{condition}: die Bedingung an den gegnerischen Agenten, unter der ein Agent bei Verwendung dieser Strategie kooperiert
+\end{itemize}
+
+\subsubsection{Class \texttt{CustomStrategy}}
+//siehe Notizen
+
+\subsubsection{Class \texttt{MixedStrategy}}
+Implements: \texttt{Strategy}
+
+Diese Klasse repräsentiert eine gemischte Strategie, die sich aus mehreren \texttt{PureStrategie}s zusammensetzt.
+
+Konstruktoren://vorläufig
+\begin{itemize}\itemsep -10pt
+\item[] //wirft exception wenn listen nicht gleichlang oder wahrsch. ungültig (alle positiv und in summe 1)
+\item \texttt{MixedStrategy(List<PureStrategies> pureStrategies, List<Integer> probabilites)}
+\item[] Erstellt eine neue \texttt{MixedStrategy}, die aus den gegebenen reinen Strategien mit den gegebenen Wahrscheinlichkeiten besteht.
+\item[] \texttt{pureStrategies}: die reinen Strategien, aus denen diese Strategie besteht
+\item[] \texttt{probabilities}: die Wahrscheinlichkeiten der gegebenen reinen Strategien
+\end{itemize}
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
