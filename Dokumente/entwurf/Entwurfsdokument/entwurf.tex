@@ -264,10 +264,14 @@ Methoden:
 	\item[] Gibt das letzte Rundenergebnis des gegebenen Agenten zurück.
 	\item[] \texttt{agent}: Der Agent dessen letztes Ergebnis abgefragt wird
 	\item[]Returns: Das letzte RundenErgebnis des Agenten als \texttt{GameResult}
-	\item \texttt{Iterable<GameResult> queryAllResults(condition: Predicate<GameResult>)}
+	\item \texttt{Iterable<GameResult> getAllWhere(condition: Predicate<GameResult>)}
 	\item[] Filtert alle Rundenergebnisse gemäß einer gegebenen Filterbedingung und liefert sie in Form eines \texttt{Iterable} zurück.
 	\item[]\texttt{condition}: Die Filterbedinung als Prädikat mit einem \texttt{GameResult} als Parameter.
 	\item[]Returns: Die gefilterten Rundenergebnisse als \texttt{Iterable}
+	\item \texttt{GameResult getLatestWhere(condition: Predicate<GameResult>)}
+	\item[] Filtert alle Rundenergebnisse gemäß einer gegebenen Filterbedingung und liefert das letzte Rundenergebnis, welches die Bedingung erfüllt zurück.
+	\item[]\texttt{condition}: Die Filterbedinung als Prädikat mit einem \texttt{GameResult} als Parameter.
+	\item[]Returns: Das letzte Rundenergebnis, welches die Filterbedingung erfüllt
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationHistoryTable}}

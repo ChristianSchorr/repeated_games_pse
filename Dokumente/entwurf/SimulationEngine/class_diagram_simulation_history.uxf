@@ -7,7 +7,7 @@
       <x>300</x>
       <y>130</y>
       <w>540</w>
-      <h>150</h>
+      <h>170</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 SimulationHistory
@@ -17,7 +17,8 @@ SimulationHistory
 +getResultsByPlayer(pl: Agent): Collection&lt;GameResult&gt;
 +getLatestResults(): Collection&lt;GameResults&gt;
 +getLatestResult(pl: Agent): GameResult
-+queryAllResults(cond: Predicate&lt;GameResult&gt;): Iterable&lt;GameResult&gt;</panel_attributes>
++getAllWhere(cond: Predicate&lt;GameResult&gt;): Iterable&lt;GameResult&gt;
++getLatestWhere(cond: Predicate&lt;GameResult&gt;): GameResult</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -55,13 +56,13 @@ SimulationHistory
     <id>Relation</id>
     <coordinates>
       <x>560</x>
-      <y>270</y>
+      <y>290</y>
       <w>110</w>
-      <h>120</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 implements</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
