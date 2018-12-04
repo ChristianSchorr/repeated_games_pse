@@ -363,7 +363,7 @@ Diese Klasse speichert das Ergebnis eines Spiels zwischen zwei Agenten. Das Erge
 \begin{itemize}\itemsep -10pt
 	\item Den beteiligten Agenten
 	\item Den Aktionen der beteiligten Agenten
-	\item Die erhaltenen Auszahlungen der Agenten
+	\item Den erhaltenen Auszahlungen der Agenten
 \end{itemize}
 	
 Konstruktoren:
@@ -380,24 +380,24 @@ Konstruktoren:
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{Agent getMainAgent()}
-	\item[]Gibt den Hauptspieler der zum Ergebnis gehörenden Runde zurück.
-	\item[]Returns: Der Hauptagent der Runde
-	\item \texttt{Agent getOpponentAgent()}
-	\item[]Gibt den Gegenspieler der zum Ergebnis gehörenden Runde zurück.
-	\item[]Returns: Der Gegenspieler der Runde
-	\item \texttt{int getMainAgentPayoff()}
-	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Hauptspielers zurück.
-	\item[]Returns: Die erzielte Auszahlung
-	\item \texttt{int getOpponentAgentPayoff()}
-	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Gegenspielers zurück.
-	\item[]Returns: Die erzielte Auszahlung
-	\item \texttt{boolean hasMainAgentCooperated()}
-	\item[]Gibt zurück, ob der Hauptspieler in der zugehörigen Runde kooperiert hat oder nicht.
-	\item[]Returns: 
-	\item \texttt{boolean hasOpponentAgentCooperated()}
-	\item[]Gibt zurück, ob der Gegenspieler in der zugehörigen Runde kooperiert hat oder nicht.
-	\item[]Returns: 
+\item  \texttt{boolean hasAgent(Agent agent)}
+\item[] Gibt zurück, ob der gegebene Agent einer der beiden Spieler dieses Spiels war.
+\item[] \texttt{agent}: der Agent, für den geprüft werden soll, ob er Spieler dieses Spiels war
+\item[] Returns: \texttt{true}, falls der gegebene Agent einer der beiden Spieler dieses Spiels war; \texttt{false} sonst
+
+\item \texttt{int getPayoff(Agent agent)}
+\item[] Gibt die Auszahlung zurück, die der gegebene Agent bei diesem Spiel erhalten hat, falls er beteiligt war; andernfalls wird \(0\) zurückgegeben.
+\item[] \texttt{agent}: der Agent, dessen Auszahlung zurückgegeben werden soll
+\item[] Returns: die erhaltene Auszahlung des gegebenen Agenten, falls er beteiligt war; andernfalls \(0\)
+
+\item \texttt{boolean hasCooperated(Agent agent)}
+\item[] Gibt zurück, ob der gegebene Agent in diesem Spiel kooperiert hat, falls er beteiligt war. Andernfalls wird \texttt{false} zurückgegeben.
+\item[] \texttt{agent}: der Agent, für den zurückgegeben werden soll, ob er kooperiert hat
+\item[] Returns: \texttt{true}, falls der gegebene Agent an diesem Spiel beteiligt war und kooperiert hat, andernfalls \texttt{false}
+
+\item \texttt{Collection<Agent> getAgents()}
+\item[] Gibt die beiden an diesem Spiel beteiligten Agenten zurück.
+\item[] Returns: die beiden an diesem Spiel beteiligten Agenten als \texttt{Collection<Agent>}
 \end{itemize}
 
 \subsubsection{Interface \texttt{Game}}
@@ -437,11 +437,11 @@ Methoden:
 \subsubsection{Class \texttt{PureStrategy}}
 Implements: \texttt{Strategy}
 
-Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt durch eine Bedingung an den gegnerischen Agenten, repräsentiert als \texttt{Predicate<Agent>}.
+Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt durch eine Bedingung an den gegnerischen Agenten basierend auf dem bisherigen Verlauf der Simulation, repräsentiert als \texttt{Predicate<Agent,SimulationHistory>}.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{PureStrategy(Predicate<Agent> condition)}
+\item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
 \item[] Erzeugt ein neues \texttt{PureStrategy}-Objekt.
 \item[] \texttt{condition}: die Bedingung an den gegnerischen Agenten, unter der ein Agent bei Verwendung dieser Strategie kooperiert
 \end{itemize}
@@ -531,17 +531,17 @@ Methoden:
 \item[] Returns: die erstellte Rangliste als \texttt{List<Agent>}
 \end{itemize}
 
-\subsubsection{Class \texttt{TotalCapitalSuccessQuantifier}}
+\subsubsection{Class \texttt{TotalCapital}}
 Implements: \texttt{SuccessQuantifier}
 
 Realisiert die in der Spezifikation beschriebene \enquote{Absolutkapital}-Erfolgsquantifizierung
 
-\subsubsection{Class \texttt{TotalPayoffSuccessQuantifier}}
+\subsubsection{Class \texttt{TotalPayoff}}
 Implements: \texttt{SuccessQuantifier}
 
 Realisiert die in der Spezifikation beschriebene \enquote{Absolutkapital ohne Initialkapital}-Erfolgsquantifizierung.
 
-\subsubsection{Class \texttt{SlidingMeanSuccessQuantifier}}
+\subsubsection{Class \texttt{SlidingMean}}
 Implements: \texttt{SuccessQuantifier}
 
 Realisiert die in der Spezifikation beschriebene \enquote{Gleitender Durchschnitt}-Erfolgsquantifizierung.
@@ -549,11 +549,11 @@ Realisiert die in der Spezifikation beschriebene \enquote{Gleitender Durchschnit
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{SlidingMeanSuccessQuantifier(int windowSize)}
-\item[] Erstellt einen neuen \texttt{SlidingMeanSuccessQuantifier} mit der gegebenen Fenstergröße.
+\item[] Erstellt ein neues \texttt{SlidingMean}-Objekt mit der gegebenen Fenstergröße.
 \item[] \texttt{windowSize}: die Fenstergröße für die Durchschnittsberechnung
 \end{itemize}
 
-\subsubsection{Class \texttt{PayoffInLastAdaptSuccessQuantifier}}
+\subsubsection{Class \texttt{PayoffInLastAdapt}}
 Implements: \texttt{SuccessQuantifier}
 
 Realisiert die in der Spezifikation beschriebene \enquote{Auszahlung im letzten Adaptionsschritt}-Erfolgsquantifizierung.
@@ -568,28 +568,28 @@ Methoden:
 \item[] \texttt{agents}: die Agenten, deren Strategien adaptiert werden sollen, geordnet nach Erfolg im aktuellen Adaptionsschritt
 \end{itemize}
 
-\subsubsection{Class \texttt{ReplicatorDynamicStrategyAdjuster}}
+\subsubsection{Class \texttt{ReplicatorDynamic}}
 Implements: \texttt{StrategyAdjuster}
 
 Realisiert den in der Spezifikation beschriebenen \enquote{Replicator Dynamic}-Anpassungsmechanismus.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{ReplicatorDynamicStrategyAdjuster(double alpha, double delta)}
-\item[] Erstellt einen neuen \texttt{ReplicatorDynamicStrategyAdjuster} mit den gegebenen Parameter \(\alpha\) und \(\delta\).
+\item \texttt{ReplicatorDynamic(double alpha, double delta)}
+\item[] Erstellt ein neues \texttt{ReplicatorDynamic}-Objekt mit den gegebenen Parameter \(\alpha\) und \(\delta\).
 \item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
 \item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
 \end{itemize}
 
-\subsubsection{Class \texttt{PreferentialAdaptionStrategyAdjuster}}
+\subsubsection{Class \texttt{PreferentialAdaption}}
 Implements: \texttt{StrategyAdjuster}
 
 Realisiert den in der Spezifikation beschriebenen \enquote{Preferential Adaption}-Anpassungsmechanismus.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{PreferentialAdaptionStrategyAdjuster(double alpha, double delta)}
-\item[] Erstellt einen neuen \texttt{PreferentialAdaptionStrategyAdjuster} mit den gegebenen Parameter \(\alpha\) und \(\delta\).
+\item \texttt{PreferentialAdaption(double alpha, double delta)}
+\item[] Erstellt ein neues \texttt{PreferentialAdaption}-Objekt mit den gegebenen Parameter \(\alpha\) und \(\delta\).
 \item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
 \item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
 \end{itemize}
