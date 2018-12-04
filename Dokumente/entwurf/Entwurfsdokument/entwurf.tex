@@ -462,6 +462,7 @@ Konstruktoren://vorläufig
 \end{itemize}
 
 \subsubsection{Class \texttt{Segment}}
+//umbenennen!
 Diese Klasse repräsentiert ein Segment. Dieses wird charakterisiert durch die Anzahl zugehöriger Agenten, die \texttt{id} der Gruppe, zu der das Segment gehört sowie initiale Kapital- und Strategieverteilung.
 
 Konstruktoren:
@@ -483,16 +484,42 @@ Methoden:
 \end{itemize}
 
 \subsubsection{Interface \texttt{PairBuilder}}
-//TODO
+Dieses Interface repräsentiert einen Paarbildungsalgorithmus. Eine Implementierung nimmt eine Menge von Agenten sowie den bisherigen Verlauf des aktuellen Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und gibt ein Matching der Agenten zurück.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Collection<AgentPair> buildPairs(Collection<Agent> agents, SimulationHistory history)}
+\item[] Fasst die gegebene Menge von Agenten zu Paaren zusammen und gibt diese als \texttt{Collection} von \texttt{AgentPair}s zurück.
+\item[] \texttt{agents}: die Agenten, aus denen Paare gebildet werden sollen
+\item[] \texttt{history}: der bisherige Verlauf des Adaptionsschritts
+\item[] Returns: die gebildeten Paare als \texttt{Collection<AgentPair>}
+\end{itemize}
 
 \subsubsection{Interface \texttt{SuccessQuantifier}}
-//TODO
+Dieses Interface repräsentiert eine Erfolgsquantifizierung. Eine Implementierung nimmt eine Menge von Agenten sowie den bisherigen Verlauf des aktuellen Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und erstellt eine Rangliste der Agenten anhand deren Erfolg in den vergangenen Runden. Diese wird als Liste zurückgegeben.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{List<Agent> createRanking(Collection<Agent> agents, SimulationHistory history)}
+\item[] Erstellt eine Rangliste der gegebenen Agenten und gibt diese als Liste zurück.
+\item[] \texttt{agents}: die Agenten, aus denen eine Rangliste erstellt werden soll
+\item[] \texttt{history}: der bisherige Verlauf des aktuellen Adaptionsschritts
+\item[] Returns: die erstellte Rangliste als \texttt{List<Agent>}
+\end{itemize}
 
 \subsubsection{Interface \texttt{StrategyAdjuster}}
-//TODO
+Dieses Interface repräsentiert einen Adaptionsmechanismus. Eine Implementierung nimmt eine nach Rang geordnete Liste von Agenten entgegen und passt die Strategien der Agenten an.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void adaptStrategies(List<Agent> agents)}
+\item[] Adaptiert die Strategien der gegebenen Agenten.
+\item[] \texttt{agents}: die Agenten, deren Strategien adaptiert werden sollen, geordnet nach Erfolg im aktuellen Adaptionsschritt
+\end{itemize}
 
 \subsubsection{Interface \texttt{EquilibriumCriterion}}
-//TODO
+//vorläufig, morgen (5.12.) besprechen! siehe UML-Diagramm\\
+Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt nach jeder Runde mittels \texttt{boolean isEquilibrium(...)} eine nach aktuellem Rang geordnete Liste von Agenten entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat. Um aufeinanderfolgende Runden vergleichen zu können, muss eine Implementierung stets die Agentenliste des vorhergehenden Aufrufs von \texttt{isEquilibrium(...)} speichern.
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}

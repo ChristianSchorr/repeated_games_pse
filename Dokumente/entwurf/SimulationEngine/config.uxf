@@ -204,11 +204,11 @@ m1=1</panel_attributes>
       <w>420</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>/EquilibriumCriterion/
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+EquilibriumCriterion
 -
-/+isEquilibrium(ranking: List&lt;Agent&gt;): boolean/
-/+hasEquilibriumCondition(ranking:List&lt;Agent&gt;): boolean/
-+setNewRanking(ranking: List&lt;Agent&gt;): void</panel_attributes>
++isEquilibrium(ranking: List&lt;Agent&gt;): boolean
++hasEquilibriumCondition(ranking:List&lt;Agent&gt;): boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
