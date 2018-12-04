@@ -7,7 +7,7 @@
       <x>810</x>
       <y>0</y>
       <w>230</w>
-      <h>125</h>
+      <h>135</h>
     </coordinates>
     <panel_attributes>HeadController
 --
@@ -22,6 +22,8 @@
 +saveStrategy()
 +saveGame()
 +saveConfiguration()
++savePopulation()
++saveGroup()
 +updateUI()
 +runSimulation(Configuration)</panel_attributes>
     <additional_attributes/>
@@ -86,7 +88,8 @@ observes</panel_attributes>
 +isGroupSizeVariable(): Boolean
 +setGroupSizeVariable(Boolean)
 +isSegmentSizeVariable(): Boolean
-+setSegmentSizeVariable(Boolean)</panel_attributes>
++setSegmentSizeVariable(Boolean)
++showPopulation(String)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -108,6 +111,7 @@ observes</panel_attributes>
 +addGroup()
 +close()
 +run(Configuration)
++help()
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -213,7 +217,7 @@ observes</panel_attributes>
       <x>965</x>
       <y>245</y>
       <w>210</w>
-      <h>100</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>NewGameController
 -
@@ -382,7 +386,7 @@ observes</panel_attributes>
 -
 +Historycontroller()
 +addSimulation(Simulation)
-+update(Simulation)
++updateSimulationProgress(Simulation)
 
 </panel_attributes>
     <additional_attributes/>
@@ -426,56 +430,56 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>850</x>
-      <y>120</y>
+      <y>130</y>
       <w>80</w>
-      <h>130</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;170.0;140.0;170.0;140.0;10.0</additional_attributes>
+    <additional_attributes>10.0;220.0;10.0;150.0;140.0;150.0;140.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>465</x>
-      <y>120</y>
+      <y>130</y>
       <w>465</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;220.0;10.0;150.0;910.0;150.0;910.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>915</x>
+      <y>130</y>
+      <w>440</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;170.0;910.0;170.0;910.0;10.0</additional_attributes>
+    <additional_attributes>860.0;240.0;860.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>915</x>
-      <y>120</y>
-      <w>440</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>860.0;260.0;860.0;170.0;10.0;170.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>915</x>
-      <y>120</y>
+      <y>130</y>
       <w>155</w>
-      <h>135</h>
+      <h>125</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>290.0;250.0;290.0;170.0;10.0;170.0;10.0;10.0</additional_attributes>
+    <additional_attributes>290.0;230.0;290.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>915</x>
-      <y>120</y>
+      <y>130</y>
       <w>45</w>
-      <h>95</h>
+      <h>85</h>
     </coordinates>
     <panel_attributes>observes</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
