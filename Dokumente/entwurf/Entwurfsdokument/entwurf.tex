@@ -413,8 +413,10 @@ Methoden:
 \item[] Gibt die Beschreibung dieses Stufenspiels zurück.
 \item[] Returns: die Beschreibung dieses Stufenspiels
 
-\item[] \texttt{GameResult play(Agent player1, Agent player2)}
-\item[] Lässt die gegebenen Agenten gemäß ihrer aktuellen Strategien dieses Stufenspiel spielen und gibt das Ergebnis des Spiels als \texttt{GameResult}-Objekt zurück.
+\item[] \texttt{GameResult play(boolean playerOneCooperates, boolean playerTwoCooperates)}
+\item[] Lässt zwei Spieler mit gegebenen Kooperationsentscheidungen dieses Stufenspiel spielen und gibt das Ergebnis des Spiels als \texttt{GameResult}-Objekt zurück.
+\item[] \texttt{playerOneCooperates}: \texttt{true}, falls der erste Spieler kooperiert; \texttt{false sonst}
+\item[] \texttt{playerTwoCooperates}: \texttt{true}, falls der zweite Spieler kooperiert; \texttt{false sonst}
 \item[] Returns: das Ergebnis des Spiels als \texttt{GameResult}-Objekt
 \end{itemize}
 
@@ -495,6 +497,28 @@ Methoden:
 \item[] Returns: die gebildeten Paare als \texttt{Collection<AgentPair>}
 \end{itemize}
 
+\subsubsection{Class \texttt{RandomPairBuilder}}
+Implements: \texttt{PairBuilder}
+
+Realisiert die zufällige Paarbildung von Agenten.
+
+\subsubsection{Class \texttt{CooperationConsideringPairBuilder}}
+Implements: \texttt{PairBuilder}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Paarbildung nach Wunsch}.
+
+\subsubsection{Class \texttt{RandomCooperationConsideringPairBuilder}}
+Implements: \texttt{PairBuilder}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Paarbildung nach Wunsch mit Zufall}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{RandomCooperationConsideringPairBuilder(double randomnessFactor)}
+\item[] Erstellt einen neuen \texttt{RandomCooperationConsideringPairBuilder}.
+\item[] \texttt{randomnessFactor}: der Zufallsfaktor für die Paarbildung; zwischen \(0\) und \(1\)
+\end{itemize}
+
 \subsubsection{Interface \texttt{SuccessQuantifier}}
 Dieses Interface repräsentiert eine Erfolgsquantifizierung. Eine Implementierung nimmt eine Menge von Agenten sowie den bisherigen Verlauf des aktuellen Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und erstellt eine Rangliste der Agenten anhand deren Erfolg in den vergangenen Runden. Diese wird als Liste zurückgegeben.
 
@@ -507,6 +531,33 @@ Methoden:
 \item[] Returns: die erstellte Rangliste als \texttt{List<Agent>}
 \end{itemize}
 
+\subsubsection{Class \texttt{TotalCapitalSuccessQuantifier}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Absolutkapital}-Erfolgsquantifizierung
+
+\subsubsection{Class \texttt{TotalPayoffSuccessQuantifier}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Absolutkapital ohne Initialkapital}-Erfolgsquantifizierung.
+
+\subsubsection{Class \texttt{SlidingMeanSuccessQuantifier}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Gleitender Durchschnitt}-Erfolgsquantifizierung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{SlidingMeanSuccessQuantifier(int windowSize)}
+\item[] Erstellt einen neuen \texttt{SlidingMeanSuccessQuantifier} mit der gegebenen Fenstergröße.
+\item[] \texttt{windowSize}: die Fenstergröße für die Durchschnittsberechnung
+\end{itemize}
+
+\subsubsection{Class \texttt{PayoffInLastAdaptSuccessQuantifier}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Auszahlung im letzten Adaptionsschritt}-Erfolgsquantifizierung.
+
 \subsubsection{Interface \texttt{StrategyAdjuster}}
 Dieses Interface repräsentiert einen Adaptionsmechanismus. Eine Implementierung nimmt eine nach Rang geordnete Liste von Agenten entgegen und passt die Strategien der Agenten an.
 
@@ -515,6 +566,32 @@ Methoden:
 \item \texttt{void adaptStrategies(List<Agent> agents)}
 \item[] Adaptiert die Strategien der gegebenen Agenten.
 \item[] \texttt{agents}: die Agenten, deren Strategien adaptiert werden sollen, geordnet nach Erfolg im aktuellen Adaptionsschritt
+\end{itemize}
+
+\subsubsection{Class \texttt{ReplicatorDynamicStrategyAdjuster}}
+Implements: \texttt{StrategyAdjuster}
+
+Realisiert den in der Spezifikation beschriebenen \enquote{Replicator Dynamic}-Anpassungsmechanismus.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{ReplicatorDynamicStrategyAdjuster(double alpha, double delta)}
+\item[] Erstellt einen neuen \texttt{ReplicatorDynamicStrategyAdjuster} mit den gegebenen Parameter \(\alpha\) und \(\delta\).
+\item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
+\item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
+\end{itemize}
+
+\subsubsection{Class \texttt{PreferentialAdaptionStrategyAdjuster}}
+Implements: \texttt{StrategyAdjuster}
+
+Realisiert den in der Spezifikation beschriebenen \enquote{Preferential Adaption}-Anpassungsmechanismus.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PreferentialAdaptionStrategyAdjuster(double alpha, double delta)}
+\item[] Erstellt einen neuen \texttt{PreferentialAdaptionStrategyAdjuster} mit den gegebenen Parameter \(\alpha\) und \(\delta\).
+\item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
+\item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
 \end{itemize}
 
 \subsubsection{Interface \texttt{EquilibriumCriterion}}
