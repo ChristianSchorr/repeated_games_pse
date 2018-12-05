@@ -579,6 +579,62 @@ Implements: \texttt{SimulationHistory}
 
 Diese Klasse implementiert das \texttt{SimulationHistory}-Interface.
 
+\subsubsection{Class \texttt{SimulationEngine}}
+
+Diese Klasse bietet eine Methode zur Ausführung einer einzelnen Wiederholung zu einer gegebenen elementaren Konfiguration. Das Ergebnis wird in Form eines \texttt{IterationResult}-Objekts zurückgegeben.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{IterationResult executeIteration(Configuration configuration)}
+\item[] Führt eine Wiederholung zu der gegebenen elementaren Konfiguration aus und gibt nach Abschluss das Ergebnis als \texttt{IterationResult} zurück.
+\item[] \texttt{configuration}: die elementare Konfiguration, zu der die Wiederholung ausgeführt werden soll
+\item[] Returns: das Ergebnis der Wiederholung als \texttt{IterationResult}
+\end{itemize}
+
+\subsubsection{Class \texttt{IterationResult}}
+In einem Objekt dieser Klasse können die Ergebnisse einer durchgeführten Wiederholung gespeichert und abgefragt werden:
+\begin{itemize}\itemsep -10pt
+\item Die Agenten, geordnet nach Rang als \texttt{List<Agent>}
+\item Der Verlauf des letzten Adaptionsschritts als \texttt{SimulationHistory}
+\item Ob ein Gleichgewicht eingetreten ist
+\item Die Effizienz des finalen Zustands
+\item Die Zahl der durchgeführten Adaptionsschritte
+\end{itemize}
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{IterationResult(List<Agent> agents, SimulationHistory history, boolean equilibriumReached, double efficiency, int adapts)}
+\item[] Erzeugt ein neues \texttt{IterationResult}-Objekt mit den gegebenen Simulationsergebnissen.
+\item[] \texttt{agents}: die Agenten der Simulation, geordnet nach finalem Rang
+\item[] \texttt{history}: der Verlauf des letzten Adaptionsschritts
+\item[] \texttt{equilibriumReached}: \texttt{true}, falls ein Gleichgewicht erreicht wurde, \texttt{false} sonst
+\item[] \texttt{efficiency}: die Effizienz des finalen Zustands
+\item[] \texttt{adapts}: die Zahl durchgeführter Adaptionsschritte
+\end{itemize}
+
+Methoden
+\begin{itemize}\itemsep -10pt
+\item \texttt{List<Agent> getAgents()}
+\item[] Gibt die Agenten der Simulation zurück, geordnet nach finalem Rang
+\item[] Returns: die Agenten der Simulation, geordnet nach finalem Rang
+
+\item \texttt{SimulationHistory getHistory()}
+\item[] Gibt den Verlauf des finalen Adaptionsschrittes zurück
+\item[] Returns: den Verlauf des finalen Adaptionsschrittes als \texttt{SimulationHistory}
+
+\item \texttt{boolean equilibriumReached()}
+\item[] Gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
+\item[] Returns: \texttt{true}, fallss sich ein Gleichgewicht eingestellt hat, \texttt{false} sonst
+
+\item \texttt{double getEfficiency()}
+\item[] Gibt die Effizienz des finalen Zustands zurück.
+\item[] Returns: die Effizienz des finalen Zustands
+
+\item \texttt{int getAdapts()}
+\item[] Gibt die Zahl durchgeführter Adaptionsschritte zurück.
+\item[] Returns: die Zahl durchgeführter Adaptionsschritte
+\end{itemize}
+
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine.core}}
 Dieses Paket beinhaltet für den Simulationsablauf zentrale Klassen wie den \texttt{Agent}, das Stufenspiel (\texttt{Game}) oder die \texttt{Strategy}.
 
@@ -617,6 +673,20 @@ Methoden:
 \item \texttt{int getGroupId()}
 \item[] Gibt die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
 \item[] Returns: die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
+\end{itemize}
+
+\subsubsection{Interface \texttt{AgentPair}}
+Dieses Interface repräsentiert ein Paar von Agenten.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{getFirstAgent()}
+\item[] Gibt den ersten der beiden Agenten zurück.
+\item[] Returns: den ersten der beiden Agenten
+
+\item \texttt{getSecondAgent()}
+\item[] Gibt den zweiten der beiden Agenten zurück.
+\item[] Returns: den zweiten der beiden Agenten
 \end{itemize}
 
 \subsubsection{Class \texttt{GameResult}}
@@ -737,10 +807,13 @@ Methoden:
 \item[] Gibt die \texttt{id} der Gruppe zurück, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört.
 \item[]die \texttt{id} der Gruppe, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört
 
-\item \texttt{CapitalDistribution getCapitalDistribution()}
-//vorläufig
-\item \texttt{StrategyDistribution getStrategyDistribution()}
-//vorläufig
+\item \texttt{DiscreteDistribution getCapitalDistribution()}
+\item[] Gibt die Kapitalverteilung dieses Segments zurück
+\item[] Returns: die Kapitalverteilung dieses Segments als \texttt{DiscreteDistribution}
+
+\item \texttt{UniformFiniteDistribution<Strategy> getStrategyDistribution()}
+\item[] Gibt die Strategieverteilung dieses Segments zurück
+\item[] Returns: die Strategieverteilung dieses Segments als \texttt{UniformFiniteDistribution<Strategy>}
 \end{itemize}
 
 \subsubsection{Interface \texttt{PairBuilder}}
