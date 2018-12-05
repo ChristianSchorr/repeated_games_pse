@@ -108,13 +108,12 @@ m1=1..*</panel_attributes>
       <x>343</x>
       <y>112</y>
       <w>245</w>
-      <h>70</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 AgentPair
 --
 --
-+AgentPair(agent1 : Agent, agent2: Agent) : void;
 +getAgentA() : Agent;
 +getAgentB() : Agent;
 </panel_attributes>
@@ -144,7 +143,7 @@ m2=2
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
-m2=2..n</panel_attributes>
+m2=2..*</panel_attributes>
     <additional_attributes>550.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
@@ -213,7 +212,7 @@ implements</panel_attributes>
       <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=0..n
+m2=0..*
 m1=1</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
@@ -251,16 +250,16 @@ genearates</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>973</x>
-      <y>637</y>
-      <w>350</w>
-      <h>91</h>
+      <y>651</y>
+      <w>238</w>
+      <h>70</h>
     </coordinates>
-    <panel_attributes>Game
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Game
 -
 +getName(): String
 +getDescription(): String
-
-+play(p1: Agent, p2: Agent, a1: boolean, a2: boolean): GameResult
++play(a1: boolean, a2: boolean): GameResult
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -325,12 +324,12 @@ m1=0..1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>581</x>
-      <y>119</y>
+      <y>126</y>
       <w>98</w>
       <h>28</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-implements</panel_attributes>
-    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
   </element>
 </diagram>
