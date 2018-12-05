@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1430</x>
       <y>20</y>
-=======
-      <x>530</x>
-      <y>110</y>
->>>>>>> Entwurfsdokument
       <w>300</w>
       <h>120</h>
     </coordinates>
@@ -27,13 +22,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1570</x>
       <y>230</y>
-=======
-      <x>500</x>
-      <y>300</y>
->>>>>>> Entwurfsdokument
       <w>370</w>
       <h>100</h>
     </coordinates>
@@ -49,13 +39,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1510</x>
       <y>370</y>
-=======
-      <x>440</x>
-      <y>460</y>
->>>>>>> Entwurfsdokument
       <w>280</w>
       <h>80</h>
     </coordinates>
@@ -69,13 +54,8 @@ CapitalDistribution
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1120</x>
       <y>520</y>
-=======
-      <x>50</x>
-      <y>610</y>
->>>>>>> Entwurfsdokument
       <w>390</w>
       <h>60</h>
     </coordinates>
@@ -87,13 +67,8 @@ CapitalDistribution
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1520</x>
       <y>520</y>
-=======
-      <x>450</x>
-      <y>610</y>
->>>>>>> Entwurfsdokument
       <w>260</w>
       <h>60</h>
     </coordinates>
@@ -105,13 +80,8 @@ CapitalDistribution
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1790</x>
       <y>520</y>
-=======
-      <x>720</x>
-      <y>610</y>
->>>>>>> Entwurfsdokument
       <w>290</w>
       <h>60</h>
     </coordinates>
@@ -123,13 +93,8 @@ CapitalDistribution
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1640</x>
       <y>440</y>
-=======
-      <x>570</x>
-      <y>530</y>
->>>>>>> Entwurfsdokument
       <w>30</w>
       <h>100</h>
     </coordinates>
@@ -139,13 +104,8 @@ CapitalDistribution
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1300</x>
       <y>480</y>
-=======
-      <x>230</x>
-      <y>570</y>
->>>>>>> Entwurfsdokument
       <w>370</w>
       <h>60</h>
     </coordinates>
@@ -155,13 +115,8 @@ CapitalDistribution
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1640</x>
       <y>480</y>
-=======
-      <x>570</x>
-      <y>570</y>
->>>>>>> Entwurfsdokument
       <w>310</w>
       <h>60</h>
     </coordinates>
@@ -171,17 +126,10 @@ CapitalDistribution
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1820</x>
       <y>370</y>
       <w>570</w>
       <h>90</h>
-=======
-      <x>750</x>
-      <y>460</y>
-      <w>540</w>
-      <h>80</h>
->>>>>>> Entwurfsdokument
     </coordinates>
     <panel_attributes>/StrategyDistribution/
 -
@@ -194,13 +142,8 @@ CapitalDistribution
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>2150</x>
       <y>520</y>
-=======
-      <x>1080</x>
-      <y>610</y>
->>>>>>> Entwurfsdokument
       <w>190</w>
       <h>30</h>
     </coordinates>
@@ -211,13 +154,8 @@ CapitalDistribution
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>2230</x>
       <y>450</y>
-=======
-      <x>1160</x>
-      <y>530</y>
->>>>>>> Entwurfsdokument
       <w>30</w>
       <h>90</h>
     </coordinates>
@@ -227,13 +165,8 @@ CapitalDistribution
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1680</x>
       <y>130</y>
-=======
-      <x>670</x>
-      <y>220</y>
->>>>>>> Entwurfsdokument
       <w>30</w>
       <h>120</h>
     </coordinates>
@@ -243,17 +176,10 @@ CapitalDistribution
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1640</x>
       <y>320</y>
       <w>40</w>
       <h>70</h>
-=======
-      <x>570</x>
-      <y>390</y>
-      <w>30</w>
-      <h>90</h>
->>>>>>> Entwurfsdokument
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1</panel_attributes>
@@ -262,17 +188,10 @@ m1=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1870</x>
       <y>320</y>
       <w>40</w>
       <h>70</h>
-=======
-      <x>800</x>
-      <y>390</y>
-      <w>30</w>
-      <h>90</h>
->>>>>>> Entwurfsdokument
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1</panel_attributes>
@@ -281,33 +200,23 @@ m1=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1800</x>
       <y>50</y>
-=======
-      <x>900</x>
-      <y>140</y>
->>>>>>> Entwurfsdokument
       <w>420</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-EquilibriumCriterion
+    <panel_attributes>/EquilibriumCriteria/
 -
-+isEquilibrium(ranking: List&lt;Agent&gt;): boolean
-+hasEquilibriumCondition(ranking:List&lt;Agent&gt;): boolean</panel_attributes>
+/+isEquilibrium(ranking: List&lt;Agent&gt;): boolean/
+/+hasEquilibriumCondition(ranking:List&lt;Agent&gt;): boolean/
++setNewRanking(ranking: List&lt;Agent&gt;): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1840</x>
       <y>180</y>
-=======
-      <x>940</x>
-      <y>270</y>
->>>>>>> Entwurfsdokument
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -318,13 +227,8 @@ EquilibriumCriterion
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>2030</x>
       <y>180</y>
-=======
-      <x>1130</x>
-      <y>270</y>
->>>>>>> Entwurfsdokument
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -335,13 +239,8 @@ EquilibriumCriterion
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>2000</x>
       <y>120</y>
-=======
-      <x>1100</x>
-      <y>210</y>
->>>>>>> Entwurfsdokument
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -351,13 +250,8 @@ EquilibriumCriterion
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1910</x>
       <y>150</y>
-=======
-      <x>1010</x>
-      <y>240</y>
->>>>>>> Entwurfsdokument
       <w>120</w>
       <h>50</h>
     </coordinates>
@@ -367,13 +261,8 @@ EquilibriumCriterion
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1720</x>
       <y>90</y>
-=======
-      <x>820</x>
-      <y>180</y>
->>>>>>> Entwurfsdokument
       <w>100</w>
       <h>40</h>
     </coordinates>
