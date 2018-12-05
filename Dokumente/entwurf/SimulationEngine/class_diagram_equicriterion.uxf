@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>250</y>
+      <w>410</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+EquilibriumCriterion
+--
++isEquilibrium(agents: List&lt;Agent&gt;, history: SimulationHistory)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>400</y>
+      <w>630</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>/CountingEquilibriumCriterion/
+--
+-consecutiveRounds: int
+-lastRoundAgents: List&lt;Agent&gt;
+--
++isEquilibrium(agents: List&lt;Agent&gt;, history: SimulationHistory)
+/+hasEquilibriumCondition(lastRoundAgents: List&lt;Agent&gt;, thisRoundAgents: List&lt;Agent&gt;): boolean/
+/+longEnough(consecutiveRounds: int): boolean/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>940</x>
+      <y>440</y>
+      <w>370</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>boolean isEqui = false;
+if (hasEquilibriumCondition(lastRoundAgents, agents)) {
+    isEqui = longEnough(++consecutiveRounds);
+} else {
+    consecutiveRounds = 0;
+}
+lastRoundAgents = deepCopy(agents);
+return isEqui;
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>460</y>
+      <w>300</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>310</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>540</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>570</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>StrategyEquilibrium
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>510</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;110.0;40.0;110.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>410</x>
+      <y>570</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>CapitalEquilibrium
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

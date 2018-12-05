@@ -50,6 +50,27 @@
 \section{Einleitung}
 TODO
 
+\section{Spezifikationsänderungen}
+
+\subsection{Populationen}
+Das Konzept von Gruppen und Segmenten wurde überarbeitet. Die Gesamtheit der Gruppen, Segmente, sowie deren Größen und Einstellungen (bis auf Multikonfiguration) heißt nun eine \enquote{Population}. Die Konfiguration von Gruppen und Populationen wurde aus dem Konfigurationsfenster ausgelagert. Wie zur Strategie- und Stufenspielerstellung gibt es nun Fenster zur Erstellung einzelner Gruppen und Populationen.
+
+\textbf{Gruppenerstellung:}
+Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung wie auch schon zuvor im Konfigurationsfenster eingestellt werden (siehe \cref{?}). Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
+
+\textbf{Populationserstellung:}
+Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben und eine mit \enquote{ist kohärent} betitelte Checkbox (de-)aktiviert werden (siehe \cref{?}). Die Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten} aus der gruppenlosen Agenten. Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
+
+Das Konfigurationsfenster ist nun nicht mehr in drei Bereiche unterteilt. Statt der Gruppeneinstellungen befindet sich nun zwischen den nun verschmolzenen, ehemaligen \enquote{Grund-} und \enquote{Erweiterten Einstellungen} nur noch ein Dropdown-Menü mit der Betitelung \enquote{Population} (siehe \cref{?}). Hier kann eine der selbst erstellten oder von vornherein im Programm hinterlegten Populationen ausgewählt werden. Unter dem Dropdown-Menü kann ein Abschnitt ausgeklappt werden, der die Zusammensetzung der Population zeigt (siehe \cref{?}). Dieser hat dieselbe Form wie die ehemaligen Gruppeneinstellungen, mit dem Unterschied, dass keine Modifikationen mehr vorgenommen werden können. Per Checkbox kann dort die \enquote{Multikonfiguration} für Segmente und Gruppen wie zuvor aktiviert werden.
+
+\subsection{Strategien}
+Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können wurde um die folgenden erweitert:
+
+\begin{itemize}
+\item B hat bei bisherigen Spielen zwischen B und Agenten derselben Gruppenzugehörigkeit wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
+\item B hat bei bisherigen Spielen zwischen B und Agenten mit ähnlichem aktuellen Kapital wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
+\end{itemize}
+
 \section{Pakete und Klassen}
 \subsection{Paket \texttt{edu.kit.loop.model}}
 Das Modell beinhaltet Klassen und Methoden zum Starten und Abbrechen von Simulationen, sowie zum Erstellen und Speichern von Konfigurationen, Stufenspielen, Strategien und Populationen.
@@ -68,7 +89,7 @@ Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederh
 \begin{itemize}\itemsep -10pt
 \item Stufenspiel
 \item Anzahl von Agenten
-\item Runden pro Wiederholung
+\item Runden pro Adaptionsschritt
 \item Ob gemischte Strategien zugelassen sind
 \item Gruppen-/Segmenteinteilungen
 \item Kapital- und Strategieinitialisierung der Segmente
@@ -80,8 +101,209 @@ Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederh
 \end{itemize}
 
 Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
+\item[] Erstellt eine neue \texttt{Configuration} mit den gegebenen Parametern.
+\item[] \texttt{game}: Das Stufenspiel dieser Konfiguration
+\item[] \texttt{roundCount}: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+\item[] \texttt{mixedStrategies}: gibt an, ob gemischte Strategien in dieser Konfiguration erlaubt sind
+\item[] \texttt{segments}: alle Segmente dieser Konfiguration
+\item[] \texttt{pairBuilder}: Der Paarbildungsalgorithmus dieser Konfiguration
+\item[] \texttt{successQuantifier}: die Erfolgsquantifizierung dieser Konfiguration
+\item[] \texttt{strategyAdjuster}: der Adaptionsmechanismus dieser Konfiguration
+\item[] \texttt{equilibriumCriterion}: das Gleichgewichtskriterium dieser Konfiguration
+\item[] \texttt{maxAdapts}: die maximale Zahl durchzuführender Adaptionsschritte dieser Konfiguration
+\end{itemize}
 
 Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Game getGame()}
+\item[] Gibt das Stufenspiel dieser Konfiguration zurück.
+\item[] Returns: das Stufenspiel dieser Konfiguration
+
+\item \texttt{int getAgentCount()}
+\item[] Gibt die Anzahl von Agenten in dieser Konfiguration zurück.
+\item[] Returns: die Anzahl von Agenten in dieser Konfiguration
+
+\item \texttt{int getRoundCount()}
+\item[] Gibt die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration zurück.
+\item[] Returns: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+
+\item \texttt{boolean allowsMixedStrategies()}
+\item[] Gibt zurück, ob in dieser Konfiguration gemischte Strategien zugelassen sind.
+\item[] Returns: \texttt{true}, falls in dieser Konfiguration gemischte Strategien zugelassen sind; \texttt{false} sonst
+
+\item \texttt{Collection<Segment> getSegments()}
+\item[] Gibt alle zu dieser Konfiguration gehörenden Segmente zurück.
+\item[] Returns: eine \texttt{Collection} aller \texttt{Segment}e dieser Konfiguration
+
+\item \texttt{PairBuilder getPairBuilder()}
+\item[] Gibt den Paarbildungsalgorithmus dieser Konfiguration zurück.
+\item[] Returns: den Paarbildungsalgorithmus dieser Konfiguration
+
+\item \texttt{SuccessQuantifier getSuccessQuantifier()}
+\item[] Gibt die Erfolgsquantifizierung dieser Konfiguration zurück.
+\item[] Returns: die Erfolgsquantifizierung dieser Konfiguration
+
+\item \texttt{StrategyAdjuster getStrategyAdjuster()}
+\item[] Gibt den Adaptionsmechanismus dieser Konfiguration zurück.
+\item[] Returns: den Adaptionsmechanismus dieser Konfiguration
+
+\item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
+\item[] Gibt das Gleichgewichtskriterium dieser Konfiguration zurück.
+\item[] Returns: das Gleichgewichtskriterium dieser Konfiguration
+
+\item \texttt{int getMaxAdapts()}
+\item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
+\item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
+\end{itemize}
+
+\subsubsection{Interface \texttt{Nameable}}
+
+Implementierungen dieses Interface haben einen Namen und eine Beschreibung, die in Form von \texttt{String}s abgefragt werden können.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{String getName()}
+\item[] Gibt den Namen des Objekts zurück.
+\item[] Returns: den Namen des Objekts als \texttt{String}
+
+\item \texttt{String getDescription()}
+\item[] Gibt die Beschreibung des Objekts zurück.
+\item[] Returns: die Beschreibung des Objekts als \texttt{String}
+\end{itemize}
+
+\subsection{edu.kit.loop.model.distribution}
+
+\subsubsection{Interface \texttt{Distribution<E>}}
+Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem Träger von Objekten des Typs \texttt{E}. Eine Implementierung gibt auf Anfrage die Wahrscheinlichkeit eines bestimmten Objekts zurück und stellt einen \texttt{Picker<E>} zur Verfügung, mit dem zufällig Objekte aus der Wahrscheinlichkeitsverteilung gezogen werden können.
+
+Methoden
+\begin{itemize}\itemsep -10pt
+\item \texttt{double getProbability(E object)}
+\item[] Gibt die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung zurück.
+\item[] \texttt{element}: das Objekt, dessen Wahrscheinlichkeit abgefragt werden soll
+\item[] Returns: die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung
+
+\item \texttt{Picker<E> getPicker()}
+\item[] Gibt einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung zurück.
+\item[] Returns: einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung
+\end{itemize}
+
+\subsubsection{Interface \texttt{Picker<E>}}
+Ein \texttt{Picker<E>} wird von Implementierungen des \texttt{Distribution<E>}-Interfaces zur Verfügung gestellt, um Objekte aus der entsprechenden Wahrscheinlichkeitsverteilung zu ziehen.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{E pickOne()}
+\item[] Zieht ein Objekt aus der Wahrscheinlichkeitsverteilung und gibt dieses zurück.
+\item[] Returns: das aus der Wahrscheinlichkeitsverteilung gezogene Objekt
+
+\item \texttt{Collection<E> pickMany(int i)}
+\item[] Zieht mehrere Objekte aus der Wahrscheinlichkeitsverteilung und gibt diese als \texttt{Collection<E>} zurück.
+\item[] \texttt{i}: die Anzahl der Objekte, die aus der Wahrscheinlichkeitsverteilung gezogen werden sollen
+\item[] Returns: die aus der Wahrscheinlichkeitsverteilung gezogenen Objekte als \texttt{Collection<E>}
+\end{itemize}
+
+\subsubsection{Interface \texttt{DiscreteDistribution}}
+Implements: \texttt{Distribution<Integer>}
+
+Repräsentiert eine diskrete Wahrscheinlichkeitsverteilung auf den ganzen Zahlen. Eine Implementierung berechnet für einen gegebenen Wert \(q \in (0,1)\) ein Intervall \(I_q = [a,b]\) (\(a,b \in \mathbb{Z}, a < b\)), sodass ein zufällig gezogener Wert aus der Verteilung mindestens mit der Wahrscheinlichkeit \(q\) in \(I_q\) liegt. Die Grenzen dieses Intervalls können abgefragt werden.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getSupportMin(double q)}
+\item[] Gibt die linke Grenze des Intervalls \(I_q\) zurück.
+\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
+\item[] Returns: die linke Grenze des Intervalls \(I_q\)
+
+\item \texttt{int getSupportMax(double q)}
+\item[] Gibt die rechte Grenze des Intervalls \(I_q\) zurück.
+\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
+\item[] Returns: die rechte Grenze des Intervalls \(I_q\)
+\end{itemize}
+
+\subsubsection{Class \texttt{PoissonDistribution}}
+Implements: \texttt{DiscreteDistribution}
+
+Repräsentiert eine Poisson-Verteilung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PoissonDistribution(double lambda)}
+\item[] Erzeugt ein neues \texttt{PoissonDistribution}-Objekt mit dem Parameter \texttt{lambda}.
+\item[] \texttt{lambda}: der variable Parameter in der Poissonverteilung
+\end{itemize}
+
+\subsubsection{Class \texttt{BinomialDistribution}}
+Implements: \texttt{DiscreteDistribution}
+
+Repräsentiert eine Bionomialverteilung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{BinomialDistribution(int a, int b, double p)}
+\item[] Erzeugt ein neues \texttt{BinomialDistribution}-Objekt mit den gegebenen Parametern.
+\item[] \texttt{a}: die linke Grenze der Verteilung
+\item[] \texttt{b}: die rechte Grenze der Verteilung
+\item[] \texttt{p}: der Wahrscheinlichkeitsparameter \(p \in [0,1]\) der Binomialverteilung
+\end{itemize}
+
+\subsubsection{Class \texttt{DiscreteUniformDistribution}}
+Implements: \texttt{DiscreteDistribution}
+
+Repräsentiert eine diskrete Gleichverteilung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{DiscreteUniformDistribution(int a, int b)}
+\item[] Erzeugt ein neues \texttt{DiscreteUniformDistribution}-Objekt mit den gegebenen Parametern.
+\item[] \texttt{a}: die linke Grenze der Verteilung
+\item[] \texttt{b}: die rechte Grenze der Verteilung
+\end{itemize}
+
+\subsubsection{Interface \texttt{FiniteDistribution<E>}}
+Extends: \texttt{Distribution<E>}
+
+Repräsentiert eine Wahrscheinlichkeitsverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen geben auf Abfrage den Träger als \texttt{Collection<E>} zurück.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Collection<E> getSupport()}
+\item[] Gibt den Träger dieser Wahrscheinlichkeitsverteilung zurück.
+\item[] Returns: den Träger dieser Wahrscheinlichkeitsverteilung als \texttt{Collection<E>}
+\end{itemize}
+
+\subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
+Implements: \texttt{FiniteDistribution<E>}
+
+Repräsentiert eine Gleichverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen bieten Methoden zum Hinzufügen und Entfernen von Objekten.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{UniformFiniteDistribution<E>()}
+\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit leerem Träger.
+
+\item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
+\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit den gegebenen Objekten als Träger.
+\item[] \texttt{objects}: die Objekte des Trägers dieser Wahrscheinlichkeitsverteilung
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addObject(E object)}
+\item[] Fügt das gegebene Objekt zum Träger hinzu.
+\item[] \texttt{object}: das Objekt, das dem Träger hinzugefügt werden soll
+
+\item \texttt{void addObjects(Collection<E> objects)}
+\item[] Fügt die gegebenen Elemente zum Träger hinzu.
+\item[] \texttt{objects}: die Objekte, die dem Träger hinzugefügt werden sollen
+
+\item \texttt{boolean deleteObject(E object)}
+\item[] Entfernt das gegebene Objekt aus dem Träger, falls enthalten.
+\item[] \texttt{object}: das Objekt, das aus dem Träger entfernt werden soll
+\item[] Returns: \texttt{true}, falls das gegebene Objekt im Träger enthalten war und entfernt wurde, andernfalls \texttt{false}
+\end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
 Dieses Paket enthält das Interface \texttt{Simulator}. Dieses bietet eine Schnittstelle zum Starten und Abbrechen von Simulationen. Beim Start einer Simulation wird eine Referenz auf ein \texttt{Simulation}-Objekt zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der Simulation abgefragt werden können.
@@ -208,42 +430,26 @@ Methoden:
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
 
-\subsubsection{Class \texttt{GameResult}}
+Dieses Paket beinhaltet die Klasse \texttt{SimulationEngine}, mit der eine einzelne Wiederholung zu einer bestimmten elementaren Konfiguration ausgeführt werden kann.
 
-Diese Klasse speichert das Ergebnis einer Runde zwischen zwei Agenten. Das Ergebnis besteht aus:
+\subsubsection{Class \texttt{AgentInitializer}}
+Ein \texttt{AgentInitializer} kann verwendet werden, um die Agenten eines gegebenen Segments zu erstellen und mit Kapital, Strategien und Gruppenzugehörigkeit zu initialisieren.
+
+Konstruktoren:
 \begin{itemize}\itemsep -10pt
-	\item Den beteiligten Agenten
-	\item Den Aktionen der beteiligten Agenten
-	\item Die erhaltenen Auszahlungen der Agenten
+\item \texttt{AgentInitializer()}
+\item[] Erzeugt einen neuen \texttt{AgentInitializer}.
 \end{itemize}
-	
-Konstruktor:
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{Agent getMainAgent()}
-	\item[]Gibt den Hauptspieler der zum Ergebnis gehörenden Runde zurück.
-	\item[]Returns: Der Hauptagent der Runde
-	\item \texttt{Agent getOpponentAgent()}
-	\item[]Gibt den Gegenspieler der zum Ergebnis gehörenden Runde zurück.
-	\item[]Returns: Der Gegenspieler der Runde
-	\item \texttt{int getMainAgentPayoff()}
-	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Hauptspielers zurück.
-	\item[]Returns: Die erzielte Auszahlung
-	\item \texttt{int getOpponentAgentPayoff()}
-	\item[] Gibt die in der zughörigen Runde erzielte Auszahlung des Gegenspielers zurück.
-	\item[]Returns: Die erzielte Auszahlung
-	\item \texttt{boolean hasMainAgentCooperated()}
-	\item[]Gibt zurück, ob der Hauptspieler in der zugehörigen Runde kooperiert hat oder nicht.
-	\item[]Returns: 
-	\item \texttt{boolean hasOpponentAgentCooperated()}
-	\item[]Gibt zurück, ob der Gegenspieler in der zugehörigen Runde kooperiert hat oder nicht.
-	\item[]Returns: 
+\item \texttt{Collection<Agent> initializeAgents(Segment segment)}
+\item[] Erzeugt die Agenten des gegebenen Segments und initialisiert sie mit Kapital, Strategien und Gruppenzugehörigkeiten. Gibt die Agenten als \texttt{Collection} zurück.
+\item[] Returns: die initialisierten Agenten als \texttt{Collection}
 \end{itemize}
 
-
 \subsubsection{Interface \texttt{SimulationHistory}}
-Eine Implementierung des \texttt{SimulationHistory}-Interfaces speichert für jeden Agenten die Ergebnisse aller bisherigen Runden eines Adaptionsschrittes. Es werden Methoden zum Hinzufügen ne bereitgestellt:
+Eine Implementierung des \texttt{SimulationHistory}-Interfaces speichert für jeden Agenten die Ergebnisse aller bisherigen Runden eines Adaptionsschrittes.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
@@ -279,6 +485,282 @@ Implements: \texttt{SimulationHistory}
 
 Diese Klasse implementiert das \texttt{SimulationHistory}-Interface.
 
+\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.core}}
+Dieses Paket beinhaltet für den Simulationsablauf zentrale Klassen wie den \texttt{Agent}, das Stufenspiel (\texttt{Game}) oder die \texttt{Strategy}.
+
+\subsubsection{Class \texttt{Agent}}
+Diese Klasse repräsentiert einen einzelnen Agenten in einem Simulationsdurchlauf. Sie enthält Informationen über den Agenten wie dessen Gruppenzugehörigkeit, sein aktuelles und initiales Kapital oder seine aktuelle Strategie.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Agent(int initialCapital, Strategy initialStrategy, int groupId)}
+\item[] Erstellt einen neuen Agenten mit gegebenem Anfangskapital, gegebener Strategie und gegebener Gruppenzugehörigkeit
+\item[] \texttt{initialCaptial}: das initiale Kapital des Agenten
+\item[] \texttt{initialStrategy}: die initiale Strategie des Agenten
+\item[] \texttt{groupId}: die \texttt{id} der Gruppe, der dieser Agent zugehörig ist; \(-1\), falls dieser Agent gruppenlos ist.
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getCapital()}
+\item[] Gibt das aktuelle Kapital des Agenten zurück.
+\item[] Returns: das aktuelle Kapital des Agenten
+
+\item \texttt{int getInitialCapital()}
+\item[] Gibt das initiale Kapital des Agenten zurück.
+\item[] Returns: das initiale Kapital des Agenten
+
+\item \texttt{void addCapital(int capital)}
+\item[] Erhöht das Kapital des Agenten um den gegebenen Wert.
+
+\item \texttt{Strategy getStrategy()}
+\item[] Gibt die aktuelle Strategie des Agenten zurück.
+\item[] Returns: die aktuelle Strategie des Agenten
+
+\item\texttt{void setStrategy(Strategy strategy)}
+\item[] Setze die Strategie des Agenten auf die gegebene Strategie.
+
+\item \texttt{int getGroupId()}
+\item[] Gibt die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
+\item[] Returns: die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
+\end{itemize}
+
+\subsubsection{Class \texttt{GameResult}}
+
+Diese Klasse speichert das Ergebnis eines Spiels zwischen zwei Agenten. Das Ergebnis besteht aus:
+\begin{itemize}\itemsep -10pt
+	\item Den beteiligten Agenten
+	\item Den Aktionen der beteiligten Agenten
+	\item Den erhaltenen Auszahlungen der Agenten
+\end{itemize}
+	
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{GameResult(Agent player1, Agent player2, int payOff1, int payOff2, boolean hasCooperated1, boolean hasCooperated2)}
+\item[] Erzeugt ein neues \texttt{GameResult}-Objekt.
+\item[] \texttt{player1}: der erste Spieler
+\item[] \texttt{player2}: der zweite Spieler
+\item[] \texttt{payOff1}: die erhaltene Auszahlung des ersten Spielers
+\item[] \texttt{payOff2}: die erhaltene Auszahlung des zweiten Spielers
+\item[] \texttt{hasCooperated1}: \texttt{true}, falls der erste Spieler kooperiert hat; \texttt{false} sonst
+\item[] \texttt{hasCooperated2}: \texttt{true}, falls der zweite Spieler kooperiert hat; \texttt{false} sonst
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item  \texttt{boolean hasAgent(Agent agent)}
+\item[] Gibt zurück, ob der gegebene Agent einer der beiden Spieler dieses Spiels war.
+\item[] \texttt{agent}: der Agent, für den geprüft werden soll, ob er Spieler dieses Spiels war
+\item[] Returns: \texttt{true}, falls der gegebene Agent einer der beiden Spieler dieses Spiels war; \texttt{false} sonst
+
+\item \texttt{int getPayoff(Agent agent)}
+\item[] Gibt die Auszahlung zurück, die der gegebene Agent bei diesem Spiel erhalten hat, falls er beteiligt war; andernfalls wird \(0\) zurückgegeben.
+\item[] \texttt{agent}: der Agent, dessen Auszahlung zurückgegeben werden soll
+\item[] Returns: die erhaltene Auszahlung des gegebenen Agenten, falls er beteiligt war; andernfalls \(0\)
+
+\item \texttt{boolean hasCooperated(Agent agent)}
+\item[] Gibt zurück, ob der gegebene Agent in diesem Spiel kooperiert hat, falls er beteiligt war. Andernfalls wird \texttt{false} zurückgegeben.
+\item[] \texttt{agent}: der Agent, für den zurückgegeben werden soll, ob er kooperiert hat
+\item[] Returns: \texttt{true}, falls der gegebene Agent an diesem Spiel beteiligt war und kooperiert hat, andernfalls \texttt{false}
+
+\item \texttt{Collection<Agent> getAgents()}
+\item[] Gibt die beiden an diesem Spiel beteiligten Agenten zurück.
+\item[] Returns: die beiden an diesem Spiel beteiligten Agenten als \texttt{Collection<Agent>}
+\end{itemize}
+
+\subsubsection{Interface \texttt{Game}}
+Extends: \texttt{Nameable}
+
+Dieses Interface repräsentiert ein Stufenspiel.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item[] \texttt{GameResult play(boolean playerOneCooperates, boolean playerTwoCooperates)}
+\item[] Lässt zwei Spieler mit gegebenen Kooperationsentscheidungen dieses Stufenspiel spielen und gibt das Ergebnis des Spiels als \texttt{GameResult}-Objekt zurück.
+\item[] \texttt{playerOneCooperates}: \texttt{true}, falls der erste Spieler kooperiert; \texttt{false sonst}
+\item[] \texttt{playerTwoCooperates}: \texttt{true}, falls der zweite Spieler kooperiert; \texttt{false sonst}
+\item[] Returns: das Ergebnis des Spiels als \texttt{GameResult}-Objekt
+\end{itemize}
+
+\subsubsection{Interface \texttt{Strategy}}
+Extends: \texttt{Nameable}
+
+Repräsentiert eine Strategie. Diese kann, muss aber nicht gemischt sein.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{boolean isCooperative(Agent player, Agent opponent, SimulationHistory history)}
+\item[] Gibt zurück, ob der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde. Ist die Strategie gemischt, wird entsprechend ein zufälliges Ergebnis ausgegeben.
+\item[] Returns: ob der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde
+
+\item \texttt{double getCooperationProbability(Agent player, Agent opponent, SimulationHistory history)}
+\item[] Gibt die Wahrscheinlichkeit zurück, mit der der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde.
+\item[] Returns: die Wahrscheinlichkeit, mit der der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde
+\end{itemize}
+
+\subsubsection{Class \texttt{PureStrategy}}
+Implements: \texttt{Strategy}
+
+Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt durch eine Bedingung an den gegnerischen Agenten basierend auf dem bisherigen Verlauf der Simulation, repräsentiert als \texttt{Predicate<Agent,SimulationHistory>}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
+\item[] Erzeugt ein neues \texttt{PureStrategy}-Objekt.
+\item[] \texttt{condition}: die Bedingung an den gegnerischen Agenten, unter der ein Agent bei Verwendung dieser Strategie kooperiert
+\end{itemize}
+
+\subsubsection{Class \texttt{CustomStrategy}}
+//vorläufig
+
+\subsubsection{Class \texttt{MixedStrategy}}
+Implements: \texttt{Strategy}
+
+Diese Klasse repräsentiert eine gemischte Strategie, die sich aus mehreren \texttt{PureStrategie}s zusammensetzt.
+
+Konstruktoren://vorläufig
+\begin{itemize}\itemsep -10pt
+\item[] //wirft exception wenn listen nicht gleichlang oder wahrsch. ungültig (alle positiv und in summe 1)
+\item \texttt{MixedStrategy(List<PureStrategies> pureStrategies, List<Integer> probabilites)}
+\item[] Erstellt eine neue \texttt{MixedStrategy}, die aus den gegebenen reinen Strategien mit den gegebenen Wahrscheinlichkeiten besteht.
+\item[] \texttt{pureStrategies}: die reinen Strategien, aus denen diese Strategie besteht
+\item[] \texttt{probabilities}: die Wahrscheinlichkeiten der gegebenen reinen Strategien
+\end{itemize}
+
+\subsubsection{Class \texttt{Segment}}
+//umbenennen!
+Diese Klasse repräsentiert ein Segment. Dieses wird charakterisiert durch die Anzahl zugehöriger Agenten, die \texttt{id} der Gruppe, zu der das Segment gehört sowie initiale Kapital- und Strategieverteilung.
+
+Konstruktoren:
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getAgentCount()}
+\item[] Gibt die Anzahl der Agenten in diesem Segment zurück.
+\item[] Returns: die Anzahl der Agenten in diesem Segment
+
+\item \texttt{int getGroupId()}
+\item[] Gibt die \texttt{id} der Gruppe zurück, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört.
+\item[]die \texttt{id} der Gruppe, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört
+
+\item \texttt{CapitalDistribution getCapitalDistribution()}
+//vorläufig
+\item \texttt{StrategyDistribution getStrategyDistribution()}
+//vorläufig
+\end{itemize}
+
+\subsubsection{Interface \texttt{PairBuilder}}
+Dieses Interface repräsentiert einen Paarbildungsalgorithmus. Eine Implementierung nimmt eine Menge von Agenten sowie den bisherigen Verlauf des aktuellen Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und gibt ein Matching der Agenten zurück.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Collection<AgentPair> buildPairs(Collection<Agent> agents, SimulationHistory history)}
+\item[] Fasst die gegebene Menge von Agenten zu Paaren zusammen und gibt diese als \texttt{Collection} von \texttt{AgentPair}s zurück.
+\item[] \texttt{agents}: die Agenten, aus denen Paare gebildet werden sollen
+\item[] \texttt{history}: der bisherige Verlauf des Adaptionsschritts
+\item[] Returns: die gebildeten Paare als \texttt{Collection<AgentPair>}
+\end{itemize}
+
+\subsubsection{Class \texttt{RandomPairBuilder}}
+Implements: \texttt{PairBuilder}
+
+Realisiert die zufällige Paarbildung von Agenten.
+
+\subsubsection{Class \texttt{CooperationConsideringPairBuilder}}
+Implements: \texttt{PairBuilder}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Paarbildung nach Wunsch}.
+
+\subsubsection{Class \texttt{RandomCooperationConsideringPairBuilder}}
+Implements: \texttt{PairBuilder}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Paarbildung nach Wunsch mit Zufall}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{RandomCooperationConsideringPairBuilder(double randomnessFactor)}
+\item[] Erstellt einen neuen \texttt{RandomCooperationConsideringPairBuilder}.
+\item[] \texttt{randomnessFactor}: der Zufallsfaktor für die Paarbildung; zwischen \(0\) und \(1\)
+\end{itemize}
+
+\subsubsection{Interface \texttt{SuccessQuantifier}}
+Dieses Interface repräsentiert eine Erfolgsquantifizierung. Eine Implementierung nimmt eine Menge von Agenten sowie den bisherigen Verlauf des aktuellen Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und erstellt eine Rangliste der Agenten anhand deren Erfolg in den vergangenen Runden. Diese wird als Liste zurückgegeben.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{List<Agent> createRanking(Collection<Agent> agents, SimulationHistory history)}
+\item[] Erstellt eine Rangliste der gegebenen Agenten und gibt diese als Liste zurück.
+\item[] \texttt{agents}: die Agenten, aus denen eine Rangliste erstellt werden soll
+\item[] \texttt{history}: der bisherige Verlauf des aktuellen Adaptionsschritts
+\item[] Returns: die erstellte Rangliste als \texttt{List<Agent>}
+\end{itemize}
+
+\subsubsection{Class \texttt{TotalCapital}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Absolutkapital}-Erfolgsquantifizierung
+
+\subsubsection{Class \texttt{TotalPayoff}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Absolutkapital ohne Initialkapital}-Erfolgsquantifizierung.
+
+\subsubsection{Class \texttt{SlidingMean}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Gleitender Durchschnitt}-Erfolgsquantifizierung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{SlidingMean(int windowSize)}
+\item[] Erstellt ein neues \texttt{SlidingMean}-Objekt mit der gegebenen Fenstergröße.
+\item[] \texttt{windowSize}: die Fenstergröße für die Durchschnittsberechnung
+\end{itemize}
+
+\subsubsection{Class \texttt{PayoffInLastAdapt}}
+Implements: \texttt{SuccessQuantifier}
+
+Realisiert die in der Spezifikation beschriebene \enquote{Auszahlung im letzten Adaptionsschritt}-Erfolgsquantifizierung.
+
+\subsubsection{Interface \texttt{StrategyAdjuster}}
+Dieses Interface repräsentiert einen Adaptionsmechanismus. Eine Implementierung nimmt eine nach Rang geordnete Liste von Agenten entgegen und passt die Strategien der Agenten an.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void adaptStrategies(List<Agent> agents)}
+\item[] Adaptiert die Strategien der gegebenen Agenten.
+\item[] \texttt{agents}: die Agenten, deren Strategien adaptiert werden sollen, geordnet nach Erfolg im aktuellen Adaptionsschritt
+\end{itemize}
+
+\subsubsection{Class \texttt{ReplicatorDynamic}}
+Implements: \texttt{StrategyAdjuster}
+
+Realisiert den in der Spezifikation beschriebenen \enquote{Replicator Dynamic}-Anpassungsmechanismus.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{ReplicatorDynamic(double alpha, double delta)}
+\item[] Erstellt ein neues \texttt{ReplicatorDynamic}-Objekt mit den gegebenen Parametern \(\alpha\) und \(\delta\).
+\item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
+\item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
+\end{itemize}
+
+\subsubsection{Class \texttt{PreferentialAdaption}}
+Implements: \texttt{StrategyAdjuster}
+
+Realisiert den in der Spezifikation beschriebenen \enquote{Preferential Adaption}-Anpassungsmechanismus.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PreferentialAdaption(double alpha, double delta)}
+\item[] Erstellt ein neues \texttt{PreferentialAdaption}-Objekt mit den gegebenen Parameter \(\alpha\) und \(\delta\).
+\item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
+\item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
+\end{itemize}
+
+\subsubsection{Interface \texttt{EquilibriumCriterion}}
+//vorläufig, morgen (5.12.) besprechen! siehe UML-Diagramm\\
+Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt nach jeder Runde mittels \texttt{boolean isEquilibrium(...)} eine nach aktuellem Rang geordnete Liste von Agenten entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat. Um aufeinanderfolgende Runden vergleichen zu können, muss eine Implementierung stets die Agentenliste des vorhergehenden Aufrufs von \texttt{isEquilibrium(...)} speichern.
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
