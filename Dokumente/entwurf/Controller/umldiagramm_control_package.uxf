@@ -4,17 +4,18 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
-      <y>0</y>
+      <x>665</x>
+      <y>20</y>
       <w>230</w>
-      <h>135</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>HeadController
 --
 -simulator : Simulator
 -configuration : Configuration
+-repository : ConfigurationParamterRepository
 -
-+CentralController(Simulator)
++CentralController(Simulator, ConfigurationParameterRepository)
 
 +setConfiguration(Configuraiton)
 +getConfiguration(): Configuration
@@ -32,7 +33,7 @@
     <id>Relation</id>
     <coordinates>
       <x>460</x>
-      <y>350</y>
+      <y>365</y>
       <w>45</w>
       <h>95</h>
     </coordinates>
@@ -44,13 +45,15 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>400</x>
-      <y>435</y>
+      <y>450</y>
       <w>135</w>
       <h>335</h>
     </coordinates>
     <panel_attributes>ConfigBascisController
 -
-+ConfigBasicsController()
+-repository : Repository&lt;t&gt;
+-
++ConfigBasicsController(Repository&lt;t&gt;)
 +setConfiguration(Configuration)
 +setValues()
 +setGame(Game)
@@ -96,13 +99,15 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>590</x>
-      <y>240</y>
+      <y>255</y>
       <w>140</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>MenuController
 -
-+ConfigMenuController()
+-repository : Repository&lt;t&gt;
+-
++ConfigMenuController(Repository&lt;t&gt;)
 +saveConfiguration()
 +loadConfiguration()
 +addGame()
@@ -119,13 +124,15 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>190</x>
-      <y>245</y>
+      <y>260</y>
       <w>155</w>
       <h>115</h>
     </coordinates>
     <panel_attributes>PopulationController
 -
-+GroupConfigurationController()
+-repository : Repository&lt;t&gt;
+-
++GroupConfigurationController(Repository&lt;t&gt;)
 +setConfiguration(Configuration)
 +addGroup(String)
 +deleteGroup(GroupID)
@@ -145,7 +152,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>260</x>
-      <y>200</y>
+      <y>215</y>
       <w>220</w>
       <h>55</h>
     </coordinates>
@@ -157,13 +164,15 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>245</y>
+      <y>260</y>
       <w>155</w>
-      <h>115</h>
+      <h>125</h>
     </coordinates>
     <panel_attributes>GroupController
+-
+-repository : Repository&lt;t&gt;
 --
-+GroupController()
++GroupController(Repository&lt;t&gt;)
 +setConfiguration(Configuration)
 +addSegment()
 +deleteSegment(SegmentID)
@@ -181,26 +190,28 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>65</x>
-      <y>355</y>
+      <y>380</y>
       <w>45</w>
-      <h>90</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-m1=0..
+m1=0..n
 observes</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>435</y>
+      <y>450</y>
       <w>155</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>SegmentController
 --
-+SegmentController()
+-repository : Repository&lt;t&gt;
+--
++SegmentController(Repository&lt;t&gt;)
 +addStrategy(String)
 +deleteStrategy() : String
 +selectCapitalDistibution(String)
@@ -215,7 +226,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>965</x>
-      <y>245</y>
+      <y>260</y>
       <w>210</w>
       <h>90</h>
     </coordinates>
@@ -237,7 +248,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1230</x>
-      <y>250</y>
+      <y>265</y>
       <w>220</w>
       <h>95</h>
     </coordinates>
@@ -245,8 +256,9 @@ observes</panel_attributes>
 -
 -actualStrategy : Strategy
 -strategyName : String
+-repository : Repository&lt;t&gt;
 -
-+NewStrategyController()
++NewStrategyController(Repository&lt;t&gt;)
 +getStrategyname() : String
 +setStrategyname(String)
 +getStrategy(): Strategy
@@ -257,7 +269,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1265</x>
-      <y>445</y>
+      <y>460</y>
       <w>145</w>
       <h>85</h>
     </coordinates>
@@ -266,7 +278,7 @@ observes</panel_attributes>
 -strategy : Strategy
 -expressionIds : List
 -
-+StrategyExpressionController(ChoiceController)
++StrategyExpressionController()
 +getStrategy() : Strategy
 +addExpression(id:int, position:int)
 +deleteExpression()</panel_attributes>
@@ -276,7 +288,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1270</x>
-      <y>600</y>
+      <y>615</y>
       <w>140</w>
       <h>45</h>
     </coordinates>
@@ -291,7 +303,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1340</x>
-      <y>340</y>
+      <y>355</y>
       <w>45</w>
       <h>115</h>
     </coordinates>
@@ -303,7 +315,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1345</x>
-      <y>525</y>
+      <y>540</y>
       <w>45</w>
       <h>85</h>
     </coordinates>
@@ -315,7 +327,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>780</x>
-      <y>240</y>
+      <y>255</y>
       <w>150</w>
       <h>90</h>
     </coordinates>
@@ -335,7 +347,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>940</x>
-      <y>430</y>
+      <y>445</y>
       <w>145</w>
       <h>70</h>
     </coordinates>
@@ -353,7 +365,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>780</x>
-      <y>560</y>
+      <y>575</y>
       <w>145</w>
       <h>90</h>
     </coordinates>
@@ -376,7 +388,7 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>790</x>
-      <y>435</y>
+      <y>450</y>
       <w>115</w>
       <h>60</h>
     </coordinates>
@@ -395,7 +407,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>840</x>
-      <y>490</y>
+      <y>505</y>
       <w>15</w>
       <h>80</h>
     </coordinates>
@@ -406,7 +418,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>835</x>
-      <y>325</y>
+      <y>340</y>
       <w>45</w>
       <h>120</h>
     </coordinates>
@@ -418,7 +430,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>835</x>
-      <y>325</y>
+      <y>340</y>
       <w>185</w>
       <h>115</h>
     </coordinates>
@@ -429,63 +441,63 @@ observes</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>850</x>
-      <y>130</y>
-      <w>80</w>
-      <h>120</h>
+      <x>770</x>
+      <y>155</y>
+      <w>95</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;220.0;10.0;150.0;140.0;150.0;140.0;10.0</additional_attributes>
+    <additional_attributes>170.0;200.0;170.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>465</x>
-      <y>130</y>
-      <w>465</w>
+      <y>155</y>
+      <w>320</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;130.0;620.0;130.0;620.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>155</y>
+      <w>585</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;220.0;10.0;150.0;910.0;150.0;910.0;10.0</additional_attributes>
+    <additional_attributes>1150.0;220.0;1150.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>915</x>
-      <y>130</y>
-      <w>440</w>
-      <h>130</h>
+      <x>770</x>
+      <y>155</y>
+      <w>300</w>
+      <h>115</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>860.0;240.0;860.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>580.0;210.0;580.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>915</x>
-      <y>130</y>
-      <w>155</w>
-      <h>125</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>290.0;230.0;290.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>915</x>
-      <y>130</y>
+      <x>770</x>
+      <y>155</y>
       <w>45</w>
-      <h>85</h>
+      <h>75</h>
     </coordinates>
     <panel_attributes>observes</panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>70</x>
-      <y>200</y>
+      <y>215</y>
       <w>205</w>
       <h>55</h>
     </coordinates>
@@ -496,15 +508,16 @@ observes</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>400</x>
-      <y>240</y>
+      <y>255</y>
       <w>150</w>
       <h>115</h>
     </coordinates>
     <panel_attributes>ConfigMainController
 -
 -configuration : Configuration
+-repository : Repository&lt;t&gt;
 -
-+ConfigMainController()
++ConfigMainController(Repositoy&lt;t&gt;)
 +run(Configuration)
 +configure()
 +setConfiguration(Configuration)
@@ -519,7 +532,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>650</x>
-      <y>200</y>
+      <y>215</y>
       <w>15</w>
       <h>50</h>
     </coordinates>
