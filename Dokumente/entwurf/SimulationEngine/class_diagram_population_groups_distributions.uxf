@@ -117,10 +117,10 @@ FiniteDistribution&lt;E&gt;
     <panel_attributes>UniformFiniteDistribution&lt;E&gt;
 --
 +UniformFiniteDistribution&lt;E&gt;() &lt;&lt;ctor&gt;&gt;
-+UniformFiniteDistribution&lt;E&gt;(elements: Collection&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
-+addElement(e: E): void
-+addElements(elements: Collection&lt;E&gt;): void
-+deleteElement(e: E): boolean</panel_attributes>
++UniformFiniteDistribution&lt;E&gt;(objects: Collection&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
++addObject(e: E): void
++addObjects(objects: Collection&lt;E&gt;): void
++deleteObject(e: E): boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
