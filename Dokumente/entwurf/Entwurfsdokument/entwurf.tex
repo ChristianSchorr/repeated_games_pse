@@ -279,6 +279,20 @@ Implements: \texttt{SimulationHistory}
 
 Diese Klasse implementiert das \texttt{SimulationHistory}-Interface.
 
+\subsection{Paket \texttt{edu.kit.loop.model.plugin}}
+
+\subsubsection{Class \texttt{PluginLoader}}
+
+Diese Klasse stellt die Funktionalität zum Laden von Plugins mittels der Java \texttt{ServiceLoader}-API zur Verfügung
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \underline{\texttt{static <T> List<T> loadPlugins()}}
+	\item[] Lädt alle verfügbaren Plugins des angegebenen Typs \texttt{T}
+	\item[] \texttt{<T>} Plugintyp der geladen werden soll
+	\item[]Returns: eine Liste der geladenen Plugins
+\end{itemize}
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
