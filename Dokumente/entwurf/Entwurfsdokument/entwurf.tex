@@ -50,6 +50,27 @@
 \section{Einleitung}
 TODO
 
+\section{Spezifikationsänderungen}
+
+\subsection{Populationen}
+Das Konzept von Gruppen und Segmenten wurde überarbeitet. Die Gesamtheit der Gruppen, Segmente, sowie deren Größen und Einstellungen (bis auf Multikonfiguration) heißt nun eine \enquote{Population}. Die Konfiguration von Gruppen und Populationen wurde aus dem Konfigurationsfenster ausgelagert. Wie zur Strategie- und Stufenspielerstellung gibt es nun Fenster zur Erstellung einzelner Gruppen und Populationen.
+
+\textbf{Gruppenerstellung:}
+Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung wie auch schon zuvor im Konfigurationsfenster eingestellt werden (siehe \cref{?}). Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
+
+\textbf{Populationserstellung:}
+Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben und eine mit \enquote{ist kohärent} betitelte Checkbox (de-)aktiviert werden (siehe \cref{?}). Die Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten} aus der gruppenlosen Agenten. Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
+
+Das Konfigurationsfenster ist nun nicht mehr in drei Bereiche unterteilt. Statt der Gruppeneinstellungen befindet sich nun zwischen den nun verschmolzenen, ehemaligen \enquote{Grund-} und \enquote{Erweiterten Einstellungen} nur noch ein Dropdown-Menü mit der Betitelung \enquote{Population} (siehe \cref{?}). Hier kann eine der selbst erstellten oder von vornherein im Programm hinterlegten Populationen ausgewählt werden. Unter dem Dropdown-Menü kann ein Abschnitt ausgeklappt werden, der die Zusammensetzung der Population zeigt (siehe \cref{?}). Dieser hat dieselbe Form wie die ehemaligen Gruppeneinstellungen, mit dem Unterschied, dass keine Modifikationen mehr vorgenommen werden können. Per Checkbox kann dort die \enquote{Multikonfiguration} für Segmente und Gruppen wie zuvor aktiviert werden.
+
+\subsection{Strategien}
+Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können wurde um die folgenden erweitert:
+
+\begin{itemize}
+\item B hat bei bisherigen Spielen zwischen B und Agenten derselben Gruppenzugehörigkeit wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
+\item B hat bei bisherigen Spielen zwischen B und Agenten mit ähnlichem aktuellen Kapital wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
+\end{itemize}
+
 \section{Pakete und Klassen}
 \subsection{Paket \texttt{edu.kit.loop.model}}
 Das Modell beinhaltet Klassen und Methoden zum Starten und Abbrechen von Simulationen, sowie zum Erstellen und Speichern von Konfigurationen, Stufenspielen, Strategien und Populationen.
