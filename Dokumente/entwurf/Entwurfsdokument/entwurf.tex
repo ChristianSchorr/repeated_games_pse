@@ -56,10 +56,10 @@ TODO
 Das Konzept von Gruppen und Segmenten wurde überarbeitet. Die Gesamtheit der Gruppen, Segmente, sowie deren Größen und Einstellungen (bis auf Multikonfiguration) heißt nun eine \enquote{Population}. Die Konfiguration von Gruppen und Populationen wurde aus dem Konfigurationsfenster ausgelagert. Wie zur Strategie- und Stufenspielerstellung gibt es nun Fenster zur Erstellung einzelner Gruppen und Populationen.
 
 \textbf{Gruppenerstellung:}
-Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung wie auch schon zuvor im Konfigurationsfenster eingestellt werden (siehe \cref{?}). Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
+Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung eingestellt werden. Weiterhin kann eine Gruppe per Checkbox als \enquote{kohärent} deklariert werden (siehe \cref{?}). Diese Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten}. Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
 
 \textbf{Populationserstellung:}
-Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben und eine mit \enquote{ist kohärent} betitelte Checkbox (de-)aktiviert werden (siehe \cref{?}). Die Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten} aus der gruppenlosen Agenten. Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
+Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben werden (siehe \cref{?}). Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
 
 Das Konfigurationsfenster ist nun nicht mehr in drei Bereiche unterteilt. Statt der Gruppeneinstellungen befindet sich nun zwischen den nun verschmolzenen, ehemaligen \enquote{Grund-} und \enquote{Erweiterten Einstellungen} nur noch ein Dropdown-Menü mit der Betitelung \enquote{Population} (siehe \cref{?}). Hier kann eine der selbst erstellten oder von vornherein im Programm hinterlegten Populationen ausgewählt werden. Unter dem Dropdown-Menü kann ein Abschnitt ausgeklappt werden, der die Zusammensetzung der Population zeigt (siehe \cref{?}). Dieser hat dieselbe Form wie die ehemaligen Gruppeneinstellungen, mit dem Unterschied, dass keine Modifikationen mehr vorgenommen werden können. Per Checkbox kann dort die \enquote{Multikonfiguration} für Segmente und Gruppen wie zuvor aktiviert werden.
 
@@ -171,6 +171,100 @@ Methoden:
 \item \texttt{String getDescription()}
 \item[] Gibt die Beschreibung des Objekts zurück.
 \item[] Returns: die Beschreibung des Objekts als \texttt{String}
+\end{itemize}
+
+\subsubsection{Class \texttt{Population}}
+Implements: \texttt{Nameable}
+
+Diese Klasse repräsentiert eine Population. Sie bietet Methoden zur Abfrage von Größe und Gruppenzusammensetzung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Population(String name, String description, List<Group> groups, List<Integer> groupSizes)}
+\item[] Erstellt eine neue Population mit Name, Beschreibung und Gruppenzusammensetzung wie gegeben.
+\item[] \texttt{name}: der Name der Population
+\item[] \texttt{description}: die Beschreibung der Population
+\item[] \texttt{groups}: die Gruppen, aus denen diese Population besteht
+\item[] \texttt{groupSizes}: die Größen der Gruppen in derselben Reihenfolge wie die zugehörigen Gruppen
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getSize()}
+\item[] Gibt die Größe dieser Population zurück.
+\item[] Returns: die Größe dieser Population
+
+\item \texttt{List<Group> getGroups()}
+\item[] Gibt die Gruppen zurück, aus denen diese Population besteht.
+\item[] Returns: die Gruppen, aus denen diese Population besteht
+
+\item \texttt{int getGroupSize(Group group)}
+\item[] Gibt die Größe der gegebenen Gruppe zurück, falls sie Teil dieser Population ist; andernfalls \(0\).
+\item[] \texttt{group}: die Gruppe, deren Größe zurückgegeben werden soll
+\item[] Returns: die Größe der gegebenen Gruppe, falls sie Teil dieser Population ist; andernfalls \(0\)
+
+\item \texttt{int getGroupCount()}
+\item[] Gibt die Anzahl von Gruppen in dieser Population zurück.
+\item[] Returns: die Anzahl von Gruppen in dieser Population
+\end{itemize}
+
+\subsubsection{Class \texttt{Group}}
+Implements: \texttt{Nameable}
+
+Diese Klasse repräsentiert eine Gruppe. Sie bietet Methoden zur Abfrage von Segmentzusammensetzung und Kohäsion.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Group(String name, String description, List<Segment> segments, List<Double> segmentSizes, boolean isCohesive)}
+\item[] Erstellt eine neue Population mit Name, Beschreibung und Gruppenzusammensetzung wie gegeben.
+\item[] \texttt{name}: der Name der Gruppe
+\item[] \texttt{description}: die Beschreibung der Gruppe
+\item[] \texttt{segments}: die Segmente, aus denen diese Gruppe besteht
+\item[] \texttt{segmentSizes}: die relativen Größen der Segmente in derselben Reihenfolge wie die zugehörigen Segmente
+\item[] \texttt{isCohesive}: gibt an, ob diese Gruppe kohärent ist
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{List<Segment> getSegments()}
+\item[] Gibt die Segmente zurück, aus denen diese Gruppe besteht.
+\item[] Returns: die Segmente, aus denen diese Gruppe besteht
+
+\item \texttt{double getSegmentSize(Segment segment)}
+\item[] Gibt die Größe des gegebenen Segments zurück, falls es Teil dieser Gruppe ist; andernfalls \(0\).
+\item[] \texttt{segment}: das Segment, dessen Größe zurückgegeben werden soll
+\item[] Returns: die relative Größe des gegebenen Segments, falls es Teil dieser Gruppe ist; andernfalls \(0\)
+
+\item \texttt{int getSegmentCount()}
+\item[] Gibt die Anzahl von Segmenten in dieser Gruppe zurück.
+\item[] Returns: die Anzahl von Segmente in dieser Gruppe
+
+\item \texttt{boolean isCohesive()}
+\item[] Gibt zurück, ob diese Gruppe kohärent ist.
+\item[] Returns: \texttt{true}, falls diese Gruppe kohärent ist, \texttt{false} sonst
+\end{itemize}
+
+\subsubsection{Class \texttt{Segment}}
+
+Diese Klasse repräsentiert ein Segment. Es bietet Methoden zur Abfrage von Kapital- und Strategieverteilung. Dabei werden lediglich die Namen der Kapitalverteilung sowie der verschiedenen Strategien gespeichert, die zu der entsprechenden \texttt{DiscreteDistribution} bzw. den entsprechenden \texttt{Strategy}s im zentralen Repository korrespondieren.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Segment(String capitalDistributionName, Collection<String> strategyNames)}
+\item[] Erzeugt ein neues Segment mit gegebener Kapitalverteilung und gegebenen Strategien.
+\item[] \texttt{capitalDistributionName}: der Name der Kapitalverteilung dieses Segments
+\item[] \texttt{strategyNames}: die Namen der Strategien aus der Strategieverteilung dieses Segments
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{String getCapitalDistributionName()}
+\item[] Gibt den Namen der Kapitalverteilung dieses Segments zurück.
+\item[] Returns: den Namen der Kapitalverteilung dieses Segments
+
+\item \texttt{Collection<String> getStrategyNames()}
+\item[] Gibt die Namen der Strategien aus der Strategieverteilung dieses Segments zurück.
+\item[] Returns: die Namen der Strategien aus der Strategieverteilung dieses Segments als \texttt{Collection<String>}
 \end{itemize}
 
 \subsection{edu.kit.loop.model.distribution}
@@ -759,8 +853,61 @@ Konstruktoren:
 \end{itemize}
 
 \subsubsection{Interface \texttt{EquilibriumCriterion}}
-//vorläufig, morgen (5.12.) besprechen! siehe UML-Diagramm\\
-Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt nach jeder Runde mittels \texttt{boolean isEquilibrium(...)} eine nach aktuellem Rang geordnete Liste von Agenten entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat. Um aufeinanderfolgende Runden vergleichen zu können, muss eine Implementierung stets die Agentenliste des vorhergehenden Aufrufs von \texttt{isEquilibrium(...)} speichern.
+Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt am Ende eines Adaptionsschritts eine Liste der Agenten, geordnet nach Rang, sowie den Verlauf des Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{boolean isEquilibrium(List<Agent> agents, SimulationHistory history)}
+\item[] Gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
+\item[] \texttt{agents}: die Agenten des aktuellen Simulationslaufs
+\item[] \texttt{history}: der Verlauf des aktuellen Adaptionsschritts
+\item[] Returns: \texttt{true}, falls sich ein Gleichgewicht eingestellt hat, \texttt{false} sonst
+\end{itemize}
+
+\subsubsection{Abstract Class \texttt{CountingEquilibriumCriterion}}
+Implements: \texttt{EquilibriumCriterion}
+
+Diese Klasse repräsentiert ein Gleichgewichtskriterium, dass jede Runde eine bestimmte Bedingung prüft und ein Gleichgewicht erkennt, wenn diese Bedingung für eine bestimmte Zahl aufeinanderfolgender Adaptionsschritte erfüllt ist. Diese Bedingung und die nötige Zahl aufeinanderfolgender Adaptionsschritte sind als Schablonenmethoden implementiert.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{abstract boolean hasEquilibriumCondition(List<Agent> agents, SimulationHistory history)}
+\item[] Gibt zurück, ob die Gleichgewichtsbedingung für diesen Adaptionsschritt erfüllt ist.
+\item[] \texttt{agents}: die Agenten des aktuellen Simulationslaufs
+\item[] \texttt{history}: der Verlauf des aktuellen Adaptionsschritts
+\item[] Returns: \texttt{true}, falls die Bedingung erfüllt ist, \texttt{false} sonst
+
+\item \texttt{abstract boolean longEnough(int steps)}
+\item[] Gibt zurück, ob \texttt{steps} größer oder gleich der nötigen Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte ist.
+\item[] \texttt{steps}: die Anzahl von Adaptionsschritten, für die geprüft werden soll, ob sie in obigem Sinne hinreichend groß ist
+\item[] Returns: \texttt{true}, falls \texttt{steps} groß genug ist, \texttt{false} sonst
+\end{itemize}
+
+\subsubsection{Class \texttt{StrategyEquilibrium}}
+Implements: \texttt{CountingEquilibriumCriterion}
+
+Realisiert das in der Spezifikation beschriebene \enquote{Strategie-Gleichgewichtskriterium}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{StrategyEquilibrium(double alpha, int G)}
+\item[] Erzeugt ein neues \texttt{StrategyEquilibrium}-Objekt mit den gegebenen Parametern.
+\item[] \texttt{alpha}: die Strenge des Gleichgewichts
+\item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
+\end{itemize}
+
+\subsubsection{Class \texttt{CapitalEquilibrium}}
+Implements: \texttt{CountingEquilibriumCriterion}
+
+Realisiert das in der Spezifikation beschriebene \enquote{Rang-Gleichgewichtskriterium}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{CapitalEquilibrium(double alpha, int G)}
+\item[] Erzeugt ein neues \texttt{CapitalEquilibrium}-Objekt mit den gegebenen Parametern.
+\item[] \texttt{alpha}: die Strenge des Gleichgewichts
+\item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
+\end{itemize}
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
