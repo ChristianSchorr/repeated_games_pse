@@ -294,6 +294,43 @@ Methoden:
 	\item[]Returns: eine Liste der geladenen Plugins
 \end{itemize}
 
+\subsubsection{abstract Class \texttt{PluginControl extends javafx.scene.layout.Pane}}
+
+Diese Klasse dient als Steuerelement für die Konfiguration eines Plugins. Sie stellt eine Funktionalität zum Abfragen der vom Benutzer eingegebenen Konfigurationsparameter zur Verfügung.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{abstract List<double> getParameters()}
+	\item[] Gibt eine Liste der eingegebene Parameter für die Pluginkonfiguration zurück
+	\item[] Returns: eine Liste der eingegebenen \texttt{double}-Parameter
+\end{itemize}
+
+\subsubsection{Class \texttt{TextFieldPluginControl extends PluginControl}}
+
+Diese Klasse ist eine Implementierung eines  \texttt{PluginControl}, bei der die Eingabe der Konfigurationsparameter über Textfelder erfolgt. Die Eingabe wird weiterhin bereits auf Korrektheit überprüft.
+
+Konstruktoren:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{TextFieldPluginControl(List<Parameter> params)}
+	\item[] Erzeugt eine Instanz, die die übergebenen \texttt{Parameter} konfigurierbar macht.
+	\item[] \texttt{params}: eine Liste der konfigurierbaren Parameter
+\end{itemize}
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void addParameter(Parameter param)}
+	\item[] Fügt dem Steuerelement einen \texttt{Parameter} hinzu, der dann über das Steuerelement konfigurierbar ist
+	\item[] \texttt{param}: Der Parameter, der zum Steuerelement hinzugefügt werden soll.
+	\item \texttt{void addParameters(List<Parameter> params)}
+	\item[] Fügt dem Steuerelement eine Liste von \texttt{Parameter}n hinzu, die dann über das Steuerelement konfigurierbar sind
+	\item[] \texttt{params}: Die Parameter, die zum Steuerelement hinzugefügt werden sollen.
+\end{itemize}
+
+
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
