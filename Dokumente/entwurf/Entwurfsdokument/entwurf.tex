@@ -159,6 +159,38 @@ Konstruktoren:
 
 Methoden:
 
+\subsubsection{Inteface \texttt{Repository<T>}}
+
+// Im falschen Paket
+
+Ein Repository speichert eine Zuordnung von Namen und Entitäten und stellt diese auf Anfrage zur Verfügung.
+
+Parameter:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+\end{itemize}
+
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{T getEntityByName(String name)}
+	\item[] Gibt die zu dem Namen gehörige Entität zurück oder \texttt{null} falls das Depot keine Entität unter dem gegebene Namen speichert
+	\item[] \texttt{name}: der Name der Entität die abgefragt werden soll
+	\item[] Returns: die zu dem Namen gehörige Entität oder \texttt{null}
+	
+	\item \texttt{boolean addEntity(String name, T entity)}
+	\item[] Fügt dem Depot eine neue Entität unter dem gegebene Namen hinzu
+	\item[] \texttt{name}: der Name der Entität, die hinzugefügt werden soll
+	\item[] \texttt{entity}: Die Entität, die hinzugefügt werden soll
+	\item[] Returns: \texttt{true}, wenn die Entität erfolgreich hinzugefügt wurde und \texttt{false}, wenn bereits eine Entität unter dem Name im Depot existiert 
+	
+	\item \texttt{boolean containsEntityName(String name)}
+	\item[] Gibt zurück, ob das Depot eine Entität unter dem gegebenen Namen enthält
+	\item[] \texttt{name}: der Name der geprüft werden soll
+	\item[] Returns: \texttt{true}, wenn das Depot eine Entität unter diesem Namen speichert und \texttt{false}, wenn nicht
+	
+\end{itemize}
+
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
 Dieses Paket enthält das Interface \texttt{Simulator}. Dieses bietet eine Schnittstelle zum Starten und Abbrechen von Simulationen. Beim Start einer Simulation wird eine Referenz auf ein \texttt{Simulation}-Objekt zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der Simulation abgefragt werden können.
 
