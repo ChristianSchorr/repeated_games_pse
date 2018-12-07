@@ -355,6 +355,65 @@ Konstruktoren:
 	\item[] \texttt{params}: Eine Liste der konfigurierbaren Parameter eines Plugins
 \end{itemize} 
 
+\subsubsection{Class \texttt{Parameter implements Nameable}}
+
+Diese Klasse definiert einen Konfigurationsparameter für Plugins. Sie bietet Funktionaliäten zum Festlegen des Wertebereichs und der Granularität des Konfigurationsparameter.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Parameter()}
+\item[] Erzeugt eine neue Instanz mit unbeschränktem Wertebereich 
+\item \texttt{Parameter(double minVal)}
+\item[] Erzeugt eine neue Instanz mit nach unten beschränktem Wertebereich
+\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+\item \texttt{Parameter(double maxVal)}
+\item[] Erzeugt eine neue Instanz mit nach oben beschränktem Wertebereich
+\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+\item \texttt{Parameter(double minVal, double maxVal)}
+\item[] Erzeugt eine neue Instanz mit nach unten und oben beschränktem Wertebereich
+\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+\item \texttt{Parameter(double minVal, double maxVal, double stepSize)}
+\item[] Erzeugt eine neue Instanz mit nach oben und unten beschränktem Wertebereich, sowie eingeschränkter Granularität
+\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+\item[] \texttt{stepSize}: Granularität des Parameters
+
+\end{itemize}
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+\item \texttt{double getMinValue()}
+\item[] Gibt die untere Schranke des gültigen Wertebereichs zurück
+\item[] Returns: die untere Schranke des gültigen Wertebereichs
+\item \texttt{double getMaxValue()}
+\item[] Gibt die obere Schranke des gültigen Wertebereichs zurück
+\item[]Returns: die obere Schranke des gültigen Wertebereichs
+\item \texttt{double getStepSize()}
+\item[] Gibt die Granularität des Wertebereichs zurück
+\item[]Returns: die Granularität des Wertebereichs
+\end{itemize}
+
+\subsubsection{Class \texttt{ParameterValidator}}
+
+Diese Klasse bietet Funktionalitäten zum Validieren einer Parameterbelegung in Form von statischen Hilfsmethoden.
+
+Methoden:
+
+\begin{itemize} \itemsep -10pt
+\item \underline{\texttt{static boolean isValueValid(double val, Parameter param)}}
+\item[] Prüft, ob der gegeben Wert im Wertebereich des gegebenen Parameters liegt
+\item[] \texttt{val}: der Wert der überprüft werden soll
+\item[] \texttt{param}: der Parameter, dessen Wertebereich für die Überprüfung genutzt werden soll.
+\item[] Returns: \texttt{true}, wenn der Wert im Wertebereich des Parameters liegt \texttt{false} andernfalls
+\item \underline{\texttt{static double getClosestValid(double val, Parameter param)}}
+\item[] Gibt den Wert im Wertebereich des Parameters zurück, der am nächsten an dem gegebenen Wert liegt
+\item[] \texttt{val}: der Wert, der beim ermitteln betrachtet wird
+\item[] \texttt{param}: der Parameter, desssen Wertebereich betrachtet wird
+\item[] Returns: der Wert aus dem Wertebereich des Parameters, der dem gegebenen Wert am nächsten liegt
+\end{itemize}
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
