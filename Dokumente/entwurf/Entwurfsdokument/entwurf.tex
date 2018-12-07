@@ -414,6 +414,29 @@ Methoden:
 \item[] Returns: der Wert aus dem Wertebereich des Parameters, der dem gegebenen Wert am nächsten liegt
 \end{itemize}
 
+\subsubsection{abstract Class \texttt{Plugin<T> implements  Nameable}}
+
+Diese Klasse stellt ein dynamisch ladbares Plugin da. Sie ist ein generischer Container für eine Klasse, die die eigentliche Pluginfunktionalität bereitstellt. Sie bietet Funktionalitäten zum erzeugen neuer parametrisierter Instanzen der Funktionalitätsklasse. Eine Liste der geforderten Konfigurationsparameter kann abgefragt werden.
+
+Parameter:
+\begin{itemize}\itemsep -10pt
+\item \texttt{<T>} Der Typ der Klasse, welche die Pluginfunktionalität bereit stellt. 
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PluginRenderer getRenderer()}
+\item[] Gibt eine \texttt{PluginRenderer}-Instanz zum Erzeugen eines Konfigurations-Steuerelements für das Plugin zurück
+\item[] Returns: eine Instanz eines \texttt{PluginRenderer}s
+\item \texttt{abstract List<Parameter> getParameters()}
+\item[] Gibt eine Liste der Konfigurationsparameter des Plugins zurück
+\item[] Returns: eine Liste der Konfigurationsparameter
+\item \texttt{abstract T getNewInstance(List<double> params)}
+\item[] Erzeugt eine neue Instanz der Klasse, die die Pluginfunktionalität bereitstellt und parametrisiert sie mit den übergebenen Werten der Konfigurationsparametern
+\item[] \texttt{params}: eine Liste mit den Werten der Konfigurationsparameter
+\item[] Returns: eine neue Instanz der Klasse, die die Pluginfunktionalität zur Verfügung stellt
+\end{itemize}
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
