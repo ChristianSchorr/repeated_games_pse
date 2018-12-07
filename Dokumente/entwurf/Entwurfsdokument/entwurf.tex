@@ -329,7 +329,31 @@ Methoden:
 	\item[] \texttt{params}: Die Parameter, die zum Steuerelement hinzugefügt werden sollen.
 \end{itemize}
 
+\subsubsection{Interface \texttt{PluginRenderer}}
 
+Dieses Interface stellt die Funktionalität zum Erzeugen eines Konfigurations-Steuerelemet für Plugins in einer JavaFX Anwendung bereit.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{PluginControl render()}
+	\item[] Liefert eine \texttt{PluginControl}-Instanz zurück, die in ein JavaFX-Fenster eingefügt werden kann
+\end{itemize}
+
+\subsubsection{Class \texttt{GenericRenderer implements PluginRenderer}}
+
+Diese Klasse implementiert das \texttt{PluginRenderer}-Interface und erzeugt für ein beliebiges Plugin ein generisches, Textfeld basiertes Konfigurations-Steuerelement (\texttt{TextFieldPluginControl}-Instanz).
+
+Konstruktoren:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{GenericRenderer(plugin: Plugin)}
+	\item[] Erzeugt eine Instanz, die für das gegebene Plugin ein Konfigurations-Steuerelement erstellt
+	\item[] \texttt{plugin}: Das Plugin welches der Renderer darstellen soll
+	\item \texttt{GenericRednerer(params: List<Parameter>)}
+	\item[] Erzeugt eine Instanz, die ein Steuerelement mit den gegebenen \texttt{Parameter} erzeugt.
+	\item[] \texttt{params}: Eine Liste der konfigurierbaren Parameter eines Plugins
+\end{itemize} 
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
