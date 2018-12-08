@@ -30,78 +30,12 @@
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>460</x>
-      <y>365</y>
-      <w>45</w>
-      <h>95</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-observes</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>400</x>
-      <y>450</y>
-      <w>135</w>
-      <h>335</h>
-    </coordinates>
-    <panel_attributes>ConfigBascisController
--
--repository : Repository&lt;t&gt;
--
-+ConfigBasicsController(Repository&lt;t&gt;)
-+setConfiguration(Configuration)
-+setValues()
-+setGame(Game)
-+getGame() : Game
-+setNumberOfAgents(int)
-+getNumberOfAgents() : int
-+setNumberOfRounds(int)
-+getNumberOfRounds() : int
-+setNumberOfRepetitions(int)
-+getNumberOfRepititions() : int
-+addStrategy(Strategy)
-+deleteStrategy(Strategy)
-+isMixedStrategys() : Boolean
-+setMixedStrategys(Boolean)
-+setPairAlgorithm(String)
-+getPairAlgorithm(): String
-+setSuccesMethod(String)
-+getSuccesMethod(): String
-+setAdaptionAlgorithm(String)
-+getAdaptionAlgorithm(): String
-+setComparisionProbability(double)
-+getComparisionPorbability(): double
-+setAdaptionProbability(double)
-+getAdaptionProbablitiy(): double
-+setBalanceType(String)
-+getBalanceType(): String
-+setBalanceStability(Double)
-+getBalanceStability(): Double
-+setBalanceDurability(int)
-+getBalanceDurability(): int
-+setMaximumOfAdaptions(int)
-+getMaximumOfAdaptions(): int
-+setPopulation(String)
-+getPopulation(): String
-+isGroupSizeVariable(): Boolean
-+setGroupSizeVariable(Boolean)
-+isSegmentSizeVariable(): Boolean
-+setSegmentSizeVariable(Boolean)
-+showPopulation(String)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
       <x>590</x>
       <y>255</y>
       <w>140</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>MenuController
 -
@@ -126,7 +60,7 @@ observes</panel_attributes>
       <x>190</x>
       <y>260</y>
       <w>155</w>
-      <h>115</h>
+      <h>125</h>
     </coordinates>
     <panel_attributes>PopulationController
 -
@@ -510,22 +444,54 @@ observes</panel_attributes>
       <x>400</x>
       <y>255</y>
       <w>150</w>
-      <h>115</h>
+      <h>365</h>
     </coordinates>
-    <panel_attributes>ConfigMainController
+    <panel_attributes>ConfigController
 -
 -configuration : Configuration
 -repository : Repository&lt;t&gt;
 -
-+ConfigMainController(Repositoy&lt;t&gt;)
++ConfigController(Repositoy&lt;t&gt;)
 +run(Configuration)
-+configure()
++ConfigBasicsController(Repository&lt;t&gt;)
 +setConfiguration(Configuration)
-+getConfiguration(): Configuration
-+saveConfiguration()
-+loadConfiguration()
-+reload()
-+close()</panel_attributes>
++setGame(Game)
++getGame() : Game
++setNumberOfAgents(int)
++getNumberOfAgents() : int
++setNumberOfRounds(int)
++getNumberOfRounds() : int
++setNumberOfRepetitions(int)
++getNumberOfRepititions() : int
++addStrategy(Strategy)
++deleteStrategy(Strategy)
++isMixedStrategys() : Boolean
++setMixedStrategys(Boolean)
++setPairAlgorithm(String)
++getPairAlgorithm(): String
++setSuccesMethod(String)
++getSuccesMethod(): String
++setAdaptionAlgorithm(String)
++getAdaptionAlgorithm(): String
++setComparisionProbability(double)
++getComparisionPorbability(): double
++setAdaptionProbability(double)
++getAdaptionProbablitiy(): double
++setBalanceType(String)
++getBalanceType(): String
++setBalanceStability(Double)
++getBalanceStability(): Double
++setBalanceDurability(int)
++getBalanceDurability(): int
++setMaximumOfAdaptions(int)
++getMaximumOfAdaptions(): int
++setPopulation(String)
++getPopulation(): String
++isGroupSizeVariable(): Boolean
++setGroupSizeVariable(Boolean)
++isSegmentSizeVariable(): Boolean
++setSegmentSizeVariable(Boolean)
++showPopulation(String)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
