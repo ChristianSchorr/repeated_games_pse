@@ -619,6 +619,56 @@ Konstruktoren:
 //vorläufig, morgen (5.12.) besprechen! siehe UML-Diagramm\\
 Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt nach jeder Runde mittels \texttt{boolean isEquilibrium(...)} eine nach aktuellem Rang geordnete Liste von Agenten entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat. Um aufeinanderfolgende Runden vergleichen zu können, muss eine Implementierung stets die Agentenliste des vorhergehenden Aufrufs von \texttt{isEquilibrium(...)} speichern.
 
+\subsection{Paket \texttt{edu.kit.loop.Control}}
+Dieses Paket enthält die Kontrollstruktur des Programms und dient als Verbindung zwischen dem View und dem Model.
+Die einzelnen Kontroller sind in einer baumartigen Struktur angeordnet und die Wurzel ist der \enquote{Headcontroller}. Dieser dient als Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur.
+
+\subsubsection{Class \texttt{HeadController}}
+Diese Klasse repräsentiert die Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur. Sie kann dem Simulator eine neue Konfiguration in Auftrag geben, Populationen zum abspeichern übergeben oder eine abgespeicherte Konfiguration erneut öffnen.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{CentralController(Simulator simulator, ConfigurationParameterRepository repository)}
+\item[] Erstellt einen neuen HeadController, sichert die Referenz auf den Simulator und lädt das übergebene Repository.
+\item[] \texttt{simulator}: der Simulator der die Simulationen mit gegebener Konfiguration startet
+\item[] \texttt{repository}: Repository, das die verschiedenen Strategien, Paarungsalgorithmen und die weiteren verfügbaren Einstellungsmöglichkeiten enthält
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void setConfiguration(Configuration)}
+\item[] Stellt eine Configuration im Kontroller ein
+
+
+\item \texttt{Configuration getConfiguration()}
+\item[] Gibt die aktuell eingestellte Konfiguration zurück
+\item[] Returns: die aktuell eingestellte Konfiguration
+
+\item \texttt{void addSimulationToHistory(Simulation)}
+\item[] Fügt eine neue Simulation in die Simulationshistorie hinzu
+
+\item \texttt{void saveStrategy(Strategy strategy)}
+\item[] Speichert die ausgewählte Strategie ab.
+
+\item\texttt{void saveGame(Game game)}
+\item[] Speichert das ausgewählte Stufenspiel ab
+
+\item \texttt{void saveConfiguration(Configuration configuration)}
+\item[] Speichert die ausgewählte Konfiguration an einem gewünschten Ort ab
+
+\item \texttt{void savePopulation(Population population)}
+\item[] Speichert die ausgewählte Population ab
+
+\item \texttt{void saveGroup(Group group)}
+\item[] Speichert die ausgewählte Gruppe ab
+
+\item \texttt{void updateSimulation(Simulation simulation)}
+\item[] Updatet den Fortschritt einer geünschten Simulation
+
+\item \texttt{void runConfiguration(Configuration configuration}
+\item[] Gibt dem Simulator den Befehlt eine neue Simulation mit der ausgewählten Konfiguration zu starten
+\end{itemize}
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
