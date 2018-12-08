@@ -669,6 +669,38 @@ Methoden:
 \item[] Gibt dem Simulator den Befehlt eine neue Simulation mit der ausgewählten Konfiguration zu starten
 \end{itemize}
 
+
+\subsubsection{Class \texttt{NewGameController}}
+Diese Klasse repräsentiert den Kontroller der für das \enquote{Neues Stufenspiel erstellen}-Fenster zuständig ist.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{NewGameController()}
+\item[] Erstellt einen neuen NewGameController
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void setName()}
+\item[] Stellt den Namen des Stufenspiels auf den im Fenster eingegebenen Namen
+
+
+\item \texttt{Game getGame()}
+\item[] Gibt das aktuell eingestellte Stufenspiel zurück
+\item[] Returns: das aktuell eingestellte Stufenspiel
+
+\item \texttt{void setDescription()}
+\item[] Stellt die Beschreibung des Stufenspiels auf die im Fenster eingegebene Beschreibung
+
+\item \texttt{void setPayments()}
+\item[] Stellt die Werte der Matrix des Stufenspiels auf die im Fenster eingegebenen Werte
+
+\item\texttt{void save()}
+\item[] Speichert das aktuell eingegebene Stufenspiel ab
+
+\item \texttt{void reset()}
+\item[] Leert die Felder im Fenster für Name, Beschreibung und Auszahlungen
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
