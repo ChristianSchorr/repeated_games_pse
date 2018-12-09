@@ -191,6 +191,41 @@ Methoden:
 	
 \end{itemize}
 
+\subsubsection{Class \texttt{FileIO}}
+
+Diese Klasse stellt Funktionalitäten zum Laden und Speichern von Entitäten in Dateien zur Verfügung.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \underline{\texttt{static <T> T loadEntity(File file)}}
+	\item[] Lädt die Entität des Typs \texttt{T} aus der angegebenen Datei 
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{file}: Die Datei aus der die Entität geladen werden soll
+	\item[]Returns: die geladenen Entität oder \texttt{null} wenn keine Entität des Typs \texttt{T} geladen werden konnte
+	
+	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
+	\item[] Lädt alle Entität des Typs \texttt{T} aus den Dateien in dem gegebene Ordner 
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{dir}: Der Ordner aus dem die Entität geladen werden soll
+	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	
+	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
+	\item[] Lädt alle Entität des Typs \texttt{T} aus den gegebenen Dateien
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{files}: Die Liste der Dateien aus denen die Entitäten geladen werden sollen
+	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+
+	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
+\item[] Speichert die Entität des Typs \texttt{T} in der gegebenen Datei
+\item[] \texttt{<T>} Entitätentyp der gespeichert werden soll
+\item[] \texttt{file}: Die Datei, in welche die Entität gespeichert werden soll
+\item[] \texttt{entity}: Die Entität die gespeichert werden soll
+\item[]Returns: \texttt{true}, wenn das Speichern erfolgreich war, andernfalls \texttt{false}
+\end{itemize}
+
+
+
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
 Dieses Paket enthält das Interface \texttt{Simulator}. Dieses bietet eine Schnittstelle zum Starten und Abbrechen von Simulationen. Beim Start einer Simulation wird eine Referenz auf ein \texttt{Simulation}-Objekt zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der Simulation abgefragt werden können.
 
