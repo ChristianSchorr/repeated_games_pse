@@ -650,7 +650,7 @@ Methoden:
 \item \texttt{void saveStrategy(Strategy strategy)}
 \item[] Speichert die ausgewählte Strategie ab.
 
-\item\texttt{void saveGame(Game game)}
+\item\texttt{void saveGame(Game stufenspiel)}
 \item[] Speichert das ausgewählte Stufenspiel ab
 
 \item \texttt{void saveConfiguration(Configuration configuration)}
@@ -667,6 +667,121 @@ Methoden:
 
 \item \texttt{void runConfiguration(Configuration configuration}
 \item[] Gibt dem Simulator den Befehlt eine neue Simulation mit der ausgewählten Konfiguration zu starten
+\end{itemize}
+
+\subsubsection{Class \texttt{GroupController}}
+Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Gruppe erstellen}-Fenster zuständig ist.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Groupcontroller(Repository<t> repository)}
+\item[] Erstellt einen neuen GroupController und dieser erhält das Repository mit allen verfügbaren Plugins
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addSegment(}
+\item[] Fügt der Gruppe ein neues Segment hinzu
+
+\item \texttt{void deleteSegment(String segmentId)}
+\item[] Löscht eine über einen String klar definierbares Segment aus der Gruppe
+
+\item \texttt{void setSegmentSize(String segmentId, int size)}
+\item[] Setzt die Grösse des ausgewählten Segments auf die angegebene Anzahl an Agenten
+
+\item \texttt{int getSegmentSize(String segmentId)}
+\item[] Gibt die Grösse des ausgewählten Segments zurück
+\item[] Returns: die Anzahl an Agenten des ausgewählten Segments
+
+\item \texttt{String getGroupName()}
+\item[] Gibt den Namen der aktuellen Gruppe zurück
+\item[] Returns: der Name der aktuell ausgewählten Gruppe
+
+\item \texttt{void setGroupName(String name)}
+\item[] Setzt den Namen der Gruppe auf den vom Nutzer eingegebenen Namen
+
+\item \texttt{String getGroupDescription()}
+\item[] Gibt die Beschreibung der aktuellen Gruppe zurück
+\item[] Returns: die Beschreibung der aktuell ausgewählten Gruppe
+
+\item \texttt{void setGroupDescription(String description)}
+\item[] Setzt die Beschreibung der Gruppe auf die vom Nutzer eingegebenen Beschreibung
+
+\end{itemize}
+
+\subsubsection{Class \texttt{SegmentController}}
+Diese Klasse repräsentiert den Kontroller der das Tab mit den Segmenteinstellungen verwaltet
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Segmentcontroller(Repository<t> repository)}
+\item[] Erstellt einen neuen SegmentController und dieser erhält das Repository mit allen verfügbaren Plugins
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addStrategy(String strategyId}
+\item[] Fügt die ausgewählte Strategy in die Liste der möglichen Strategien
+
+\item \texttt{void removeStrategy(String segmentId)}
+\item[] Entfernt sie ausgewählte Strategy aus der Liste der möglichen Startegien
+
+\item \texttt{void selectCapitalDistribution(String segmentId, String distributionId)}
+\item[] Setzt die Kapitalverteilungsfunktion des ausgewählten Segments aufs die ausgewählte Funktion
+
+\item \texttt{int getCapitalDistribution(String segmentId)}
+\item[] Gibt die Kapitalverteilung des ausgewählten Segments zurück
+\item[] Returns: die Kapitalverteilungsfunktion des ausgewählten Segments
+
+\item \texttt{getDistributionParameters(segmentId) : ???}
+\item[] Gibt die Kapitalverteilungsparameter des ausgewählten Segments zurück
+\item[] Returns: die Kapitalverteilungsparameter des ausgewählten Segments
+
+\item \texttt{setDistributionParameters(String segmentId)}
+\item[] Setzt die Verteilungsfunktionparameter auf die ausgewählten Werte
+
+
+\end{itemize}
+
+
+\subsubsection{Class \texttt{PopulationController}}
+Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Population erstellen}-Fenster zuständig ist.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PopulationController(Repository<t> repository)}
+\item[] Erstellt einen neuen PopulationController und dieser erhält das Repository mit allen verfügbaren Gruppen
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addGroup(String groupId)}
+\item[] Fügt eine über einen String klar definierbare Gruppe aus dem Repository zur Population hinzu
+
+\item \texttt{void deleteGroup(String groupId)}
+\item[] Löscht eine über einen String klar definierbare Gruppe aus der Population
+
+\item \texttt{void setGroupSize(String groupId, int size)}
+\item[] Setzt die Grösse der ausgewählten Gruppe auf die angegebene Anzahl an Agenten
+
+\item \texttt{int getGroupSize(String groupId)}
+\item[] Gibt die Grösse der ausgewählten Gruppe zurück
+\item[] Returns: die Anzahl an Agenten der ausgewählten Gruppe
+
+\item \texttt{String getPopulationName()}
+\item[] Gibt den Namen der aktuellen Population zurück
+\item[] Returns: der Name der aktuell ausgewählten Population
+
+\item \texttt{void setPopulationName(String name)}
+\item[] Setzt den Namen der Population auf den vom Nutzer eingegebenen Namen
+
+\item \texttt{String getPopulationDescription()}
+\item[] Gibt die Beschreibung der aktuellen Population zurück
+\item[] Returns: die Beschreibung der aktuell ausgewählten Population
+
+\item \texttt{void setPopulationDescription(String description)}
+\item[] Setzt die Beschreibung der Population auf die vom Nutzer eingegebenen Beschreibung
+
 \end{itemize}
 
 
@@ -700,6 +815,8 @@ Methoden:
 
 \item \texttt{void reset()}
 \item[] Leert die Felder im Fenster für Name, Beschreibung und Auszahlungen
+
+\end{itemize}
 
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
