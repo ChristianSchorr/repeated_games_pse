@@ -267,7 +267,7 @@ Methoden:
 \item[] Returns: die Namen der Strategien aus der Strategieverteilung dieses Segments als \texttt{Collection<String>}
 \end{itemize}
 
-\subsection{edu.kit.loop.model.distribution}
+\subsection{Paket \texttt{edu.kit.loop.model.distribution}}
 
 \subsubsection{Interface \texttt{Distribution<E>}}
 Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem Träger von Objekten des Typs \texttt{E}. Eine Implementierung gibt auf Anfrage die Wahrscheinlichkeit eines bestimmten Objekts zurück und stellt einen \texttt{Picker<E>} zur Verfügung, mit dem zufällig Objekte aus der Wahrscheinlichkeitsverteilung gezogen werden können.
@@ -969,15 +969,15 @@ Konstruktoren:
 \item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
 \end{itemize}
 
-\subsubsection{Class \texttt{CapitalEquilibrium}}
+\subsubsection{Class \texttt{RankingEquilibrium}}
 Implements: \texttt{CountingEquilibriumCriterion}
 
 Realisiert das in der Spezifikation beschriebene \enquote{Rang-Gleichgewichtskriterium}.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{CapitalEquilibrium(double alpha, int G)}
-\item[] Erzeugt ein neues \texttt{CapitalEquilibrium}-Objekt mit den gegebenen Parametern.
+\item \texttt{RankingEquilibrium(double alpha, int G)}
+\item[] Erzeugt ein neues \texttt{RankingEquilibrium}-Objekt mit den gegebenen Parametern.
 \item[] \texttt{alpha}: die Strenge des Gleichgewichts
 \item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
 \end{itemize}
