@@ -48,6 +48,22 @@
 \usepackage[scaled=0.85]{beramono}
 
 \begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{5cm}
+	\includegraphics[width = 0.7\linewidth]{images/Logos/loop.png}\par
+	{\huge\bfseries Ein Simulator für wiederholte Spiele\par}
+	%\vspace{1cm}
+	{\Large Entwurfsdokument\par}
+	\vspace{2cm}
+	{\Large\itshape Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing\par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+%\tableofcontents
+%\pagebreak
+
 \section{Einleitung}
 TODO
 
@@ -1146,7 +1162,7 @@ Konstruktoren:
 \item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.Control}}
+\subsection{Paket \texttt{edu.kit.loop.Controller}}
 Dieses Paket enthält die Kontrollstruktur des Programms und dient als Verbindung zwischen dem View und dem Model.
 Die einzelnen Kontroller sind in einer baumartigen Struktur angeordnet und die Wurzel ist der \enquote{Headcontroller}. Dieser dient als Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur.
 
