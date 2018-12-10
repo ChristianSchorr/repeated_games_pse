@@ -235,6 +235,92 @@ Methoden:
 \item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
 \end{itemize}
 
+\subsubsection{Inteface \texttt{Repository<T>}}
+
+// Im falschen Paket
+
+Ein Repository speichert eine Zuordnung von Namen und Entitäten und stellt diese auf Anfrage zur Verfügung.
+
+Parameter:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+\end{itemize}
+
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{T getEntityByName(String name)}
+	\item[] Gibt die zu dem Namen gehörige Entität zurück oder \texttt{null} falls das Depot keine Entität unter dem gegebene Namen speichert
+	\item[] \texttt{name}: der Name der Entität die abgefragt werden soll
+	\item[] Returns: die zu dem Namen gehörige Entität oder \texttt{null}
+	
+	\item \texttt{boolean addEntity(String name, T entity)}
+	\item[] Fügt dem Depot eine neue Entität unter dem gegebene Namen hinzu
+	\item[] \texttt{name}: der Name der Entität, die hinzugefügt werden soll
+	\item[] \texttt{entity}: Die Entität, die hinzugefügt werden soll
+	\item[] Returns: \texttt{true}, wenn die Entität erfolgreich hinzugefügt wurde und \texttt{false}, wenn bereits eine Entität unter dem Name im Depot existiert 
+	
+	\item \texttt{boolean containsEntityName(String name)}
+	\item[] Gibt zurück, ob das Depot eine Entität unter dem gegebenen Namen enthält
+	\item[] \texttt{name}: der Name der geprüft werden soll
+	\item[] Returns: \texttt{true}, wenn das Depot eine Entität unter diesem Namen speichert und \texttt{false}, wenn nicht
+	
+\end{itemize}
+
+\subsubsection{Class \texttt{HashMapRepository implements Repository<T>}}
+
+// Im falschen Paket
+
+Ein Implementierung des \texttt{Repository<T>}-Interface, die Entitäten in einer \texttt{HashMap} speichert.
+
+Parameter:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+\end{itemize}
+
+Konstruktoren:
+
+\begin{itemize} \itemsep -10pt
+	\item \texttt{HasMapRepository()}
+	\item[] Erzeugt eine neue Instanz des Depots
+\end{itemize}
+
+
+\subsubsection{Class \texttt{FileIO}}
+
+Diese Klasse stellt Funktionalitäten zum Laden und Speichern von Entitäten in Dateien zur Verfügung.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \underline{\texttt{static <T> T loadEntity(File file)}}
+	\item[] Lädt die Entität des Typs \texttt{T} aus der angegebenen Datei 
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{file}: Die Datei aus der die Entität geladen werden soll
+	\item[]Returns: die geladenen Entität oder \texttt{null} wenn keine Entität des Typs \texttt{T} geladen werden konnte
+	
+	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
+	\item[] Lädt alle Entität des Typs \texttt{T} aus den Dateien in dem gegebene Ordner 
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{dir}: Der Ordner aus dem die Entität geladen werden soll
+	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	
+	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
+	\item[] Lädt alle Entität des Typs \texttt{T} aus den gegebenen Dateien
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{files}: Die Liste der Dateien aus denen die Entitäten geladen werden sollen
+	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	
+	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
+	\item[] Speichert die Entität des Typs \texttt{T} in der gegebenen Datei
+	\item[] \texttt{<T>} Entitätentyp der gespeichert werden soll
+	\item[] \texttt{file}: Die Datei, in welche die Entität gespeichert werden soll
+	\item[] \texttt{entity}: Die Entität die gespeichert werden soll
+	\item[]Returns: \texttt{true}, wenn das Speichern erfolgreich war, andernfalls \texttt{false}
+\end{itemize}
+
+
 \subsubsection{Interface \texttt{Nameable}}
 
 Implementierungen dieses Interface haben einen Namen und eine Beschreibung, die in Form von \texttt{String}s abgefragt werden können.
