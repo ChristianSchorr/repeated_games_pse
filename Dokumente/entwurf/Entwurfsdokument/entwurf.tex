@@ -92,12 +92,37 @@ Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können 
 \subsection{Paket \texttt{edu.kit.loop.model}}
 Das Modell beinhaltet Klassen und Methoden zum Starten und Abbrechen von Simulationen, sowie zum Erstellen und Speichern von Konfigurationen, Stufenspielen, Strategien und Populationen.
 
-\subsubsection{Class \texttt{UserConfiguration implements java.io.Serializable}}
-//vielleicht im falschen Package
+\subsubsection{Class \texttt{UserConfiguration}}
+Implements: \texttt{java.io.Serializable}
 
 Diese Klasse repräsentiert eine vom Nutzer erstellte Konfiguration. Sie bietet Methoden zum Lesen aller zugehörigen Parameter.
 
 Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, List<String> populationNames, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierName, String strategyAdjusterName, List<double> strategyAdjusterParameters, String equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double, endValue, double stepSize)}
+\item[] Erstellt eine neue \texttt{UserConfiguration} mit den gegebenen Parametern.
+\item[] \texttt{gameName}: der Name des Stufenspiels
+\item[] \texttt{agentCount}: die Anzahl von Agenten
+\item[] \texttt{roundCount}: die Anzahl von Runden pro Adaptionsschritt
+\item[] \texttt{iterationCount}: die Anzahl durchzuführender Wiederholungen
+\item[] \texttt{availableStrategyNames}: eine Liste der Namen aller zugelassenen Strategien
+\item[] \texttt{mixedAllowed}: \texttt{true}, falls gemischte Strategien zugelassen sind, \texttt{false} sonst.
+\item[] \texttt{populationNames}: eine Liste der Namen aller Populationen
+\item[] \texttt{pairBuilderNames}: der Name des Paarbildungsalgorithmus
+\item[] \texttt{pairBuilderParameters}: eine Liste der Werte der Parameter des Paarbildungsalgorithmus
+\item[] \texttt{successQuantifierNames}: der Name der Erfolgsquantifizierung
+\item[] \texttt{successQuantifierParameters}: eine Liste der Werte der Parameter der Erfolgsquantifizierung
+\item[] \texttt{strategyAdjusterName}: der Name des Adaptionsmechanismus
+\item[] \texttt{strategyAdjusterParameters}: eine Liste der Werte der Parameter des Adaptionsmechanismus
+\item[] \texttt{equilibriumCriterionName}: der Name des Gleichgewichtskriteriums
+\item[] \texttt{equilibriumCriterionParameters}: eine Liste der Werte der Parameter des Gleichgewichtskriteriums
+\item[] \texttt{maxAdapts}: die maximale Zahl durchzuführender Adaptionsschritte
+\item[] \texttt{isMulticonfiguration}: \texttt{true}, falls es sich nicht um eine Multikonfiguration handelt, \texttt{false} sonst
+\item[] \texttt{variableParameterName}: der Name des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \texttt{""} sonst
+\item[] \texttt{startValue}: der Startwert des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \(0\) sonst
+\item[] \texttt{endValue}: der Endwert des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \(0\) sonst
+\item[] \texttt{stepSize}: die Schrittweite des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \(0\) sonst
+\end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
@@ -133,9 +158,17 @@ Methoden:
 	\item[] Gibt den Namen des  Paarbildungsalgorithmus dieser Konfiguration zurück.
 	\item[] Returns: den Namen des Paarbildungsalgorithmus dieser Konfiguration
 	
+	\item \texttt{List<double> getPairBuilderParameters()}
+	\item[] Gibt eine Liste der Werte der Parameter des \texttt{PairBuilder}s zurück
+	\item[] Returns: die Liste der Werte
+	
 	\item \texttt{String getSuccessQuantifierName()}
 	\item[] Gibt den Namen der Erfolgsquantifizierung dieser Konfiguration zurück.
 	\item[] Returns: der Name der Erfolgsquantifizierung dieser Konfiguration
+	
+	\item \texttt{List<double> getSuccessQuantifierParameters()}
+	\item[] Gibt eine Liste der Werte der Parameter des \texttt{SuccessQuantifier}s zurück
+	\item[] Returns: die Liste der Werte
 	
 	\item \texttt{String getStrategyAdjusterName()}
 	\item[] Gibt den Namen des Adaptionsmechanismus dieser Konfiguration zurück.
@@ -157,6 +190,10 @@ Methoden:
 	\item \texttt{int getMaxAdapts()}
 	\item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
 	\item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
+	
+	\item \texttt{boolean isMulticonfiguration()}
+	\item[] Gibt zurück, ob es sich nicht um eine Multikonfiguration handelt
+	\item[] Returns: \texttt{true}, falls es sich nicht um eine Multikonfiguration handelt, \texttt{false} sonst
 	
 	\item \texttt{String getVariableParameterName()}
 	\item[] Gibt den Namen des variablen Parameters zurück.
@@ -251,92 +288,6 @@ Methoden:
 \item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
 \item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
 \end{itemize}
-
-\subsubsection{Inteface \texttt{Repository<T>}}
-
-// Im falschen Paket
-
-Ein Repository speichert eine Zuordnung von Namen und Entitäten und stellt diese auf Anfrage zur Verfügung.
-
-Parameter:
-\begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
-\end{itemize}
-
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-	\item \texttt{T getEntityByName(String name)}
-	\item[] Gibt die zu dem Namen gehörige Entität zurück oder \texttt{null} falls das Depot keine Entität unter dem gegebene Namen speichert
-	\item[] \texttt{name}: der Name der Entität die abgefragt werden soll
-	\item[] Returns: die zu dem Namen gehörige Entität oder \texttt{null}
-	
-	\item \texttt{boolean addEntity(String name, T entity)}
-	\item[] Fügt dem Depot eine neue Entität unter dem gegebene Namen hinzu
-	\item[] \texttt{name}: der Name der Entität, die hinzugefügt werden soll
-	\item[] \texttt{entity}: Die Entität, die hinzugefügt werden soll
-	\item[] Returns: \texttt{true}, wenn die Entität erfolgreich hinzugefügt wurde und \texttt{false}, wenn bereits eine Entität unter dem Name im Depot existiert 
-	
-	\item \texttt{boolean containsEntityName(String name)}
-	\item[] Gibt zurück, ob das Depot eine Entität unter dem gegebenen Namen enthält
-	\item[] \texttt{name}: der Name der geprüft werden soll
-	\item[] Returns: \texttt{true}, wenn das Depot eine Entität unter diesem Namen speichert und \texttt{false}, wenn nicht
-	
-\end{itemize}
-
-\subsubsection{Class \texttt{HashMapRepository implements Repository<T>}}
-
-// Im falschen Paket
-
-Ein Implementierung des \texttt{Repository<T>}-Interface, die Entitäten in einer \texttt{HashMap} speichert.
-
-Parameter:
-
-\begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
-\end{itemize}
-
-Konstruktoren:
-
-\begin{itemize} \itemsep -10pt
-	\item \texttt{HasMapRepository()}
-	\item[] Erzeugt eine neue Instanz des Depots
-\end{itemize}
-
-
-\subsubsection{Class \texttt{FileIO}}
-
-Diese Klasse stellt Funktionalitäten zum Laden und Speichern von Entitäten in Dateien zur Verfügung.
-
-Methoden:
-
-\begin{itemize}\itemsep -10pt
-	\item \underline{\texttt{static <T> T loadEntity(File file)}}
-	\item[] Lädt die Entität des Typs \texttt{T} aus der angegebenen Datei 
-	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
-	\item[] \texttt{file}: Die Datei aus der die Entität geladen werden soll
-	\item[]Returns: die geladenen Entität oder \texttt{null} wenn keine Entität des Typs \texttt{T} geladen werden konnte
-	
-	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
-	\item[] Lädt alle Entität des Typs \texttt{T} aus den Dateien in dem gegebene Ordner 
-	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
-	\item[] \texttt{dir}: Der Ordner aus dem die Entität geladen werden soll
-	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
-	
-	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
-	\item[] Lädt alle Entität des Typs \texttt{T} aus den gegebenen Dateien
-	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
-	\item[] \texttt{files}: Die Liste der Dateien aus denen die Entitäten geladen werden sollen
-	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
-	
-	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
-	\item[] Speichert die Entität des Typs \texttt{T} in der gegebenen Datei
-	\item[] \texttt{<T>} Entitätentyp der gespeichert werden soll
-	\item[] \texttt{file}: Die Datei, in welche die Entität gespeichert werden soll
-	\item[] \texttt{entity}: Die Entität die gespeichert werden soll
-	\item[]Returns: \texttt{true}, wenn das Speichern erfolgreich war, andernfalls \texttt{false}
-\end{itemize}
-
 
 \subsubsection{Interface \texttt{Nameable}}
 
@@ -447,137 +398,6 @@ Methoden:
 \item[] Returns: die Namen der Strategien aus der Strategieverteilung dieses Segments als \texttt{Collection<String>}
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.model.distribution}}
-
-\subsubsection{Interface \texttt{Distribution<E>}}
-Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem Träger von Objekten des Typs \texttt{E}. Eine Implementierung gibt auf Anfrage die Wahrscheinlichkeit eines bestimmten Objekts zurück und stellt einen \texttt{Picker<E>} zur Verfügung, mit dem zufällig Objekte aus der Wahrscheinlichkeitsverteilung gezogen werden können.
-
-Methoden
-\begin{itemize}\itemsep -10pt
-\item \texttt{double getProbability(E object)}
-\item[] Gibt die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung zurück.
-\item[] \texttt{element}: das Objekt, dessen Wahrscheinlichkeit abgefragt werden soll
-\item[] Returns: die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung
-
-\item \texttt{Picker<E> getPicker()}
-\item[] Gibt einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung zurück.
-\item[] Returns: einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung
-\end{itemize}
-
-\subsubsection{Interface \texttt{Picker<E>}}
-Ein \texttt{Picker<E>} wird von Implementierungen des \texttt{Distribution<E>}-Interfaces zur Verfügung gestellt, um Objekte aus der entsprechenden Wahrscheinlichkeitsverteilung zu ziehen.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{E pickOne()}
-\item[] Zieht ein Objekt aus der Wahrscheinlichkeitsverteilung und gibt dieses zurück.
-\item[] Returns: das aus der Wahrscheinlichkeitsverteilung gezogene Objekt
-
-\item \texttt{Collection<E> pickMany(int i)}
-\item[] Zieht mehrere Objekte aus der Wahrscheinlichkeitsverteilung und gibt diese als \texttt{Collection<E>} zurück.
-\item[] \texttt{i}: die Anzahl der Objekte, die aus der Wahrscheinlichkeitsverteilung gezogen werden sollen
-\item[] Returns: die aus der Wahrscheinlichkeitsverteilung gezogenen Objekte als \texttt{Collection<E>}
-\end{itemize}
-
-\subsubsection{Interface \texttt{DiscreteDistribution}}
-Implements: \texttt{Distribution<Integer>}
-
-Repräsentiert eine diskrete Wahrscheinlichkeitsverteilung auf den ganzen Zahlen. Eine Implementierung berechnet für einen gegebenen Wert \(q \in (0,1)\) ein Intervall \(I_q = [a,b]\) (\(a,b \in \mathbb{Z}, a < b\)), sodass ein zufällig gezogener Wert aus der Verteilung mindestens mit der Wahrscheinlichkeit \(q\) in \(I_q\) liegt. Die Grenzen dieses Intervalls können abgefragt werden.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{int getSupportMin(double q)}
-\item[] Gibt die linke Grenze des Intervalls \(I_q\) zurück.
-\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
-\item[] Returns: die linke Grenze des Intervalls \(I_q\)
-
-\item \texttt{int getSupportMax(double q)}
-\item[] Gibt die rechte Grenze des Intervalls \(I_q\) zurück.
-\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
-\item[] Returns: die rechte Grenze des Intervalls \(I_q\)
-\end{itemize}
-
-\subsubsection{Class \texttt{PoissonDistribution}}
-Implements: \texttt{DiscreteDistribution}
-
-Repräsentiert eine Poisson-Verteilung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{PoissonDistribution(double lambda)}
-\item[] Erzeugt ein neues \texttt{PoissonDistribution}-Objekt mit dem Parameter \texttt{lambda}.
-\item[] \texttt{lambda}: der variable Parameter in der Poissonverteilung
-\end{itemize}
-
-\subsubsection{Class \texttt{BinomialDistribution}}
-Implements: \texttt{DiscreteDistribution}
-
-Repräsentiert eine Bionomialverteilung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{BinomialDistribution(int a, int b, double p)}
-\item[] Erzeugt ein neues \texttt{BinomialDistribution}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{a}: die linke Grenze der Verteilung
-\item[] \texttt{b}: die rechte Grenze der Verteilung
-\item[] \texttt{p}: der Wahrscheinlichkeitsparameter \(p \in [0,1]\) der Binomialverteilung
-\end{itemize}
-
-\subsubsection{Class \texttt{DiscreteUniformDistribution}}
-Implements: \texttt{DiscreteDistribution}
-
-Repräsentiert eine diskrete Gleichverteilung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{DiscreteUniformDistribution(int a, int b)}
-\item[] Erzeugt ein neues \texttt{DiscreteUniformDistribution}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{a}: die linke Grenze der Verteilung
-\item[] \texttt{b}: die rechte Grenze der Verteilung
-\end{itemize}
-
-\subsubsection{Interface \texttt{FiniteDistribution<E>}}
-Extends: \texttt{Distribution<E>}
-
-Repräsentiert eine Wahrscheinlichkeitsverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen geben auf Abfrage den Träger als \texttt{Collection<E>} zurück.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Collection<E> getSupport()}
-\item[] Gibt den Träger dieser Wahrscheinlichkeitsverteilung zurück.
-\item[] Returns: den Träger dieser Wahrscheinlichkeitsverteilung als \texttt{Collection<E>}
-\end{itemize}
-
-\subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
-Implements: \texttt{FiniteDistribution<E>}
-
-Repräsentiert eine Gleichverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen bieten Methoden zum Hinzufügen und Entfernen von Objekten.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{UniformFiniteDistribution<E>()}
-\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit leerem Träger.
-
-\item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
-\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit den gegebenen Objekten als Träger.
-\item[] \texttt{objects}: die Objekte des Trägers dieser Wahrscheinlichkeitsverteilung
-\end{itemize}
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void addObject(E object)}
-\item[] Fügt das gegebene Objekt zum Träger hinzu.
-\item[] \texttt{object}: das Objekt, das dem Träger hinzugefügt werden soll
-
-\item \texttt{void addObjects(Collection<E> objects)}
-\item[] Fügt die gegebenen Elemente zum Träger hinzu.
-\item[] \texttt{objects}: die Objekte, die dem Träger hinzugefügt werden sollen
-
-\item \texttt{boolean deleteObject(E object)}
-\item[] Entfernt das gegebene Objekt aus dem Träger, falls enthalten.
-\item[] \texttt{object}: das Objekt, das aus dem Träger entfernt werden soll
-\item[] Returns: \texttt{true}, falls das gegebene Objekt im Träger enthalten war und entfernt wurde, andernfalls \texttt{false}
-\end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
 Dieses Paket enthält das Interface \texttt{Simulator}. Dieses bietet eine Schnittstelle zum Starten und Abbrechen von Simulationen. Beim Start einer Simulation wird eine Referenz auf ein \texttt{Simulation}-Objekt zurückgegeben, über das der Ausführungsstatus und die Ergebnisse der Simulation abgefragt werden können.
@@ -704,7 +524,7 @@ Methoden:
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
 
-Dieses Paket beinhaltet die Klasse \texttt{SimulationEngine}, mit der eine einzelne Wiederholung zu einer bestimmten elementaren Konfiguration ausgeführt werden kann.
+Dieses Paket beinhaltet die Klasse \texttt{SimulationEngine}, mit der eine einzelne Wiederholung zu einer bestimmten elementaren Konfiguration ausgeführt werden kann, sowie für den Simulationsablauf zentrale Klassen wie den \texttt{Agent}, das Stufenspiel (\texttt{Game}) oder die \texttt{Strategy}.
 
 \subsubsection{Class \texttt{AgentInitializer}}
 Ein \texttt{AgentInitializer} kann verwendet werden, um die Agenten eines gegebenen Segments zu erstellen und mit Kapital, Strategien und Gruppenzugehörigkeit zu initialisieren.
@@ -814,9 +634,6 @@ Methoden
 \item[] Gibt die Zahl durchgeführter Adaptionsschritte zurück.
 \item[] Returns: die Zahl durchgeführter Adaptionsschritte
 \end{itemize}
-
-\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.core}}
-Dieses Paket beinhaltet für den Simulationsablauf zentrale Klassen wie den \texttt{Agent}, das Stufenspiel (\texttt{Game}) oder die \texttt{Strategy}.
 
 \subsubsection{Class \texttt{Agent}}
 Diese Klasse repräsentiert einen einzelnen Agenten in einem Simulationsdurchlauf. Sie enthält Informationen über den Agenten wie dessen Gruppenzugehörigkeit, sein aktuelles und initiales Kapital oder seine aktuelle Strategie.
@@ -1162,6 +979,136 @@ Konstruktoren:
 \item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
 \end{itemize}
 
+\subsubsection{Interface \texttt{Distribution<E>}}
+Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem Träger von Objekten des Typs \texttt{E}. Eine Implementierung gibt auf Anfrage die Wahrscheinlichkeit eines bestimmten Objekts zurück und stellt einen \texttt{Picker<E>} zur Verfügung, mit dem zufällig Objekte aus der Wahrscheinlichkeitsverteilung gezogen werden können.
+
+Methoden
+\begin{itemize}\itemsep -10pt
+\item \texttt{double getProbability(E object)}
+\item[] Gibt die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung zurück.
+\item[] \texttt{element}: das Objekt, dessen Wahrscheinlichkeit abgefragt werden soll
+\item[] Returns: die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung
+
+\item \texttt{Picker<E> getPicker()}
+\item[] Gibt einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung zurück.
+\item[] Returns: einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung
+\end{itemize}
+
+\subsubsection{Interface \texttt{Picker<E>}}
+Ein \texttt{Picker<E>} wird von Implementierungen des \texttt{Distribution<E>}-Interfaces zur Verfügung gestellt, um Objekte aus der entsprechenden Wahrscheinlichkeitsverteilung zu ziehen.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{E pickOne()}
+\item[] Zieht ein Objekt aus der Wahrscheinlichkeitsverteilung und gibt dieses zurück.
+\item[] Returns: das aus der Wahrscheinlichkeitsverteilung gezogene Objekt
+
+\item \texttt{Collection<E> pickMany(int i)}
+\item[] Zieht mehrere Objekte aus der Wahrscheinlichkeitsverteilung und gibt diese als \texttt{Collection<E>} zurück.
+\item[] \texttt{i}: die Anzahl der Objekte, die aus der Wahrscheinlichkeitsverteilung gezogen werden sollen
+\item[] Returns: die aus der Wahrscheinlichkeitsverteilung gezogenen Objekte als \texttt{Collection<E>}
+\end{itemize}
+
+\subsubsection{Interface \texttt{DiscreteDistribution}}
+Implements: \texttt{Distribution<Integer>}
+
+Repräsentiert eine diskrete Wahrscheinlichkeitsverteilung auf den ganzen Zahlen. Eine Implementierung berechnet für einen gegebenen Wert \(q \in (0,1)\) ein Intervall \(I_q = [a,b]\) (\(a,b \in \mathbb{Z}, a < b\)), sodass ein zufällig gezogener Wert aus der Verteilung mindestens mit der Wahrscheinlichkeit \(q\) in \(I_q\) liegt. Die Grenzen dieses Intervalls können abgefragt werden.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getSupportMin(double q)}
+\item[] Gibt die linke Grenze des Intervalls \(I_q\) zurück.
+\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
+\item[] Returns: die linke Grenze des Intervalls \(I_q\)
+
+\item \texttt{int getSupportMax(double q)}
+\item[] Gibt die rechte Grenze des Intervalls \(I_q\) zurück.
+\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
+\item[] Returns: die rechte Grenze des Intervalls \(I_q\)
+\end{itemize}
+
+\subsubsection{Class \texttt{PoissonDistribution}}
+Implements: \texttt{DiscreteDistribution}
+
+Repräsentiert eine Poisson-Verteilung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PoissonDistribution(double lambda)}
+\item[] Erzeugt ein neues \texttt{PoissonDistribution}-Objekt mit dem Parameter \texttt{lambda}.
+\item[] \texttt{lambda}: der variable Parameter in der Poissonverteilung
+\end{itemize}
+
+\subsubsection{Class \texttt{BinomialDistribution}}
+Implements: \texttt{DiscreteDistribution}
+
+Repräsentiert eine Bionomialverteilung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{BinomialDistribution(int a, int b, double p)}
+\item[] Erzeugt ein neues \texttt{BinomialDistribution}-Objekt mit den gegebenen Parametern.
+\item[] \texttt{a}: die linke Grenze der Verteilung
+\item[] \texttt{b}: die rechte Grenze der Verteilung
+\item[] \texttt{p}: der Wahrscheinlichkeitsparameter \(p \in [0,1]\) der Binomialverteilung
+\end{itemize}
+
+\subsubsection{Class \texttt{DiscreteUniformDistribution}}
+Implements: \texttt{DiscreteDistribution}
+
+Repräsentiert eine diskrete Gleichverteilung.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{DiscreteUniformDistribution(int a, int b)}
+\item[] Erzeugt ein neues \texttt{DiscreteUniformDistribution}-Objekt mit den gegebenen Parametern.
+\item[] \texttt{a}: die linke Grenze der Verteilung
+\item[] \texttt{b}: die rechte Grenze der Verteilung
+\end{itemize}
+
+\subsubsection{Interface \texttt{FiniteDistribution<E>}}
+Extends: \texttt{Distribution<E>}
+
+Repräsentiert eine Wahrscheinlichkeitsverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen geben auf Abfrage den Träger als \texttt{Collection<E>} zurück.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Collection<E> getSupport()}
+\item[] Gibt den Träger dieser Wahrscheinlichkeitsverteilung zurück.
+\item[] Returns: den Träger dieser Wahrscheinlichkeitsverteilung als \texttt{Collection<E>}
+\end{itemize}
+
+\subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
+Implements: \texttt{FiniteDistribution<E>}
+
+Repräsentiert eine Gleichverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen bieten Methoden zum Hinzufügen und Entfernen von Objekten.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{UniformFiniteDistribution<E>()}
+\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit leerem Träger.
+
+\item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
+\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit den gegebenen Objekten als Träger.
+\item[] \texttt{objects}: die Objekte des Trägers dieser Wahrscheinlichkeitsverteilung
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addObject(E object)}
+\item[] Fügt das gegebene Objekt zum Träger hinzu.
+\item[] \texttt{object}: das Objekt, das dem Träger hinzugefügt werden soll
+
+\item \texttt{void addObjects(Collection<E> objects)}
+\item[] Fügt die gegebenen Elemente zum Träger hinzu.
+\item[] \texttt{objects}: die Objekte, die dem Träger hinzugefügt werden sollen
+
+\item \texttt{boolean deleteObject(E object)}
+\item[] Entfernt das gegebene Objekt aus dem Träger, falls enthalten.
+\item[] \texttt{object}: das Objekt, das aus dem Träger entfernt werden soll
+\item[] Returns: \texttt{true}, falls das gegebene Objekt im Träger enthalten war und entfernt wurde, andernfalls \texttt{false}
+\end{itemize}
+
 \subsection{Paket \texttt{edu.kit.loop.Controller}}
 Dieses Paket enthält die Kontrollstruktur des Programms und dient als Verbindung zwischen dem View und dem Model.
 Die einzelnen Kontroller sind in einer baumartigen Struktur angeordnet und die Wurzel ist der \enquote{Headcontroller}. Dieser dient als Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur.
@@ -1477,6 +1424,7 @@ Methoden:
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.plugin}}
+//Beschreibung!
 
 \subsubsection{Class \texttt{PluginLoader}}
 
@@ -1632,6 +1580,93 @@ Methoden:
 	\item[] Erzeugt eine neue Instanz der Klasse, die die Pluginfunktionalität bereitstellt und parametrisiert sie mit den übergebenen Werten der Konfigurationsparametern
 	\item[] \texttt{params}: eine Liste mit den Werten der Konfigurationsparameter
 	\item[] Returns: eine neue Instanz der Klasse, die die Pluginfunktionalität zur Verfügung stellt
+\end{itemize}
+
+\subsection{Paket \texttt{edu.kit.loop.model.repository}}
+Dieses Paket beinhaltet die Funktionalität der zentralen Repositorys, über die alle aktuell im System hinterlegten Spiele, Strategien, Populationen, Paarbildungsalgorithmen, Erfolgsquantifizierungen, Adaptionsmechanismen und Gleichgewichtskriterien abgefragt werden können.
+
+
+\subsubsection{Inteface \texttt{Repository<T>}}
+
+Ein Repository speichert eine Zuordnung von Namen und Entitäten und stellt diese auf Anfrage zur Verfügung.
+
+Parameter:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+\end{itemize}
+
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{T getEntityByName(String name)}
+	\item[] Gibt die zu dem Namen gehörige Entität zurück oder \texttt{null} falls das Depot keine Entität unter dem gegebene Namen speichert
+	\item[] \texttt{name}: der Name der Entität die abgefragt werden soll
+	\item[] Returns: die zu dem Namen gehörige Entität oder \texttt{null}
+	
+	\item \texttt{boolean addEntity(String name, T entity)}
+	\item[] Fügt dem Depot eine neue Entität unter dem gegebene Namen hinzu
+	\item[] \texttt{name}: der Name der Entität, die hinzugefügt werden soll
+	\item[] \texttt{entity}: Die Entität, die hinzugefügt werden soll
+	\item[] Returns: \texttt{true}, wenn die Entität erfolgreich hinzugefügt wurde und \texttt{false}, wenn bereits eine Entität unter dem Name im Depot existiert 
+	
+	\item \texttt{boolean containsEntityName(String name)}
+	\item[] Gibt zurück, ob das Depot eine Entität unter dem gegebenen Namen enthält
+	\item[] \texttt{name}: der Name der geprüft werden soll
+	\item[] Returns: \texttt{true}, wenn das Depot eine Entität unter diesem Namen speichert und \texttt{false}, wenn nicht
+	
+\end{itemize}
+
+\subsubsection{Class \texttt{HashMapRepository implements Repository<T>}}
+
+// Im falschen Paket
+
+Ein Implementierung des \texttt{Repository<T>}-Interface, die Entitäten in einer \texttt{HashMap} speichert.
+
+Parameter:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+\end{itemize}
+
+Konstruktoren:
+
+\begin{itemize} \itemsep -10pt
+	\item \texttt{HasMapRepository()}
+	\item[] Erzeugt eine neue Instanz des Depots
+\end{itemize}
+
+
+\subsubsection{Class \texttt{FileIO}}
+
+Diese Klasse stellt Funktionalitäten zum Laden und Speichern von Entitäten in Dateien zur Verfügung.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \underline{\texttt{static <T> T loadEntity(File file)}}
+	\item[] Lädt die Entität des Typs \texttt{T} aus der angegebenen Datei 
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{file}: Die Datei aus der die Entität geladen werden soll
+	\item[]Returns: die geladenen Entität oder \texttt{null} wenn keine Entität des Typs \texttt{T} geladen werden konnte
+	
+	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
+	\item[] Lädt alle Entität des Typs \texttt{T} aus den Dateien in dem gegebene Ordner 
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{dir}: Der Ordner aus dem die Entität geladen werden soll
+	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	
+	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
+	\item[] Lädt alle Entität des Typs \texttt{T} aus den gegebenen Dateien
+	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
+	\item[] \texttt{files}: Die Liste der Dateien aus denen die Entitäten geladen werden sollen
+	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	
+	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
+	\item[] Speichert die Entität des Typs \texttt{T} in der gegebenen Datei
+	\item[] \texttt{<T>} Entitätentyp der gespeichert werden soll
+	\item[] \texttt{file}: Die Datei, in welche die Entität gespeichert werden soll
+	\item[] \texttt{entity}: Die Entität die gespeichert werden soll
+	\item[]Returns: \texttt{true}, wenn das Speichern erfolgreich war, andernfalls \texttt{false}
 \end{itemize}
 
 \section{Glossar}
