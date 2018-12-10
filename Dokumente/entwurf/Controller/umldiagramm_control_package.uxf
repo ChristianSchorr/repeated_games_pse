@@ -34,22 +34,22 @@
     <coordinates>
       <x>944</x>
       <y>376</y>
-      <w>224</w>
+      <w>248</w>
       <h>176</h>
     </coordinates>
     <panel_attributes>MenuController
 -
 -repository : Repository&lt;t&gt;
 -
-+ConfigMenuController(Repository&lt;t&gt;)
-+saveConfiguration()
++ConfigMenuController(Repository&lt;t&gt; repository)
++saveConfiguration(Configuration configuration)
 +loadConfiguration()
 +addGame()
 +addStrategy()
 +addPopulation()
 +addGroup()
 +close()
-+runConfiguration(Configuration)
++runConfiguration(Configuration configuration)
 +help()
 </panel_attributes>
     <additional_attributes/>
@@ -257,18 +257,15 @@ observes</panel_attributes>
       <x>1248</x>
       <y>376</y>
       <w>240</w>
-      <h>144</h>
+      <h>96</h>
     </coordinates>
     <panel_attributes>MainController
 -
 +MainController()
-+addSimulation(Simulation)
-+runConfiguration(Configuration)
++addSimulationToHistory(Simulation)
 +configure()
 +setConfiguration(Configuration)
-+saveConfiguration()
-+loadConfiguration()
-+close()</panel_attributes>
++updateSimulation(Simulation simulation)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -277,14 +274,13 @@ observes</panel_attributes>
       <x>1504</x>
       <y>680</y>
       <w>232</w>
-      <h>112</h>
+      <h>88</h>
     </coordinates>
     <panel_attributes>BasicsController
 -
 -conf : Configuration
 -
 +MainBasicsController()
-+run()
 +configure()
 +setConfiguration(Configuration)</panel_attributes>
     <additional_attributes/>
@@ -295,7 +291,7 @@ observes</panel_attributes>
       <x>1248</x>
       <y>888</y>
       <w>232</w>
-      <h>112</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>GraphicController
 -
@@ -303,9 +299,10 @@ observes</panel_attributes>
 -page : int
 -
 +GraphicController()
-+show(Simulation)
++show(Simulation simulation)
 +repaint()
 +updateValues()
++setPageNumber(int page)
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -322,7 +319,7 @@ observes</panel_attributes>
 -simulations : List
 -
 +Historycontroller()
-+addSimulation(Simulation)
++addSimulationToHistory(Simulation)
 +updateSimulationProgress(Simulation)
 
 </panel_attributes>
@@ -343,25 +340,25 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1336</x>
-      <y>512</y>
+      <y>464</y>
       <w>72</w>
-      <h>192</h>
+      <h>240</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 observes</panel_attributes>
-    <additional_attributes>10.0;220.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;280.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1336</x>
-      <y>512</y>
+      <y>464</y>
       <w>296</w>
-      <h>184</h>
+      <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>350.0;210.0;350.0;180.0;10.0;180.0;10.0;10.0</additional_attributes>
+    <additional_attributes>350.0;270.0;350.0;240.0;10.0;240.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
