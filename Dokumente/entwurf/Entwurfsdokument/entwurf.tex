@@ -1296,6 +1296,164 @@ Methoden:
 
 \end{itemize}
 
+\subsection{Paket \texttt{edu.kit.loop.model.plugin}}
+
+\subsubsection{Class \texttt{PluginLoader}}
+
+Diese Klasse stellt die Funktionalität zum Laden von Plugins mittels der Java \texttt{ServiceLoader}-API zur Verfügung
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \underline{\texttt{static <T> List<T> loadPlugins()}}
+	\item[] Lädt alle verfügbaren Plugins des angegebenen Typs \texttt{T}
+	\item[] \texttt{<T>} Plugintyp der geladen werden soll
+	\item[]Returns: eine Liste der geladenen Plugins
+\end{itemize}
+
+\subsubsection{abstract Class \texttt{PluginControl extends javafx.scene.layout.Pane}}
+
+Diese Klasse dient als Steuerelement für die Konfiguration eines Plugins. Sie stellt eine Funktionalität zum Abfragen der vom Benutzer eingegebenen Konfigurationsparameter zur Verfügung.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{abstract List<double> getParameters()}
+	\item[] Gibt eine Liste der eingegebene Parameter für die Pluginkonfiguration zurück
+	\item[] Returns: eine Liste der eingegebenen \texttt{double}-Parameter
+\end{itemize}
+
+\subsubsection{Class \texttt{TextFieldPluginControl extends PluginControl}}
+
+Diese Klasse ist eine Implementierung eines  \texttt{PluginControl}, bei der die Eingabe der Konfigurationsparameter über Textfelder erfolgt. Die Eingabe wird weiterhin bereits auf Korrektheit überprüft.
+
+Konstruktoren:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{TextFieldPluginControl(List<Parameter> params)}
+	\item[] Erzeugt eine Instanz, die die übergebenen \texttt{Parameter} konfigurierbar macht.
+	\item[] \texttt{params}: eine Liste der konfigurierbaren Parameter
+\end{itemize}
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void addParameter(Parameter param)}
+	\item[] Fügt dem Steuerelement einen \texttt{Parameter} hinzu, der dann über das Steuerelement konfigurierbar ist
+	\item[] \texttt{param}: Der Parameter, der zum Steuerelement hinzugefügt werden soll.
+	\item \texttt{void addParameters(List<Parameter> params)}
+	\item[] Fügt dem Steuerelement eine Liste von \texttt{Parameter}n hinzu, die dann über das Steuerelement konfigurierbar sind
+	\item[] \texttt{params}: Die Parameter, die zum Steuerelement hinzugefügt werden sollen.
+\end{itemize}
+
+\subsubsection{Interface \texttt{PluginRenderer}}
+
+Dieses Interface stellt die Funktionalität zum Erzeugen eines Konfigurations-Steuerelemet für Plugins in einer JavaFX Anwendung bereit.
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{PluginControl render()}
+	\item[] Liefert eine \texttt{PluginControl}-Instanz zurück, die in ein JavaFX-Fenster eingefügt werden kann
+\end{itemize}
+
+\subsubsection{Class \texttt{GenericRenderer implements PluginRenderer}}
+
+Diese Klasse implementiert das \texttt{PluginRenderer}-Interface und erzeugt für ein beliebiges Plugin ein generisches, Textfeld basiertes Konfigurations-Steuerelement (\texttt{TextFieldPluginControl}-Instanz).
+
+Konstruktoren:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{GenericRenderer(plugin: Plugin)}
+	\item[] Erzeugt eine Instanz, die für das gegebene Plugin ein Konfigurations-Steuerelement erstellt
+	\item[] \texttt{plugin}: Das Plugin welches der Renderer darstellen soll
+	\item \texttt{GenericRednerer(params: List<Parameter>)}
+	\item[] Erzeugt eine Instanz, die ein Steuerelement mit den gegebenen \texttt{Parameter} erzeugt.
+	\item[] \texttt{params}: Eine Liste der konfigurierbaren Parameter eines Plugins
+\end{itemize} 
+
+\subsubsection{Class \texttt{Parameter implements Nameable}}
+
+Diese Klasse definiert einen Konfigurationsparameter für Plugins. Sie bietet Funktionaliäten zum Festlegen des Wertebereichs und der Granularität des Konfigurationsparameter.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{Parameter()}
+	\item[] Erzeugt eine neue Instanz mit unbeschränktem Wertebereich 
+	\item \texttt{Parameter(double minVal)}
+	\item[] Erzeugt eine neue Instanz mit nach unten beschränktem Wertebereich
+	\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+	\item \texttt{Parameter(double maxVal)}
+	\item[] Erzeugt eine neue Instanz mit nach oben beschränktem Wertebereich
+	\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+	\item \texttt{Parameter(double minVal, double maxVal)}
+	\item[] Erzeugt eine neue Instanz mit nach unten und oben beschränktem Wertebereich
+	\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+	\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+	\item \texttt{Parameter(double minVal, double maxVal, double stepSize)}
+	\item[] Erzeugt eine neue Instanz mit nach oben und unten beschränktem Wertebereich, sowie eingeschränkter Granularität
+	\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+	\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+	\item[] \texttt{stepSize}: Granularität des Parameters
+	
+\end{itemize}
+
+Methoden:
+
+\begin{itemize}\itemsep -10pt
+	\item \texttt{double getMinValue()}
+	\item[] Gibt die untere Schranke des gültigen Wertebereichs zurück
+	\item[] Returns: die untere Schranke des gültigen Wertebereichs
+	\item \texttt{double getMaxValue()}
+	\item[] Gibt die obere Schranke des gültigen Wertebereichs zurück
+	\item[]Returns: die obere Schranke des gültigen Wertebereichs
+	\item \texttt{double getStepSize()}
+	\item[] Gibt die Granularität des Wertebereichs zurück
+	\item[]Returns: die Granularität des Wertebereichs
+\end{itemize}
+
+\subsubsection{Class \texttt{ParameterValidator}}
+
+Diese Klasse bietet Funktionalitäten zum Validieren einer Parameterbelegung in Form von statischen Hilfsmethoden.
+
+Methoden:
+
+\begin{itemize} \itemsep -10pt
+	\item \underline{\texttt{static boolean isValueValid(double val, Parameter param)}}
+	\item[] Prüft, ob der gegeben Wert im Wertebereich des gegebenen Parameters liegt
+	\item[] \texttt{val}: der Wert der überprüft werden soll
+	\item[] \texttt{param}: der Parameter, dessen Wertebereich für die Überprüfung genutzt werden soll.
+	\item[] Returns: \texttt{true}, wenn der Wert im Wertebereich des Parameters liegt \texttt{false} andernfalls
+	\item \underline{\texttt{static double getClosestValid(double val, Parameter param)}}
+	\item[] Gibt den Wert im Wertebereich des Parameters zurück, der am nächsten an dem gegebenen Wert liegt
+	\item[] \texttt{val}: der Wert, der beim ermitteln betrachtet wird
+	\item[] \texttt{param}: der Parameter, desssen Wertebereich betrachtet wird
+	\item[] Returns: der Wert aus dem Wertebereich des Parameters, der dem gegebenen Wert am nächsten liegt
+\end{itemize}
+
+\subsubsection{abstract Class \texttt{Plugin<T> implements  Nameable}}
+
+Diese Klasse stellt ein dynamisch ladbares Plugin da. Sie ist ein generischer Container für eine Klasse, die die eigentliche Pluginfunktionalität bereitstellt. Sie bietet Funktionalitäten zum erzeugen neuer parametrisierter Instanzen der Funktionalitätsklasse. Eine Liste der geforderten Konfigurationsparameter kann abgefragt werden.
+
+Parameter:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} Der Typ der Klasse, welche die Pluginfunktionalität bereit stellt. 
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{PluginRenderer getRenderer()}
+	\item[] Gibt eine \texttt{PluginRenderer}-Instanz zum Erzeugen eines Konfigurations-Steuerelements für das Plugin zurück
+	\item[] Returns: eine Instanz eines \texttt{PluginRenderer}s
+	\item \texttt{abstract List<Parameter> getParameters()}
+	\item[] Gibt eine Liste der Konfigurationsparameter des Plugins zurück
+	\item[] Returns: eine Liste der Konfigurationsparameter
+	\item \texttt{abstract T getNewInstance(List<double> params)}
+	\item[] Erzeugt eine neue Instanz der Klasse, die die Pluginfunktionalität bereitstellt und parametrisiert sie mit den übergebenen Werten der Konfigurationsparametern
+	\item[] \texttt{params}: eine Liste mit den Werten der Konfigurationsparameter
+	\item[] Returns: eine neue Instanz der Klasse, die die Pluginfunktionalität zur Verfügung stellt
+\end{itemize}
+
 \section{Glossar}
 \textbf{Elementare Konfiguration:}
 Eine Konfiguration, in der Multikonfiguration deaktiviert ist. Mit den \enquote{einer Konfiguration zugehörigen elementaren Konfigurationen} wird im Falle einer Multikonfiguration die Menge aller elementaren Konfigurationen bezeichnet, in denen der Multikonfigurationsparameter die festgelegte Wertemenge durchläuft. Im Falle einer elementare Konfiguration ist wieder die Konfiguration selbst gemeint.
