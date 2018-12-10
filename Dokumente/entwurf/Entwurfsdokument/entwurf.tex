@@ -75,7 +75,7 @@ Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können 
 \subsection{Paket \texttt{edu.kit.loop.model}}
 Das Modell beinhaltet Klassen und Methoden zum Starten und Abbrechen von Simulationen, sowie zum Erstellen und Speichern von Konfigurationen, Stufenspielen, Strategien und Populationen.
 
-\subsubsection{Class \texttt{UserConfiguration}}
+\subsubsection{Class \texttt{UserConfiguration implements java.io.Serializable}}
 //vielleicht im falschen Package
 
 Diese Klasse repräsentiert eine vom Nutzer erstellte Konfiguration. Sie bietet Methoden zum Lesen aller zugehörigen Parameter.
@@ -83,6 +83,83 @@ Diese Klasse repräsentiert eine vom Nutzer erstellte Konfiguration. Sie bietet 
 Konstruktoren:
 
 Methoden:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{String getGameName()}
+	\item[] Gibt den Namen des Stufenspiels dieser Konfiguration zurück.
+	\item[] Returns: den Namen des Stufenspiels dieser Konfiguration
+	
+	\item \texttt{int getAgentCount()}
+	\item[] Gibt die Anzahl von Agenten in dieser Konfiguration zurück.
+	\item[] Returns: die Anzahl von Agenten in dieser Konfiguration
+	
+	\item \texttt{int getRoundCount()}
+	\item[] Gibt die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration zurück.
+	\item[] Returns: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+	
+	\item \texttt{int getIterationCount()}
+	\item[] Gibt die Anzahl der durchzuführenden Wiederholungen in dieser Konfiguration zurück.
+	\item[] Returns: die Anzahl von Wiederholungen in dieser Konfiguration
+	
+	\item \texttt{List<String> getAvailableStrategyNames()}
+	\item[] Gibt eine Liste der Namen von Strategien, die in der Konfiguration zugelassen sind zurück.
+	\item[] Returns: eine Liste der Strategienamen
+	
+	\item \texttt{boolean getMixedAllowed()}
+	\item[] Gibt zurück, ob in dieser Konfiguration gemischte Strategien zugelassen sind.
+	\item[] Returns: \texttt{true}, falls in dieser Konfiguration gemischte Strategien zugelassen sind; \texttt{false} sonst
+	
+	\item \texttt{List<String> getPopulationNames()}
+	\item[] Gibt eine Liste der Namen von Popultaionen, die in der Konfiguration ausgewählt sind zurück.
+	\item[] Returns: eine Liste der Populationsnamen
+	
+	\item \texttt{String getPairBuilderName()}
+	\item[] Gibt den Namen des  Paarbildungsalgorithmus dieser Konfiguration zurück.
+	\item[] Returns: den Namen des Paarbildungsalgorithmus dieser Konfiguration
+	
+	\item \texttt{String getSuccessQuantifierName()}
+	\item[] Gibt den Namen der Erfolgsquantifizierung dieser Konfiguration zurück.
+	\item[] Returns: der Name der Erfolgsquantifizierung dieser Konfiguration
+	
+	\item \texttt{String getStrategyAdjusterName()}
+	\item[] Gibt den Namen des Adaptionsmechanismus dieser Konfiguration zurück.
+	\item[] Returns: den Namen des Adaptionsmechanismus dieser Konfiguration
+	
+	\item \texttt{List<double> getStrategyAdjusterParameters()}
+	\item[] Gibt eine Liste der Werte der Parameter des \texttt{StrategyAdjuster}s zurück
+	\item[] Returns: die Liste der Werte
+	
+	
+	\item \texttt{String getEquilibriumCriterionName()}
+	\item[] Gibt den Namen des  Gleichgewichtskriterium dieser Konfiguration zurück.
+	\item[] Returns: den Namen des Gleichgewichtskriterium dieser Konfiguration
+	
+	\item \texttt{List<double> getEquilibriumParameters()}
+	\item[] Gibt eine Liste der Werte der Parameter des \texttt{EquilibriumCriterion}s zurück
+	\item[] Returns: die List der Werte
+	
+	\item \texttt{int getMaxAdapts()}
+	\item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
+	\item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
+	
+	\item \texttt{String getVariableParameterName()}
+	\item[] Gibt den Namen des variablen Parameters zurück.
+	\item[] Returns: den Namen des variablen Parameters
+	
+	\item \texttt{double getStartValue()}
+	\item[] Gibt den Startwert des variablen Parameters zurück
+	\item[] Returns: den Startwert des variablen Parameters
+	
+	\item \texttt{double getEndValue()}
+	\item[] Gibt den Endwert des variablen Parameters zurück
+	\item[] Returns: den Endwert des variablen Parameters
+	
+	\item \texttt{double getStepSize()}
+	\item[] Gibt eie Schrittweite der Werte des variablen Parameters zurück
+	\item[] Returns: die Schrittweite der Werte des variablen Parameters
+	
+	
+\end{itemize}
+
 
 \subsubsection{Class \texttt{Configuration}}
 Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederholung und enthält alle Informationen zum Start einer solchen:
