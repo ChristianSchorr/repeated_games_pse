@@ -716,14 +716,11 @@ Methoden:
 \item[] Zeigt die Ergebnisse für die ausgewählte Simulation an
 
 \item \texttt{void repaint()}
-\item[] Zeichnet die Graphen und Diagramme auf der ausgewählten Seite mit den neuen Werten
+\item[] Zeichnet die Graphen und Diagramme auf der ausgewählten Seite mi
 
 
 \item \texttt{void updateValues()}
-\item[] Updatet alle im Fenster verstellbaren Parameter
-
-\item \texttt{void setPageNumber(int page)}
-\item[] Stellt die Seitenzahl auf der der Benutzer sich gerade befindet ein
+\item[] 
 \end{itemize}
 
 
