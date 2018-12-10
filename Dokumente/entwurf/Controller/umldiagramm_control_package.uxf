@@ -12,21 +12,21 @@
     <panel_attributes>HeadController
 --
 -simulator : Simulator
--configuration : Configuration
+-configuration : UserConfiguration
 -repository : ConfigurationParamterRepository
 -
 +CentralController(Simulator, ConfigurationParameterRepository)
 
-+setConfiguration(Configuraiton configuration)
-+getConfiguration(): Configuration
++setConfiguration(UserConfiguraiton configuration)
++getConfiguration(): UserConfiguration
 +addSimulationToHistory(Simulation simulation)
 +saveStrategy(Strategy strategy)
 +saveGame(Game stufenspiel)
-+saveConfiguration(Configuration configuration)
++saveConfiguration(UserConfiguration configuration)
 +savePopulation(Population population)
 +saveGroup(Group group)
 +updateSimulation(Simulation simulation)
-+runConfiguration(Configuration configuration)</panel_attributes>
++runConfiguration(UserConfiguration configuration)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -42,14 +42,14 @@
 -repository : Repository&lt;t&gt;
 -
 +ConfigMenuController(Repository&lt;t&gt; repository)
-+saveConfiguration(Configuration configuration)
++saveConfiguration(UserConfiguration configuration)
 +loadConfiguration()
 +addGame()
 +addStrategy()
 +addPopulation()
 +addGroup()
 +close()
-+runConfiguration(Configuration configuration)
++runConfiguration(UserConfiguration configuration)
 +help()
 </panel_attributes>
     <additional_attributes/>
@@ -262,9 +262,9 @@ observes</panel_attributes>
     <panel_attributes>MainController
 -
 +MainController()
-+addSimulationToHistory(Simulation)
++addSimulationToHistory(Simulation simulation)
 +configure()
-+setConfiguration(Configuration)
++setConfiguration(UserConfiguration configuration)
 +updateSimulation(Simulation simulation)</panel_attributes>
     <additional_attributes/>
   </element>
@@ -282,7 +282,7 @@ observes</panel_attributes>
 -
 +MainBasicsController()
 +configure()
-+setConfiguration(Configuration)</panel_attributes>
++setConfiguration(UserConfiguration configuration)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -309,9 +309,9 @@ observes</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1264</x>
+      <x>1200</x>
       <y>688</y>
-      <w>184</w>
+      <w>264</w>
       <h>96</h>
     </coordinates>
     <panel_attributes>HistoryController
@@ -319,8 +319,8 @@ observes</panel_attributes>
 -simulations : List
 -
 +Historycontroller()
-+addSimulationToHistory(Simulation)
-+updateSimulationProgress(Simulation)
++addSimulationToHistory(Simulation simulation)
++updateSimulationProgress(Simulation simlation)
 
 </panel_attributes>
     <additional_attributes/>
@@ -432,7 +432,7 @@ observes</panel_attributes>
       <x>640</x>
       <y>376</y>
       <w>240</w>
-      <h>592</h>
+      <h>576</h>
     </coordinates>
     <panel_attributes>ConfigController
 -
@@ -440,9 +440,8 @@ observes</panel_attributes>
 -repository : Repository&lt;t&gt;
 -
 +ConfigController(Repositoy&lt;t&gt;)
-+run(Configuration)
 +ConfigBasicsController(Repository&lt;t&gt;)
-+setConfiguration(Configuration)
++setConfiguration(UserConfiguration configuration)
 +setGame(Game)
 +getGame() : Game
 +setNumberOfAgents(int)
