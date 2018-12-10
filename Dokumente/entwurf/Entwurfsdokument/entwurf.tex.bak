@@ -56,10 +56,10 @@ TODO
 Das Konzept von Gruppen und Segmenten wurde überarbeitet. Die Gesamtheit der Gruppen, Segmente, sowie deren Größen und Einstellungen (bis auf Multikonfiguration) heißt nun eine \enquote{Population}. Die Konfiguration von Gruppen und Populationen wurde aus dem Konfigurationsfenster ausgelagert. Wie zur Strategie- und Stufenspielerstellung gibt es nun Fenster zur Erstellung einzelner Gruppen und Populationen.
 
 \textbf{Gruppenerstellung:}
-Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung eingestellt werden. Weiterhin kann eine Gruppe per Checkbox als \enquote{kohärent} deklariert werden (siehe \cref{?}). Diese Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten}. Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
+Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung wie auch schon zuvor im Konfigurationsfenster eingestellt werden (siehe \cref{?}). Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
 
 \textbf{Populationserstellung:}
-Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben werden (siehe \cref{?}). Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
+Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben und eine mit \enquote{ist kohärent} betitelte Checkbox (de-)aktiviert werden (siehe \cref{?}). Die Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten} aus der gruppenlosen Agenten. Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
 
 Das Konfigurationsfenster ist nun nicht mehr in drei Bereiche unterteilt. Statt der Gruppeneinstellungen befindet sich nun zwischen den nun verschmolzenen, ehemaligen \enquote{Grund-} und \enquote{Erweiterten Einstellungen} nur noch ein Dropdown-Menü mit der Betitelung \enquote{Population} (siehe \cref{?}). Hier kann eine der selbst erstellten oder von vornherein im Programm hinterlegten Populationen ausgewählt werden. Unter dem Dropdown-Menü kann ein Abschnitt ausgeklappt werden, der die Zusammensetzung der Population zeigt (siehe \cref{?}). Dieser hat dieselbe Form wie die ehemaligen Gruppeneinstellungen, mit dem Unterschied, dass keine Modifikationen mehr vorgenommen werden können. Per Checkbox kann dort die \enquote{Multikonfiguration} für Segmente und Gruppen wie zuvor aktiviert werden.
 
@@ -156,247 +156,6 @@ Methoden:
 \item \texttt{int getMaxAdapts()}
 \item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
 \item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
-\end{itemize}
-
-\subsubsection{Interface \texttt{Nameable}}
-
-Implementierungen dieses Interface haben einen Namen und eine Beschreibung, die in Form von \texttt{String}s abgefragt werden können.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{String getName()}
-\item[] Gibt den Namen des Objekts zurück.
-\item[] Returns: den Namen des Objekts als \texttt{String}
-
-\item \texttt{String getDescription()}
-\item[] Gibt die Beschreibung des Objekts zurück.
-\item[] Returns: die Beschreibung des Objekts als \texttt{String}
-\end{itemize}
-
-\subsubsection{Class \texttt{Population}}
-Implements: \texttt{Nameable}
-
-Diese Klasse repräsentiert eine Population. Sie bietet Methoden zur Abfrage von Größe und Gruppenzusammensetzung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Population(String name, String description, List<Group> groups, List<Integer> groupSizes)}
-\item[] Erstellt eine neue Population mit Name, Beschreibung und Gruppenzusammensetzung wie gegeben.
-\item[] \texttt{name}: der Name der Population
-\item[] \texttt{description}: die Beschreibung der Population
-\item[] \texttt{groups}: die Gruppen, aus denen diese Population besteht
-\item[] \texttt{groupSizes}: die Größen der Gruppen in derselben Reihenfolge wie die zugehörigen Gruppen
-\end{itemize}
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{int getSize()}
-\item[] Gibt die Größe dieser Population zurück.
-\item[] Returns: die Größe dieser Population
-
-\item \texttt{List<Group> getGroups()}
-\item[] Gibt die Gruppen zurück, aus denen diese Population besteht.
-\item[] Returns: die Gruppen, aus denen diese Population besteht
-
-\item \texttt{int getGroupSize(Group group)}
-\item[] Gibt die Größe der gegebenen Gruppe zurück, falls sie Teil dieser Population ist; andernfalls \(0\).
-\item[] \texttt{group}: die Gruppe, deren Größe zurückgegeben werden soll
-\item[] Returns: die Größe der gegebenen Gruppe, falls sie Teil dieser Population ist; andernfalls \(0\)
-
-\item \texttt{int getGroupCount()}
-\item[] Gibt die Anzahl von Gruppen in dieser Population zurück.
-\item[] Returns: die Anzahl von Gruppen in dieser Population
-\end{itemize}
-
-\subsubsection{Class \texttt{Group}}
-Implements: \texttt{Nameable}
-
-Diese Klasse repräsentiert eine Gruppe. Sie bietet Methoden zur Abfrage von Segmentzusammensetzung und Kohäsion.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Group(String name, String description, List<Segment> segments, List<Double> segmentSizes, boolean isCohesive)}
-\item[] Erstellt eine neue Population mit Name, Beschreibung und Gruppenzusammensetzung wie gegeben.
-\item[] \texttt{name}: der Name der Gruppe
-\item[] \texttt{description}: die Beschreibung der Gruppe
-\item[] \texttt{segments}: die Segmente, aus denen diese Gruppe besteht
-\item[] \texttt{segmentSizes}: die relativen Größen der Segmente in derselben Reihenfolge wie die zugehörigen Segmente
-\item[] \texttt{isCohesive}: gibt an, ob diese Gruppe kohärent ist
-\end{itemize}
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{List<Segment> getSegments()}
-\item[] Gibt die Segmente zurück, aus denen diese Gruppe besteht.
-\item[] Returns: die Segmente, aus denen diese Gruppe besteht
-
-\item \texttt{double getSegmentSize(Segment segment)}
-\item[] Gibt die Größe des gegebenen Segments zurück, falls es Teil dieser Gruppe ist; andernfalls \(0\).
-\item[] \texttt{segment}: das Segment, dessen Größe zurückgegeben werden soll
-\item[] Returns: die relative Größe des gegebenen Segments, falls es Teil dieser Gruppe ist; andernfalls \(0\)
-
-\item \texttt{int getSegmentCount()}
-\item[] Gibt die Anzahl von Segmenten in dieser Gruppe zurück.
-\item[] Returns: die Anzahl von Segmente in dieser Gruppe
-
-\item \texttt{boolean isCohesive()}
-\item[] Gibt zurück, ob diese Gruppe kohärent ist.
-\item[] Returns: \texttt{true}, falls diese Gruppe kohärent ist, \texttt{false} sonst
-\end{itemize}
-
-\subsubsection{Class \texttt{Segment}}
-
-Diese Klasse repräsentiert ein Segment. Es bietet Methoden zur Abfrage von Kapital- und Strategieverteilung. Dabei werden lediglich die Namen der Kapitalverteilung sowie der verschiedenen Strategien gespeichert, die zu der entsprechenden \texttt{DiscreteDistribution} bzw. den entsprechenden \texttt{Strategy}s im zentralen Repository korrespondieren.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Segment(String capitalDistributionName, Collection<String> strategyNames)}
-\item[] Erzeugt ein neues Segment mit gegebener Kapitalverteilung und gegebenen Strategien.
-\item[] \texttt{capitalDistributionName}: der Name der Kapitalverteilung dieses Segments
-\item[] \texttt{strategyNames}: die Namen der Strategien aus der Strategieverteilung dieses Segments
-\end{itemize}
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{String getCapitalDistributionName()}
-\item[] Gibt den Namen der Kapitalverteilung dieses Segments zurück.
-\item[] Returns: den Namen der Kapitalverteilung dieses Segments
-
-\item \texttt{Collection<String> getStrategyNames()}
-\item[] Gibt die Namen der Strategien aus der Strategieverteilung dieses Segments zurück.
-\item[] Returns: die Namen der Strategien aus der Strategieverteilung dieses Segments als \texttt{Collection<String>}
-\end{itemize}
-
-\subsection{edu.kit.loop.model.distribution}
-
-\subsubsection{Interface \texttt{Distribution<E>}}
-Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem Träger von Objekten des Typs \texttt{E}. Eine Implementierung gibt auf Anfrage die Wahrscheinlichkeit eines bestimmten Objekts zurück und stellt einen \texttt{Picker<E>} zur Verfügung, mit dem zufällig Objekte aus der Wahrscheinlichkeitsverteilung gezogen werden können.
-
-Methoden
-\begin{itemize}\itemsep -10pt
-\item \texttt{double getProbability(E object)}
-\item[] Gibt die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung zurück.
-\item[] \texttt{element}: das Objekt, dessen Wahrscheinlichkeit abgefragt werden soll
-\item[] Returns: die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung
-
-\item \texttt{Picker<E> getPicker()}
-\item[] Gibt einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung zurück.
-\item[] Returns: einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung
-\end{itemize}
-
-\subsubsection{Interface \texttt{Picker<E>}}
-Ein \texttt{Picker<E>} wird von Implementierungen des \texttt{Distribution<E>}-Interfaces zur Verfügung gestellt, um Objekte aus der entsprechenden Wahrscheinlichkeitsverteilung zu ziehen.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{E pickOne()}
-\item[] Zieht ein Objekt aus der Wahrscheinlichkeitsverteilung und gibt dieses zurück.
-\item[] Returns: das aus der Wahrscheinlichkeitsverteilung gezogene Objekt
-
-\item \texttt{Collection<E> pickMany(int i)}
-\item[] Zieht mehrere Objekte aus der Wahrscheinlichkeitsverteilung und gibt diese als \texttt{Collection<E>} zurück.
-\item[] \texttt{i}: die Anzahl der Objekte, die aus der Wahrscheinlichkeitsverteilung gezogen werden sollen
-\item[] Returns: die aus der Wahrscheinlichkeitsverteilung gezogenen Objekte als \texttt{Collection<E>}
-\end{itemize}
-
-\subsubsection{Interface \texttt{DiscreteDistribution}}
-Implements: \texttt{Distribution<Integer>}
-
-Repräsentiert eine diskrete Wahrscheinlichkeitsverteilung auf den ganzen Zahlen. Eine Implementierung berechnet für einen gegebenen Wert \(q \in (0,1)\) ein Intervall \(I_q = [a,b]\) (\(a,b \in \mathbb{Z}, a < b\)), sodass ein zufällig gezogener Wert aus der Verteilung mindestens mit der Wahrscheinlichkeit \(q\) in \(I_q\) liegt. Die Grenzen dieses Intervalls können abgefragt werden.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{int getSupportMin(double q)}
-\item[] Gibt die linke Grenze des Intervalls \(I_q\) zurück.
-\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
-\item[] Returns: die linke Grenze des Intervalls \(I_q\)
-
-\item \texttt{int getSupportMax(double q)}
-\item[] Gibt die rechte Grenze des Intervalls \(I_q\) zurück.
-\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
-\item[] Returns: die rechte Grenze des Intervalls \(I_q\)
-\end{itemize}
-
-\subsubsection{Class \texttt{PoissonDistribution}}
-Implements: \texttt{DiscreteDistribution}
-
-Repräsentiert eine Poisson-Verteilung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{PoissonDistribution(double lambda)}
-\item[] Erzeugt ein neues \texttt{PoissonDistribution}-Objekt mit dem Parameter \texttt{lambda}.
-\item[] \texttt{lambda}: der variable Parameter in der Poissonverteilung
-\end{itemize}
-
-\subsubsection{Class \texttt{BinomialDistribution}}
-Implements: \texttt{DiscreteDistribution}
-
-Repräsentiert eine Bionomialverteilung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{BinomialDistribution(int a, int b, double p)}
-\item[] Erzeugt ein neues \texttt{BinomialDistribution}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{a}: die linke Grenze der Verteilung
-\item[] \texttt{b}: die rechte Grenze der Verteilung
-\item[] \texttt{p}: der Wahrscheinlichkeitsparameter \(p \in [0,1]\) der Binomialverteilung
-\end{itemize}
-
-\subsubsection{Class \texttt{DiscreteUniformDistribution}}
-Implements: \texttt{DiscreteDistribution}
-
-Repräsentiert eine diskrete Gleichverteilung.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{DiscreteUniformDistribution(int a, int b)}
-\item[] Erzeugt ein neues \texttt{DiscreteUniformDistribution}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{a}: die linke Grenze der Verteilung
-\item[] \texttt{b}: die rechte Grenze der Verteilung
-\end{itemize}
-
-\subsubsection{Interface \texttt{FiniteDistribution<E>}}
-Extends: \texttt{Distribution<E>}
-
-Repräsentiert eine Wahrscheinlichkeitsverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen geben auf Abfrage den Träger als \texttt{Collection<E>} zurück.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Collection<E> getSupport()}
-\item[] Gibt den Träger dieser Wahrscheinlichkeitsverteilung zurück.
-\item[] Returns: den Träger dieser Wahrscheinlichkeitsverteilung als \texttt{Collection<E>}
-\end{itemize}
-
-\subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
-Implements: \texttt{FiniteDistribution<E>}
-
-Repräsentiert eine Gleichverteilung über Objekten des Typs \texttt{E} mit endlichem Träger. Implementierungen bieten Methoden zum Hinzufügen und Entfernen von Objekten.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{UniformFiniteDistribution<E>()}
-\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit leerem Träger.
-
-\item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
-\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit den gegebenen Objekten als Träger.
-\item[] \texttt{objects}: die Objekte des Trägers dieser Wahrscheinlichkeitsverteilung
-\end{itemize}
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void addObject(E object)}
-\item[] Fügt das gegebene Objekt zum Träger hinzu.
-\item[] \texttt{object}: das Objekt, das dem Träger hinzugefügt werden soll
-
-\item \texttt{void addObjects(Collection<E> objects)}
-\item[] Fügt die gegebenen Elemente zum Träger hinzu.
-\item[] \texttt{objects}: die Objekte, die dem Träger hinzugefügt werden sollen
-
-\item \texttt{boolean deleteObject(E object)}
-\item[] Entfernt das gegebene Objekt aus dem Träger, falls enthalten.
-\item[] \texttt{object}: das Objekt, das aus dem Träger entfernt werden soll
-\item[] Returns: \texttt{true}, falls das gegebene Objekt im Träger enthalten war und entfernt wurde, andernfalls \texttt{false}
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
@@ -663,12 +422,18 @@ Methoden:
 \end{itemize}
 
 \subsubsection{Interface \texttt{Game}}
-Extends: \texttt{Nameable}
-
 Dieses Interface repräsentiert ein Stufenspiel.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
+\item \texttt{String getName()}
+\item[] Gibt den Namen des Stufenspiels zurück.
+\item[] Returns: den Namen des Stufenspiels
+
+\item \texttt{String getDescription()}
+\item[] Gibt die Beschreibung dieses Stufenspiels zurück.
+\item[] Returns: die Beschreibung dieses Stufenspiels
+
 \item[] \texttt{GameResult play(boolean playerOneCooperates, boolean playerTwoCooperates)}
 \item[] Lässt zwei Spieler mit gegebenen Kooperationsentscheidungen dieses Stufenspiel spielen und gibt das Ergebnis des Spiels als \texttt{GameResult}-Objekt zurück.
 \item[] \texttt{playerOneCooperates}: \texttt{true}, falls der erste Spieler kooperiert; \texttt{false sonst}
@@ -677,9 +442,7 @@ Methoden:
 \end{itemize}
 
 \subsubsection{Interface \texttt{Strategy}}
-Extends: \texttt{Nameable}
-
-Repräsentiert eine Strategie. Diese kann, muss aber nicht gemischt sein.
+Repräsentiert eine Strategie. Diese kann, aber muss nicht gemischt sein.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
@@ -853,61 +616,8 @@ Konstruktoren:
 \end{itemize}
 
 \subsubsection{Interface \texttt{EquilibriumCriterion}}
-Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt am Ende eines Adaptionsschritts eine Liste der Agenten, geordnet nach Rang, sowie den Verlauf des Adaptionsschritts in Form eines \texttt{SimulationHistory}-Objektes entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{boolean isEquilibrium(List<Agent> agents, SimulationHistory history)}
-\item[] Gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
-\item[] \texttt{agents}: die Agenten des aktuellen Simulationslaufs
-\item[] \texttt{history}: der Verlauf des aktuellen Adaptionsschritts
-\item[] Returns: \texttt{true}, falls sich ein Gleichgewicht eingestellt hat, \texttt{false} sonst
-\end{itemize}
-
-\subsubsection{Abstract Class \texttt{CountingEquilibriumCriterion}}
-Implements: \texttt{EquilibriumCriterion}
-
-Diese Klasse repräsentiert ein Gleichgewichtskriterium, dass jede Runde eine bestimmte Bedingung prüft und ein Gleichgewicht erkennt, wenn diese Bedingung für eine bestimmte Zahl aufeinanderfolgender Adaptionsschritte erfüllt ist. Diese Bedingung und die nötige Zahl aufeinanderfolgender Adaptionsschritte sind als Schablonenmethoden implementiert.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{abstract boolean hasEquilibriumCondition(List<Agent> agents, SimulationHistory history)}
-\item[] Gibt zurück, ob die Gleichgewichtsbedingung für diesen Adaptionsschritt erfüllt ist.
-\item[] \texttt{agents}: die Agenten des aktuellen Simulationslaufs
-\item[] \texttt{history}: der Verlauf des aktuellen Adaptionsschritts
-\item[] Returns: \texttt{true}, falls die Bedingung erfüllt ist, \texttt{false} sonst
-
-\item \texttt{abstract boolean longEnough(int steps)}
-\item[] Gibt zurück, ob \texttt{steps} größer oder gleich der nötigen Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte ist.
-\item[] \texttt{steps}: die Anzahl von Adaptionsschritten, für die geprüft werden soll, ob sie in obigem Sinne hinreichend groß ist
-\item[] Returns: \texttt{true}, falls \texttt{steps} groß genug ist, \texttt{false} sonst
-\end{itemize}
-
-\subsubsection{Class \texttt{StrategyEquilibrium}}
-Implements: \texttt{CountingEquilibriumCriterion}
-
-Realisiert das in der Spezifikation beschriebene \enquote{Strategie-Gleichgewichtskriterium}.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{StrategyEquilibrium(double alpha, int G)}
-\item[] Erzeugt ein neues \texttt{StrategyEquilibrium}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{alpha}: die Strenge des Gleichgewichts
-\item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
-\end{itemize}
-
-\subsubsection{Class \texttt{CapitalEquilibrium}}
-Implements: \texttt{CountingEquilibriumCriterion}
-
-Realisiert das in der Spezifikation beschriebene \enquote{Rang-Gleichgewichtskriterium}.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{CapitalEquilibrium(double alpha, int G)}
-\item[] Erzeugt ein neues \texttt{CapitalEquilibrium}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{alpha}: die Strenge des Gleichgewichts
-\item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
-\end{itemize}
+//vorläufig, morgen (5.12.) besprechen! siehe UML-Diagramm\\
+Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierung nimmt nach jeder Runde mittels \texttt{boolean isEquilibrium(...)} eine nach aktuellem Rang geordnete Liste von Agenten entgegen und gibt zurück, ob sich ein Gleichgewicht eingestellt hat. Um aufeinanderfolgende Runden vergleichen zu können, muss eine Implementierung stets die Agentenliste des vorhergehenden Aufrufs von \texttt{isEquilibrium(...)} speichern.
 
 \subsection{Paket \texttt{edu.kit.loop.Control}}
 Dieses Paket enthält die Kontrollstruktur des Programms und dient als Verbindung zwischen dem View und dem Model.
@@ -1006,14 +716,11 @@ Methoden:
 \item[] Zeigt die Ergebnisse für die ausgewählte Simulation an
 
 \item \texttt{void repaint()}
-\item[] Zeichnet die Graphen und Diagramme auf der ausgewählten Seite mit den neuen Werten
+\item[] Zeichnet die Graphen und Diagramme auf der ausgewählten Seite mi
 
 
 \item \texttt{void updateValues()}
-\item[] Updatet alle im Fenster verstellbaren Parameter
-
-\item \texttt{void setPageNumber(int page)}
-\item[] Stellt die Seitenzahl auf der der Benutzer sich gerade befindet ein
+\item[] 
 \end{itemize}
 
 
