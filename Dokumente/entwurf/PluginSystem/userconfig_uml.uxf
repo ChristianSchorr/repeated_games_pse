@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>670</x>
+      <y>80</y>
+      <w>380</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>UserConfiguration
+-
++getGameName(): String
++getAgentCount(): int
++getRoundCount(): int
++getIterationCount(): int
++getAvailableStrategieNames(): Collection&lt;String&gt;
++getMixedAllowed(): boolean
++getPopulationNames(): Collection&lt;String&gt;
++getPairBuilderName(): String
++getSuccessQuantifierName(): String
++getStrategyAdjusterName(): String
++getComparisonProbability(): double
++getAdjustmentProbability(): double
++getEquilibriumCriteriaName(): String
++getEquilibriumStability(): double
++getEquilibriumLength(): int
++getMaximumStepCount(): int
+
++getVariableParameter(): String
++getStartValue(): double
++getEndValue(): double
++getStepSize(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>50</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>760</x>
+      <y>10</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/java.io.Serializable/
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>110</y>
+      <w>450</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>FileLoader
+-
+_+loadStrategy(file: File): Strategy_
+_+loadStrategies(dir: File): Collection&lt;Strategy&gt;_
+_+loadGame(file: File): Game_
+_+loadGames(dir: File): Collection&lt;Game&gt;_
+_+loadUserConfiguration(file: File): UserConfiguration_
+_+storeStrategy(strat: Strategy, file: File): boolean_
+_+storeGame(game: Game, file: File): boolean_
+_+storeUserConfiguration(config: UserConfiguration): boolean_</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
