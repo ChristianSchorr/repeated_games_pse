@@ -121,6 +121,7 @@ FiniteDistribution&lt;E&gt;
     </coordinates>
     <panel_attributes>UniformFiniteDistribution&lt;E&gt;
 --
+--
 +UniformFiniteDistribution&lt;E&gt;() &lt;&lt;ctor&gt;&gt;
 +UniformFiniteDistribution&lt;E&gt;(objects: Collection&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
 +addObject(e: E): void
@@ -142,9 +143,9 @@ FiniteDistribution&lt;E&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>602</x>
+      <x>581</x>
       <y>105</y>
-      <w>154</w>
+      <w>168</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
@@ -174,12 +175,12 @@ Distribution&lt;E&gt;
     <coordinates>
       <x>497</x>
       <y>105</y>
-      <w>119</w>
+      <w>98</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -211,7 +212,8 @@ generates</panel_attributes>
       <w>161</w>
       <h>21</h>
     </coordinates>
-    <panel_attributes>extends Distribution&lt;Integer&gt;</panel_attributes>
+    <panel_attributes>extends Distribution&lt;Integer&gt;
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -235,6 +237,7 @@ generates</panel_attributes>
     </coordinates>
     <panel_attributes>PoissonDistribution
 --
+--
 +PoissonDistribution(lambda: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -243,10 +246,11 @@ generates</panel_attributes>
     <coordinates>
       <x>826</x>
       <y>189</y>
-      <w>259</w>
+      <w>294</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>BinomialDistribution
+--
 --
 +BinomialDistribution(min: int, max: int, p: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
@@ -256,12 +260,13 @@ generates</panel_attributes>
     <coordinates>
       <x>826</x>
       <y>238</y>
-      <w>259</w>
+      <w>287</w>
       <h>35</h>
     </coordinates>
-    <panel_attributes>UniformDiscreteDistribution
+    <panel_attributes>DiscreteUniformDistribution
 --
-+EqualDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+--
++DiscreteUniformDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
