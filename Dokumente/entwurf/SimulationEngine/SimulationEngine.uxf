@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1155</x>
-      <y>217</y>
+      <x>1029</x>
+      <y>77</y>
       <w>210</w>
       <h>28</h>
     </coordinates>
@@ -19,8 +19,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>742</x>
-      <y>189</y>
+      <x>665</x>
+      <y>49</y>
       <w>259</w>
       <h>196</h>
     </coordinates>
@@ -28,7 +28,7 @@
 --
 -currentAdaptionstep : int
 --
-+SimulationEngine(config: Configuration)
++SimulationEngine(config: Configuration) &lt;&lt;ctor&gt;&gt;
 +executeIteration() : Result;
 -initializeAgents() : void;
 -createRanking() : void;
@@ -42,46 +42,42 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>77</x>
-      <y>147</y>
+      <x>0</x>
+      <y>35</y>
       <w>287</w>
-      <h>168</h>
+      <h>126</h>
     </coordinates>
     <panel_attributes>Agent
 --
--groupID : int
--initialCapital : int
--totalPayoff : int
--strategy: Strategy
 --
-+setGroup(group : int) : void;
-+getGroup() : int;
-+setInitialCapital(initCapital : int) : void;
-+getInitialCapital() : int;
-+increaseTotalPayoff(payoff : int) : void;
-+getTotalPayoff() : int;
-+setStrategy(strategy : Strategy) : void;
-+getStrategy() : Strategy;</panel_attributes>
++Agent(int initialCapital, Strategy initialStrategy, 
+int groupId) &lt;&lt;ctor&gt;&gt;
++getCapital(): int
++getInitialCapital(): int
++addCapital(capital: int): void
++getGroupId() : int;
++setStrategy(strategy : Strategy): void;
++getStrategy(): Strategy;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>994</x>
-      <y>224</y>
-      <w>175</w>
+      <x>917</x>
+      <y>84</y>
+      <w>126</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1155</x>
-      <y>315</y>
+      <x>1029</x>
+      <y>175</y>
       <w>70</w>
       <h>28</h>
     </coordinates>
@@ -93,51 +89,50 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>994</x>
-      <y>322</y>
-      <w>175</w>
+      <x>917</x>
+      <y>182</y>
+      <w>126</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1..*</panel_attributes>
-    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>259</y>
-      <w>245</w>
+      <x>413</x>
+      <y>119</y>
+      <w>175</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 AgentPair
 --
---
-+getAgentA() : Agent;
-+getAgentB() : Agent;
++getFirst() : Agent;
++getSecond() : Agent;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>357</x>
-      <y>252</y>
-      <w>77</w>
+      <x>280</x>
+      <y>112</y>
+      <w>147</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=2
 </panel_attributes>
-    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>357</x>
-      <y>196</y>
+      <x>280</x>
+      <y>56</y>
       <w>399</w>
       <h>28</h>
     </coordinates>
@@ -149,20 +144,20 @@ m2=2..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>868</x>
-      <y>378</y>
-      <w>21</w>
-      <h>175</h>
+      <x>791</x>
+      <y>238</y>
+      <w>28</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1</panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>658</x>
-      <y>539</y>
+      <x>581</x>
+      <y>329</y>
       <w>378</w>
       <h>119</h>
     </coordinates>
@@ -171,9 +166,9 @@ SimulationHistory
 -
 +addResult(result: GameResult)
 +getAllResults(): Collection&lt;GameResult&gt;
-+getResultsByPlayer(pl: Agent): Collection&lt;GameResult&gt;
++getResultsByAgent(pl: Agent): Collection&lt;GameResult&gt;
 +getLatestResults(): Collection&lt;GameResults&gt;
-+getLatestResult(pl: Agent): GameResult
++getLatestResultByAgent(agent: Agent): GameResult
 +getAllWhere(cond: Predicate&lt;GameResult&gt;): Iterable&lt;GameResult&gt;
 +getLatestWhere(cond: Predicate&lt;GameResult&gt;): GameResult</panel_attributes>
     <additional_attributes/>
@@ -181,24 +176,25 @@ SimulationHistory
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
-      <y>651</y>
-      <w>70</w>
-      <h>63</h>
+      <x>763</x>
+      <y>441</y>
+      <w>77</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 implements</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>700</y>
+      <x>693</x>
+      <y>497</y>
       <w>154</w>
-      <h>21</h>
+      <h>35</h>
     </coordinates>
     <panel_attributes>SimulationHistoryTable
+-
 -
 </panel_attributes>
     <additional_attributes/>
@@ -206,68 +202,68 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
-      <y>714</y>
+      <x>763</x>
+      <y>525</y>
       <w>35</w>
-      <h>84</h>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=0..*
 m1=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>728</x>
-      <y>784</y>
-      <w>231</w>
+      <x>546</x>
+      <y>588</y>
+      <w>336</w>
       <h>91</h>
     </coordinates>
     <panel_attributes>GameResult
 -
-+getPlayer(): Agent
-+getOpponent(): Agent
-+hasPlayerCooperated(): boolean
-+hasOpponentCooperated(): boolean
-+getPlayerPayout(): int
-+getOpponentPayout(): int</panel_attributes>
+-
++GameResult(Agent player1, Agent player2, int payOff1, int payOff2, 
+boolean hasCooperated1, boolean hasCooperated2) &lt;&lt;ctor&gt;&gt;
++hasAgent(agent: Agent): boolean
++getPayoff(agent: Agent): int
++hasCooperated(agent: Agent): boolean
++getAgents(): Collection&lt;Agent&gt; </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>952</x>
-      <y>812</y>
-      <w>112</w>
+      <x>875</x>
+      <y>616</y>
+      <w>98</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 genearates</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
-      <y>798</y>
-      <w>238</w>
+      <x>959</x>
+      <y>602</y>
+      <w>252</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Game
 -
-+getName(): String
-+getDescription(): String
-+play(a1: boolean, a2: boolean): GameResult
++play(boolean playerOneCooperates, 
+boolean playerTwoCooperates): GameResult
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1155</x>
-      <y>357</y>
+      <x>1029</x>
+      <y>217</y>
       <w>147</w>
       <h>28</h>
     </coordinates>
@@ -279,40 +275,20 @@ Game
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>994</x>
-      <y>364</y>
-      <w>175</w>
+      <x>917</x>
+      <y>224</y>
+      <w>126</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1</panel_attributes>
-    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>308</x>
-      <y>420</y>
-      <w>329</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>IterationResult
---
--agents : List&lt;Agent&gt;
--history : SimulationHistory
--effizienz : double
--gleichgewicht : boolean
--adaptionssteps : int
---
-+Result(agents : List&lt;Agent&gt;, history : SimulationHistory,
- effizienz : double, gleichgewicht : boolean, adaptionssteps)</panel_attributes>
-    <additional_attributes/>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>378</y>
+      <x>553</x>
+      <y>238</y>
       <w>154</w>
       <h>77</h>
     </coordinates>
@@ -323,13 +299,36 @@ m1=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>658</x>
-      <y>273</y>
+      <x>581</x>
+      <y>133</y>
       <w>98</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..*</panel_attributes>
     <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>189</x>
+      <y>231</y>
+      <w>371</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>IterationResult
+-
+-
++IterationResult(List&lt;Agent&gt; agents, SimulationHistory history, boolean
+equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
++getAgents(): List&lt;Agent&gt;
++getHistory(): SimulationHistory
++equilibriumReached(): boolean
++getEfficiency(): double
++getAdapts(): int
+
+
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

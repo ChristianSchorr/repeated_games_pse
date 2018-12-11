@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
+      <x>231</x>
       <y>187</y>
       <w>649</w>
       <h>88</h>
@@ -20,20 +20,22 @@ Strategy
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>748</x>
+      <x>539</x>
       <y>374</y>
       <w>440</w>
-      <h>66</h>
+      <h>99</h>
     </coordinates>
     <panel_attributes>MixedStrategy
 -
-</panel_attributes>
+-
++MixedStrategy(List&lt;PureStrategies&gt; pureStrategies, 
+List&lt;Integer&gt; probabilites) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>737</x>
+      <x>528</x>
       <y>264</y>
       <w>264</w>
       <h>132</h>
@@ -44,7 +46,7 @@ Strategy
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1078</x>
+      <x>869</x>
       <y>209</y>
       <w>187</w>
       <h>220</h>
@@ -56,22 +58,22 @@ m2=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>308</x>
+      <x>99</x>
       <y>374</y>
       <w>396</w>
       <h>99</h>
     </coordinates>
-    <panel_attributes>SimpleStrategy
+    <panel_attributes>PureStrategy
 -
 -condition: Predicate&lt;Agent&gt;
 -
-SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+PureStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
+      <x>286</x>
       <y>319</y>
       <w>275</w>
       <h>77</h>
@@ -82,7 +84,7 @@ SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attribu
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
+      <x>286</x>
       <y>462</y>
       <w>33</w>
       <h>99</h>
@@ -93,7 +95,7 @@ SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attribu
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>418</x>
+      <x>209</x>
       <y>539</y>
       <w>176</w>
       <h>33</h>
@@ -105,7 +107,7 @@ SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attribu
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>209</x>
+      <x>0</x>
       <y>209</y>
       <w>253</w>
       <h>374</h>

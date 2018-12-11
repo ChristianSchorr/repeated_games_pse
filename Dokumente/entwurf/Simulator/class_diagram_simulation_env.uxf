@@ -74,13 +74,21 @@ Simulator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>954</x>
-      <y>444</y>
-      <w>102</w>
-      <h>30</h>
+      <x>690</x>
+      <y>498</y>
+      <w>318</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>IterationResult
 -
+-
++IterationResult(List&lt;Agent&gt; agents, SimulationHistory history, boolean
+equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
++getAgents(): List&lt;Agent&gt;
++getHistory(): SimulationHistory
++equilibriumReached(): boolean
++getEfficiency(): double
++getAdapts(): int
 
 
 </panel_attributes>
@@ -89,13 +97,13 @@ Simulator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1026</x>
+      <x>1002</x>
       <y>246</y>
-      <w>18</w>
-      <h>210</h>
+      <w>42</w>
+      <h>276</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;330.0</additional_attributes>
+    <additional_attributes>50.0;10.0;50.0;440.0;10.0;440.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -205,24 +213,24 @@ uses</panel_attributes>
     <coordinates>
       <x>846</x>
       <y>378</y>
-      <w>120</w>
-      <h>90</h>
+      <w>60</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>180.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>762</x>
+      <x>528</x>
       <y>378</y>
-      <w>36</w>
-      <h>120</h>
+      <w>252</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
-    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;150.0;10.0;100.0;400.0;100.0;400.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -271,8 +279,8 @@ double stepSize) &lt;&lt;ctor&gt;&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>534</x>
-      <y>576</y>
+      <x>300</x>
+      <y>540</y>
       <w>336</w>
       <h>54</h>
     </coordinates>
@@ -286,14 +294,14 @@ double stepSize) &lt;&lt;ctor&gt;&gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>732</x>
-      <y>510</y>
+      <x>498</x>
+      <y>492</y>
       <w>60</w>
-      <h>78</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -322,8 +330,8 @@ provides</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>486</y>
+      <x>426</x>
+      <y>468</y>
       <w>180</w>
       <h>30</h>
     </coordinates>
