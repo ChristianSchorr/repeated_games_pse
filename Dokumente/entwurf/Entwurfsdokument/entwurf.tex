@@ -100,116 +100,116 @@ Diese Klasse repräsentiert eine vom Nutzer erstellte Konfiguration. Sie bietet 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, List<String> populationNames, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierName, String strategyAdjusterName, List<double> strategyAdjusterParameters, String equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double, endValue, double stepSize)}
-\item[] Erstellt eine neue \texttt{UserConfiguration} mit den gegebenen Parametern.
-\item[] \texttt{gameName}: der Name des Stufenspiels
-\item[] \texttt{agentCount}: die Anzahl von Agenten
-\item[] \texttt{roundCount}: die Anzahl von Runden pro Adaptionsschritt
-\item[] \texttt{iterationCount}: die Anzahl durchzuführender Wiederholungen
-\item[] \texttt{availableStrategyNames}: eine Liste der Namen aller zugelassenen Strategien
-\item[] \texttt{mixedAllowed}: \texttt{true}, falls gemischte Strategien zugelassen sind, \texttt{false} sonst.
-\item[] \texttt{populationNames}: eine Liste der Namen aller Populationen
-\item[] \texttt{pairBuilderNames}: der Name des Paarbildungsalgorithmus
-\item[] \texttt{pairBuilderParameters}: eine Liste der Werte der Parameter des Paarbildungsalgorithmus
-\item[] \texttt{successQuantifierNames}: der Name der Erfolgsquantifizierung
-\item[] \texttt{successQuantifierParameters}: eine Liste der Werte der Parameter der Erfolgsquantifizierung
-\item[] \texttt{strategyAdjusterName}: der Name des Adaptionsmechanismus
-\item[] \texttt{strategyAdjusterParameters}: eine Liste der Werte der Parameter des Adaptionsmechanismus
-\item[] \texttt{equilibriumCriterionName}: der Name des Gleichgewichtskriteriums
-\item[] \texttt{equilibriumCriterionParameters}: eine Liste der Werte der Parameter des Gleichgewichtskriteriums
-\item[] \texttt{maxAdapts}: die maximale Zahl durchzuführender Adaptionsschritte
-\item[] \texttt{isMulticonfiguration}: \texttt{true}, falls es sich nicht um eine Multikonfiguration handelt, \texttt{false} sonst
-\item[] \texttt{variableParameterName}: der Name des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \texttt{""} sonst
-\item[] \texttt{startValue}: der Startwert des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \(0\) sonst
-\item[] \texttt{endValue}: der Endwert des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \(0\) sonst
-\item[] \texttt{stepSize}: die Schrittweite des Multikonfigurationsparameters, falls es sich nicht um eine Multikonfiguration handelt, \(0\) sonst
+\item[] Creates a new \texttt{UserConfiguration} with the given parameters
+\item[] \texttt{gameName}: the name of the game
+\item[] \texttt{agentCount}: the amount of agents
+\item[] \texttt{roundCount}: the amount of rounds per adaptionstep
+\item[] \texttt{iterationCount}: the amount of iterations
+\item[] \texttt{availableStrategyNames}: a list with the names of all allowed strategies
+\item[] \texttt{mixedAllowed}: \texttt{true}, if mixed strategies are allowed, \texttt{false} otherwise.
+\item[] \texttt{populationNames}: a list with the names of all populations
+\item[] \texttt{pairBuilderNames}: the name of the pair builder
+\item[] \texttt{pairBuilderParameters}: a list with the values of the parameters of the pair builder
+\item[] \texttt{successQuantifierNames}: the name of the success quantifier
+\item[] \texttt{successQuantifierParameters}: a list with the values of the parameters of the success quantifier
+\item[] \texttt{strategyAdjusterName}: the name of the strategy adjuster
+\item[] \texttt{strategyAdjusterParameters}: a list with the values of the parameters of the strategy adjuster
+\item[] \texttt{equilibriumCriterionName}: the name of the equilibrium criterion
+\item[] \texttt{equilibriumCriterionParameters}: a list with the values of the parameters of the equilibrium criterion
+\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration
+\item[] \texttt{isMulticonfiguration}: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
+\item[] \texttt{variableParameterName}: the name of the multiconfiguration parameter, if this is a multiconfiguration, \texttt{""} otherwise
+\item[] \texttt{startValue}: the starting value of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
+\item[] \texttt{endValue}: the end value of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
+\item[] \texttt{stepSize}: the step size of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{String getGameName()}
-	\item[] Gibt den Namen des Stufenspiels dieser Konfiguration zurück.
-	\item[] Returns: den Namen des Stufenspiels dieser Konfiguration
+	\item[] Returns the name of the game of this configuration
+	\item[] Returns: the name of the game of this configuration
 	
 	\item \texttt{int getAgentCount()}
-	\item[] Gibt die Anzahl von Agenten in dieser Konfiguration zurück.
-	\item[] Returns: die Anzahl von Agenten in dieser Konfiguration
+	\item[] Returns the amount of agents in this configuration
+	\item[] Returns: the amount of agents in this configuration
 	
 	\item \texttt{int getRoundCount()}
-	\item[] Gibt die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration zurück.
-	\item[] Returns: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+	\item[] Returns the amount of rounds per adaption step in this configuration
+	\item[] Returns: the amount of rounds per adaption step in this configuration
 	
 	\item \texttt{int getIterationCount()}
-	\item[] Gibt die Anzahl der durchzuführenden Wiederholungen in dieser Konfiguration zurück.
-	\item[] Returns: die Anzahl von Wiederholungen in dieser Konfiguration
+	\item[] Returns the amount of iterations in this configuration
+	\item[] Returns: the amount of iterations in this configuration
 	
 	\item \texttt{List<String> getAvailableStrategyNames()}
-	\item[] Gibt eine Liste der Namen von Strategien, die in der Konfiguration zugelassen sind zurück.
-	\item[] Returns: eine Liste der Strategienamen
+	\item[] Returns a list with names of all available strategies in this configuration
+	\item[] Returns: a list with names of all available strategies in this configuration
 	
 	\item \texttt{boolean getMixedAllowed()}
-	\item[] Gibt zurück, ob in dieser Konfiguration gemischte Strategien zugelassen sind.
-	\item[] Returns: \texttt{true}, falls in dieser Konfiguration gemischte Strategien zugelassen sind; \texttt{false} sonst
+	\item[] Returns, whether mixed strategies are allowed in this configuration
+	\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration; \texttt{false} otherwise
 	
 	\item \texttt{List<String> getPopulationNames()}
-	\item[] Gibt eine Liste der Namen von Popultaionen, die in der Konfiguration ausgewählt sind zurück.
-	\item[] Returns: eine Liste der Populationsnamen
+	\item[] Returns a list with the names of all populations in this configuration
+	\item[] Returns: a list with the names of all populations in this configuration
 	
 	\item \texttt{String getPairBuilderName()}
-	\item[] Gibt den Namen des  Paarbildungsalgorithmus dieser Konfiguration zurück.
-	\item[] Returns: den Namen des Paarbildungsalgorithmus dieser Konfiguration
+	\item[] Returns the name of the \texttt{PairBuilder} of this configuration
+	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
 	
 	\item \texttt{List<double> getPairBuilderParameters()}
-	\item[] Gibt eine Liste der Werte der Parameter des \texttt{PairBuilder}s zurück
-	\item[] Returns: die Liste der Werte
+	\item[] Returns a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
 	
 	\item \texttt{String getSuccessQuantifierName()}
-	\item[] Gibt den Namen der Erfolgsquantifizierung dieser Konfiguration zurück.
-	\item[] Returns: der Name der Erfolgsquantifizierung dieser Konfiguration
+	\item[] Returns the name of the \texttt{SuccessQuantifier} of this configuration
+	\item[] Returns: the name of the \texttt{SuccessQuantifier} of this configuration
 	
 	\item \texttt{List<double> getSuccessQuantifierParameters()}
-	\item[] Gibt eine Liste der Werte der Parameter des \texttt{SuccessQuantifier}s zurück
-	\item[] Returns: die Liste der Werte
+	\item[] Returns a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
 	
 	\item \texttt{String getStrategyAdjusterName()}
-	\item[] Gibt den Namen des Adaptionsmechanismus dieser Konfiguration zurück.
-	\item[] Returns: den Namen des Adaptionsmechanismus dieser Konfiguration
+	\item[] Returns the name of the \texttt{PairBuilder} of this configuration.
+	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
 	
 	\item \texttt{List<double> getStrategyAdjusterParameters()}
-	\item[] Gibt eine Liste der Werte der Parameter des \texttt{StrategyAdjuster}s zurück
-	\item[] Returns: die Liste der Werte
+	\item[] Returns a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
 	
 	
 	\item \texttt{String getEquilibriumCriterionName()}
-	\item[] Gibt den Namen des  Gleichgewichtskriterium dieser Konfiguration zurück.
-	\item[] Returns: den Namen des Gleichgewichtskriterium dieser Konfiguration
+	\item[] Returns the name of the \texttt{EquilibriumCriterion} of this configuration.
+	\item[] Returns: the name of the \texttt{EquilibriumCriterion} of this configuration.
 	
 	\item \texttt{List<double> getEquilibriumParameters()}
-	\item[] Gibt eine Liste der Werte der Parameter des \texttt{EquilibriumCriterion}s zurück
-	\item[] Returns: die List der Werte
+	\item[] Returns a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
 	
 	\item \texttt{int getMaxAdapts()}
-	\item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
-	\item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
+	\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
+	\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
 	
 	\item \texttt{boolean isMulticonfiguration()}
-	\item[] Gibt zurück, ob es sich nicht um eine Multikonfiguration handelt
-	\item[] Returns: \texttt{true}, falls es sich nicht um eine Multikonfiguration handelt, \texttt{false} sonst
+	\item[] Returns whether this is a multiconfiguration.
+	\item[] Returns: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
 	
 	\item \texttt{String getVariableParameterName()}
-	\item[] Gibt den Namen des variablen Parameters zurück.
-	\item[] Returns: den Namen des variablen Parameters
+	\item[] Returns the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \texttt{""} otherwise.
+	\item[] Returns: the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \texttt{""} otherwise
 	
 	\item \texttt{double getStartValue()}
-	\item[] Gibt den Startwert des variablen Parameters zurück
-	\item[] Returns: den Startwert des variablen Parameters
+	\item[] Returns the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
+	\item[] Returns: the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
 	
 	\item \texttt{double getEndValue()}
-	\item[] Gibt den Endwert des variablen Parameters zurück
-	\item[] Returns: den Endwert des variablen Parameters
+	\item[] Returns the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
+	\item[] Returns: the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
 	
 	\item \texttt{double getStepSize()}
-	\item[] Gibt eie Schrittweite der Werte des variablen Parameters zurück
-	\item[] Returns: die Schrittweite der Werte des variablen Parameters
+	\item[] Returns the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
+	\item[] Returns: the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
 	
 	
 \end{itemize}
@@ -234,59 +234,59 @@ Diese Klasse repräsentiert die elementare Konfiguration einer einzelnen Wiederh
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
-\item[] Erstellt eine neue \texttt{Configuration} mit den gegebenen Parametern.
-\item[] \texttt{game}: Das Stufenspiel dieser Konfiguration
-\item[] \texttt{roundCount}: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
-\item[] \texttt{mixedStrategies}: gibt an, ob gemischte Strategien in dieser Konfiguration erlaubt sind
-\item[] \texttt{segments}: alle Segmente dieser Konfiguration
-\item[] \texttt{pairBuilder}: Der Paarbildungsalgorithmus dieser Konfiguration
-\item[] \texttt{successQuantifier}: die Erfolgsquantifizierung dieser Konfiguration
-\item[] \texttt{strategyAdjuster}: der Adaptionsmechanismus dieser Konfiguration
-\item[] \texttt{equilibriumCriterion}: das Gleichgewichtskriterium dieser Konfiguration
-\item[] \texttt{maxAdapts}: die maximale Zahl durchzuführender Adaptionsschritte dieser Konfiguration
+\item[] Creates a new \texttt{Configuration} with the given parameters.
+\item[] \texttt{game}: the game of thios configuration
+\item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
+\item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
+\item[] \texttt{segments}: all segments of this configuration
+\item[] \texttt{pairBuilder}: the \texttt{PairBuilder} of this configuration
+\item[] \texttt{successQuantifier}: the \texttt{SuccessQuantifier} of this configuration
+\item[] \texttt{strategyAdjuster}: the \texttt{StrategyAdjuster} of this configuration
+\item[] \texttt{equilibriumCriterion}: the \texttt{EquilibriumCriterion} of this configuration
+\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Game getGame()}
-\item[] Gibt das Stufenspiel dieser Konfiguration zurück.
-\item[] Returns: das Stufenspiel dieser Konfiguration
+\item[] Returns the game of this configuration
+\item[] Returns: the game of this configuration
 
 \item \texttt{int getAgentCount()}
-\item[] Gibt die Anzahl von Agenten in dieser Konfiguration zurück.
-\item[] Returns: die Anzahl von Agenten in dieser Konfiguration
+\item[] Returns the amount of agents in this configuration
+\item[] Returns: the amount of agents in this configuration
 
 \item \texttt{int getRoundCount()}
-\item[] Gibt die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration zurück.
-\item[] Returns: die Anzahl von Runden pro Adaptionsschritt in dieser Konfiguration
+\item[] Returns the amount of rounds per adaption step in this configuration
+\item[] Returns: the amount of rounds per adaption step in this configuration
 
 \item \texttt{boolean allowsMixedStrategies()}
-\item[] Gibt zurück, ob in dieser Konfiguration gemischte Strategien zugelassen sind.
-\item[] Returns: \texttt{true}, falls in dieser Konfiguration gemischte Strategien zugelassen sind; \texttt{false} sonst
+\item[] Returns, whether mixed strategies are allowed in this configuration.
+\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
 
 \item \texttt{Collection<Segment> getSegments()}
-\item[] Gibt alle zu dieser Konfiguration gehörenden Segmente zurück.
-\item[] Returns: eine \texttt{Collection} aller \texttt{Segment}e dieser Konfiguration
+\item[] Returns all segments belonging to this configuration
+\item[] Returns: all segments belonging to this configuration as \texttt{Collection<Segment>}
 
 \item \texttt{PairBuilder getPairBuilder()}
-\item[] Gibt den Paarbildungsalgorithmus dieser Konfiguration zurück.
-\item[] Returns: den Paarbildungsalgorithmus dieser Konfiguration
+\item[] Returns the \texttt{pairBuilder} of this configuration.
+\item[] Returns: the \texttt{pairBuilder} of this configuration
 
 \item \texttt{SuccessQuantifier getSuccessQuantifier()}
-\item[] Gibt die Erfolgsquantifizierung dieser Konfiguration zurück.
-\item[] Returns: die Erfolgsquantifizierung dieser Konfiguration
+\item[] Returns the \texttt{SuccessQuantifier} of this configuration.
+\item[] Returns: the \texttt{SuccessQuantifier} of this configuration
 
 \item \texttt{StrategyAdjuster getStrategyAdjuster()}
-\item[] Gibt den Adaptionsmechanismus dieser Konfiguration zurück.
-\item[] Returns: den Adaptionsmechanismus dieser Konfiguration
+\item[] Returns the \texttt{StrategyAdjuster} of this configuration.
+\item[] Returns: the \texttt{StrategyAdjuster} of this configuration
 
 \item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
-\item[] Gibt das Gleichgewichtskriterium dieser Konfiguration zurück.
-\item[] Returns: das Gleichgewichtskriterium dieser Konfiguration
+\item[] Returns the \texttt{EquilibriumCriterion} of this configuration.
+\item[] Returns: the \texttt{EquilibriumCriterion} of this configuration
 
 \item \texttt{int getMaxAdapts()}
-\item[] Gibt die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration zurück.
-\item[] Returns: die maximale Zahl durchzuführender Adaptionsschritte für diese Konfiguration
+\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
+\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
 \end{itemize}
 
 \subsubsection{Interface \texttt{Nameable}}
@@ -296,12 +296,12 @@ Implementierungen dieses Interface haben einen Namen und eine Beschreibung, die 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{String getName()}
-\item[] Gibt den Namen des Objekts zurück.
-\item[] Returns: den Namen des Objekts als \texttt{String}
+\item[] Returns the name of this object.
+\item[] Returns: the name of this object
 
 \item \texttt{String getDescription()}
-\item[] Gibt die Beschreibung des Objekts zurück.
-\item[] Returns: die Beschreibung des Objekts als \texttt{String}
+\item[] Returns the description of this object.
+\item[] Returns: the description of this object
 \end{itemize}
 
 \subsubsection{Class \texttt{Population}}
@@ -312,31 +312,31 @@ Diese Klasse repräsentiert eine Population. Sie bietet Methoden zur Abfrage von
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Population(String name, String description, List<Group> groups, List<Integer> groupSizes)}
-\item[] Erstellt eine neue Population mit Name, Beschreibung und Gruppenzusammensetzung wie gegeben.
-\item[] \texttt{name}: der Name der Population
-\item[] \texttt{description}: die Beschreibung der Population
-\item[] \texttt{groups}: die Gruppen, aus denen diese Population besteht
-\item[] \texttt{groupSizes}: die Größen der Gruppen in derselben Reihenfolge wie die zugehörigen Gruppen
+\item[] Creates a new \texttt{Population} with name, description and \texttt{Group} composition as given.
+\item[] \texttt{name}: the name of this population
+\item[] \texttt{description}: the description of this population
+\item[] \texttt{groups}: the groups this population is composed of
+\item[] \texttt{groupSizes}: the sizes of the groups, in the same order as the groups themselves
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{int getSize()}
-\item[] Gibt die Größe dieser Population zurück.
-\item[] Returns: die Größe dieser Population
+\item[] Returns the size of this population.
+\item[] Returns: the size of this population
 
 \item \texttt{List<Group> getGroups()}
-\item[] Gibt die Gruppen zurück, aus denen diese Population besteht.
-\item[] Returns: die Gruppen, aus denen diese Population besteht
+\item[] Returns the groups this population is composed of.
+\item[] Returns: the groups this population is composed of
 
 \item \texttt{int getGroupSize(Group group)}
-\item[] Gibt die Größe der gegebenen Gruppe zurück, falls sie Teil dieser Population ist; andernfalls \(0\).
-\item[] \texttt{group}: die Gruppe, deren Größe zurückgegeben werden soll
-\item[] Returns: die Größe der gegebenen Gruppe, falls sie Teil dieser Population ist; andernfalls \(0\)
+\item[] Returns the size of the given group if it is part of this population, \(0\) otherwise.
+\item[] \texttt{group}: the group, whose size shall be returned
+\item[] Returns: the size of the given group if it is part of this population, \(0\) otherwise
 
 \item \texttt{int getGroupCount()}
-\item[] Gibt die Anzahl von Gruppen in dieser Population zurück.
-\item[] Returns: die Anzahl von Gruppen in dieser Population
+\item[] Returns the amount of groups in this population
+\item[] Returns: the amount of groups in this population
 \end{itemize}
 
 \subsubsection{Class \texttt{Group}}
@@ -347,32 +347,32 @@ Diese Klasse repräsentiert eine Gruppe. Sie bietet Methoden zur Abfrage von Seg
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Group(String name, String description, List<Segment> segments, List<Double> segmentSizes, boolean isCohesive)}
-\item[] Erstellt eine neue Population mit Name, Beschreibung und Gruppenzusammensetzung wie gegeben.
-\item[] \texttt{name}: der Name der Gruppe
-\item[] \texttt{description}: die Beschreibung der Gruppe
-\item[] \texttt{segments}: die Segmente, aus denen diese Gruppe besteht
-\item[] \texttt{segmentSizes}: die relativen Größen der Segmente in derselben Reihenfolge wie die zugehörigen Segmente
-\item[] \texttt{isCohesive}: gibt an, ob diese Gruppe kohärent ist
+\item[] Creates a new \texttt{Group} with name, description and \texttt{Segment} composition as given
+\item[] \texttt{name}: the name of this group
+\item[] \texttt{description}: the description of this group
+\item[] \texttt{segments}: the segments this group is composed of
+\item[] \texttt{segmentSizes}: the relative sizes of the segments in the same order as the segments themselves
+\item[] \texttt{isCohesive}: indicates whether this group is cohesive
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<Segment> getSegments()}
-\item[] Gibt die Segmente zurück, aus denen diese Gruppe besteht.
-\item[] Returns: die Segmente, aus denen diese Gruppe besteht
+\item[] Returns a list of the segments this group is composed of.
+\item[] Returns: a list of the segments this group is composed of
 
 \item \texttt{double getSegmentSize(Segment segment)}
-\item[] Gibt die Größe des gegebenen Segments zurück, falls es Teil dieser Gruppe ist; andernfalls \(0\).
-\item[] \texttt{segment}: das Segment, dessen Größe zurückgegeben werden soll
-\item[] Returns: die relative Größe des gegebenen Segments, falls es Teil dieser Gruppe ist; andernfalls \(0\)
+\item[] Returns the relative size of the given \texttt{Segment} if it is part of this group, \(0\) otherwise.
+\item[] \texttt{segment}: the segment whose relative size shall be returned
+\item[] Returns: the relative size of the given \texttt{Segment} if it is part of this group, \(0\) otherwise
 
 \item \texttt{int getSegmentCount()}
-\item[] Gibt die Anzahl von Segmenten in dieser Gruppe zurück.
-\item[] Returns: die Anzahl von Segmente in dieser Gruppe
+\item[] Returns the amount of segments in this group.
+\item[] Returns: the amount of segments in this group
 
 \item \texttt{boolean isCohesive()}
-\item[] Gibt zurück, ob diese Gruppe kohärent ist.
-\item[] Returns: \texttt{true}, falls diese Gruppe kohärent ist, \texttt{false} sonst
+\item[] Returns whether this group is cohesive.
+\item[] Returns: \texttt{true} if this group is cohesive, \texttt{false} otherwise
 \end{itemize}
 
 \subsubsection{Class \texttt{Segment}}
@@ -382,20 +382,20 @@ Diese Klasse repräsentiert ein Segment. Es bietet Methoden zur Abfrage von Kapi
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Segment(String capitalDistributionName, Collection<String> strategyNames)}
-\item[] Erzeugt ein neues Segment mit gegebener Kapitalverteilung und gegebenen Strategien.
-\item[] \texttt{capitalDistributionName}: der Name der Kapitalverteilung dieses Segments
-\item[] \texttt{strategyNames}: die Namen der Strategien aus der Strategieverteilung dieses Segments
+\item[] Creates a new \texttt{Segment} with the given capital- and strategy distribution
+\item[] \texttt{capitalDistributionName}: the name of the capital distribution of this segment
+\item[] \texttt{strategyNames}: the names of the strategies in the strategy distribution of this segment
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{String getCapitalDistributionName()}
-\item[] Gibt den Namen der Kapitalverteilung dieses Segments zurück.
-\item[] Returns: den Namen der Kapitalverteilung dieses Segments
+\item[] Returns the name of the capital distribution of this segment.
+\item[] Returns: the name of the capital distribution of this segment
 
 \item \texttt{Collection<String> getStrategyNames()}
-\item[] Gibt die Namen der Strategien aus der Strategieverteilung dieses Segments zurück.
-\item[] Returns: die Namen der Strategien aus der Strategieverteilung dieses Segments als \texttt{Collection<String>}
+\item[] Returns the names of the strategies in the strategy distribution of this segment.
+\item[] Returns: the names of the strategies in the strategy distribution of this segment
 \end{itemize}
 
 
@@ -410,38 +410,38 @@ Die Klasse unterscheidet nicht zwischen Multikonfigurationen und Nicht-Multikonf
 Konstruktoren:
 \begin{itemize} \itemsep -10pt
 \item \texttt{Simulation(UserConfiguration config, int id)}
-\item[] Erzeugt ein neues \texttt{Simulation}-Objekt mit der gegebenen \texttt{UserConfiguration} und der gegebenen \texttt{id}.
-\item[] \texttt{config}: die Konfiguration der Simulation
-\item[] \texttt{id}: die \texttt{id} dieser Simulation
+\item[] Creates a new \texttt{Simulation} with the given \texttt{UserConfiguration} and \texttt{id}.
+\item[] \texttt{config}: the configuration of this simulation
+\item[] \texttt{id}: the \texttt{id} of this simulation
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{protected void addIterationResult(IterationResult result, int i)}
-\item[] Fügt ein Wiederholungsergebnis zur \texttt{i}-ten elementaren Konfiguration dieser Simulation als \texttt{IterationResult} hinzu.
-\item[] \texttt{result}: das Wiederholungsergebnis, das hinzugefügt werden soll
-\item[] \texttt{i}: die elementare Konfiguration, zu der das Wiederholungsergebnis hinzugefügt werden soll
+\item[] adds an \texttt{IterationResult} to the \texttt{i}-th elementary configuration of this simulation
+\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
+\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
 
 \item \texttt{void registerIterationFinished(Consumer<IterationResult> action)}
-\item[] Registriert eine Aktion, die jedes mal ausgeführt wird, wenn eine Wiederholung dieser Simulation abgeschlossen wird. Der Aktion wird als Argument das Ergebnis der Wiederholung als \texttt{IterationResult} übergeben.
-\item[] \texttt{action}: Die Aktion, die bei Abschluss jeder Wiederholung dieser Simulation ausgeführt werden soll
+\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration will be passed as an argument to the action
+\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
 
 \item \texttt{List<IterationResult> getIterationResults(int i)}
-\item[] Gibt eine Liste der Wiederholungsergebnisse der bisher abgeschlossenen Wiederholungen mit der \texttt{i}-ten zugrundeliegenden elementaren Konfiguration als \texttt{IterationResult}s zurück.
-\item[] \texttt{i}: die elementare Konfiguration, zu der die Wiederholungsergebnisse zurückgegeben werden sollen
-\item[] Returns: die Wiederholungsergebnisse der bisher abgeschlossenen Wiederholungen mit der \texttt{i}-ten zugrundeliegenden elementaren Konfiguration
+\item[] Returns a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration.
+\item[] \texttt{i}: the elementary configuration, whose finished iterations shall be returned
+\item[] Returns: a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration
 
 \item \texttt{UserConfiguration getUserConfiguration()}
-\item[] Gibt die \texttt{UserConfiguration} dieser Simulation zurück.
-\item[] Returns: die \texttt{UserConfiguration} dieser Simulation
+\item[] Returns the \texttt{UserConfiguration} of this simulation.
+\item[] Returns: the \texttt{UserConfiguration} of this simulation
 
 \item \texttt{int getConfigurationCount()}
-\item[] Gibt die Zahl der dieser Simulation zugrundeliegenden elementaren Konfigurationen zurück. Im Falle einer Multikonfiguration also die Anzahl verschiedener Werte des Multikonfigurationsparameters, ansonsten \(1\).
-\item[] Returns: die Zahl der dieser Simulation zugrundeliegenden elementaren Konfigurationen
+\item[] Returns the amount of elementary configurations of this simulation (\(1\) if this is not a multiconfiguration).
+\item[] Returns: the amount of elementary configurations of this simulation
 
 \item \texttt{int getId()}
-\item[] Gibt die \texttt{id} dieser Simulation zurück.
-\item[] Returns: die \texttt{id} dieser Simulation
+\item[] Returns the \texttt{id} of this simulation.
+\item[] Returns: the \texttt{id} of this simulation
 \end{itemize}
 
 \subsubsection{Interface \texttt{Simulator}}
@@ -450,33 +450,34 @@ Methoden:
 Methoden:
 \begin{itemize} \itemsep -10pt
 \item \texttt{Simulation startSimulation(UserConfiguration config)}
-\item[] Startet eine Simulation mit der gegebenen \texttt{UserConfiguration} und gibt ein \texttt{Simulation}-Objekt zu der gestarteten Simulation zurück.
-\item[]\texttt{config}: die Konfiguration, mit der die Simulation ausgeführt werden soll
-\item[] Returns: ein \texttt{Simulation}-Objekt zu der gestarteten Simulation
+\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{Simulation}-object for the started simulation.
+\item[]\texttt{config}: the configuration for which a simulation shall be started
+\item[] Returns: a handle to a \texttt{Simulation}-object for the started simulation
 
 \item \texttt{Simulation startSimulation(UserConfiguration config, Consumer<Simulation> action)}
-\item[] Startet eine Simulation mit der gegebenen Konfiguration und gibt ein \texttt{Simulation}-Objekt zu der gestarteten Simulation zurück. Führt die gegebene Aktion mit der zurückgegebenen \texttt{Simulation} als Argument aus, sobald die Ausführung der Simulation abgeschlossen ist.
-\item[] \texttt{config}: die Konfiguration, mit der die Simulation ausgeführt werden soll
-\item[] \texttt{action}: Die Aktion, die ausgeführt werden soll, sobald die Simulation abgeschlossen ist
-\item[] Returns: ein \texttt{Simulation}-Objekt zu der gestarteten Simulation
+\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{Simulation}-object for the started simulation. Executes the given action with the \texttt{Simulation}-object passed as parameter when the started simulation is finished.
+\item[] \texttt{config}: the \texttt{UserConfiguration} a new simulation shall be started with
+\item[] \texttt{action}: the action that shall be executed when the simulation is finished
+\item[] Returns: a handle to a \texttt{Simulation}-object for the started simulation
 
 \item \texttt{boolean stopSimulation(Simulation sim)}
-\item[] Falls die gegebene Simulation aktuell läuft, wird diese abgebrochen und \texttt{true} zurückgegeben. Andernfalls wird \texttt{false} zurückgegeben.
-\item[] \texttt{sim}: Die Simulation, die abgebrochen werden soll
-\item[] Returns: \texttt{true}, wenn die Simulation erfolgreich abgebrochen wurde, \texttt{false} sonst
+\item[] Stop the execution of the given simulation if it is currently running.
+\item[] \texttt{sim}: the simulation whose execution shall be stopped
+\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
 
 \item \texttt{boolean stopSimulation(int id)}
-\item[] Falls eine Simulation mit der gegebenen \texttt{id} läuft, wird diese abgebrochen und \texttt{true} zurückgegeben. Andernfalls wird \texttt{false} zurückgegeben.
-\item[] \texttt{id}: Die \texttt{id} der Simulation, die abgebrochen werden soll
-\item[] Returns: \texttt{true}, wenn die Simulation erfolgreich abgebrochen wurde, \texttt{false} sonst
+\item[] If a simulation with the given \texttt{id} is currently running, stop its execution.
+\item[] \texttt{id}: the \texttt{id} of the simulation that shall be stopped
+\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
 
 \item \texttt{void stopAllSimulation()}
-\item[] Bricht die Ausführung aller gestarteten Simulationen ab.
+\item[] Stops the execution of all running simulations.
 
 \item \texttt{Simulation getSimulation(int id)}
-\item[] Gibt das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id} zurück, falls existent. Ansonsten \texttt{null}.
-\item[] \texttt{id}: Die \texttt{id} der Simulation, deren \texttt{Simulation}-Objekt zurückgegeben werden soll
-\item[] Returns: das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id}, falls existent. Ansonsten \texttt{null}.
+\item[] Returns the \texttt{Simulation}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
+Gibt das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id} zurück, falls existent. Ansonsten \texttt{null}.
+\item[] \texttt{id}: the \texttt{id} of the simulation, whose \texttt{Simulation}-object shall be returned
+\item[] Returns: the \texttt{Simulation}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
 \end{itemize}
 
 \subsubsection{Class \texttt{ThreadPoolSimulator}}
@@ -487,22 +488,22 @@ Eine Implementierung des \texttt{Simulator}-Interfaces. Führt die Wiederholunge
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{ThreadPoolSimulator()}
-\item[] Erzeugt einen neuen \texttt{ThreadPoolSimulator}.
+\item[] Creates a new \texttt{ThreadPoolSimulator}.
 
 \item \texttt{ThreadPoolSimulator(int maxThreads)}
-\item[] Erzeugt einen neuen \texttt{ThreadPoolSimulator} mit der gegebenen maximalen Anzahl von \texttt{Thread}s.
-\item[] \texttt{maxThreads}: die maximale Anzahl von \texttt{Thread}s im \texttt{ThreadPool}
+\item[] Creates a new \texttt{ThreadPoolSimulator} with the given maximum amount of running \texttt{Thread}s.
+\item[] \texttt{maxThreads}: the maximum amount of running \texttt{Thread}s in the \texttt{ThreadPool}
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{int getRunningIterationCount()}
-\item[] Gibt die Zahl aktuell ausgeführter Wiederholungen zurück.
-\item[] Returns: die Zahl aktuell ausgeführter Wiederholungen
+\item[] Returns the amount of currently executed iterations.
+\item[] Returns: the amount of currently executed iterations
 
 \item \texttt{int getQueuedIterationCount()}
-\item[] Gibt die Zahl aktuell auf Ausführung wartender Wiederholungen zurück.
-\item[] Returns: die Zahl aktuell auf Ausführung wartender Wiederholungen
+\item[] Returns the amount of iterations currently waiting for execution.
+\item[] Returns: the amount of iterations currently waiting for execution
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigurationCreator}}
@@ -511,15 +512,15 @@ Diese Klasse nimmt eine \texttt{UserConfiguration} entgegen und extrahiert darau
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{ConfigurationCreator()}
-\item[] Erzeugt einen neuen \texttt{ConfigurationCreator}.
+\item[] Creates a new \texttt{ConfigurationCreator}.
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<Configuration> generateConfigurations(UserConfiguration config)}
-\item[] Erzeugt alle zu der gegebenen \texttt{UserConfiguration} gehörigen elementaren Konfigurationen und gibt sie als \texttt{Configuration}s zurück.
-\item[] \texttt{config}: Die \texttt{UserConfiguration}, zu der alle elementaren Konfigurationen generiert werden sollen
-\item[] Returns: alle zu der gegebenen \texttt{UserConfiguration} gehörigen elementaren Konfigurationen als \texttt{Configuration}s
+\item[] Generates all associated elementary configurations of the given \texttt{UserConfiguration} and returns them as \texttt{Configuration}s.
+\item[] \texttt{config}: the \texttt{UserConfiguration} whose associated elementary configurations shall be generated
+\item[] Returns: all associated elementary configurations of the given \texttt{UserConfiguration} as \texttt{Configuration}s
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
@@ -532,14 +533,14 @@ Ein \texttt{AgentInitializer} kann verwendet werden, um die Agenten eines gegebe
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{AgentInitializer()}
-\item[] Erzeugt einen neuen \texttt{AgentInitializer}.
+\item[] Creates a new \texttt{AgentInitializer}.
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Collection<Agent> initializeAgents(Segment segment)}
-\item[] Erzeugt die Agenten des gegebenen Segments und initialisiert sie mit Kapital, Strategien und Gruppenzugehörigkeiten. Gibt die Agenten als \texttt{Collection} zurück.
-\item[] Returns: die initialisierten Agenten als \texttt{Collection}
+\item[] Creates and returns all agents of the given segment and initialises them with capital, strategy and group affiliation.
+\item[] Returns: the initialised agents
 \end{itemize}
 
 \subsubsection{Interface \texttt{SimulationHistory}}
@@ -548,30 +549,30 @@ Eine Implementierung des \texttt{SimulationHistory}-Interfaces speichert für je
 Methoden:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{void addResult(GameResult result)}
-	\item[] Fügt der Historie ein neues Rundenergebnis hinzu.
-	\item[] \texttt{result}: Das \texttt{GameResult}, das zur Historie hinzugefügt werden soll
+	\item[] Adds the result of (the game of) a round to the history.
+	\item[] \texttt{result}: the \texttt{GameResult} that shall be added
 	\item \texttt{List<GameResult> getAllResults()}
-	\item[]Gibt alle Rundenergebnisse  aller Agenten als Liste zurück.
-	\item[]Returns: Die Liste der Rundenergebnisse
+	\item[] Returns a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step.
+	\item[]Returns: a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step
 	\item \texttt{List<GameResult> getResultsByAgent(agent: Agent)}
-	\item[]Gibt alle Rundenergebnisse des gegebenen Agenten als Liste zurück.
-	\item[] \texttt{agent}: Der Agent dessen Ergebnisse abgefragt werden
-	\item[]Returns: Die Liste der Rundenergebnisse
+	\item[] Returns a list of all \texttt{GameResult}s of the given agent.
+	\item[] \texttt{agent}: the agent whose results shall be returned
+	\item[]Returns: a list of all \texttt{GameResult}s of the given agent
 	\item \texttt{List<GameResult> getLatestResults()}
-	\item[]Gibt das letzte Rundenergebnis aller Agenten als Liste zurück.
-	\item[]Returns: Die Liste der Rundenergebnisse
+	\item[] Returns the most recent \texttt{GameResult} of every agent.
+	\item[]Returns: the most recent \texttt{GameResult} of every agent
 	\item \texttt{GameResult getLatestResultByAgent(agent: Agent)}
-	\item[] Gibt das letzte Rundenergebnis des gegebenen Agenten zurück.
-	\item[] \texttt{agent}: Der Agent dessen letztes Ergebnis abgefragt wird
-	\item[]Returns: Das letzte RundenErgebnis des Agenten als \texttt{GameResult}
-	\item \texttt{Iterable<GameResult> getAllWhere(condition: Predicate<GameResult>)}
-	\item[] Filtert alle Rundenergebnisse gemäß einer gegebenen Filterbedingung und liefert sie in Form eines \texttt{Iterable} zurück.
-	\item[]\texttt{condition}: Die Filterbedinung als Prädikat mit einem \texttt{GameResult} als Parameter.
-	\item[]Returns: Die gefilterten Rundenergebnisse als \texttt{Iterable}
+	\item[] Returns the most recent \texttt{GameResult} of the given agent.
+	\item[] \texttt{agent}: the agent whose latest result shall be returned
+	\item[]Returns: the most recent \texttt{GameResult} of the given agent
+	\item \texttt{List<GameResult> getAllWhere(condition: Predicate<GameResult>)}
+	\item[] Filters all \texttt{GameResult} with the given condition and returns them.
+	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
+	\item[]Returns: Die filtered \texttt{GameResult}s
 	\item \texttt{GameResult getLatestWhere(condition: Predicate<GameResult>)}
-	\item[] Filtert alle Rundenergebnisse gemäß einer gegebenen Filterbedingung und liefert das letzte Rundenergebnis, welches die Bedingung erfüllt zurück.
-	\item[]\texttt{condition}: Die Filterbedinung als Prädikat mit einem \texttt{GameResult} als Parameter.
-	\item[]Returns: Das letzte Rundenergebnis, welches die Filterbedingung erfüllt
+	\item[] Returns the latest \texttt{GameResult} that meets the given condition
+	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
+	\item[]Returns: the latest \texttt{GameResult} that meets the given condition
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationHistoryTable}}
@@ -586,9 +587,9 @@ Diese Klasse bietet eine Methode zur Ausführung einer einzelnen Wiederholung zu
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{IterationResult executeIteration(Configuration configuration)}
-\item[] Führt eine Wiederholung zu der gegebenen elementaren Konfiguration aus und gibt nach Abschluss das Ergebnis als \texttt{IterationResult} zurück.
-\item[] \texttt{configuration}: die elementare Konfiguration, zu der die Wiederholung ausgeführt werden soll
-\item[] Returns: das Ergebnis der Wiederholung als \texttt{IterationResult}
+\item[] Executes an iteration with the given elementary configuration and returns an \texttt{IterationResult}-object upon finishing.
+\item[] \texttt{configuration}: the elementary configuration of the iteration that shall be executed
+\item[] Returns: the result of the iteration as \texttt{IterationResult}
 \end{itemize}
 
 \subsubsection{Class \texttt{IterationResult}}
@@ -604,35 +605,35 @@ In einem Objekt dieser Klasse können die Ergebnisse einer durchgeführten Wiede
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{IterationResult(List<Agent> agents, SimulationHistory history, boolean equilibriumReached, double efficiency, int adapts)}
-\item[] Erzeugt ein neues \texttt{IterationResult}-Objekt mit den gegebenen Simulationsergebnissen.
-\item[] \texttt{agents}: die Agenten der Simulation, geordnet nach finalem Rang
-\item[] \texttt{history}: der Verlauf des letzten Adaptionsschritts
-\item[] \texttt{equilibriumReached}: \texttt{true}, falls ein Gleichgewicht erreicht wurde, \texttt{false} sonst
-\item[] \texttt{efficiency}: die Effizienz des finalen Zustands
-\item[] \texttt{adapts}: die Zahl durchgeführter Adaptionsschritte
+\item[] Creates a new \texttt{IterationResult}-object with the given iteration results.
+\item[] \texttt{agents}: the agents, ordered by final rank
+\item[] \texttt{history}: the \texttt{SimulationHistory} of the last adaption step
+\item[] \texttt{equilibriumReached}: \texttt{true} if an equilibrium was reached, \texttt{false} otherwise
+\item[] \texttt{efficiency}: the efficiency of the final state
+\item[] \texttt{adapts}: the amount of simulated adaption steps
 \end{itemize}
 
 Methoden
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<Agent> getAgents()}
-\item[] Gibt die Agenten der Simulation zurück, geordnet nach finalem Rang
-\item[] Returns: die Agenten der Simulation, geordnet nach finalem Rang
+\item[] Returns a list of all agents, ordered by final rank
+\item[] Returns: a list of all agents, ordered by final rank
 
 \item \texttt{SimulationHistory getHistory()}
-\item[] Gibt den Verlauf des finalen Adaptionsschrittes zurück
-\item[] Returns: den Verlauf des finalen Adaptionsschrittes als \texttt{SimulationHistory}
+\item[] Returns the \texttt{SimulationHistory} of the last adaption step
+\item[] Returns: the \texttt{SimulationHistory} of the last adaption step
 
 \item \texttt{boolean equilibriumReached()}
-\item[] Gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
-\item[] Returns: \texttt{true}, fallss sich ein Gleichgewicht eingestellt hat, \texttt{false} sonst
+\item[] Returns whether an equilibrium was reached
+\item[] Returns: \texttt{true} if an equilibrium was reached, \texttt{false} otherwise
 
 \item \texttt{double getEfficiency()}
-\item[] Gibt die Effizienz des finalen Zustands zurück.
-\item[] Returns: die Effizienz des finalen Zustands
+\item[] Returns the efficiency of the final state
+\item[] Returns: the efficiency of the final state
 
 \item \texttt{int getAdapts()}
-\item[] Gibt die Zahl durchgeführter Adaptionsschritte zurück.
-\item[] Returns: die Zahl durchgeführter Adaptionsschritte
+\item[] Returns the amount of simulated adaption steps
+\item[] Returns: the amount of simulated adaption steps
 \end{itemize}
 
 \subsubsection{Class \texttt{Agent}}
@@ -641,35 +642,35 @@ Diese Klasse repräsentiert einen einzelnen Agenten in einem Simulationsdurchlau
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Agent(int initialCapital, Strategy initialStrategy, int groupId)}
-\item[] Erstellt einen neuen Agenten mit gegebenem Anfangskapital, gegebener Strategie und gegebener Gruppenzugehörigkeit
-\item[] \texttt{initialCaptial}: das initiale Kapital des Agenten
-\item[] \texttt{initialStrategy}: die initiale Strategie des Agenten
-\item[] \texttt{groupId}: die \texttt{id} der Gruppe, der dieser Agent zugehörig ist; \(-1\), falls dieser Agent gruppenlos ist.
+\item[] Creates a new \texttt{Agent} with given initial capital, given strategy and given group affiliation
+\item[] \texttt{initialCaptial}: the initial captital of the agent
+\item[] \texttt{initialStrategy}: the initial \texttt{Strategy} of the agent
+\item[] \texttt{groupId}: the \texttt{id} of the group this agent belongs to, if it is cohesive; \(-1\) otherwise
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{int getCapital()}
-\item[] Gibt das aktuelle Kapital des Agenten zurück.
-\item[] Returns: das aktuelle Kapital des Agenten
+\item[] Returns the current capital of this agent.
+\item[] Returns: the current capital of this agent
 
 \item \texttt{int getInitialCapital()}
-\item[] Gibt das initiale Kapital des Agenten zurück.
-\item[] Returns: das initiale Kapital des Agenten
+\item[] Returns the initial capital of this agent.
+\item[] Returns: the initial capital of this agent
 
 \item \texttt{void addCapital(int capital)}
-\item[] Erhöht das Kapital des Agenten um den gegebenen Wert.
+\item[] Increases the captial of this agent by the given amount.
 
 \item \texttt{Strategy getStrategy()}
-\item[] Gibt die aktuelle Strategie des Agenten zurück.
-\item[] Returns: die aktuelle Strategie des Agenten
+\item[] Returns the current \texttt{Strategy} of this agent
+\item[] Returns: the current \texttt{Strategy} of this agent
 
 \item\texttt{void setStrategy(Strategy strategy)}
-\item[] Setze die Strategie des Agenten auf die gegebene Strategie.
+\item[] Sets the \texttt{Strategy} of this agent to the given one	.
 
 \item \texttt{int getGroupId()}
-\item[] Gibt die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
-\item[] Returns: die \texttt{id} der Gruppe zurück, der dieser Agent zugehörig ist bzw. \(-1\) falls er gruppenlos ist.
+\item[] Returns the \texttt{id} of the group this agent belongs to, if it is cohesive; \(-1\) otherwise.
+\item[] Returns: the \texttt{id} of the group this agent belongs to, if it is cohesive; \(-1\) otherwise
 \end{itemize}
 
 \subsubsection{Interface \texttt{AgentPair}}
@@ -678,12 +679,12 @@ Dieses Interface repräsentiert ein Paar von Agenten.
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{getFirstAgent()}
-\item[] Gibt den ersten der beiden Agenten zurück.
-\item[] Returns: den ersten der beiden Agenten
+\item[] Returns the first of both agents.
+\item[] Returns: the first of both agents
 
 \item \texttt{getSecondAgent()}
-\item[] Gibt den zweiten der beiden Agenten zurück.
-\item[] Returns: den zweiten der beiden Agenten
+\item[] Returns the second of both agents.
+\item[] Returns: the second of both agents
 \end{itemize}
 
 \subsubsection{Class \texttt{GameResult}}
@@ -698,35 +699,35 @@ Diese Klasse speichert das Ergebnis eines Spiels zwischen zwei Agenten. Das Erge
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{GameResult(Agent player1, Agent player2, int payOff1, int payOff2, boolean hasCooperated1, boolean hasCooperated2)}
-\item[] Erzeugt ein neues \texttt{GameResult}-Objekt.
-\item[] \texttt{player1}: der erste Spieler
-\item[] \texttt{player2}: der zweite Spieler
-\item[] \texttt{payOff1}: die erhaltene Auszahlung des ersten Spielers
-\item[] \texttt{payOff2}: die erhaltene Auszahlung des zweiten Spielers
-\item[] \texttt{hasCooperated1}: \texttt{true}, falls der erste Spieler kooperiert hat; \texttt{false} sonst
-\item[] \texttt{hasCooperated2}: \texttt{true}, falls der zweite Spieler kooperiert hat; \texttt{false} sonst
+\item[] Creates a new \texttt{GameResult}.
+\item[] \texttt{player1}: the first player
+\item[] \texttt{player2}: the second player
+\item[] \texttt{payOff1}: the received payoff of the first player
+\item[] \texttt{payOff2}: the received payoff of the second player
+\item[] \texttt{hasCooperated1}: \texttt{true} if the first player cooperated, \texttt{false} otherwise
+\item[] \texttt{hasCooperated2}: \texttt{true} if the second player cooperated, \texttt{false} otherwise
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item  \texttt{boolean hasAgent(Agent agent)}
-\item[] Gibt zurück, ob der gegebene Agent einer der beiden Spieler dieses Spiels war.
-\item[] \texttt{agent}: der Agent, für den geprüft werden soll, ob er Spieler dieses Spiels war
-\item[] Returns: \texttt{true}, falls der gegebene Agent einer der beiden Spieler dieses Spiels war; \texttt{false} sonst
+\item[] Returns whether the given agent was one of the players of this game.
+\item[] \texttt{agent}: the agent that should be checked
+\item[] Returns: \texttt{true} if the given agent was one of the players of this game, \texttt{false} otherwise
 
 \item \texttt{int getPayoff(Agent agent)}
-\item[] Gibt die Auszahlung zurück, die der gegebene Agent bei diesem Spiel erhalten hat, falls er beteiligt war; andernfalls wird \(0\) zurückgegeben.
-\item[] \texttt{agent}: der Agent, dessen Auszahlung zurückgegeben werden soll
-\item[] Returns: die erhaltene Auszahlung des gegebenen Agenten, falls er beteiligt war; andernfalls \(0\)
+\item[] Returns the received payoff of the given agent in this game, if he was one of the players; \(0\) otherwise
+\item[] \texttt{agent}: the agent whose payoff shall be returned
+\item[] Returns: the received payoff of the given agent in this game, if he was one of the players; \(0\) otherwise
 
 \item \texttt{boolean hasCooperated(Agent agent)}
-\item[] Gibt zurück, ob der gegebene Agent in diesem Spiel kooperiert hat, falls er beteiligt war. Andernfalls wird \texttt{false} zurückgegeben.
-\item[] \texttt{agent}: der Agent, für den zurückgegeben werden soll, ob er kooperiert hat
-\item[] Returns: \texttt{true}, falls der gegebene Agent an diesem Spiel beteiligt war und kooperiert hat, andernfalls \texttt{false}
+\item[] Returns \texttt{true} if the given agent was one of the players of this game and cooperated, \texttt{false} otherwise.
+\item[] \texttt{agent}: the agent whose cooperation shall be returned
+\item[] Returns: \texttt{true} if the given agent was one of the players of this game and cooperated, \texttt{false} otherwise
 
 \item \texttt{Collection<Agent> getAgents()}
-\item[] Gibt die beiden an diesem Spiel beteiligten Agenten zurück.
-\item[] Returns: die beiden an diesem Spiel beteiligten Agenten als \texttt{Collection<Agent>}
+\item[] Returns the two players of this game.
+\item[] Returns: the two players of this game
 \end{itemize}
 
 \subsubsection{Interface \texttt{Game}}
@@ -736,11 +737,13 @@ Dieses Interface repräsentiert ein Stufenspiel.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item[] \texttt{GameResult play(boolean playerOneCooperates, boolean playerTwoCooperates)}
-\item[] Lässt zwei Spieler mit gegebenen Kooperationsentscheidungen dieses Stufenspiel spielen und gibt das Ergebnis des Spiels als \texttt{GameResult}-Objekt zurück.
-\item[] \texttt{playerOneCooperates}: \texttt{true}, falls der erste Spieler kooperiert; \texttt{false sonst}
-\item[] \texttt{playerTwoCooperates}: \texttt{true}, falls der zweite Spieler kooperiert; \texttt{false sonst}
-\item[] Returns: das Ergebnis des Spiels als \texttt{GameResult}-Objekt
+\item[] \texttt{GameResult play(Agent player1, Agent player2, boolean player1Cooperates, boolean player2Cooperates)}
+\item[] Lets two players with given cooperation decisions play this game against each other and returns the result of the game as \texttt{GameResult}.
+\item[] \texttt{player1}: the first player
+\item[] \texttt{player2}: the second player
+\item[] \texttt{player1Cooperates}: \texttt{true} if the first player cooperates, \texttt{false} otherwise
+\item[] \texttt{player2Cooperates}: \texttt{true} if the second player cooperates, \texttt{false} otherwise
+\item[] Returns: the result of the game as \texttt{GameResult}
 \end{itemize}
 
 \subsubsection{Interface \texttt{Strategy}}
@@ -751,12 +754,12 @@ Repräsentiert eine Strategie. Diese kann, muss aber nicht gemischt sein.
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{boolean isCooperative(Agent player, Agent opponent, SimulationHistory history)}
-\item[] Gibt zurück, ob der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde. Ist die Strategie gemischt, wird entsprechend ein zufälliges Ergebnis ausgegeben.
-\item[] Returns: ob der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde
+\item[] Returns whether agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step. If the strategy is non-deterministic, the result may be random.
+\item[] Returns: if agent \texttt{player} cooperates
 
 \item \texttt{double getCooperationProbability(Agent player, Agent opponent, SimulationHistory history)}
-\item[] Gibt die Wahrscheinlichkeit zurück, mit der der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde.
-\item[] Returns: die Wahrscheinlichkeit, mit der der Agent \texttt{player} bei einem Spiel gegen den Agenten \texttt{opponent} bei Benutzung dieser Strategie bei gegebenem bisherigen Simulationsverlauf kooperieren würde
+\item[] Returns the probability with which agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step.
+\item[] Returns: the probability with which agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step
 \end{itemize}
 
 \subsubsection{Class \texttt{PureStrategy}}
@@ -767,8 +770,8 @@ Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt d
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
-\item[] Erzeugt ein neues \texttt{PureStrategy}-Objekt.
-\item[] \texttt{condition}: die Bedingung an den gegnerischen Agenten, unter der ein Agent bei Verwendung dieser Strategie kooperiert
+\item[] Creates a new \texttt{PureStrategy}.
+\item[] \texttt{condition}: the condition an opposing agent must meet in order for an agent using this strategy to cooperate in a game against him
 \end{itemize}
 
 \subsubsection{Class \texttt{CustomStrategy}}
@@ -783,9 +786,9 @@ Konstruktoren://vorläufig
 \begin{itemize}\itemsep -10pt
 \item[] //wirft exception wenn listen nicht gleichlang oder wahrsch. ungültig (alle positiv und in summe 1)
 \item \texttt{MixedStrategy(List<PureStrategies> pureStrategies, List<Integer> probabilites)}
-\item[] Erstellt eine neue \texttt{MixedStrategy}, die aus den gegebenen reinen Strategien mit den gegebenen Wahrscheinlichkeiten besteht.
-\item[] \texttt{pureStrategies}: die reinen Strategien, aus denen diese Strategie besteht
-\item[] \texttt{probabilities}: die Wahrscheinlichkeiten der gegebenen reinen Strategien
+\item[] Creates a new \texttt{MixedStrategy} consisting of the given \texttt{PureStrategy}s with the given probabilities.
+\item[] \texttt{pureStrategies}: the \texttt{PureStrategy}s this strategy consists of
+\item[] \texttt{probabilities}: the probabilities of the given \texttt{PureStrategy}s
 \end{itemize}
 
 \subsubsection{Class \texttt{Segment}}
@@ -797,20 +800,20 @@ Konstruktoren:
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{int getAgentCount()}
-\item[] Gibt die Anzahl der Agenten in diesem Segment zurück.
-\item[] Returns: die Anzahl der Agenten in diesem Segment
+\item[] Returns the amount of agents in this segment.
+\item[] Returns: the amount of agents in this segment
 
 \item \texttt{int getGroupId()}
-\item[] Gibt die \texttt{id} der Gruppe zurück, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört.
-\item[]die \texttt{id} der Gruppe, zu der dieses Segment gehört bzw. \(-1\), falls es zu den gruppenlosen Agenten gehört
+\item[] Returns the \texttt{id} of the group this segment is part of, if it is cohesive; \(-1\) otherwise.
+\item[] Returns: the \texttt{id} of the group this segment is part of, if it is cohesive; \(-1\) otherwise
 
 \item \texttt{DiscreteDistribution getCapitalDistribution()}
-\item[] Gibt die Kapitalverteilung dieses Segments zurück
-\item[] Returns: die Kapitalverteilung dieses Segments als \texttt{DiscreteDistribution}
+\item[] Returns the capital distribution of this segment
+\item[] Returns: the capital distribution of this segment as \texttt{DiscreteDistribution}
 
 \item \texttt{UniformFiniteDistribution<Strategy> getStrategyDistribution()}
-\item[] Gibt die Strategieverteilung dieses Segments zurück
-\item[] Returns: die Strategieverteilung dieses Segments als \texttt{UniformFiniteDistribution<Strategy>}
+\item[] Returns the strategy distribution of this segment
+\item[] Returns: the strategy distribution of this segment as \texttt{UniformFiniteDistribution<Strategy>}
 \end{itemize}
 
 \subsubsection{Interface \texttt{PairBuilder}}

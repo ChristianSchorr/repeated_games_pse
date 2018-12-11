@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
+<diagram program="umlet" version="14.2">
   <zoom_level>11</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>187</y>
+      <x>352</x>
+      <y>484</y>
       <w>649</w>
       <h>88</h>
     </coordinates>
@@ -20,8 +20,8 @@ Strategy
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>748</x>
-      <y>374</y>
+      <x>660</x>
+      <y>671</y>
       <w>440</w>
       <h>66</h>
     </coordinates>
@@ -33,8 +33,8 @@ Strategy
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>737</x>
-      <y>264</y>
+      <x>649</x>
+      <y>561</y>
       <w>264</w>
       <h>132</h>
     </coordinates>
@@ -44,8 +44,8 @@ Strategy
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1078</x>
-      <y>209</y>
+      <x>990</x>
+      <y>506</y>
       <w>187</w>
       <h>220</h>
     </coordinates>
@@ -56,23 +56,23 @@ m2=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>308</x>
-      <y>374</y>
-      <w>396</w>
+      <x>165</x>
+      <y>671</y>
+      <w>473</w>
       <h>99</h>
     </coordinates>
     <panel_attributes>SimpleStrategy
 -
--condition: Predicate&lt;Agent&gt;
+-condition: Predicate&lt;Agent, SimulationHistory&gt;
 -
-SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+SimpleStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>319</y>
+      <x>407</x>
+      <y>616</y>
       <w>275</w>
       <h>77</h>
     </coordinates>
@@ -82,8 +82,8 @@ SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attribu
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>462</y>
+      <x>407</x>
+      <y>759</y>
       <w>33</w>
       <h>99</h>
     </coordinates>
@@ -93,8 +93,8 @@ SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attribu
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>418</x>
-      <y>539</y>
+      <x>330</x>
+      <y>836</y>
       <w>176</w>
       <h>33</h>
     </coordinates>
@@ -105,13 +105,67 @@ SimpleStrategy(cond: Predicate&lt;Agent&gt;) &lt;&lt;ctor&gt;&gt;</panel_attribu
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>209</x>
-      <y>209</y>
+      <x>121</x>
+      <y>506</y>
       <w>253</w>
       <h>374</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=2</panel_attributes>
     <additional_attributes>190.0;320.0;10.0;320.0;10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>935</x>
+      <y>286</y>
+      <w>341</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>RealVector
+--
++getEuclideanNorm(): double
++getSumNorm(): double
++multiplyBy(value: double): void
++add(vector: RealVector): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1045</x>
+      <y>385</y>
+      <w>33</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>979</x>
+      <y>110</y>
+      <w>264</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Vector&lt;E&gt;
+--
++getSize(): int
++elementAt(i: int): E
++clone(): Vector&lt;E&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1100</x>
+      <y>209</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
 </diagram>
