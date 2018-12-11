@@ -985,7 +985,7 @@ Konstruktoren://vorläufig
 \end{itemize}
 
 \subsubsection{Interface \texttt{Vector<T>}}
-This interface represents a vector of fixed size holding entities of type \texttt{T}. An implementation allows retrieving and overwriting of vector components and offers a cloning functionality.
+This interface represents a vector of fixed size holding entities of type \texttt{T}. An implementation allows retrieving and overwriting vector components and offers a cloning function.
 
 Parameters:
 \begin{itemize}\itemsep -10pt
@@ -1000,10 +1000,13 @@ Methods:
 
 \item \texttt{T getComponent(int index)}
 \item[] Returns the component at the given index.
+\item[] \texttt{index}: the index of the component that shall be returned
 \item[] Returns: the component at the given index
 
 \item \texttt{void setComponent(int index, T value)}
 \item[] Set the component at the given index to the given value
+\item[] \texttt{index}: the index of the component that shall be set to the given value
+\item[] \texttt{value}: the value that the component at given index shall be set to
 
 \item \texttt{Vector<T> clone()}
 \item[] Returns a clone of the vector
@@ -1028,10 +1031,12 @@ Methods:
 \item[] Returns: the sum norm of the vector
 
 \item \texttt{void multiplyBy(double scalar)}
-\item[] Multiply the vector by the given scalar.
+\item[] Multiplies the vector by the given scalar.
+\item[] \texttt{scalar}: the real scalar this vector shall be multiplied by
 
 \item \texttt{void add(RealVector vector)}
 \item[] Adds the given vector to this vector.
+\item[] \texttt{vector}: the vector that shall be added to this vector
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine.distributions}}
