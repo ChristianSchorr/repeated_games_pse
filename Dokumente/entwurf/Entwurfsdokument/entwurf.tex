@@ -822,10 +822,10 @@ Dieses Interface repräsentiert einen Paarbildungsalgorithmus. Eine Implementier
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Collection<AgentPair> buildPairs(Collection<Agent> agents, SimulationHistory history)}
-\item[] Fasst die gegebene Menge von Agenten zu Paaren zusammen und gibt diese als \texttt{Collection} von \texttt{AgentPair}s zurück.
-\item[] \texttt{agents}: die Agenten, aus denen Paare gebildet werden sollen
-\item[] \texttt{history}: der bisherige Verlauf des Adaptionsschritts
-\item[] Returns: die gebildeten Paare als \texttt{Collection<AgentPair>}
+\item[] Builds pairs out of the given agents and returns them as \texttt{Collection<AgentPair>}.
+\item[] \texttt{agents}: the agents that shall be paired
+\item[] \texttt{history}: the \texttt{SimulationHistory} of the current adaption step
+\item[] Returns: the built pairs as \texttt{Collection<AgentPair>}
 \end{itemize}
 
 \subsubsection{Class \texttt{RandomPairBuilder}}
@@ -846,8 +846,8 @@ Realisiert die in der Spezifikation beschriebene \enquote{Paarbildung nach Wunsc
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{RandomCooperationConsideringPairBuilder(double randomnessFactor)}
-\item[] Erstellt einen neuen \texttt{RandomCooperationConsideringPairBuilder}.
-\item[] \texttt{randomnessFactor}: der Zufallsfaktor für die Paarbildung; zwischen \(0\) und \(1\)
+\item[] Creates a new \texttt{RandomCooperationConsideringPairBuilder}.
+\item[] \texttt{randomnessFactor}: the randomness factor; between \(0\) and \(1\)
 \end{itemize}
 
 \subsubsection{Interface \texttt{SuccessQuantifier}}
@@ -856,10 +856,10 @@ Dieses Interface repräsentiert eine Erfolgsquantifizierung. Eine Implementierun
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<Agent> createRanking(Collection<Agent> agents, SimulationHistory history)}
-\item[] Erstellt eine Rangliste der gegebenen Agenten und gibt diese als Liste zurück.
-\item[] \texttt{agents}: die Agenten, aus denen eine Rangliste erstellt werden soll
-\item[] \texttt{history}: der bisherige Verlauf des aktuellen Adaptionsschritts
-\item[] Returns: die erstellte Rangliste als \texttt{List<Agent>}
+\item[] Creates and returns a ranking of the given agents.
+\item[] \texttt{agents}: the agents that shall be ranked
+\item[] \texttt{history}: the \texttt{SimulationHistory} of the current adaption step
+\item[] Returns: the ranking as \texttt{List<Agent>}
 \end{itemize}
 
 \subsubsection{Class \texttt{TotalCapital}}
@@ -880,8 +880,8 @@ Realisiert die in der Spezifikation beschriebene \enquote{Gleitender Durchschnit
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{SlidingMean(int windowSize)}
-\item[] Erstellt ein neues \texttt{SlidingMean}-Objekt mit der gegebenen Fenstergröße.
-\item[] \texttt{windowSize}: die Fenstergröße für die Durchschnittsberechnung
+\item[] Creates a new \texttt{SlidingMean}-object with the given window size.
+\item[] \texttt{windowSize}: the window size for the mean calculation
 \end{itemize}
 
 \subsubsection{Class \texttt{PayoffInLastAdapt}}
@@ -895,8 +895,8 @@ Dieses Interface repräsentiert einen Adaptionsmechanismus. Eine Implementierung
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void adaptStrategies(List<Agent> agents)}
-\item[] Adaptiert die Strategien der gegebenen Agenten.
-\item[] \texttt{agents}: die Agenten, deren Strategien adaptiert werden sollen, geordnet nach Erfolg im aktuellen Adaptionsschritt
+\item[] Adjusts the strategies of the given agents.
+\item[] \texttt{agents}: the agents whose strategies shall be adapted, ordered by their success in the current adaption step
 \end{itemize}
 
 \subsubsection{Class \texttt{ReplicatorDynamic}}
@@ -907,9 +907,9 @@ Realisiert den in der Spezifikation beschriebenen \enquote{Replicator Dynamic}-A
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{ReplicatorDynamic(double alpha, double delta)}
-\item[] Erstellt ein neues \texttt{ReplicatorDynamic}-Objekt mit den gegebenen Parametern \(\alpha\) und \(\delta\).
-\item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
-\item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
+\item[] Creates a new \texttt{ReplicatorDynamic}-object with the given parameters \(\alpha\) and \(\delta\).
+\item[] \texttt{alpha}: the comparing probability
+\item[] \texttt{delta}: the adjusting probability
 \end{itemize}
 
 \subsubsection{Class \texttt{PreferentialAdaption}}
@@ -920,9 +920,9 @@ Realisiert den in der Spezifikation beschriebenen \enquote{Preferential Adaption
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{PreferentialAdaption(double alpha, double delta)}
-\item[] Erstellt ein neues \texttt{PreferentialAdaption}-Objekt mit den gegebenen Parameter \(\alpha\) und \(\delta\).
-\item[] \texttt{alpha}: die Vergleichswahrscheinlichkeit
-\item[] \texttt{delta}: die Anpassungswahrscheinlichkeit
+\item[] Creates a new \texttt{PreferentialAdaption}-object with the given parameters \(\alpha\) and \(\delta\).
+\item[] \texttt{alpha}: the comparing probability
+\item[] \texttt{delta}: the adjusting probability
 \end{itemize}
 
 \subsubsection{Interface \texttt{EquilibriumCriterion}}
@@ -931,10 +931,10 @@ Dieses Interface repräsentiert ein Gleichgewichtskriterium. Eine Implementierun
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{boolean isEquilibrium(List<Agent> agents, SimulationHistory history)}
-\item[] Gibt zurück, ob sich ein Gleichgewicht eingestellt hat.
-\item[] \texttt{agents}: die Agenten des aktuellen Simulationslaufs
-\item[] \texttt{history}: der Verlauf des aktuellen Adaptionsschritts
-\item[] Returns: \texttt{true}, falls sich ein Gleichgewicht eingestellt hat, \texttt{false} sonst
+\item[] Returns whether an equilibrium is reached.
+\item[] \texttt{agents}: the agents of the currently simulated iteration
+\item[] \texttt{history}: the \texttt{SImulationhistory} of the current adaption step
+\item[] Returns: \texttt{true} if an equilibrim is reached, \texttt{false} otherwise
 \end{itemize}
 
 \subsubsection{Abstract Class \texttt{CountingEquilibriumCriterion}}
@@ -945,15 +945,15 @@ Diese Klasse repräsentiert ein Gleichgewichtskriterium, dass jede Runde eine be
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{abstract boolean hasEquilibriumCondition(List<Agent> agents, SimulationHistory history)}
-\item[] Gibt zurück, ob die Gleichgewichtsbedingung für diesen Adaptionsschritt erfüllt ist.
-\item[] \texttt{agents}: die Agenten des aktuellen Simulationslaufs
-\item[] \texttt{history}: der Verlauf des aktuellen Adaptionsschritts
-\item[] Returns: \texttt{true}, falls die Bedingung erfüllt ist, \texttt{false} sonst
+\item[] Returns whether the equilibrium condition is met for the current adaption step
+\item[] \texttt{agents}: the agents of the currently simulated iteration
+\item[] \texttt{history}: the \texttt{SimulationHistory} of the current adaption step
+\item[] Returns: \texttt{true} if the condition is met, \texttt{false} otherwise
 
 \item \texttt{abstract boolean longEnough(int steps)}
-\item[] Gibt zurück, ob \texttt{steps} größer oder gleich der nötigen Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte ist.
-\item[] \texttt{steps}: die Anzahl von Adaptionsschritten, für die geprüft werden soll, ob sie in obigem Sinne hinreichend groß ist
-\item[] Returns: \texttt{true}, falls \texttt{steps} groß genug ist, \texttt{false} sonst
+\item[] Returns whether \texttt{steps} is larger or equal to the minimum amount of consecutive condition-meeting adaption steps.
+\item[] \texttt{steps}: the amount of adaption steps that shall be checked
+\item[] Returns: \texttt{true} if \texttt{steps} is sufficiently large, \texttt{false} otherwise
 \end{itemize}
 
 \subsubsection{Class \texttt{StrategyEquilibrium}}
@@ -964,9 +964,9 @@ Realisiert das in der Spezifikation beschriebene \enquote{Strategie-Gleichgewich
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{StrategyEquilibrium(double alpha, int G)}
-\item[] Erzeugt ein neues \texttt{StrategyEquilibrium}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{alpha}: die Strenge des Gleichgewichts
-\item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
+\item[] Creates a new \texttt{StrategyEquilibrium}-object with the given parameters.
+\item[] \texttt{alpha}: the strictness of the equilibrium
+\item[] \texttt{G}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
 
 \subsubsection{Class \texttt{RankingEquilibrium}}
@@ -977,9 +977,9 @@ Realisiert das in der Spezifikation beschriebene \enquote{Rang-Gleichgewichtskri
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{RankingEquilibrium(double alpha, int G)}
-\item[] Erzeugt ein neues \texttt{RankingEquilibrium}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{alpha}: die Strenge des Gleichgewichts
-\item[] \texttt{G}: die minimale Zahl aufeinanderfolgender Gleichgewichtsbedingung-erfüllender Adaptionsschritte
+\item[] Creates a new \texttt{RankingEquilibrium}-object with the given parameters.
+\item[] \texttt{alpha}: the strictness of the equilibrium
+\item[] \texttt{G}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
 
 \subsubsection{Interface \texttt{Distribution<E>}}
@@ -988,13 +988,13 @@ Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem T
 Methoden
 \begin{itemize}\itemsep -10pt
 \item \texttt{double getProbability(E object)}
-\item[] Gibt die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung zurück.
-\item[] \texttt{element}: das Objekt, dessen Wahrscheinlichkeit abgefragt werden soll
-\item[] Returns: die Wahrscheinlichkeit des gegebenen Objekts in dieser Verteilung
+\item[] Returns the probability of the given object in this distribution.
+\item[] \texttt{element}: the object whose probability shall be returned
+\item[] Returns: the probability of the given object in this distribution
 
 \item \texttt{Picker<E> getPicker()}
-\item[] Gibt einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung zurück.
-\item[] Returns: einen \texttt{Picker<E>} für diese Wahrscheinlichkeitsverteilung
+\item[] Returns a \texttt{Picker<E>} for this probability distribution.
+\item[] Returns: a \texttt{Picker<E>} for this probability distribution
 \end{itemize}
 
 \subsubsection{Interface \texttt{Picker<E>}}
@@ -1003,13 +1003,13 @@ Ein \texttt{Picker<E>} wird von Implementierungen des \texttt{Distribution<E>}-I
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{E pickOne()}
-\item[] Zieht ein Objekt aus der Wahrscheinlichkeitsverteilung und gibt dieses zurück.
-\item[] Returns: das aus der Wahrscheinlichkeitsverteilung gezogene Objekt
+\item[] Picks an object out of the probability distribution and returns it.
+\item[] Returns: the picked object
 
 \item \texttt{Collection<E> pickMany(int i)}
-\item[] Zieht mehrere Objekte aus der Wahrscheinlichkeitsverteilung und gibt diese als \texttt{Collection<E>} zurück.
-\item[] \texttt{i}: die Anzahl der Objekte, die aus der Wahrscheinlichkeitsverteilung gezogen werden sollen
-\item[] Returns: die aus der Wahrscheinlichkeitsverteilung gezogenen Objekte als \texttt{Collection<E>}
+\item[] Picks multiple elements out of the probability distribution and returns them as \texttt{Collection<E>} zurück.
+\item[] \texttt{i}: the amount of elements that shall be picked
+\item[] Returns: the picked objects as \texttt{Collection<E>}
 \end{itemize}
 
 \subsubsection{Interface \texttt{DiscreteDistribution}}
@@ -1020,14 +1020,14 @@ Repräsentiert eine diskrete Wahrscheinlichkeitsverteilung auf den ganzen Zahlen
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{int getSupportMin(double q)}
-\item[] Gibt die linke Grenze des Intervalls \(I_q\) zurück.
-\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
-\item[] Returns: die linke Grenze des Intervalls \(I_q\)
+\item[] Returns the lower bound of \(I_q\).
+\item[] \texttt{q}: the value \(q\) for the determination of the interval \(I_q\)
+\item[] Returns: the lower bound of \(I_q\)
 
 \item \texttt{int getSupportMax(double q)}
-\item[] Gibt die rechte Grenze des Intervalls \(I_q\) zurück.
-\item[] \texttt{q}: der Wert \(q\) zur Berechnung des Intervalls \(I_q\)
-\item[] Returns: die rechte Grenze des Intervalls \(I_q\)
+\item[] Returns the upper bound of \(I_q\).
+\item[] \texttt{q}: the value \(q\) for the determination of the interval \(I_q\)
+\item[] Returns: the upper bound of \(I_q\)
 \end{itemize}
 
 \subsubsection{Class \texttt{PoissonDistribution}}
@@ -1038,8 +1038,8 @@ Repräsentiert eine Poisson-Verteilung.
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{PoissonDistribution(double lambda)}
-\item[] Erzeugt ein neues \texttt{PoissonDistribution}-Objekt mit dem Parameter \texttt{lambda}.
-\item[] \texttt{lambda}: der variable Parameter in der Poissonverteilung
+\item[] Creates a new \texttt{PoissonDistribution} with given parameter \texttt{lambda}.
+\item[] \texttt{lambda}: the variable parameter of a poisson distribution
 \end{itemize}
 
 \subsubsection{Class \texttt{BinomialDistribution}}
@@ -1050,10 +1050,10 @@ Repräsentiert eine Bionomialverteilung.
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{BinomialDistribution(int a, int b, double p)}
-\item[] Erzeugt ein neues \texttt{BinomialDistribution}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{a}: die linke Grenze der Verteilung
-\item[] \texttt{b}: die rechte Grenze der Verteilung
-\item[] \texttt{p}: der Wahrscheinlichkeitsparameter \(p \in [0,1]\) der Binomialverteilung
+\item[] Creates a new \texttt{BinomialDistribution} with the given parameters.
+\item[] \texttt{a}: the lower bound of the distribution
+\item[] \texttt{b}: the upper bound of the distribution
+\item[] \texttt{p}: the probability parameter \(p \in [0,1]\) of the binomial distribution
 \end{itemize}
 
 \subsubsection{Class \texttt{DiscreteUniformDistribution}}
@@ -1064,9 +1064,9 @@ Repräsentiert eine diskrete Gleichverteilung.
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{DiscreteUniformDistribution(int a, int b)}
-\item[] Erzeugt ein neues \texttt{DiscreteUniformDistribution}-Objekt mit den gegebenen Parametern.
-\item[] \texttt{a}: die linke Grenze der Verteilung
-\item[] \texttt{b}: die rechte Grenze der Verteilung
+\item[] Creates a new \texttt{DiscreteUniformDistribution} with the given parameters
+\item[] \texttt{a}: the lower bound of the distribution
+\item[] \texttt{b}: the upper bound of the distribution
 \end{itemize}
 
 \subsubsection{Interface \texttt{FiniteDistribution<E>}}
@@ -1077,8 +1077,8 @@ Repräsentiert eine Wahrscheinlichkeitsverteilung über Objekten des Typs \textt
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Collection<E> getSupport()}
-\item[] Gibt den Träger dieser Wahrscheinlichkeitsverteilung zurück.
-\item[] Returns: den Träger dieser Wahrscheinlichkeitsverteilung als \texttt{Collection<E>}
+\item[] Returns the support of this probability distribution.
+\item[] Returns: the support of this distribution
 \end{itemize}
 
 \subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
@@ -1089,27 +1089,27 @@ Repräsentiert eine Gleichverteilung über Objekten des Typs \texttt{E} mit endl
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{UniformFiniteDistribution<E>()}
-\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit leerem Träger.
+\item[] Creates a new \texttt{UniformFiniteDistribution<E>} with empty support.
 
 \item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
-\item[] Erzeugt ein neues \texttt{UniformFiniteDistribution<E>}-Objekt mit den gegebenen Objekten als Träger.
-\item[] \texttt{objects}: die Objekte des Trägers dieser Wahrscheinlichkeitsverteilung
+\item[] Creates a new \texttt{UniformFiniteDistribution<E>} with the given objects as support.
+\item[] \texttt{objects}: the objects the support of this distribution consists of
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void addObject(E object)}
-\item[] Fügt das gegebene Objekt zum Träger hinzu.
-\item[] \texttt{object}: das Objekt, das dem Träger hinzugefügt werden soll
+\item[] Adds the given object to the support.
+\item[] \texttt{object}: the object thta shall be added
 
 \item \texttt{void addObjects(Collection<E> objects)}
-\item[] Fügt die gegebenen Elemente zum Träger hinzu.
-\item[] \texttt{objects}: die Objekte, die dem Träger hinzugefügt werden sollen
+\item[] Adds the given objects to the support.
+\item[] \texttt{objects}: the objects that shall be added
 
 \item \texttt{boolean deleteObject(E object)}
-\item[] Entfernt das gegebene Objekt aus dem Träger, falls enthalten.
-\item[] \texttt{object}: das Objekt, das aus dem Träger entfernt werden soll
-\item[] Returns: \texttt{true}, falls das gegebene Objekt im Träger enthalten war und entfernt wurde, andernfalls \texttt{false}
+\item[] Removes the given object from the support, if contained.
+\item[] \texttt{object}: the object that shall be removed
+\item[] Returns: \texttt{true} if the given object was contained and successfully removed, \texttt{false} otherwise
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.Controller}}
@@ -1437,9 +1437,9 @@ Methoden:
 
 \begin{itemize}\itemsep -10pt
 	\item \underline{\texttt{static <T> List<T> loadPlugins()}}
-	\item[] Lädt alle verfügbaren Plugins des angegebenen Typs \texttt{T}
-	\item[] \texttt{<T>} Plugintyp der geladen werden soll
-	\item[]Returns: eine Liste der geladenen Plugins
+	\item[] loads all available plugins of the given type \texttt{T}
+	\item[] \texttt{<T>} the type of the plugins that shall be loaded
+	\item[]Returns: a list of the loaded plugins
 \end{itemize}
 
 \subsubsection{abstract Class \texttt{PluginControl extends javafx.scene.layout.Pane}}
@@ -1450,8 +1450,8 @@ Methoden:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{abstract List<double> getParameters()}
-	\item[] Gibt eine Liste der eingegebene Parameter für die Pluginkonfiguration zurück
-	\item[] Returns: eine Liste der eingegebenen \texttt{double}-Parameter
+	\item[] Returns a list of the entered parameter values for the plugin configuration
+	\item[] Returns: a list of the entered parameter values for the plugin configuration
 \end{itemize}
 
 \subsubsection{Class \texttt{TextFieldPluginControl extends PluginControl}}
@@ -1462,30 +1462,31 @@ Konstruktoren:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{TextFieldPluginControl(List<Parameter> params)}
-	\item[] Erzeugt eine Instanz, die die übergebenen \texttt{Parameter} konfigurierbar macht.
-	\item[] \texttt{params}: eine Liste der konfigurierbaren Parameter
+	\item[] Creates a new \texttt{TextFieldPluginControl}.
+	\item[] \texttt{params}: a list of all configurable \texttt{Parameter}s
 \end{itemize}
 
 Methoden:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{void addParameter(Parameter param)}
-	\item[] Fügt dem Steuerelement einen \texttt{Parameter} hinzu, der dann über das Steuerelement konfigurierbar ist
-	\item[] \texttt{param}: Der Parameter, der zum Steuerelement hinzugefügt werden soll.
+	\item[] Adds a \texttt{Parameter}, which is then configurable with this control element
+	\item[] \texttt{param}: the \texttt{Parameter} that shall be added
 	\item \texttt{void addParameters(List<Parameter> params)}
-	\item[] Fügt dem Steuerelement eine Liste von \texttt{Parameter}n hinzu, die dann über das Steuerelement konfigurierbar sind
-	\item[] \texttt{params}: Die Parameter, die zum Steuerelement hinzugefügt werden sollen.
+	\item[] Adds a list of \texttt{Parameter}s, which are then configurable with this control element
+	\item[] \texttt{params}: the \texttt{Parameter}s that shall be added
 \end{itemize}
 
 \subsubsection{Interface \texttt{PluginRenderer}}
 
-Dieses Interface stellt die Funktionalität zum Erzeugen eines Konfigurations-Steuerelemet für Plugins in einer JavaFX Anwendung bereit.
+Dieses Interface stellt die Funktionalität zum Erzeugen eines Konfigurations-Steuerelements für Plugins in einer JavaFX Anwendung bereit.
 
 Methoden:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{PluginControl render()}
-	\item[] Liefert eine \texttt{PluginControl}-Instanz zurück, die in ein JavaFX-Fenster eingefügt werden kann
+	\item[] Returns a \texttt{PluginControl}-instance, which can be added to a JavaFX-window.
+	\item[] Returns: a \texttt{PluginControl}-instance, which can be added to a JavaFX-window
 \end{itemize}
 
 \subsubsection{Class \texttt{GenericRenderer implements PluginRenderer}}
@@ -1496,11 +1497,12 @@ Konstruktoren:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{GenericRenderer(plugin: Plugin)}
-	\item[] Erzeugt eine Instanz, die für das gegebene Plugin ein Konfigurations-Steuerelement erstellt
-	\item[] \texttt{plugin}: Das Plugin welches der Renderer darstellen soll
-	\item \texttt{GenericRednerer(params: List<Parameter>)}
-	\item[] Erzeugt eine Instanz, die ein Steuerelement mit den gegebenen \texttt{Parameter} erzeugt.
-	\item[] \texttt{params}: Eine Liste der konfigurierbaren Parameter eines Plugins
+	\item[] Creates a new \texttt{GenericRenderer} for the given \texttt{Plugin}
+	\item[] \texttt{plugin}: the \texttt{Plugin} which shall be rendered by this \texttt{GenericRenderer}
+	
+	\item \texttt{GenericRenderer(params: List<Parameter>)}
+	\item[] Creates a new \texttt{GenericRenderer} for a \texttt{Plugin} with the given \texttt{Parameter}s
+	\item[] \texttt{params}: a list with the \texttt{Parameter}s of the \texttt{Plugin} that shall be rendered by this \texttt{GenericRenderer}
 \end{itemize} 
 
 \subsubsection{Class \texttt{Parameter implements Nameable}}
@@ -1510,22 +1512,23 @@ Diese Klasse definiert einen Konfigurationsparameter für Plugins. Sie bietet Fu
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{Parameter()}
-	\item[] Erzeugt eine neue Instanz mit unbeschränktem Wertebereich 
+	\item[] Creates a new unbounded \texttt{Parameter}.
+	
 	\item \texttt{Parameter(double minVal)}
-	\item[] Erzeugt eine neue Instanz mit nach unten beschränktem Wertebereich
-	\item[] \texttt{minVal}: untere Schranke des Wertebereichs
+	\item[] Creates a new lowerly bounded, upperly unbounded \texttt{Parameter}.
+	\item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
 	\item \texttt{Parameter(double maxVal)}
-	\item[] Erzeugt eine neue Instanz mit nach oben beschränktem Wertebereich
-	\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+	\item[] Creates a new lowerly unbounded, upperly bounded \texttt{Parameter}.
+	\item[] \texttt{maxVal}: the upper bound of the \texttt{Parameter}
 	\item \texttt{Parameter(double minVal, double maxVal)}
-	\item[] Erzeugt eine neue Instanz mit nach unten und oben beschränktem Wertebereich
-	\item[] \texttt{minVal}: untere Schranke des Wertebereichs
-	\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
+	\item[] Creates a new bounded \texttt{Parameter}
+	\item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
+	\item[] \texttt{maxVal}: the upper bound of the \texttt{Parameter}
 	\item \texttt{Parameter(double minVal, double maxVal, double stepSize)}
-	\item[] Erzeugt eine neue Instanz mit nach oben und unten beschränktem Wertebereich, sowie eingeschränkter Granularität
-	\item[] \texttt{minVal}: untere Schranke des Wertebereichs
-	\item[] \texttt{maxVal}: obere Schranke des Wertebereichs
-	\item[] \texttt{stepSize}: Granularität des Parameters
+	\item[] Creates a new unbounded \texttt{Parameter} with constricted granularity
+\item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
+	\item[] \texttt{maxVal}: the upper bound of the \texttt{Parameter}
+	\item[] \texttt{stepSize}: the granularity of the parameter
 	
 \end{itemize}
 
@@ -1533,14 +1536,14 @@ Methoden:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{double getMinValue()}
-	\item[] Gibt die untere Schranke des gültigen Wertebereichs zurück
-	\item[] Returns: die untere Schranke des gültigen Wertebereichs
+	\item[] Returns the lower bound of this parameter.
+	\item[] Returns: the lower bound of this parameter (\texttt{Double.NEGATIVE\_INFINITY} if unbounded)
 	\item \texttt{double getMaxValue()}
-	\item[] Gibt die obere Schranke des gültigen Wertebereichs zurück
-	\item[]Returns: die obere Schranke des gültigen Wertebereichs
+	\item[] Returns the upper bound of this parameter.
+	\item[] Returns: the upper bound of this parameter (\texttt{Double.POSITIVE\_INFINITY} if unbounded)
 	\item \texttt{double getStepSize()}
-	\item[] Gibt die Granularität des Wertebereichs zurück
-	\item[]Returns: die Granularität des Wertebereichs
+	\item[] Returns the granularity of this parameter
+	\item[]Returns: the granularity of this parameter (\(0\) if no constraint)
 \end{itemize}
 
 \subsubsection{Class \texttt{ParameterValidator}}
@@ -1551,15 +1554,15 @@ Methoden:
 
 \begin{itemize} \itemsep -10pt
 	\item \underline{\texttt{static boolean isValueValid(double val, Parameter param)}}
-	\item[] Prüft, ob der gegeben Wert im Wertebereich des gegebenen Parameters liegt
-	\item[] \texttt{val}: der Wert der überprüft werden soll
-	\item[] \texttt{param}: der Parameter, dessen Wertebereich für die Überprüfung genutzt werden soll.
-	\item[] Returns: \texttt{true}, wenn der Wert im Wertebereich des Parameters liegt \texttt{false} andernfalls
+	\item[] Checks if the given value is a valid assignment for the given \texttt{Parameter}
+	\item[] \texttt{val}: the value that shall be checked
+	\item[] \texttt{param}: the \texttt{Parameter} whose value range shall be considered
+	\item[] Returns: \texttt{true} if the given value lies in the value range of the given \texttt{Parameter}, \texttt{false} otherwise
 	\item \underline{\texttt{static double getClosestValid(double val, Parameter param)}}
-	\item[] Gibt den Wert im Wertebereich des Parameters zurück, der am nächsten an dem gegebenen Wert liegt
-	\item[] \texttt{val}: der Wert, der beim ermitteln betrachtet wird
-	\item[] \texttt{param}: der Parameter, desssen Wertebereich betrachtet wird
-	\item[] Returns: der Wert aus dem Wertebereich des Parameters, der dem gegebenen Wert am nächsten liegt
+	\item[] Returns the value in the value range of the given \texttt{Parameter} that is closest to the given value.
+	\item[] \texttt{val}: the value that shall be considered
+	\item[] \texttt{param}: the \texttt{Parameter} whose value range shall be considered
+	\item[] Returns: the value in the value range of the given \texttt{Parameter} that is closest to the given value
 \end{itemize}
 
 \subsubsection{abstract Class \texttt{Plugin<T> implements  Nameable}}
@@ -1574,15 +1577,17 @@ Parameter:
 Methoden:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{PluginRenderer getRenderer()}
-	\item[] Gibt eine \texttt{PluginRenderer}-Instanz zum Erzeugen eines Konfigurations-Steuerelements für das Plugin zurück
-	\item[] Returns: eine Instanz eines \texttt{PluginRenderer}s
+	\item[] Returns a \texttt{PluginRenderer}-instance for this \texttt{Plugin}
+	\item[] Returns: a \texttt{PluginRenderer}-instance for this \texttt{Plugin}
+	
 	\item \texttt{abstract List<Parameter> getParameters()}
-	\item[] Gibt eine Liste der Konfigurationsparameter des Plugins zurück
-	\item[] Returns: eine Liste der Konfigurationsparameter
+	\item[] Returns a list of the configuration \texttt{Parameter}s of this \texttt{Plugin}
+	\item[] Returns: a list of the configuration \texttt{Parameter}s of this \texttt{Plugin}
+	
 	\item \texttt{abstract T getNewInstance(List<double> params)}
-	\item[] Erzeugt eine neue Instanz der Klasse, die die Pluginfunktionalität bereitstellt und parametrisiert sie mit den übergebenen Werten der Konfigurationsparametern
-	\item[] \texttt{params}: eine Liste mit den Werten der Konfigurationsparameter
-	\item[] Returns: eine neue Instanz der Klasse, die die Pluginfunktionalität zur Verfügung stellt
+	\item[] Creates and returns a new instance of the functionality holding class of this plugin with the given values as \texttt{Parameter}s
+	\item[] \texttt{params}: a list with the values of the configuration \texttt{Parameter}s
+	\item[] Returns: the newly created and parametrised instance of the funcitonaliy holding class
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.repository}}
@@ -1595,47 +1600,45 @@ Ein Repository speichert eine Zuordnung von Namen und Entitäten und stellt dies
 
 Parameter:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+	\item \texttt{<T>} the type of the entities that shall be stored in this repository
 \end{itemize}
 
 
 Methoden:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{T getEntityByName(String name)}
-	\item[] Gibt die zu dem Namen gehörige Entität zurück oder \texttt{null} falls das Depot keine Entität unter dem gegebene Namen speichert
-	\item[] \texttt{name}: der Name der Entität die abgefragt werden soll
-	\item[] Returns: die zu dem Namen gehörige Entität oder \texttt{null}
+	\item[] Returns the entity with the given name, if currently stored; \texttt{null} otherwise
+	\item[] \texttt{name}: the name of the entity that shall be returned
+	\item[] Returns: the entity with the given name if stored; \texttt{null} otherwise
 	
 	\item \texttt{boolean addEntity(String name, T entity)}
-	\item[] Fügt dem Depot eine neue Entität unter dem gegebene Namen hinzu
-	\item[] \texttt{name}: der Name der Entität, die hinzugefügt werden soll
-	\item[] \texttt{entity}: Die Entität, die hinzugefügt werden soll
-	\item[] Returns: \texttt{true}, wenn die Entität erfolgreich hinzugefügt wurde und \texttt{false}, wenn bereits eine Entität unter dem Name im Depot existiert 
+	\item[] Adds a new entity with the given name to the repository, if no entity with the given name is already stored.
+	\item[] \texttt{name}: the name of the entity that shall be added
+	\item[] \texttt{entity}: the entity that shall be added
+	\item[] Returns: \texttt{true} if the entity was successfully added, \texttt{false} otherwise
 	
 	\item \texttt{boolean containsEntityName(String name)}
-	\item[] Gibt zurück, ob das Depot eine Entität unter dem gegebenen Namen enthält
-	\item[] \texttt{name}: der Name der geprüft werden soll
-	\item[] Returns: \texttt{true}, wenn das Depot eine Entität unter diesem Namen speichert und \texttt{false}, wenn nicht
+	\item[] Returns whether this repository contains an entity with the given name
+	\item[] \texttt{name}: the name that shall be checked
+	\item[] Returns: \texttt{true} if an entity with the given name is stored, \texttt{false} otherwise
 	
 \end{itemize}
 
 \subsubsection{Class \texttt{HashMapRepository implements Repository<T>}}
-
-// Im falschen Paket
 
 Ein Implementierung des \texttt{Repository<T>}-Interface, die Entitäten in einer \texttt{HashMap} speichert.
 
 Parameter:
 
 \begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Der Typ der Entitäten, die in dem Depot gespeichert werden sollen
+	\item \texttt{<T>} the type of the entities that shall be stored in this repository
 \end{itemize}
 
 Konstruktoren:
 
 \begin{itemize} \itemsep -10pt
 	\item \texttt{HasMapRepository()}
-	\item[] Erzeugt eine neue Instanz des Depots
+	\item[] Creates a new \texttt{HashMapRepository}.
 \end{itemize}
 
 
@@ -1647,29 +1650,29 @@ Methoden:
 
 \begin{itemize}\itemsep -10pt
 	\item \underline{\texttt{static <T> T loadEntity(File file)}}
-	\item[] Lädt die Entität des Typs \texttt{T} aus der angegebenen Datei 
-	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
-	\item[] \texttt{file}: Die Datei aus der die Entität geladen werden soll
-	\item[]Returns: die geladenen Entität oder \texttt{null} wenn keine Entität des Typs \texttt{T} geladen werden konnte
+	\item[] Loads an entity of type \texttt{T} out of the given file. 
+	\item[] \texttt{<T>} the type of the entity that shall be loaded
+	\item[] \texttt{file}: the file from which the entity shall be loaded
+	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded
 	
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
-	\item[] Lädt alle Entität des Typs \texttt{T} aus den Dateien in dem gegebene Ordner 
-	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
-	\item[] \texttt{dir}: Der Ordner aus dem die Entität geladen werden soll
-	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	\item[] Loads all entities of type \texttt{T} from files in the given directory
+	\item[] \texttt{<T>} the type of the entity that shall be loaded
+	\item[] \texttt{dir}: the directory from which the entities shall be loaded
+	\item[]Returns: a list of all loaded entities
 	
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
-	\item[] Lädt alle Entität des Typs \texttt{T} aus den gegebenen Dateien
-	\item[] \texttt{<T>} Entitätentyp der geladen werden soll
-	\item[] \texttt{files}: Die Liste der Dateien aus denen die Entitäten geladen werden sollen
-	\item[]Returns: eine Liste aller geladener Entitäten des Typs \texttt{T}
+	\item[] Loads all entities of type \texttt{T} from the given files.
+	\item[] \texttt{<T>} the type of the entity that shall be loaded
+	\item[] \texttt{files}: the list of all files from which entities shall be loaded
+	\item[]Returns: a list of all loaded entities
 	
 	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
-	\item[] Speichert die Entität des Typs \texttt{T} in der gegebenen Datei
-	\item[] \texttt{<T>} Entitätentyp der gespeichert werden soll
-	\item[] \texttt{file}: Die Datei, in welche die Entität gespeichert werden soll
-	\item[] \texttt{entity}: Die Entität die gespeichert werden soll
-	\item[]Returns: \texttt{true}, wenn das Speichern erfolgreich war, andernfalls \texttt{false}
+	\item[] Saves the given entity in the given file.
+	\item[] \texttt{<T>} the type of the entity that shall be saved
+	\item[] \texttt{file}: the file to which the entity shall  be saved
+	\item[] \texttt{entity}: the entity that shall be saved
+	\item[]Returns: \texttt{true} if the saving process finished successfully, \texttt{false} otherwise
 \end{itemize}
 
 \section{Glossar}
