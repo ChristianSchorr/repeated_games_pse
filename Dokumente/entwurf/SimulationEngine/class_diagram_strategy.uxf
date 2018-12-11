@@ -61,11 +61,11 @@ m2=1..n</panel_attributes>
       <w>473</w>
       <h>99</h>
     </coordinates>
-    <panel_attributes>SimpleStrategy
+    <panel_attributes>PureStrategy
 -
 -condition: Predicate&lt;Agent, SimulationHistory&gt;
 -
-SimpleStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+PureStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -117,12 +117,13 @@ m2=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>935</x>
+      <x>891</x>
       <y>286</y>
-      <w>341</w>
-      <h>110</h>
+      <w>330</w>
+      <h>121</h>
     </coordinates>
-    <panel_attributes>RealVector
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+RealVector
 --
 +getEuclideanNorm(): double
 +getSumNorm(): double
@@ -134,38 +135,39 @@ m2=2</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1045</x>
-      <y>385</y>
+      <y>396</y>
       <w>33</w>
-      <h>308</h>
+      <h>297</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;260.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>979</x>
+      <x>924</x>
       <y>110</y>
       <w>264</w>
-      <h>110</h>
+      <h>121</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-Vector&lt;E&gt;
+Vector&lt;T&gt;
 --
 +getSize(): int
-+elementAt(i: int): E
++getComponent(i: int): T
++setComponent(i: int, value: T): void
 +clone(): Vector&lt;E&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1100</x>
-      <y>209</y>
+      <x>1045</x>
+      <y>220</y>
       <w>33</w>
-      <h>99</h>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
 </diagram>

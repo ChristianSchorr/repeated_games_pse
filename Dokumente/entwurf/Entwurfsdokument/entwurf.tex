@@ -746,51 +746,6 @@ Methoden:
 \item[] Returns: the result of the game as \texttt{GameResult}
 \end{itemize}
 
-\subsubsection{Interface \texttt{Strategy}}
-Extends: \texttt{Nameable}
-
-Repräsentiert eine Strategie. Diese kann, muss aber nicht gemischt sein.
-
-Methoden:
-\begin{itemize}\itemsep -10pt
-\item \texttt{boolean isCooperative(Agent player, Agent opponent, SimulationHistory history)}
-\item[] Returns whether agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step. If the strategy is non-deterministic, the result may be random.
-\item[] Returns: if agent \texttt{player} cooperates
-
-\item \texttt{double getCooperationProbability(Agent player, Agent opponent, SimulationHistory history)}
-\item[] Returns the probability with which agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step.
-\item[] Returns: the probability with which agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step
-\end{itemize}
-
-\subsubsection{Class \texttt{PureStrategy}}
-Implements: \texttt{Strategy}
-
-Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt durch eine Bedingung an den gegnerischen Agenten basierend auf dem bisherigen Verlauf der Simulation, repräsentiert als \texttt{Predicate<Agent,SimulationHistory>}.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
-\item[] Creates a new \texttt{PureStrategy}.
-\item[] \texttt{condition}: the condition an opposing agent must meet in order for an agent using this strategy to cooperate in a game against him
-\end{itemize}
-
-\subsubsection{Class \texttt{CustomStrategy}}
-//vorläufig
-
-\subsubsection{Class \texttt{MixedStrategy}}
-Implements: \texttt{Strategy}
-
-Diese Klasse repräsentiert eine gemischte Strategie, die sich aus mehreren \texttt{PureStrategie}s zusammensetzt.
-
-Konstruktoren://vorläufig
-\begin{itemize}\itemsep -10pt
-\item[] //wirft exception wenn listen nicht gleichlang oder wahrsch. ungültig (alle positiv und in summe 1)
-\item \texttt{MixedStrategy(List<PureStrategies> pureStrategies, List<Integer> probabilites)}
-\item[] Creates a new \texttt{MixedStrategy} consisting of the given \texttt{PureStrategy}s with the given probabilities.
-\item[] \texttt{pureStrategies}: the \texttt{PureStrategy}s this strategy consists of
-\item[] \texttt{probabilities}: the probabilities of the given \texttt{PureStrategy}s
-\end{itemize}
-
 \subsubsection{Class \texttt{Segment}}
 //umbenennen!
 Diese Klasse repräsentiert ein Segment. Dieses wird charakterisiert durch die Anzahl zugehöriger Agenten, die \texttt{id} der Gruppe, zu der das Segment gehört sowie initiale Kapital- und Strategieverteilung.
@@ -981,6 +936,105 @@ Konstruktoren:
 \item[] \texttt{alpha}: the strictness of the equilibrium
 \item[] \texttt{G}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
+
+\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.strategies}}
+Dieses Paket beinhaltet das Interface \texttt{Strategy}, dass eine spieltheoretische Strategie repräsentiert, sowie einige Implementierungen.
+
+
+
+\subsubsection{Interface \texttt{Strategy}}
+Extends: \texttt{Nameable}
+
+Repräsentiert eine Strategie. Diese kann, muss aber nicht gemischt sein.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{boolean isCooperative(Agent player, Agent opponent, SimulationHistory history)}
+\item[] Returns whether agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step. If the strategy is non-deterministic, the result may be random.
+\item[] Returns: if agent \texttt{player} cooperates
+
+\item \texttt{double getCooperationProbability(Agent player, Agent opponent, SimulationHistory history)}
+\item[] Returns the probability with which agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step.
+\item[] Returns: the probability with which agent \texttt{player} would cooperate in a game against agent \texttt{opponent} using this strategy, given the \texttt{SimulationHistory} of the current adaption step
+\end{itemize}
+
+\subsubsection{Class \texttt{PureStrategy}}
+Implements: \texttt{Strategy}
+
+Diese Klasse repräsentiert eine reine Strategie. Diese ist eindeutig bestimmt durch eine Bedingung an den gegnerischen Agenten basierend auf dem bisherigen Verlauf der Simulation, repräsentiert als \texttt{Predicate<Agent,SimulationHistory>}.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
+\item[] Creates a new \texttt{PureStrategy}.
+\item[] \texttt{condition}: the condition an opposing agent must meet in order for an agent using this strategy to cooperate in a game against him
+\end{itemize}
+
+\subsubsection{Class \texttt{MixedStrategy}}
+Implements: \texttt{Strategy}, \texttt{RealVector}
+
+This class represents a mixed strategy that is composed of multiple \texttt{Strategy}s, each one chosen with a certain probability on every evaluation. It also implements the functionality of a \texttt{RealVector} with the probabilities of the different \texttt{Strategy}s as components.
+
+Konstruktoren://vorläufig
+\begin{itemize}\itemsep -10pt
+\item[] //wirft exception wenn listen nicht gleichlang oder wahrsch. ungültig (alle positiv und in summe 1)
+\item \texttt{MixedStrategy(List<Strategy> strategies, List<double> probabilites)}
+\item[] Creates a new \texttt{MixedStrategy} consisting of the given \texttt{Strategy}s with the given probabilities.
+\item[] \texttt{strategies}: the \texttt{Strategy}s this mixed strategy consists of
+\item[] \texttt{probabilities}: the probabilities of the given \texttt{Strategy}s
+\end{itemize}
+
+\subsubsection{Interface \texttt{Vector<T>}}
+This interface represents a vector of fixed size holding entities of type \texttt{T}. An implementation allows retrieving and overwriting of vector components and offers a cloning functionality.
+
+Parameters:
+\begin{itemize}\itemsep -10pt
+\item \texttt{<T>} the type of the components of the vector
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+\item \texttt{int getSize()}
+\item[] Returns the size of the vector.
+\item[] Returns: the size of the vector
+
+\item \texttt{T getComponent(int index)}
+\item[] Returns the component at the given index.
+\item[] Returns: the component at the given index
+
+\item \texttt{void setComponent(int index, T value)}
+\item[] Set the component at the given index to the given value
+
+\item \texttt{Vector<T> clone()}
+\item[] Returns a clone of the vector
+\item[] \texttt{<T>} the type of the components of the vector
+\item[] Returns: a clone of the vector
+\end{itemize}
+
+\subsubsection{Interface \texttt{RealVector}}
+Extends: \texttt{Vector<double>}
+
+This interface extends the \texttt{Vector<double>}
+-interface as a vector that has only real components. It offers additional functionality such as the calculation of euclidean or sum norm or the multiplication by real scalars and the addition with other \texttt{RealVector}s.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+\item \texttt{double getEuclideanNorm()}
+\item[] Returns the euclidean norm of the vector.
+\item[] Returns: the euclidean norm of the vector
+
+\item \texttt{double getSumNorm()}
+\item[] Returns the sum norm of the vector
+\item[] Returns: the sum norm of the vector
+
+\item \texttt{void multiplyBy(double scalar)}
+\item[] Multiply the vector by the given scalar.
+
+\item \texttt{void add(RealVector vector)}
+\item[] Adds the given vector to this vector.
+\end{itemize}
+
+\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.distributions}}
 
 \subsubsection{Interface \texttt{Distribution<E>}}
 Dieses Interface repräsentiert eine Wahrscheinlichkeitsverteilung über einem Träger von Objekten des Typs \texttt{E}. Eine Implementierung gibt auf Anfrage die Wahrscheinlichkeit eines bestimmten Objekts zurück und stellt einen \texttt{Picker<E>} zur Verfügung, mit dem zufällig Objekte aus der Wahrscheinlichkeitsverteilung gezogen werden können.
