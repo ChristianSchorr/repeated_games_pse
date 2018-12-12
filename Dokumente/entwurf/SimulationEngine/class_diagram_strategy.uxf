@@ -12,8 +12,8 @@
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Strategy
 -
-+isCooperative(p1: Agent, p2: Agent, hist: SimulationHistory): boolean
-+getCooperationProbability(p1: Agent, p2: Agent, hist: SimulationHistory): double
++isCooperative(player: Agent, opponent: Agent, history: SimulationHistory): boolean
++getCooperationProbability(player: Agent, opponent: Agent, history: SimulationHistory): double
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -27,7 +27,9 @@ Strategy
     </coordinates>
     <panel_attributes>MixedStrategy
 -
-</panel_attributes>
+-
++MixedStrategy(List&lt;PureStrategies&gt; pureStrategies, 
+List&lt;Integer&gt; probabilites) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -51,7 +53,7 @@ Strategy
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..n</panel_attributes>
-    <additional_attributes>100.0;180.0;150.0;180.0;150.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>70.0;180.0;120.0;180.0;120.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -112,7 +114,7 @@ PureStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&g
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=2</panel_attributes>
-    <additional_attributes>190.0;320.0;10.0;320.0;10.0;10.0;210.0;10.0</additional_attributes>
+    <additional_attributes>190.0;320.0;10.0;320.0;10.0;10.0;160.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>

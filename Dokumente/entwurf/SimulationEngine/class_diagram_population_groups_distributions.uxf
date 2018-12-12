@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
-  <zoom_level>9</zoom_level>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
@@ -11,6 +11,9 @@
     </coordinates>
     <panel_attributes>Population
 --
+--
++Population(String name, String description, 
+List&lt;Group&gt; groups, List&lt;Integer&gt; groupSizes) &lt;&lt;ctor&gt;&gt;
 +getSize(): int
 +getGroups(): List&lt;Group&gt;
 +getGroupSize(group: Group): int
@@ -27,6 +30,10 @@
     </coordinates>
     <panel_attributes>Group
 --
+--
++Group(String name, String description, 
+List&lt;Segment&gt; segments, List&lt;Double&gt; segmentSizes, 
+boolean isCohesive) &lt;&lt;ctor&gt;&gt;
 +getSegments(): List&lt;Segment&gt;
 +getSegmentSize(segment: Segment): int
 +getSegmentCount(): int
@@ -43,6 +50,9 @@
     </coordinates>
     <panel_attributes>Segment
 --
+--
++Segment(String capitalDistributionName, 
+Collection&lt;String&gt; strategyNames) &lt;&lt;ctor&gt;&gt;
 +getSize(): int
 +getCapitalDistributionName(): String
 +getStrategyNames(): List&lt;String&gt;</panel_attributes>
@@ -58,7 +68,7 @@
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..8</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -110,6 +120,7 @@ FiniteDistribution&lt;E&gt;
       <h>99</h>
     </coordinates>
     <panel_attributes>UniformFiniteDistribution&lt;E&gt;
+--
 --
 +UniformFiniteDistribution&lt;E&gt;() &lt;&lt;ctor&gt;&gt;
 +UniformFiniteDistribution&lt;E&gt;(objects: Collection&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
@@ -169,7 +180,7 @@ Distribution&lt;E&gt;
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -201,7 +212,8 @@ generates</panel_attributes>
       <w>207</w>
       <h>27</h>
     </coordinates>
-    <panel_attributes>extends Distribution&lt;Integer&gt;</panel_attributes>
+    <panel_attributes>extends Distribution&lt;Integer&gt;
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -225,6 +237,7 @@ generates</panel_attributes>
     </coordinates>
     <panel_attributes>PoissonDistribution
 --
+--
 +PoissonDistribution(lambda: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -238,6 +251,7 @@ generates</panel_attributes>
     </coordinates>
     <panel_attributes>BinomialDistribution
 --
+--
 +BinomialDistribution(min: int, max: int, p: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -249,9 +263,10 @@ generates</panel_attributes>
       <w>333</w>
       <h>45</h>
     </coordinates>
-    <panel_attributes>UniformDiscreteDistribution
+    <panel_attributes>DiscreteUniformDistribution
 --
-+EqualDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+--
++DiscreteUniformDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -322,6 +337,6 @@ Nameable
       <h>252</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;260.0;40.0;260.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;260.0;50.0;260.0</additional_attributes>
   </element>
 </diagram>
