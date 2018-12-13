@@ -99,7 +99,7 @@ Diese Klasse repräsentiert eine vom Nutzer erstellte Konfiguration. Sie bietet 
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, List<String> populationNames, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierName, String strategyAdjusterName, List<double> strategyAdjusterParameters, String equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double, endValue, double stepSize)}
+\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierName, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
 \item[] Creates a new \texttt{UserConfiguration} with the given parameters
 \item[] \texttt{gameName}: the name of the game
 \item[] \texttt{agentCount}: the amount of agents
@@ -107,7 +107,7 @@ Konstruktoren:
 \item[] \texttt{iterationCount}: the amount of iterations
 \item[] \texttt{availableStrategyNames}: a list with the names of all allowed strategies
 \item[] \texttt{mixedAllowed}: \texttt{true}, if mixed strategies are allowed, \texttt{false} otherwise.
-\item[] \texttt{populationNames}: a list with the names of all populations
+\item[] \texttt{populationName}: the name of the population
 \item[] \texttt{pairBuilderNames}: the name of the pair builder
 \item[] \texttt{pairBuilderParameters}: a list with the values of the parameters of the pair builder
 \item[] \texttt{successQuantifierNames}: the name of the success quantifier
@@ -150,8 +150,8 @@ Methoden:
 	\item[] Returns, whether mixed strategies are allowed in this configuration
 	\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration; \texttt{false} otherwise
 	
-	\item \texttt{List<String> getPopulationNames()}
-	\item[] Returns a list with the names of all populations in this configuration
+	\item \texttt{String getPopulationName()}
+	\item[] Returns the name of the \texttt{Population} of this configuration
 	\item[] Returns: a list with the names of all populations in this configuration
 	
 	\item \texttt{String getPairBuilderName()}
@@ -235,7 +235,7 @@ Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
 \item[] Creates a new \texttt{Configuration} with the given parameters.
-\item[] \texttt{game}: the game of thios configuration
+\item[] \texttt{game}: the game of this configuration
 \item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
 \item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
 \item[] \texttt{segments}: all segments of this configuration
@@ -1624,7 +1624,9 @@ Methoden:
 	\item[] Returns: the value in the value range of the given \texttt{Parameter} that is closest to the given value
 \end{itemize}
 
-\subsubsection{abstract Class \texttt{Plugin<T> implements  Nameable}}
+\subsubsection{Abstract Class \texttt{Plugin<T>}}
+Implements: \texttt{Nameable}
+
 
 Diese Klasse stellt ein dynamisch ladbares Plugin da. Sie ist ein generischer Container für eine Klasse, die die eigentliche Pluginfunktionalität bereitstellt. Sie bietet Funktionalitäten zum erzeugen neuer parametrisierter Instanzen der Funktionalitätsklasse. Eine Liste der geforderten Konfigurationsparameter kann abgefragt werden.
 
