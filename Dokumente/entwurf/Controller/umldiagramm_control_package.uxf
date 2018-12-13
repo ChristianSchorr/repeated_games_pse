@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>115</y>
+      <x>420</x>
+      <y>165</y>
       <w>230</w>
       <h>45</h>
     </coordinates>
@@ -21,8 +21,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>110</x>
-      <y>270</y>
+      <x>90</x>
+      <y>320</y>
       <w>155</w>
       <h>35</h>
     </coordinates>
@@ -37,8 +37,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>225</y>
+      <x>160</x>
+      <y>275</y>
       <w>220</w>
       <h>55</h>
     </coordinates>
@@ -49,8 +49,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>20</x>
-      <y>330</y>
+      <x>0</x>
+      <y>380</y>
       <w>155</w>
       <h>35</h>
     </coordinates>
@@ -63,8 +63,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>215</x>
-      <y>330</y>
+      <x>195</x>
+      <y>380</y>
       <w>160</w>
       <h>35</h>
     </coordinates>
@@ -78,22 +78,22 @@ NewGameController()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>330</y>
+      <x>410</x>
+      <y>380</y>
       <w>160</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>NewStrategyController
 -
 -
-+NewStrategyController</panel_attributes>
++NewStrategyController()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>545</x>
-      <y>155</y>
+      <x>525</x>
+      <y>205</y>
       <w>205</w>
       <h>120</h>
     </coordinates>
@@ -103,8 +103,8 @@ NewGameController()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
-      <y>155</y>
+      <x>365</x>
+      <y>205</y>
       <w>175</w>
       <h>125</h>
     </coordinates>
@@ -114,8 +114,8 @@ NewGameController()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>505</x>
-      <y>155</y>
+      <x>485</x>
+      <y>205</y>
       <w>55</w>
       <h>185</h>
     </coordinates>
@@ -125,8 +125,8 @@ NewGameController()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>545</x>
-      <y>155</y>
+      <x>525</x>
+      <y>205</y>
       <w>45</w>
       <h>85</h>
     </coordinates>
@@ -136,8 +136,8 @@ NewGameController()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
-      <y>225</y>
+      <x>70</x>
+      <y>275</y>
       <w>105</w>
       <h>115</h>
     </coordinates>
@@ -147,8 +147,8 @@ NewGameController()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>270</y>
+      <x>300</x>
+      <y>320</y>
       <w>165</w>
       <h>35</h>
     </coordinates>
@@ -163,8 +163,8 @@ NewGameController()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>285</x>
-      <y>225</y>
+      <x>265</x>
+      <y>275</y>
       <w>15</w>
       <h>115</h>
     </coordinates>
@@ -174,8 +174,8 @@ NewGameController()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>215</x>
-      <y>495</y>
+      <x>195</x>
+      <y>545</y>
       <w>210</w>
       <h>45</h>
     </coordinates>
@@ -189,8 +189,8 @@ CreationController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>665</x>
-      <y>265</y>
+      <x>645</x>
+      <y>315</y>
       <w>150</w>
       <h>60</h>
     </coordinates>
@@ -207,8 +207,8 @@ CreationController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>665</x>
-      <y>350</y>
+      <x>645</x>
+      <y>400</y>
       <w>150</w>
       <h>45</h>
     </coordinates>
@@ -221,8 +221,8 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>735</x>
-      <y>320</y>
+      <x>715</x>
+      <y>370</y>
       <w>15</w>
       <h>40</h>
     </coordinates>
@@ -232,8 +232,8 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>410</y>
+      <x>650</x>
+      <y>460</y>
       <w>80</w>
       <h>35</h>
     </coordinates>
@@ -243,22 +243,22 @@ CreationController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>710</x>
-      <y>435</y>
+      <x>690</x>
+      <y>485</y>
       <w>65</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>Page2Controller
 -
 -
-Page2Controller</panel_attributes>
+Page2Controller()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>790</x>
-      <y>435</y>
+      <x>770</x>
+      <y>485</y>
       <w>65</w>
       <h>35</h>
     </coordinates>
@@ -271,8 +271,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>735</x>
-      <y>410</y>
+      <x>715</x>
+      <y>460</y>
       <w>95</w>
       <h>35</h>
     </coordinates>
@@ -282,8 +282,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>735</x>
-      <y>390</y>
+      <x>715</x>
+      <y>440</y>
       <w>15</w>
       <h>55</h>
     </coordinates>
@@ -293,8 +293,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>635</x>
-      <y>435</y>
+      <x>615</x>
+      <y>485</y>
       <w>65</w>
       <h>35</h>
     </coordinates>
@@ -307,8 +307,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
-      <y>360</y>
+      <x>280</x>
+      <y>410</y>
       <w>15</w>
       <h>150</h>
     </coordinates>
@@ -318,8 +318,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
-      <y>360</y>
+      <x>70</x>
+      <y>410</y>
       <w>225</w>
       <h>150</h>
     </coordinates>
@@ -329,8 +329,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
-      <y>360</y>
+      <x>280</x>
+      <y>410</y>
       <w>220</w>
       <h>150</h>
     </coordinates>
@@ -340,8 +340,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>185</x>
-      <y>295</y>
+      <x>165</x>
+      <y>345</y>
       <w>130</w>
       <h>215</h>
     </coordinates>
@@ -351,8 +351,8 @@ Page3Controller()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
-      <y>300</y>
+      <x>280</x>
+      <y>350</y>
       <w>115</w>
       <h>210</h>
     </coordinates>
