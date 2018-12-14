@@ -58,24 +58,4 @@
 -</panel_attributes>
     <additional_attributes/>
   </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>180</x>
-      <y>110</y>
-      <w>450</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>FileLoader
--
-_+loadStrategy(file: File): Strategy_
-_+loadStrategies(dir: File): Collection&lt;Strategy&gt;_
-_+loadGame(file: File): Game_
-_+loadGames(dir: File): Collection&lt;Game&gt;_
-_+loadUserConfiguration(file: File): UserConfiguration_
-_+storeStrategy(strat: Strategy, file: File): boolean_
-_+storeGame(game: Game, file: File): boolean_
-_+storeUserConfiguration(config: UserConfiguration): boolean_</panel_attributes>
-    <additional_attributes/>
-  </element>
 </diagram>

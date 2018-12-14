@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>873</x>
-      <y>279</y>
+      <x>819</x>
+      <y>234</y>
       <w>378</w>
       <h>108</h>
     </coordinates>
@@ -22,8 +22,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>927</x>
-      <y>162</y>
+      <x>873</x>
+      <y>117</y>
       <w>225</w>
       <h>72</h>
     </coordinates>
@@ -37,8 +37,8 @@ Nameable
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1026</x>
-      <y>225</y>
+      <x>972</x>
+      <y>180</y>
       <w>27</w>
       <h>81</h>
     </coordinates>
@@ -48,8 +48,8 @@ Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>315</y>
+      <x>459</x>
+      <y>270</y>
       <w>207</w>
       <h>63</h>
     </coordinates>
@@ -62,8 +62,8 @@ PluginRenderer
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>117</x>
-      <y>315</y>
+      <x>63</x>
+      <y>270</y>
       <w>216</w>
       <h>45</h>
     </coordinates>
@@ -75,8 +75,8 @@ PluginRenderer
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>135</x>
-      <y>225</y>
+      <x>81</x>
+      <y>180</y>
       <w>180</w>
       <h>27</h>
     </coordinates>
@@ -87,8 +87,8 @@ PluginRenderer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>207</x>
-      <y>243</y>
+      <x>153</x>
+      <y>198</y>
       <w>27</w>
       <h>90</h>
     </coordinates>
@@ -98,8 +98,8 @@ PluginRenderer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>324</x>
-      <y>324</y>
+      <x>270</x>
+      <y>279</y>
       <w>207</w>
       <h>36</h>
     </coordinates>
@@ -110,8 +110,8 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>108</x>
-      <y>423</y>
+      <x>54</x>
+      <y>378</y>
       <w>234</w>
       <h>36</h>
     </coordinates>
@@ -122,8 +122,8 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>207</x>
-      <y>351</y>
+      <x>153</x>
+      <y>306</y>
       <w>27</w>
       <h>90</h>
     </coordinates>
@@ -133,8 +133,8 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>432</x>
-      <y>423</y>
+      <x>378</x>
+      <y>378</y>
       <w>378</w>
       <h>45</h>
     </coordinates>
@@ -146,8 +146,8 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>369</y>
+      <x>558</x>
+      <y>324</y>
       <w>99</w>
       <h>72</h>
     </coordinates>
@@ -158,8 +158,8 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
-      <y>423</y>
+      <x>279</x>
+      <y>378</y>
       <w>117</w>
       <h>36</h>
     </coordinates>
@@ -170,8 +170,8 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1278</x>
-      <y>297</y>
+      <x>1224</x>
+      <y>252</y>
       <w>189</w>
       <h>81</h>
     </coordinates>
@@ -186,8 +186,8 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1188</x>
-      <y>333</y>
+      <x>1134</x>
+      <y>288</y>
       <w>108</w>
       <h>27</h>
     </coordinates>
@@ -197,8 +197,8 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1026</x>
-      <y>252</y>
+      <x>972</x>
+      <y>207</y>
       <w>360</w>
       <h>63</h>
     </coordinates>
@@ -208,8 +208,8 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
-      <y>333</y>
+      <x>657</x>
+      <y>288</y>
       <w>180</w>
       <h>27</h>
     </coordinates>
@@ -219,123 +219,8 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1071</x>
-      <y>423</y>
-      <w>198</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>EquilibriumCriterionPlugin
--</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1071</x>
-      <y>459</y>
-      <w>198</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>SuccessQuantifierPlugin
--</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1071</x>
-      <y>495</y>
-      <w>198</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>StrategyAdjusterPlugin
--</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1071</x>
-      <y>531</y>
-      <w>198</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>PairBuilderPlugin
--</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1071</x>
-      <y>567</y>
-      <w>198</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>DiscreteDistributionPlugin
--</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1026</x>
-      <y>378</y>
-      <w>63</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0;50.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1026</x>
-      <y>423</y>
-      <w>63</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>50.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1026</x>
-      <y>459</y>
-      <w>63</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>50.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1026</x>
-      <y>495</y>
-      <w>63</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>50.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1026</x>
-      <y>531</y>
-      <w>63</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>50.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>648</x>
-      <y>45</y>
+      <x>1152</x>
+      <y>117</y>
       <w>369</w>
       <h>63</h>
     </coordinates>
@@ -344,5 +229,43 @@ creates</panel_attributes>
 _+isValueValid(val: double, param: Parameter): booelan_
 _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1341</x>
+      <y>171</y>
+      <w>81</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+validates</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>864</x>
+      <y>432</y>
+      <w>270</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>template=T: Object
+PluginLoader
+-
+_+loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>972</x>
+      <y>333</y>
+      <w>63</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+loads</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
 </diagram>
