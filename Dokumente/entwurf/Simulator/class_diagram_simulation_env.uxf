@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1179</x>
-      <y>270</y>
+      <y>297</y>
       <w>288</w>
       <h>90</h>
     </coordinates>
@@ -22,22 +22,21 @@
     <id>UMLClass</id>
     <coordinates>
       <x>126</x>
-      <y>459</y>
+      <y>486</y>
       <w>477</w>
-      <h>189</h>
+      <h>162</h>
     </coordinates>
-    <panel_attributes>Simulation
+    <panel_attributes>SimulationResult
 -
 -id: int
 -config: UserConfiguration
--iterationResults: Collection&lt;Collection&lt;IterationResult&gt; &gt;
 -
-#Simulation(config: Configuration) &lt;&lt;ctor&gt;&gt;
+#SimulationResult(config: UserConfiguration) &lt;&lt;ctor&gt;&gt;
 #addIterationResult(it: iterationResult, i: int): void
 +registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
 +getIterationResults(i: int): Collection&lt;IterationResult&gt;
 +getId(): int
-+getUserConfiguration(): Configuration
++getUserConfiguration(): UserConfiguration
 +getConfigurationCount(): int</panel_attributes>
     <additional_attributes/>
   </element>
@@ -45,7 +44,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>423</x>
-      <y>207</y>
+      <y>234</y>
       <w>585</w>
       <h>126</h>
     </coordinates>
@@ -53,12 +52,12 @@
 Simulator
 -
 +startSimulation(config: UserConfiguration): Simulation
-+startSimulation(config: UserConfiguration, action: Consumer&lt;Simulation&gt;): Simulation
-+stopSimulation(sim: Simulation): boolean
++startSimulation(config: UserConfiguration, action: Consumer&lt;SimulationResult&gt;): SimulationResult
++stopSimulation(sim: SimulationResult): boolean
 +stopSimulation(id: int): boolean
 +stopAllSimulations(): void
 //+continueSimulation(s: Simulation, reps: int): void
-+getSimulation(id: int): Simulation
++getSimulationResult(id: int): SimulationResult
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -66,7 +65,7 @@ Simulator
     <id>Relation</id>
     <coordinates>
       <x>999</x>
-      <y>261</y>
+      <y>288</y>
       <w>198</w>
       <h>81</h>
     </coordinates>
@@ -77,7 +76,7 @@ Simulator
     <id>UMLClass</id>
     <coordinates>
       <x>1170</x>
-      <y>486</y>
+      <y>513</y>
       <w>135</w>
       <h>27</h>
     </coordinates>
@@ -91,7 +90,7 @@ Simulator
     <id>UMLClass</id>
     <coordinates>
       <x>693</x>
-      <y>558</y>
+      <y>603</y>
       <w>153</w>
       <h>45</h>
     </coordinates>
@@ -106,7 +105,7 @@ Simulator
     <id>Relation</id>
     <coordinates>
       <x>594</x>
-      <y>567</y>
+      <y>612</y>
       <w>117</w>
       <h>27</h>
     </coordinates>
@@ -117,7 +116,7 @@ Simulator
     <id>UMLClass</id>
     <coordinates>
       <x>27</x>
-      <y>207</y>
+      <y>234</y>
       <w>90</w>
       <h>81</h>
     </coordinates>
@@ -130,20 +129,19 @@ Simulator
     <id>Relation</id>
     <coordinates>
       <x>477</x>
-      <y>324</y>
+      <y>351</y>
       <w>81</w>
       <h>153</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-geneartes/
-executes</panel_attributes>
+geneartes</panel_attributes>
     <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>63</x>
-      <y>279</y>
+      <y>306</y>
       <w>189</w>
       <h>198</h>
     </coordinates>
@@ -155,7 +153,7 @@ observes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>108</x>
-      <y>207</y>
+      <y>234</y>
       <w>333</w>
       <h>36</h>
     </coordinates>
@@ -167,7 +165,7 @@ uses</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1098</x>
-      <y>189</y>
+      <y>216</y>
       <w>99</w>
       <h>99</h>
     </coordinates>
@@ -178,7 +176,7 @@ uses</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1179</x>
-      <y>144</y>
+      <y>171</y>
       <w>135</w>
       <h>99</h>
     </coordinates>
@@ -191,7 +189,7 @@ uses</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>684</x>
-      <y>459</y>
+      <y>486</y>
       <w>369</w>
       <h>63</h>
     </coordinates>
@@ -206,7 +204,7 @@ simulateIteration(config: Configuration): IterationResult
     <id>Relation</id>
     <coordinates>
       <x>828</x>
-      <y>324</y>
+      <y>351</y>
       <w>54</w>
       <h>153</h>
     </coordinates>
@@ -218,19 +216,19 @@ uses</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>756</x>
-      <y>513</y>
+      <y>540</y>
       <w>81</w>
-      <h>63</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1044</x>
-      <y>477</y>
+      <y>504</y>
       <w>144</w>
       <h>36</h>
     </coordinates>
@@ -242,9 +240,9 @@ uses</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>189</x>
-      <y>252</y>
+      <y>279</y>
       <w>135</w>
-      <h>36</h>
+      <h>27</h>
     </coordinates>
     <panel_attributes>UserConfiguration
 -</panel_attributes>
@@ -254,32 +252,33 @@ uses</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>990</x>
-      <y>558</y>
+      <y>585</y>
       <w>477</w>
       <h>54</h>
     </coordinates>
     <panel_attributes>ConfigurationCreator
 -
-+generateConfigurations(config: UserConfig): Collection&lt;Configuration&gt;</panel_attributes>
++generateConfigurations(config: UserConfiguration): Collection&lt;Configuration&gt;
++createCopies(config: Configuration, count: int): Collection&lt;Configuration&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1224</x>
-      <y>504</y>
-      <w>90</w>
+      <y>531</y>
+      <w>81</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-generateds</panel_attributes>
+generates</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>315</x>
-      <y>252</y>
+      <y>279</y>
       <w>126</w>
       <h>36</h>
     </coordinates>
@@ -291,7 +290,7 @@ uses</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>108</x>
-      <y>252</y>
+      <y>279</y>
       <w>99</w>
       <h>36</h>
     </coordinates>
