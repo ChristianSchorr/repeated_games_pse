@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>354</x>
-      <y>342</y>
-      <w>192</w>
-      <h>66</h>
+      <x>1179</x>
+      <y>297</y>
+      <w>288</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>ThreadPoolSimulator
 -
@@ -22,62 +22,78 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>798</x>
-      <y>150</y>
-      <w>288</w>
-      <h>102</h>
+      <x>126</x>
+      <y>486</y>
+      <w>477</w>
+      <h>162</h>
     </coordinates>
-    <panel_attributes>Simulation
+    <panel_attributes>SimulationResult
 -
+-id: int
+-config: UserConfiguration
 -
-#Simulation(config: Configuration, id: int) &lt;&lt;ctor&gt;&gt;
+#SimulationResult(config: UserConfiguration) &lt;&lt;ctor&gt;&gt;
 #addIterationResult(it: iterationResult, i: int): void
 +registerIterationFinished(action: Consumer&lt;IterationResult&gt;): void
 +getIterationResults(i: int): Collection&lt;IterationResult&gt;
 +getId(): int
-+getUserConfiguration(): Configuration
++getUserConfiguration(): UserConfiguration
 +getConfigurationCount(): int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>402</x>
-      <y>150</y>
-      <w>378</w>
-      <h>84</h>
+      <x>423</x>
+      <y>234</y>
+      <w>585</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Simulator
 -
 +startSimulation(config: UserConfiguration): Simulation
-+startSimulation(config: UserConfiguration, action: Consumer&lt;Simulation&gt;): Simulation
-+stopSimulation(sim: Simulation): boolean
++startSimulation(config: UserConfiguration, action: Consumer&lt;SimulationResult&gt;): SimulationResult
++stopSimulation(sim: SimulationResult): boolean
 +stopSimulation(id: int): boolean
 +stopAllSimulations(): void
 //+continueSimulation(s: Simulation, reps: int): void
-+getSimulation(id: int): Simulation
++getSimulationResult(id: int): SimulationResult
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>444</x>
-      <y>228</y>
-      <w>18</w>
-      <h>126</h>
+      <x>999</x>
+      <y>288</y>
+      <w>198</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0;120.0;70.0;200.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>690</x>
-      <y>498</y>
-      <w>318</w>
-      <h>90</h>
+      <x>1170</x>
+      <y>513</y>
+      <w>135</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Configuration
+-
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>693</x>
+      <y>603</y>
+      <w>153</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>IterationResult
 -
@@ -97,10 +113,10 @@ equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1002</x>
-      <y>246</y>
-      <w>42</w>
-      <h>276</h>
+      <x>594</x>
+      <y>612</y>
+      <w>117</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>50.0;10.0;50.0;440.0;10.0;440.0</additional_attributes>
@@ -108,10 +124,10 @@ equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>642</x>
-      <y>12</y>
-      <w>108</w>
-      <h>36</h>
+      <x>27</x>
+      <y>234</y>
+      <w>90</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>HeadController
 -
@@ -121,23 +137,22 @@ equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>726</x>
-      <y>114</y>
-      <w>144</w>
-      <h>48</h>
+      <x>477</x>
+      <y>351</y>
+      <w>81</w>
+      <h>153</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-generates/executes
-</panel_attributes>
-    <additional_attributes>220.0;60.0;220.0;20.0;10.0;20.0;10.0;60.0</additional_attributes>
+geneartes</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>744</x>
-      <y>12</y>
-      <w>216</w>
-      <h>150</h>
+      <x>63</x>
+      <y>306</y>
+      <w>189</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 observes</panel_attributes>
@@ -146,10 +161,10 @@ observes</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>696</x>
-      <y>42</y>
-      <w>36</w>
-      <h>120</h>
+      <x>108</x>
+      <y>234</y>
+      <w>333</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
@@ -158,10 +173,10 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>444</x>
-      <y>306</y>
-      <w>162</w>
-      <h>48</h>
+      <x>1098</x>
+      <y>216</y>
+      <w>99</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>250.0;60.0;250.0;10.0;10.0;10.0</additional_attributes>
@@ -169,10 +184,10 @@ uses</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>558</x>
-      <y>342</y>
-      <w>144</w>
-      <h>66</h>
+      <x>1179</x>
+      <y>171</y>
+      <w>135</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>SequentialSimulator
 -
@@ -184,10 +199,10 @@ uses</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>726</x>
-      <y>342</y>
-      <w>246</w>
-      <h>42</h>
+      <x>684</x>
+      <y>486</y>
+      <w>369</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>SimulationEngine
 -
@@ -199,10 +214,10 @@ simulateIteration(config: Configuration): IterationResult
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>744</x>
-      <y>228</y>
-      <w>36</w>
-      <h>126</h>
+      <x>828</x>
+      <y>351</y>
+      <w>54</w>
+      <h>153</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
@@ -211,22 +226,22 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>846</x>
-      <y>378</y>
-      <w>60</w>
-      <h>132</h>
+      <x>756</x>
+      <y>540</y>
+      <w>81</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>528</x>
-      <y>378</y>
-      <w>252</w>
-      <h>102</h>
+      <x>1044</x>
+      <y>504</y>
+      <w>144</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
@@ -235,22 +250,22 @@ uses</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>150</y>
-      <w>336</w>
-      <h>312</h>
+      <x>189</x>
+      <y>279</y>
+      <w>135</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>UserConfiguration
 -
 -
-+UserConfiguration(String gameName, int agentCount, int roundCount, 
-int iterationCount, List&lt;String&gt; availableStrategyNames, 
-boolean mixedAllowed, List&lt;String&gt; populationNames, String pairBuilderName, 
-List&lt;double&gt; pairBuilderParameters, String successQuantifierName, 
-List&lt;double&gt; successQuantifierName, String strategyAdjusterName, 
-List&lt;double&gt; strategyAdjusterParameters, String equilibriumCrite List&lt;double&gt; 
-equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, 
-String variableParameterName, double startValue, double, endValue, 
++UserConfiguration(String gameName, int agentCount, int roundCount,
+int iterationCount, List&lt;String&gt; availableStrategyNames,
+boolean mixedAllowed, List&lt;String&gt; populationNames, String pairBuilderName,
+List&lt;double&gt; pairBuilderParameters, String successQuantifierName,
+List&lt;double&gt; successQuantifierName, String strategyAdjusterName,
+List&lt;double&gt; strategyAdjusterParameters, String equilibriumCrite List&lt;double&gt;
+equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration,
+String variableParameterName, double startValue, double, endValue,
 double stepSize) &lt;&lt;ctor&gt;&gt;
 +getGameName(): String
 +getAgentCount: int
@@ -279,37 +294,36 @@ double stepSize) &lt;&lt;ctor&gt;&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>540</y>
-      <w>336</w>
+      <x>990</x>
+      <y>585</y>
+      <w>477</w>
       <h>54</h>
     </coordinates>
     <panel_attributes>ConfigurationCreator
 -
--
-+ConfigurationCreator() &lt;&lt;ctor&gt;&gt;
-+generateConfigurations(config: UserConfiguration): Collection&lt;Configuration&gt;</panel_attributes>
++generateConfigurations(config: UserConfiguration): Collection&lt;Configuration&gt;
++createCopies(config: Configuration, count: int): Collection&lt;Configuration&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>498</x>
-      <y>492</y>
-      <w>60</w>
-      <h>60</h>
+      <x>1224</x>
+      <y>531</y>
+      <w>81</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>174</y>
-      <w>84</w>
-      <h>24</h>
+      <x>315</x>
+      <y>279</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
@@ -318,10 +332,10 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>12</y>
-      <w>474</w>
-      <h>150</h>
+      <x>108</x>
+      <y>279</y>
+      <w>99</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 provides</panel_attributes>
