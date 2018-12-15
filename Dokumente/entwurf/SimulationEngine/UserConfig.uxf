@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>21</x>
+      <y>77</y>
+      <w>434</w>
+      <h>378</h>
+    </coordinates>
+    <panel_attributes>UserConfiguration
+-
+-
++UserConfiguration(gameName: String, agentCount: int, roundCount: int,
+iterationCount: int, availableStrategyNames: List&lt;String&gt;,
+mixedAllowed: boolean, populationNames: List&lt;String&gt;, pairBuilderName: String,
+pairBuilderParameters: List&lt;double&gt;, successQuantifierName: String,
+successQuantifierName: List&lt;double&gt;, strategyAdjusterName: String,
+strategyAdjusterParameters: List&lt;double&gt;, equilibriumCrite: String,
+equilibriumCriterionParameters:  List&lt;double&gt;, maxAdapts: int, 
+isMulticonfiguration: boolean, variableParameterName: String, startValue: double, 
+endValue: double, stepSize: double) &lt;&lt;ctor&gt;&gt;
++getGameName(): String
++getAgentCount: int
++getRoundCount(): int
++getIterationCount(): int
++getAvailableStrategyNames(): List&lt;String&gt;
++getMixedAllowed(): boolean
++getPopulationNames(): List&lt;String&gt;
++getPairBuilderName(): String
++getPairBuilderParameters(): List&lt;double&gt;
++getSuccessQuantifierName(): String
++getSuccessQuantifierParameters(): List&lt;double&gt;
++getStrategyAdjusterName(): String
++getStrategyAdjusterParameters(): List&lt;double&gt;
++getEquilibriumCriterionName(): String
++getEquilibriumParameters(): List&lt;double&gt;
++getMaxAdapts(): int
++isMulticonfiguration(): boolean
++getVariableParameterName(): String
++getStartValue(): double
++getEndValue(): double
++getStepSize(): double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
