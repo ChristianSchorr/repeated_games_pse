@@ -1533,6 +1533,47 @@ Konstruktoren:
 	\item[] Creates a new \texttt{HashMapRepository}.
 \end{itemize}
 
+\subsubsection{Class \texttt{Repository}}
+
+This class provides central access to all loaded Plugins of all types as well as strategies, games, populations and groups loaded from files. It provides getters which return \texttt{Repository<T>}-instances for all entity types. This class is implemented as a singleton and therefore can be safely inherited from. 
+
+Methods:
+
+\begin{itemize} \itemsep -10pt
+	\item \underline{\texttt{void initialize()}}
+	\item[] Initializes the Repository-instance by loading all available plugins in the current environment path and all saved entities from the home directory.
+	\item \underline{\texttt{Repository getInstance()}}
+	\item[]Returns the singleton Repository-instance
+	\item[] Returns: the singleton instance
+	\item \texttt{Repository<Strategy> getStrategyRepository()}
+	\item[]Returns the repository containing all currently loaded strategies
+	\item[] Returns: the strategy repository
+	\item \texttt{Repository<Game> getGameRepository()}
+	\item[]Returns the repository containing all currently loaded games
+	\item[] Returns: the game repository
+	\item \texttt{Repository<Population> getPopulationRepository()}
+	\item[]Returns the repository containing all currently loaded populations
+	\item[] Returns: the population repository
+	\item \texttt{Repository<Group> getGroupRepository()}
+	\item[]Returns the repository containing all currently loaded groups
+	\item[] Returns: the group repository
+	\item \texttt{Repository<Plugin<EquilibriumCriterion>\,> getEquilibriumCriterionRepository()}
+	\item[]Returns the repository containing all currently loaded \texttt{EquilibriumCriterion}-plugins
+	\item[] Returns: the equilibrium criterion repository
+	\item\texttt{Repository<Plugin<SuccessQuantifier>\,> getSuccessQuantifiernRepository()}
+	\item[]Returns the repository containing all currently loaded \texttt{SuccessQuantifier}-plugins
+	\item[] Returns: the success quantifier criterion repository
+	SuccessQuantifier
+	\item\texttt{Repository<Plugin<StrategyAdjuster>\,> getStrategyAdjusterRepository()}
+	\item[]Returns the repository containing all currently loaded \texttt{StrategyAdjuster}-plugins
+	\item[] Returns: the strategy adjuster repository
+	\item\texttt{Repository<Plugin<PairBuilder>\,> getPairBuilderRepository()}
+	\item[]Returns the repository containing all currently loaded \texttt{PairBuilder}-plugins
+	\item[] Returns: the pair builderrepository
+	\item\texttt{Repository<Plugin<DiscreteDistribution>\,> getDiscreteDistributionRepository()}
+	\item[]Returns the repository containing all currently loaded \texttt{DiscreteDistribution}-plugins
+	\item[] Returns: the success discrete distribution repository
+\end{itemize}
 
 \subsubsection{Class \texttt{FileIO}}
 

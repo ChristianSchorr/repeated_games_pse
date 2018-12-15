@@ -25,12 +25,13 @@ Repository
       <x>480</x>
       <y>360</y>
       <w>580</w>
-      <h>240</h>
+      <h>250</h>
     </coordinates>
     <panel_attributes>Repository
 -
 -instance: Repository
 -
+-Repository() &lt;&lt;ctor&gt;&gt;
 _+initializeInstance(): void_
 _+getInstance(): Repository_
 +getStrategyRepository(): Repository&lt;Strategy&gt;
@@ -101,24 +102,24 @@ instance</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>940</x>
-      <y>590</y>
+      <y>600</y>
+      <w>60</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>600</y>
       <w>60</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
     <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>570</x>
-      <y>590</y>
-      <w>60</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-uses</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
