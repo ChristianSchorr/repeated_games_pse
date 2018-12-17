@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>363</x>
+      <y>418</y>
+      <w>110</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>View</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>616</x>
+      <y>418</y>
+      <w>110</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Controller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>869</x>
+      <y>418</y>
+      <w>110</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>715</x>
+      <y>429</y>
+      <w>176</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>715</x>
+      <y>462</y>
+      <w>176</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;observes&gt;&gt;</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>429</y>
+      <w>176</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;updates&gt;&gt;</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>462</y>
+      <w>176</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;notifies&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+</diagram>

@@ -16,7 +16,8 @@
 
 \usepackage[sfdefault,light]{roboto}
 \usepackage[T1]{fontenc}
-\usepackage[german]{babel}
+%\usepackage[german]{babel}
+\usepackage[english]{babel}
 \usepackage[yyyymmdd]{datetime} % must be after babel
 \renewcommand{\dateseparator}{-} % ISO8601 date format
 \usepackage{hyperref}
@@ -33,7 +34,7 @@
 \usepackage{multirow}
 \restylefloat{figure}
 \hypersetup{
-	pdftitle={Pflichtenheft},
+	pdftitle={Entwurf},
 	bookmarks=true,
 }
 \usepackage{csquotes}
@@ -64,8 +65,38 @@
 %\tableofcontents
 %\pagebreak
 
-\section{Einleitung}
-TODO
+\section{Introduction}
+This document contains the design for \enquote{loop}, a simulation software for repeated games, as described in the \textit{Pflichtenheft}.
+
+The object-oriented architecture of the project follows the model-view-controller (MVC) pattern, thus consists of three main packages: \texttt{view}, \texttt{controller} and \texttt{model}. The communication between view and model relies solely on the controller, hence the entirety of the model is decoupled from the view.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/package_diagram_overview.png}
+	\caption{Sketch of the package structure. The view notifies the controller when the user interacts with the UI, who then uses the model to carry out tasks requested by the user. The controller observes the model to notice changes in the models computations and updates the view accordingly.}
+	\label{package_overview}
+\end{figure}
+
+\subsection{The view}
+Since the user interface (UI) of the program was designed using the UI-Builder \textit{NAMEEINFÜGEN}, the \texttt{view}-package contains mainly auto-generated classes provided by \textit{NAMEEINFÜGEN}.
+
+The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
+
+\subsection{The controller}
+The controller consists of a tree-like class hierarchy. At the top resides the \texttt{HeadController}, who is associated with the main window and thus instantiated when the program starts. The other controllers are arranged below and associated with the different popup windows such as the configuration- or the strategy creation window.
+
+When the user requests a task that requires the involvement of the model (such as starting a simulation or saving a configuration file), the \texttt{HeadController} invokes the model, observes it for updates in its computation progress and updates the view accordingly.
+
+When the user navigates to other windows the \texttt{HeadController} opens them and observes the corresponding controller so it can relay tasks to the model or close the window if needed.
+
+\subsection{The model}
+The model contains the \texttt{Simulator} class, which provides means for starting and stopping simulations to given configurations.
+
+Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} offers a possibility to observe it in the sense that a method may be registered as functional interface which will be called whenever an iteration finishes.
+
+The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as an instance of the \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a varaible event such as the strategy adjustion or the agent pairing occurs.
+
+The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
 
 \section{Spezifikationsänderungen}
 
@@ -1176,146 +1207,313 @@ Dieses Paket enthält die Kontrollstruktur des Programms und dient als Verbindun
 Die einzelnen Kontroller sind in einer baumartigen Struktur angeordnet und die Wurzel ist der \enquote{Headcontroller}. Dieser dient als Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur.
 
 \subsubsection{Class \texttt{HeadController}}
-Diese Klasse repräsentiert die Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur. Sie kann dem Simulator eine neue Konfiguration in Auftrag geben, Populationen zum abspeichern übergeben oder im Repository gespeicherte Elemente öffnen.
+Diese Klasse repräsentiert die Schnittstelle zwischen dem Model und dem Rest der Kontrollstruktur. Sie kann dem Simulator eine neue Konfiguration in Auftrag geben, Populationen zum abspeichern übergeben oder eine abgespeicherte Konfiguration erneut öffnen.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{HeadController()}
-\item[] Erstellt einen neuen HeadController,startet das Model und erstellt das Hauptfenster.
+\item \texttt{CentralController(Simulator simulator, ConfigurationParameterRepository repository)}
+\item[] Erstellt einen neuen HeadController, sichert die Referenz auf den Simulator und lädt das übergebene Repository.
+\item[] \texttt{simulator}: der Simulator der die Simulationen mit gegebener Konfiguration startet
+\item[] \texttt{repository}: Repository, das die verschiedenen Strategien, Paarungsalgorithmen und die weiteren verfügbaren Einstellungsmöglichkeiten enthält
 \end{itemize}
 
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void setConfiguration(Configuration)}
+\item[] Stellt eine Configuration im Kontroller ein
+
+
+\item \texttt{Configuration getConfiguration()}
+\item[] Gibt die aktuell eingestellte Konfiguration zurück
+\item[] Returns: die aktuell eingestellte Konfiguration
+
+\item \texttt{void addSimulationToHistory(Simulation)}
+\item[] Fügt eine neue Simulation in die Simulationshistorie hinzu
+
+\item \texttt{void saveStrategy(Strategy strategy)}
+\item[] Speichert die ausgewählte Strategie ab.
+
+\item\texttt{void saveGame(Game stufenspiel)}
+\item[] Speichert das ausgewählte Stufenspiel ab
+
+\item \texttt{void saveConfiguration(Configuration configuration)}
+\item[] Speichert die ausgewählte Konfiguration an einem gewünschten Ort ab
+
+\item \texttt{void savePopulation(Population population)}
+\item[] Speichert die ausgewählte Population ab
+
+\item \texttt{void saveGroup(Group group)}
+\item[] Speichert die ausgewählte Gruppe ab
+
+\item \texttt{void updateSimulation(Simulation simulation)}
+\item[] Updatet den Fortschritt einer gewünschten Simulation
+
+\item \texttt{void runConfiguration(Configuration configuration}
+\item[] Gibt dem Simulator den Befehl eine neue Simulation mit der ausgewählten Konfiguration zu starten
+\end{itemize}
+
+\subsubsection{Class \texttt{MainController}}
+Diese Klasse repräsentiert den Kontroller der für das Hauptfenster zuständig ist.
+
+Konstruktoren:
+\begin{itemize}\itemsep -10pt
+\item \texttt{MainController()}
+\item[] Erstellt einen neuen MainController
+\end{itemize}
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void setConfiguration(Configuration)}
+\item[] Stellt eine Configuration im Kontroller ein
+
+
+\item \texttt{void configure()}
+\item[] Öffnet das Konfigurationsfenster
+
+\item \texttt{void addSimulationToHistory(Simulation)}
+\item[] Fügt eine neue Simulation in die Simulationshistorie hinzu
+
+\item \texttt{void updateSimulation(Simulation simulation)}
+\item[] Updatet den Fortschritt einer gewünschten Simulation
+\end{itemize}
+
+\subsubsection{Class \texttt{BasicsController}}
+Diese Klasse repräsentiert den Kontroller der für die Basisansicht im Hauptfenster zuständig ist.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void setConfiguration(Configuration)}
+\item[] Stellt eine Configuration im Kontroller ein
+
+
+\item \texttt{void configure()}
+\item[] Öffnet das Konfigurationsfenster
+\end{itemize}
+
+\subsubsection{Class \texttt{GraphicController}}
+Diese Klasse repräsentiert den Kontroller der für die Ergebnisausgabe im Hauptfenster zuständig ist.
+
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void showSimulation(Simulation simulation)}
+\item[] Zeigt die Ergebnisse für die ausgewählte Simulation an
+
+\item \texttt{void repaint()}
+\item[] Zeichnet die Graphen und Diagramme auf der ausgewählten Seite mit den neuen Werten
+
+
+\item \texttt{void updateValues()}
+\item[] Updatet alle im Fenster verstellbaren Parameter
+
+\item \texttt{void setPageNumber(int page)}
+\item[] Stellt die Seitenzahl auf der der Benutzer sich gerade befindet ein
+\end{itemize}
+
+
 \subsubsection{Class \texttt{HistoryController}}
-Diese Klasse repräsentiert den Kontroller der für die Simulationshistorie zuständig ist. Er ermöglicht eine Übersicht über alle bisher gestarteten Simulationen.
+Diese Klasse repräsentiert den Kontroller der für die Simulationshistorie zuständig ist.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{HistoryController()}
-\item[] Erstellt einen neuen HistoryController und initialisiert den dazugehörigen OutputController.
+\item[] Erstellt einen neuen HistoryController
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void addSimulation(Simulation)}
-\item[] Fügt eine neue Simulation in die Simulationshistorie ein
+\item \texttt{void addSimulationToHistory(Simulation)}
+\item[] Fügt eine neue Simulation in die Simulationshistorie hinzu
 
-\item \texttt{List<Simulation> getAllSimulations()}
-\item[] Gibt eine Liste aller bisher gestarteten Simulationen zurück
-\item[] Returns: Liste aller bisher gestarteten Simulationen
-
-\item \texttt{Simulation getSelectedSimulations()}
-\item[] Gibt die aktuell ausgewählte Simulation zurück
-\item[] Returns: Die im Fenster ausgewählte Simulation
+\item \texttt{void updateSimulationProgress(Simulation simulation)}
+\item[] Updatet den Fortschritt einer gewünschten Simulation
 \end{itemize}
 
-
-
-\subsubsection{Class \texttt{OutputController}}
-Diese Klasse repräsentiert den Kontroller der für die Ergebnisausgabe einer Simulation im Hauptfenster zuständig ist.
+\subsubsection{Class \texttt{MenuController}}
+Diese Klasse repräsentiert den Kontroller der für das Menu zuständig ist.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{OutputController()}
-\item[] Erstellt einen neuen OutputController.
+\item \texttt{MenuController(Repository<t> repository)}
+\item[] Erstellt einen neuen MenuController und dieser erhält das Repository mit allen verfügbaren Plugins
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void setSimulation(Simulation simulation)}
-\item[] Stellt eine ausgeählte Simulation ein um deren Ergebnisse auszugeben
+\item \texttt{void saveconfiguration(Configuration configuration)}
+\item[] Speichert die gewünschte Konfiguration ab
+
+\item \texttt{void loadConfiguration()}
+\item[] Öffnet ein Dialogfenster in dem der Benutzer eine abgespeicherte Konfiguration zum öffnen auswählen kann
+
+\item \texttt{void addGame()}
+\item[] Öffnet das \enquote{Neues Stufenspiel erstellen}-Fenster
+
+\item \texttt{void addStrategy()}
+\item[] Öffnet das \enquote{Neue Strategy erstellen}-Fenster
+
+\item \texttt{void addPopulation()}
+\item[] Öffnet das \enquote{Neue Population erstellen}-Fenster
+
+\item \texttt{void addGroup()}
+\item[] Öffnet das \enquote{Neue Gruppe erstellen}-Fenster
+
+\item \texttt{void close()}
+\item[] Schließt das Fenster
+
+\item \texttt{void runConfiguration(Configuration configuration}
+\item[] Gibt dem HeadController den Befehl eine neue Simulation mit der ausgewählten Konfiguration zu starten
+
+\item \texttt{void help()}
+\item[] Zeigt die Hilfe für den Benutzer an
 \end{itemize}
 
-\subsubsection{Class \texttt{Page1Controller}}
-Diese Klasse repräsentiert den Kontroller der das erste Tab der Ausgabe einer Simulation verwaltet
+\subsubsection{Class \texttt{GroupController}}
+Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Gruppe erstellen}-Fenster zuständig ist.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Page1Controller()}
-\item[] Erstellt einen neuen  Page1Controller.
+\item \texttt{Groupcontroller(Repository<t> repository)}
+\item[] Erstellt einen neuen GroupController und dieser erhält das Repository mit allen verfügbaren Plugins
 \end{itemize}
-
-\subsubsection{Class \texttt{Page2Controller}}
-Diese Klasse repräsentiert den Kontroller der das zweite Tab der Ausgabe einer Simulation verwaltet
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Page2Controller()}
-\item[] Erstellt einen neuen Page2Controller.
-\end{itemize}
-
-\subsubsection{Class \texttt{Page3Controller}}
-Diese Klasse repräsentiert den Kontroller der das dritte Tab der Ausgabe einer Simulation verwaltet
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Page3Controller()}
-\item[] Erstellt einen neuen Page3Controller.
-\end{itemize}
-
-\subsubsection{Interface \texttt{CreationController<T>}}
-
-Ein CreationController überwacht die Erstellung eines Objektes T durch den Benutzer und gibt dieses Objekt bei Fertigstellung an den HeadController zum abspeichern.
-
-Parameter:
-\begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Das zu erstellende Objekt
-\end{itemize}
-
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{void registerElementCreated(action: Consumer<T>)}
-	\item[] Gibt dem HeadController den Befehl das Objekt abszuspeichern. 	
+\item \texttt{void addSegment(}
+\item[] Fügt der Gruppe ein neues Segment hinzu
+
+\item \texttt{void deleteSegment(String segmentId)}
+\item[] Löscht eine über einen String klar definierbares Segment aus der Gruppe
+
+\item \texttt{void setSegmentSize(String segmentId, int size)}
+\item[] Setzt die Grösse des ausgewählten Segments auf die angegebene Anzahl an Agenten
+
+\item \texttt{int getSegmentSize(String segmentId)}
+\item[] Gibt die Grösse des ausgewählten Segments zurück
+\item[] Returns: die Anzahl an Agenten des ausgewählten Segments
+
+\item \texttt{String getGroupName()}
+\item[] Gibt den Namen der aktuellen Gruppe zurück
+\item[] Returns: der Name der aktuell ausgewählten Gruppe
+
+\item \texttt{void setGroupName(String name)}
+\item[] Setzt den Namen der Gruppe auf den vom Nutzer eingegebenen Namen
+
+\item \texttt{String getGroupDescription()}
+\item[] Gibt die Beschreibung der aktuellen Gruppe zurück
+\item[] Returns: die Beschreibung der aktuell ausgewählten Gruppe
+
+\item \texttt{void setGroupDescription(String description)}
+\item[] Setzt die Beschreibung der Gruppe auf die vom Nutzer eingegebenen Beschreibung
+
 \end{itemize}
 
-\subsubsection{Class \texttt{GroupController implements CreationController<T>}}
-Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Gruppe erstellen}-Fenster zuständig ist und die Erstellung einer neuen Gruppe verwaltet.
+\subsubsection{Class \texttt{SegmentController}}
+Diese Klasse repräsentiert den Kontroller der das Tab mit den Segmenteinstellungen verwaltet
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{GroupController()}
-\item[] Erstellt einen neuen GroupController.
+\item \texttt{Segmentcontroller(Repository<t> repository)}
+\item[] Erstellt einen neuen SegmentController und dieser erhält das Repository mit allen verfügbaren Plugins
 \end{itemize}
 
-\subsubsection{Class \texttt{PopulationController implements CreationController<T>}}
-Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Population erstellen}-Fenster zuständig ist und die Erstellung einer neuen Population verwaltet.
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addStrategy(String strategyId}
+\item[] Fügt die ausgewählte Strategy in die Liste der möglichen Strategien
+
+\item \texttt{void removeStrategy(String segmentId)}
+\item[] Entfernt sie ausgewählte Strategy aus der Liste der möglichen Startegien
+
+\item \texttt{void selectCapitalDistribution(String segmentId, String distributionId)}
+\item[] Setzt die Kapitalverteilungsfunktion des ausgewählten Segments aufs die ausgewählte Funktion
+
+\item \texttt{int getCapitalDistribution(String segmentId)}
+\item[] Gibt die Kapitalverteilung des ausgewählten Segments zurück
+\item[] Returns: die Kapitalverteilungsfunktion des ausgewählten Segments
+
+\item \texttt{getDistributionParameters(segmentId) : ???}
+\item[] Gibt die Kapitalverteilungsparameter des ausgewählten Segments zurück
+\item[] Returns: die Kapitalverteilungsparameter des ausgewählten Segments
+
+\item \texttt{setDistributionParameters(String segmentId)}
+\item[] Setzt die Verteilungsfunktionparameter auf die ausgewählten Werte
+
+
+\end{itemize}
+
+
+\subsubsection{Class \texttt{PopulationController}}
+Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Population erstellen}-Fenster zuständig ist.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
-\item \texttt{PopulationController()}
-\item[] Erstellt einen neuen PopulationController.
+\item \texttt{PopulationController(Repository<t> repository)}
+\item[] Erstellt einen neuen PopulationController und dieser erhält das Repository mit allen verfügbaren Gruppen
 \end{itemize}
 
-\subsubsection{Class \texttt{NewGameController implements CreationController<T>}}
-Diese Klasse repräsentiert den Kontroller der für das \enquote{Neues Stufenspiel erstellen}-Fenster zuständig ist und die Erstellung eines neuen Stufenspiels verwaltet.
+Methoden:
+\begin{itemize}\itemsep -10pt
+\item \texttt{void addGroup(String groupId)}
+\item[] Fügt eine über einen String klar definierbare Gruppe aus dem Repository zur Population hinzu
+
+\item \texttt{void deleteGroup(String groupId)}
+\item[] Löscht eine über einen String klar definierbare Gruppe aus der Population
+
+\item \texttt{void setGroupSize(String groupId, int size)}
+\item[] Setzt die Grösse der ausgewählten Gruppe auf die angegebene Anzahl an Agenten
+
+\item \texttt{int getGroupSize(String groupId)}
+\item[] Gibt die Grösse der ausgewählten Gruppe zurück
+\item[] Returns: die Anzahl an Agenten der ausgewählten Gruppe
+
+\item \texttt{String getPopulationName()}
+\item[] Gibt den Namen der aktuellen Population zurück
+\item[] Returns: der Name der aktuell ausgewählten Population
+
+\item \texttt{void setPopulationName(String name)}
+\item[] Setzt den Namen der Population auf den vom Nutzer eingegebenen Namen
+
+\item \texttt{String getPopulationDescription()}
+\item[] Gibt die Beschreibung der aktuellen Population zurück
+\item[] Returns: die Beschreibung der aktuell ausgewählten Population
+
+\item \texttt{void setPopulationDescription(String description)}
+\item[] Setzt die Beschreibung der Population auf die vom Nutzer eingegebenen Beschreibung
+
+\end{itemize}
+
+
+\subsubsection{Class \texttt{NewGameController}}
+Diese Klasse repräsentiert den Kontroller der für das \enquote{Neues Stufenspiel erstellen}-Fenster zuständig ist.
 
 Konstruktoren:
 \begin{itemize}\itemsep -10pt
 \item \texttt{NewGameController()}
-\item[] Erstellt einen neuen NewGameController.
-\end{itemize}
-
-\subsubsection{Class \texttt{StrategyController implements CreationController<T>}}
-Diese Klasse repräsentiert den Kontroller der für das \enquote{Neue Strategy erstellen}-Fenster zuständig ist und die Erstellung einer neuen Strategy verwaltet.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Strategycontroller()}
-\item[] Erstellt einen neuen StrategyController.
-\end{itemize}
-
-\subsubsection{Class \texttt{ConfigController implements CreationController<T>}}
-Diese Klasse repräsentiert den Kontroller der für das \enquote{Konfiguration einstellen}-Fenster zuständig ist und die Einstellungen der Konfiguration verwaltet.
-
-Konstruktoren:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Groupcontroller()}
-\item[] Erstellt einen neuen GroupController.
+\item[] Erstellt einen neuen NewGameController
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{setConfiguration(Userconfiguration configuration)}
-\item[] Stellt alle Einstellungsmöglichkeiten auf die ausgewählte Konfiguration.
+\item \texttt{void setName()}
+\item[] Stellt den Namen des Stufenspiels auf den im Fenster eingegebenen Namen
+
+
+\item \texttt{Game getGame()}
+\item[] Gibt das aktuell eingestellte Stufenspiel zurück
+\item[] Returns: das aktuell eingestellte Stufenspiel
+
+\item \texttt{void setDescription()}
+\item[] Stellt die Beschreibung des Stufenspiels auf die im Fenster eingegebene Beschreibung
+
+\item \texttt{void setPayments()}
+\item[] Stellt die Werte der Matrix des Stufenspiels auf die im Fenster eingegebenen Werte
+
+\item\texttt{void save()}
+\item[] Speichert das aktuell eingegebene Stufenspiel ab
+
+\item \texttt{void reset()}
+\item[] Leert die Felder im Fenster für Name, Beschreibung und Auszahlungen
+
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.plugin}}
