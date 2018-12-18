@@ -71,7 +71,7 @@
     <panel_attributes>NewGameController
 -
 -
-NewGameController()
++NewGameController()
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -251,7 +251,7 @@ CreationController
     <panel_attributes>Page2Controller
 -
 -
-Page2Controller()</panel_attributes>
++Page2Controller()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -265,7 +265,7 @@ Page2Controller()</panel_attributes>
     <panel_attributes>Page3Controller
 -
 -
-Page3Controller()</panel_attributes>
++Page3Controller()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
