@@ -137,15 +137,15 @@ Plugins are loaded automatically at the program start.
 
 \subsection{Paket \texttt{edu.kit.loop}}
 
-\subsubsection{Class \texttt{Main}}
-Extends: \texttt{javafx.application.Application}
+\subsubsection{Class \texttt{Main extends javafx.application.Application}}
 
-This class contains the main method of the program and initiates the main-window.
+This class contains the main method (entry point) of the program and initializes the main-window.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void main(String[] args))}
-\item[] Creates the main-window
+\item \underline{\texttt{void main(String[] args))}}
+\item[] The entry point of the application. Loads the UI and starts the window.
+\item[] \texttt{args}: the commandline arguments. (unused)
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model}}
