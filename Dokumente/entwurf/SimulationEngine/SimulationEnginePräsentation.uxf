@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>620</y>
+      <w>540</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+SimulationHistory
+-
++addResult(result: GameResult)
++getAllResults(): Collection&lt;GameResult&gt;
++getResultsByAgent(pl: Agent): Collection&lt;GameResult&gt;
++getLatestResults(): Collection&lt;GameResults&gt;
++getLatestResultByAgent(agent: Agent): GameResult
++getAllWhere(cond: Predicate&lt;GameResult&gt;): Iterable&lt;GameResult&gt;
++getLatestWhere(cond: Predicate&lt;GameResult&gt;): GameResult</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>340</y>
+      <w>30</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;280.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>710</x>
+      <y>340</y>
+      <w>50</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes>
+    <additional_attributes>10.0;290.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>630</y>
+      <w>530</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>IterationResult
+-
+-
++IterationResult(List&lt;Agent&gt; agents, SimulationHistory history, boolean
+equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
++getAgents(): List&lt;Agent&gt;
++getHistory(): SimulationHistory
++equilibriumReached(): boolean
++getEfficiency(): double
++getAdapts(): int
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>320</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+AgentPair
+--
++getFirst() : Agent;
++getSecond() : Agent;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>190</y>
+      <w>180</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>240</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=2
+</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>70</y>
+      <w>410</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Agent
+--
+--
++Agent(int initialCapital, Strategy initialStrategy, 
+int groupId) &lt;&lt;ctor&gt;&gt;
++getCapital(): int
++getInitialCapital(): int
++addCapital(capital: int): void
++getGroupId() : int;
++setStrategy(strategy : Strategy): void;
++getStrategy(): Strategy;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>100</y>
+      <w>230</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=2..*</panel_attributes>
+    <additional_attributes>210.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>340</y>
+      <w>30</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>340</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..*</panel_attributes>
+    <additional_attributes>190.0;210.0;190.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1020</x>
+      <y>340</y>
+      <w>340</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>320.0;210.0;320.0;110.0;10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1250</x>
+      <y>550</y>
+      <w>300</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Configuration
+--
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1130</x>
+      <y>550</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Strategy
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>550</y>
+      <w>190</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>AgentInitializer
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>70</y>
+      <w>370</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>SimulationEngine
+--
+-currentAdaptionstep : int
+--
++SimulationEngine(config: Configuration) &lt;&lt;ctor&gt;&gt;
++executeIteration() : Result;
+-initializeAgents() : void;
+-createRanking() : void;
+-matchAgents() : Collection&lt;AgentPair&gt; agents;
+-adaptStrategy() : void;
+-isEquilibrium() : boolean;
+-executeRound(agentpair: AgentPair) : void;
+-createResult() : void;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>460</y>
+      <w>590</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Strategy
+-
++isCooperative(p1: Agent, p2: Agent, hist: SimulationHistory): boolean
++getCooperationProbability(p1: Agent, p2: Agent, hist: SimulationHistory): double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>240</y>
+      <w>30</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+</panel_attributes>
+    <additional_attributes>10.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1250</x>
+      <y>230</y>
+      <w>630</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+SuccessQuantifier
+--
++createRanking(Collection&lt;Agent&gt; agents, SimulationHistory history) : List&lt;Agent&gt;;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1350</x>
+      <y>130</y>
+      <w>530</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+StrategyAdjuster
+--
++adaptStrategies(List&lt;Agent&gt; agents, SimulationHistory history) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>30</y>
+      <w>620</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PairBuilder
+--
++buildPairs(Collection&lt;Agent&gt; agents, SimulationHistory history): Collection AgentPair</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1350</x>
+      <y>320</y>
+      <w>530</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+EquilibriumCriterion
+--
++isEquilibrium(agents: List&lt;Agent&gt;, history: SimulationHistory): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1430</x>
+      <y>410</y>
+      <w>360</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Game
+-
++play(boolean playerOneCooperates, 
+boolean playerTwoCooperates): GameResult
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>70</y>
+      <w>230</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>140</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>230</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>310</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1040</x>
+      <y>340</y>
+      <w>410</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>390.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
