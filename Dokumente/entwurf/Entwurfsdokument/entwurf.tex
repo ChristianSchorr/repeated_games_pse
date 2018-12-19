@@ -582,6 +582,107 @@ Methoden:
 \item[] Returns: all associated elementary configurations of the given \texttt{UserConfiguration} as \texttt{Configuration}s
 \end{itemize}
 
+\subsection{Paket \texttt{edu.kit.loop.model.Simulator.exception}}
+
+\subsubsection{Abstract Class \texttt{ConfigurationException extends java.lang.Exception}}
+
+The \texttt{ConfigurationException}-class is a type of exception that occurs whenever the \texttt{Simulator} gets passed a faulty \texttt{UserConfiguration}. It gets thrown by the \texttt{startSimulation}-method of the \texttt{Simulator}-interface.\\
+The \texttt{ConfigurationException}-class provides functionality to identify the causing configuration's number in case the user provided a \texttt{UserConfiguration} with a multi configuration.
+
+Methods:
+
+\begin{itemize} \itemsep -10pt
+	\item \texttt{int getConfigurationNumber()}
+	\item[] In case of a multi configuration this method returns the number of the fault causing configuration. Otherwise it just returns 1.
+	\item[] Returns: the number of the fault causing configuration
+\end{itemize}
+
+\subsubsection{Class \texttt{InvalidParameterException extends ConfigurationException}}
+
+This class is a special \texttt{ConfigurationException} that occurs when any of the numerical parameters in the \texttt{UserConfiguration} provided to the Simulator has assigned a non viable value.
+
+Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{InvalidParameterException(double val, String name, int configNr)}
+	\item[] Creates a new \texttt{InvalidParameterException}-instance
+	\item[] \texttt{val}: the value of the faulty parameter
+	\item[] \texttt{name}: the name of the faulty parameter
+	\item[] \texttt{configNr}: the number of the faulty configuration
+\end{itemize}
+
+Methods
+\begin{itemize}\itemsep -10pt
+	\item \texttt{double getParameterValue()}
+	\item[] This method returns the value of the faulty parameter
+	\item[] Returns: the value of the faulty paramter
+	\item \texttt{String getParameterName()}
+	\item[] This method returns the name of the faulty parameter
+	\item[] Returns: the name of the faulty parameter
+\end{itemize}
+
+\subsubsection{Abstract Class \texttt{PluginException extends ConfigurationException}}
+
+This class is a special \texttt{ConfigurationException} that occurs when there is an error with any of the plugins that are referenced by the \texttt{UserConfiguration} provided to the Simulator.
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{String getPluginName()}
+	\item[] This method returns the name of the plugin that caused the error
+	\item[] Returns: the name of the plugin that caused the error
+\end{itemize}
+
+\subsubsection{Class \texttt{PluginNotFoundException extends PluginException}}
+
+This \texttt{PluginException} occurs when a plugin referenced by a \texttt{UserConfiguration} hasn't been loaded yet.
+
+Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{PluginNotFoundException(String name)}
+	\item[] Creates a new \texttt{PluginNotFoundException}-instance
+	\item[] \texttt{name}: the name of the plugin that was not found
+\end{itemize}
+
+\subsubsection{Class \texttt{PluginConfigurationException extends PluginException}}
+
+This \texttt{PluginException} occurs when the plugin configuration parameters provided by the \texttt{UserConfiguration} are faulty.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{PluginConfigurationException(String name, List<double> params)}
+	\item[] Creates a new \texttt{PluginConfigurationException}-instance
+	\item[] \texttt{name}: the name of the plugin
+	\item[] \texttt{params}: a list of the faulty configuration parameter
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{List<double> getParameter()}
+	\item[] This method returns a list of the faulty parameter
+	\item[] Retursn: a list of the faulty parameter
+\end{itemize}
+
+\subsubsection{Class \texttt{SimulationEngineException extends java.lang.Exception}}
+
+The \texttt{SimulationEngineException}-class is a type of exception that occurs whenever there has been a unpredictable error inside the \texttt{SimulationEngine}. The error gets caught by the Simulator which then creates an instance of this class and writes it to the corresponding \texttt{SimulationResult}-object.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{SimulationEngineException(int configurationNr, int iterationNr)}
+	\item[] Creates a new \texttt{SimulationEngineException}-instance
+	\item[] \texttt{configurationNr}: the configuration's number in which the error occurred.
+	\texttt{iterationNr}: the iteration number in which the error occurred.
+\end{itemize}
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{int getConfigurationNr()}
+	\item[] This method return the configuration's number in which the error occurred
+	\item[] Returns: the configuration's number
+	\item \texttt{int getIterationNr()}
+	\item[] This method return the iteration number in which the error occurred
+	\item[] Returns: the iteration number
+\end{itemize}
+
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
 
 Dieses Paket beinhaltet die Klasse \texttt{SimulationEngine}, mit der eine einzelne Wiederholung zu einer bestimmten elementaren Konfiguration ausgeführt werden kann, sowie für den Simulationsablauf zentrale Klassen wie den \texttt{Agent}, das Stufenspiel (\texttt{Game}) oder die \texttt{Strategy}.
