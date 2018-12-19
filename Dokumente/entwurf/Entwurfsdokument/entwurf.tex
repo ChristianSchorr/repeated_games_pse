@@ -119,19 +119,33 @@ Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können 
 \item B hat bei bisherigen Spielen zwischen B und Agenten mit ähnlichem aktuellen Kapital wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
 \end{itemize}
 
+\subsection{Plugin system}
+
+A plugin system which allows to dynamicly load new functionality at runtime has been added. This gives the user the flexibility to implement new algorithms and mechanism that can be used in simulations. The following parameter set can be extended via plugins:
+\begin{itemize} \itemsep -10pt
+	\item the equilibrium criterion mechanism
+	\item the success quantifier mechanism
+	\item the strategy adjuster mechanism
+	\item the pair builder algorithm
+	\item the discrete distribution algorithm
+\end{itemize}
+
+Furthermore it is possible to make the plugins user configurable from the configuration window. Therefor plugins can provide a renderer which creates a user control that gets embedded into the configuration window.\\
+Plugins are loaded automatically at the program start.
+
 \section{Pakete und Klassen}
 
 \subsection{Paket \texttt{edu.kit.loop}}
 
-\subsubsection{Class \texttt{Main}}
-Extends: \texttt{javafx.application.Application}
+\subsubsection{Class \texttt{Main extends javafx.application.Application}}
 
-This class contains the main method of the program and initiates the main-window.
+This class contains the main method (entry point) of the program and initializes the main-window.
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void main(String[] args))}
-\item[] Creates the main-window
+\item \underline{\texttt{void main(String[] args))}}
+\item[] The entry point of the application. Loads the UI and starts the window.
+\item[] \texttt{args}: the commandline arguments. (unused)
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model}}
@@ -454,39 +468,46 @@ Die Klasse unterscheidet nicht zwischen Multikonfigurationen und Nicht-Multikonf
 
 Konstruktoren:
 \begin{itemize} \itemsep -10pt
-\item \texttt{Simulation(UserConfiguration config, int id)}
-\item[] Creates a new \texttt{Simulation} with the given \texttt{UserConfiguration} and \texttt{id}.
-\item[] \texttt{config}: the configuration of this simulation
-\item[] \texttt{id}: the \texttt{id} of this simulation
+	\item \texttt{Simulation(UserConfiguration config, int id)}
+	\item[] Creates a new \texttt{Simulation} with the given \texttt{UserConfiguration} and \texttt{id}.
+	\item[] \texttt{config}: the configuration of this simulation
+	\item[] \texttt{id}: the \texttt{id} of this simulation
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{protected void addIterationResult(IterationResult result, int i)}
-\item[] adds an \texttt{IterationResult} to the \texttt{i}-th elementary configuration of this simulation
-\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
-\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
-
-\item \texttt{void registerIterationFinished(Consumer<IterationResult> action)}
-\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration will be passed as an argument to the action
-\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
-
-\item \texttt{List<IterationResult> getIterationResults(int i)}
-\item[] Returns a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration.
-\item[] \texttt{i}: the elementary configuration, whose finished iterations shall be returned
-\item[] Returns: a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration
-
-\item \texttt{UserConfiguration getUserConfiguration()}
-\item[] Returns the \texttt{UserConfiguration} of this simulation.
-\item[] Returns: the \texttt{UserConfiguration} of this simulation
-
-\item \texttt{int getConfigurationCount()}
-\item[] Returns the amount of elementary configurations of this simulation (\(1\) if this is not a multiconfiguration).
-\item[] Returns: the amount of elementary configurations of this simulation
-
-\item \texttt{int getId()}
-\item[] Returns the \texttt{id} of this simulation.
-\item[] Returns: the \texttt{id} of this simulation
+	\item \texttt{protected void addIterationResult(IterationResult result, int i)}
+	\item[] adds an \texttt{IterationResult} to the \texttt{i}-th elementary configuration of this simulation and triggers all registered actions
+	\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
+	\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
+	
+	\item \texttt{protected void addSimulationEngineException()}
+	\item[] adds an \texttt{SimulationEngineException} to this Simulaton and triggers all registered exception handler
+	
+	\item \texttt{void registerIterationFinished(BiConsumer<SimulationResutl,IterationResult> action)}
+	\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration as well as this instance will be passed as an argument to the action
+	\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
+	
+	\item \texttt{void registerExceptionHandler(BiConsumer<SimulationResult,SimulationEngineException> handler)}
+	\item[] Registers a handler that will be executed every time an exception corresponding to this simulation occurs
+	\item[] \texttt{handler}: the handler that shall be executed whenever an exception occurs
+	
+	\item \texttt{List<IterationResult> getIterationResults(int i)}
+	\item[] Returns a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration.
+	\item[] \texttt{i}: the elementary configuration, whose finished iterations shall be returned
+	\item[] Returns: a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration
+	
+	\item \texttt{UserConfiguration getUserConfiguration()}
+	\item[] Returns the \texttt{UserConfiguration} of this simulation.
+	\item[] Returns: the \texttt{UserConfiguration} of this simulation
+	
+	\item \texttt{int getConfigurationCount()}
+	\item[] Returns the amount of elementary configurations of this simulation (\(1\) if this is not a multiconfiguration).
+	\item[] Returns: the amount of elementary configurations of this simulation
+	
+	\item \texttt{int getId()}
+	\item[] Returns the \texttt{id} of this simulation.
+	\item[] Returns: the \texttt{id} of this simulation
 \end{itemize}
 
 \subsubsection{Interface \texttt{Simulator}}
@@ -494,35 +515,36 @@ Methoden:
 
 Methoden:
 \begin{itemize} \itemsep -10pt
-\item \texttt{Simulation startSimulation(UserConfiguration config)}
-\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{Simulation}-object for the started simulation.
-\item[]\texttt{config}: the configuration for which a simulation shall be started
-\item[] Returns: a handle to a \texttt{Simulation}-object for the started simulation
-
-\item \texttt{Simulation startSimulation(UserConfiguration config, Consumer<Simulation> action)}
-\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{Simulation}-object for the started simulation. Executes the given action with the \texttt{Simulation}-object passed as parameter when the started simulation is finished.
-\item[] \texttt{config}: the \texttt{UserConfiguration} a new simulation shall be started with
-\item[] \texttt{action}: the action that shall be executed when the simulation is finished
-\item[] Returns: a handle to a \texttt{Simulation}-object for the started simulation
-
-\item \texttt{boolean stopSimulation(Simulation sim)}
-\item[] Stop the execution of the given simulation if it is currently running.
-\item[] \texttt{sim}: the simulation whose execution shall be stopped
-\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
-
-\item \texttt{boolean stopSimulation(int id)}
-\item[] If a simulation with the given \texttt{id} is currently running, stop its execution.
-\item[] \texttt{id}: the \texttt{id} of the simulation that shall be stopped
-\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
-
-\item \texttt{void stopAllSimulation()}
-\item[] Stops the execution of all running simulations.
-
-\item \texttt{Simulation getSimulation(int id)}
-\item[] Returns the \texttt{Simulation}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
-Gibt das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id} zurück, falls existent. Ansonsten \texttt{null}.
-\item[] \texttt{id}: the \texttt{id} of the simulation, whose \texttt{Simulation}-object shall be returned
-\item[] Returns: the \texttt{Simulation}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
+	\item \texttt{SimulationResult startSimulation(UserConfiguration config)}
+	\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{SimulationResult}-object for the started simulation.
+	\item[]\texttt{config}: the configuration for which a simulation shall be started
+	\item[] Returns: a handle to a \texttt{SimulationResult}-object for the started simulation
+	\item[] Throws: \texttt{ConfigurationException} when the provided \texttt{UserConfiguration} is faulty
+	
+	\item \texttt{SimulationResult startSimulation(UserConfiguration config, Consumer<SimulationResult> action)}
+	\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{SimulationResult}-object for the started simulation. Executes the given action with the \texttt{SimulationResult}-object passed as parameter when the started simulation is finished.
+	\item[] \texttt{config}: the \texttt{UserConfiguration} a new simulation shall be started with
+	\item[] \texttt{action}: the action that shall be executed when the simulation is finished
+	\item[] Returns: a handle to a \texttt{SimulationResult}-object for the started simulation
+	\item[] Throws: \texttt{ConfigurationException} when the provided \texttt{UserConfiguration} is faulty
+	
+	\item \texttt{boolean stopSimulation(SimulationResult sim)}
+	\item[] Stop the execution of the given simulation if it is currently running.
+	\item[] \texttt{sim}: the simulation whose execution shall be stopped
+	\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
+	
+	\item \texttt{boolean stopSimulation(int id)}
+	\item[] If a simulation with the given \texttt{id} is currently running, stop its execution.
+	\item[] \texttt{id}: the \texttt{id} of the simulation that shall be stopped
+	\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
+	
+	\item \texttt{void stopAllSimulation()}
+	\item[] Stops the execution of all running simulations.
+	
+	\item \texttt{SimulationResult getSimulation(int id)}
+	\item[] Returns the \texttt{SimulationResult}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise.
+	\item[] \texttt{id}: the \texttt{id} of the simulation, whose \texttt{SimulationResult}-object shall be returned
+	\item[] Returns: the \texttt{SimulationResult}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
 \end{itemize}
 
 \subsubsection{Class \texttt{ThreadPoolSimulator}}
@@ -566,6 +588,107 @@ Methoden:
 \item[] Generates all associated elementary configurations of the given \texttt{UserConfiguration} and returns them as \texttt{Configuration}s.
 \item[] \texttt{config}: the \texttt{UserConfiguration} whose associated elementary configurations shall be generated
 \item[] Returns: all associated elementary configurations of the given \texttt{UserConfiguration} as \texttt{Configuration}s
+\end{itemize}
+
+\subsection{Paket \texttt{edu.kit.loop.model.Simulator.exception}}
+
+\subsubsection{Abstract Class \texttt{ConfigurationException extends java.lang.Exception}}
+
+The \texttt{ConfigurationException}-class is a type of exception that occurs whenever the \texttt{Simulator} gets passed a faulty \texttt{UserConfiguration}. It gets thrown by the \texttt{startSimulation}-method of the \texttt{Simulator}-interface.\\
+The \texttt{ConfigurationException}-class provides functionality to identify the causing configuration's number in case the user provided a \texttt{UserConfiguration} with a multi configuration.
+
+Methods:
+
+\begin{itemize} \itemsep -10pt
+	\item \texttt{int getConfigurationNumber()}
+	\item[] In case of a multi configuration this method returns the number of the fault causing configuration. Otherwise it just returns 1.
+	\item[] Returns: the number of the fault causing configuration
+\end{itemize}
+
+\subsubsection{Class \texttt{InvalidParameterException extends ConfigurationException}}
+
+This class is a special \texttt{ConfigurationException} that occurs when any of the numerical parameters in the \texttt{UserConfiguration} provided to the Simulator has assigned a non viable value.
+
+Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{InvalidParameterException(double val, String name, int configNr)}
+	\item[] Creates a new \texttt{InvalidParameterException}-instance
+	\item[] \texttt{val}: the value of the faulty parameter
+	\item[] \texttt{name}: the name of the faulty parameter
+	\item[] \texttt{configNr}: the number of the faulty configuration
+\end{itemize}
+
+Methods
+\begin{itemize}\itemsep -10pt
+	\item \texttt{double getParameterValue()}
+	\item[] This method returns the value of the faulty parameter
+	\item[] Returns: the value of the faulty paramter
+	\item \texttt{String getParameterName()}
+	\item[] This method returns the name of the faulty parameter
+	\item[] Returns: the name of the faulty parameter
+\end{itemize}
+
+\subsubsection{Abstract Class \texttt{PluginException extends ConfigurationException}}
+
+This class is a special \texttt{ConfigurationException} that occurs when there is an error with any of the plugins that are referenced by the \texttt{UserConfiguration} provided to the Simulator.
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{String getPluginName()}
+	\item[] This method returns the name of the plugin that caused the error
+	\item[] Returns: the name of the plugin that caused the error
+\end{itemize}
+
+\subsubsection{Class \texttt{PluginNotFoundException extends PluginException}}
+
+This \texttt{PluginException} occurs when a plugin referenced by a \texttt{UserConfiguration} hasn't been loaded yet.
+
+Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{PluginNotFoundException(String name)}
+	\item[] Creates a new \texttt{PluginNotFoundException}-instance
+	\item[] \texttt{name}: the name of the plugin that was not found
+\end{itemize}
+
+\subsubsection{Class \texttt{PluginConfigurationException extends PluginException}}
+
+This \texttt{PluginException} occurs when the plugin configuration parameters provided by the \texttt{UserConfiguration} are faulty.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{PluginConfigurationException(String name, List<double> params)}
+	\item[] Creates a new \texttt{PluginConfigurationException}-instance
+	\item[] \texttt{name}: the name of the plugin
+	\item[] \texttt{params}: a list of the faulty configuration parameter
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{List<double> getParameter()}
+	\item[] This method returns a list of the faulty parameter
+	\item[] Retursn: a list of the faulty parameter
+\end{itemize}
+
+\subsubsection{Class \texttt{SimulationEngineException extends java.lang.Exception}}
+
+The \texttt{SimulationEngineException}-class is a type of exception that occurs whenever there has been a unpredictable error inside the \texttt{SimulationEngine}. The error gets caught by the Simulator which then creates an instance of this class and writes it to the corresponding \texttt{SimulationResult}-object.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{SimulationEngineException(int configurationNr, int iterationNr)}
+	\item[] Creates a new \texttt{SimulationEngineException}-instance
+	\item[] \texttt{configurationNr}: the configuration's number in which the error occurred.
+	\texttt{iterationNr}: the iteration number in which the error occurred.
+\end{itemize}
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{int getConfigurationNr()}
+	\item[] This method return the configuration's number in which the error occurred
+	\item[] Returns: the configuration's number
+	\item \texttt{int getIterationNr()}
+	\item[] This method return the iteration number in which the error occurred
+	\item[] Returns: the iteration number
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
@@ -1622,19 +1745,23 @@ Methoden:
 	\item[] Loads an entity of type \texttt{T} out of the given file. 
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{file}: the file from which the entity shall be loaded
-	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded
+	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded 
+	\item[]Throws: \texttt{FileNotFoundException} when the given file doesn't exist
+	\item[]Throws: \texttt{IOException} when the entity can not be deserialized
 	
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
 	\item[] Loads all entities of type \texttt{T} from files in the given directory
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{dir}: the directory from which the entities shall be loaded
 	\item[]Returns: a list of all loaded entities
+	\item[]Throws: \texttt{FileNotFoundException} when the given directory doesn't exist
 	
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
 	\item[] Loads all entities of type \texttt{T} from the given files.
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{files}: the list of all files from which entities shall be loaded
 	\item[]Returns: a list of all loaded entities
+	\item[]Throws: \texttt{FileNotFoundException} when any of the given files doesn't exist
 	
 	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
 	\item[] Saves the given entity in the given file.
@@ -1642,6 +1769,7 @@ Methoden:
 	\item[] \texttt{file}: the file to which the entity shall  be saved
 	\item[] \texttt{entity}: the entity that shall be saved
 	\item[]Returns: \texttt{true} if the saving process finished successfully, \texttt{false} otherwise
+	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
 \end{itemize}
 
 \section{Glossar}
