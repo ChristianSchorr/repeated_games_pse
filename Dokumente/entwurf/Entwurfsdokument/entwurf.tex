@@ -119,6 +119,20 @@ Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können 
 \item B hat bei bisherigen Spielen zwischen B und Agenten mit ähnlichem aktuellen Kapital wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
 \end{itemize}
 
+\subsection{Plugin system}
+
+A plugin system which allows to dynamicly load new functionality at runtime has been added. This gives the user the flexibility to implement new algorithms and mechanism that can be used in simulations. The following parameter set can be extended via plugins:
+\begin{itemize} \itemsep -10pt
+	\item the equilibrium criterion mechanism
+	\item the success quantifier mechanism
+	\item the strategy adjuster mechanism
+	\item the pair builder algorithm
+	\item the discrete distribution algorithm
+\end{itemize}
+
+Furthermore it is possible to make the plugins user configurable from the configuration window. Therefor plugins can provide a renderer which creates a user control that gets embedded into the configuration window.\\
+Plugins are loaded automatically at the program start.
+
 \section{Pakete und Klassen}
 
 \subsection{Paket \texttt{edu.kit.loop}}
