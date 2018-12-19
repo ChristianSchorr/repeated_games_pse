@@ -1737,19 +1737,23 @@ Methoden:
 	\item[] Loads an entity of type \texttt{T} out of the given file. 
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{file}: the file from which the entity shall be loaded
-	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded
+	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded 
+	\item[]Throws: \texttt{FileNotFoundException} when the given file doesn't exist
+	\item[]Throws: \texttt{IOException} when the entity can not be deserialized
 	
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
 	\item[] Loads all entities of type \texttt{T} from files in the given directory
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{dir}: the directory from which the entities shall be loaded
 	\item[]Returns: a list of all loaded entities
+	\item[]Throws: \texttt{FileNotFoundException} when the given directory doesn't exist
 	
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
 	\item[] Loads all entities of type \texttt{T} from the given files.
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{files}: the list of all files from which entities shall be loaded
 	\item[]Returns: a list of all loaded entities
+	\item[]Throws: \texttt{FileNotFoundException} when any of the given files doesn't exist
 	
 	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
 	\item[] Saves the given entity in the given file.
@@ -1757,6 +1761,7 @@ Methoden:
 	\item[] \texttt{file}: the file to which the entity shall  be saved
 	\item[] \texttt{entity}: the entity that shall be saved
 	\item[]Returns: \texttt{true} if the saving process finished successfully, \texttt{false} otherwise
+	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
 \end{itemize}
 
 \section{Glossar}
