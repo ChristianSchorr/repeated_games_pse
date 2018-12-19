@@ -468,39 +468,46 @@ Die Klasse unterscheidet nicht zwischen Multikonfigurationen und Nicht-Multikonf
 
 Konstruktoren:
 \begin{itemize} \itemsep -10pt
-\item \texttt{Simulation(UserConfiguration config, int id)}
-\item[] Creates a new \texttt{Simulation} with the given \texttt{UserConfiguration} and \texttt{id}.
-\item[] \texttt{config}: the configuration of this simulation
-\item[] \texttt{id}: the \texttt{id} of this simulation
+	\item \texttt{Simulation(UserConfiguration config, int id)}
+	\item[] Creates a new \texttt{Simulation} with the given \texttt{UserConfiguration} and \texttt{id}.
+	\item[] \texttt{config}: the configuration of this simulation
+	\item[] \texttt{id}: the \texttt{id} of this simulation
 \end{itemize}
 
 Methoden:
 \begin{itemize}\itemsep -10pt
-\item \texttt{protected void addIterationResult(IterationResult result, int i)}
-\item[] adds an \texttt{IterationResult} to the \texttt{i}-th elementary configuration of this simulation
-\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
-\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
-
-\item \texttt{void registerIterationFinished(Consumer<IterationResult> action)}
-\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration will be passed as an argument to the action
-\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
-
-\item \texttt{List<IterationResult> getIterationResults(int i)}
-\item[] Returns a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration.
-\item[] \texttt{i}: the elementary configuration, whose finished iterations shall be returned
-\item[] Returns: a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration
-
-\item \texttt{UserConfiguration getUserConfiguration()}
-\item[] Returns the \texttt{UserConfiguration} of this simulation.
-\item[] Returns: the \texttt{UserConfiguration} of this simulation
-
-\item \texttt{int getConfigurationCount()}
-\item[] Returns the amount of elementary configurations of this simulation (\(1\) if this is not a multiconfiguration).
-\item[] Returns: the amount of elementary configurations of this simulation
-
-\item \texttt{int getId()}
-\item[] Returns the \texttt{id} of this simulation.
-\item[] Returns: the \texttt{id} of this simulation
+	\item \texttt{protected void addIterationResult(IterationResult result, int i)}
+	\item[] adds an \texttt{IterationResult} to the \texttt{i}-th elementary configuration of this simulation and triggers all registered actions
+	\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
+	\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
+	
+	\item \texttt{protected void addSimulationEngineException()}
+	\item[] adds an \texttt{SimulationEngineException} to this Simulaton and triggers all registered exception handler
+	
+	\item \texttt{void registerIterationFinished(BiConsumer<SimulationResutl,IterationResult> action)}
+	\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration as well as this instance will be passed as an argument to the action
+	\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
+	
+	\item \texttt{void registerExceptionHandler(BiConsumer<SimulationResult,SimulationEngineException> handler)}
+	\item[] Registers a handler that will be executed every time an exception corresponding to this simulation occurs
+	\item[] \texttt{handler}: the handler that shall be executed whenever an exception occurs
+	
+	\item \texttt{List<IterationResult> getIterationResults(int i)}
+	\item[] Returns a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration.
+	\item[] \texttt{i}: the elementary configuration, whose finished iterations shall be returned
+	\item[] Returns: a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration
+	
+	\item \texttt{UserConfiguration getUserConfiguration()}
+	\item[] Returns the \texttt{UserConfiguration} of this simulation.
+	\item[] Returns: the \texttt{UserConfiguration} of this simulation
+	
+	\item \texttt{int getConfigurationCount()}
+	\item[] Returns the amount of elementary configurations of this simulation (\(1\) if this is not a multiconfiguration).
+	\item[] Returns: the amount of elementary configurations of this simulation
+	
+	\item \texttt{int getId()}
+	\item[] Returns the \texttt{id} of this simulation.
+	\item[] Returns: the \texttt{id} of this simulation
 \end{itemize}
 
 \subsubsection{Interface \texttt{Simulator}}
@@ -508,35 +515,36 @@ Methoden:
 
 Methoden:
 \begin{itemize} \itemsep -10pt
-\item \texttt{Simulation startSimulation(UserConfiguration config)}
-\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{Simulation}-object for the started simulation.
-\item[]\texttt{config}: the configuration for which a simulation shall be started
-\item[] Returns: a handle to a \texttt{Simulation}-object for the started simulation
-
-\item \texttt{Simulation startSimulation(UserConfiguration config, Consumer<Simulation> action)}
-\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{Simulation}-object for the started simulation. Executes the given action with the \texttt{Simulation}-object passed as parameter when the started simulation is finished.
-\item[] \texttt{config}: the \texttt{UserConfiguration} a new simulation shall be started with
-\item[] \texttt{action}: the action that shall be executed when the simulation is finished
-\item[] Returns: a handle to a \texttt{Simulation}-object for the started simulation
-
-\item \texttt{boolean stopSimulation(Simulation sim)}
-\item[] Stop the execution of the given simulation if it is currently running.
-\item[] \texttt{sim}: the simulation whose execution shall be stopped
-\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
-
-\item \texttt{boolean stopSimulation(int id)}
-\item[] If a simulation with the given \texttt{id} is currently running, stop its execution.
-\item[] \texttt{id}: the \texttt{id} of the simulation that shall be stopped
-\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
-
-\item \texttt{void stopAllSimulation()}
-\item[] Stops the execution of all running simulations.
-
-\item \texttt{Simulation getSimulation(int id)}
-\item[] Returns the \texttt{Simulation}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
-Gibt das \texttt{Simulation}-Objekt der Simulation mit der entsprechenden \texttt{id} zurück, falls existent. Ansonsten \texttt{null}.
-\item[] \texttt{id}: the \texttt{id} of the simulation, whose \texttt{Simulation}-object shall be returned
-\item[] Returns: the \texttt{Simulation}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
+	\item \texttt{SimulationResult startSimulation(UserConfiguration config)}
+	\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{SimulationResult}-object for the started simulation.
+	\item[]\texttt{config}: the configuration for which a simulation shall be started
+	\item[] Returns: a handle to a \texttt{SimulationResult}-object for the started simulation
+	\item[] Throws: \texttt{ConfigurationException} when the provided \texttt{UserConfiguration} is faulty
+	
+	\item \texttt{SimulationResult startSimulation(UserConfiguration config, Consumer<SimulationResult> action)}
+	\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{SimulationResult}-object for the started simulation. Executes the given action with the \texttt{SimulationResult}-object passed as parameter when the started simulation is finished.
+	\item[] \texttt{config}: the \texttt{UserConfiguration} a new simulation shall be started with
+	\item[] \texttt{action}: the action that shall be executed when the simulation is finished
+	\item[] Returns: a handle to a \texttt{SimulationResult}-object for the started simulation
+	\item[] Throws: \texttt{ConfigurationException} when the provided \texttt{UserConfiguration} is faulty
+	
+	\item \texttt{boolean stopSimulation(SimulationResult sim)}
+	\item[] Stop the execution of the given simulation if it is currently running.
+	\item[] \texttt{sim}: the simulation whose execution shall be stopped
+	\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
+	
+	\item \texttt{boolean stopSimulation(int id)}
+	\item[] If a simulation with the given \texttt{id} is currently running, stop its execution.
+	\item[] \texttt{id}: the \texttt{id} of the simulation that shall be stopped
+	\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
+	
+	\item \texttt{void stopAllSimulation()}
+	\item[] Stops the execution of all running simulations.
+	
+	\item \texttt{SimulationResult getSimulation(int id)}
+	\item[] Returns the \texttt{SimulationResult}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise.
+	\item[] \texttt{id}: the \texttt{id} of the simulation, whose \texttt{SimulationResult}-object shall be returned
+	\item[] Returns: the \texttt{SimulationResult}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise
 \end{itemize}
 
 \subsubsection{Class \texttt{ThreadPoolSimulator}}
