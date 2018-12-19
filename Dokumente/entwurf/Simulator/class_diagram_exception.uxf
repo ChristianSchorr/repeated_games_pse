@@ -5,40 +5,12 @@
     <id>UMLClass</id>
     <coordinates>
       <x>740</x>
-      <y>190</y>
+      <y>330</y>
       <w>170</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>java.lang.Exception
 -</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>810</x>
-      <y>210</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>670</x>
-      <y>280</y>
-      <w>310</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>/SimulatorException/
--
-+getExceptionMessage
-+getSimulationResult(): SimulationResult
-
-
-</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
