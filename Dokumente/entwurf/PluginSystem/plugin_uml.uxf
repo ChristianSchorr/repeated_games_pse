@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -148,7 +148,7 @@ creates</panel_attributes>
     <coordinates>
       <x>576</x>
       <y>480</y>
-      <w>80</w>
+      <w>88</w>
       <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
@@ -235,7 +235,7 @@ _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
     <coordinates>
       <x>1272</x>
       <y>344</y>
-      <w>64</w>
+      <w>72</w>
       <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -247,13 +247,12 @@ validates</panel_attributes>
     <coordinates>
       <x>848</x>
       <y>576</y>
-      <w>240</w>
-      <h>64</h>
+      <w>216</w>
+      <h>48</h>
     </coordinates>
-    <panel_attributes>template=T: Object
-PluginLoader
+    <panel_attributes>PluginLoader
 -
-_+loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
+_+&lt;T&gt; loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -261,11 +260,11 @@ _+loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
     <coordinates>
       <x>944</x>
       <y>488</y>
-      <w>48</w>
-      <h>112</h>
+      <w>56</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 loads</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
 </diagram>
