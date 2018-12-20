@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>98</x>
+      <y>84</y>
+      <w>294</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>template=T: Object
+&lt;&lt;interface&gt;&gt;
+Repository
+--
++getEntityByName(name: String): T
++addEntity(name: String, entity: T): boolean
++containsEntityName(name: String): booelan
++getAllEntityNames(): List&lt;String&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>35</x>
+      <y>245</y>
+      <w>406</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>Repository
+-
+-instance: Repository
+-
+-Repository() &lt;&lt;ctor&gt;&gt;
+_-initializeInstance(): void_
+_+getInstance(): Repository_
++getStrategyRepository(): Repository&lt;Strategy&gt;
++getGameRepository(): Repository&lt;Game&gt;
++getPopulationRepository(); Repository&lt;Population&gt;
++getGroupRepository(): Repository&lt;Group&gt;
++getEquilibriumCriterionRepository: Repository&lt;Plugin&lt;EquilibriumCriterion&gt; &gt;
++getSuccessQuantifierRepository&lt;Plugin&lt;SuccessQuantifier&gt; &gt;
++getStrategyAdjusterRepository: Repository&lt;Plugin&lt;StrategyAdjuster&gt; &gt;
++getPairBuilderRepository: Repository&lt;Plugin&lt;PairBuilder&gt; &gt;
++getDiscreteDistributionRepository: Repository&lt;Plugin&lt;DiscreteDistribution&gt; &gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>245</x>
+      <y>469</y>
+      <w>245</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>FileLoader
+-
+_+&lt;T&gt; loadEntity(file: File): T_
+_+&lt;T&gt; loadAllEntities(dir: File): List&lt;T&gt;_
+_+&lt;T&gt; loadAllEntities(files: List&lt;File&gt;): List&lt;T&gt;_
+_+&lt;T&gt; saveEntity(file: File, entity: T): boolean_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>14</x>
+      <y>469</y>
+      <w>210</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>template=T: Object
+edu.kit.model.plugin.PluginLoader
+-
+_+loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>434</x>
+      <y>280</y>
+      <w>98</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+instance</panel_attributes>
+    <additional_attributes>10.0;140.0;60.0;140.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>175</y>
+      <w>21</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>357</x>
+      <y>413</y>
+      <w>42</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>98</x>
+      <y>413</y>
+      <w>42</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>455</x>
+      <y>119</y>
+      <w>154</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>HashMapRepository
+--
+--
+-HashMapRepository() &lt;&lt;ctor&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>357</x>
+      <y>140</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+</diagram>
