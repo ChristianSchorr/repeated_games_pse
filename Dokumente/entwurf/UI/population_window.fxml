@@ -26,9 +26,9 @@
                 <ColumnConstraints percentWidth="20"/>
             </columnConstraints>
             <VBox spacing="10">
-                <Label styleClass="card-title" text="Gruppe erstellen"/>
-                <Label styleClass="card-subtitle" text="Hier können neue und eigene Gruppen erstellt werden"/>
-                <TextField alignment="CENTER_LEFT" maxWidth="350" promptText="Name der Gruppe"/>
+                <Label styleClass="card-title" text="Population erstellen"/>
+                <Label styleClass="card-subtitle" text="Hier können neue und eigene Populationen aus vorhandenen Gruppen erstellt werden"/>
+                <TextField alignment="CENTER_LEFT" maxWidth="350" promptText="Name der Population"/>
             </VBox>
             <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
                 <Button styleClass="setting-button">

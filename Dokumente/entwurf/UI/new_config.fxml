@@ -238,23 +238,21 @@
                             <Insets top="25"/>
                         </padding>
                         <VBox GridPane.columnIndex="0">
-                            <GridPane hgap="50">
+                            <GridPane>
                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0"/>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300" minWidth="10.0"/>
+                                    <ColumnConstraints hgrow="SOMETIMES"/>
                                 </columnConstraints>
-                                <ChoiceBox value="Nur in Gruppen" GridPane.columnIndex="0"
-                                           GridPane.rowIndex="0">
+                                <ChoiceBox value="zufällig" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Gefangenendilemma"/>
-                                            <String fx:value="Nur in Gruppen"/>
-                                            <String fx:value="15 minutes left"/>
+                                            <String fx:value="zufällig"/>
+                                            <String fx:value="nur in Gruppen"/>
+                                            <String fx:value="nach Wunsch"/>
                                         </FXCollections>
                                     </items>
                                 </ChoiceBox>
-                                <ChoiceBox value="Absolutkapital" GridPane.columnIndex="0"
-                                           GridPane.rowIndex="1">
+                                <ChoiceBox value="Absolutkapital" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
                                             <String fx:value="Gefangenendilemma"/>
@@ -263,35 +261,87 @@
                                         </FXCollections>
                                     </items>
                                 </ChoiceBox>
-                                <ChoiceBox value="dynamic replicator" GridPane.columnIndex="0"
-                                           GridPane.rowIndex="2">
-                                    <items>
-                                        <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Gefangenendilemma"/>
-                                            <String fx:value="bliblablub"/>
-                                            <String fx:value="dynamic replicator"/>
-                                        </FXCollections>
-                                    </items>
-                                </ChoiceBox>
-                                <ChoiceBox value="Ranglistengleichgewicht" GridPane.columnIndex="0"
-                                           GridPane.rowIndex="3">
-                                    <items>
-                                        <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Ranglistengleichgewicht"/>
-                                            <String fx:value="bliblablub"/>
-                                            <String fx:value="Dynamic replicator"/>
-                                        </FXCollections>
-                                    </items>
-                                </ChoiceBox>
-                                <Label styleClass="control-label" text="Auswahl des Stufenspiels"
-                                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                    <ChoiceBox value="Dynamic Replicator">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Gefangenendilemma"/>
+                                                <String fx:value="bliblablub"/>
+                                                <String fx:value="Dynamic Replicator"/>
+                                            </FXCollections>
+                                        </items>
+                                    </ChoiceBox>
+                                    <HBox>
+                                        <GridPane>
+                                            <HBox>
+                                                <Slider/>
+                                                <TextField maxWidth="50" promptText="0.2"/>
+                                            </HBox>
+                                            <HBox GridPane.rowIndex="1">
+                                                <Slider/>
+                                                <TextField maxWidth="50" promptText="0.5"/>
+                                            </HBox>
+                                            <HBox GridPane.columnIndex="2">
+
+                                            </HBox>
+                                            <columnConstraints>
+                                                <ColumnConstraints/>
+                                                <ColumnConstraints/>
+                                                <ColumnConstraints/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints/>
+                                                <RowConstraints/>
+                                            </rowConstraints>
+                                        </GridPane>
+                                    </HBox>
+                                </VBox>
+                                <VBox GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                    <ChoiceBox value="Strategiegleichgewicht">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Ranglistengleichgewicht"/>
+                                                <String fx:value="Strategiegleichgewicht"/>
+                                                <String fx:value="Dynamic replicator"/>
+                                            </FXCollections>
+                                        </items>
+                                    </ChoiceBox>
+                                </VBox>
+                                <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0"
+                                      GridPane.rowIndex="4">
+                                    <Slider/>
+                                    <TextField alignment="CENTER" maxWidth="50" promptText="0.1"/>
+                                </HBox>
+                                <Label styleClass="control-label" text="Stabilität des Gleichgewichts"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                <HBox alignment="CENTER_LEFT" spacing="30" GridPane.columnIndex="0"
+                                      GridPane.rowIndex="5">
+                                    <TextField alignment="CENTER" maxWidth="50" promptText="10"/>
+                                </HBox>
+
+                                <TextField alignment="CENTER" maxWidth="50" promptText="100" GridPane.columnIndex="0"
+                                           GridPane.rowIndex="6"/>
+                                <Label styleClass="control-label" text="Dauer des Gleichgewichts"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                <Label styleClass="control-label" text="Maximale Zahl der Adaptionsschritte"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                                <Label styleClass="control-label" text="Agentenpaarung" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="0"/>
                                 <Label styleClass="control-label" text="Art der Erfolgsquantifizierung"
                                        GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                <Label styleClass="control-label" text="Auswahl des Adaptionsmechanismus"
-                                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                <Label styleClass="control-label" text="Auswahl der Abbruchbedingung"
+                                <VBox spacing="30" style="-fx-padding: 10 0" GridPane.columnIndex="1"
+                                      GridPane.rowIndex="2">
+
+                                    <Label styleClass="control-label" text="Auswahl des Adaptionsmechanismus"/>
+
+                                    <Label styleClass="control-label" text="Verlgeichswahrscheinlichkeit"/>
+                                    <Label styleClass="control-label" text="Adaptionswahrscheinlichkeit"/>
+                                </VBox>
+                                <Label styleClass="control-label" text="Auswahl des Gleichgewichtskriterium"
                                        GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                                 <rowConstraints>
+                                    <RowConstraints/>
+                                    <RowConstraints/>
                                     <RowConstraints/>
                                     <RowConstraints/>
                                     <RowConstraints/>
@@ -302,30 +352,32 @@
                         </VBox>
                         <Separator orientation="VERTICAL" style="-fx-padding: 10 0" GridPane.columnIndex="1"/>
                         <VBox GridPane.columnIndex="2">
-                            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="319.0"
-                                   text="Einstellung des variablen Konfigurationsparameter für Multikonfigurationen"
-                                   wrapText="true"/>
+                            <Label alignment="TOP_CENTER" prefHeight="73.0" prefWidth="411.0" text="Einstellung des variablen Konfigurationsparameter für Multikonfigurationen" wrapText="true" />
                             <GridPane hgap="30" vgap="10">
-                                <Label styleClass="control-label" text="Startwert in %:"
-                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                                <Label styleClass="control-label" text="Endwert in %:" GridPane.columnIndex="0"
-                                       GridPane.rowIndex="1"/>
-                                <Label styleClass="control-label" text="Schrittweite in %:"
-                                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                                <TextField alignment="TOP_CENTER" maxWidth="50" promptText="0"
-                                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                                <TextField alignment="TOP_CENTER" maxWidth="50" promptText="100"
-                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                <TextField alignment="TOP_CENTER" maxWidth="50" promptText="10"
-                                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                <ChoiceBox value="Segmentgröße" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Agentenzahl" />
+                                            <String fx:value="Segmentgröße" />
+                                            <String fx:value="Dynamic replicator" />
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <Label styleClass="control-label" text="Startwert:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Label styleClass="control-label" text="Endwert:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label styleClass="control-label" text="Schrittweite:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                <TextField alignment="TOP_CENTER" maxWidth="50" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField alignment="TOP_CENTER" maxWidth="50" promptText="100" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField alignment="TOP_CENTER" maxWidth="50" promptText="10" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <columnConstraints>
-                                    <ColumnConstraints/>
-                                    <ColumnConstraints/>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
                                 </columnConstraints>
                                 <rowConstraints>
-                                    <RowConstraints/>
-                                    <RowConstraints/>
-                                    <RowConstraints/>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
                                 </rowConstraints>
                             </GridPane>
                         </VBox>
