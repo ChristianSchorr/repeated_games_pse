@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
@@ -22,10 +22,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>126</x>
-      <y>486</y>
-      <w>477</w>
-      <h>162</h>
+      <x>27</x>
+      <y>459</y>
+      <w>621</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>SimulationResult
 -
@@ -34,7 +34,9 @@
 -
 #SimulationResult(config: UserConfiguration) &lt;&lt;ctor&gt;&gt;
 #addIterationResult(it: iterationResult, i: int): void
-+registerIterationFinished(action: Consumer&lt;IterationResult&gt;): void
+#addSimulationEngineException(ex: SimulationEngineException): void
++registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
++registerExceptionHandler(BiConsumer&lt;SimulationResult, SimulationEngineException&gt; action): void
 +getIterationResults(i: int): Collection&lt;IterationResult&gt;
 +getId(): int
 +getUserConfiguration(): UserConfiguration
@@ -113,20 +115,20 @@ equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>594</x>
-      <y>612</y>
-      <w>117</w>
+      <x>639</x>
+      <y>567</y>
+      <w>72</w>
       <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>50.0;10.0;50.0;440.0;10.0;440.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>27</x>
-      <y>234</y>
-      <w>90</w>
+      <x>18</x>
+      <y>207</y>
+      <w>108</w>
       <h>81</h>
     </coordinates>
     <panel_attributes>HeadController
@@ -138,8 +140,8 @@ equilibriumReached, double efficiency, int adapts) &lt;&lt;copt&gt;&gt;
     <id>Relation</id>
     <coordinates>
       <x>477</x>
-      <y>351</y>
-      <w>81</w>
+      <y>324</y>
+      <w>90</w>
       <h>153</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -150,25 +152,25 @@ geneartes</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>63</x>
-      <y>306</y>
-      <w>189</w>
+      <y>279</y>
+      <w>171</w>
       <h>198</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 observes</panel_attributes>
-    <additional_attributes>280.0;230.0;280.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>170.0;200.0;170.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>108</x>
-      <y>234</y>
-      <w>333</w>
+      <x>117</x>
+      <y>207</y>
+      <w>324</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
-    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+    <additional_attributes>340.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -227,9 +229,9 @@ uses</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>756</x>
-      <y>540</y>
-      <w>81</w>
-      <h>81</h>
+      <y>513</y>
+      <w>90</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 generates</panel_attributes>
@@ -309,8 +311,8 @@ double stepSize) &lt;&lt;ctor&gt;&gt;
     <id>Relation</id>
     <coordinates>
       <x>1224</x>
-      <y>531</y>
-      <w>81</w>
+      <y>504</y>
+      <w>99</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -332,14 +334,14 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>108</x>
-      <y>279</y>
-      <w>99</w>
+      <x>117</x>
+      <y>252</y>
+      <w>90</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 provides</panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0;770.0;10.0</additional_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
