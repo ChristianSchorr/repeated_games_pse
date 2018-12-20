@@ -27,13 +27,13 @@ Repository
       <w>406</w>
       <h>175</h>
     </coordinates>
-    <panel_attributes>Repository
+    <panel_attributes>CentralRepository
 -
--instance: Repository
+-instance: CentralRepository
 -
--Repository() &lt;&lt;ctor&gt;&gt;
+-CentralRepository() &lt;&lt;ctor&gt;&gt;
 _-initializeInstance(): void_
-_+getInstance(): Repository_
+_+getInstance(): CentralRepository_
 +getStrategyRepository(): Repository&lt;Strategy&gt;
 +getGameRepository(): Repository&lt;Game&gt;
 +getPopulationRepository(); Repository&lt;Population&gt;
@@ -53,7 +53,7 @@ _+getInstance(): Repository_
       <w>245</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>FileLoader
+    <panel_attributes>FileIO
 -
 _+&lt;T&gt; loadEntity(file: File): T_
 _+&lt;T&gt; loadAllEntities(dir: File): List&lt;T&gt;_
