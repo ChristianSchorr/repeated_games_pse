@@ -98,25 +98,25 @@ The execution of a single iteration itself is encapsulated in the \texttt{Simula
 
 The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
 
-\section{Spezifikationsänderungen}
+\section{Specification changes}
 
-\subsection{Populationen}
-Das Konzept von Gruppen und Segmenten wurde überarbeitet. Die Gesamtheit der Gruppen, Segmente, sowie deren Größen und Einstellungen (bis auf Multikonfiguration) heißt nun eine \enquote{Population}. Die Konfiguration von Gruppen und Populationen wurde aus dem Konfigurationsfenster ausgelagert. Wie zur Strategie- und Stufenspielerstellung gibt es nun Fenster zur Erstellung einzelner Gruppen und Populationen.
+\subsection{Populations}
+The concepts of groups and segments has been revised. The enterity of groups and segments with all its settings (except for the multiconfiguration settings), is now called a \enquote{population}. The configuration of groups and segments no longer takes place in the configuration window. Instead, individual group- and population creations are realised in a popup window each, as it is the case for configuration- and strategy creations.
 
-\textbf{Gruppenerstellung:}
-Im Gruppenerstellungsfenster können ein Name und eine Beschreibung der Gruppe eingetragen werden. Weiter können Anzahl und Größe von Segmenten sowie jeweils Strategie- und Kapitalverteilung eingestellt werden. Weiterhin kann eine Gruppe per Checkbox als \enquote{kohärent} deklariert werden (siehe \cref{?}). Diese Checkbox ist voreingestellt aktiviert. Wird sie deaktiviert, so identifizieren sich Agenten dieser Gruppe gegenseitig nicht mehr als Agenten derselben Gruppe. Diese Funktionalität realisiert das Konzept der \enquote{gruppenlosen Agenten}. Eine fertig konfigurierte Gruppe kann als Datei exportiert und eine als Datei exportierte Gruppe kann importiert werden.
+\textbf{Group creation:}
+A name and a description for the corresponding group can be registered in the group creation window. Also is it possible to set the number and the and the size of segments, as well as each strategy- and capital distribution. Further, a group can be declared as \enquote{coherent}, by activating a checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This functionality realises the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
 
-\textbf{Populationserstellung:}
-Im Populationserstellungsfenster können ein Name sowie eine Beschreibung der Population eingetragen werden. Dann können \(1\) bis \(16\) der selbst erstellten oder von vornherein im Programm hinterlegten Gruppen hinzugefügt werden. Für jede Gruppe können die Anzahl der Mitglieder über ein Textfeld eingegeben werden (siehe \cref{?}). Eine fertig konfigurierte Population kann als Datei exportiert und eine als Datei exportierte Population kann importiert werden.
+\textbf{population creation:}
+A name and a description for the corresponding population can be registered in the population creation window. \(1\) to \(16\) groups can be added to a corresponding population. These groups can either be self created or preset. For each group, the number of agents can be entered in a text field (see\cref{?}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
 
-Das Konfigurationsfenster ist nun nicht mehr in drei Bereiche unterteilt. Statt der Gruppeneinstellungen befindet sich nun zwischen den nun verschmolzenen, ehemaligen \enquote{Grund-} und \enquote{Erweiterten Einstellungen} nur noch ein Dropdown-Menü mit der Betitelung \enquote{Population} (siehe \cref{?}). Hier kann eine der selbst erstellten oder von vornherein im Programm hinterlegten Populationen ausgewählt werden. Unter dem Dropdown-Menü kann ein Abschnitt ausgeklappt werden, der die Zusammensetzung der Population zeigt (siehe \cref{?}). Dieser hat dieselbe Form wie die ehemaligen Gruppeneinstellungen, mit dem Unterschied, dass keine Modifikationen mehr vorgenommen werden können. Per Checkbox kann dort die \enquote{Multikonfiguration} für Segmente und Gruppen wie zuvor aktiviert werden.
+The configuration window is no longer divided in three parts. Between the former \enquote{basic-}  and \enquote{advanced settings}, there is now a single dropdown menu titled \enquote{population} (see \cref{?}), instead of the  \enquote{group settings}. In this dropdown menu, a self created or a preset population can be chosen. Below the dropdown menu, a section showing the composition of the selected population (see \cref{?}) can be popped up. This section has exactly the  same structure as the former \enquote{group settings}, but can't be modified anymore. As before, the  \enquote{multiconfiguration} for segments and groups can be activated by a checkbox here.
 
-\subsection{Strategien}
-Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können wurde um die folgenden erweitert:
-
+\subsection{Strategies}
+The list of all variables, which can appear as a literal in a strategy was extended by the following:
+In previous games (in the current adaption step), B has cooperated always/never/last time/at least once between him and agents which are in the same group as A.
 \begin{itemize}
-\item B hat bei bisherigen Spielen zwischen B und Agenten derselben Gruppenzugehörigkeit wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
-\item B hat bei bisherigen Spielen zwischen B und Agenten mit ähnlichem aktuellen Kapital wie A (im aktuellen Adaptionsschritt) immer/nie/letztes Mal/wenigstens einmal kooperiert
+\item In previous games (in the current adaption step), B has cooperated always/never/last time/at least once between him and agents which are in the same group as A.
+\item In previous games (in the current adaption step), B has cooperated always/never/last time/at least once between him and agents with a similar capital than A.
 \end{itemize}
 
 \subsection{Plugin system}
