@@ -31,7 +31,7 @@
 -id: int
 -config: UserConfiguration
 -
-#Simulation(config: Configuration) &lt;&lt;ctor&gt;&gt;
+#SimulationResult(config: Configuration) &lt;&lt;ctor&gt;&gt;
 #addIterationResult(it: iterationResult, i: int): void
 #addSimulationEngineException(ex: SimulationEngineException): void
 +registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
@@ -132,7 +132,7 @@ Simulator
     <coordinates>
       <x>555</x>
       <y>210</y>
-      <w>45</w>
+      <w>50</w>
       <h>85</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -220,7 +220,7 @@ uses</panel_attributes>
     <coordinates>
       <x>710</x>
       <y>315</y>
-      <w>45</w>
+      <w>50</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -269,7 +269,7 @@ uses</panel_attributes>
     <coordinates>
       <x>970</x>
       <y>310</y>
-      <w>50</w>
+      <w>55</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.

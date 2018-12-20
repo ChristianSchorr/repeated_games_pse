@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
+<diagram program="umlet" version="14.2">
   <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -31,7 +31,7 @@
 -id: int
 -config: UserConfiguration
 -
-#Simulation(config: Configuration) &lt;&lt;ctor&gt;&gt;
+#SimulationResult(config: Configuration) &lt;&lt;ctor&gt;&gt;
 #addIterationResult(it: iterationResult, i: int): void
 #addSimulationEngineException(ex: SimulationEngineException): void
 +registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
