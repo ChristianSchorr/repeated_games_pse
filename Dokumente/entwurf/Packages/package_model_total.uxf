@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>315</x>
+      <y>280</y>
+      <w>266</w>
+      <h>259</h>
+    </coordinates>
+    <panel_attributes>UserConfiguration
+-
++getGameName(): String
++getAgentCount(): int
++getRoundCount(): int
++getIterationCount(): int
++getAvailableStrategieNames(): Collection&lt;String&gt;
++getMixedAllowed(): boolean
++getPopulationNames(): Collection&lt;String&gt;
++getPairBuilderName(): String
++getSuccessQuantifierName(): String
++getStrategyAdjusterName(): String
++getComparisonProbability(): double
++getAdjustmentProbability(): double
++getEquilibriumCriteriaName(): String
++getEquilibriumStability(): double
++getEquilibriumLength(): int
++getMaximumStepCount(): int
+
++getVariableParameter(): String
++getStartValue(): double
++getEndValue(): double
++getStepSize(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>434</x>
+      <y>238</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>378</x>
+      <y>210</y>
+      <w>126</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/java.io.Serializable/
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>812</x>
+      <y>273</y>
+      <w>189</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.kit.model.Nameable
+-
++getName(): String
++getDescription(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>679</x>
+      <y>399</y>
+      <w>189</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Population
+--
++getSize(): int
++getGroups(): List&lt;Group&gt;
++getGroupSize(group: Group): int
++getGroupCount(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>399</y>
+      <w>196</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Group
+--
++getSegments(): List&lt;Segment&gt;
++getSegmentSize(segment: Segment): int
++getSegmentCount(): int
++isCohesive(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>518</y>
+      <w>196</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Segment
+--
++getSize(): int
++getCapitalDistributionName(): String
++getStrategyNames(): List&lt;String&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>861</x>
+      <y>399</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..8</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1036</x>
+      <y>462</y>
+      <w>35</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..8</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>364</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0;210.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>763</x>
+      <y>322</y>
+      <w>154</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;70.0;10.0;70.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>490</x>
+      <y>644</y>
+      <w>105</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>simulator
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>623</x>
+      <y>644</y>
+      <w>105</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>simulationengine
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>749</x>
+      <y>644</y>
+      <w>105</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>plugin
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>875</x>
+      <y>644</y>
+      <w>105</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>repository
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>231</x>
+      <y>133</y>
+      <w>1008</w>
+      <h>686</h>
+    </coordinates>
+    <panel_attributes>edu.kit.loop.model
+bg=yellow
+layer=-10</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

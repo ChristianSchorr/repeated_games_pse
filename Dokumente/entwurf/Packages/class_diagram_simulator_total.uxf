@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>180</y>
+      <w>160</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>ThreadPoolSimulator
+-
++Simulator() &lt;&lt;ctor&gt;&gt;
++Simulator(maxWorkingThreads: int) &lt;&lt;ctor&gt;&gt;
++getQueuedIterationCount(): int
++getRunningIterationCount():int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>305</x>
+      <y>285</y>
+      <w>345</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>SimulationResult
+-
+-id: int
+-config: UserConfiguration
+-
+#Simulation(config: Configuration) &lt;&lt;ctor&gt;&gt;
+#addIterationResult(it: iterationResult, i: int): void
+#addSimulationEngineException(ex: SimulationEngineException): void
++registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
++registerExceptionHandler(BiConsumer&lt;SimulationResult, SimulationEngineException&gt; action): void
++getIterationResults(i: int): Collection&lt;IterationResult&gt;
++getId(): int
++getUserConfiguration(): Configuration
++getConfigurationCount(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>145</y>
+      <w>325</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Simulator
+-
++startSimulation(config: UserConfiguration): Simulation
++startSimulation(config: UserConfiguration, action: Consumer&lt;Simulation&gt;): Simulation
++stopSimulation(sim: Simulation): boolean
++stopSimulation(id: int): boolean
++stopAllSimulations(): void
+//+continueSimulation(s: Simulation, reps: int): void
++getSimulation(id: int): Simulation
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>845</x>
+      <y>175</y>
+      <w>110</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0;120.0;70.0;200.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>300</y>
+      <w>75</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Configuration
+-
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>340</y>
+      <w>85</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>IterationResult
+-
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>645</x>
+      <y>345</y>
+      <w>40</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>145</y>
+      <w>60</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>HeadController
+-
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>555</x>
+      <y>210</y>
+      <w>45</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+geneartes/
+executes</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>325</x>
+      <y>185</y>
+      <w>95</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+observes</panel_attributes>
+    <additional_attributes>170.0;200.0;170.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>355</x>
+      <y>145</y>
+      <w>180</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>340.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>135</y>
+      <w>55</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>110</y>
+      <w>75</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>SequentialSimulator
+-
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>670</x>
+      <y>285</y>
+      <w>205</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>SimulationEngine
+-
+-
+simulateIteration(config: Configuration): IterationResult
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>210</y>
+      <w>30</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>710</x>
+      <y>315</y>
+      <w>45</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+generates</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>295</y>
+      <w>80</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>170</y>
+      <w>75</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>UserConfiguration
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>340</y>
+      <w>265</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>ConfigurationCreator
+-
++generateConfigurations(config: UserConfig): Collection&lt;Configuration&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>310</y>
+      <w>50</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+generateds</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>465</x>
+      <y>170</y>
+      <w>70</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>355</x>
+      <y>170</y>
+      <w>50</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+provides</panel_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>430</x>
+      <y>460</y>
+      <w>600</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>exception
+bg=orange
+layer=-5</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>710</x>
+      <y>495</y>
+      <w>85</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>java.lang.Exception
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>815</x>
+      <y>545</y>
+      <w>190</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>SimulationEngineException
+-
++SimulationEngineException(configurationNr: int, iterationNr: int) &lt;&lt;ctor&gt;&gt;
++getConfigurationNr():int
++getIterationNr():int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>600</y>
+      <w>270</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>InvalidParameterException
+-
++InvalidParameterException(val: double, name: String, configNr: int) &lt;&lt;ctor&gt;&gt;
++getParameterValue(): double
++getParameterName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>465</x>
+      <y>650</y>
+      <w>110</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>PluginNotFoundException
+-
++PluginNotFoundException(name: String) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>650</y>
+      <w>275</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>PluginConfigurationException
+-
++PluginConfigurationException(name: String, params: List&lt;double&gt;) &lt;&lt;ctor&gt;&gt;
++getConfigurationParameter(): List&lt;double&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>545</x>
+      <y>600</y>
+      <w>100</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>/PluginException/
+-
++getPluginName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>615</x>
+      <y>545</y>
+      <w>110</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>/ConfigurationException/
+-
++getConfigurationNr(): int
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>585</x>
+      <y>620</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;180.0;40.0;180.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>635</y>
+      <w>90</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>665</x>
+      <y>565</y>
+      <w>170</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;320.0;50.0;320.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>585</x>
+      <y>585</y>
+      <w>95</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>745</x>
+      <y>505</y>
+      <w>175</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;330.0;50.0;330.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>665</x>
+      <y>525</y>
+      <w>95</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>240</x>
+      <y>75</y>
+      <w>900</w>
+      <h>700</h>
+    </coordinates>
+    <panel_attributes>edu.kit.loop.model.simulator
+bg=yellow
+layer=-20</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
