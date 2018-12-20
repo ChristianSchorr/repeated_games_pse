@@ -121,7 +121,7 @@ Die Liste aller Variablen, die in einer Strategie als Literal vorkommen können 
 
 \subsection{Plugin system}
 
-A plugin system which allows to dynamicly load new functionality at runtime has been added. This gives the user the flexibility to implement new algorithms and mechanism that can be used in simulations. The following parameter set can be extended via plugins:
+A plugin system which allows to dynamicly load new functionality at runtime has been added. This gives the user the flexibility to implement new algorithms and mechanisms that can be used in simulations. The following parameter set can be extended via plugins:
 \begin{itemize} \itemsep -10pt
 	\item the equilibrium criterion mechanism
 	\item the success quantifier mechanism
@@ -1206,6 +1206,156 @@ Methods:
 \item[] Adds the given vector to this vector.
 \item[] \texttt{vector}: the vector that shall be added to this vector
 \end{itemize}
+
+\subsubsection{Interface \texttt{Operator}}
+
+This interface represents a logical operator for combining strategies to generate a new strategy
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{Strategy combineStrategies(Strategy strat1, Strategy strat2)}
+	\item[] This method creates a new \texttt{Strategy}-instance by combining the given strategies
+	\item[] \texttt{strat1}: the first strategy to combine
+	\item[] \texttt{strat2}: the second strategy to combine
+	\item[] Returns: the combined strategy
+	
+	\item \texttt{int getOperandCount()}
+	\item[] This method returns the number of expected operands
+	\item[] Returns: the number of operands
+\end{itemize}
+
+\subsubsection{Class \texttt{AndOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{AND} operator 
+
+\subsubsection{Class \texttt{NandOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NAND} operator 
+
+\subsubsection{Class \texttt{OrOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{OR} operator
+
+\subsubsection{Class \texttt{NorOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NOR} operator 
+
+\subsubsection{Class \texttt{XorOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{XOR} operator 
+
+\subsubsection{Class \texttt{ImpliesOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{IMPLIES} operator  
+
+\subsubsection{Class \texttt{NotOperator implements Operator}}
+
+This class is an operator that creates a new \texttt{Strategy} by negating the given one 
+
+\subsubsection{Interface \texttt{TreeNode<T>}}
+
+This interface represents a node in a hierarchic structure. It can store a generic content and provides functionality to insert and remove children to create a tree like structure.
+
+Parameter:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{<T>} the type of the content that shall be stored in the Node
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{T getContent()}
+	\item[] This method returns the content saved in this node
+	\item[] Returns: the node's content
+	
+	\item \texttt{List<TreeNode<T>\,> getChildren()}
+	\item[] This method returns all children of this tree node
+	\item[] Returns: a list of all children
+	
+	\item \texttt{void insertNode(TreeNode<T> node)}
+	\item[] This method inserts the given node as a child to this node
+	\item[] \texttt{node}: the node to insert as a child 
+	
+	\item \texttt{boolean removeNode(TreeNode<T> node)}
+	\item[] This method removes the given node from this node's children
+	\item[] \texttt{node}: the node that shall be removed
+	\item[] Returns: \texttt{true} if the node was removed, \texttt{false} otherwise
+\end{itemize}
+
+\subsubsection{Class \texttt{SyntaxNode implements TreeNode<Strategy>}}
+
+This class represents a tree node in a syntax tree for combined strategies. In case of leaf node it stores the strategy that shall be combined otherwise in case of an inner node it stores an operator to combine strategies.
+
+Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{SyntaxNode(Strategy strat, Operator op)}
+	\item[] Creates a new \texttt{SyntaxNode}-instance 
+	\item[] \texttt{strat}: the strategy that shall be stored in this node
+	\item[] \texttt{op}: the operator that shall be stored in this node
+\end{itemize}
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{Operator getOperator()}
+	\item[] This method returns the operator stored in this node
+	\item[] Returns: the operator stored by this node
+	
+	\item \texttt{boolean isInnerNode()}
+	\item[] This method returns whether the node is an inner node or not
+	\item[] Returns: \texttt{true} when the node is an inner node, otherwise  \texttt{false} when the node is a leaf node
+\end{itemize}
+
+\subsubsection{Interface \texttt{Tree<T>}}
+
+This interface represents a graph with tree structure which contains of \texttt{TreeNode<T>}-instances
+
+Parameters:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{<T>} the type of the tree's node content (resp. the generic type of \texttt{TreeNode<T>})
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{TreeNode<T> getRoot()}
+	\item[] This method returns the root of the tree
+	\item[] Returns: the root of the tree
+\end{itemize}
+
+\subsubsection{Class \texttt{SyntaxTree implements Tree<Strategy>}}
+
+This class is an implementation of the \texttt{Tree<T>}-interface using \texttt{SyntaxNode}s to create more complex logical combinations of strategies. Additionally it provides functionality to validate the syntactical correctness of the syntax tree and to get the smallest faulty sub tree in case of a syntactical error.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{SyntaxTree(SyntaxNode root)}
+	\item[] Creates a new \texttt{SyntaxTree}-instance with the given node as root element
+	\item[] \texttt{root}: the node element which shall be the root of the tree
+\end{itemize}
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{boolean checkSyntax()}
+	\item[] This Method checks whether the expression represented by this tree is syntactical correct or not
+	\item[] Returns: \texttt{true} when the syntax is correct \texttt{false} otherwise
+	
+	\item \texttt{SyntaxNode getFaultyNode()}
+	\item[] This method returns the root of the smallest sub tree with an incorrect syntax
+	\item[] Returns: the root of the faulty sub tree
+\end{itemize} 
+
+\subsubsection{Class \texttt{StrategyBuilder}}
+
+This class provides functionality to create a new \texttt{Strategy} from a given root \texttt{SyntaxNode} of a syntax tree
+
+Methods:
+\begin{itemize} \itemsep -10pt
+	\item \underline{\texttt{Strategy createNewStrategy(SyntaxNode root, String name, String desc)}}
+	\item[] This method creates a new \texttt{Strategy} from a given root
+	\item[] \texttt{root}: the root of the syntax tree the \texttt{Strategy} shall be built from
+	\item[] \texttt{name}: the name of the \texttt{Strategy} to create
+	\item[] \texttt{desc}: the description of the \texttt{Strategy} to create
+	\item[] Returns: the newly created \texttt{Strategy} or \texttt{null} when there is a syntactical error
+\end{itemize}
+
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine.distributions}}
 

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>352</x>
+      <y>484</y>
+      <w>649</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Strategy
+-
++isCooperative(p1: Agent, p2: Agent, hist: SimulationHistory): boolean
++getCooperationProbability(p1: Agent, p2: Agent, hist: SimulationHistory): double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>671</y>
+      <w>440</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>MixedStrategy
+-
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>649</x>
+      <y>561</y>
+      <w>264</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;220.0;60.0;220.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>506</y>
+      <w>187</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..n</panel_attributes>
+    <additional_attributes>100.0;180.0;150.0;180.0;150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>165</x>
+      <y>671</y>
+      <w>473</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>PureStrategy
+-
+-condition: Predicate&lt;Agent, SimulationHistory&gt;
+-
+PureStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>407</x>
+      <y>616</y>
+      <w>275</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>407</x>
+      <y>759</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>836</y>
+      <w>176</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>CustomStrategy
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>121</x>
+      <y>506</y>
+      <w>253</w>
+      <h>374</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=2</panel_attributes>
+    <additional_attributes>190.0;320.0;10.0;320.0;10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>891</x>
+      <y>286</y>
+      <w>330</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+RealVector
+--
++getEuclideanNorm(): double
++getSumNorm(): double
++multiplyBy(value: double): void
++add(vector: RealVector): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1045</x>
+      <y>396</y>
+      <w>33</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>110</y>
+      <w>264</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Vector&lt;T&gt;
+--
++getSize(): int
++getComponent(i: int): T
++setComponent(i: int, value: T): void
++clone(): Vector&lt;E&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1045</x>
+      <y>220</y>
+      <w>33</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+</diagram>
