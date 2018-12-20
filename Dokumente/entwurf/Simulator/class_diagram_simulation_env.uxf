@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -21,20 +21,21 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>126</x>
+      <x>27</x>
       <y>459</y>
-      <w>477</w>
-      <h>189</h>
+      <w>621</w>
+      <h>198</h>
     </coordinates>
-    <panel_attributes>Simulation
+    <panel_attributes>SimulationResult
 -
 -id: int
 -config: UserConfiguration
--iterationResults: Collection&lt;Collection&lt;IterationResult&gt; &gt;
 -
 #Simulation(config: Configuration) &lt;&lt;ctor&gt;&gt;
 #addIterationResult(it: iterationResult, i: int): void
+#addSimulationEngineException(ex: SimulationEngineException): void
 +registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
++registerExceptionHandler(BiConsumer&lt;SimulationResult, SimulationEngineException&gt; action): void
 +getIterationResults(i: int): Collection&lt;IterationResult&gt;
 +getId(): int
 +getUserConfiguration(): Configuration
@@ -105,23 +106,23 @@ Simulator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>594</x>
+      <x>639</x>
       <y>567</y>
-      <w>117</w>
+      <w>72</w>
       <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>27</x>
+      <x>18</x>
       <y>207</y>
-      <w>90</w>
+      <w>108</w>
       <h>81</h>
     </coordinates>
-    <panel_attributes>UIController
+    <panel_attributes>HeadController
 -
 </panel_attributes>
     <additional_attributes/>
@@ -131,7 +132,7 @@ Simulator
     <coordinates>
       <x>477</x>
       <y>324</y>
-      <w>81</w>
+      <w>90</w>
       <h>153</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -144,24 +145,24 @@ executes</panel_attributes>
     <coordinates>
       <x>63</x>
       <y>279</y>
-      <w>189</w>
+      <w>171</w>
       <h>198</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 observes</panel_attributes>
-    <additional_attributes>190.0;200.0;190.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>170.0;200.0;170.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>108</x>
+      <x>117</x>
       <y>207</y>
-      <w>333</w>
+      <w>324</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
-    <additional_attributes>350.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>340.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -219,7 +220,7 @@ uses</panel_attributes>
     <coordinates>
       <x>756</x>
       <y>513</y>
-      <w>81</w>
+      <w>90</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -268,7 +269,7 @@ uses</panel_attributes>
     <coordinates>
       <x>1224</x>
       <y>504</y>
-      <w>90</w>
+      <w>99</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -290,13 +291,13 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>108</x>
+      <x>117</x>
       <y>252</y>
-      <w>99</w>
+      <w>90</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 provides</panel_attributes>
-    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
