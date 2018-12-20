@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.glyphfont.Glyph?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625"
+      prefWidth="800" style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@style.css"
+      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox prefWidth="780.0" spacing="10" styleClass="card">
+
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="80"/>
+                <ColumnConstraints percentWidth="20"/>
+            </columnConstraints>
+            <VBox spacing="10">
+                <Label styleClass="card-title" text="Gruppe erstellen"/>
+                <Label styleClass="card-subtitle" text="Hier können neue und eigene Gruppen erstellt werden"/>
+                <TextField alignment="CENTER_LEFT" maxWidth="350" promptText="Name der Gruppe"/>
+            </VBox>
+            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
+                <Button styleClass="setting-button">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
+                <Button>
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+        </GridPane>
+
+        <Separator style="-fx-padding: 10 0;"/>
+        <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 10">
+            <Label text="Gruppe:"/>
+            <ChoiceBox prefHeight="42.0" prefWidth="189.0" value="die Reichen mit Tit for Tat">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="die Reichen mit Tit for Tat"/>
+                        <String fx:value="aktuelle Agent"/>
+                        <String fx:value="ranghöchste Agent"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+            <Label text="Agentenzahl in der Gruppe:"/>
+            <TextField alignment="TOP_CENTER" maxWidth="50" promptText="100"/>
+            <Button>
+                <graphic>
+                    <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                </graphic>
+            </Button>
+        </HBox>
+        <Separator style="-fx-padding: 10 0;"/>
+        <FlowPane GridPane.columnIndex="1" hgap="10" vgap="10">
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="die Reichen mit Tit for Tat"/>
+                <Label text="200 Agenten"
+                       style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt"/>
+                <Button maxWidth="20" prefHeight="20">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
+                               fontSize="10"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="die Reichen mit Grim"/>
+                <Label text="50 Agenten"
+                       style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt"/>
+                <Button maxWidth="20" prefHeight="20">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
+                               fontSize="10"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="die Armen mit Tit for Tat in Gruppen"/>
+                <Label text="250 Agenten"
+                       style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt"/>
+                <Button maxWidth="20" prefHeight="20">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
+                               fontSize="10"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="die Armen mit Tit for Tat spezial"/>
+                <Label text="250 Agenten"
+                       style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt"/>
+                <Button maxWidth="20" prefHeight="20">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
+                               fontSize="10"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="die Magnaten mit nur defektiern"/>
+                <Label text="150 Agenten"
+                       style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt"/>
+                <Button maxWidth="20" prefHeight="20">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
+                               fontSize="10"/>
+                    </graphic>
+                </Button>
+            </HBox>
+        </FlowPane>
+        <Separator style="-fx-padding: 10 0;"/>
+        <HBox spacing="10">
+            <Label text="Gesamtzahl an Agenten:" style="-fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <Label text="900" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+        </HBox>
+    </VBox>
+</VBox>
