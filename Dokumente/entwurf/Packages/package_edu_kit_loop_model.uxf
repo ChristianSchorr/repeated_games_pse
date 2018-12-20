@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>460</y>
+      <w>280</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Segment
+--
++getSize(): int
++getCapitalDistributionName(): String
++getStrategyNames(): List&lt;String&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>380</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..8</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>290</y>
+      <w>280</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Group
+--
++getSegments(): List&lt;Segment&gt;
++getSegmentSize(segment: Segment): int
++getSegmentCount(): int
++isCohesive(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>290</y>
+      <w>140</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..8</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>290</y>
+      <w>270</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Population
+--
++getSize(): int
++getGroups(): List&lt;Group&gt;
++getGroupSize(group: Group): int
++getGroupCount(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>180</y>
+      <w>220</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;70.0;10.0;70.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>240</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0;210.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>730</x>
+      <y>110</y>
+      <w>270</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.kit.model.Nameable
+-
++getName(): String
++getDescription(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>120</y>
+      <w>380</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>UserConfiguration
+-
++getGameName(): String
++getAgentCount(): int
++getRoundCount(): int
++getIterationCount(): int
++getAvailableStrategieNames(): Collection&lt;String&gt;
++getMixedAllowed(): boolean
++getPopulationNames(): Collection&lt;String&gt;
++getPairBuilderName(): String
++getSuccessQuantifierName(): String
++getStrategyAdjusterName(): String
++getComparisonProbability(): double
++getAdjustmentProbability(): double
++getEquilibriumCriteriaName(): String
++getEquilibriumStability(): double
++getEquilibriumLength(): int
++getMaximumStepCount(): int
+
++getVariableParameter(): String
++getStartValue(): double
++getEndValue(): double
++getStepSize(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>190</x>
+      <y>60</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>20</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/java.io.Serializable/
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
