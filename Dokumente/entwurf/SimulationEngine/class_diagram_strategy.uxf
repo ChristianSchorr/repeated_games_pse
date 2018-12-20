@@ -63,9 +63,9 @@ m2=1..n</panel_attributes>
     </coordinates>
     <panel_attributes>PureStrategy
 -
--condition: Predicate&lt;Agent, SimulationHistory&gt;
+-condition: BiPredicate&lt;Agent, SimulationHistory&gt;
 -
-PureStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+PureStrategy(cond: BiPredicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -78,41 +78,6 @@ PureStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&g
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0;230.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>407</x>
-      <y>759</y>
-      <w>33</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>330</x>
-      <y>836</y>
-      <w>176</w>
-      <h>33</h>
-    </coordinates>
-    <panel_attributes>CustomStrategy
--</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>121</x>
-      <y>506</y>
-      <w>253</w>
-      <h>374</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=2</panel_attributes>
-    <additional_attributes>190.0;320.0;10.0;320.0;10.0;10.0;210.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
