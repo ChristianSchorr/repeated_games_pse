@@ -371,7 +371,7 @@ This class represents a segment. It offers methods for querying capital and stra
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Segment(String capitalDistributionName, Collection<String> strategyNames)}
+\item \texttt{Segment(String capitalDistributionName, List<String> strategyNames)}
 \item[] Creates a new \texttt{Segment} with the given capital- and strategy distribution
 \item[] \texttt{capitalDistributionName}: the name of the capital distribution of this segment
 \item[] \texttt{strategyNames}: the names of the strategies in the strategy distribution of this segment
@@ -383,7 +383,7 @@ Methods:
 \item[] Returns the name of the capital distribution of this segment.
 \item[] Returns: the name of the capital distribution of this segment
 
-\item \texttt{Collection<String> getStrategyNames()}
+\item \texttt{List<String> getStrategyNames()}
 \item[] Returns the names of the strategies in the strategy distribution of this segment.
 \item[] Returns: the names of the strategies in the strategy distribution of this segment
 \end{itemize}
@@ -643,7 +643,7 @@ Constructors:
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Collection<Agent> initializeAgents(Segment segment)}
+\item \texttt{List<Agent> initializeAgents(Segment segment)}
 \item[] Creates and returns all agents of the given segment and initialises them with capital, strategy and group affiliation.
 \item[] Returns: the initialised agents
 \end{itemize}
@@ -703,7 +703,7 @@ This class represents the elementary configuration of a single iteration and con
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
+\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, List<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
 \item[] Creates a new \texttt{Configuration} with the given parameters.
 \item[] \texttt{game}: the game of this configuration
 \item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
@@ -734,9 +734,9 @@ Methods:
 \item[] Returns, whether mixed strategies are allowed in this configuration.
 \item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
 
-\item \texttt{Collection<Segment> getSegments()}
+\item \texttt{List<Segment> getSegments()}
 \item[] Returns all segments belonging to this configuration
-\item[] Returns: all segments belonging to this configuration as \texttt{Collection<Segment>}
+\item[] Returns: all segments belonging to this configuration as \texttt{List<Segment>}
 
 \item \texttt{PairBuilder getPairBuilder()}
 \item[] Returns the \texttt{pairBuilder} of this configuration.
@@ -903,7 +903,7 @@ Methods:
 \item[] \texttt{agent}: the agent whose cooperation shall be returned
 \item[] Returns: \texttt{true} if the given agent was one of the players of this game and cooperated, \texttt{false} otherwise
 
-\item \texttt{Collection<Agent> getAgents()}
+\item \texttt{List<Agent> getAgents()}
 \item[] Returns the two players of this game.
 \item[] Returns: the two players of this game
 
@@ -967,11 +967,11 @@ This interface represents a pairing algorithm. An implementation takes a set of 
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Collection<AgentPair> buildPairs(Collection<Agent> agents, SimulationHistory history)}
-\item[] Builds pairs out of the given agents and returns them as \texttt{Collection<AgentPair>}.
+\item \texttt{List<AgentPair> buildPairs(List<Agent> agents, SimulationHistory history)}
+\item[] Builds pairs out of the given agents and returns them as \texttt{List<AgentPair>}.
 \item[] \texttt{agents}: the agents that shall be paired
 \item[] \texttt{history}: the \texttt{SimulationHistory} of the current adaption step
-\item[] Returns: the built pairs as \texttt{Collection<AgentPair>}
+\item[] Returns: the built pairs as \texttt{List<AgentPair>}
 \end{itemize}
 
 \subsubsection{Class \texttt{RandomPairBuilder}}
@@ -1003,7 +1003,7 @@ This interface represents a success quantification. An implementation takes a se
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{List<Agent> createRanking(Collection<Agent> agents, SimulationHistory history)}
+\item \texttt{List<Agent> createRanking(List<Agent> agents, SimulationHistory history)}
 \item[] Creates and returns a ranking of the given agents.
 \item[] \texttt{agents}: the agents that shall be ranked
 \item[] \texttt{history}: the \texttt{SimulationHistory} of the current adaption step
@@ -1131,7 +1131,7 @@ Constructors:
 \item[] \texttt{G}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.strategies}}
+\subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategies}}
 This package contains the interface \texttt{Strategy}, which represents a game theory strategy, as well as some implementations.
 
 
@@ -1428,10 +1428,10 @@ Methods:
 \item[] Picks an object out of the probability distribution and returns it.
 \item[] Returns: the picked object
 
-\item \texttt{Collection<E> pickMany(int i)}
-\item[] Picks multiple elements out of the probability distribution and returns them as \texttt{Collection<E>} zurück.
+\item \texttt{List<E> pickMany(int i)}
+\item[] Picks multiple elements out of the probability distribution and returns them as \texttt{List<E>} zurück.
 \item[] \texttt{i}: the amount of elements that shall be picked
-\item[] Returns: the picked objects as \texttt{Collection<E>}
+\item[] Returns: the picked objects as \texttt{List<E>}
 \end{itemize}
 
 \subsubsection{Interface \texttt{DiscreteDistribution}}
@@ -1495,7 +1495,7 @@ Constructors:
 Extends: \texttt{Distribution<E>}
 
 
-Represents a probability distribution over objects of type \texttt{E} with finite carrier. Implementations return the carrier on query as \texttt{Collection <E>}.
+Represents a probability distribution over objects of type \texttt{E} with finite carrier. Implementations return the carrier on query as \texttt{List<E>}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1898,7 +1898,7 @@ Constructors:
 
 \begin{itemize} \itemsep -10pt
 	\item \texttt{HasMapRepository()}
-	\item[] Creates a new \texttt{HashMapRepository}.
+	\item[] Creates a new \texttt{Repository}.
 \end{itemize}
 
 \subsubsection{Class \texttt{CentralRepository}}
