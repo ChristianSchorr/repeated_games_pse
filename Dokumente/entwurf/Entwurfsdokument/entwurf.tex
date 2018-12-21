@@ -1514,94 +1514,93 @@ Methods:
 \subsection{Paket \texttt{edu.kit.loop.Controller}}
 
 \subsubsection{Class \texttt{HeadController}}
-This class represents the interface between the model and the rest of the control structure. It can commission the simulator with a new configuration, transfer populations for storage, or reopen a saved configuration
+This class represents the controller associated with the main window. It defines the interface between the model and the controller structure. It is mainly responsible for starting simulations by providing \texttt{UserConfiguration}s to the simulator and for delegating further task to the other controllers.
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{CentralController()}
-\item[] Creates a new HeadController.
+\item \texttt{void initialize()}
+\item[] Initializes the HeadController and it's databindings with the UI
 \end{itemize}
 
 \subsubsection{Class \texttt{HistoryController}}
-This class represents the controller responsible for the simulation history.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{HistoryController()}
-\item[] Creates a new HistoryController
-\end{itemize}
-
+This class represents the controller responsible for the simulation history. It stores a list of SimulationResults of all executed simulations.
+the
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void addSimulation(Simulation simulation)}
-\item[] Adds a simulation to the simulationhistory
+\item \texttt{void addSimulation(SimulationResult result)}
+\item[] Adds a simulation result to the simulation history
+\item[] \texttt{result}: the SimulationResult that shall be added 
 
-\item \texttt{Simulation getSelectedSimulation()}
-\item[] Returns the simulation chosen by the user in the history.
+\item \texttt{SimulationResult getSelectedSimulation()}
+\item[] Returns the currently selected simulation result
+\item[] Returns: the currently selected SimulationResutl
 
-\item \texttt{List<Simulation> getAllSimulations()}
+\item \texttt{List<SimulationResult> getAllSimulations()}
 \item[] Return all the simulations in the history
+\item[] Returns: a list of all SimulationResults in the history
 \end{itemize}
 
 \subsubsection{Class \texttt{OutputController}}
-This class represents the controller responsible for the results output in the main window.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{OuputController()}
-\item[] Creates a new OutputController
-\end{itemize}
+This class represents the controller responsible for the output of simulation results in the main window.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void setSimulation(Simulation simulation)}
-\item[] Sets the output to the given simulation
+\item \texttt{void addSimulation(SimulationResult result)}
+\item[] Adds a simulation's result to the output
+\item[] \texttt{result}: the SimulationResult which shall be added
 
 \end{itemize}
 
-\subsubsection{Class \texttt{Page1Controller}}
-This class represents the controller responsible for the first tab of the output.
+\subsubsection{Class \texttt{DetailedOutputController}}
+This class represents the controller responsible for the detailed output of a simulation's result.
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Page1Controller()}
-\item[] Creates a new Page1Controller
+\item \texttt{void initializes()}
+\item[] Initializes the DetailedOutputController and it's databindings with the UI
 \end{itemize}
 
-\subsubsection{Class \texttt{Page2Controller}}
-This class represents the controller responsible for the second tab of the output.
+\subsubsection{Class \texttt{AbstractedOutputController}}
+This class represents the controller responsible for the abstracted output of a simulation's result.
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Page2Controller()}
-\item[] Creates a new Page2Controller
+\item \texttt{void initialize()}
+\item[] Initializes the AbstractedOutputController and it's databindings with the UI.
 \end{itemize}
 
-\subsubsection{Class \texttt{Page3Controller}}
-This class represents the controller responsible for the third tab of the output.
+\subsubsection{Class \texttt{MultiConfigOutputController}}
+This class represents the controller responsible for the output of a simulation's result which featured a multi configuration.
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Page3Controller()}
-\item[] Creates a new Page3Controller
+\item \texttt{void initialize()}
+\item[] Initializes the MultiConfigOutputController and it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Interface \texttt{CreationController<T>}}
-Interface supervising the creation of an object in the view and returning it to the model to save it.
+
+This interface provides functionality to observe the controller for new entity creations by registering a callback. It gets implemented by all controllers which are associated with creation windows.
+
+Parameter:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{<T>}: the type of the entity created by the controller
+\end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{registerElementCreated(action: Consumer<T>)}
-\item[] Gives the HeadController the order to save a given object T
+\item \texttt{void registerElementCreated(Consumer<T> action)}
+\item[] Registers a callback which gets invoked whenever a new entity has been created and passes the newly created entity to it.
+\item[] \texttt{action}: the callback which shall be registered
 \end{itemize}
 
 \subsubsection{Class \texttt{GroupController}}
-This class represents the controller responsible for the group creation window.
+This class represents the controller responsible for the group creation window. It creates new groups based on the user input and informs the \texttt{HeadController}
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{GroupController()}
-\item[] Creates a new GroupController.
+\item \texttt{void initialize()}
+\item[] Initializes the GroupController and it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{PopulationController}}
@@ -1610,26 +1609,26 @@ This class represents the controller responsible for the population creation win
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialize()}
-\item[] Initializes the PopulationController an its databindings with the UI.
+\item[] Initializes the PopulationController an it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewGameController}}
 This class represents the controller responsible for the game creation window.
 It creates new games based on the user input and informs the \texttt{HeadController} about it.
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialize()}
-\item[] Initializes the NewGameController an its databindings with the UI.
+\item[] Initializes the NewGameController an it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewSrategyController}}
 This class represents the controller responsible for the strategy creation window. It creates new strategies based on the user input and informs the \texttt{HeadController} about it.
 
-Constructors:
+Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialize()}
-\item[] Initializes the NewStrategyController an its databindings with the UI.
+\item[] Initializes the NewStrategyController an it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigController}}
@@ -1638,7 +1637,7 @@ Implements: \texttt{CreationController<UserConfiguration>}
 
 This class represents the controller responsible for the configuration window. It creates new \texttt{UserConfiguration}s from user input and informs the HeadController when a new \texttt{UserConfiguration} has been created.
 
-Constructors:
+Controller:
 \begin{itemize}\itemsep -10pt
 \item \texttt{ConfigController(UserConfiguration configuration)}
 \item[] Creates a new ConfigController with the given configuration.
@@ -1647,7 +1646,7 @@ Constructors:
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialize()}
-\item[] Initializes the ConfigController an its databindings with the UI.
+\item[] Initializes the ConfigController an it's databindings with the UI.
 
 \item \texttt{void setConfiguration(Userconfiguration configuration)}
 \item[] Sets the parameters to the given configuration
