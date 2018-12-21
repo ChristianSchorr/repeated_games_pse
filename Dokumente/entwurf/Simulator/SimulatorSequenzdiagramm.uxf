@@ -156,7 +156,7 @@ generateConfigurations(userConfig: UserConfiguration)</panel_attributes>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-configurations: Collection&lt;Configuration&gt;</panel_attributes>
+configurations: List&lt;Configuration&gt;</panel_attributes>
     <additional_attributes>10.0;20.0;540.0;20.0</additional_attributes>
   </element>
   <element>
