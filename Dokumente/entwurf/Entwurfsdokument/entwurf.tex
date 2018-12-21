@@ -611,16 +611,10 @@ The \texttt{SimulationEngineException} is a type of exception that is thrown whe
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine}}
 
-This package contains the \texttt{SimulationEngine}-class, which can be used to perform a single repetition on a particular elementary configuration, as well as core classes such as the \texttt{Agent}, the \texttt{game} or the \texttt{Strategy}.
+This package contains the \texttt{SimulationEngine} class, which can be used to execute a single iteration to a given elementary configuration, as well as classes and interfaces core to the simulation process, such as the \texttt{Agent}, the \texttt{Game} or the \texttt{Strategy}.
 
 \subsubsection{Class \texttt{AgentInitialiser}}
 An \texttt{AgentInitialiser} can be used to create the agents of a given segment and initialise them with capital, strategies, and group affiliation.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{AgentInitialiser()}
-\item[] Creates a new \texttt{AgentInitialiser}.
-\end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -630,54 +624,53 @@ Methods:
 \end{itemize}
 
 \subsubsection{Interface \texttt{SimulationHistory}}
-An implementation of the \texttt{SimulationHistory} interface stores the results of all previous rounds of an adaptation step for each agent.
+An implementation of the \texttt{SimulationHistory} interface always stores the results of all games of the current adaptation step. This is necessary because, for example, strategies such as tit-for-tat or grim can refer to the behaviour of the other agents in previous games.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{void addResult(GameResult result)}
-	\item[] Adds the result of (the game of) a round to the history.
-	\item[] \texttt{result}: the \texttt{GameResult} that shall be added
+	\item[] Adds the result of a game to the history.
+	\item[] \texttt{result}: the game result that shall be added
 	\item \texttt{List<GameResult> getAllResults()}
-	\item[] Returns a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step.
-	\item[]Returns: a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step
+	\item[] Returns a list of the results of all games of the current adaption step.
+	\item[]Returns: a list of the results of all games of the current adaption step
 	\item \texttt{List<GameResult> getResultsByAgent(agent: Agent)}
-	\item[] Returns a list of all \texttt{GameResult}s of the given agent.
+	\item[] Returns a list of the results of all games of the given agent.
 	\item[] \texttt{agent}: the agent whose results shall be returned
-	\item[]Returns: a list of all \texttt{GameResult}s of the given agent
+	\item[]Returns: a list of the results of all games of the given agent
 	\item \texttt{List<GameResult> getLatestResults()}
-	\item[] Returns the most recent \texttt{GameResult} of every agent.
-	\item[]Returns: the most recent \texttt{GameResult} of every agent
+	\item[] Returns the results of the most recent games result of every agent.
+	\item[]Returns: the results of the most recent games result of every agent
 	\item \texttt{GameResult getLatestResultByAgent(agent: Agent)}
-	\item[] Returns the most recent \texttt{GameResult} of the given agent.
+	\item[] Returns the result of the most recent game of the given agent.
 	\item[] \texttt{agent}: the agent whose latest result shall be returned
-	\item[]Returns: the most recent \texttt{GameResult} of the given agent
+	\item[]Returns: the result of the most recent game of the given agent
 	\item \texttt{List<GameResult> getAllWhere(condition: Predicate<GameResult>)}
-	\item[] Filters all \texttt{GameResult} with the given condition and returns them.
+	\item[] Filters all game results with the given condition and returns them.
 	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
-	\item[]Returns: Die filtered \texttt{GameResult}s
+	\item[]Returns: the filtered game results
 	\item \texttt{GameResult getLatestWhere(condition: Predicate<GameResult>)}
-	\item[] Returns the latest \texttt{GameResult} that meets the given condition
+	\item[] Returns the latest game result that meets the given condition
 	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
-	\item[]Returns: the latest \texttt{GameResult} that meets the given condition
+	\item[]Returns: the latest game result that meets the given condition
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationHistoryTable}}
 Implements: \texttt{SimulationHistory}
 
-This  class implements the \texttt{SimulationHistory}-interface.
+This  class implements the \texttt{SimulationHistory} interface.
 
 \subsubsection{Class \texttt{Configuration}}
-This class represents the elementary configuration of a single iteration and contains all the information about how to start one:
+This class represents an elementary configuration and contains only the information needed to execute a single iteration:
 \begin{itemize}\itemsep -10pt
 \item Game
 \item Number of agents
 \item Rounds per adaptation step
 \item Whether mixed strategies are allowed
-\item Group-/Segment formations
-\item Capital- and Strategy classification of the segments
-\item Agents pairing
-\item Succes quantification
-\item Adaption mechanism
+\item Segments
+\item Pair builder
+\item Succes quantifier
+\item Strategy adjuster
 \item Equilibrium criterion
 \item Maximum number of adaptation steps
 \end{itemize}
@@ -690,10 +683,10 @@ Constructors:
 \item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
 \item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
 \item[] \texttt{segments}: all segments of this configuration
-\item[] \texttt{pairBuilder}: the \texttt{PairBuilder} of this configuration
-\item[] \texttt{successQuantifier}: the \texttt{SuccessQuantifier} of this configuration
-\item[] \texttt{strategyAdjuster}: the \texttt{StrategyAdjuster} of this configuration
-\item[] \texttt{equilibriumCriterion}: the \texttt{EquilibriumCriterion} of this configuration
+\item[] \texttt{pairBuilder}: the pair builder of this configuration
+\item[] \texttt{successQuantifier}: the success quantifier of this configuration
+\item[] \texttt{strategyAdjuster}: the strategy adjuster of this configuration
+\item[] \texttt{equilibriumCriterion}: the equilibrium criterion of this configuration
 \item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
 \end{itemize}
 
@@ -720,20 +713,20 @@ Methods:
 \item[] Returns: all segments belonging to this configuration as \texttt{List<EngineSegment>}
 
 \item \texttt{PairBuilder getPairBuilder()}
-\item[] Returns the \texttt{pairBuilder} of this configuration.
-\item[] Returns: the \texttt{pairBuilder} of this configuration
+\item[] Returns the pair builder of this configuration.
+\item[] Returns: the pair builder of this configuration
 
 \item \texttt{SuccessQuantifier getSuccessQuantifier()}
-\item[] Returns the \texttt{SuccessQuantifier} of this configuration.
-\item[] Returns: the \texttt{SuccessQuantifier} of this configuration
+\item[] Returns the success quantifier of this configuration.
+\item[] Returns: the success quantifier of this configuration
 
 \item \texttt{StrategyAdjuster getStrategyAdjuster()}
-\item[] Returns the \texttt{StrategyAdjuster} of this configuration.
-\item[] Returns: the \texttt{StrategyAdjuster} of this configuration
+\item[] Returns the strategy adjuster of this configuration.
+\item[] Returns: the strategy adjuster of this configuration
 
 \item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
-\item[] Returns the \texttt{EquilibriumCriterion} of this configuration.
-\item[] Returns: the \texttt{EquilibriumCriterion} of this configuration
+\item[] Returns the equilibrium criterion of this configuration.
+\item[] Returns: the equilibrium criterion of this configuration
 
 \item \texttt{int getMaxAdapts()}
 \item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
@@ -741,22 +734,22 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationEngine}}
-This class provides a method to perform a single iteration of a given elementary configuration. The result is returned in the form of an \texttt{IterationResult} object.
+This class provides a method to execute a single iteration to a given (elementary) configuration. The result is returned as an instance of the \texttt{IterationResult} class.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{IterationResult executeIteration(Configuration configuration)}
-\item[] Executes an iteration with the given elementary configuration and returns an \texttt{IterationResult}-object upon finishing.
-\item[] \texttt{configuration}: the elementary configuration of the iteration that shall be executed
+\item[] Executes an iteration to the given elementary configuration and returns the result as an instance of the \texttt{IterationResult} class.
+\item[] \texttt{configuration}: the elementary configuration to which an iteration shall be executed
 \item[] Returns: the result of the iteration as \texttt{IterationResult}
 \end{itemize}
 
 \subsubsection{Class \texttt{IterationResult}}
-In an object of this class, the results of a finished iteration can be stored and retrieved:
+In an instance of this class, the results of a finished iteration are stored:
 \begin{itemize}\itemsep -10pt
 \item The agents, sorted by rank as \texttt{List<Agent>}
-\item The course of the last adaptation step as \texttt{SimulationHistory}
-\item Whether an equilibrium has occurred
+\item The history of the last adaptation step as \texttt{SimulationHistory}
+\item Whether an equilibrium was reached
 \item The efficiency of the final state
 \item The number of adaptation steps performed
 \end{itemize}
@@ -764,7 +757,7 @@ In an object of this class, the results of a finished iteration can be stored an
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{IterationResult(List<Agent> agents, SimulationHistory history, boolean equilibriumReached, double efficiency, int adapts)}
-\item[] Creates a new \texttt{IterationResult}-object with the given iteration results.
+\item[] Creates a new \texttt{IterationResult} instance out of the given results.
 \item[] \texttt{agents}: the agents, ordered by final rank
 \item[] \texttt{history}: the \texttt{SimulationHistory} of the last adaption step
 \item[] \texttt{equilibriumReached}: \texttt{true} if an equilibrium was reached, \texttt{false} otherwise
@@ -796,15 +789,15 @@ Methods
 \end{itemize}
 
 \subsubsection{Class \texttt{Agent}}
-This class represents a single agent in a simulation run. It contains information about the agent, such as its group affiliation, its current and initial capital, or its current strategy.
+This class represents an agent. It provides getters for its group affiliation, its current and initial capital and its current strategy.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Agent(int initialCapital, Strategy initialStrategy, int groupId)}
-\item[] Creates a new \texttt{Agent} with given initial capital, given strategy and given group affiliation
+\item[] Creates a new agent with given initial capital, given strategy and given group affiliation
 \item[] \texttt{initialCaptial}: the initial captital of the agent
-\item[] \texttt{initialStrategy}: the initial \texttt{Strategy} of the agent
-\item[] \texttt{groupId}: the \texttt{id} of the group this agent belongs to, if it is cohesive; \(-1\) otherwise
+\item[] \texttt{initialStrategy}: the initial strategy of the agent
+\item[] \texttt{groupId}: the \texttt{id} of the group this agent belongs to, if it is cohesive, \(-1\) otherwise
 \end{itemize}
 
 Methods:
@@ -821,15 +814,15 @@ Methods:
 \item[] Increases the captial of this agent by the given amount.
 
 \item \texttt{Strategy getStrategy()}
-\item[] Returns the current \texttt{Strategy} of this agent
-\item[] Returns: the current \texttt{Strategy} of this agent
+\item[] Returns the current strategy of this agent
+\item[] Returns: the current strategy of this agent
 
 \item\texttt{void setStrategy(Strategy strategy)}
-\item[] Sets the \texttt{Strategy} of this agent to the given one	.
+\item[] Sets the strategy of this agent to the given one.
 
 \item \texttt{int getGroupId()}
-\item[] Returns the \texttt{id} of the group this agent belongs to, if it is cohesive; \(-1\) otherwise.
-\item[] Returns: the \texttt{id} of the group this agent belongs to, if it is cohesive; \(-1\) otherwise
+\item[] Returns the \texttt{id} of the group this agent belongs to, if it is cohesive, \(-1\) otherwise.
+\item[] Returns: the \texttt{id} of the group this agent belongs to, if it is cohesive, \(-1\) otherwise
 \end{itemize}
 
 \subsubsection{Interface \texttt{AgentPair}}
@@ -847,12 +840,12 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{GameResult}}
+An instance of this class stores the result of a game of two agents. The result consists of:
 
-This class stores the result of a game between two agents. The result consists of:
 \begin{itemize}\itemsep -10pt
 	\item The agents involved
-	\item The actions of the agents involved
-	\item The received payments of the agents
+	\item The cooperation decisions of the agents involved
+	\item The received payoffs of the agents
 \end{itemize}
 
 Constructors:
@@ -875,9 +868,9 @@ Methods:
 \item[] Returns: \texttt{true} if the given agent was one of the players of this game, \texttt{false} otherwise
 
 \item \texttt{int getPayoff(Agent agent)}
-\item[] Returns the received payoff of the given agent in this game, if he was one of the players; \(0\) otherwise
+\item[] Returns the received payoff of the given agent in this game, if he was one of the players, \(0\) otherwise
 \item[] \texttt{agent}: the agent whose payoff shall be returned
-\item[] Returns: the received payoff of the given agent in this game, if he was one of the players; \(0\) otherwise
+\item[] Returns: the received payoff of the given agent in this game, if he was one of the players, \(0\) otherwise
 
 \item \texttt{boolean hasCooperated(Agent agent)}
 \item[] Returns \texttt{true} if the given agent was one of the players of this game and cooperated, \texttt{false} otherwise.
@@ -894,14 +887,14 @@ Methods:
 \end{itemize}
 
 \subsubsection{Interface \texttt{Game}}
-Extends: \texttt{Nameable}
+Extends: \texttt{Nameable}, \texttt{java.io.Serializable}
 
 This interface represents a game.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item[] \texttt{GameResult play(Agent player1, Agent player2, boolean player1Cooperates, boolean player2Cooperates)}
-\item[] Lets two players with given cooperation decisions play this game against each other and returns the result of the game as \texttt{GameResult}.
+\item[] Lets two players with given cooperation decisions play this game, adds their payoffs to their capital and returns the result of the game as \texttt{GameResult}.
 \item[] \texttt{player1}: the first player
 \item[] \texttt{player2}: the second player
 \item[] \texttt{player1Cooperates}: \texttt{true} if the first player cooperates, \texttt{false} otherwise
@@ -916,12 +909,12 @@ This class represents a segment as used by the \texttt{AgentInitialiser}. It is 
 Constructors:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{EngineSegment(int agentCount, int groupId, DiscreteDistribution capitalDistribution, UniformFiniteDistribution<Strategy> strategyDistribution, boolean cohesive)}
-	\item[] Creates a new \texttt{EngineSegment} with the given parameter set.
+	\item[] Creates a new \texttt{EngineSegment} with the given parameters.
 	\item[] \texttt{agentCount}: the number of agents in this segment
 	\item[] \texttt{groupId}: the group id of agents in this segment
-	\item[] \texttt{capitalDistribution}: the capital distribution which is used to initialise capital for the agents in this segment
-	\item[] \texttt{strategyDistribution}: the strategy distribution which is used to initialise strategies for the agents in this segment
-	\item[] \texttt{cohesiv}: indicates whether the group of the agents in this segment is cohesive or not
+	\item[] \texttt{capitalDistribution}: the capital distribution which is used to initialise the capital of this segments agents
+	\item[] \texttt{strategyDistribution}: the strategy distribution which is used to initialise the strategies of this segments agents
+	\item[] \texttt{cohesive}: indicates whether the group of this segments agents is cohesive
 \end{itemize}
 
 Methods:
@@ -931,8 +924,8 @@ Methods:
 \item[] Returns: the amount of agents in this segment
 
 \item \texttt{int getGroupId()}
-\item[] Returns the \texttt{id} of the group this segment is part of, if it is cohesive; \(-1\) otherwise.
-\item[] Returns: the \texttt{id} of the group this segment is part of, if it is cohesive; \(-1\) otherwise
+\item[] Returns the \texttt{id} of the group this segment is part of, if it is cohesive, \(-1\) otherwise.
+\item[] Returns: the \texttt{id} of the group this segment is part of, if it is cohesive, \(-1\) otherwise
 
 \item \texttt{DiscreteDistribution getCapitalDistribution()}
 \item[] Returns the capital distribution of this segment
@@ -944,12 +937,12 @@ Methods:
 \end{itemize}
 
 \subsubsection{Interface \texttt{PairBuilder}}
-This interface represents a pairing algorithm. An implementation takes a set of agents as well as the history of the current adaptation step in the form of a \texttt{SimulationHistory} object and returns a matching of the agents.
+This interface represents a pairing algorithm (ger.: \enquote{Paarbildungsalgorithmus}). An implementation takes a set of agents and the history of the current adaptation step as \texttt{SimulationHistory} and returns a matching of the agents.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<AgentPair> buildPairs(List<Agent> agents, SimulationHistory history)}
-\item[] Builds pairs out of the given agents and returns them as \texttt{List<AgentPair>}.
+\item[] Builds pairs of the given agents and returns them as \texttt{List<AgentPair>}.
 \item[] \texttt{agents}: the agents that shall be paired
 \item[] \texttt{history}: the \texttt{SimulationHistory} of the current adaption step
 \item[] Returns: the built pairs as \texttt{List<AgentPair>}
@@ -975,12 +968,12 @@ Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{RandomCooperationConsideringPairBuilder(double randomnessFactor)}
 \item[] Creates a new \texttt{RandomCooperationConsideringPairBuilder}.
-\item[] \texttt{randomnessFactor}: the randomness factor; between \(0\) and \(1\)
+\item[] \texttt{randomnessFactor}: the randomness factor, between \(0\) and \(1\)
 \end{itemize}
 
 \subsubsection{Interface \texttt{SuccessQuantifier}}
 
-This interface represents a success quantification. An implementation takes a set of agents as well as the history of the current adaptation step in the form of a \texttt{SimulationHistory} object and creates a ranking of the agents based on their success in the past rounds. This one is returned as a list.
+This interface represents a success quantification (ger.: \enquote{Erfolgsquantifizierung}). An implementation takes a set of agents as well as the history of the current adaptation step as \texttt{SimulationHistory} and creates a ranking of the agents based on their success in the past rounds.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -994,50 +987,50 @@ Methods:
 \subsubsection{Class \texttt{TotalCapital}}
 Implements: \texttt{SuccessQuantifier}
 
-Realizes the \enquote{Absolutkapital} success quantification described in the specification
+Realizes the \enquote{Absolutkapital} success quantification described in the specification.
 
 \subsubsection{Class \texttt{TotalPayoff}}
 Implements: \texttt{SuccessQuantifier}
 
-Realizes the \enquote{Absolutkapital ohne Initialkapital} success quantification described in the specification
+Realizes the \enquote{Absolutkapital ohne Initialkapital} success quantification described in the specification.
 
 \subsubsection{Class \texttt{SlidingMean}}
 Implements: \texttt{SuccessQuantifier}
 
-Realizes the \enquote{Gleitender Durchschnitt} success quantification described in the specification
+Realizes the \enquote{Gleitender Durchschnitt} success quantification described in the specification.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{SlidingMean(int windowSize)}
-\item[] Creates a new \texttt{SlidingMean}-object with the given window size.
-\item[] \texttt{windowSize}: the window size for the mean calculation
+\item[] Creates a new \texttt{SlidingMean} instance with the given window size.
+\item[] \texttt{windowSize}: the window size for the calculation of the mean
 \end{itemize}
 
 \subsubsection{Class \texttt{PayoffInLastAdapt}}
 Implements: \texttt{SuccessQuantifier}
 
-Realizes the \enquote{Auszahlung im letzten Adaptionsschritt} success quantification described in the specification
+Realizes the \enquote{Auszahlung im letzten Adaptionsschritt} success quantification described in the specification.
 
 \subsubsection{Interface \texttt{StrategyAdjuster}}
-This interface represents an adaptation mechanism. An implementation takes a ranked list of agents and adjusts the agents' strategies.
+This interface represents an adaptation mechanism (germ.: \enquote{Adaptionsmechanismus}). An implementation takes a ranked list of agents and adjusts the agents' strategies.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void adaptStrategies(List<Agent> agents, SimulationHistory hist)}
-\item[] Adjusts the strategies of the given agents considering the current simulation history.
+\item[] Adjusts the strategies of the given agents considering the simulation history of the current adaption step.
 \item[] \texttt{agents}: the agents whose strategies shall be adapted, ordered by their success in the current adaption step
-\item[] \texttt{hist}: the current simulation history
+\item[] \texttt{hist}: the simulation history of the current adaption step
 \end{itemize}
 
 \subsubsection{Class \texttt{ReplicatorDynamic}}
 Implements: \texttt{StrategyAdjuster}
 
-Realizes the \enquote{Replicator Dynamic} adjustment mechanism described in the specification.
+Realizes the \enquote{Replicator Dynamic} adaption mechanism described in the specification.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{ReplicatorDynamic(double alpha, double delta)}
-\item[] Creates a new \texttt{ReplicatorDynamic}-object with the given parameters \(\alpha\) and \(\delta\).
+\item[] Creates a new \texttt{ReplicatorDynamic} instance with the given parameters \(\alpha\) and \(\delta\).
 \item[] \texttt{alpha}: the comparing probability
 \item[] \texttt{delta}: the adjusting probability
 \end{itemize}
@@ -1045,33 +1038,33 @@ Constructors:
 \subsubsection{Class \texttt{PreferentialAdaption}}
 Implements: \texttt{StrategyAdjuster}
 
-Realizes the \enquote{Preferential Adaption} adjustment mechanism described in the specification.
+Realizes the \enquote{Preferential Adaption} addaption mechanism described in the specification.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{PreferentialAdaption(double alpha, double delta)}
-\item[] Creates a new \texttt{PreferentialAdaption}-object with the given parameters \(\alpha\) and \(\delta\).
+\item[] Creates a new \texttt{PreferentialAdaption} instance with the given parameters \(\alpha\) and \(\delta\).
 \item[] \texttt{alpha}: the comparing probability
 \item[] \texttt{delta}: the adjusting probability
 \end{itemize}
 
 \subsubsection{Interface \texttt{EquilibriumCriterion}}
 
-This interface represents an equilibrium criterion. At the end of an adaptation step, an implementation of this one receives a list of the agents, ordered by rank, and the course of the adaptation step in the form of a \texttt{SimulationHistory} object, and returns whether or not there has been a balance.
+This interface represents an equilibrium criterion (ger.: \enquote{Gleichgewichtskriterium}). At the end of an adaptation step, an implementation of this interface receives a list of the agents, ordered by rank, and the \texttt{SimulationHistory} of the current adaptation step, and returns whether or not an equilibrium is reached.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{boolean isEquilibrium(List<Agent> agents, SimulationHistory history)}
 \item[] Returns whether an equilibrium is reached.
 \item[] \texttt{agents}: the agents of the currently simulated iteration
-\item[] \texttt{history}: the \texttt{SImulationhistory} of the current adaption step
+\item[] \texttt{history}: the \texttt{Simulationhistory} of the current adaption step
 \item[] Returns: \texttt{true} if an equilibrim is reached, \texttt{false} otherwise
 \end{itemize}
 
 \subsubsection{Abstract Class \texttt{CountingEquilibriumCriterion}}
 Implements: \texttt{EquilibriumCriterion}
 
-This class represents an equilibrium criterion, that each round checks a certain condition and recognizes an equilibrium, if this condition is fulfilled for a certain number of consecutive adaptation steps. This condition and the necessary number of consecutive adaptation steps are implemented as template methods.
+This class represents an equilibrium criterion that checks a certain condition each round and recognizes an equilibrium, if this condition is met for a certain number of consecutive adaptation steps. This condition and the necessary amount of consecutive condition-meeting adaptation steps are implemented as template methods.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1090,12 +1083,12 @@ Methods:
 \subsubsection{Class \texttt{StrategyEquilibrium}}
 Implements: \texttt{CountingEquilibriumCriterion}
 
-Realize the \enquote{Strategie-Gleichgewichtskriterium} described in the specification.
+Realises the \enquote{Strategiegleichgewicht} described in the specification.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{StrategyEquilibrium(double alpha, int minRounds)}
-\item[] Creates a new \texttt{StrategyEquilibrium}-object with the given parameters.
+\item[] Creates a new \texttt{StrategyEquilibrium} instance with the given parameters.
 \item[] \texttt{alpha}: the strictness of the equilibrium
 \item[] \texttt{minRounds}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
@@ -1103,24 +1096,26 @@ Constructors:
 \subsubsection{Class \texttt{RankingEquilibrium}}
 Implements: \texttt{CountingEquilibriumCriterion}
 
-Realize the \enquote{Rang-Gleichgewichtskriterium} described in the specification.
+Realies the \enquote{Ranggleichgewicht} described in the specification.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{RankingEquilibrium(double alpha, int minRounds)}
-\item[] Creates a new \texttt{RankingEquilibrium}-object with the given parameters.
+\item[] Creates a new \texttt{RankingEquilibrium} instance with the given parameters.
 \item[] \texttt{alpha}: the strictness of the equilibrium
 \item[] \texttt{minRounds}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategies}}
-This package contains the interface \texttt{Strategy}, which represents a game theory strategy, as well as some implementations.
+This package contains the interface \texttt{Strategy}, which represents a game theoretic strategy, as well as the pure and mixed strategy as implementations.
+
+Furthermore, it contains the subpackage \texttt{strategybuilder} which provides functionality for creating strategies using a tree-like syntax representation.
 
 
 \subsubsection{Interface \texttt{Strategy}}
 Extends: \texttt{Nameable}
 
-Represents a strategy. This may or may not be mixed.
+Represents a game theoretic strategy.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1136,7 +1131,7 @@ Methods:
 \subsubsection{Class \texttt{PureStrategy}}
 Implements: \texttt{Strategy, java.io.Serializable}
 
-This class represents a pure strategy. This is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as \texttt{BiPredicate <Agent, SimulationHistory>}.
+This class represents a pure strategy. It is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as\\	\texttt{BiPredicate<Agent,SimulationHistory>}.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
@@ -1150,9 +1145,8 @@ Implements: \texttt{Strategy}, \texttt{RealVector}
 
 This class represents a mixed strategy that is composed of multiple \texttt{Strategy}s, each one chosen with a certain probability on every evaluation. It also implements the functionality of a \texttt{RealVector} with the probabilities of the different \texttt{Strategy}s as components.
 
-Constructors://vorläufig
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item[] //wirft exception wenn listen nicht gleichlang oder wahrsch. ungültig (alle positiv und in summe 1)
 \item \texttt{MixedStrategy(List<Strategy> strategies, List<double> probabilites)}
 \item[] Creates a new \texttt{MixedStrategy} consisting of the given \texttt{Strategy}s with the given probabilities.
 \item[] \texttt{strategies}: the \texttt{Strategy}s this mixed strategy consists of
@@ -1160,7 +1154,7 @@ Constructors://vorläufig
 \end{itemize}
 
 \subsubsection{Interface \texttt{Vector<T>}}
-This interface represents a vector of fixed size holding entities of type \texttt{T}. An implementation allows retrieving and overwriting vector components and offers a cloning function.
+This interface represents a vector of fixed size holding entities of type \texttt{T}. An implementation allows retrieving and overwriting vector components and provides a cloning method.
 
 Parameters:
 \begin{itemize}\itemsep -10pt
@@ -1190,10 +1184,9 @@ Methods:
 \end{itemize}
 
 \subsubsection{Interface \texttt{RealVector}}
-Extends: \texttt{Vector<double>}
+Extends: \texttt{Vector<Double>}
 
-This interface extends the \texttt{Vector<double>}
--interface as a vector that has only real components. It offers additional functionality such as the calculation of euclidean or sum norm or the multiplication by real scalars and the addition with other \texttt{RealVector}s.
+This interface extends the \texttt{Vector<Double>} interface as a vector that has only real components. It provides additional functionality such as the calculation of euclidean or sum norm or the multiplication by real scalars and the addition with other \texttt{RealVector}s.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1214,128 +1207,118 @@ Methods:
 \item[] \texttt{vector}: the vector that shall be added to this vector
 \end{itemize}
 
+\subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
+
 \subsubsection{Interface \texttt{Operator}}
 
-This interface represents a logical operator for combining strategies to generate a new strategy
+This interface represents a logical operator for combining strategies.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{Strategy combineStrategies(Strategy strat1, Strategy strat2)}
 	\item[] This method creates a new \texttt{Strategy}-instance by combining the given strategies
-	\item[] \texttt{strat1}: the first strategy to combine
-	\item[] \texttt{strat2}: the second strategy to combine
+	\item[] \texttt{strat1}: the first of the strategies to combine
+	\item[] \texttt{strat2}: the second of the strategies to combine
 	\item[] Returns: the combined strategy
-
-	\item \texttt{int getOperandCount()}
-	\item[] This method returns the number of expected operands
-	\item[] Returns: the number of operands
 \end{itemize}
 
-\subsubsection{Class \texttt{AndOperator}}
+\subsubsection{Class \texttt{AND}}
+Implements: \texttt{Operator}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \textsf{AND}.
+
+\subsubsection{Class \texttt{NAND}}
 
 Implements: \texttt{Operator}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{AND} operator
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \textsf{NAND}.
 
-\subsubsection{Class \texttt{NandOperator}}
-
-Implements: \texttt{Operator}
-
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NAND} operator
-
-\subsubsection{Class \texttt{OrOperator}}
+\subsubsection{Class \texttt{OR}}
 
 Implements: \texttt{Operator}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{OR} operator
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \textsf{OR}.
 
-\subsubsection{Class \texttt{NorOperator}}
-
-Implements: \texttt{Operator}
-
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NOR} operator
-
-\subsubsection{Class \texttt{XorOperator}}
+\subsubsection{Class \texttt{NOR}}
 
 Implements: \texttt{Operator}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{XOR} operator
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \textsf{NOR}.
 
-\subsubsection{Class \texttt{ImpliesOperator}}
-
-Implements: \texttt{Operator}
-
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{IMPLIES} operator
-
-\subsubsection{Class \texttt{NotOperator}}
+\subsubsection{Class \texttt{XOR}}
 
 Implements: \texttt{Operator}
 
-This class is an operator that creates a new \texttt{Strategy} by negating the given one
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \textsf{XOR}.
+
+\subsubsection{Class \texttt{IMPLIES}}
+
+Implements: \texttt{Operator}
+
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \textsf{IMPLIES}.
+
+\subsubsection{Class \texttt{NOT}}
+
+Implements: \texttt{Operator}
+
+This class is an operator that creates a new \texttt{Strategy} by negating the first of the two given strategies.
 
 \subsubsection{Interface \texttt{TreeNode<T>}}
 
-This interface represents a node in a hierarchic structure. It can store a generic content and provides functionality to insert and remove children to create a tree like structure.
-
-\subsubsection{Interface \texttt{TreeNode<T>}}
-
-This interface represents a node in a hierarchic structure. It can store a generic content and provides functionality to insert and remove children to create a tree like structure.
+This interface represents a node in a tree-like structure. It stores a generic content and provides functionality to insert and remove children nodes.
 
 Parameter:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} the type of the content that shall be stored in the Node
+	\item \texttt{<T>} the type of the content that shall be stored in each node
 \end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{T getContent()}
-	\item[] This method returns the content saved in this node
+	\item[] Returns the content stored in this node
 	\item[] Returns: the node's content
 
 	\item \texttt{List<TreeNode<T>\,> getChildren()}
-	\item[] This method returns all children of this tree node
+	\item[] Returns all children of this node
 	\item[] Returns: a list of all children
 
 	\item \texttt{void insertNode(TreeNode<T> node)}
-	\item[] This method inserts the given node as a child to this node
-	\item[] \texttt{node}: the node to insert as a child
+	\item[] Adds the given node as a child of this node
+	\item[] \texttt{node}: the node to add as a child
 
 	\item \texttt{boolean removeNode(TreeNode<T> node)}
-	\item[] This method removes the given node from this node's children
+	\item[] Removes the given node from this node's children
 	\item[] \texttt{node}: the node that shall be removed
-	\item[] Returns: \texttt{true} if the node was removed, \texttt{false} otherwise
+	\item[] Returns: \texttt{true} if the node was successfully removed, \texttt{false} otherwise
 \end{itemize}
 
-\subsubsection{Class \texttt{SyntaxNode implements TreeNode<Strategy>}}
+\subsubsection{Class \texttt{SyntaxNode}}
+Implements: \texttt{TreeNode<Strategy>}, \texttt{TreeNode<Operator>}
 
-This class represents a tree node in a syntax tree for combined strategies. In case of a leaf node it stores the strategy that shall be combined otherwise in case of an inner node it stores an operator to combine strategies.
+This class represents a tree node in a syntax tree for combined strategies. In case of a leaf node it stores the strategy that shall be combined, in case of an inner node it stores an operator.
 
 Constructors:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{SyntaxNode(Strategy strat, Operator op)}
-	\item[] Creates a new \texttt{SyntaxNode}-instance
+	\item[] Creates a new \texttt{SyntaxNode}.
 	\item[] \texttt{strat}: the strategy that shall be stored in this node
 	\item[] \texttt{op}: the operator that shall be stored in this node
 \end{itemize}
 
 Methods:
 \begin{itemize} \itemsep -10pt
-	\item \texttt{Operator getOperator()}
-	\item[] This method returns the operator stored in this node
-	\item[] Returns: the operator stored by this node
-
 	\item \texttt{boolean isInnerNode()}
-	\item[] This method returns whether the node is an inner node or not
-	\item[] Returns: \texttt{true} when the node is an inner node, otherwise  \texttt{false} when the node is a leaf node
+	\item[] This method returns whether this node is an inner node.
+	\item[] Returns: \texttt{true} if this node is an inner node, otherwise \texttt{false}
 \end{itemize}
 
 \subsubsection{Interface \texttt{Tree<T>}}
 
-This interface represents a graph with tree structure which contains of \texttt{TreeNode<T>}-instances
+This interface represents a graph with tree structure which consists of \texttt{TreeNode<T>} instances.
 
 Parameters:
 \begin{itemize} \itemsep -10pt
-	\item \texttt{<T>} the type of the tree's node content (resp. the generic type of \texttt{TreeNode<T>})
+	\item \texttt{<T>} the type of the tree's node's contents (resp. the generic type of \texttt{TreeNode<T>})
 \end{itemize}
 
 Methods:
@@ -1345,49 +1328,50 @@ Methods:
 	\item[] Returns: the root of the tree
 \end{itemize}
 
-\subsubsection{Class \texttt{SyntaxTree implements Tree<Strategy>}}
+\subsubsection{Class \texttt{SyntaxTree}}
+Implements: \texttt{Tree<Strategy>}
 
-This class is an implementation of the \texttt{Tree<T>}-interface using \texttt{SyntaxNode}s to create more complex logical combinations of strategies. Additionally it provides functionality to validate the syntactical correctness of the syntax tree and to get the smallest faulty sub tree in case of a syntactical error.
+This class is an implementation of the \texttt{Tree<T>} interface using \texttt{SyntaxNode}s to create logical combinations of strategies. Additionally it provides functionality to validate the syntactical correctness of the syntax tree and to get the smallest faulty sub tree in case of a syntactical error.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{SyntaxTree(SyntaxNode root)}
-	\item[] Creates a new \texttt{SyntaxTree}-instance with the given node as root element
-	\item[] \texttt{root}: the node element which shall be the root of the tree
+	\item[] Creates a new \texttt{SyntaxTree} with the given node as root.
+	\item[] \texttt{root}: the node that shall be the root of the tree
 \end{itemize}
 
 Methods:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{boolean checkSyntax()}
-	\item[] This Method checks whether the expression represented by this tree is syntactical correct or not
-	\item[] Returns: \texttt{true} when the syntax is correct \texttt{false} otherwise
+	\item[] This method checks whether the expression represented by this tree is syntactically correct.
+	\item[] Returns: \texttt{true} if the syntax is correct, \texttt{false} otherwise
 
 	\item \texttt{SyntaxNode getFaultyNode()}
-	\item[] This method returns the root of the smallest sub tree with an incorrect syntax
-	\item[] Returns: the root of the faulty sub tree
+	\item[] This method returns the root of the smallest sub tree with incorrect syntax
+	\item[] Returns: the root of the smallest faulty sub tree
 \end{itemize}
 
 \subsubsection{Class \texttt{StrategyBuilder}}
 
-This class provides functionality to create a new strategy from a given root \texttt{SyntaxNode} of a syntax tree by combining strategies to generate the corresponding expression.
+This class provides functionality to create a new strategy from a given root \texttt{SyntaxNode} of a syntax tree by combining the leaf nodes strategies with the inner nodes operators.
 
 Methods:
 \begin{itemize} \itemsep -10pt
-	\item \texttt{static Strategy createNewStrategy(SyntaxNode root, String name, String desc)}
-	\item[] This method creates a new \texttt{Strategy} from a given root
-	\item[] \texttt{root}: the root of the syntax tree the \texttt{Strategy} shall be built from
-	\item[] \texttt{name}: the name of the \texttt{Strategy} to create
-	\item[] \texttt{desc}: the description of the \texttt{Strategy} to create
-	\item[] Returns: the newly created \texttt{Strategy} or \texttt{null} when there is a syntactical error
+	\item \texttt{static Strategy createNewStrategy(SyntaxNode root, String name, String description)}
+	\item[] This method creates a new strategy from a given syntax tree
+	\item[] \texttt{root}: the root of the syntax tree the strategy shall be built from
+	\item[] \texttt{name}: the name of the newly created strategy
+	\item[] \texttt{desc}: the description of the newly created strategy
+	\item[] Returns: the newly created strategy or \texttt{null} if there is a syntactical error in the given syntax tree
 \end{itemize}
 
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.distributions}}
 
-This package contains functionality for generating different types of distributions and for randomly picking values from those distributions.
+This package contains different types of distributions and provides means for randomly picking values from those distributions.
 
 \subsubsection{Interface \texttt{Distribution<E>}}
-This interface represents a probability distribution over a carrier of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
+This interface represents a probability distribution over a set of objects of type \texttt{E}. An implementation returns the probability of a given object upon request, and provides a \texttt{Picker <E>} to randomly pick objects from the probability distribution.
 
 Methods
 \begin{itemize}\itemsep -10pt
@@ -1402,7 +1386,7 @@ Methods
 \end{itemize}
 
 \subsubsection{Interface \texttt{Picker<E>}}
-A \texttt{Picker <E>} is provided by implementations of the \texttt{Distribution <E>} interface to drag objects from the associated probability distribution.
+A \texttt{Picker<E>} is provided by implementations of the \texttt{Distribution<E>} interface to pick objects from the associated probability distribution.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1411,7 +1395,7 @@ Methods:
 \item[] Returns: the picked object
 
 \item \texttt{List<E> pickMany(int i)}
-\item[] Picks multiple elements out of the probability distribution and returns them as \texttt{List<E>} zurück.
+\item[] Picks multiple elements out of the probability distribution and returns them as \texttt{List<E>}.
 \item[] \texttt{i}: the amount of elements that shall be picked
 \item[] Returns: the picked objects as \texttt{List<E>}
 \end{itemize}
@@ -1419,7 +1403,7 @@ Methods:
 \subsubsection{Interface \texttt{DiscreteDistribution}}
 Extends: \texttt{Distribution<Integer>}
 
-Represents a discrete probability distribution on integers. An implementation calculates an interval for a given value \(q \ in (0,1) \) \(I_q = [a, b] \) (\(a, b \ in \ mathbb {Z}, a < b \)), so that a randomly drawn value from the distribution is at least with the probability \(q \) in \(I_q \). The limits of this interval can be queried.
+Represents a discrete probability distribution on the natural numbers. An implementation calculates an interval \(I_q = [a, b]\) (\(a, b \in \mathbb{Z}, a < b\)) for a given value \(q \in (0,1)\), such that a randomly picked value from the distribution is in \(I_q\) with the probability greater or equal to \(q \). The boundary points \(a\) and \(b\) of this interval can be queried.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1477,11 +1461,11 @@ Constructors:
 
 Extends: \texttt{Distribution<E>}
 
-Represents a probability distribution over objects of type \texttt{E} with finite carrier. Implementations return the carrier on query as \texttt{List<E>}.
+Represents a probability distribution over objects of type \texttt{E} with finite support. Upon request, implementations return the support as \texttt{Collection<E>}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{List<E> getSupport()}
+\item \texttt{Collection<E> getSupport()}
 \item[] Returns the support of this probability distribution.
 \item[] Returns: the support of this distribution
 \end{itemize}
@@ -1489,7 +1473,7 @@ Methods:
 \subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
 Implements: \texttt{FiniteDistribution<E>}
 
-Represents a uniform distribution over objects of type \texttt{E} with finite carrier. Implementations provide methods for adding and removing objects.
+Represents a uniform distribution over objects of type \texttt{E} with finite support. Implementations provide methods for adding and removing objects.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
@@ -1517,76 +1501,77 @@ Methods:
 \item[] Returns: \texttt{true} if the given object was contained and successfully removed, \texttt{false} otherwise
 \end{itemize}
 
-\subsection{Package \texttt{edu.kit.loop.Controller}}
+\subsection{Package \texttt{edu.kit.loop.controller}}
+This package contains controllers for the view. For each program window, there is one associated controller that is automatically instantiated when the window opens and is responsible for processing user input in that window.
 
 \subsubsection{Class \texttt{HeadController}}
-This class represents the controller associated with the main window. It defines the interface between the model and the controller structure. It is mainly responsible for starting simulations by providing \texttt{UserConfiguration}s to the simulator and for delegating further task to the other controllers.
+This controller is associated with the main window and thus instantiated when the program starts. It is also responsible for the communication between controller and model.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the HeadController and it's databindings with the UI
+\item[] Initialises the \texttt{HeadController}.
 \end{itemize}
 
 \subsubsection{Class \texttt{HistoryController}}
-This class represents the controller responsible for the simulation history. It stores a list of SimulationResults of all executed simulations.
+This controller manages the list of all running and finsihed simulations in the main window. It stores a list of the \texttt{SimulationResult} objects of all started simulations.
 the
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void addSimulation(SimulationResult result)}
-\item[] Adds a simulation result to the simulation history
-\item[] \texttt{result}: the SimulationResult that shall be added
+\item[] Adds a new simulation to the controller
+\item[] \texttt{result}: the \texttt{SimulationResult} object of the simulation that shall be added
 
 \item \texttt{SimulationResult getSelectedSimulation()}
-\item[] Returns the currently selected simulation result
-\item[] Returns: the currently selected SimulationResult
+\item[] Returns the currently selected simulation in the list
+\item[] Returns: the currently selected simulation
 
 \item \texttt{List<SimulationResult> getAllSimulations()}
-\item[] Return all the simulations in the history
-\item[] Returns: a list of all SimulationResults in the history
+\item[] Returns all simulations in the simulation list.
+\item[] Returns: a list of all simulations in the list
 \end{itemize}
 
 \subsubsection{Class \texttt{OutputController}}
-This class represents the controller responsible for the output of simulation results in the main window.
+This controller is responsible for displaying the results of finished simulations in the main window.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void addSimulation(SimulationResult result)}
-\item[] Adds a simulation's result to the output
-\item[] \texttt{result}: the SimulationResult which shall be added
+\item \texttt{void setSimulation(SimulationResult result)}
+\item[] Sets the simulation whose results shall be displayed.
+\item[] \texttt{result}: the \texttt{SimulationResult} object of the simulation whose results shall be displayed
 
 \end{itemize}
 
 \subsubsection{Class \texttt{DetailedOutputController}}
-This class represents the controller responsible for the detailed output of a simulation's result.
+This class represents the controller responsible for the detailed output of a simulation's result (Page 1 in the output described in the \enquote{Pflichtenheft}).
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialises()}
-\item[] initialises the DetailedOutputController and it's databindings with the UI
+\item[] Initialises the \texttt{DetailedOutputController}.
 \end{itemize}
 
 \subsubsection{Class \texttt{AbstractedOutputController}}
-This class represents the controller responsible for the abstracted output of a simulation's result.
+This class represents the controller responsible for the abstracted output of a simulation's result (Page 2 in the output described in the \enquote{Pflichtenheft}).
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the AbstractedOutputController and it's databindings with the UI.
+\item[] initialises the \texttt{AbstractedOutputController}.
 \end{itemize}
 
 \subsubsection{Class \texttt{MultiConfigOutputController}}
-This class represents the controller responsible for the output of a simulation's result which featured a multi configuration.
+This class represents the controller responsible for the output of a multi-simulations abstracted multiconfiguration-results (Page 3 in the output described in the \enquote{Pflichtenheft}).
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the MultiConfigOutputController and it's databindings with the UI.
+\item[] initialises the \texttt{MultiConfigOutputController}.
 \end{itemize}
 
 \subsubsection{Interface \texttt{CreationController<T>}}
 
-This interface provides functionality to observe the controller for new entity creations by registering a callback. It gets implemented by all controllers which are associated with creation windows.
+This interface gets implemented by all controllers which are associated with creation windows. It provides the possibility to register a callback that gets called whenever a new instance is created.
 
 Parameter:
 \begin{itemize} \itemsep -10pt
@@ -1601,67 +1586,74 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{GroupController}}
-This class represents the controller responsible for the group creation window. It creates new groups based on the user input and informs the \texttt{HeadController}
+Implements: \texttt{CreationController<Group>}
+
+This class represents the controller associated with the group creation window. It creates new groups based on the user input and notifies the \texttt{HeadController} whenever a new group has been created.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the GroupController and it's databindings with the UI.
+\item[] Initialises the \texttt{GroupController}.
 \end{itemize}
 
 \subsubsection{Class \texttt{PopulationController}}
-This class represents the controller responsible for the population creation window. It creates new populations based on the user input and informs the \texttt{HeadController}.
+Implements: \texttt{CreationController<Population>}
+
+This class represents the controller associated with the population creation window. It creates new populations based on the user input and notifies the \texttt{HeadController} whenever a new population has been created.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the PopulationController an it's databindings with the UI.
+\item[] Initialises the \texttt{PopulationController}.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewGameController}}
-This class represents the controller responsible for the game creation window.
-It creates new games based on the user input and informs the \texttt{HeadController} about it.
+Implements: \texttt{CreationController<Game>}
+
+This class represents the controller associated with the game creation window. It creates new games based on the user input and notifies the \texttt{HeadController} whenever a new game has been created.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the NewGameController an it's databindings with the UI.
+\item[] Initialises the \texttt{NewGameController}.
 \end{itemize}
 
-\subsubsection{Class \texttt{NewSrategyController}}
-This class represents the controller responsible for the strategy creation window. It creates new strategies based on the user input and informs the \texttt{HeadController} about it.
+\subsubsection{Class \texttt{NewStrategyController}}
+Implements: \texttt{CreationController<Strategy>}
+
+This class represents the controller associated with the strategy creation window. It creates new strategies based on the user input and informs the \texttt{HeadController} whenever a new strategy has been created.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the NewStrategyController an it's databindings with the UI.
+\item[] Initialises the \texttt{NewStrategyController}.
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigController}}
-
 Implements: \texttt{CreationController<UserConfiguration>}
 
-This class represents the controller responsible for the configuration window. It creates new \texttt{UserConfiguration}s from user input and informs the HeadController when a new \texttt{UserConfiguration} has been created.
+This class represents the controller associated with the configuration window. It creates new \texttt{UserConfiguration}s from the users input and informs the HeadController when a new \texttt{UserConfiguration} has been created.
 
-Controller:
+Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{ConfigController(UserConfiguration configuration)}
-\item[] Creates a new ConfigController with the given configuration.
+\item[] Creates a new \texttt{ConfigController} with the given configuration.
 \end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void initialise()}
-\item[] initialises the ConfigController an it's databindings with the UI.
+\item[] Initialises the \texttt{ConfigController}.
 
 \item \texttt{void setConfiguration(Userconfiguration configuration)}
-\item[] Sets the parameters to the given configuration
+\item[] Sets the configuration shown in the configuration window to the given one.
+\item[] \texttt{configuration}: the configuration the configuration window shall show
 
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.plugin}}
 
-This package contains the functionality involved in creating and loading new plugins which extend the simulation process.
+This package contains the plugin system which can be used to integrate own implementations of the pair builder, success quantifier, strategy adjuster, equilibrium criterion or discrete distribution.
 
 \subsubsection{Class \texttt{PluginLoader}}
 
@@ -1671,58 +1663,58 @@ Methods:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{static <T> List<T> loadPlugins()}
-	\item[] loads all available plugins of the given type \texttt{T}
-	\item[] \texttt{<T>} the type of the plugins that shall be loaded
+	\item[] Loads all available plugins of the given type \texttt{T}.
+	\item[] \texttt{<T>}: the type of the plugins that shall be loaded
 	\item[]Returns: a list of the loaded plugins
 \end{itemize}
 
 \subsubsection{abstract Class \texttt{PluginControl}}
 Extends: \texttt{javafx.scene.layout.Pane}
 
-This class serves as a control for the configuration of a plugin. It provides functionality for querying the configuration parameters entered by the user.
+This class serves as a control element for the configuration of a plugin that can be dynamically embedded into the UI by the \texttt{ConfigController}. It provides functionality for querying the configuration parameters entered by the user.
 
 Methods:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{abstract List<double> getParameters()}
-	\item[] Returns a list of the entered parameter values for the plugin configuration
-	\item[] Returns: a list of the entered parameter values for the plugin configuration
+	\item[] Returns a list of the entered parameter values.
+	\item[] Returns: a list of the entered parameter values
 \end{itemize}
 
 \subsubsection{Class \texttt{TextFieldPluginControl}}
 Extends: \texttt{PluginControl}
 
-This class is an implementation of a \texttt{PluginControl}, where the configuration parameters are entered via text fields. The input is still checked for correctness.
+This class is an implementation of the \texttt{PluginControl} class that displays a text field for each of the parameters. The input will be checked for correctness using the \texttt{ParameterValidator}.
 
 Constructors:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{TextFieldPluginControl(List<Parameter> params)}
 	\item[] Creates a new \texttt{TextFieldPluginControl}.
-	\item[] \texttt{params}: a list of all configurable \texttt{Parameter}s
+	\item[] \texttt{params}: a list of the configurable \texttt{Parameter}s
 \end{itemize}
 
 Methods:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{void addParameter(Parameter param)}
-	\item[] Adds a \texttt{Parameter}, which is then configurable with this control element
+	\item[] Adds a \texttt{Parameter}, which is then configurable with this control element.
 	\item[] \texttt{param}: the \texttt{Parameter} that shall be added
 	\item \texttt{void addParameters(List<Parameter> params)}
-	\item[] Adds a list of \texttt{Parameter}s, which are then configurable with this control element
+	\item[] Adds a list of \texttt{Parameter}s, which are then configurable with this control element.
 	\item[] \texttt{params}: the \texttt{Parameter}s that shall be added
 \end{itemize}
 
 \subsubsection{Interface \texttt{PluginRenderer}}
 
-This interface provides the functionality to create a plugin configuration control which can be dynamically embedded into a javafx-Window at run time.
+This interface is an abstract factory that creates \texttt{PluginControl}s for some plugin. It is supplied by an instance of the \texttt{Plugin} class.
 
 Methods:
 
 \begin{itemize}\itemsep -10pt
-	\item \texttt{PluginControl render()}
-	\item[] Returns a \texttt{PluginControl}-instance, which can be added to a JavaFX-window.
-	\item[] Returns: a \texttt{PluginControl}-instance, which can be added to a JavaFX-window
+	\item \texttt{PluginControl renderPlugin()}
+	\item[] Returns a \texttt{PluginControl} instance.
+	\item[] Returns: a \texttt{PluginControl} instance
 \end{itemize}
 
 \subsubsection{Class \texttt{GenericRenderer}}
@@ -1734,8 +1726,8 @@ Constructors:
 
 \begin{itemize}\itemsep -10pt
 	\item \texttt{GenericRenderer(Plugin plugin)}
-	\item[] Creates a new \texttt{GenericRenderer} for the given plugin
-	\item[] \texttt{plugin}: the \texttt{Plugin} which shall be rendered by this \texttt{GenericRenderer}
+	\item[] Creates a new \texttt{GenericRenderer} for the given plugin.
+	\item[] \texttt{plugin}: the \texttt{Plugin} that shall be rendered by this \texttt{GenericRenderer}
 
 	\item \texttt{GenericRenderer(List<Parameter> params)}
 	\item[] Creates a new \texttt{GenericRenderer} for a plugin with the given parameters
@@ -1780,7 +1772,7 @@ Methods:
 
 \subsubsection{Class \texttt{ParameterValidator}}
 
-This class provides functionality for validating a parameter assignment in the form of static auxiliary methods.
+This class provides functionality for validating a parameter assignment via static auxiliary methods.
 
 Methods:
 
@@ -1800,11 +1792,11 @@ Methods:
 \subsubsection{Abstract Class \texttt{Plugin<T>}}
 Implements: \texttt{Nameable}
 
-This class represents a dynamically loadable plugin. It is a generic container for another class that implements the actual plugin functionality. It provides functions for creating new parameterized instances of the wrapped class. A list of required configuration parameters can be queried.
+This class represents a dynamically loadable plugin. It is a generic container for another class that implements the actual plugin functionality. It provides methods for creating new parametrised instances of the wrapped class. A list of required configuration parameters can be queried.
 
 Parameter:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Der Typ der Klasse, welche die Pluginfunktionalität bereit stellt.
+	\item \texttt{<T>} The type of the class that implements the plugin functionality.
 \end{itemize}
 
 Methods:
@@ -1825,7 +1817,7 @@ Methods:
 
 \subsection{Package \texttt{edu.kit.loop.model.repository}}
 
-This package contains the functionality of the central repositories, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
+This package contains the central repository, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
 
 
 \subsubsection{Interface \texttt{Repository<T>}}
@@ -1841,9 +1833,9 @@ Parameters:
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{T getEntityByName(String name)}
-	\item[] Returns the entity with the given name, if currently stored; \texttt{null} otherwise
+	\item[] Returns the entity with the given name, if currently stored, \texttt{null} otherwise
 	\item[] \texttt{name}: the name of the entity that shall be returned
-	\item[] Returns: the entity with the given name if stored; \texttt{null} otherwise
+	\item[] Returns: the entity with the given name if stored, \texttt{null} otherwise
 
 	\item \texttt{boolean addEntity(String name, T entity)}
 	\item[] Adds a new entity with the given name to the repository, if no entity with the given name is already stored.
@@ -1866,7 +1858,7 @@ Methods:
 
 Implements: \texttt{Repository<T>}
 
-An implementation of the \texttt{Repository<T>}- interface that stores entities in a \texttt{HashMap}.
+An implementation of the \texttt{Repository<T>} interface that stores entities in a \texttt{HashMap}.
 
 Parameters:
 
@@ -1883,7 +1875,7 @@ Constructors:
 
 \subsubsection{Class \texttt{CentralRepository}}
 
-This class provides central access to all loaded Plugins of all types as well as strategies, games, populations and groups loaded from files. It provides getters which return \texttt{Repository<T>}-instances for all entity types. This class is implemented as a singleton and therefore can be safely inherited from.
+This class provides central access to all loaded plugins as well as all available strategies, games, populations and groups. It provides getter methods for the \texttt{Repository<T>} instances for all those types. It is implemented as a singleton.
 
 Methods:
 
