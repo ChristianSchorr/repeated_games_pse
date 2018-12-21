@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
+<diagram program="umlet" version="14.2">
   <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>135</x>
-      <y>315</y>
+      <x>171</x>
+      <y>342</y>
       <w>270</w>
       <h>72</h>
     </coordinates>
@@ -19,8 +19,8 @@ DiscreteDistribution
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>135</x>
-      <y>450</y>
+      <x>171</x>
+      <y>477</y>
       <w>198</w>
       <h>63</h>
     </coordinates>
@@ -33,26 +33,26 @@ FiniteDistribution&lt;E&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>387</x>
-      <y>459</y>
-      <w>360</w>
-      <h>99</h>
+      <x>423</x>
+      <y>486</y>
+      <w>369</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>UniformFiniteDistribution&lt;E&gt;
 --
 -
 +UniformFiniteDistribution&lt;E&gt;() &lt;&lt;ctor&gt;&gt;
 +UniformFiniteDistribution&lt;E&gt;(objects: List&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
-+addObject(e: E): void
++addObject(object: E): void
 +addObjects(objects: List&lt;E&gt;): void
-+deleteObject(e: E): boolean</panel_attributes>
++deleteObject(object: E): boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>324</x>
-      <y>468</y>
+      <x>360</x>
+      <y>495</y>
       <w>81</w>
       <h>27</h>
     </coordinates>
@@ -62,8 +62,8 @@ FiniteDistribution&lt;E&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>324</x>
-      <y>216</y>
+      <x>360</x>
+      <y>243</y>
       <w>225</w>
       <h>72</h>
     </coordinates>
@@ -78,22 +78,22 @@ Picker&lt;E&gt;
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>216</y>
-      <w>198</w>
+      <y>243</y>
+      <w>234</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Distribution&lt;E&gt;
 --
-+getProbability(e: E): double
++getProbability(object: E): double
 +getPicker(): Picker&lt;E&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>189</x>
-      <y>216</y>
+      <x>225</x>
+      <y>243</y>
       <w>153</w>
       <h>36</h>
     </coordinates>
@@ -104,30 +104,30 @@ generates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>72</x>
-      <y>279</y>
+      <x>108</x>
+      <y>306</y>
       <w>81</w>
       <h>72</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0;70.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>72</x>
-      <y>324</y>
+      <x>108</x>
+      <y>351</y>
       <w>81</w>
       <h>162</h>
     </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
+    <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;160.0;70.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>315</x>
-      <y>405</y>
+      <x>351</x>
+      <y>432</y>
       <w>207</w>
       <h>27</h>
     </coordinates>
@@ -137,8 +137,8 @@ generates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
-      <y>378</y>
+      <x>369</x>
+      <y>405</y>
       <w>27</w>
       <h>45</h>
     </coordinates>
@@ -148,9 +148,9 @@ generates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>612</x>
-      <y>261</y>
-      <w>333</w>
+      <x>648</x>
+      <y>288</y>
+      <w>378</w>
       <h>45</h>
     </coordinates>
     <panel_attributes>PoissonDistribution
@@ -162,9 +162,9 @@ generates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>612</x>
-      <y>324</y>
-      <w>333</w>
+      <x>648</x>
+      <y>351</y>
+      <w>378</w>
       <h>45</h>
     </coordinates>
     <panel_attributes>BinomialDistribution
@@ -176,22 +176,22 @@ generates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>612</x>
-      <y>387</y>
-      <w>333</w>
+      <x>648</x>
+      <y>414</y>
+      <w>378</w>
       <h>45</h>
     </coordinates>
-    <panel_attributes>UniformDiscreteDistribution
+    <panel_attributes>DiscreteUniformDistribution
 --
 -
-+EqualDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
++DiscreteUniformDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>396</x>
-      <y>333</y>
+      <x>432</x>
+      <y>360</y>
       <w>234</w>
       <h>27</h>
     </coordinates>
@@ -201,8 +201,8 @@ generates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>549</x>
-      <y>333</y>
+      <x>585</x>
+      <y>360</y>
       <w>81</w>
       <h>81</h>
     </coordinates>
@@ -212,8 +212,8 @@ generates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>549</x>
-      <y>261</y>
+      <x>585</x>
+      <y>288</y>
       <w>81</w>
       <h>99</h>
     </coordinates>
