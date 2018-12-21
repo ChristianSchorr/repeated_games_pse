@@ -80,7 +80,7 @@ The object-oriented architecture of the project follows the model-view-controlle
 \end{figure}
 
 \subsection{The view}
-Since the user interface (UI) of the program was designed using the UI-Builder \textit{NAMEEINFÜGEN}, the \texttt{view}-package contains mainly auto-generated classes provided by \textit{NAMEEINFÜGEN}.
+Since the user interface (UI) of the program was designed using the javafx UI-Builder, the \texttt{view}-package contains mainly auto-generated XML-files from which the UI classes are generated at run time.
 
 The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
 
@@ -103,15 +103,36 @@ The model contains interfaces representing those variable events and provides im
 \section{Specification changes}
 
 \subsection{Populations}
-The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games) (see \cref{?}).
+The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games) (see \cref{fig:new_config}).
+
+\begin{figure}[h]
+	\centering	
+	\includegraphics[width = \linewidth]{images/new_config.png}	
+	\caption{new configuration window with population selection}
+	\label{fig:new_config}
+\end{figure}
 
 \textbf{Group Creation:}
 The name and the description of a group can be entered in corresponding text fields at the top of the creation window. The amount of segments, their sizes and their strategy- and capital distributions can be configurated via a Tab-Control element (as originally in the configuration window). Furthermore, a group can be declared as \enquote{coherent} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
 
+\begin{figure}[h]
+	\centering	
+	\includegraphics[width = \linewidth]{images/group_window.png}	
+	\caption{new configuration window with population selection}
+	\label{fig:group_creation}
+\end{figure}
+
 \textbf{Population Creation:}
-The name and the description of a population can be entered in corresponding text fields at the top of the creation window. Below, \(1\) to \(16\) groups can be added, each with specified size (see \cref{?}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
+The name and the description of a population can be entered in corresponding text fields at the top of the creation window. Below, \(1\) to \(16\) groups can be added, each with specified size (see \cref{fig:population_creation}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
 
 The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the \enquote{basic} and \enquote{advanced} settings have been fused. Below the dropdown menu, a section showing the composition of the selected population can expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
+
+\begin{figure}[h]
+	\centering	
+	\includegraphics[width = \linewidth]{images/population_window.png}	
+	\caption{new configuration window with population selection}
+	\label{fig:population_creation}
+\end{figure}
 
 \subsection{Strategies}
 The list of all variables that can appear as literals in a strategy was extended by the following:
@@ -136,7 +157,7 @@ Furthermore it is possible to make the plugins user configurable in the configur
 \section{Packages and classes}
 
 \subsection{Package \texttt{edu.kit.loop}}
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{12}{8}\selectfont
@@ -165,7 +186,7 @@ The model contains a central repository which gives static access to all availab
 The configuration of a simulation, as specified by the user in the configuration window, is represented by the \texttt{UserConfiguration} class. It directly stores the users input, where numerical inputs are represented by \texttt{integer}s or \texttt{double}s and algorithms, populations, strategies etc. are represented as \texttt{String}s containing the corresponding names. When a simulation to a given \texttt{UserConfiguration} is started, an instance of the \texttt{Configuration} class is generated for each associated elementary configuration. An instance of the \texttt{Configuration} class contains only the information needed to execute a single iteration and holds references to concrete instances of all involved classes (such as the pair builder, the success quantifier and the strategies).
 
 Lastly, the model contains the plugin system which can be used to integrate own implementations of the pair builder, the strategy adjuster, the success quantifier, the equilibrium criterion or the discrete distribution.
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{5}{8}\selectfont
@@ -415,7 +436,7 @@ Methods:
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator}}
 This package contains the \texttt{Simulator}, which is the models interface for starting and stopping simulations.
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{4.5}{8}\selectfont
@@ -556,7 +577,7 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator.exception}}
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{7}{8}\selectfont
@@ -646,7 +667,7 @@ The \texttt{SimulationEngineException} is a type of exception that is thrown whe
 
 
 This package contains the \texttt{SimulationEngine}-class, which can be used to perform a single repetition on a particular elementary configuration, as well as core classes such as the \texttt{Agent}, the \texttt{game} or the \texttt{Strategy}.
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{4}{8}\selectfont
@@ -1168,7 +1189,7 @@ Constructors:
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategies}}
 This package contains the interface \texttt{Strategy}, which represents a game theory strategy, as well as some implementations.
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{6}{8}\selectfont
@@ -1278,7 +1299,7 @@ Methods:
 
 This package contains all the functionality for creating custom strategies by combining existing ones to a logical expression.
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{5}{8}\selectfont
@@ -1461,7 +1482,7 @@ Methods:
 
 This package contains functionality for generating different types of distributions and for randomly picking values from those distributions.
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{6}{8}\selectfont
@@ -1603,7 +1624,7 @@ Methods:
 
 \subsection{Package \texttt{edu.kit.loop.controller}}
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{4}{8}\selectfont
@@ -1756,7 +1777,7 @@ Methods:
 
 This package contains the functionality involved in creating and loading new plugins which extend the simulation process.
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{5.75}{8}\selectfont
@@ -1929,7 +1950,7 @@ Methods:
 
 This package contains the functionality of the central repositories, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{7.5}{8}\selectfont
@@ -2076,7 +2097,7 @@ This section contains a selection of sequence diagrams to illustrate some import
 
 \subsection{Starting Simulations}
 The following sequence diagram illustrates the process of starting a simulation using a \texttt{Simulator}.
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{5.25}{8}\selectfont
@@ -2087,7 +2108,7 @@ The following sequence diagram illustrates the process of starting a simulation 
 \subsection{Execution of an Iteration}
 This sequence diagram illustrates the execution of a single iteration to a given (elementary) configuration by the \texttt{SimulationEngine}.
 
-\iffalse
+\iftrue
 \begin{figure}[h]
 	\centering	
 	\fontsize{3.25}{8}\selectfont

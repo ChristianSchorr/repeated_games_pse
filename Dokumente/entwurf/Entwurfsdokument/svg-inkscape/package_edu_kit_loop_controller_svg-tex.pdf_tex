@@ -54,63 +54,63 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.61096137,0.0488357){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}AbstractedOutputController\end{tabular}}}}%
+    \put(0.6031746,0.04875148){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}AbstractedOutputController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.59598682,0.03328092){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.59598682,0.03311243){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.88948787,0.0488357){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}MultConfOutputController\end{tabular}}}}%
+    \put(0.88289907,0.04875148){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}MultConfOutputController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.87750824,0.03328092){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.87750824,0.03311243){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.75531596,0.0488357){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}DetailledOutputController\end{tabular}}}}%
+    \put(0.74812818,0.04875148){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}DetailledOutputController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.74573226,0.03328092){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initilaize(): void\end{tabular}}}}%
+    \put(0.74573226,0.03311243){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initilaize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.7804732,0.19259132){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}OutputController\end{tabular}}}}%
+    \put(0.77628032,0.1925071){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}OutputController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.70380353,0.18003145){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
-    \put(0.70380353,0.17046649){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addSimulation(simulation: SimulationResult): void\end{tabular}}}}%
+    \put(0.70380353,0.17986295){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.70380353,0.17021378){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+setSimulation(simulation: SimulationResult): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.77987421,0.31238766){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}HistoryController\end{tabular}}}}%
+    \put(0.77568134,0.31230344){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}HistoryController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.70380353,0.29982779){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
-    \put(0.70380353,0.29026283){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addSimulation(simulation: SimulationResult): void\end{tabular}}}}%
-    \put(0.70380353,0.28069781){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAllSimulations(): List<SimulationResult>\end{tabular}}}}%
-    \put(0.70380353,0.27113279){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSelectedSimulation(): SimulationResult\end{tabular}}}}%
+    \put(0.70380353,0.2996593){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.70380353,0.29001012){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addSimulation(simulation: SimulationResult): void\end{tabular}}}}%
+    \put(0.70380353,0.28036089){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAllSimulations(): List<SimulationResult>\end{tabular}}}}%
+    \put(0.70380353,0.27071165){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSelectedSimulation(): SimulationResult\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.44564241,0.04402516){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Nameable\end{tabular}}}}%
-    \put(0.32943995,0.03146523){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
-    \put(0.31626235,0.02190027){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CreationController\end{tabular}}}}%
+    \put(0.44085055,0.04402516){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Nameable\end{tabular}}}}%
+    \put(0.32644504,0.03138101){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.3114705,0.02173178){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CreationController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.23659778,0.0093404){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+registerElementCreated(action: Consumer<T>): void\end{tabular}}}}%
+    \put(0.23659778,0.00908769){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+registerElementCreated(action: Consumer<T>): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.42467805,0.30639784){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ConfigController\end{tabular}}}}%
+    \put(0.42048518,0.30631363){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ConfigController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.33243486,0.29084307){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+ConfigController(configuration: UserConfiguration) «ctor»\end{tabular}}}}%
-    \put(0.33243486,0.28127811){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+setConfiguration(configuration: UserConfiguration): void\end{tabular}}}}%
-    \put(0.33243486,0.27171309){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.33243486,0.29067457){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+ConfigController(configuration: UserConfiguration) «ctor»\end{tabular}}}}%
+    \put(0.33243486,0.2810254){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+setConfiguration(configuration: UserConfiguration): void\end{tabular}}}}%
+    \put(0.33243486,0.27137616){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=15]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.54447439,0.23452004){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}NewStrategyController\end{tabular}}}}%
+    \put(0.53908356,0.23443582){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}NewStrategyController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=16]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.49415993,0.21896526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.49415993,0.21879677){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=17]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.29110512,0.23452004){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}NewGameController\end{tabular}}}}%
+    \put(0.28691225,0.23443582){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}NewGameController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=18]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.23659778,0.21896526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.23659778,0.21879677){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=19]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.06289308,0.23452004){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GroupController\end{tabular}}}}%
+    \put(0.05870021,0.23443582){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GroupController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.00299491,0.21896526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.00299491,0.21879677){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=21]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.16232405,0.30639784){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PopulationController\end{tabular}}}}%
+    \put(0.1575322,0.30631363){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PopulationController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=22]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.11081162,0.29084307){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.11081162,0.29067457){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=23]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.52231207,0.51604145){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}HeadController\end{tabular}}}}%
+    \put(0.51931716,0.51595723){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}HeadController\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=24]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.4162923,0.50048667){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
+    \put(0.4162923,0.50031818){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initialize(): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=25]{package_edu_kit_loop_controller_svg-tex.pdf}}%
-    \put(0.5474693,0.41420521){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}observes\end{tabular}}}}%
+    \put(0.5474693,0.4141631){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}observes\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=26]{package_edu_kit_loop_controller_svg-tex.pdf}}%
   \end{picture}%
 \endgroup%
