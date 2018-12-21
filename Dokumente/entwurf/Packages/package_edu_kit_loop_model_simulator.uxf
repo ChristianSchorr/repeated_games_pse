@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
+<diagram program="umlet" version="14.2">
   <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -12,8 +12,8 @@
     <panel_attributes>ThreadPoolSimulator
 -
 -
-+Simulator() &lt;&lt;ctor&gt;&gt;
-+Simulator(maxWorkingThreads: int) &lt;&lt;ctor&gt;&gt;
++ThreadPoolSimulator() &lt;&lt;ctor&gt;&gt;
++ThreadPoolSimulator(maxThreads: int) &lt;&lt;ctor&gt;&gt;
 +getQueuedIterationCount(): int
 +getRunningIterationCount():int
 </panel_attributes>
@@ -22,9 +22,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>196</x>
+      <x>126</x>
       <y>434</y>
-      <w>483</w>
+      <w>553</w>
       <h>154</h>
     </coordinates>
     <panel_attributes>SimulationResult
@@ -32,14 +32,14 @@
 -id: int
 -config: UserConfiguration
 -
-#SimulationResult(config: Configuration) &lt;&lt;ctor&gt;&gt;
-#addIterationResult(it: iterationResult, i: int): void
++SimulationResult(config: UserConfiguration, id: int) &lt;&lt;ctor&gt;&gt;
+#addIterationResult(result: IterationResult, i: int): void
 #addSimulationEngineException(ex: SimulationEngineException): void
-+registerIterationFinished(action: Consumer&lt;IterationResult&gt;, i: int): void
-+registerExceptionHandler(BiConsumer&lt;SimulationResult, SimulationEngineException&gt; action): void
++registerIterationFinished(action: BiConsumer&lt;IterationResult,IterationResult&gt;): void
++registerExceptionHandler(handler: BiConsumer&lt;SimulationResult, SimulationEngineException&gt; action): void
 +getIterationResults(i: int): List&lt;IterationResult&gt;
 +getId(): int
-+getUserConfiguration(): Configuration
++getUserConfiguration(): UserConfiguration
 +getConfigurationCount(): int</panel_attributes>
     <additional_attributes/>
   </element>
@@ -48,32 +48,31 @@
     <coordinates>
       <x>504</x>
       <y>238</y>
-      <w>455</w>
+      <w>511</w>
       <h>98</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Simulator
 -
-+startSimulation(config: UserConfiguration): Simulation
-+startSimulation(config: UserConfiguration, action: Consumer&lt;Simulation&gt;): Simulation
-+stopSimulation(sim: Simulation): boolean
++startSimulation(config: UserConfiguration): SimulationResult
++startSimulation(config: UserConfiguration, action: Consumer&lt;SimulationResult&gt;): SimulationResult
++stopSimulation(sim: SimulationResult): boolean
 +stopSimulation(id: int): boolean
 +stopAllSimulations(): void
-//+continueSimulation(s: Simulation, reps: int): void
-+getSimulation(id: int): Simulation
++getSimulation(id: int): SimulationResult
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>952</x>
+      <x>1008</x>
       <y>280</y>
-      <w>154</w>
+      <w>98</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;10.0;120.0;70.0;200.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;70.0;120.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -135,7 +134,7 @@ Simulator
     <coordinates>
       <x>546</x>
       <y>329</y>
-      <w>63</w>
+      <w>70</w>
       <h>119</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -170,13 +169,13 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1029</x>
+      <x>1050</x>
       <y>224</y>
-      <w>77</w>
+      <w>56</w>
       <h>77</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -224,7 +223,7 @@ uses</panel_attributes>
     <coordinates>
       <x>763</x>
       <y>476</y>
-      <w>63</w>
+      <w>70</w>
       <h>49</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -267,7 +266,8 @@ uses</panel_attributes>
     <panel_attributes>ConfigurationCreator
 -
 -
-+generateConfigurations(config: UserConfig): Collection&lt;Configuration&gt;</panel_attributes>
+_+generateConfigurations(config: UserConfiguration): List&lt;Configuration&gt;_
+_+getCopy(config: Configuration): Configuration</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -275,7 +275,7 @@ uses</panel_attributes>
     <coordinates>
       <x>1127</x>
       <y>469</y>
-      <w>63</w>
+      <w>70</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;.

@@ -147,9 +147,13 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model}}
-The mode contains the \texttt{Simulator} interface, which provides
+The model contains the \texttt{Simulator} interface, which provides means of starting und stopping simulations to given configurations. When a simulation is started, an instance of the class \texttt{SimulationResult} is returned instantly, which collects the results of the single iterations as they finish. The execution of the iterations is carried out by instances of the \texttt{SimulationEngine} class.
 
-The model contains the classes and methods for starting and stopping simulations, as well as creating and saving configurations, levels, strategies, and populations
+The model contains a central repository which gives static access to all available populations, groups, strategies, games, pair builders, success quantifiers, strategy adjusters, equilibrium criteria and capital distributions. The key to access the stored instances is their name, wherefore all corresponding classes and interfaces implement the \texttt{Nameable} interface.
+
+The configuration of a simulation, as specified by the user in the configuration window, is represented by the \texttt{UserConfiguration} class. It directly stores the users input, where numerical inputs are represented by \texttt{integer}s or \texttt{double}s and algorithms, populations, strategies etc. are represented as \texttt{String}s containing the corresponding names. When a simulation to a given \texttt{UserConfiguration} is started, an instance of the \texttt{Configuration} class is generated for each associated elementary configuration. An instance of the \texttt{Configuration} class contains only the information needed to execute a single iteration and holds references to concrete instances of all involved classes (such as the pair builder, the success quantifier and the strategies).
+
+Lastly, the model contains the plugin system which can be used to integrate own implementations of the pair builder, the strategy adjuster, the success quantifier, the equilibrium criterion or the discrete distribution.
 
 \subsubsection{Class \texttt{UserConfiguration}}
 Implements: \texttt{java.io.Serializable}

@@ -4,15 +4,16 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>920</x>
-      <y>460</y>
-      <w>280</w>
-      <h>90</h>
+      <x>900</x>
+      <y>510</y>
+      <w>320</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>Segment
 --
 --
-+getSize(): int
++Segment(capitalDistributionName: String, 
+strategyNames: List&lt;String&gt;) &lt;&lt;ctor&gt;&gt;
 +getCapitalDistributionName(): String
 +getStrategyNames(): List&lt;String&gt;</panel_attributes>
     <additional_attributes/>
@@ -20,9 +21,9 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>380</y>
-      <w>50</w>
+      <x>1030</x>
+      <y>430</y>
+      <w>60</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -32,16 +33,19 @@ m2=1..8</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>920</x>
+      <x>900</x>
       <y>290</y>
-      <w>280</w>
-      <h>100</h>
+      <w>410</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>Group
 --
 --
++Group(name: String, description: String, 
+segments: List&lt;Segment&gt;, segmentSizes: List&lt;Double&gt;, 
+isCohesive: boolean) &lt;&lt;ctor&gt;&gt;
 +getSegments(): List&lt;Segment&gt;
-+getSegmentSize(segment: Segment): int
++getSegmentSize(segment: Segment): double
 +getSegmentCount(): int
 +isCohesive(): boolean</panel_attributes>
     <additional_attributes/>
@@ -49,26 +53,28 @@ m2=1..8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
+      <x>810</x>
       <y>290</y>
-      <w>140</w>
+      <w>110</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..8</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
+      <x>420</x>
       <y>290</y>
-      <w>270</w>
-      <h>100</h>
+      <w>400</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>Population
 --
 --
++Population(name: String, description: String, 
+groups: List&lt;Group&gt;, groupSizes: List&lt;Integer&gt;) &lt;&lt;ctor&gt;&gt;
 +getSize(): int
 +getGroups(): List&lt;Group&gt;
 +getGroupSize(group: Group): int
@@ -78,7 +84,7 @@ m2=1..8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
+      <x>640</x>
       <y>180</y>
       <w>220</w>
       <h>130</h>
@@ -89,7 +95,7 @@ m2=1..8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>850</x>
+      <x>830</x>
       <y>240</y>
       <w>230</w>
       <h>70</h>
@@ -100,7 +106,7 @@ m2=1..8</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>730</x>
+      <x>710</x>
       <y>110</y>
       <w>270</w>
       <h>80</h>
@@ -115,32 +121,37 @@ edu.kit.model.Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>20</x>
+      <x>0</x>
       <y>120</y>
       <w>380</w>
-      <h>370</h>
+      <h>460</h>
     </coordinates>
     <panel_attributes>UserConfiguration
 -
 -
++UserConfiguration(...) &lt;&lt;ctor&gt;&gt;
 +getGameName(): String
 +getAgentCount(): int
 +getRoundCount(): int
 +getIterationCount(): int
-+getAvailableStrategieNames(): Collection&lt;String&gt;
++getAvailableStrategieNames(): List&lt;String&gt;
 +getMixedAllowed(): boolean
-+getPopulationNames(): Collection&lt;String&gt;
++getPopulationName(): String
 +getPairBuilderName(): String
++getPairBuilderParameters(): List&lt;Double&gt;
 +getSuccessQuantifierName(): String
++getSuccessQuantifierParameters(): List&lt;Double&gt;
 +getStrategyAdjusterName(): String
++getStrategyAdjusterParameters(): List&lt;Double&gt;
 +getComparisonProbability(): double
 +getAdjustmentProbability(): double
-+getEquilibriumCriteriaName(): String
++getEquilibriumCriterionName(): String
++getEquilibriumParameters(): List&lt;Double&gt;
 +getEquilibriumStability(): double
 +getEquilibriumLength(): int
-+getMaximumStepCount(): int
-
-+getVariableParameter(): String
++getMaxAdapts(): int
++isMulticonfiguration(): boolean
++getVariableParameterName(): String
 +getStartValue(): double
 +getEndValue(): double
 +getStepSize(): double</panel_attributes>
@@ -149,7 +160,7 @@ edu.kit.model.Nameable
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>190</x>
+      <x>170</x>
       <y>60</y>
       <w>30</w>
       <h>80</h>
@@ -160,7 +171,7 @@ edu.kit.model.Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>110</x>
+      <x>90</x>
       <y>20</y>
       <w>180</w>
       <h>50</h>

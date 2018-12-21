@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
-  <zoom_level>5</zoom_level>
+<diagram program="umlet" version="14.2">
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>160</y>
-      <w>230</w>
-      <h>45</h>
+      <x>588</x>
+      <y>140</y>
+      <w>322</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>HeadController
 --
 --
-+initialize() : void
++initialize(): void
 
 
 </panel_attributes>
@@ -21,15 +21,15 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>315</y>
-      <w>155</w>
-      <h>35</h>
+      <x>126</x>
+      <y>357</y>
+      <w>217</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>PopulationController
 -
 -
-+initialize() : void
++initialize(): void
 
 </panel_attributes>
     <additional_attributes/>
@@ -37,10 +37,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>270</y>
-      <w>220</w>
-      <h>55</h>
+      <x>224</x>
+      <y>294</y>
+      <w>308</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -50,52 +50,52 @@
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>375</y>
-      <w>155</w>
-      <h>35</h>
+      <y>441</y>
+      <w>217</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>GroupController
 -
 -
-+initialize() : void</panel_attributes>
++initialize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>195</x>
-      <y>375</y>
-      <w>160</w>
-      <h>35</h>
+      <x>273</x>
+      <y>441</y>
+      <w>224</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>NewGameController
 -
 -
-+initialize() : void
++initialize(): void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>375</y>
-      <w>160</w>
-      <h>35</h>
+      <x>574</x>
+      <y>441</y>
+      <w>224</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>NewStrategyController
 -
 -
-+initialize() : void</panel_attributes>
++initialize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>525</x>
-      <y>200</y>
-      <w>205</w>
-      <h>120</h>
+      <x>735</x>
+      <y>196</y>
+      <w>287</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>390.0;220.0;390.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
@@ -103,10 +103,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>365</x>
-      <y>200</y>
-      <w>175</w>
-      <h>125</h>
+      <x>511</x>
+      <y>196</y>
+      <w>245</w>
+      <h>175</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;230.0;10.0;150.0;330.0;150.0;330.0;10.0</additional_attributes>
@@ -114,10 +114,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>485</x>
-      <y>200</y>
-      <w>55</w>
-      <h>185</h>
+      <x>679</x>
+      <y>196</y>
+      <w>77</w>
+      <h>259</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;350.0;10.0;150.0;90.0;150.0;90.0;10.0</additional_attributes>
@@ -125,10 +125,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>525</x>
-      <y>200</y>
-      <w>45</w>
-      <h>85</h>
+      <x>735</x>
+      <y>196</y>
+      <w>63</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>observes</panel_attributes>
     <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
@@ -136,10 +136,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>70</x>
-      <y>270</y>
-      <w>105</w>
-      <h>115</h>
+      <x>98</x>
+      <y>294</y>
+      <w>147</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;210.0;10.0;10.0;190.0;10.0</additional_attributes>
@@ -147,27 +147,27 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>290</x>
-      <y>315</y>
-      <w>195</w>
-      <h>45</h>
+      <x>385</x>
+      <y>357</y>
+      <w>294</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ConfigController
 -
 -
-+ConfigController(UserConfiguration configuration) &lt;&lt;ctor&gt;&gt;
-+setConfiguration(UserConfiguration configuration) : void
-+initialize() : void
++ConfigController(configuration: UserConfiguration) &lt;&lt;ctor&gt;&gt;
++setConfiguration(configuration: UserConfiguration): void
++initialize(): void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>265</x>
-      <y>270</y>
-      <w>15</w>
-      <h>115</h>
+      <x>371</x>
+      <y>294</y>
+      <w>21</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
@@ -175,30 +175,30 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>195</x>
-      <y>540</y>
-      <w>210</w>
-      <h>45</h>
+      <x>273</x>
+      <y>672</y>
+      <w>308</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>template=T: Nameable
 &lt;&lt;interface&gt;&gt;
 CreationController
 -
-+registerElementCreated(action: Consumer&lt;T&gt;) : void</panel_attributes>
++registerElementCreated(action: Consumer&lt;T&gt;): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>645</x>
-      <y>310</y>
-      <w>150</w>
-      <h>60</h>
+      <x>903</x>
+      <y>350</y>
+      <w>259</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>HistoryController
 -
-+initialize() : void
-+addSimulation(SimulationResult) : void
++initialize(): void
++addSimulation(simulation: SimulationResult): void
 +getAllSimulations(): List&lt;SimulationResult&gt;
 +getSelectedSimulation(): SimulationResult
 
@@ -208,24 +208,24 @@ CreationController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>645</x>
-      <y>395</y>
-      <w>150</w>
-      <h>45</h>
+      <x>903</x>
+      <y>469</y>
+      <w>259</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>OutputController
 -
-+initialize() : void
-+setSimulation(SimulationResult simulation) : void</panel_attributes>
++initialize(): void
++addSimulation(simulation: SimulationResult): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>715</x>
-      <y>365</y>
-      <w>15</w>
-      <h>40</h>
+      <x>1001</x>
+      <y>427</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -233,10 +233,10 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>595</x>
-      <y>455</y>
-      <w>135</w>
-      <h>35</h>
+      <x>833</x>
+      <y>553</y>
+      <w>189</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>250.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
@@ -244,38 +244,38 @@ CreationController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>675</x>
-      <y>480</y>
-      <w>100</w>
-      <h>35</h>
+      <x>945</x>
+      <y>588</y>
+      <w>140</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>DetailledOutputController
 -
 -
-+initilaize() : void</panel_attributes>
++initilaize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
-      <y>480</y>
-      <w>105</w>
-      <h>35</h>
+      <x>1134</x>
+      <y>588</y>
+      <w>147</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>MultConfOutputController
 -
 -
-+initialize() : void</panel_attributes>
++initialize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>715</x>
-      <y>455</y>
-      <w>155</w>
-      <h>35</h>
+      <x>1001</x>
+      <y>553</y>
+      <w>217</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;290.0;10.0;290.0;50.0</additional_attributes>
@@ -283,10 +283,10 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>715</x>
-      <y>435</y>
-      <w>15</w>
-      <h>55</h>
+      <x>1001</x>
+      <y>525</y>
+      <w>21</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
@@ -294,24 +294,24 @@ CreationController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>545</x>
-      <y>480</y>
-      <w>115</w>
-      <h>35</h>
+      <x>763</x>
+      <y>588</y>
+      <w>161</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>AbstractedOutputController
 -
 -
-+initialize() : void</panel_attributes>
++initialize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>405</y>
-      <w>15</w>
-      <h>150</h>
+      <x>392</x>
+      <y>483</y>
+      <w>21</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;280.0;10.0;10.0</additional_attributes>
@@ -319,10 +319,10 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>70</x>
-      <y>405</y>
-      <w>225</w>
-      <h>150</h>
+      <x>98</x>
+      <y>483</y>
+      <w>315</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>430.0;280.0;430.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
@@ -330,10 +330,10 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>405</y>
-      <w>220</w>
-      <h>150</h>
+      <x>392</x>
+      <y>483</y>
+      <w>308</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;280.0;10.0;80.0;420.0;80.0;420.0;10.0</additional_attributes>
@@ -341,10 +341,10 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>165</x>
-      <y>340</y>
-      <w>130</w>
-      <h>215</h>
+      <x>231</x>
+      <y>392</y>
+      <w>182</w>
+      <h>301</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>240.0;410.0;240.0;210.0;10.0;210.0;10.0;10.0</additional_attributes>
@@ -352,10 +352,10 @@ CreationController
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>355</y>
-      <w>115</w>
-      <h>200</h>
+      <x>392</x>
+      <y>413</y>
+      <w>161</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;380.0;10.0;180.0;210.0;180.0;210.0;10.0</additional_attributes>
