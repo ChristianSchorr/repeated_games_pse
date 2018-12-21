@@ -1,0 +1,292 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'package_edu_kit_loop_model_simulationengine.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{3225bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.35802326)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.47255814,0.33985828){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Configuration\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.4244186,0.33378633){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Configuration(game: Game, roundCount: int, mixedStrategies: boolean,\end{tabular}}}}%
+    \put(0.4244186,0.33003998){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}segments: List<Segment>, pairBuilder: PairBuilder,\end{tabular}}}}%
+    \put(0.4244186,0.3262936){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}successQuantifier: SuccessQuantifier, strategyAdjuster: SrategyAdjuster,\end{tabular}}}}%
+    \put(0.4244186,0.32254723){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}equilibriumCriterion: EquilibriumCriterion, maxAdapts: int) «ctor»\end{tabular}}}}%
+    \put(0.4244186,0.31880088){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getGame(): Game\end{tabular}}}}%
+    \put(0.4244186,0.31505451){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAgentCount(): int\end{tabular}}}}%
+    \put(0.4244186,0.31130814){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getRoundCount(): int\end{tabular}}}}%
+    \put(0.4244186,0.30756177){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+allowsMixedStrategies(): boolean\end{tabular}}}}%
+    \put(0.4244186,0.3038154){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSegments(): List<Segment>\end{tabular}}}}%
+    \put(0.4244186,0.30006905){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getPairBuilder(): PairBuilder\end{tabular}}}}%
+    \put(0.4244186,0.29632267){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSuccessQuantifier(): SuccesQuantifier\end{tabular}}}}%
+    \put(0.4244186,0.2925763){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStrategyAdjuster(): StrategeyAdjuster\end{tabular}}}}%
+    \put(0.4244186,0.28882995){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getEquilibriumCriterion(): EquilibriumCriterion\end{tabular}}}}%
+    \put(0.4244186,0.28508358){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMaxAdapts(): int\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.00860465,0.2491606){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}edu.kit.loop.model.simulationengine.strategies.Strategy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.85116279,0.27241642){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}StrategyEquilibrium\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.82906977,0.26634447){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+StrategyEquilibrium(alpha: double, minRoungs: int) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.75348837,0.27241642){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CapitalEquilibrium\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.71976744,0.26634447){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+RankingEquilibrium(alpha: double, minRounds: int): «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.79139535,0.3119513){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{CountingEquilibriumCriterion}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.74302326,0.30704214){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-consecutiveRounds: int\end{tabular}}}}%
+    \put(0.74302326,0.30329579){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-lastRoundAgents: List<Agent>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.74302326,0.29838663){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+hasEquilibriumCondition(agents: List<Agent>, history: SimulationHistory): boolean}\end{tabular}}}}%
+    \put(0.74302326,0.29464026){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+longEnough(steps: int): boolean}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.64883721,0.30730014){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.64186047,0.30355377){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}EquilibriumCriterion\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.59651163,0.29864463){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+isEquilibrium(agents: List<Agent>, history: SimulationHistory): boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.91511628,0.31892805){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}boolean isEqui = false;\end{tabular}}}}%
+    \put(0.91511628,0.31518167){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}if (hasEquilibriumCondition(lastRoundAgents, agents)) {\end{tabular}}}}%
+    \put(0.91511628,0.31143533){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}    isEqui = longEnough(++consecutiveRounds);\end{tabular}}}}%
+    \put(0.91511628,0.30768895){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}} else {\end{tabular}}}}%
+    \put(0.91511628,0.30394258){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}    consecutiveRounds = 0;\end{tabular}}}}%
+    \put(0.91511628,0.30019623){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}}\end{tabular}}}}%
+    \put(0.91511628,0.29644986){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}lastRoundAgents = deepCopy(agents);\end{tabular}}}}%
+    \put(0.91511628,0.29270349){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}return isEqui;\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.58837209,0.27706758){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.58860465,0.27332121){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PairBuilder\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.52674419,0.26841207){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+buildPairs(agents: List<Agent>, history: SimulationHistory): List<AgentPair>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.51348837,0.24218386){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}RandomCooperationConsideringPairBuilder\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.51046512,0.23611191){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+RandomCooperationConsideringPairBuilder(\end{tabular}}}}%
+    \put(0.51046512,0.23236556){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}randomnessFactor: double) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.68302326,0.24218386){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}RandomPairBuilder\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.59813953,0.24218386){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CooperationConsideringPairBuilder\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.3755814,0.274742){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.37093023,0.27099563){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}StrategyAdjuster\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.3244186,0.26608649){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+adaptStrategies(agents: List<Agent>, history: SimulationHistory) : void\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.42953488,0.23288153){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PreferentialAdaption\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.39883721,0.22680958){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+PreferentialAdaption(alpha: double, delta: double) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.32627907,0.23288153){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ReplicatorDynamic\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.29418605,0.22680958){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+ReplicatorDynamic(alpha: double, delta: double) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.48488372,0.20962572){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.47930233,0.20587935){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SuccessQuantifier\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.42209302,0.20097021){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+createRanking(agents: List<Agent>, history: SimulationHistory) : List<Agent>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.33534884,0.16776526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SlidingMean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.52348837,0.16776526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PayoffInLastAdapt\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.4655814,0.16776526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}TotalCapital\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.40116279,0.16776526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}TotalPayoff\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.62534884,0.35381177){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}EngineSegment\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.56627907,0.34773981){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+EngineSegment(agentCount: int, groupId: int, capitalDistribution: DiscreteDistribution,\end{tabular}}}}%
+    \put(0.56627907,0.34399347){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}strategyDistribution: UnifromFiniteDistribution<Strategy>, cohesive: boolean) «ctor»\end{tabular}}}}%
+    \put(0.56627907,0.34024709){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAgentCount(): int\end{tabular}}}}%
+    \put(0.56627907,0.33650072){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getGroupId(): int\end{tabular}}}}%
+    \put(0.56627907,0.33275437){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getCapitalDistribution(): DiscreteDistribution\end{tabular}}}}%
+    \put(0.56627907,0.329008){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStrategyDistribution(): UniformFiniteDistribution<Strategy>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.14953488,0.2119513){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}IterationResult\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.10116279,0.20587935){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+IterationResult(agents: List<Agent>, history: SimulationHistory,\end{tabular}}}}%
+    \put(0.10116279,0.202133){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}equilibriumReached: boolean, efficiency: double, adapts: int) «ctor»\end{tabular}}}}%
+    \put(0.10116279,0.19838663){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAgents(): List<Agent>\end{tabular}}}}%
+    \put(0.10116279,0.19464026){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getHistory(): SimulationHistory\end{tabular}}}}%
+    \put(0.10116279,0.19089391){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+equilibriumReached(): boolean\end{tabular}}}}%
+    \put(0.10116279,0.18714753){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getEfficiency(): double\end{tabular}}}}%
+    \put(0.10116279,0.18340116){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAdapts(): int\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.23953488,0.06543967){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.24395349,0.0616933){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Game\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.20813953,0.05678416){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+play(player1: Agent, player2: Agent, playerOneCooperates: boolean, \end{tabular}}}}%
+    \put(0.20813953,0.05303779){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}playerTwoCooperates: boolean): GameResult\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.11325581,0.07009084){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GameResult\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.06627907,0.06401888){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GameResult(player1: Agent, player2: Agent, payOff1: int, payOff2: int, \end{tabular}}}}%
+    \put(0.06627907,0.06027254){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}hasCooperated1: boolean, hasCooperated2: boolean) «ctor»\end{tabular}}}}%
+    \put(0.06627907,0.05652616){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+hasAgent(agent: Agent): boolean\end{tabular}}}}%
+    \put(0.06627907,0.05277979){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getPayoff(agent: Agent): int\end{tabular}}}}%
+    \put(0.06627907,0.04903344){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+hasCooperated(agent: Agent): boolean\end{tabular}}}}%
+    \put(0.06627907,0.04528707){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAgents(): List<Agent> \end{tabular}}}}%
+    \put(0.06627907,0.0415407){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getOtherAgent(agent: Agent): Agent\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.18790698,0.10264898){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SimulationHistoryTable\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.19767442,0.15846293){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.19232558,0.15471656){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SimulationHistory\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.14534884,0.14980742){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addResult(result: GameResult)\end{tabular}}}}%
+    \put(0.14534884,0.14606105){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAllResults(): List<GameResult>\end{tabular}}}}%
+    \put(0.14534884,0.14231467){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getResultsByAgent(agent: Agent): List<GameResult>\end{tabular}}}}%
+    \put(0.14534884,0.13856833){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getLatestResults(): List<GameResults>\end{tabular}}}}%
+    \put(0.14534884,0.13482195){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getLatestResultByAgent(agent: Agent): GameResult\end{tabular}}}}%
+    \put(0.14534884,0.13107558){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAllWhere(cond: Predicate<GameResult>): List<GameResult>\end{tabular}}}}%
+    \put(0.14534884,0.12732921){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getLatestWhere(cond: Predicate<GameResult>): GameResult\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.13837209,0.2491606){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.13953488,0.24541423){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}AgentPair\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.11976744,0.24050509){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getFirst() : Agent\end{tabular}}}}%
+    \put(0.11976744,0.23675872){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSecond() : Agent\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.31906977,0.31427688){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}edu.kit.loop.model.simulationengine.strategies.Strategy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.10093023,0.33985828){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Agent\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.05930233,0.33378633){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Agent(initialCapital: int, initialStrategy: Strategy, \end{tabular}}}}%
+    \put(0.05930233,0.33003998){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}groupId: int) «ctor»\end{tabular}}}}%
+    \put(0.05930233,0.3262936){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getCapital(): int\end{tabular}}}}%
+    \put(0.05930233,0.32254723){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getInitialCapital(): int\end{tabular}}}}%
+    \put(0.05930233,0.31880088){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addCapital(capital: int): void\end{tabular}}}}%
+    \put(0.05930233,0.31505451){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getGroupId(): int\end{tabular}}}}%
+    \put(0.05930233,0.31130814){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+setStrategy(strategy : Strategy): void\end{tabular}}}}%
+    \put(0.05930233,0.30756177){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStrategy(): Strategy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.2355814,0.33985828){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SimulationEngine\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.20813953,0.33494912){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-currentAdaptionstep : int\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.20813953,0.33003998){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+executeIteration(configuration: Configuration) : IterationResult\end{tabular}}}}%
+    \put(0.20813953,0.3262936){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-initializeAgents() : void\end{tabular}}}}%
+    \put(0.20813953,0.32254723){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-createRanking() : void\end{tabular}}}}%
+    \put(0.20813953,0.31880088){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-matchAgents() : Collection<AgentPair> agents\end{tabular}}}}%
+    \put(0.20813953,0.31505451){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-adaptStrategy() : void\end{tabular}}}}%
+    \put(0.20813953,0.31130814){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-isEquilibrium() : boolean\end{tabular}}}}%
+    \put(0.20813953,0.30756177){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-executeRound(agentpair: AgentPair) : void\end{tabular}}}}%
+    \put(0.20813953,0.3038154){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-createResult() : void\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.4555814,0.01892805){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SimpleStrategyPicker\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.4544186,0.04450944){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{StrategyDistribution}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.4244186,0.03843749){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+StrategyPicker(stragySet: List<Strategy>) «ctor»\end{tabular}}}}%
+    \put(0.4244186,0.03469114){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+pickOne(): Strategy\end{tabular}}}}%
+    \put(0.4244186,0.03094477){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+pickMany(n: int): List<Strategy>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.38697674,0.00962572){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}EqualDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.36860465,0.00355377){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+EqualPicker(min: int, max: int) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.31906977,0.00962572){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PoissonDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.30581395,0.00355377){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+PoissonPicker(lambda: int) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.24023256,0.00962572){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}BinomialDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.2127907,0.00355377){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+BinomialPicker(min: int, max: int, p: double) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.3255814,0.04450944){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.31953488,0.04076307){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CapitalDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.30348837,0.03585393){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+pickOne(): int\end{tabular}}}}%
+    \put(0.30348837,0.03210756){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+pickMany(n : int): Collection<int>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.38186047,0.08636991){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}AgentInitializer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=63]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.34534884,0.08029795){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+AgentInitializer() «ctor»\end{tabular}}}}%
+    \put(0.34534884,0.07655161){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+initializeAgents(segment: Segment): List<Agent>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=64]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.08232558,0.25709302){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=65]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.58928416,0.29892805){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=66]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.16604651,0.25709302){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0..*\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=67]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.21488372,0.21988372){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0..1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=68]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.39162791,0.09430233){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=69]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.18513412,0.06127907){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}genearates\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=70]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.14511628,0.07802326){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0..*\end{tabular}}}}%
+    \put(0.20790698,0.08846293){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=71]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.20790698,0.11312681){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}implements\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=72]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.23348837,0.16639535){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=73]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.20091207,0.33148619){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0.15790698,0.33148619){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2..*\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=74]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.13813953,0.25709302){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0.13813953,0.29543967){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=75]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.30398733,0.31055595){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1..*\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=76]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.41719113,0.32683502){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0.29744186,0.32683502){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=77]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.4544186,0.05382449){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}uses\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=78]{package_edu_kit_loop_model_simulationengine.pdf}}%
+    \put(0.36044161,0.06360465){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}uses\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=79]{package_edu_kit_loop_model_simulationengine.pdf}}%
+  \end{picture}%
+\endgroup%
