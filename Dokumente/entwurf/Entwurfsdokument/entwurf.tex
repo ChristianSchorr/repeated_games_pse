@@ -1249,33 +1249,51 @@ Methods:
 	\item[] Returns: the number of operands
 \end{itemize}
 
-\subsubsection{Class \texttt{AndOperator implements Operator}}
+\subsubsection{Class \texttt{AndOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{AND} operator
 
-\subsubsection{Class \texttt{NandOperator implements Operator}}
+\subsubsection{Class \texttt{NandOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NAND} operator
 
-\subsubsection{Class \texttt{OrOperator implements Operator}}
+\subsubsection{Class \texttt{OrOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{OR} operator
 
-\subsubsection{Class \texttt{NorOperator implements Operator}}
+\subsubsection{Class \texttt{NorOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NOR} operator
 
-\subsubsection{Class \texttt{XorOperator implements Operator}}
+\subsubsection{Class \texttt{XorOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{XOR} operator
 
-\subsubsection{Class \texttt{ImpliesOperator implements Operator}}
+\subsubsection{Class \texttt{ImpliesOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{IMPLIES} operator
 
-\subsubsection{Class \texttt{NotOperator implements Operator}}
+\subsubsection{Class \texttt{NotOperator}}
+
+Implements: \texttt{Operator}
 
 This class is an operator that creates a new \texttt{Strategy} by negating the given one
+
+\subsubsection{Interface \texttt{TreeNode<T>}}
+
+This interface represents a node in a hierarchic structure. It can store a generic content and provides functionality to insert and remove children to create a tree like structure.
 
 \subsubsection{Interface \texttt{TreeNode<T>}}
 
@@ -1308,7 +1326,7 @@ Methods:
 
 \subsubsection{Class \texttt{SyntaxNode implements TreeNode<Strategy>}}
 
-This class represents a tree node in a syntax tree for combined strategies. In case of leaf node it stores the strategy that shall be combined otherwise in case of an inner node it stores an operator to combine strategies.
+This class represents a tree node in a syntax tree for combined strategies. In case of a leaf node it stores the strategy that shall be combined otherwise in case of an inner node it stores an operator to combine strategies.
 
 Constructors:
 \begin{itemize} \itemsep -10pt
@@ -1369,7 +1387,7 @@ Methods:
 
 \subsubsection{Class \texttt{StrategyBuilder}}
 
-This class provides functionality to create a new \texttt{Strategy} from a given root \texttt{SyntaxNode} of a syntax tree
+This class provides functionality to create a new strategy from a given root \texttt{SyntaxNode} of a syntax tree by combining strategies to generate the corresponding expression.
 
 Methods:
 \begin{itemize} \itemsep -10pt
@@ -1382,7 +1400,9 @@ Methods:
 \end{itemize}
 
 
-\subsection{Paket \texttt{edu.kit.loop.model.simulationengine.distributions}}
+\subsection{Package \texttt{edu.kit.loop.model.simulationengine.distributions}}
+
+This package contains functionality for generating different types of distributions and for randomly picking values from those distributions.
 
 \subsubsection{Interface \texttt{Distribution<E>}}
 This interface represents a probability distribution over a carrier of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
@@ -1515,7 +1535,7 @@ Methods:
 \item[] Returns: \texttt{true} if the given object was contained and successfully removed, \texttt{false} otherwise
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.Controller}}
+\subsection{Package \texttt{edu.kit.loop.Controller}}
 
 \subsubsection{Class \texttt{HeadController}}
 This class represents the controller associated with the main window. It defines the interface between the model and the controller structure. It is mainly responsible for starting simulations by providing \texttt{UserConfiguration}s to the simulator and for delegating further task to the other controllers.
@@ -1657,7 +1677,7 @@ Methods:
 
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.model.plugin}}
+\subsection{Package \texttt{edu.kit.loop.model.plugin}}
 
 This package contains the functionality involved in creating and loading new plugins which extend the simulation process.
 
@@ -1790,15 +1810,15 @@ Methods:
 
 \begin{itemize} \itemsep -10pt
 	\item \underline{\texttt{static boolean isValueValid(double val, Parameter param)}}
-	\item[] Checks if the given value is a valid assignment for the given \texttt{Parameter}
+	\item[] Checks if the given value is a valid assignment for the given parameter
 	\item[] \texttt{val}: the value that shall be checked
-	\item[] \texttt{param}: the \texttt{Parameter} whose value range shall be considered
-	\item[] Returns: \texttt{true} if the given value lies in the value range of the given \texttt{Parameter}, \texttt{false} otherwise
+	\item[] \texttt{param}: the parameter whose value range shall be considered
+	\item[] Returns: \texttt{true} if the given value lies in the value range of the given parameter, \texttt{false} otherwise
 	\item \underline{\texttt{static double getClosestValid(double val, Parameter param)}}
-	\item[] Returns the value in the value range of the given \texttt{Parameter} that is closest to the given value.
+	\item[] Returns the value in the value range of the given parameter that is closest to the given value.
 	\item[] \texttt{val}: the value that shall be considered
-	\item[] \texttt{param}: the \texttt{Parameter} whose value range shall be considered
-	\item[] Returns: the value in the value range of the given \texttt{Parameter} that is closest to the given value
+	\item[] \texttt{param}: the parameter whose value range shall be considered
+	\item[] Returns: the value in the value range of the given parameter that is closest to the given value
 \end{itemize}
 
 \subsubsection{Abstract Class \texttt{Plugin<T>}}
@@ -1814,20 +1834,20 @@ Parameter:
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{PluginRenderer getRenderer()}
-	\item[] Returns a \texttt{PluginRenderer}-instance for this \texttt{Plugin}
-	\item[] Returns: a \texttt{PluginRenderer}-instance for this \texttt{Plugin}
+	\item[] Returns a \texttt{PluginRenderer}-instance for this plugin
+	\item[] Returns: a \texttt{PluginRenderer}-instance for this plugin
 
 	\item \texttt{abstract List<Parameter> getParameters()}
-	\item[] Returns a list of the configuration \texttt{Parameter}s of this \texttt{Plugin}
-	\item[] Returns: a list of the configuration \texttt{Parameter}s of this \texttt{Plugin}
+	\item[] Returns a list of the configuration parameters of this plugin
+	\item[] Returns: a list of the configuration parameters of this plugin
 
 	\item \texttt{abstract T getNewInstance(List<double> params)}
-	\item[] Creates and returns a new instance of the functionality holding class of this plugin with the given values as \texttt{Parameter}s
+	\item[] Creates and returns a new instance of the functionality holding class of this plugin with the given values as parameters
 	\item[] \texttt{params}: a list with the values of the configuration \texttt{Parameter}s
 	\item[] Returns: the newly created and parametrised instance of the funcitonaliy holding class
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.model.repository}}
+\subsection{Package \texttt{edu.kit.loop.model.repository}}
 
 This package contains the functionality of the central repositories, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
 
@@ -1866,7 +1886,7 @@ Methods:
 
 Implements: \texttt{Repository<T>}
 
-An implementation of the \texttt{Repository <T>} interface that stores entities in a \texttt{HashMap}.
+An implementation of the \texttt{Repository<T>}- interface that stores entities in a \texttt{HashMap}.
 
 Parameters:
 
