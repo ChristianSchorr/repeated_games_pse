@@ -1519,16 +1519,16 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{GroupController}}
-This class represents the controller responsible for the \enquote{Neue Gruppe erstellen}-window.
+This class represents the controller responsible for the group creation window.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
+\item \texttt{void initialize()}
 \item[] Initializes the GroupController an its databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{PopulationController}}
-This class represents the controller responsible for the population creation window. It creates new populations based on the user input.
+This class represents the controller responsible for the population creation window. It creates new populations based on the user input and informs the \texttt{HeadController}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
