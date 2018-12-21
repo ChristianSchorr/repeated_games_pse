@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>680</x>
-      <y>400</y>
+      <y>408</y>
       <w>336</w>
       <h>96</h>
     </coordinates>
@@ -14,7 +14,7 @@
 -
 -
 +getRenderer(): PluginRenderer
-/+getConfigurationParameter(): List&lt;Parameter&gt;/
+/+getParameters(): List&lt;Parameter&gt;/
 /+getNewInstance(params: List&lt;double&gt;): T/
 
 </panel_attributes>
@@ -24,7 +24,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>728</x>
-      <y>296</y>
+      <y>304</y>
       <w>200</w>
       <h>64</h>
     </coordinates>
@@ -40,7 +40,7 @@ edu.kit.model.Nameable
     <id>Relation</id>
     <coordinates>
       <x>816</x>
-      <y>352</y>
+      <y>360</y>
       <w>24</w>
       <h>72</h>
     </coordinates>
@@ -51,23 +51,23 @@ edu.kit.model.Nameable
     <id>UMLClass</id>
     <coordinates>
       <x>360</x>
-      <y>432</y>
+      <y>440</y>
       <w>184</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 PluginRenderer
 -
-+renderPlugin(): PluginControl</panel_attributes>
++render(): PluginControl</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>8</x>
-      <y>432</y>
+      <y>440</y>
       <w>192</w>
-      <h>40</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>/PluginControl/
 -
@@ -79,7 +79,7 @@ PluginRenderer
     <id>UMLClass</id>
     <coordinates>
       <x>24</x>
-      <y>352</y>
+      <y>360</y>
       <w>160</w>
       <h>24</h>
     </coordinates>
@@ -91,7 +91,7 @@ PluginRenderer
     <id>Relation</id>
     <coordinates>
       <x>88</x>
-      <y>368</y>
+      <y>376</y>
       <w>24</w>
       <h>80</h>
     </coordinates>
@@ -102,7 +102,7 @@ PluginRenderer
     <id>Relation</id>
     <coordinates>
       <x>192</x>
-      <y>440</y>
+      <y>448</y>
       <w>184</w>
       <h>32</h>
     </coordinates>
@@ -114,46 +114,49 @@ creates</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>528</y>
-      <w>208</w>
-      <h>32</h>
+      <y>536</y>
+      <w>328</w>
+      <h>56</h>
     </coordinates>
-    <panel_attributes>TextFieldConfigurationControl
+    <panel_attributes>TextFieldPluginControl
 -
--</panel_attributes>
+-
++TextFieldPluginControl(params: List&lt;Parameter&gt;) &lt;&lt;ctor&gt;&gt;
++addParameter(param: Parameter): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>88</x>
-      <y>464</y>
+      <y>480</y>
       <w>24</w>
-      <h>80</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>288</x>
-      <y>528</y>
-      <w>336</w>
-      <h>40</h>
+      <x>384</x>
+      <y>536</y>
+      <w>328</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>GenericRenderer
 -
 -
-+GenericRenderer(params: List&lt;Parameter&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
++GenericRenderer(params: List&lt;Parameter&gt;) &lt;&lt;ctor&gt;&gt;
++GenericRenderer(plugin: Plugin) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>448</x>
-      <y>480</y>
-      <w>80</w>
+      <y>488</y>
+      <w>88</w>
       <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
@@ -163,26 +166,28 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>528</y>
-      <w>104</w>
+      <x>320</x>
+      <y>536</y>
+      <w>80</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 creates</panel_attributes>
-    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1040</x>
-      <y>416</y>
-      <w>168</w>
-      <h>72</h>
+      <x>1032</x>
+      <y>424</y>
+      <w>392</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Parameter
 -
 -
++Parameter(minVal: double, maxVal: double) &lt;&lt;ctor&gt;&gt;
++Parameter(minVal: double, maxVal: double, stepSize: double) &lt;&lt;ctor&gt;&gt;
 +getMinValue(): double
 +getMaxValue(): double
 +getStepSize(): double
@@ -193,18 +198,18 @@ creates</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>968</x>
-      <y>448</y>
-      <w>88</w>
+      <y>456</y>
+      <w>80</w>
       <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>816</x>
-      <y>376</y>
+      <y>384</y>
       <w>320</w>
       <h>56</h>
     </coordinates>
@@ -215,7 +220,7 @@ creates</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>536</x>
-      <y>448</y>
+      <y>456</y>
       <w>160</w>
       <h>24</h>
     </coordinates>
@@ -226,7 +231,7 @@ creates</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>976</x>
-      <y>296</y>
+      <y>304</y>
       <w>328</w>
       <h>56</h>
     </coordinates>
@@ -241,8 +246,8 @@ _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1144</x>
-      <y>344</y>
-      <w>64</w>
+      <y>352</y>
+      <w>72</w>
       <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -252,8 +257,8 @@ validates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>576</y>
+      <x>752</x>
+      <y>584</y>
       <w>240</w>
       <h>64</h>
     </coordinates>
@@ -267,8 +272,8 @@ _+loadPlugins(): List&lt;T&gt;_</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>816</x>
-      <y>488</y>
+      <x>848</x>
+      <y>496</y>
       <w>48</w>
       <h>112</h>
     </coordinates>
