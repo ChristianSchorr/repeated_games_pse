@@ -461,14 +461,14 @@ Methods:
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
 This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{Simulation} object, which can be used to query the execution status and results of the simulation.
 
-\subsubsection{Class \texttt{Simulation}}
-A \texttt{Simulation} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if applicable, the results of the simulation. It is generated and deployed by a \texttt{Simulator} when a simulation is started.
+\subsubsection{Class \texttt{SimulationResult}}
+A \texttt{SimulationResult} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if applicable, the results of the simulation. It is generated and deployed by a \texttt{Simulator} when a simulation is started.
 
 The class does not distinguish between multiconfigurations and non-multiconfigurations, so it generally assumes that several elementary configurations underlie.
 
 Constructors:
 \begin{itemize} \itemsep -10pt
-	\item \texttt{Simulation(UserConfiguration config, int id)}
+	\item \texttt{SimulationResult(UserConfiguration config, int id)}
 	\item[] Creates a new \texttt{Simulation} with the given \texttt{UserConfiguration} and \texttt{id}.
 	\item[] \texttt{config}: the configuration of this simulation
 	\item[] \texttt{id}: the \texttt{id} of this simulation
