@@ -82,6 +82,7 @@ Since the user interface (UI) of the program was designed using the UI-Builder \
 
 The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
 
+\subsection{The controller}
 The controller consists of a tree-like class hierarchy. At the top resides the \texttt{HeadController}, who is associated with the main window and thus instantiated when the program starts. The other controllers are arranged below and associated with the different popup windows such as the configuration- or the strategy creation window.
 
 When the user requests a task that requires the involvement of the model (such as starting a simulation or saving a configuration file), the \texttt{HeadController} invokes the model, observes it for updates in its computation progress and updates the view accordingly.
@@ -100,39 +101,35 @@ The model contains interfaces representing those variable events and provides im
 \section{Specification changes}
 
 \subsection{Populations}
-The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. 
-hallo
-The configuration of groups and segments no longer takes place in the configuration window. Instead, individual group- and population creations are realised in a popup window each, as it is the case for configuration- and strategy creations.
+The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games) (see \cref{?}).
 
-\textbf{Group creation:}
-A name and a description for the corresponding group can be registered in the group creation window. Also is it possible to set the number and the and the size of segments, as well as each strategy- and capital distribution. Further, a group can be declared as \enquote{coherent}, by activating a checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This functionality realises the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
+\textbf{Group Creation:}
+The name and the description of a group can be entered in corresponding text fields at the top of the creation window. The amount of segments, their sizes and their strategy- and capital distributions can be configurated via a Tab-Control element (as originally in the configuration window). Furthermore, a group can be declared as \enquote{coherent} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
 
-\textbf{population creation:}
-A name and a description for the corresponding population can be registered in the population creation window. \(1\) to \(16\) groups can be added to a corresponding population. These groups can either be self created or preset. For each group, the number of agents can be entered in a text field (see\cref{?}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
+\textbf{Population Creation:}
+The name and the description of a population can be entered in corresponding text fields at the top of the creation window. Below, \(1\) to \(16\) groups can be added, each with specified size (see \cref{?}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
 
-The configuration window is no longer divided in three parts. Between the former \enquote{basic-}  and \enquote{advanced settings}, there is now a single dropdown menu titled \enquote{population} (see \cref{?}), instead of the  \enquote{group settings}. In this dropdown menu, a self created or a preset population can be chosen. Below the dropdown menu, a section showing the composition of the selected population (see \cref{?}) can be popped up. This section has exactly the  same structure as the former \enquote{group settings}, but can't be modified anymore. As before, the  \enquote{multiconfiguration} for segments and groups can be activated by a checkbox here.
+The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the \enquote{basic} and \enquote{advanced} settings have been fused. Below the dropdown menu, a section showing the composition of the selected population can expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
 
 \subsection{Strategies}
-The list of all variables, which can appear as a literal in a strategy was extended by the following:
-In previous games (in the current adaption step), B has cooperated always/never/last time/at least once between him and agents which are in the same group as A.
+The list of all variables that can appear as literals in a strategy was extended by the following:
 \begin{itemize}
-\item In previous games (in the current adaption step), B has cooperated always/never/last time/at least once between him and agents which are in the same group as A.
-\item In previous games (in the current adaption step), B has cooperated always/never/last time/at least once between him and agents with a similar capital than A.
+\item In previous games (of the current adaption step), B has cooperated always/never/last time/at least in games with agents that are in the same group as A.
+\item In previous games (of the current adaption step), B has cooperated always/never/last time/at least once in games with agents that have a similar capital as A.
 \end{itemize}
 
 \subsection{Plugin system}
 
-A plugin system which allows to dynamicly load new functionality at runtime has been added. This gives the user the flexibility to implement new algorithms and mechanisms that can be used in simulations. The following parameter set can be extended via plugins:
+A plugin system which allows to dynamically load new functionality at runtime has been added. This grants the user the flexibility to implement and integrate own versions of the following algorithms and mechanisms:
 \begin{itemize} \itemsep -10pt
-	\item the equilibrium criterion mechanism
-	\item the success quantifier mechanism
-	\item the strategy adjuster mechanism
-	\item the pair builder algorithm
-	\item the discrete distribution algorithm
+	\item the equilibrium criterion
+	\item the success quantifier
+	\item the strategy adjuster
+	\item the pair builder
+	\item the discrete distribution
 \end{itemize}
 
-Furthermore it is possible to make the plugins user configurable from the configuration window. Therefor plugins can provide a renderer which creates a user control that gets embedded into the configuration window.\\
-Plugins are loaded automatically at the program start.
+Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dinamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
 
 \section{Pakete und Klassen}
 
@@ -140,7 +137,7 @@ Plugins are loaded automatically at the program start.
 
 \subsubsection{Class \texttt{Main extends javafx.application.Application}}
 
-This class contains the main method (entry point) of the program and initializes the main-window.
+This class contains the main method and initialises the main window.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -149,7 +146,9 @@ Methods:
 \item[] \texttt{args}: the commandline arguments. (unused)
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.model}}
+\subsection{Package \texttt{edu.kit.loop.model}}
+The mode contains the \texttt{Simulator} interface, which provides 
+
 The model contains the classes and methods for starting and stopping simulations, as well as creating and saving configurations, levels, strategies, and populations
 
 \subsubsection{Class \texttt{UserConfiguration}}
@@ -159,7 +158,7 @@ This class represents a user-created configuration. It provides methods for read
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierName, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
+\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierParameters, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
 \item[] Creates a new \texttt{UserConfiguration} with the given parameters
 \item[] \texttt{gameName}: the name of the game
 \item[] \texttt{agentCount}: the amount of agents
@@ -275,80 +274,6 @@ Methods:
 \end{itemize}
 
 
-\subsubsection{Class \texttt{Configuration}}
-This class represents the elementary configuration of a single iteration and contains all the information about how to start one:
-\begin{itemize}\itemsep -10pt
-\item Game
-\item Number of agents
-\item Rounds per adaptation step
-\item Whether mixed strategies are allowed
-\item Group-/Segment formations
-\item Capital- and Strategy classification of the segments
-\item Agents pairing
-\item Succes quantification
-\item Adaption mechanism
-\item Equilibrium criterion
-\item Maximum number of adaptation steps
-\end{itemize}
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
-\item[] Creates a new \texttt{Configuration} with the given parameters.
-\item[] \texttt{game}: the game of this configuration
-\item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
-\item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
-\item[] \texttt{segments}: all segments of this configuration
-\item[] \texttt{pairBuilder}: the \texttt{PairBuilder} of this configuration
-\item[] \texttt{successQuantifier}: the \texttt{SuccessQuantifier} of this configuration
-\item[] \texttt{strategyAdjuster}: the \texttt{StrategyAdjuster} of this configuration
-\item[] \texttt{equilibriumCriterion}: the \texttt{EquilibriumCriterion} of this configuration
-\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
-\end{itemize}
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Game getGame()}
-\item[] Returns the game of this configuration
-\item[] Returns: the game of this configuration
-
-\item \texttt{int getAgentCount()}
-\item[] Returns the amount of agents in this configuration
-\item[] Returns: the amount of agents in this configuration
-
-\item \texttt{int getRoundCount()}
-\item[] Returns the amount of rounds per adaption step in this configuration
-\item[] Returns: the amount of rounds per adaption step in this configuration
-
-\item \texttt{boolean allowsMixedStrategies()}
-\item[] Returns, whether mixed strategies are allowed in this configuration.
-\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
-
-\item \texttt{Collection<Segment> getSegments()}
-\item[] Returns all segments belonging to this configuration
-\item[] Returns: all segments belonging to this configuration as \texttt{Collection<Segment>}
-
-\item \texttt{PairBuilder getPairBuilder()}
-\item[] Returns the \texttt{pairBuilder} of this configuration.
-\item[] Returns: the \texttt{pairBuilder} of this configuration
-
-\item \texttt{SuccessQuantifier getSuccessQuantifier()}
-\item[] Returns the \texttt{SuccessQuantifier} of this configuration.
-\item[] Returns: the \texttt{SuccessQuantifier} of this configuration
-
-\item \texttt{StrategyAdjuster getStrategyAdjuster()}
-\item[] Returns the \texttt{StrategyAdjuster} of this configuration.
-\item[] Returns: the \texttt{StrategyAdjuster} of this configuration
-
-\item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
-\item[] Returns the \texttt{EquilibriumCriterion} of this configuration.
-\item[] Returns: the \texttt{EquilibriumCriterion} of this configuration
-
-\item \texttt{int getMaxAdapts()}
-\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
-\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
-\end{itemize}
-
 \subsubsection{Interface \texttt{Nameable}}
 
 Implementations of this interface have a name and a description, which can be queried in \texttt {String}-form.
@@ -460,7 +385,7 @@ Methods:
 
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
-This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{SimulationResult} object, which can be used to query the execution status and results of the simulation.
+This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{Simulation} object, which can be used to query the execution status and results of the simulation.
 
 \subsubsection{Class \texttt{SimulationResult}}
 A \texttt{SimulationResult} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if applicable, the results of the simulation. It is generated and deployed by a \texttt{Simulator} when a simulation is started.
@@ -603,7 +528,7 @@ Methods:
 
 \begin{itemize} \itemsep -10pt
 	\item \texttt{int getConfigurationNumber()}
-	\item[] In case of a multi configuration this method returns the number of the fault causing configuration. Otherwise it just returns -1.
+	\item[] In case of a multi configuration this method returns the number of the fault causing configuration. Otherwise it just returns 1.
 	\item[] Returns: the number of the fault causing configuration
 \end{itemize}
 
@@ -672,7 +597,7 @@ Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{List<double> getParameter()}
 	\item[] This method returns a list of the faulty parameter
-	\item[] Returns: a list of the faulty parameter
+	\item[] Retursn: a list of the faulty parameter
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationEngineException}}
@@ -729,22 +654,22 @@ Methods:
 	\item \texttt{List<GameResult> getAllResults()}
 	\item[] Returns a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step.
 	\item[]Returns: a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step
-	\item \texttt{List<GameResult> getResultsByAgent(Agent agent)}
+	\item \texttt{List<GameResult> getResultsByAgent(agent: Agent)}
 	\item[] Returns a list of all \texttt{GameResult}s of the given agent.
 	\item[] \texttt{agent}: the agent whose results shall be returned
 	\item[]Returns: a list of all \texttt{GameResult}s of the given agent
 	\item \texttt{List<GameResult> getLatestResults()}
 	\item[] Returns the most recent \texttt{GameResult} of every agent.
 	\item[]Returns: the most recent \texttt{GameResult} of every agent
-	\item \texttt{GameResult getLatestResultByAgent(Agent agent)}
+	\item \texttt{GameResult getLatestResultByAgent(agent: Agent)}
 	\item[] Returns the most recent \texttt{GameResult} of the given agent.
 	\item[] \texttt{agent}: the agent whose latest result shall be returned
 	\item[]Returns: the most recent \texttt{GameResult} of the given agent
-	\item \texttt{List<GameResult> getAllWhere(Predicate<GameResult> condition)}
+	\item \texttt{List<GameResult> getAllWhere(condition: Predicate<GameResult>)}
 	\item[] Filters all \texttt{GameResult} with the given condition and returns them.
 	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
 	\item[]Returns: Die filtered \texttt{GameResult}s
-	\item \texttt{GameResult getLatestWhere(Predicate<GameResult> condition)}
+	\item \texttt{GameResult getLatestWhere(condition: Predicate<GameResult>)}
 	\item[] Returns the latest \texttt{GameResult} that meets the given condition
 	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
 	\item[]Returns: the latest \texttt{GameResult} that meets the given condition
@@ -754,6 +679,80 @@ Methods:
 Implements: \texttt{SimulationHistory}
 
 This  class implements the \texttt{SimulationHistory}-interface.
+
+\subsubsection{Class \texttt{Configuration}}
+This class represents the elementary configuration of a single iteration and contains all the information about how to start one:
+\begin{itemize}\itemsep -10pt
+\item Game
+\item Number of agents
+\item Rounds per adaptation step
+\item Whether mixed strategies are allowed
+\item Group-/Segment formations
+\item Capital- and Strategy classification of the segments
+\item Agents pairing
+\item Succes quantification
+\item Adaption mechanism
+\item Equilibrium criterion
+\item Maximum number of adaptation steps
+\end{itemize}
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
+\item[] Creates a new \texttt{Configuration} with the given parameters.
+\item[] \texttt{game}: the game of this configuration
+\item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
+\item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
+\item[] \texttt{segments}: all segments of this configuration
+\item[] \texttt{pairBuilder}: the \texttt{PairBuilder} of this configuration
+\item[] \texttt{successQuantifier}: the \texttt{SuccessQuantifier} of this configuration
+\item[] \texttt{strategyAdjuster}: the \texttt{StrategyAdjuster} of this configuration
+\item[] \texttt{equilibriumCriterion}: the \texttt{EquilibriumCriterion} of this configuration
+\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Game getGame()}
+\item[] Returns the game of this configuration
+\item[] Returns: the game of this configuration
+
+\item \texttt{int getAgentCount()}
+\item[] Returns the amount of agents in this configuration
+\item[] Returns: the amount of agents in this configuration
+
+\item \texttt{int getRoundCount()}
+\item[] Returns the amount of rounds per adaption step in this configuration
+\item[] Returns: the amount of rounds per adaption step in this configuration
+
+\item \texttt{boolean allowsMixedStrategies()}
+\item[] Returns, whether mixed strategies are allowed in this configuration.
+\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
+
+\item \texttt{Collection<Segment> getSegments()}
+\item[] Returns all segments belonging to this configuration
+\item[] Returns: all segments belonging to this configuration as \texttt{Collection<Segment>}
+
+\item \texttt{PairBuilder getPairBuilder()}
+\item[] Returns the \texttt{pairBuilder} of this configuration.
+\item[] Returns: the \texttt{pairBuilder} of this configuration
+
+\item \texttt{SuccessQuantifier getSuccessQuantifier()}
+\item[] Returns the \texttt{SuccessQuantifier} of this configuration.
+\item[] Returns: the \texttt{SuccessQuantifier} of this configuration
+
+\item \texttt{StrategyAdjuster getStrategyAdjuster()}
+\item[] Returns the \texttt{StrategyAdjuster} of this configuration.
+\item[] Returns: the \texttt{StrategyAdjuster} of this configuration
+
+\item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
+\item[] Returns the \texttt{EquilibriumCriterion} of this configuration.
+\item[] Returns: the \texttt{EquilibriumCriterion} of this configuration
+
+\item \texttt{int getMaxAdapts()}
+\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
+\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
+\end{itemize}
 
 \subsubsection{Class \texttt{SimulationEngine}}
 This class provides a method to perform a single iteration of a given elementary configuration. The result is returned in the form of an \texttt{IterationResult} object.
@@ -902,6 +901,10 @@ Methods:
 \item \texttt{Collection<Agent> getAgents()}
 \item[] Returns the two players of this game.
 \item[] Returns: the two players of this game
+
+\item \texttt{Agent getOtherAgent(Agent agent)}
+\item[] If the given agent was one of the players of this game, returns the other player, otherwise returns \texttt{null}.
+\item[] Returns: the other player, if the given agent was a player of this game, otherwise \texttt{null}
 \end{itemize}
 
 \subsubsection{Interface \texttt{Game}}
@@ -1137,11 +1140,11 @@ Methods:
 \subsubsection{Class \texttt{PureStrategy}}
 Implements: \texttt{Strategy}
 
-This class represents a pure strategy. This is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as \texttt{Predicate <Agent, SimulationHistory>}.
+This class represents a pure strategy. This is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as \texttt{BiPredicate <Agent, SimulationHistory>}.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
+\item \texttt{PureStrategy(BiPredicate<Agent,SimulationHistory> condition)}
 \item[] Creates a new \texttt{PureStrategy}.
 \item[] \texttt{condition}: the condition an opposing agent must meet in order for an agent using this strategy to cooperate in a game against him
 \end{itemize}
@@ -1368,7 +1371,7 @@ Methods:
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine.distributions}}
 
 \subsubsection{Interface \texttt{Distribution<E>}}
-This interface represents a probability distribution over a support of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
+This interface represents a probability distribution over a carrier of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
 
 Methods
 \begin{itemize}\itemsep -10pt
@@ -1458,11 +1461,11 @@ Constructors:
 Extends: \texttt{Distribution<E>}
 
 
-Represents a probability distribution over objects of type \texttt{E} with finite support. Implementations return the support on query as \texttt{Collection <E>}.
+Represents a probability distribution over objects of type \texttt{E} with finite carrier. Implementations return the carrier on query as \texttt{Collection <E>}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Collection<E> getSupport()}
+\item \texttt{List<E> getSupport()}
 \item[] Returns the support of this probability distribution.
 \item[] Returns: the support of this distribution
 \end{itemize}
@@ -1470,14 +1473,14 @@ Methods:
 \subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
 Implements: \texttt{FiniteDistribution<E>}
 
-Represents a uniform distribution over objects of type \texttt{E} with finite support. Implementations provide methods for adding and removing objects.
+Represents a uniform distribution over objects of type \texttt{E} with finite carrier. Implementations provide methods for adding and removing objects.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{UniformFiniteDistribution<E>()}
 \item[] Creates a new \texttt{UniformFiniteDistribution<E>} with empty support.
 
-\item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
+\item \texttt{UniformFiniteDistribution<E>(List<E> ojects)}
 \item[] Creates a new \texttt{UniformFiniteDistribution<E>} with the given objects as support.
 \item[] \texttt{objects}: the objects the support of this distribution consists of
 \end{itemize}
@@ -1488,7 +1491,7 @@ Methods:
 \item[] Adds the given object to the support.
 \item[] \texttt{object}: the object thta shall be added
 
-\item \texttt{void addObjects(Collection<E> objects)}
+\item \texttt{void addObjects(List<E> objects)}
 \item[] Adds the given objects to the support.
 \item[] \texttt{objects}: the objects that shall be added
 
@@ -1503,74 +1506,78 @@ Methods:
 \subsubsection{Class \texttt{HeadController}}
 This class represents the interface between the model and the rest of the control structure. It can commission the simulator with a new configuration, transfer populations for storage, or reopen a saved configuration
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the HeadController an its databindings with the UI.
+\item \texttt{CentralController()}
+\item[] Creates a new HeadController.
 \end{itemize}
 
 \subsubsection{Class \texttt{HistoryController}}
 This class represents the controller responsible for the simulation history.
 
+Constructors:
+\begin{itemize}\itemsep -10pt
+\item \texttt{HistoryController()}
+\item[] Creates a new HistoryController
+\end{itemize}
+
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the HistoryController an its databindings with the UI.
-
-\item \texttt{void addSimulation(SimulationResult simulation)}
+\item \texttt{void addSimulation(Simulation simulation)}
 \item[] Adds a simulation to the simulationhistory
 
-\item \texttt{Simulationresult getSelectedSimulation()}
+\item \texttt{Simulation getSelectedSimulation()}
 \item[] Returns the simulation chosen by the user in the history.
 
-\item \texttt{List<SimulationResult> getAllSimulations()}
+\item \texttt{List<Simulation> getAllSimulations()}
 \item[] Return all the simulations in the history
 \end{itemize}
 
 \subsubsection{Class \texttt{OutputController}}
 This class represents the controller responsible for the results output in the main window.
 
+Constructors:
+\begin{itemize}\itemsep -10pt
+\item \texttt{OuputController()}
+\item[] Creates a new OutputController
+\end{itemize}
+
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the OutputController an its databindings with the UI.
-
-\item \texttt{void setSimulation(SimulationResult simulation)}
+\item \texttt{void setSimulation(Simulation simulation)}
 \item[] Sets the output to the given simulation
 
 \end{itemize}
 
-\subsubsection{Class \texttt{AbstractedOutputController}}
-This class represents the controller responsible for the tab containing the abstracted ouput of the simulationsresults.
+\subsubsection{Class \texttt{Page1Controller}}
+This class represents the controller responsible for the first tab of the output.
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the AbstractedOutputController an its databindings with the UI.
+\item \texttt{Page1Controller()}
+\item[] Creates a new Page1Controller
 \end{itemize}
 
-\subsubsection{Class \texttt{DetailledOutputController}}
-This class represents the controller responsible for the tab containing the detailled ouput of the simulationresults.
+\subsubsection{Class \texttt{Page2Controller}}
+This class represents the controller responsible for the second tab of the output.
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the DetailledOuputController an its databindings with the UI.
+\item \texttt{Page2Controller()}
+\item[] Creates a new Page2Controller
 \end{itemize}
 
+\subsubsection{Class \texttt{Page3Controller}}
+This class represents the controller responsible for the third tab of the output.
 
-
-\subsubsection{Class \texttt{MultConfOutputController}}
-This class represents the controller responsible for the tab containing the multiconfiguration-respectif output.
-
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the MultConfOutputController an its databindings with the UI.
+\item \texttt{Page3Controller()}
+\item[] Creates a new Page3Controller
 \end{itemize}
 
 \subsubsection{Interface \texttt{CreationController<T>}}
-Interface supervising the creation of an object in the view and returning it to the HeadController to handle with it.
+Interface supervising the creation of an object in the view and returning it to the model to save it.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1581,37 +1588,37 @@ Methods:
 \subsubsection{Class \texttt{GroupController}}
 This class represents the controller responsible for the \enquote{Neue Gruppe erstellen}-window.
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the GroupController an its databindings with the UI.
+\item \texttt{GroupController()}
+\item[] Creates a new GroupController.
 \end{itemize}
 
 \subsubsection{Class \texttt{PopulationController}}
 This class represents the controller responsible for the \enquote{Neue Population erstellen}-window.
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the PopulationController an its databindings with the UI.
+\item \texttt{PopulationController()}
+\item[] Creates a new PopulationController.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewGameController}}
 This class represents the controller responsible for the \enquote{Neues Stufenspiel erstellen}-window.
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the NewGameController an its databindings with the UI.
+\item \texttt{NewGameController()}
+\item[] Creates a new NewGameController.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewSrategyController}}
 This class represents the controller responsible for the \enquote{Neue Strategie erstellen}-window.
 
-Methods:
+Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the NewStrategyController an its databindings with the UI.
+\item \texttt{NewStrategyController()}
+\item[] Creates a new NewStrategyController.
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigController}}
@@ -1619,15 +1626,12 @@ This class represents the controller responsible for the configurationwindow.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{ConfigController(UserConfiguration configuration)}
-\item[] Creates a new ConfigController and sets the parameters to the given configuration.
+\item \texttt{ConfigController()}
+\item[] Creates a new ConfigController.
 \end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{initialize()}
-\item[] Initializes the ConfigController an its databindings with the UI.
-
 \item \texttt{void setConfiguration(Userconfiguration configuration)}
 \item[] Sets the parameters to the given configuration
 
@@ -1650,7 +1654,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{abstract Class \texttt{PluginControl}}
-Extends: javafx.scene.layout.Pane
+Extends: \texttt{javafx.scene.layout.Pane}
  
 This class serves as a control for the configuration of a plugin. It provides functionality for querying the configuration parameters entered by the user.
 
@@ -1663,7 +1667,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{TextFieldPluginControl}}
-Extends: PluginControl
+Extends: \texttt{PluginControl}
  
 This class is an implementation of a \texttt{PluginControl}, where the configuration parameters are entered via text fields. The input is still checked for correctness.
 
@@ -1699,7 +1703,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{GenericRenderer}}
-Implements: PluginRenderer
+Implements: \texttt{PluginRenderer}
  
 This class implements the \texttt{PluginRenderer} interface and creates a generic text-based configuration control (\texttt{TextFieldPluginControl} instance) for any plug-in.
 
@@ -1716,7 +1720,7 @@ Constructors:
 \end{itemize} 
 
 \subsubsection{Class \texttt{Parameter}}
-Implements: Nameable
+Implements: \texttt{Nameable}
  
 This class defines a configuration parameter for plugins. It provides functionality to set the value range and granularity of the configuration parameter.
 
@@ -1839,7 +1843,7 @@ Methods:
 
 \subsubsection{Class \texttt{HashMapRepository}}
 
-Implements: Repository<T>
+Implements: \texttt{Repository<T>}
  
 An implementation of the \texttt{Repository <T>} interface that stores entities in a \texttt{HashMap}.
 
@@ -1936,7 +1940,7 @@ Methods:
 	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
 \end{itemize}
 
-\section{Glossar}
+\section{Glossary}
 \textbf{Elementary configuration:}
 A configuration in which multiconfiguration is disabled. In the case of a multiconfiguration, the set of elementary configurations is the set of all elementary configurations in which the multiconfiguration parameter passes through the specified set of values. In the case of an elementary configuration, the configuration itself is meant again.
 
