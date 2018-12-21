@@ -1139,11 +1139,11 @@ Methods:
 \subsubsection{Class \texttt{PureStrategy}}
 Implements: \texttt{Strategy}
 
-This class represents a pure strategy. This is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as \texttt{Predicate <Agent, SimulationHistory>}.
+This class represents a pure strategy. This is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as \texttt{BiPredicate <Agent, SimulationHistory>}.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{PureStrategy(Predicate<Agent,SimulationHistory> condition)}
+\item \texttt{PureStrategy(BiPredicate<Agent,SimulationHistory> condition)}
 \item[] Creates a new \texttt{PureStrategy}.
 \item[] \texttt{condition}: the condition an opposing agent must meet in order for an agent using this strategy to cooperate in a game against him
 \end{itemize}
@@ -1464,7 +1464,7 @@ Represents a probability distribution over objects of type \texttt{E} with finit
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Collection<E> getSupport()}
+\item \texttt{List<E> getSupport()}
 \item[] Returns the support of this probability distribution.
 \item[] Returns: the support of this distribution
 \end{itemize}
@@ -1479,7 +1479,7 @@ Constructors:
 \item \texttt{UniformFiniteDistribution<E>()}
 \item[] Creates a new \texttt{UniformFiniteDistribution<E>} with empty support.
 
-\item \texttt{UniformFiniteDistribution<E>(Collection<E> ojects)}
+\item \texttt{UniformFiniteDistribution<E>(List<E> ojects)}
 \item[] Creates a new \texttt{UniformFiniteDistribution<E>} with the given objects as support.
 \item[] \texttt{objects}: the objects the support of this distribution consists of
 \end{itemize}
@@ -1490,7 +1490,7 @@ Methods:
 \item[] Adds the given object to the support.
 \item[] \texttt{object}: the object thta shall be added
 
-\item \texttt{void addObjects(Collection<E> objects)}
+\item \texttt{void addObjects(List<E> objects)}
 \item[] Adds the given objects to the support.
 \item[] \texttt{objects}: the objects that shall be added
 
@@ -1653,7 +1653,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{abstract Class \texttt{PluginControl}}
-Extends: javafx.scene.layout.Pane
+Extends: \texttt{javafx.scene.layout.Pane}
  
 This class serves as a control for the configuration of a plugin. It provides functionality for querying the configuration parameters entered by the user.
 
@@ -1666,7 +1666,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{TextFieldPluginControl}}
-Extends: PluginControl
+Extends: \texttt{PluginControl}
  
 This class is an implementation of a \texttt{PluginControl}, where the configuration parameters are entered via text fields. The input is still checked for correctness.
 
@@ -1702,7 +1702,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{GenericRenderer}}
-Implements: PluginRenderer
+Implements: \texttt{PluginRenderer}
  
 This class implements the \texttt{PluginRenderer} interface and creates a generic text-based configuration control (\texttt{TextFieldPluginControl} instance) for any plug-in.
 
@@ -1719,7 +1719,7 @@ Constructors:
 \end{itemize} 
 
 \subsubsection{Class \texttt{Parameter}}
-Implements: Nameable
+Implements: \texttt{Nameable}
  
 This class defines a configuration parameter for plugins. It provides functionality to set the value range and granularity of the configuration parameter.
 
@@ -1842,7 +1842,7 @@ Methods:
 
 \subsubsection{Class \texttt{HashMapRepository}}
 
-Implements: Repository<T>
+Implements: \texttt{Repository<T>}
  
 An implementation of the \texttt{Repository <T>} interface that stores entities in a \texttt{HashMap}.
 
@@ -1939,7 +1939,7 @@ Methods:
 	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
 \end{itemize}
 
-\section{Glossar}
+\section{Glossary}
 \textbf{Elementary configuration:}
 A configuration in which multiconfiguration is disabled. In the case of a multiconfiguration, the set of elementary configurations is the set of all elementary configurations in which the multiconfiguration parameter passes through the specified set of values. In the case of an elementary configuration, the configuration itself is meant again.
 
