@@ -856,11 +856,11 @@ This interface represents a pair of agents.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{getFirstAgent()}
+\item \texttt{Agent getFirstAgent()}
 \item[] Returns the first of both agents.
 \item[] Returns: the first of both agents
 
-\item \texttt{getSecondAgent()}
+\item \texttt{Agent getSecondAgent()}
 \item[] Returns the second of both agents.
 \item[] Returns: the second of both agents
 \end{itemize}
@@ -1042,9 +1042,10 @@ This interface represents an adaptation mechanism. An implementation takes a ran
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void adaptStrategies(List<Agent> agents)}
-\item[] Adjusts the strategies of the given agents.
+\item \texttt{void adaptStrategies(List<Agent> agents, SimulationHistory hist)}
+\item[] Adjusts the strategies of the given agents considering the current simulation history.
 \item[] \texttt{agents}: the agents whose strategies shall be adapted, ordered by their success in the current adaption step
+\item[] \texttt{hist}: the current simulation history
 \end{itemize}
 
 \subsubsection{Class \texttt{ReplicatorDynamic}}
@@ -1112,10 +1113,10 @@ Realize the \enquote{Strategie-Gleichgewichtskriterium} described in the specifi
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{StrategyEquilibrium(double alpha, int G)}
+\item \texttt{StrategyEquilibrium(double alpha, int minRounds)}
 \item[] Creates a new \texttt{StrategyEquilibrium}-object with the given parameters.
 \item[] \texttt{alpha}: the strictness of the equilibrium
-\item[] \texttt{G}: the minimum amount of consecutive condition-meeting adaption steps
+\item[] \texttt{minRounds}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
 
 \subsubsection{Class \texttt{RankingEquilibrium}}
@@ -1125,10 +1126,10 @@ Realize the \enquote{Rang-Gleichgewichtskriterium} described in the specificatio
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{RankingEquilibrium(double alpha, int G)}
+\item \texttt{RankingEquilibrium(double alpha, int minRounds)}
 \item[] Creates a new \texttt{RankingEquilibrium}-object with the given parameters.
 \item[] \texttt{alpha}: the strictness of the equilibrium
-\item[] \texttt{G}: the minimum amount of consecutive condition-meeting adaption steps
+\item[] \texttt{minRounds}: the minimum amount of consecutive condition-meeting adaption steps
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategies}}
@@ -1391,7 +1392,7 @@ This class provides functionality to create a new strategy from a given root \te
 
 Methods:
 \begin{itemize} \itemsep -10pt
-	\item \underline{\texttt{Strategy createNewStrategy(SyntaxNode root, String name, String desc)}}
+	\item \texttt{static Strategy createNewStrategy(SyntaxNode root, String name, String desc)}
 	\item[] This method creates a new \texttt{Strategy} from a given root
 	\item[] \texttt{root}: the root of the syntax tree the \texttt{Strategy} shall be built from
 	\item[] \texttt{name}: the name of the \texttt{Strategy} to create
@@ -1688,7 +1689,7 @@ This class provides the functionality to dynamically load plugins at run time us
 Methods:
 
 \begin{itemize}\itemsep -10pt
-	\item \underline{\texttt{static <T> List<T> loadPlugins()}}
+	\item \texttt{static <T> List<T> loadPlugins()}
 	\item[] loads all available plugins of the given type \texttt{T}
 	\item[] \texttt{<T>} the type of the plugins that shall be loaded
 	\item[]Returns: a list of the loaded plugins
@@ -1751,12 +1752,12 @@ This class implements the \texttt{PluginRenderer} interface and creates a generi
 Constructors:
 
 \begin{itemize}\itemsep -10pt
-	\item \texttt{GenericRenderer(plugin: Plugin)}
-	\item[] Creates a new \texttt{GenericRenderer} for the given \texttt{Plugin}
+	\item \texttt{GenericRenderer(Plugin plugin)}
+	\item[] Creates a new \texttt{GenericRenderer} for the given plugin
 	\item[] \texttt{plugin}: the \texttt{Plugin} which shall be rendered by this \texttt{GenericRenderer}
 
-	\item \texttt{GenericRenderer(params: List<Parameter>)}
-	\item[] Creates a new \texttt{GenericRenderer} for a \texttt{Plugin} with the given \texttt{Parameter}s
+	\item \texttt{GenericRenderer(List<Parameter> params)}
+	\item[] Creates a new \texttt{GenericRenderer} for a plugin with the given parameters
 	\item[] \texttt{params}: a list with the \texttt{Parameter}s of the \texttt{Plugin} that shall be rendered by this \texttt{GenericRenderer}
 \end{itemize}
 
@@ -1770,12 +1771,6 @@ Constructors:
 	\item \texttt{Parameter()}
 	\item[] Creates a new unbounded \texttt{Parameter}.
 
-	\item \texttt{Parameter(double minVal)}
-	\item[] Creates a new lowerly bounded, upperly unbounded \texttt{Parameter}.
-	\item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
-	\item \texttt{Parameter(double maxVal)}
-	\item[] Creates a new lowerly unbounded, upperly bounded \texttt{Parameter}.
-	\item[] \texttt{maxVal}: the upper bound of the \texttt{Parameter}
 	\item \texttt{Parameter(double minVal, double maxVal)}
 	\item[] Creates a new bounded \texttt{Parameter}
 	\item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
@@ -1809,12 +1804,12 @@ This class provides functionality for validating a parameter assignment in the f
 Methods:
 
 \begin{itemize} \itemsep -10pt
-	\item \underline{\texttt{static boolean isValueValid(double val, Parameter param)}}
+	\item \texttt{static boolean isValueValid(double val, Parameter param)}
 	\item[] Checks if the given value is a valid assignment for the given parameter
 	\item[] \texttt{val}: the value that shall be checked
 	\item[] \texttt{param}: the parameter whose value range shall be considered
 	\item[] Returns: \texttt{true} if the given value lies in the value range of the given parameter, \texttt{false} otherwise
-	\item \underline{\texttt{static double getClosestValid(double val, Parameter param)}}
+	\item \texttt{static double getClosestValid(double val, Parameter param)}
 	\item[] Returns the value in the value range of the given parameter that is closest to the given value.
 	\item[] \texttt{val}: the value that shall be considered
 	\item[] \texttt{param}: the parameter whose value range shall be considered
@@ -1879,6 +1874,10 @@ Methods:
 	\item[] Returns whether this repository contains an entity with the given name
 	\item[] \texttt{name}: the name that shall be checked
 	\item[] Returns: \texttt{true} if an entity with the given name is stored, \texttt{false} otherwise
+	
+	\item \texttt{List<String> getAllEntityNames()}
+	\item[] Returns all entity keys used in this repository
+	\item[] Returns: a list of all entity keys
 
 \end{itemize}
 
@@ -1908,9 +1907,9 @@ This class provides central access to all loaded Plugins of all types as well as
 Methods:
 
 \begin{itemize} \itemsep -10pt
-	\item \underline{\texttt{void initialize()}}
+	\item \texttt{static void initialize()}
 	\item[] Initializes the Repository-instance by loading all available plugins in the current execution environment working directory and all saved entities from the home directory.
-	\item \underline{\texttt{CentralRepository getInstance()}}
+	\item \texttt{static CentralRepository getInstance()}
 	\item[]Returns the singleton Repository-instance
 	\item[] Returns: the singleton instance
 	\item \texttt{Repository<Strategy> getStrategyRepository()}
@@ -1950,7 +1949,7 @@ This class provides static functionality for loading and storing entities in fil
 Methods:
 
 \begin{itemize}\itemsep -10pt
-	\item \underline{\texttt{static <T> T loadEntity(File file)}}
+	\item \texttt{static <T> T loadEntity(File file)}
 	\item[] Loads an entity of type \texttt{T} out of the given file.
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{file}: the file from which the entity shall be loaded
@@ -1958,21 +1957,21 @@ Methods:
 	\item[]Throws: \texttt{FileNotFoundException} when the given file doesn't exist
 	\item[]Throws: \texttt{IOException} when the entity can not be deserialized
 
-	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
+	\item \texttt{static <T> List<T> loadAllEntities(File dir)}
 	\item[] Loads all entities of type \texttt{T} from files in the given directory
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{dir}: the directory from which the entities shall be loaded
 	\item[]Returns: a list of all loaded entities
 	\item[]Throws: \texttt{FileNotFoundException} when the given directory doesn't exist
 
-	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
+	\item \texttt{static <T> List<T> loadAllEntities(List<File> files)}
 	\item[] Loads all entities of type \texttt{T} from the given files.
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{files}: the list of all files from which entities shall be loaded
 	\item[]Returns: a list of all loaded entities
 	\item[]Throws: \texttt{FileNotFoundException} when any of the given files doesn't exist
 
-	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
+	\item \texttt{static <T> boolean saveEntity(File file, T entity)}
 	\item[] Saves the given entity in the given file.
 	\item[] \texttt{<T>} the type of the entity that shall be saved
 	\item[] \texttt{file}: the file to which the entity shall  be saved
