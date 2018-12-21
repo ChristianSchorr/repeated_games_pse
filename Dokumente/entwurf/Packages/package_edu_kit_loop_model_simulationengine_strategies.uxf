@@ -1,162 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+<diagram program="umlet" version="14.2">
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>147</x>
-      <y>357</y>
-      <w>413</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-Strategy
--
-+isCooperative(p1: Agent, p2: Agent, hist: SimulationHistory): boolean
-+getCooperationProbability(p1: Agent, p2: Agent, hist: SimulationHistory): double
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>343</x>
-      <y>476</y>
-      <w>280</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>MixedStrategy
--
--
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>336</x>
-      <y>406</y>
-      <w>168</w>
-      <h>84</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0;220.0;60.0;220.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>553</x>
-      <y>371</y>
-      <w>119</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=1..n</panel_attributes>
-    <additional_attributes>100.0;180.0;150.0;180.0;150.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>0</x>
-      <y>476</y>
-      <w>329</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>PureStrategy
--
--condition: Predicate&lt;Agent, SimulationHistory&gt;
--
-PureStrategy(cond: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>182</x>
-      <y>441</y>
-      <w>175</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0;230.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>490</x>
-      <y>231</y>
-      <w>210</w>
-      <h>77</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-RealVector
---
-+getEuclideanNorm(): double
-+getSumNorm(): double
-+multiplyBy(value: double): void
-+add(vector: RealVector): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>588</x>
-      <y>301</y>
-      <w>21</w>
-      <h>189</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>511</x>
-      <y>119</y>
-      <w>210</w>
-      <h>77</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-Vector&lt;T&gt;
---
-+getSize(): int
-+getComponent(i: int): T
-+setComponent(i: int, value: T): void
-+clone(): Vector&lt;E&gt;</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>588</x>
-      <y>189</y>
-      <w>21</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1295</x>
-      <y>392</y>
-      <w>357</w>
-      <h>42</h>
+      <x>792</x>
+      <y>495</y>
+      <w>616</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>StrategyBuilder
 -
 -
-_+createNewStrategy(root: SyntaxNode, name, desc: String): Strategy _</panel_attributes>
+_+createNewStrategy(root: SyntaxNode, name: String, desc: String): Strategy _</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1064</x>
-      <y>301</y>
-      <w>259</w>
-      <h>56</h>
+      <x>451</x>
+      <y>352</y>
+      <w>407</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>SyntaxNode
 -
@@ -170,22 +35,22 @@ _+createNewStrategy(root: SyntaxNode, name, desc: String): Strategy _</panel_att
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1316</x>
-      <y>308</y>
-      <w>49</w>
-      <h>56</h>
+      <x>847</x>
+      <y>374</y>
+      <w>77</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=0..2</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;10.0;50.0;50.0;10.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;50.0;40.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1141</x>
-      <y>350</y>
-      <w>21</w>
-      <h>105</h>
+      <x>572</x>
+      <y>429</y>
+      <w>33</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
@@ -193,10 +58,10 @@ m2=0..2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>777</x>
-      <y>301</y>
-      <w>203</w>
-      <h>70</h>
+      <x>0</x>
+      <y>352</y>
+      <w>319</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>SyntaxTree
 -
@@ -209,10 +74,10 @@ m2=0..2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>973</x>
-      <y>308</y>
-      <w>105</w>
-      <h>35</h>
+      <x>308</x>
+      <y>363</y>
+      <w>165</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1
@@ -222,22 +87,22 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1239</x>
-      <y>350</y>
-      <w>70</w>
-      <h>70</h>
+      <x>726</x>
+      <y>429</y>
+      <w>88</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0;80.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;60.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1239</x>
-      <y>399</y>
-      <w>42</w>
-      <h>56</h>
+      <x>726</x>
+      <y>506</y>
+      <w>66</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 uses</panel_attributes>
@@ -246,10 +111,10 @@ uses</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1113</x>
-      <y>126</y>
-      <w>224</w>
-      <h>98</h>
+      <x>528</x>
+      <y>77</y>
+      <w>407</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>template=T: Object
 &lt;&lt;interface&gt;&gt;
@@ -258,16 +123,16 @@ TreeNode
 +getContent(): T
 +getChildren(): List&lt;TreeNode&lt;T&gt; &gt;
 +removeNode(node: TreeNode&lt;T&gt;): boolean
-+insertNode(mount: TreeNode&lt;T&gt;)</panel_attributes>
++insertNode(node: TreeNode&lt;T&gt;): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>812</x>
-      <y>126</y>
-      <w>175</w>
-      <h>63</h>
+      <x>55</x>
+      <y>77</y>
+      <w>275</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>template=T: Object
 &lt;&lt;interface&gt;&gt;
@@ -279,10 +144,10 @@ Tree
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>952</x>
-      <y>147</y>
-      <w>175</w>
-      <h>35</h>
+      <x>275</x>
+      <y>110</y>
+      <w>275</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1
@@ -292,10 +157,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1190</x>
-      <y>217</y>
-      <w>112</w>
-      <h>98</h>
+      <x>649</x>
+      <y>220</y>
+      <w>198</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 implements
@@ -305,10 +170,10 @@ TreeNode&lt;Strategy&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>875</x>
-      <y>182</y>
-      <w>105</w>
-      <h>133</h>
+      <x>154</x>
+      <y>165</y>
+      <w>187</w>
+      <h>209</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 implements
@@ -318,25 +183,25 @@ Tree&lt;SyntaxNode&gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>994</x>
-      <y>441</y>
-      <w>280</w>
-      <h>56</h>
+      <x>264</x>
+      <y>572</y>
+      <w>517</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Operator
 -
-+combineStrategies(strat1, strat2: Strategy): Strategy
++combineStrategies(strat1: Strategy, strat2: Strategy): Strategy
 +getOperandCount(): int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1043</x>
-      <y>525</y>
-      <w>77</w>
-      <h>21</h>
+      <x>418</x>
+      <y>704</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>AndOperator
 -</panel_attributes>
@@ -345,10 +210,10 @@ Operator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1043</x>
-      <y>553</y>
-      <w>77</w>
-      <h>21</h>
+      <x>418</x>
+      <y>748</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>NandOperator
 -</panel_attributes>
@@ -357,10 +222,10 @@ Operator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1043</x>
-      <y>581</y>
-      <w>77</w>
-      <h>21</h>
+      <x>418</x>
+      <y>792</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>OrOperator
 -</panel_attributes>
@@ -369,10 +234,10 @@ Operator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1043</x>
-      <y>609</y>
-      <w>77</w>
-      <h>21</h>
+      <x>418</x>
+      <y>836</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>NorOperator
 -</panel_attributes>
@@ -381,10 +246,10 @@ Operator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1148</x>
-      <y>525</y>
-      <w>77</w>
-      <h>21</h>
+      <x>583</x>
+      <y>704</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>XorOperator
 -</panel_attributes>
@@ -393,10 +258,10 @@ Operator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1148</x>
-      <y>553</y>
-      <w>77</w>
-      <h>21</h>
+      <x>583</x>
+      <y>748</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>NotOperator
 -</panel_attributes>
@@ -405,10 +270,10 @@ Operator
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1148</x>
-      <y>581</y>
-      <w>77</w>
-      <h>21</h>
+      <x>583</x>
+      <y>792</y>
+      <w>121</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>Implies
 -</panel_attributes>
@@ -417,10 +282,10 @@ Operator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1113</x>
-      <y>490</y>
-      <w>35</w>
-      <h>147</h>
+      <x>528</x>
+      <y>649</y>
+      <w>55</w>
+      <h>231</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>30.0;10.0;30.0;190.0;10.0;190.0</additional_attributes>
@@ -428,10 +293,10 @@ Operator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1113</x>
-      <y>532</y>
-      <w>49</w>
-      <h>21</h>
+      <x>528</x>
+      <y>715</y>
+      <w>77</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
@@ -439,10 +304,10 @@ Operator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1113</x>
-      <y>560</y>
-      <w>49</w>
-      <h>21</h>
+      <x>528</x>
+      <y>759</y>
+      <w>77</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
@@ -450,12 +315,170 @@ Operator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1113</x>
-      <y>588</y>
-      <w>49</w>
-      <h>21</h>
+      <x>528</x>
+      <y>803</y>
+      <w>77</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2288</x>
+      <y>0</y>
+      <w>341</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Vector&lt;T&gt;
+--
++getSize(): int
++getComponent(index: int): T
++setComponent(index: int, value: T): void
++clone(): Vector&lt;T&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2442</x>
+      <y>110</y>
+      <w>33</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2288</x>
+      <y>176</y>
+      <w>330</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+RealVector
+--
++getEuclideanNorm(): double
++getSumNorm(): double
++multiplyBy(scalar: double): void
++add(vector: RealVector): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2387</x>
+      <y>396</y>
+      <w>308</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..n</panel_attributes>
+    <additional_attributes>220.0;180.0;260.0;180.0;260.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2442</x>
+      <y>286</y>
+      <w>33</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1628</x>
+      <y>374</y>
+      <w>770</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Strategy
+-
++isCooperative(player: Agent, opponent: Agent, history: SimulationHistory): boolean
++getCooperationProbability(player: Agent, opponent: Agent, history: SimulationHistory): double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2046</x>
+      <y>451</y>
+      <w>264</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;220.0;60.0;220.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2002</x>
+      <y>561</y>
+      <w>627</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>MixedStrategy
+-
+-
++MixedStrategy(strategies: List&lt;Strategy&gt;, probabilites: List&lt;double&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1760</x>
+      <y>506</y>
+      <w>319</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1430</x>
+      <y>561</y>
+      <w>561</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>PureStrategy
+-
+-
++PureStrategy(condition: Predicate&lt;Agent, SimulationHistory&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>341</y>
+      <w>847</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1</panel_attributes>
+    <additional_attributes>10.0;20.0;750.0;20.0;750.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1221</x>
+      <y>407</y>
+      <w>429</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>370.0;20.0;10.0;20.0;10.0;80.0</additional_attributes>
   </element>
 </diagram>
