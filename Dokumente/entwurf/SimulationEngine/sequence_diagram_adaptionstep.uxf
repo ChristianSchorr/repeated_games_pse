@@ -248,7 +248,7 @@ layer=3
       <w>1127</w>
       <h>63</h>
     </coordinates>
-    <panel_attributes>sd executeRound
+    <panel_attributes>sd playGame
 layer=3</panel_attributes>
     <additional_attributes/>
   </element>
