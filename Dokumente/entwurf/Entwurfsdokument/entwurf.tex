@@ -600,7 +600,7 @@ Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{List<Double> getParameter()}
 	\item[] This method returns a list of all faulty parameters
-	\item[] Retursn: a list of all faulty parameters
+	\item[] Returns: a list of all faulty parameters
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationEngineException}}
@@ -1416,7 +1416,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Interface \texttt{DiscreteDistribution}}
-Implements: \texttt{Distribution<Integer>}
+Extends: \texttt{Distribution<Integer>}
 
 Represents a discrete probability distribution on integers. An implementation calculates an interval for a given value \(q \ in (0,1) \) \(I_q = [a, b] \) (\(a, b \ in \ mathbb {Z}, a < b \)), so that a randomly drawn value from the distribution is at least with the probability \(q \) in \(I_q \). The limits of this interval can be queried.
 
@@ -1473,8 +1473,8 @@ Constructors:
 \end{itemize}
 
 \subsubsection{Interface \texttt{FiniteDistribution<E>}}
-Extends: \texttt{Distribution<E>}
 
+Extends: \texttt{Distribution<E>}
 
 Represents a probability distribution over objects of type \texttt{E} with finite carrier. Implementations return the carrier on query as \texttt{List<E>}.
 
@@ -1495,7 +1495,7 @@ Constructors:
 \item \texttt{UniformFiniteDistribution<E>()}
 \item[] Creates a new \texttt{UniformFiniteDistribution<E>} with empty support.
 
-\item \texttt{UniformFiniteDistribution<E>(List<E> ojects)}
+\item \texttt{UniformFiniteDistribution<E>(List<E> objects)}
 \item[] Creates a new \texttt{UniformFiniteDistribution<E>} with the given objects as support.
 \item[] \texttt{objects}: the objects the support of this distribution consists of
 \end{itemize}
@@ -1538,7 +1538,7 @@ Methods:
 
 \item \texttt{SimulationResult getSelectedSimulation()}
 \item[] Returns the currently selected simulation result
-\item[] Returns: the currently selected SimulationResutl
+\item[] Returns: the currently selected SimulationResult
 
 \item \texttt{List<SimulationResult> getAllSimulations()}
 \item[] Return all the simulations in the history
