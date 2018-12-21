@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
+<diagram program="umlet" version="14.2">
   <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -216,7 +216,7 @@ CreationController
     <panel_attributes>OutputController
 -
 +initialize(): void
-+addSimulation(simulation: SimulationResult): void</panel_attributes>
++setSimulation(simulation: SimulationResult): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
