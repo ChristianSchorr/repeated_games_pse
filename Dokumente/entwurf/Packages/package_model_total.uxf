@@ -67,7 +67,7 @@
       <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-edu.kit.model.Nameable
+Nameable
 -
 +getName(): String
 +getDescription(): String</panel_attributes>
