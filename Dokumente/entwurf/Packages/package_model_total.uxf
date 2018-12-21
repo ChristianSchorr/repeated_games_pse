@@ -1,46 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
-  <zoom_level>7</zoom_level>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>84</x>
-      <y>280</y>
-      <w>266</w>
-      <h>259</h>
-    </coordinates>
-    <panel_attributes>UserConfiguration
--
-+getGameName(): String
-+getAgentCount(): int
-+getRoundCount(): int
-+getIterationCount(): int
-+getAvailableStrategieNames(): Collection&lt;String&gt;
-+getMixedAllowed(): boolean
-+getPopulationNames(): Collection&lt;String&gt;
-+getPairBuilderName(): String
-+getSuccessQuantifierName(): String
-+getStrategyAdjusterName(): String
-+getComparisonProbability(): double
-+getAdjustmentProbability(): double
-+getEquilibriumCriteriaName(): String
-+getEquilibriumStability(): double
-+getEquilibriumLength(): int
-+getMaximumStepCount(): int
-
-+getVariableParameter(): String
-+getStartValue(): double
-+getEndValue(): double
-+getStepSize(): double</panel_attributes>
-    <additional_attributes/>
-  </element>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>6</zoom_level>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>203</x>
-      <y>238</y>
-      <w>21</w>
-      <h>56</h>
+      <x>252</x>
+      <y>198</y>
+      <w>18</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -48,10 +15,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>147</x>
-      <y>210</y>
-      <w>126</w>
-      <h>35</h>
+      <x>204</x>
+      <y>174</y>
+      <w>108</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 /java.io.Serializable/
@@ -61,10 +28,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>581</x>
-      <y>273</y>
-      <w>189</w>
-      <h>56</h>
+      <x>576</x>
+      <y>228</y>
+      <w>162</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Nameable
@@ -76,10 +43,10 @@ Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>448</x>
-      <y>399</y>
-      <w>189</w>
-      <h>70</h>
+      <x>462</x>
+      <y>336</y>
+      <w>162</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>Population
 --
@@ -92,10 +59,10 @@ Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>714</x>
-      <y>399</y>
-      <w>196</w>
-      <h>70</h>
+      <x>690</x>
+      <y>336</y>
+      <w>168</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>Group
 --
@@ -108,10 +75,10 @@ Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>714</x>
-      <y>518</y>
-      <w>196</w>
-      <h>56</h>
+      <x>690</x>
+      <y>438</y>
+      <w>168</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Segment
 --
@@ -123,10 +90,10 @@ Nameable
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>399</y>
-      <w>98</w>
-      <h>28</h>
+      <x>618</x>
+      <y>336</y>
+      <w>84</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..8</panel_attributes>
@@ -135,10 +102,10 @@ m2=1..8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>805</x>
-      <y>462</y>
-      <w>35</w>
-      <h>70</h>
+      <x>768</x>
+      <y>390</y>
+      <w>36</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..8</panel_attributes>
@@ -147,10 +114,10 @@ m2=1..8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>665</x>
-      <y>364</y>
-      <w>161</w>
-      <h>49</h>
+      <x>648</x>
+      <y>306</y>
+      <w>138</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;210.0;10.0;210.0;50.0</additional_attributes>
@@ -158,10 +125,10 @@ m2=1..8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>532</x>
-      <y>322</y>
-      <w>154</w>
-      <h>91</h>
+      <x>534</x>
+      <y>270</y>
+      <w>132</w>
+      <h>78</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>200.0;10.0;200.0;70.0;10.0;70.0;10.0;110.0</additional_attributes>
@@ -169,10 +136,10 @@ m2=1..8</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>259</x>
-      <y>644</y>
-      <w>105</w>
-      <h>70</h>
+      <x>300</x>
+      <y>546</y>
+      <w>90</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>simulator
 bg=orange</panel_attributes>
@@ -181,10 +148,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>392</x>
-      <y>644</y>
-      <w>105</w>
-      <h>70</h>
+      <x>414</x>
+      <y>546</y>
+      <w>90</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>simulationengine
 bg=orange</panel_attributes>
@@ -193,10 +160,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>518</x>
-      <y>644</y>
-      <w>105</w>
-      <h>70</h>
+      <x>522</x>
+      <y>546</y>
+      <w>90</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>plugin
 bg=orange</panel_attributes>
@@ -205,10 +172,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>644</x>
-      <y>644</y>
-      <w>105</w>
-      <h>70</h>
+      <x>630</x>
+      <y>546</y>
+      <w>90</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>repository
 bg=orange</panel_attributes>
@@ -217,14 +184,49 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>0</x>
-      <y>133</y>
-      <w>1008</w>
-      <h>686</h>
+      <x>78</x>
+      <y>108</y>
+      <w>864</w>
+      <h>588</h>
     </coordinates>
     <panel_attributes>edu.kit.loop.model
 bg=yellow
 layer=-10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>138</x>
+      <y>234</y>
+      <w>228</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>UserConfiguration
+-
+-
++UserConfiguration(...) &lt;&lt;ctor&gt;&gt;
++getGameName(): String
++getAgentCount(): int
++getRoundCount(): int
++getIterationCount(): int
++getAvailableStrategieNames(): List&lt;String&gt;
++getMixedAllowed(): boolean
++getPopulationName(): String
++getPairBuilderName(): String
++getPairBuilderParameters(): List&lt;Double&gt;
++getSuccessQuantifierName(): String
++getSuccessQuantifierParameters(): List&lt;Double&gt;
++getStrategyAdjusterName(): String
++getStrategyAdjusterParameters(): List&lt;Double&gt;
++getEquilibriumCriterionName(): String
++getEquilibriumParameters(): List&lt;Double&gt;
++getMaxAdapts(): int
++isMulticonfiguration(): boolean
++getVariableParameterName(): String
++getStartValue(): double
++getEndValue(): double
++getStepSize(): double</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
