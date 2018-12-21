@@ -124,7 +124,7 @@ edu.kit.model.Nameable
       <x>0</x>
       <y>120</y>
       <w>380</w>
-      <h>460</h>
+      <h>390</h>
     </coordinates>
     <panel_attributes>UserConfiguration
 -
@@ -143,12 +143,8 @@ edu.kit.model.Nameable
 +getSuccessQuantifierParameters(): List&lt;Double&gt;
 +getStrategyAdjusterName(): String
 +getStrategyAdjusterParameters(): List&lt;Double&gt;
-+getComparisonProbability(): double
-+getAdjustmentProbability(): double
 +getEquilibriumCriterionName(): String
 +getEquilibriumParameters(): List&lt;Double&gt;
-+getEquilibriumStability(): double
-+getEquilibriumLength(): int
 +getMaxAdapts(): int
 +isMulticonfiguration(): boolean
 +getVariableParameterName(): String
