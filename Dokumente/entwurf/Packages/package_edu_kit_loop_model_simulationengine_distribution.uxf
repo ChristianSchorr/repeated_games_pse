@@ -12,8 +12,8 @@
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 DiscreteDistribution
 --
-+getSupportMin(quantil: double): int
-+getSupportMax(quantil: double): int</panel_attributes>
++getSupportMin(q: double): int
++getSupportMax(q: double): int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
