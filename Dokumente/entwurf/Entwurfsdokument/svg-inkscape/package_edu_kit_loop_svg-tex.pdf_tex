@@ -1,0 +1,120 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'package_edu_kit_loop_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1335bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.24129213)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.66179775,0.03567416){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Object\end{tabular}}}}%
+    \put(0.57752809,0.02389393){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PluginLoader\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.53089888,0.00930478){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+loadPlugins(): List<T>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.76629213,0.2311973){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ParameterValidator\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.68820225,0.21660815){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+isValueValid(val: double, param: Parameter): booelan\end{tabular}}}}%
+    \put(0.68820225,0.20763697){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getClosestValid(val: double, param: Parameter): double\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.84382022,0.14692764){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Parameter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.72752809,0.13233848){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Parameter(minVal: double, maxVal: double) «ctor»\end{tabular}}}}%
+    \put(0.72752809,0.1233673){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Parameter(minVal: double, maxVal: double, stepSize: double) «ctor»\end{tabular}}}}%
+    \put(0.72752809,0.11439607){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMinValue(): double\end{tabular}}}}%
+    \put(0.72752809,0.10542483){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMaxValue(): double\end{tabular}}}}%
+    \put(0.72752809,0.09645365){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStepSize(): double\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.35449438,0.06827596){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GenericRenderer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.27247191,0.0536868){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GenericRenderer(params: List<Parameter>) «ctor»\end{tabular}}}}%
+    \put(0.27247191,0.04471562){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GenericRenderer(plugin: Plugin) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.0752809,0.06827596){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}TextFieldPluginControl\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.00280899,0.0536868){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+TextFieldPluginControl(params: List<Parameter>) «ctor»\end{tabular}}}}%
+    \put(0.00280899,0.04471562){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addParameter(param: Parameter): void\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.02921348,0.19187146){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}javafx.scene.layout.Pane\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.0488764,0.13569169){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{PluginControl}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.00842697,0.12110253){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getParameter(): List<double>}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.29775281,0.13569169){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.28988764,0.12672051){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PluginRenderer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.25561798,0.11494034){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+render(): PluginControl\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.56179775,0.2311973){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.53876404,0.22222612){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}edu.kit.model.Nameable\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.51404494,0.20763697){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getName(): String\end{tabular}}}}%
+    \put(0.51404494,0.19866573){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getDescription(): String\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.66516854,0.15926966){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Nameable\end{tabular}}}}%
+    \put(0.57022472,0.14748944){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{Plugin}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.48033708,0.13290028){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getRenderer(): PluginRenderer\end{tabular}}}}%
+    \put(0.48033708,0.1239291){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getParameters(): List<Parameter>}\end{tabular}}}}%
+    \put(0.48033708,0.11495787){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getNewInstance(params: List<double>): T}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.60337079,0.0654582){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}loads\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.81123596,0.17500876){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}validates\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.23710388,0.06938202){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}creates\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.32247191,0.08793011){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}implements\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.18373309,0.13117978){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}creates\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{package_edu_kit_loop_svg-tex.pdf}}%
+  \end{picture}%
+\endgroup%
