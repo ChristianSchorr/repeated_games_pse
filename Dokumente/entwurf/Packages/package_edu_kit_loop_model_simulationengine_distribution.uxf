@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -27,7 +27,7 @@ DiscreteDistribution
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 FiniteDistribution&lt;E&gt;
 --
-+getSupport(): Collection&lt;E&gt;</panel_attributes>
++getSupport(): List&lt;E&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -40,10 +40,11 @@ FiniteDistribution&lt;E&gt;
     </coordinates>
     <panel_attributes>UniformFiniteDistribution&lt;E&gt;
 --
+-
 +UniformFiniteDistribution&lt;E&gt;() &lt;&lt;ctor&gt;&gt;
-+UniformFiniteDistribution&lt;E&gt;(objects: Collection&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
++UniformFiniteDistribution&lt;E&gt;(objects: List&lt;E&gt;) &lt;&lt;ctor&gt;&gt;
 +addObject(e: E): void
-+addObjects(objects: Collection&lt;E&gt;): void
++addObjects(objects: List&lt;E&gt;): void
 +deleteObject(e: E): boolean</panel_attributes>
     <additional_attributes/>
   </element>
@@ -70,7 +71,7 @@ FiniteDistribution&lt;E&gt;
 Picker&lt;E&gt;
 --
 +pickOne(): E
-+pickMany(i: int): Collection&lt;E&gt;</panel_attributes>
++pickMany(i: int): List&lt;E&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -154,6 +155,7 @@ generates</panel_attributes>
     </coordinates>
     <panel_attributes>PoissonDistribution
 --
+-
 +PoissonDistribution(lambda: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -167,6 +169,7 @@ generates</panel_attributes>
     </coordinates>
     <panel_attributes>BinomialDistribution
 --
+-
 +BinomialDistribution(min: int, max: int, p: double) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -180,6 +183,7 @@ generates</panel_attributes>
     </coordinates>
     <panel_attributes>UniformDiscreteDistribution
 --
+-
 +EqualDistribution(min: int, max: int) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
