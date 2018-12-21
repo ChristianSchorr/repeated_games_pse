@@ -33,6 +33,7 @@
 \usepackage{subfig}
 \usepackage{float} % für Fließumgebungen; Platzierung H verschiebt nicht
 \usepackage{multirow}
+\usepackage{svg}
 \restylefloat{figure}
 \hypersetup{
 	pdftitle={Entwurf},
@@ -79,7 +80,7 @@ The object-oriented architecture of the project follows the model-view-controlle
 \end{figure}
 
 \subsection{The view}
-Since the user interface (UI) of the program was designed using the UI-Builder \textit{NAMEEINFÜGEN}, the \texttt{view}-package contains mainly auto-generated classes provided by \textit{NAMEEINFÜGEN}.
+Since the user interface (UI) of the program was designed using the javafx UI-Builder, the \texttt{view}-package contains mainly auto-generated XML-files from which the UI classes are generated at run time.
 
 The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
 
@@ -102,15 +103,36 @@ The model contains interfaces representing those variable events and provides im
 \section{Specification changes}
 
 \subsection{Populations}
-The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games) (see \cref{?}).
+The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games) (see \cref{fig:new_config}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/new_config.png}
+	\caption{new configuration window with population selection}
+	\label{fig:new_config}
+\end{figure}
 
 \textbf{Group Creation:}
 The name and the description of a group can be entered in corresponding text fields at the top of the creation window. The amount of segments, their sizes and their strategy- and capital distributions can be configurated via a Tab-Control element (as originally in the configuration window). Furthermore, a group can be declared as \enquote{coherent} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/group_window.png}
+	\caption{new configuration window with population selection}
+	\label{fig:group_creation}
+\end{figure}
+
 \textbf{Population Creation:}
-The name and the description of a population can be entered in corresponding text fields at the top of the creation window. Below, \(1\) to \(16\) groups can be added, each with specified size (see \cref{?}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
+The name and the description of a population can be entered in corresponding text fields at the top of the creation window. Below, \(1\) to \(16\) groups can be added, each with specified size (see \cref{fig:population_creation}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
 
 The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the \enquote{basic} and \enquote{advanced} settings have been fused. Below the dropdown menu, a section showing the composition of the selected population can expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/population_window.png}
+	\caption{new configuration window with population selection}
+	\label{fig:population_creation}
+\end{figure}
 
 \subsection{Strategies}
 The list of all variables that can appear as literals in a strategy was extended by the following:
@@ -135,7 +157,15 @@ Furthermore it is possible to make the plugins user configurable in the configur
 \section{Packages and classes}
 
 \subsection{Package \texttt{edu.kit.loop}}
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{12}{8}\selectfont
+	\includesvg[width = 0.5 \linewidth]{images/paketdiagramme/package_edu_kit_loop}
 
+	\caption{Classdiagram \texttt{edu.kit.loop}}
+\end{figure}
+\fi
 \subsubsection{Class \texttt{Main}}
 Extends: \texttt{javafx.application.Application}
 
@@ -156,7 +186,15 @@ The model contains a central repository which gives static access to all availab
 The configuration of a simulation, as specified by the user in the configuration window, is represented by the \texttt{UserConfiguration} class. It directly stores the users input, where numerical inputs are represented by \texttt{integer}s or \texttt{double}s and algorithms, populations, strategies etc. are represented as \texttt{String}s containing the corresponding names. When a simulation to a given \texttt{UserConfiguration} is started, an instance of the \texttt{Configuration} class is generated for each associated elementary configuration. An instance of the \texttt{Configuration} class contains only the information needed to execute a single iteration and holds references to concrete instances of all involved classes (such as the pair builder, the success quantifier and the strategies).
 
 Lastly, the model contains the plugin system which can be used to integrate own implementations of the pair builder, the strategy adjuster, the success quantifier, the equilibrium criterion or the discrete distribution.
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model}
 
+	\caption{Classdiagram \texttt{edu.kit.loop.model}}
+\end{figure}
+\fi
 \subsubsection{Class \texttt{UserConfiguration}}
 Implements: \texttt{java.io.Serializable}
 
@@ -398,7 +436,15 @@ Methods:
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator}}
 This package contains the \texttt{Simulator}, which is the models interface for starting and stopping simulations.
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{4.5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulator}
 
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulator}}
+\end{figure}
+\fi
 \subsubsection{Class \texttt{SimulationResult}}
 A \texttt{SimulationResult} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if available, the results of the iterations. It is generated by a \texttt{Simulator} when a simulation is started.
 
@@ -531,7 +577,15 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator.exception}}
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{7}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_Simulator_exception}
 
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulator.exception}}
+\end{figure}
+\fi
 \subsubsection{Abstract Class \texttt{ConfigurationException }}
 Extends: java.lang.Exception
 
@@ -611,7 +665,26 @@ The \texttt{SimulationEngineException} is a type of exception that is thrown whe
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine}}
 
+
 This package contains the \texttt{SimulationEngine} class, which can be used to execute a single iteration to a given elementary configuration, as well as classes and interfaces core to the simulation process, such as the \texttt{Agent}, the \texttt{Game} or the \texttt{Strategy}.
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{4}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_strategies1}
+
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine} 1st part}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\fontsize{3}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_strategies2}
+
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine} 2nd part}
+\end{figure}
+\fi
+
 
 \subsubsection{Class \texttt{AgentInitialiser}}
 An \texttt{AgentInitialiser} can be used to create the agents of a given segment and initialise them with capital, strategies, and group affiliation.
@@ -1111,7 +1184,15 @@ This package contains the interface \texttt{Strategy}, which represents a game t
 
 Furthermore, it contains the subpackage \texttt{strategybuilder} which provides functionality for creating strategies using a tree-like syntax representation.
 
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{6}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_strategies}
 
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine.strategies}}
+\end{figure}
+\fi
 \subsubsection{Interface \texttt{Strategy}}
 Extends: \texttt{Nameable}
 
@@ -1208,6 +1289,19 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
+
+This package contains functionality for creating custom strategies by combining existing ones through logical expressions.
+
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_strategybuilder}
+
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
+\end{figure}
+\fi
+
 
 \subsubsection{Interface \texttt{Operator}}
 
@@ -1370,6 +1464,15 @@ Methods:
 
 This package contains different types of distributions and provides means for randomly picking values from those distributions.
 
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{6}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_distribution}
+
+	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine.distributions}}
+\end{figure}
+\fi
 \subsubsection{Interface \texttt{Distribution<E>}}
 This interface represents a probability distribution over a set of objects of type \texttt{E}. An implementation returns the probability of a given object upon request, and provides a \texttt{Picker <E>} to randomly pick objects from the probability distribution.
 
@@ -1504,6 +1607,15 @@ Methods:
 \subsection{Package \texttt{edu.kit.loop.controller}}
 This package contains controllers for the view. For each program window, there is one associated controller that is automatically instantiated when the window opens and is responsible for processing user input in that window.
 
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{4}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_controller}
+
+	\caption{Classdiagram \texttt{edu.kit.loop.controller}}
+\end{figure}
+\fi
 \subsubsection{Class \texttt{HeadController}}
 This controller is associated with the main window and thus instantiated when the program starts. It is also responsible for the communication between controller and model.
 
@@ -1655,6 +1767,15 @@ Methods:
 
 This package contains the plugin system which can be used to integrate own implementations of the pair builder, success quantifier, strategy adjuster, equilibrium criterion or discrete distribution.
 
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{5.75}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_plugin}
+
+	\caption{Classdiagram \texttt{edu.kit.loop.model.plugin}}
+\end{figure}
+\fi
 \subsubsection{Class \texttt{PluginLoader}}
 
 This class provides the functionality to dynamically load plugins at run time using the Java \texttt{ServiceLoader}-API.
@@ -1819,7 +1940,15 @@ Methods:
 
 This package contains the central repository, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
 
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{7.5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_repository}
 
+	\caption{Classdiagram \texttt{edu.kit.loop.model.repository}}
+\end{figure}
+\fi
 \subsubsection{Interface \texttt{Repository<T>}}
 
 A repository stores an association of names and entities and makes them available on request.
@@ -1958,32 +2087,37 @@ This section contains a selection of sequence diagrams to illustrate some import
 
 \subsection{Starting Simulations}
 The following sequence diagram illustrates the process of starting a simulation using a \texttt{Simulator}.
-
+\iftrue
 \begin{figure}[h]
 	\centering
-	\includegraphics[width = \linewidth]{images/sequence_diagram_simulator.png}
+	\fontsize{5.25}{8}\selectfont
+	\includesvg[width = \linewidth]{images/sequence_diagram_simulator}
 	\caption{The interaction of some controller with the \texttt{edu.kit.loop.model.simulator} package for the start of a simulation.}
 \end{figure}
-
+\fi
 \subsection{Execution of an Iteration}
 This sequence diagram illustrates the execution of a single iteration to a given (elementary) configuration by the \texttt{SimulationEngine}.
 
+\iftrue
 \begin{figure}[h]
 	\centering
-	\includegraphics[width = \linewidth]{images/sequence_diagram_simulationengine.png}
+	\fontsize{3.25}{8}\selectfont
+	\includesvg[width = \linewidth]{images/sequence_diagram_simulationengine}
 	\caption{The execution of a single iteration by an instance of the \texttt{SimulationEngine} class. The execution of the adaption step is shown in a different sequence diagram for the sake of lucidity.}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width = \linewidth]{images/sequence_diagram_adaptionstep.png}
+	\fontsize{3.5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/sequence_diagram_adaptionstep}
 	\caption{The execution of a single adaption step by an instance of the \texttt{SimulationEngine} class. The execution of a round is partly shown in a different sequence diagram for the sake of lucidity.}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width = \linewidth]{images/sequence_diagram_game.png}
+	\fontsize{3.75}{8}\selectfont
+	\includesvg[width = \linewidth]{images/sequence_diagram_game}
 	\caption{The execution of the part of a single round where a certain pair of agents plays the game.}
 \end{figure}
-
+\fi
 \section{Glossary}
 \textbf{Elementary configuration:}
 
