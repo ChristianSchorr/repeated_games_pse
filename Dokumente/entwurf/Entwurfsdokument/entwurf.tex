@@ -458,7 +458,7 @@ Methods:
 
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
-This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{Simulation} object, which can be used to query the execution status and results of the simulation.
+This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{SimulationResult} object, which can be used to query the execution status and results of the simulation.
 
 \subsubsection{Class \texttt{SimulationResult}}
 A \texttt{SimulationResult} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if applicable, the results of the simulation. It is generated and deployed by a \texttt{Simulator} when a simulation is started.
@@ -727,22 +727,22 @@ Methods:
 	\item \texttt{List<GameResult> getAllResults()}
 	\item[] Returns a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step.
 	\item[]Returns: a list of the \texttt{GameResult}s of all agents and all rounds of the current adaption step
-	\item \texttt{List<GameResult> getResultsByAgent(agent: Agent)}
+	\item \texttt{List<GameResult> getResultsByAgent(Agent agent)}
 	\item[] Returns a list of all \texttt{GameResult}s of the given agent.
 	\item[] \texttt{agent}: the agent whose results shall be returned
 	\item[]Returns: a list of all \texttt{GameResult}s of the given agent
 	\item \texttt{List<GameResult> getLatestResults()}
 	\item[] Returns the most recent \texttt{GameResult} of every agent.
 	\item[]Returns: the most recent \texttt{GameResult} of every agent
-	\item \texttt{GameResult getLatestResultByAgent(agent: Agent)}
+	\item \texttt{GameResult getLatestResultByAgent(Agent agent)}
 	\item[] Returns the most recent \texttt{GameResult} of the given agent.
 	\item[] \texttt{agent}: the agent whose latest result shall be returned
 	\item[]Returns: the most recent \texttt{GameResult} of the given agent
-	\item \texttt{List<GameResult> getAllWhere(condition: Predicate<GameResult>)}
+	\item \texttt{List<GameResult> getAllWhere(Predicate<GameResult> condition)}
 	\item[] Filters all \texttt{GameResult} with the given condition and returns them.
 	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
 	\item[]Returns: Die filtered \texttt{GameResult}s
-	\item \texttt{GameResult getLatestWhere(condition: Predicate<GameResult>)}
+	\item \texttt{GameResult getLatestWhere(Predicate<GameResult> condition)}
 	\item[] Returns the latest \texttt{GameResult} that meets the given condition
 	\item[]\texttt{condition}: the filter condition as \texttt{Predicate<GameResult>}
 	\item[]Returns: the latest \texttt{GameResult} that meets the given condition
@@ -1366,7 +1366,7 @@ Methods:
 \subsection{Paket \texttt{edu.kit.loop.model.simulationengine.distributions}}
 
 \subsubsection{Interface \texttt{Distribution<E>}}
-This interface represents a probability distribution over a carrier of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
+This interface represents a probability distribution over a support of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
 
 Methods
 \begin{itemize}\itemsep -10pt
@@ -1456,7 +1456,7 @@ Constructors:
 Extends: \texttt{Distribution<E>}
 
 
-Represents a probability distribution over objects of type \texttt{E} with finite carrier. Implementations return the carrier on query as \texttt{Collection <E>}.
+Represents a probability distribution over objects of type \texttt{E} with finite support. Implementations return the support on query as \texttt{Collection <E>}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1468,7 +1468,7 @@ Methods:
 \subsubsection{Class \texttt{UniformFiniteDistribution<E>}}
 Implements: \texttt{FiniteDistribution<E>}
 
-Represents a uniform distribution over objects of type \texttt{E} with finite carrier. Implementations provide methods for adding and removing objects.
+Represents a uniform distribution over objects of type \texttt{E} with finite support. Implementations provide methods for adding and removing objects.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
