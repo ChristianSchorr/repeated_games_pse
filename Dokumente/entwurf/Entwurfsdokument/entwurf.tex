@@ -157,7 +157,7 @@ This class represents a user-created configuration. It provides methods for read
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierName, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
+\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierParameters, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
 \item[] Creates a new \texttt{UserConfiguration} with the given parameters
 \item[] \texttt{gameName}: the name of the game
 \item[] \texttt{agentCount}: the amount of agents
@@ -272,80 +272,6 @@ Methods:
 	
 \end{itemize}
 
-
-\subsubsection{Class \texttt{Configuration}}
-This class represents the elementary configuration of a single iteration and contains all the information about how to start one:
-\begin{itemize}\itemsep -10pt
-\item Game
-\item Number of agents
-\item Rounds per adaptation step
-\item Whether mixed strategies are allowed
-\item Group-/Segment formations
-\item Capital- and Strategy classification of the segments
-\item Agents pairing
-\item Succes quantification
-\item Adaption mechanism
-\item Equilibrium criterion
-\item Maximum number of adaptation steps
-\end{itemize}
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
-\item[] Creates a new \texttt{Configuration} with the given parameters.
-\item[] \texttt{game}: the game of this configuration
-\item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
-\item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
-\item[] \texttt{segments}: all segments of this configuration
-\item[] \texttt{pairBuilder}: the \texttt{PairBuilder} of this configuration
-\item[] \texttt{successQuantifier}: the \texttt{SuccessQuantifier} of this configuration
-\item[] \texttt{strategyAdjuster}: the \texttt{StrategyAdjuster} of this configuration
-\item[] \texttt{equilibriumCriterion}: the \texttt{EquilibriumCriterion} of this configuration
-\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
-\end{itemize}
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{Game getGame()}
-\item[] Returns the game of this configuration
-\item[] Returns: the game of this configuration
-
-\item \texttt{int getAgentCount()}
-\item[] Returns the amount of agents in this configuration
-\item[] Returns: the amount of agents in this configuration
-
-\item \texttt{int getRoundCount()}
-\item[] Returns the amount of rounds per adaption step in this configuration
-\item[] Returns: the amount of rounds per adaption step in this configuration
-
-\item \texttt{boolean allowsMixedStrategies()}
-\item[] Returns, whether mixed strategies are allowed in this configuration.
-\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
-
-\item \texttt{Collection<Segment> getSegments()}
-\item[] Returns all segments belonging to this configuration
-\item[] Returns: all segments belonging to this configuration as \texttt{Collection<Segment>}
-
-\item \texttt{PairBuilder getPairBuilder()}
-\item[] Returns the \texttt{pairBuilder} of this configuration.
-\item[] Returns: the \texttt{pairBuilder} of this configuration
-
-\item \texttt{SuccessQuantifier getSuccessQuantifier()}
-\item[] Returns the \texttt{SuccessQuantifier} of this configuration.
-\item[] Returns: the \texttt{SuccessQuantifier} of this configuration
-
-\item \texttt{StrategyAdjuster getStrategyAdjuster()}
-\item[] Returns the \texttt{StrategyAdjuster} of this configuration.
-\item[] Returns: the \texttt{StrategyAdjuster} of this configuration
-
-\item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
-\item[] Returns the \texttt{EquilibriumCriterion} of this configuration.
-\item[] Returns: the \texttt{EquilibriumCriterion} of this configuration
-
-\item \texttt{int getMaxAdapts()}
-\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
-\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
-\end{itemize}
 
 \subsubsection{Interface \texttt{Nameable}}
 
@@ -753,6 +679,80 @@ Implements: \texttt{SimulationHistory}
 
 This  class implements the \texttt{SimulationHistory}-interface.
 
+\subsubsection{Class \texttt{Configuration}}
+This class represents the elementary configuration of a single iteration and contains all the information about how to start one:
+\begin{itemize}\itemsep -10pt
+\item Game
+\item Number of agents
+\item Rounds per adaptation step
+\item Whether mixed strategies are allowed
+\item Group-/Segment formations
+\item Capital- and Strategy classification of the segments
+\item Agents pairing
+\item Succes quantification
+\item Adaption mechanism
+\item Equilibrium criterion
+\item Maximum number of adaptation steps
+\end{itemize}
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, Collection<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
+\item[] Creates a new \texttt{Configuration} with the given parameters.
+\item[] \texttt{game}: the game of this configuration
+\item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
+\item[] \texttt{mixedStrategies}: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
+\item[] \texttt{segments}: all segments of this configuration
+\item[] \texttt{pairBuilder}: the \texttt{PairBuilder} of this configuration
+\item[] \texttt{successQuantifier}: the \texttt{SuccessQuantifier} of this configuration
+\item[] \texttt{strategyAdjuster}: the \texttt{StrategyAdjuster} of this configuration
+\item[] \texttt{equilibriumCriterion}: the \texttt{EquilibriumCriterion} of this configuration
+\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+\item \texttt{Game getGame()}
+\item[] Returns the game of this configuration
+\item[] Returns: the game of this configuration
+
+\item \texttt{int getAgentCount()}
+\item[] Returns the amount of agents in this configuration
+\item[] Returns: the amount of agents in this configuration
+
+\item \texttt{int getRoundCount()}
+\item[] Returns the amount of rounds per adaption step in this configuration
+\item[] Returns: the amount of rounds per adaption step in this configuration
+
+\item \texttt{boolean allowsMixedStrategies()}
+\item[] Returns, whether mixed strategies are allowed in this configuration.
+\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
+
+\item \texttt{Collection<Segment> getSegments()}
+\item[] Returns all segments belonging to this configuration
+\item[] Returns: all segments belonging to this configuration as \texttt{Collection<Segment>}
+
+\item \texttt{PairBuilder getPairBuilder()}
+\item[] Returns the \texttt{pairBuilder} of this configuration.
+\item[] Returns: the \texttt{pairBuilder} of this configuration
+
+\item \texttt{SuccessQuantifier getSuccessQuantifier()}
+\item[] Returns the \texttt{SuccessQuantifier} of this configuration.
+\item[] Returns: the \texttt{SuccessQuantifier} of this configuration
+
+\item \texttt{StrategyAdjuster getStrategyAdjuster()}
+\item[] Returns the \texttt{StrategyAdjuster} of this configuration.
+\item[] Returns: the \texttt{StrategyAdjuster} of this configuration
+
+\item \texttt{EquilibriumCriterion getEquilibriumCriterion()}
+\item[] Returns the \texttt{EquilibriumCriterion} of this configuration.
+\item[] Returns: the \texttt{EquilibriumCriterion} of this configuration
+
+\item \texttt{int getMaxAdapts()}
+\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
+\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
+\end{itemize}
+
 \subsubsection{Class \texttt{SimulationEngine}}
 This class provides a method to perform a single iteration of a given elementary configuration. The result is returned in the form of an \texttt{IterationResult} object.
 
@@ -900,6 +900,10 @@ Methods:
 \item \texttt{Collection<Agent> getAgents()}
 \item[] Returns the two players of this game.
 \item[] Returns: the two players of this game
+
+\item \texttt{Agent getOtherAgent(Agent agent)}
+\item[] If the given agent was one of the players of this game, returns the other player, otherwise returns \texttt{null}.
+\item[] Returns: the other player, if the given agent was a player of this game, otherwise \texttt{null}
 \end{itemize}
 
 \subsubsection{Interface \texttt{Game}}
