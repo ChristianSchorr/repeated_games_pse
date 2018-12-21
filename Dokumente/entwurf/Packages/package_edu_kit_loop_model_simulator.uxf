@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1092</x>
-      <y>287</y>
+      <y>245</y>
       <w>224</w>
       <h>70</h>
     </coordinates>
@@ -69,10 +69,10 @@ Simulator
       <x>1008</x>
       <y>280</y>
       <w>98</w>
-      <h>63</h>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;10.0;70.0;70.0;120.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -167,31 +167,6 @@ uses</panel_attributes>
     <additional_attributes>430.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1050</x>
-      <y>224</y>
-      <w>56</w>
-      <h>77</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;10.0;10.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1092</x>
-      <y>189</y>
-      <w>105</w>
-      <h>77</h>
-    </coordinates>
-    <panel_attributes>SequentialSimulator
--
--
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
       <x>707</x>
@@ -261,13 +236,13 @@ uses</panel_attributes>
       <x>966</x>
       <y>511</y>
       <w>371</w>
-      <h>42</h>
+      <h>49</h>
     </coordinates>
     <panel_attributes>ConfigurationCreator
 -
 -
 _+generateConfigurations(config: UserConfiguration): List&lt;Configuration&gt;_
-_+getCopy(config: Configuration): Configuration</panel_attributes>
+_+getCopy(config: Configuration): Configuration_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

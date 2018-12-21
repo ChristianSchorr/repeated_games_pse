@@ -4,7 +4,7 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>207</x>
+      <x>9</x>
       <y>45</y>
       <w>90</w>
       <h>27</h>
@@ -15,9 +15,9 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>378</x>
+      <x>171</x>
       <y>207</y>
-      <w>180</w>
+      <w>189</w>
       <h>27</h>
     </coordinates>
     <panel_attributes>simResult : SimulationResult</panel_attributes>
@@ -26,7 +26,7 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>666</x>
+      <x>468</x>
       <y>45</y>
       <w>90</w>
       <h>27</h>
@@ -37,7 +37,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>243</x>
+      <x>45</x>
       <y>63</y>
       <w>27</w>
       <h>54</h>
@@ -48,7 +48,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>702</x>
+      <x>504</x>
       <y>63</y>
       <w>27</w>
       <h>63</h>
@@ -59,7 +59,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>459</x>
+      <x>261</x>
       <y>225</y>
       <w>27</w>
       <h>360</h>
@@ -70,7 +70,7 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>243</x>
+      <x>45</x>
       <y>99</y>
       <w>18</w>
       <h>504</h>
@@ -81,7 +81,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
+      <x>54</x>
       <y>90</y>
       <w>468</w>
       <h>36</h>
@@ -93,7 +93,7 @@ startSimulation(userConfig: UserConfiguration)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>702</x>
+      <x>504</x>
       <y>108</y>
       <w>18</w>
       <h>423</h>
@@ -104,7 +104,7 @@ startSimulation(userConfig: UserConfiguration)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>549</x>
+      <x>351</x>
       <y>198</y>
       <w>171</w>
       <h>36</h>
@@ -116,7 +116,7 @@ startSimulation(userConfig: UserConfiguration)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1125</x>
+      <x>927</x>
       <y>45</y>
       <w>153</w>
       <h>27</h>
@@ -127,7 +127,7 @@ startSimulation(userConfig: UserConfiguration)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>909</x>
+      <x>711</x>
       <y>378</y>
       <w>144</w>
       <h>27</h>
@@ -138,7 +138,7 @@ startSimulation(userConfig: UserConfiguration)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
+      <x>513</x>
       <y>126</y>
       <w>504</w>
       <h>36</h>
@@ -150,7 +150,7 @@ generateConfigurations(userConfig: UserConfiguration)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
+      <x>513</x>
       <y>162</y>
       <w>504</w>
       <h>36</h>
@@ -162,7 +162,7 @@ configurations: Collection&lt;Configuration&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1197</x>
+      <x>999</x>
       <y>63</y>
       <w>27</w>
       <h>99</h>
@@ -173,7 +173,7 @@ configurations: Collection&lt;Configuration&gt;</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1197</x>
+      <x>999</x>
       <y>144</y>
       <w>18</w>
       <h>36</h>
@@ -184,7 +184,7 @@ configurations: Collection&lt;Configuration&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1197</x>
+      <x>999</x>
       <y>171</y>
       <w>27</w>
       <h>765</h>
@@ -195,7 +195,7 @@ configurations: Collection&lt;Configuration&gt;</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>648</x>
+      <x>450</x>
       <y>252</y>
       <w>531</w>
       <h>252</h>
@@ -208,7 +208,7 @@ foreach config in configurations</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
+      <x>513</x>
       <y>369</y>
       <w>216</w>
       <h>36</h>
@@ -220,7 +220,7 @@ foreach config in configurations</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>972</x>
+      <x>774</x>
       <y>396</y>
       <w>27</w>
       <h>63</h>
@@ -231,7 +231,7 @@ foreach config in configurations</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>972</x>
+      <x>774</x>
       <y>441</y>
       <w>18</w>
       <h>261</h>
@@ -242,19 +242,19 @@ foreach config in configurations</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
+      <x>513</x>
       <y>423</y>
       <w>279</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-simulateIteration(config: Configuration)</panel_attributes>
+executeIteration(config: Configuration)</panel_attributes>
     <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>657</x>
+      <x>459</x>
       <y>315</y>
       <w>495</w>
       <h>162</h>
@@ -267,7 +267,7 @@ repeat(userConfig.getIterationCount())</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
+      <x>54</x>
       <y>513</y>
       <w>468</w>
       <h>36</h>
@@ -279,7 +279,7 @@ simResult: SimulationResult</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
+      <x>54</x>
       <y>549</y>
       <w>225</w>
       <h>36</h>
@@ -291,7 +291,7 @@ register(itRes -&gt; update(itRes))</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>459</x>
+      <x>261</x>
       <y>567</y>
       <w>18</w>
       <h>36</h>
@@ -302,7 +302,7 @@ register(itRes -&gt; update(itRes))</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
+      <x>54</x>
       <y>594</y>
       <w>225</w>
       <h>27</h>
@@ -313,7 +313,7 @@ register(itRes -&gt; update(itRes))</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>459</x>
+      <x>261</x>
       <y>594</y>
       <w>27</w>
       <h>153</h>
@@ -324,7 +324,7 @@ register(itRes -&gt; update(itRes))</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>702</x>
+      <x>504</x>
       <y>522</y>
       <w>27</w>
       <h>198</h>
@@ -335,7 +335,7 @@ register(itRes -&gt; update(itRes))</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
+      <x>513</x>
       <y>684</y>
       <w>279</w>
       <h>36</h>
@@ -347,7 +347,7 @@ itResult: IterationResult</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>702</x>
+      <x>504</x>
       <y>702</y>
       <w>18</w>
       <h>117</h>
@@ -358,7 +358,7 @@ itResult: IterationResult</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>468</x>
+      <x>270</x>
       <y>711</y>
       <w>252</w>
       <h>36</h>
@@ -370,7 +370,7 @@ addResult(itResult: IterationResult)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>459</x>
+      <x>261</x>
       <y>729</y>
       <w>18</w>
       <h>90</h>
@@ -381,7 +381,7 @@ addResult(itResult: IterationResult)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>243</x>
+      <x>45</x>
       <y>594</y>
       <w>27</w>
       <h>180</h>
@@ -392,7 +392,7 @@ addResult(itResult: IterationResult)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
+      <x>54</x>
       <y>738</y>
       <w>225</w>
       <h>36</h>
@@ -404,7 +404,7 @@ update(itResult: IterationResult)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>243</x>
+      <x>45</x>
       <y>756</y>
       <w>18</w>
       <h>36</h>
@@ -415,7 +415,7 @@ update(itResult: IterationResult)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
+      <x>54</x>
       <y>783</y>
       <w>225</w>
       <h>27</h>
@@ -426,7 +426,7 @@ update(itResult: IterationResult)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>468</x>
+      <x>270</x>
       <y>810</y>
       <w>252</w>
       <h>27</h>
@@ -437,7 +437,7 @@ update(itResult: IterationResult)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>972</x>
+      <x>774</x>
       <y>693</y>
       <w>27</w>
       <h>72</h>
@@ -449,7 +449,7 @@ layer=0</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>972</x>
+      <x>774</x>
       <y>747</y>
       <w>18</w>
       <h>18</h>
@@ -461,7 +461,7 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>702</x>
+      <x>504</x>
       <y>810</y>
       <w>27</w>
       <h>126</h>
@@ -472,7 +472,7 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>459</x>
+      <x>261</x>
       <y>810</y>
       <w>27</w>
       <h>126</h>
@@ -483,7 +483,7 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>243</x>
+      <x>45</x>
       <y>783</y>
       <w>27</w>
       <h>153</h>
@@ -494,7 +494,7 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>198</x>
+      <x>0</x>
       <y>909</y>
       <w>1098</w>
       <h>27</h>
