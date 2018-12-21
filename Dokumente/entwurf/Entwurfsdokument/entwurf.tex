@@ -115,7 +115,7 @@ The configuration window is no longer divided in three parts. The \enquote{group
 \subsection{Strategies}
 The list of all variables that can appear as literals in a strategy was extended by the following:
 \begin{itemize}
-\item In previous games (of the current adaption step), B has cooperated always/never/last time/at least in games with agents that are in the same group as A.
+\item In previous games (of the current adaption step), B has cooperated always/never/last time/at least once in games with agents that are in the same group as A.
 \item In previous games (of the current adaption step), B has cooperated always/never/last time/at least once in games with agents that have a similar capital as A.
 \end{itemize}
 
@@ -132,9 +132,9 @@ A plugin system which allows to dynamically load new functionality at runtime ha
 
 Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dinamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
 
-\section{Pakete und Klassen}
+\section{Packages and classes}
 
-\subsection{Paket \texttt{edu.kit.loop}}
+\subsection{Package \texttt{edu.kit.loop}}
 
 \subsubsection{Class \texttt{Main}}
 Extends: \texttt{javafx.application.Application}
@@ -396,7 +396,7 @@ Methods:
 \end{itemize}
 
 
-\subsection{Paket \texttt{edu.kit.loop.model.simulator}}
+\subsection{Package \texttt{edu.kit.loop.model.simulator}}
 This package contains the \texttt{Simulator}, which is the models interface for starting and stopping simulations.
 
 \subsubsection{Class \texttt{SimulationResult}}
@@ -530,7 +530,7 @@ Methods:
 \item[] Returns: the newly created deep copy of the given configuration
 \end{itemize}
 
-\subsection{Paket \texttt{edu.kit.loop.model.Simulator.exception}}
+\subsection{Package \texttt{edu.kit.loop.model.simulator.exception}}
 
 \subsubsection{Abstract Class \texttt{ConfigurationException }}
 Extends: java.lang.Exception
@@ -609,7 +609,7 @@ Extends: \texttt{java.lang.Exception}
 
 The \texttt{SimulationEngineException} is a type of exception that is thrown whenever an error within the \texttt{executeIteration} method of a \texttt{SimulationEngine} has occured. The error gets caught by the simulator which then creates an instance of this class and writes it to the corresponding \texttt{SimulationResult} object.
 
-\subsection{Paket \texttt{edu.kit.loop.model.simulationengine}}
+\subsection{Package \texttt{edu.kit.loop.model.simulationengine}}
 
 This package contains the \texttt{SimulationEngine}-class, which can be used to perform a single repetition on a particular elementary configuration, as well as core classes such as the \texttt{Agent}, the \texttt{game} or the \texttt{Strategy}.
 
@@ -1134,7 +1134,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{PureStrategy}}
-Implements: \texttt{Strategy}
+Implements: \texttt{Strategy, java.io.Serializable}
 
 This class represents a pure strategy. This is uniquely determined by a condition on the enemy agent based on the history of the simulation, represented as \texttt{BiPredicate <Agent, SimulationHistory>}.
 
