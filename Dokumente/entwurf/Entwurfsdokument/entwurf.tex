@@ -147,7 +147,7 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model}}
-The mode contains the \texttt{Simulator} interface, which provides 
+The mode contains the \texttt{Simulator} interface, which provides
 
 The model contains the classes and methods for starting and stopping simulations, as well as creating and saving configurations, levels, strategies, and populations
 
@@ -188,89 +188,89 @@ Methods:
 	\item \texttt{String getGameName()}
 	\item[] Returns the name of the game of this configuration
 	\item[] Returns: the name of the game of this configuration
-	
+
 	\item \texttt{int getAgentCount()}
 	\item[] Returns the amount of agents in this configuration
 	\item[] Returns: the amount of agents in this configuration
-	
+
 	\item \texttt{int getRoundCount()}
 	\item[] Returns the amount of rounds per adaption step in this configuration
 	\item[] Returns: the amount of rounds per adaption step in this configuration
-	
+
 	\item \texttt{int getIterationCount()}
 	\item[] Returns the amount of iterations in this configuration
 	\item[] Returns: the amount of iterations in this configuration
-	
+
 	\item \texttt{List<String> getAvailableStrategyNames()}
 	\item[] Returns a list with names of all available strategies in this configuration
 	\item[] Returns: a list with names of all available strategies in this configuration
-	
+
 	\item \texttt{boolean getMixedAllowed()}
 	\item[] Returns, whether mixed strategies are allowed in this configuration
 	\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration; \texttt{false} otherwise
-	
+
 	\item \texttt{String getPopulationName()}
 	\item[] Returns the name of the \texttt{Population} of this configuration
 	\item[] Returns: a list with the names of all populations in this configuration
-	
+
 	\item \texttt{String getPairBuilderName()}
 	\item[] Returns the name of the \texttt{PairBuilder} of this configuration
 	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
-	
+
 	\item \texttt{List<double> getPairBuilderParameters()}
 	\item[] Returns a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
 	\item[] Returns: a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
-	
+
 	\item \texttt{String getSuccessQuantifierName()}
 	\item[] Returns the name of the \texttt{SuccessQuantifier} of this configuration
 	\item[] Returns: the name of the \texttt{SuccessQuantifier} of this configuration
-	
+
 	\item \texttt{List<double> getSuccessQuantifierParameters()}
 	\item[] Returns a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
 	\item[] Returns: a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
-	
+
 	\item \texttt{String getStrategyAdjusterName()}
 	\item[] Returns the name of the \texttt{PairBuilder} of this configuration.
 	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
-	
+
 	\item \texttt{List<double> getStrategyAdjusterParameters()}
 	\item[] Returns a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
 	\item[] Returns: a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
-	
-	
+
+
 	\item \texttt{String getEquilibriumCriterionName()}
 	\item[] Returns the name of the \texttt{EquilibriumCriterion} of this configuration.
 	\item[] Returns: the name of the \texttt{EquilibriumCriterion} of this configuration.
-	
+
 	\item \texttt{List<double> getEquilibriumParameters()}
 	\item[] Returns a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
 	\item[] Returns: a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
-	
+
 	\item \texttt{int getMaxAdapts()}
 	\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
 	\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
-	
+
 	\item \texttt{boolean isMulticonfiguration()}
 	\item[] Returns whether this is a multiconfiguration.
 	\item[] Returns: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
-	
+
 	\item \texttt{String getVariableParameterName()}
 	\item[] Returns the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \texttt{""} otherwise.
 	\item[] Returns: the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \texttt{""} otherwise
-	
+
 	\item \texttt{double getStartValue()}
 	\item[] Returns the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
 	\item[] Returns: the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
-	
+
 	\item \texttt{double getEndValue()}
 	\item[] Returns the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
 	\item[] Returns: the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
-	
+
 	\item \texttt{double getStepSize()}
 	\item[] Returns the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
 	\item[] Returns: the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
-	
-	
+
+
 \end{itemize}
 
 
@@ -290,7 +290,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{Population}}
-Implements: \texttt{Nameable}
+Implements: \texttt{Nameable}, \texttt{java.io.Serializable}
 
 This class represents a population. It offers methods for querying size and group composition.
 
@@ -325,7 +325,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{Group}}
-Implements: \texttt{Nameable}
+Implements: \texttt{Nameable}, \texttt{java.io.Serializable}
 
 This class represents a group. It offers methods for querying segmental composition and cohesion
 
@@ -361,6 +361,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{Segment}}
+Implements: \texttt{java.io.Serializable}
 
 This class represents a segment. It offers methods for querying capital and strategy distribution. Only the names of the capital distribution and the various strategies that correspond to the corresponding \texttt{DiscreteDistribution} or the corresponding \texttt{Strategy}s are stored in the central repository.
 
@@ -406,38 +407,39 @@ Methods:
 	\item[] adds an \texttt{IterationResult} to the \texttt{i}-th elementary configuration of this simulation and triggers all registered actions
 	\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
 	\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
-	
-	\item \texttt{protected void addSimulationEngineException()}
+
+	\item \texttt{protected void addSimulationEngineException(SimulationEngineException ex)}
 	\item[] adds an \texttt{SimulationEngineException} to this Simulaton and triggers all registered exception handler
-	
-	\item \texttt{void registerIterationFinished(BiConsumer<SimulationResutl,IterationResult> action)}
+	\item[] \texttt{ex}: the Exception that shall be added
+
+	\item \texttt{void registerIterationFinished(BiConsumer<SimulationResult,IterationResult> action)}
 	\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration as well as this instance will be passed as an argument to the action
 	\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
-	
+
 	\item \texttt{void registerExceptionHandler(BiConsumer<SimulationResult,SimulationEngineException> handler)}
 	\item[] Registers a handler that will be executed every time an exception corresponding to this simulation occurs
 	\item[] \texttt{handler}: the handler that shall be executed whenever an exception occurs
-	
+
 	\item \texttt{List<IterationResult> getIterationResults(int i)}
 	\item[] Returns a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration.
 	\item[] \texttt{i}: the elementary configuration, whose finished iterations shall be returned
 	\item[] Returns: a list of all yet available \texttt{IterationResult}s of iterations with the \texttt{i}-th elementary configuration
-	
+
 	\item \texttt{UserConfiguration getUserConfiguration()}
 	\item[] Returns the \texttt{UserConfiguration} of this simulation.
 	\item[] Returns: the \texttt{UserConfiguration} of this simulation
-	
+
 	\item \texttt{int getConfigurationCount()}
 	\item[] Returns the amount of elementary configurations of this simulation (\(1\) if this is not a multiconfiguration).
 	\item[] Returns: the amount of elementary configurations of this simulation
-	
+
 	\item \texttt{int getId()}
 	\item[] Returns the \texttt{id} of this simulation.
 	\item[] Returns: the \texttt{id} of this simulation
 \end{itemize}
 
 \subsubsection{Interface \texttt{Simulator}}
-Simulations can be started and stopped by a simulator. To start a simulation, the \texttt{simulator} must receive a \texttt{UserConfiguration} that specifies the simulation to perform. This will generate and return a \texttt{Simulation} object, which will allow you to query the execution status and results of the started simulation. Each simulation is assigned to an unique \texttt{id} at startup.
+Simulations can be started and stopped by a simulator. To start a simulation, the \texttt{simulator} must receive a \texttt{UserConfiguration} that specifies the simulation to perform. This will generate and return a \texttt{SimulationResult} object, which will allow you to query the execution status and results of the started simulation. Each simulation is assigned to an unique \texttt{id} at startup.
 
 Methods:
 \begin{itemize} \itemsep -10pt
@@ -446,27 +448,27 @@ Methods:
 	\item[]\texttt{config}: the configuration for which a simulation shall be started
 	\item[] Returns: a handle to a \texttt{SimulationResult}-object for the started simulation
 	\item[] Throws: \texttt{ConfigurationException} when the provided \texttt{UserConfiguration} is faulty
-	
+
 	\item \texttt{SimulationResult startSimulation(UserConfiguration config, Consumer<SimulationResult> action)}
 	\item[] Starts a new simulation with the given \texttt{UserConfiguration} and returns a handle to a \texttt{SimulationResult}-object for the started simulation. Executes the given action with the \texttt{SimulationResult}-object passed as parameter when the started simulation is finished.
 	\item[] \texttt{config}: the \texttt{UserConfiguration} a new simulation shall be started with
 	\item[] \texttt{action}: the action that shall be executed when the simulation is finished
 	\item[] Returns: a handle to a \texttt{SimulationResult}-object for the started simulation
 	\item[] Throws: \texttt{ConfigurationException} when the provided \texttt{UserConfiguration} is faulty
-	
+
 	\item \texttt{boolean stopSimulation(SimulationResult sim)}
 	\item[] Stop the execution of the given simulation if it is currently running.
 	\item[] \texttt{sim}: the simulation whose execution shall be stopped
 	\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
-	
+
 	\item \texttt{boolean stopSimulation(int id)}
 	\item[] If a simulation with the given \texttt{id} is currently running, stop its execution.
 	\item[] \texttt{id}: the \texttt{id} of the simulation that shall be stopped
 	\item[] Returns: \texttt{true}, if the execution of the simulation was successfully stopped, \texttt{false} otherwise
-	
+
 	\item \texttt{void stopAllSimulation()}
 	\item[] Stops the execution of all running simulations.
-	
+
 	\item \texttt{SimulationResult getSimulation(int id)}
 	\item[] Returns the \texttt{SimulationResult}-object of the simulation with the given \texttt{id}, if existent; \texttt{null} otherwise.
 	\item[] \texttt{id}: the \texttt{id} of the simulation, whose \texttt{SimulationResult}-object shall be returned
@@ -500,20 +502,19 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigurationCreator}}
-This class takes a \texttt{UserConfiguration} and extracts all related elementary configurations from it. These are returned as \texttt{Configuration}s.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{ConfigurationCreator()}
-\item[] Creates a new \texttt{ConfigurationCreator}.
-\end{itemize}
+This class takes a \texttt{UserConfiguration} and extracts all related elementary configurations from it. These are returned as \texttt{Configuration}s. It also provides functionality to create a deep copy of a \texttt{Configuration}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{List<Configuration> generateConfigurations(UserConfiguration config)}
+\item \underline{\texttt{List<Configuration> generateConfigurations(UserConfiguration config)}}
 \item[] Generates all associated elementary configurations of the given \texttt{UserConfiguration} and returns them as \texttt{Configuration}s.
 \item[] \texttt{config}: the \texttt{UserConfiguration} whose associated elementary configurations shall be generated
 \item[] Returns: all associated elementary configurations of the given \texttt{UserConfiguration} as \texttt{Configuration}s
+
+\item \underline{\texttt{Configuration getCopy(Configuration config)}}
+\item[] Provides a deep copy of the given configuration
+\item[] \texttt{conig}: the configuration to copy
+\item[] Returns: the newly created copy of the given configuration
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.Simulator.exception}}
@@ -558,7 +559,7 @@ Methods
 
 \subsubsection{Abstract Class \texttt{PluginException}}
 Extends: ConfigurationException
- 
+
 This class is a special \texttt{ConfigurationException} that occurs when there is an error with any of the plugins that are referenced by the \texttt{UserConfiguration} provided to the Simulator.
 
 Methods:
@@ -868,7 +869,7 @@ This class stores the result of a game between two agents. The result consists o
 	\item The actions of the agents involved
 	\item The received payments of the agents
 \end{itemize}
-	
+
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{GameResult(Agent player1, Agent player2, int payOff1, int payOff2, boolean hasCooperated1, boolean hasCooperated2)}
@@ -923,11 +924,20 @@ Methods:
 \item[] Returns: the result of the game as \texttt{GameResult}
 \end{itemize}
 
-\subsubsection{Class \texttt{Segment}}
-//umbenennen!
-This class represents a segment. This is characterized by the number of associated agents, the \texttt{id} of the group to which the segment belongs, and the initial capital and strategy distribution.
+\subsubsection{Class \texttt{EngineSegment}}
+
+This class represents a segment used by the \texttt{AgentInitializer}. This is characterized by the number of associated agents, the \texttt{id} of the group to which the segment belongs, and the initial capital and strategy distribution.
 
 Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{EngineSegment(int agentCount, int groupId, DiscreteDistribution capitalDistribution, UniformFiniteDistribution<Strategy> strategyDistribution, boolean cohesive)}
+	\item[] Creates a new \texttt{EngineSegment} with the given parameter set.
+	\item[] \texttt{agentCount}: the number of agents in this segment
+	\item[] \texttt{groupId}: the group id of agents in this segment;
+	\item[] \texttt{capitalDistribution}: the capital distribution which is used to initialize capital for the agents in this segment
+	\item[] \texttt{strategyDistribution}: the strategy distribution which is used to initialize strategies for the agents in this segment
+	\item[] \texttt{cohesiv}: indicates whether the group of the agents in this segment is cohesive or not
+\end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1229,7 +1239,7 @@ Methods:
 	\item[] \texttt{strat1}: the first strategy to combine
 	\item[] \texttt{strat2}: the second strategy to combine
 	\item[] Returns: the combined strategy
-	
+
 	\item \texttt{int getOperandCount()}
 	\item[] This method returns the number of expected operands
 	\item[] Returns: the number of operands
@@ -1237,11 +1247,11 @@ Methods:
 
 \subsubsection{Class \texttt{AndOperator implements Operator}}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{AND} operator 
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{AND} operator
 
 \subsubsection{Class \texttt{NandOperator implements Operator}}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NAND} operator 
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NAND} operator
 
 \subsubsection{Class \texttt{OrOperator implements Operator}}
 
@@ -1249,19 +1259,19 @@ This class is an operator that creates a new \texttt{Strategy} by combining the 
 
 \subsubsection{Class \texttt{NorOperator implements Operator}}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NOR} operator 
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{NOR} operator
 
 \subsubsection{Class \texttt{XorOperator implements Operator}}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{XOR} operator 
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{XOR} operator
 
 \subsubsection{Class \texttt{ImpliesOperator implements Operator}}
 
-This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{IMPLIES} operator  
+This class is an operator that creates a new \texttt{Strategy} by combining the given ones with a logical \texttt{IMPLIES} operator
 
 \subsubsection{Class \texttt{NotOperator implements Operator}}
 
-This class is an operator that creates a new \texttt{Strategy} by negating the given one 
+This class is an operator that creates a new \texttt{Strategy} by negating the given one
 
 \subsubsection{Interface \texttt{TreeNode<T>}}
 
@@ -1277,15 +1287,15 @@ Methods:
 	\item \texttt{T getContent()}
 	\item[] This method returns the content saved in this node
 	\item[] Returns: the node's content
-	
+
 	\item \texttt{List<TreeNode<T>\,> getChildren()}
 	\item[] This method returns all children of this tree node
 	\item[] Returns: a list of all children
-	
+
 	\item \texttt{void insertNode(TreeNode<T> node)}
 	\item[] This method inserts the given node as a child to this node
-	\item[] \texttt{node}: the node to insert as a child 
-	
+	\item[] \texttt{node}: the node to insert as a child
+
 	\item \texttt{boolean removeNode(TreeNode<T> node)}
 	\item[] This method removes the given node from this node's children
 	\item[] \texttt{node}: the node that shall be removed
@@ -1299,7 +1309,7 @@ This class represents a tree node in a syntax tree for combined strategies. In c
 Constructors:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{SyntaxNode(Strategy strat, Operator op)}
-	\item[] Creates a new \texttt{SyntaxNode}-instance 
+	\item[] Creates a new \texttt{SyntaxNode}-instance
 	\item[] \texttt{strat}: the strategy that shall be stored in this node
 	\item[] \texttt{op}: the operator that shall be stored in this node
 \end{itemize}
@@ -1309,7 +1319,7 @@ Methods:
 	\item \texttt{Operator getOperator()}
 	\item[] This method returns the operator stored in this node
 	\item[] Returns: the operator stored by this node
-	
+
 	\item \texttt{boolean isInnerNode()}
 	\item[] This method returns whether the node is an inner node or not
 	\item[] Returns: \texttt{true} when the node is an inner node, otherwise  \texttt{false} when the node is a leaf node
@@ -1347,11 +1357,11 @@ Methods:
 	\item \texttt{boolean checkSyntax()}
 	\item[] This Method checks whether the expression represented by this tree is syntactical correct or not
 	\item[] Returns: \texttt{true} when the syntax is correct \texttt{false} otherwise
-	
+
 	\item \texttt{SyntaxNode getFaultyNode()}
 	\item[] This method returns the root of the smallest sub tree with an incorrect syntax
 	\item[] Returns: the root of the faulty sub tree
-\end{itemize} 
+\end{itemize}
 
 \subsubsection{Class \texttt{StrategyBuilder}}
 
@@ -1437,10 +1447,10 @@ Represents a bionomial distribution.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{BinomialDistribution(int a, int b, double p)}
+\item \texttt{BinomialDistribution(int min, int max, double p)}
 \item[] Creates a new \texttt{BinomialDistribution} with the given parameters.
-\item[] \texttt{a}: the lower bound of the distribution
-\item[] \texttt{b}: the upper bound of the distribution
+\item[] \texttt{min}: the lower bound of the distribution
+\item[] \texttt{max}: the upper bound of the distribution
 \item[] \texttt{p}: the probability parameter \(p \in [0,1]\) of the binomial distribution
 \end{itemize}
 
@@ -1451,10 +1461,10 @@ Represents a discrete equal distribution.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{DiscreteUniformDistribution(int a, int b)}
+\item \texttt{DiscreteUniformDistribution(int min, int max)}
 \item[] Creates a new \texttt{DiscreteUniformDistribution} with the given parameters
-\item[] \texttt{a}: the lower bound of the distribution
-\item[] \texttt{b}: the upper bound of the distribution
+\item[] \texttt{min}: the lower bound of the distribution
+\item[] \texttt{max}: the upper bound of the distribution
 \end{itemize}
 
 \subsubsection{Interface \texttt{FiniteDistribution<E>}}
@@ -1595,54 +1605,62 @@ Constructors:
 \end{itemize}
 
 \subsubsection{Class \texttt{PopulationController}}
-This class represents the controller responsible for the \enquote{Neue Population erstellen}-window.
+This class represents the controller responsible for the population creation window. It creates new populations based on the user input.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{PopulationController()}
-\item[] Creates a new PopulationController.
+\item \texttt{void initialize()}
+\item[] Initializes the PopulationController an its databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewGameController}}
-This class represents the controller responsible for the \enquote{Neues Stufenspiel erstellen}-window.
+This class represents the controller responsible for the game creation window.
+It creates new games based on the user input and informs the \texttt{HeadController} about it.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{NewGameController()}
-\item[] Creates a new NewGameController.
+\item \texttt{void initialize()}
+\item[] Initializes the NewGameController an its databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewSrategyController}}
-This class represents the controller responsible for the \enquote{Neue Strategie erstellen}-window.
+This class represents the controller responsible for the strategy creation window. It creates new strategies based on the user input and informs the \texttt{HeadController} about it.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{NewStrategyController()}
-\item[] Creates a new NewStrategyController.
+\item \texttt{void initialize()}
+\item[] Initializes the NewStrategyController an its databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigController}}
-This class represents the controller responsible for the configurationwindow.
+
+Implements: \texttt{CreationController<UserConfiguration>}
+
+This class represents the controller responsible for the configuration window. It creates new \texttt{UserConfiguration}s from user input and informs the HeadController when a new \texttt{UserConfiguration} has been created.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{ConfigController()}
-\item[] Creates a new ConfigController.
+\item \texttt{ConfigController(UserConfiguration configuration)}
+\item[] Creates a new ConfigController with the given configuration.
 \end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
+\item \texttt{void initialize()}
+\item[] Initializes the ConfigController an its databindings with the UI.
+
 \item \texttt{void setConfiguration(Userconfiguration configuration)}
 \item[] Sets the parameters to the given configuration
 
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.plugin}}
-//Beschreibung!
+
+This package contains the functionality involved in creating and loading new plugins which extend the simulation process.
 
 \subsubsection{Class \texttt{PluginLoader}}
 
-This class provides the functionality to load plugins using the Java \texttt{ServiceLoader} API
+This class provides the functionality to dynamically load plugins at run time using the Java \texttt{ServiceLoader}-API.
 
 Methods:
 
@@ -1655,7 +1673,7 @@ Methods:
 
 \subsubsection{abstract Class \texttt{PluginControl}}
 Extends: \texttt{javafx.scene.layout.Pane}
- 
+
 This class serves as a control for the configuration of a plugin. It provides functionality for querying the configuration parameters entered by the user.
 
 Methods:
@@ -1668,7 +1686,7 @@ Methods:
 
 \subsubsection{Class \texttt{TextFieldPluginControl}}
 Extends: \texttt{PluginControl}
- 
+
 This class is an implementation of a \texttt{PluginControl}, where the configuration parameters are entered via text fields. The input is still checked for correctness.
 
 Constructors:
@@ -1692,7 +1710,7 @@ Methods:
 
 \subsubsection{Interface \texttt{PluginRenderer}}
 
-This interface provides the functionality to create a plugin configuration control in a JavaFX application.
+This interface provides the functionality to create a plugin configuration control which can be dynamically embedded into a javafx-Window at run time.
 
 Methods:
 
@@ -1704,7 +1722,7 @@ Methods:
 
 \subsubsection{Class \texttt{GenericRenderer}}
 Implements: \texttt{PluginRenderer}
- 
+
 This class implements the \texttt{PluginRenderer} interface and creates a generic text-based configuration control (\texttt{TextFieldPluginControl} instance) for any plug-in.
 
 Constructors:
@@ -1713,22 +1731,22 @@ Constructors:
 	\item \texttt{GenericRenderer(plugin: Plugin)}
 	\item[] Creates a new \texttt{GenericRenderer} for the given \texttt{Plugin}
 	\item[] \texttt{plugin}: the \texttt{Plugin} which shall be rendered by this \texttt{GenericRenderer}
-	
+
 	\item \texttt{GenericRenderer(params: List<Parameter>)}
 	\item[] Creates a new \texttt{GenericRenderer} for a \texttt{Plugin} with the given \texttt{Parameter}s
 	\item[] \texttt{params}: a list with the \texttt{Parameter}s of the \texttt{Plugin} that shall be rendered by this \texttt{GenericRenderer}
-\end{itemize} 
+\end{itemize}
 
 \subsubsection{Class \texttt{Parameter}}
 Implements: \texttt{Nameable}
- 
+
 This class defines a configuration parameter for plugins. It provides functionality to set the value range and granularity of the configuration parameter.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{Parameter()}
 	\item[] Creates a new unbounded \texttt{Parameter}.
-	
+
 	\item \texttt{Parameter(double minVal)}
 	\item[] Creates a new lowerly bounded, upperly unbounded \texttt{Parameter}.
 	\item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
@@ -1744,7 +1762,7 @@ Constructors:
 \item[] \texttt{minVal}: the lower bound of the \texttt{Parameter}
 	\item[] \texttt{maxVal}: the upper bound of the \texttt{Parameter}
 	\item[] \texttt{stepSize}: the granularity of the parameter
-	
+
 \end{itemize}
 
 Methods:
@@ -1783,11 +1801,11 @@ Methods:
 \subsubsection{Abstract Class \texttt{Plugin<T>}}
 Implements: \texttt{Nameable}
 
-This class provides a dynamically loadable plugin. It is a generic container for a class that provides the actual plugin functionality. It provides functionality for creating new parameterized instances of the functionality class. A list of required configuration parameters can be queried.
+This class represents a dynamically loadable plugin. It is a generic container for another class that implements the actual plugin functionality. It provides functions for creating new parameterized instances of the wrapped class. A list of required configuration parameters can be queried.
 
 Parameter:
 \begin{itemize}\itemsep -10pt
-	\item \texttt{<T>} Der Typ der Klasse, welche die Pluginfunktionalität bereit stellt. 
+	\item \texttt{<T>} Der Typ der Klasse, welche die Pluginfunktionalität bereit stellt.
 \end{itemize}
 
 Methods:
@@ -1795,11 +1813,11 @@ Methods:
 	\item \texttt{PluginRenderer getRenderer()}
 	\item[] Returns a \texttt{PluginRenderer}-instance for this \texttt{Plugin}
 	\item[] Returns: a \texttt{PluginRenderer}-instance for this \texttt{Plugin}
-	
+
 	\item \texttt{abstract List<Parameter> getParameters()}
 	\item[] Returns a list of the configuration \texttt{Parameter}s of this \texttt{Plugin}
 	\item[] Returns: a list of the configuration \texttt{Parameter}s of this \texttt{Plugin}
-	
+
 	\item \texttt{abstract T getNewInstance(List<double> params)}
 	\item[] Creates and returns a new instance of the functionality holding class of this plugin with the given values as \texttt{Parameter}s
 	\item[] \texttt{params}: a list with the values of the configuration \texttt{Parameter}s
@@ -1808,7 +1826,7 @@ Methods:
 
 \subsection{Paket \texttt{edu.kit.loop.model.repository}}
 
-This package contains the functionality of the central repositories, through which all games, strategies, populations, pairing algorithms, success quantifications, adaptation mechanisms and equilibrium criteria currently stored in the system can be queried.
+This package contains the functionality of the central repositories, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
 
 
 \subsubsection{Interface \texttt{Repository<T>}}
@@ -1827,24 +1845,24 @@ Methods:
 	\item[] Returns the entity with the given name, if currently stored; \texttt{null} otherwise
 	\item[] \texttt{name}: the name of the entity that shall be returned
 	\item[] Returns: the entity with the given name if stored; \texttt{null} otherwise
-	
+
 	\item \texttt{boolean addEntity(String name, T entity)}
 	\item[] Adds a new entity with the given name to the repository, if no entity with the given name is already stored.
 	\item[] \texttt{name}: the name of the entity that shall be added
 	\item[] \texttt{entity}: the entity that shall be added
 	\item[] Returns: \texttt{true} if the entity was successfully added, \texttt{false} otherwise
-	
+
 	\item \texttt{boolean containsEntityName(String name)}
 	\item[] Returns whether this repository contains an entity with the given name
 	\item[] \texttt{name}: the name that shall be checked
 	\item[] Returns: \texttt{true} if an entity with the given name is stored, \texttt{false} otherwise
-	
+
 \end{itemize}
 
 \subsubsection{Class \texttt{HashMapRepository}}
 
 Implements: \texttt{Repository<T>}
- 
+
 An implementation of the \texttt{Repository <T>} interface that stores entities in a \texttt{HashMap}.
 
 Parameters:
@@ -1860,16 +1878,16 @@ Constructors:
 	\item[] Creates a new \texttt{HashMapRepository}.
 \end{itemize}
 
-\subsubsection{Class \texttt{Repository}}
+\subsubsection{Class \texttt{CentralRepository}}
 
-This class provides central access to all loaded Plugins of all types as well as strategies, games, populations and groups loaded from files. It provides getters which return \texttt{Repository<T>}-instances for all entity types. This class is implemented as a singleton and therefore can be safely inherited from. 
+This class provides central access to all loaded Plugins of all types as well as strategies, games, populations and groups loaded from files. It provides getters which return \texttt{Repository<T>}-instances for all entity types. This class is implemented as a singleton and therefore can be safely inherited from.
 
 Methods:
 
 \begin{itemize} \itemsep -10pt
 	\item \underline{\texttt{void initialize()}}
 	\item[] Initializes the Repository-instance by loading all available plugins in the current execution environment working directory and all saved entities from the home directory.
-	\item \underline{\texttt{Repository getInstance()}}
+	\item \underline{\texttt{CentralRepository getInstance()}}
 	\item[]Returns the singleton Repository-instance
 	\item[] Returns: the singleton instance
 	\item \texttt{Repository<Strategy> getStrategyRepository()}
@@ -1904,33 +1922,33 @@ Methods:
 
 \subsubsection{Class \texttt{FileIO}}
 
-This class provides functionality for loading and storing entities in files.
+This class provides static functionality for loading and storing entities in files.
 
 Methods:
 
 \begin{itemize}\itemsep -10pt
 	\item \underline{\texttt{static <T> T loadEntity(File file)}}
-	\item[] Loads an entity of type \texttt{T} out of the given file. 
+	\item[] Loads an entity of type \texttt{T} out of the given file.
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{file}: the file from which the entity shall be loaded
-	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded 
+	\item[]Returns: the loaded entity or \texttt{null} if no entity could be loaded
 	\item[]Throws: \texttt{FileNotFoundException} when the given file doesn't exist
 	\item[]Throws: \texttt{IOException} when the entity can not be deserialized
-	
+
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(File dir)}}
 	\item[] Loads all entities of type \texttt{T} from files in the given directory
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{dir}: the directory from which the entities shall be loaded
 	\item[]Returns: a list of all loaded entities
 	\item[]Throws: \texttt{FileNotFoundException} when the given directory doesn't exist
-	
+
 	\item \underline{\texttt{static <T> List<T> loadAllEntities(List<File> files)}}
 	\item[] Loads all entities of type \texttt{T} from the given files.
 	\item[] \texttt{<T>} the type of the entity that shall be loaded
 	\item[] \texttt{files}: the list of all files from which entities shall be loaded
 	\item[]Returns: a list of all loaded entities
 	\item[]Throws: \texttt{FileNotFoundException} when any of the given files doesn't exist
-	
+
 	\item \underline{\texttt{static <T> boolean saveEntity(File file, T entity)}}
 	\item[] Saves the given entity in the given file.
 	\item[] \texttt{<T>} the type of the entity that shall be saved
@@ -1942,6 +1960,7 @@ Methods:
 
 \section{Glossary}
 \textbf{Elementary configuration:}
+
 A configuration in which multiconfiguration is disabled. In the case of a multiconfiguration, the set of elementary configurations is the set of all elementary configurations in which the multiconfiguration parameter passes through the specified set of values. In the case of an elementary configuration, the configuration itself is meant again.
 
 \end{document}
