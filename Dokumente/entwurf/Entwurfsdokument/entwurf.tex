@@ -135,7 +135,8 @@ Furthermore it is possible to make the plugins user configurable in the configur
 
 \subsection{Paket \texttt{edu.kit.loop}}
 
-\subsubsection{Class \texttt{Main extends javafx.application.Application}}
+\subsubsection{Class \texttt{Main}}
+Extends: \texttt{javafx.application.Application}
 
 This class contains the main method of the program and initialises the main window.
 
@@ -535,7 +536,7 @@ Extends: java.lang.Exception
 The \texttt{ConfigurationException} is a type of exception that occurs whenever the simulator gets passed a faulty \texttt{UserConfiguration}. It gets thrown by the \texttt{startSimulation}-method of the \texttt{Simulator}interface.
 
 \subsubsection{Class \texttt{InvalidParameterException}}
-Extends: ConfigurationException
+Extends: \texttt{ConfigurationException}
 
 A \texttt{ConfigurationException} that is thrown when one of the numerical parameters in a \texttt{UserConfiguration} given to a \texttt{Simulator} has an invalid value assigned to it.
 
@@ -558,7 +559,7 @@ Methods
 \end{itemize}
 
 \subsubsection{Abstract Class \texttt{PluginException}}
-Extends: ConfigurationException
+Extends: \texttt{ConfigurationException}
 
 A \texttt{ConfigurationException} that is thrown when an error associated with one of the plugins referenced by a given \texttt{UserConfiguration} occured.
 
@@ -570,7 +571,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{PluginNotFoundException}}
-Extends: PluginException
+Extends: \texttt{PluginException}
 
 This \texttt{PluginException} is thrown when a plugin referenced by a given \texttt{UserConfiguration} could not be found (i.e. when the name given by the configuration is not known to the repository).
 
@@ -582,7 +583,7 @@ Constructors:
 \end{itemize}
 
 \subsubsection{Class \texttt{PluginConfigurationException}}
-Extends: PluginException
+Extends: \texttt{PluginException}
 
 This \texttt{PluginException} is thrown when one of the plugin configuration parameters provided by a given \texttt{UserConfiguration} is faulty.
 
@@ -602,7 +603,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{SimulationEngineException}}
-Extends: java.lang.Exception
+Extends: \texttt{java.lang.Exception}
 
 The \texttt{SimulationEngineException} is a type of exception that is thrown whenever an error within the \texttt{executeIteration} method of a \texttt{SimulationEngine} has occured. The error gets caught by the simulator which then creates an instance of this class and writes it to the corresponding \texttt{SimulationResult} object.
 
