@@ -197,6 +197,7 @@ CreationController
     </coordinates>
     <panel_attributes>HistoryController
 -
+-
 +initialize()
 +addSimulation(SimulationResult)
 +getAllSimulations(): List&lt;SimulationResult&gt;
@@ -214,6 +215,7 @@ CreationController
       <h>45</h>
     </coordinates>
     <panel_attributes>OutputController
+-
 -
 +initialize()
 +setSimulation(SimulationResult simulation)</panel_attributes>

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>808</x>
+      <x>712</x>
       <y>400</y>
       <w>336</w>
       <h>96</h>
     </coordinates>
     <panel_attributes>template=T: Nameable
 /Plugin/
+-
 -
 +getRenderer(): PluginRenderer
 /+getConfigurationParameter(): List&lt;Parameter&gt;/
@@ -22,7 +23,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>856</x>
+      <x>760</x>
       <y>296</y>
       <w>200</w>
       <h>64</h>
@@ -37,7 +38,7 @@ edu.kit.model.Nameable
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>944</x>
+      <x>848</x>
       <y>352</y>
       <w>24</w>
       <h>72</h>
@@ -48,7 +49,7 @@ edu.kit.model.Nameable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>488</x>
+      <x>392</x>
       <y>432</y>
       <w>184</w>
       <h>56</h>
@@ -62,12 +63,13 @@ PluginRenderer
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>136</x>
+      <x>40</x>
       <y>432</y>
       <w>192</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>/PluginControl/
+-
 -
 /+getParameter(): List&lt;double&gt;/</panel_attributes>
     <additional_attributes/>
@@ -75,7 +77,7 @@ PluginRenderer
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>152</x>
+      <x>56</x>
       <y>352</y>
       <w>160</w>
       <h>24</h>
@@ -87,7 +89,7 @@ PluginRenderer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
+      <x>120</x>
       <y>368</y>
       <w>24</w>
       <h>80</h>
@@ -98,7 +100,7 @@ PluginRenderer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
+      <x>224</x>
       <y>440</y>
       <w>184</w>
       <h>32</h>
@@ -110,19 +112,20 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>128</x>
+      <x>32</x>
       <y>528</y>
       <w>208</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>TextFieldConfigurationControl
+-
 -</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
+      <x>120</x>
       <y>464</y>
       <w>24</w>
       <h>80</h>
@@ -133,12 +136,13 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>416</x>
+      <x>320</x>
       <y>528</y>
       <w>336</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>GenericRenderer
+-
 -
 +GenericRenderer(params: List&lt;Parameter&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
@@ -146,7 +150,7 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
+      <x>480</x>
       <y>480</y>
       <w>80</w>
       <h>64</h>
@@ -158,7 +162,7 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>328</x>
+      <x>232</x>
       <y>528</y>
       <w>104</w>
       <h>32</h>
@@ -170,12 +174,13 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1168</x>
+      <x>1072</x>
       <y>416</y>
       <w>168</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>Parameter
+-
 -
 +getMinValue(): double
 +getMaxValue(): double
@@ -186,7 +191,7 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1096</x>
+      <x>1000</x>
       <y>448</y>
       <w>88</w>
       <h>24</h>
@@ -197,7 +202,7 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>944</x>
+      <x>848</x>
       <y>376</y>
       <w>320</w>
       <h>56</h>
@@ -208,7 +213,7 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>664</x>
+      <x>568</x>
       <y>448</y>
       <w>160</w>
       <h>24</h>
@@ -219,12 +224,13 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1104</x>
+      <x>1008</x>
       <y>296</y>
       <w>328</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>ParameterValidator
+-
 -
 _+isValueValid(val: double, param: Parameter): booelan_
 _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
@@ -233,7 +239,7 @@ _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1272</x>
+      <x>1176</x>
       <y>344</y>
       <w>64</w>
       <h>88</h>
@@ -245,20 +251,21 @@ validates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>848</x>
+      <x>752</x>
       <y>576</y>
       <w>216</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>PluginLoader
 -
-_+&lt;T&gt; loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
+-
+_+&lt;T&gt; loadPlugins(): List&lt;T&gt;_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>944</x>
+      <x>848</x>
       <y>488</y>
       <w>48</w>
       <h>104</h>
@@ -270,7 +277,7 @@ loads</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>96</x>
+      <x>0</x>
       <y>200</y>
       <w>1368</w>
       <h>472</h>

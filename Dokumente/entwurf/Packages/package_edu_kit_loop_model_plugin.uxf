@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -11,6 +11,7 @@
     </coordinates>
     <panel_attributes>template=T: Nameable
 /Plugin/
+-
 -
 +getRenderer(): PluginRenderer
 /+getConfigurationParameter(): List&lt;Parameter&gt;/
@@ -29,6 +30,7 @@
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.kit.model.Nameable
+-
 -
 +getName(): String
 +getDescription(): String</panel_attributes>
@@ -68,6 +70,7 @@ PluginRenderer
       <h>40</h>
     </coordinates>
     <panel_attributes>/PluginControl/
+-
 -
 /+getParameter(): List&lt;double&gt;/</panel_attributes>
     <additional_attributes/>
@@ -116,6 +119,7 @@ creates</panel_attributes>
       <h>32</h>
     </coordinates>
     <panel_attributes>TextFieldConfigurationControl
+-
 -</panel_attributes>
     <additional_attributes/>
   </element>
@@ -140,6 +144,7 @@ creates</panel_attributes>
     </coordinates>
     <panel_attributes>GenericRenderer
 -
+-
 +GenericRenderer(params: List&lt;Parameter&gt;) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -148,7 +153,7 @@ creates</panel_attributes>
     <coordinates>
       <x>448</x>
       <y>480</y>
-      <w>88</w>
+      <w>80</w>
       <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
@@ -176,6 +181,7 @@ creates</panel_attributes>
       <h>72</h>
     </coordinates>
     <panel_attributes>Parameter
+-
 -
 +getMinValue(): double
 +getMaxValue(): double
@@ -226,6 +232,7 @@ creates</panel_attributes>
     </coordinates>
     <panel_attributes>ParameterValidator
 -
+-
 _+isValueValid(val: double, param: Parameter): booelan_
 _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
     <additional_attributes/>
@@ -235,7 +242,7 @@ _+getClosestValid(val: double, param: Parameter): double_</panel_attributes>
     <coordinates>
       <x>1144</x>
       <y>344</y>
-      <w>72</w>
+      <w>64</w>
       <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -253,7 +260,8 @@ validates</panel_attributes>
     <panel_attributes>template=T: Object
 PluginLoader
 -
-_+loadPlugins(): Collection&lt;T&gt;_</panel_attributes>
+-
+_+loadPlugins(): List&lt;T&gt;_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
