@@ -289,7 +289,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{Population}}
-Implements: \texttt{Nameable}
+Implements: \texttt{Nameable}, \texttt{java.io.Serializable}
 
 This class represents a population. It offers methods for querying size and group composition.
 
@@ -324,7 +324,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{Group}}
-Implements: \texttt{Nameable}
+Implements: \texttt{Nameable}, \texttt{java.io.Serializable}
 
 This class represents a group. It offers methods for querying segmental composition and cohesion
 
@@ -360,6 +360,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{Segment}}
+Implements: \texttt{java.io.Serializable}
 
 This class represents a segment. It offers methods for querying capital and strategy distribution. Only the names of the capital distribution and the various strategies that correspond to the corresponding \texttt{DiscreteDistribution} or the corresponding \texttt{Strategy}s are stored in the central repository.
 
@@ -384,7 +385,7 @@ Methods:
 
 
 \subsection{Paket \texttt{edu.kit.loop.model.simulator}}
-This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{Simulation} object, which can be used to query the execution status and results of the simulation.
+This package contains the interface \texttt{Simulator}. This provides an interface for starting and stopping simulations. When a simulation starts, it returns a reference to a \texttt{SimulationResult} object, which can be used to query the execution status and results of the simulation.
 
 \subsubsection{Class \texttt{SimulationResult}}
 A \texttt{SimulationResult} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if applicable, the results of the simulation. It is generated and deployed by a \texttt{Simulator} when a simulation is started.
@@ -406,10 +407,11 @@ Methods:
 	\item[] \texttt{result}: the \texttt{IterationResult} that shall be added
 	\item[] \texttt{i}: the elementary configuration to which the given \texttt{IterationResult} shall be added
 	
-	\item \texttt{protected void addSimulationEngineException()}
+	\item \texttt{protected void addSimulationEngineException(SimulationEngineException ex)}
 	\item[] adds an \texttt{SimulationEngineException} to this Simulaton and triggers all registered exception handler
+	\item[] \texttt{ex}: the Exception that shall be added	
 	
-	\item \texttt{void registerIterationFinished(BiConsumer<SimulationResutl,IterationResult> action)}
+	\item \texttt{void registerIterationFinished(BiConsumer<SimulationResult,IterationResult> action)}
 	\item[] Registers an action that will be executed every time an iteration of this simulation is finished. The \texttt{IterationResult} of the iteration as well as this instance will be passed as an argument to the action
 	\item[] \texttt{action}: the action that shall be executed whenever an iteration finishes
 	
@@ -436,7 +438,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Interface \texttt{Simulator}}
-Simulations can be started and stopped by a simulator. To start a simulation, the \texttt{simulator} must receive a \texttt{UserConfiguration} that specifies the simulation to perform. This will generate and return a \texttt{Simulation} object, which will allow you to query the execution status and results of the started simulation. Each simulation is assigned to an unique \texttt{id} at startup.
+Simulations can be started and stopped by a simulator. To start a simulation, the \texttt{simulator} must receive a \texttt{UserConfiguration} that specifies the simulation to perform. This will generate and return a \texttt{SimulationResult} object, which will allow you to query the execution status and results of the started simulation. Each simulation is assigned to an unique \texttt{id} at startup.
 
 Methods:
 \begin{itemize} \itemsep -10pt
@@ -499,20 +501,19 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigurationCreator}}
-This class takes a \texttt{UserConfiguration} and extracts all related elementary configurations from it. These are returned as \texttt{Configuration}s.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{ConfigurationCreator()}
-\item[] Creates a new \texttt{ConfigurationCreator}.
-\end{itemize}
+This class takes a \texttt{UserConfiguration} and extracts all related elementary configurations from it. These are returned as \texttt{Configuration}s. It also provides functionality to create a deep copy of a \texttt{Configuration}.
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{List<Configuration> generateConfigurations(UserConfiguration config)}
+\item \underline{\texttt{List<Configuration> generateConfigurations(UserConfiguration config)}}
 \item[] Generates all associated elementary configurations of the given \texttt{UserConfiguration} and returns them as \texttt{Configuration}s.
 \item[] \texttt{config}: the \texttt{UserConfiguration} whose associated elementary configurations shall be generated
 \item[] Returns: all associated elementary configurations of the given \texttt{UserConfiguration} as \texttt{Configuration}s
+
+\item \underline{\texttt{Configuration getCopy(Configuration config)}}
+\item[] Provides a deep copy of the given configuration
+\item[] \texttt{conig}: the configuration to copy
+\item[] Returns: the newly created copy of the given configuration
 \end{itemize}
 
 \subsection{Paket \texttt{edu.kit.loop.model.Simulator.exception}}
@@ -922,11 +923,20 @@ Methods:
 \item[] Returns: the result of the game as \texttt{GameResult}
 \end{itemize}
 
-\subsubsection{Class \texttt{Segment}}
-//umbenennen!
-This class represents a segment. This is characterized by the number of associated agents, the \texttt{id} of the group to which the segment belongs, and the initial capital and strategy distribution.
+\subsubsection{Class \texttt{EngineSegment}}
+
+This class represents a segment used by the \texttt{AgentInitializer}. This is characterized by the number of associated agents, the \texttt{id} of the group to which the segment belongs, and the initial capital and strategy distribution.
 
 Constructors:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{EngineSegment(int agentCount, int groupId, DiscreteDistribution capitalDistribution, UniformFiniteDistribution<Strategy> strategyDistribution, boolean cohesive)}
+	\item[] Creates a new \texttt{EngineSegment} with the given parameter set.
+	\item[] \texttt{agentCount}: the number of agents in this segment
+	\item[] \texttt{groupId}: the group id of agents in this segment;
+	\item[] \texttt{capitalDistribution}: the capital distribution which is used to initialize capital for the agents in this segment
+	\item[] \texttt{strategyDistribution}: the strategy distribution which is used to initialize strategies for the agents in this segment
+	\item[] \texttt{cohesiv}: indicates whether the group of the agents in this segment is cohesive or not
+\end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1436,10 +1446,10 @@ Represents a bionomial distribution.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{BinomialDistribution(int a, int b, double p)}
+\item \texttt{BinomialDistribution(int min, int max, double p)}
 \item[] Creates a new \texttt{BinomialDistribution} with the given parameters.
-\item[] \texttt{a}: the lower bound of the distribution
-\item[] \texttt{b}: the upper bound of the distribution
+\item[] \texttt{min}: the lower bound of the distribution
+\item[] \texttt{max}: the upper bound of the distribution
 \item[] \texttt{p}: the probability parameter \(p \in [0,1]\) of the binomial distribution
 \end{itemize}
 
@@ -1450,10 +1460,10 @@ Represents a discrete equal distribution.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{DiscreteUniformDistribution(int a, int b)}
+\item \texttt{DiscreteUniformDistribution(int min, int max)}
 \item[] Creates a new \texttt{DiscreteUniformDistribution} with the given parameters
-\item[] \texttt{a}: the lower bound of the distribution
-\item[] \texttt{b}: the upper bound of the distribution
+\item[] \texttt{min}: the lower bound of the distribution
+\item[] \texttt{max}: the upper bound of the distribution
 \end{itemize}
 
 \subsubsection{Interface \texttt{FiniteDistribution<E>}}
