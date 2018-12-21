@@ -22,6 +22,7 @@
 \renewcommand{\dateseparator}{-} % ISO8601 date format
 \usepackage{hyperref}
 \usepackage{bbm}
+\usepackage{svg}
 \usepackage{amsmath} % for $\text{}$
 \usepackage{amssymb}
 \usepackage[nameinlink]{cleveref}
@@ -1959,6 +1960,37 @@ Methods:
 	\item[]Returns: \texttt{true} if the saving process finished successfully, \texttt{false} otherwise
 	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
 \end{itemize}
+
+\section{Sequence Diagrams}
+This section contains a selection of sequence diagrams to illustrate some important interactions such as the start of a simulation using the \texttt{Simulator} or the execution of a single iteration in the \texttt{SimulationEngine}.
+
+\subsection{Starting Simulations}
+The following sequence diagram illustrates the process of starting a simulation using a \texttt{Simulator}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_simulator.png}
+	\caption{The interaction of some controller with the \texttt{edu.kit.loop.model.simulator} package for the start of a simulation.}
+\end{figure}
+
+\subsection{Execution of an Iteration}
+This sequence diagram illustrates the execution of a single iteration to a given (elementary) configuration by the \texttt{SimulationEngine}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_simulationengine.png}
+	\caption{The execution of a single iteration by an instance of the \texttt{SimulationEngine} class. The execution of the adaption step is shown in a different sequence diagram for the sake of lucidity.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_adaptionstep.png}
+	\caption{The execution of a single adaption step by an instance of the \texttt{SimulationEngine} class. The execution of a round is partly shown in a different sequence diagram for the sake of lucidity.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_game.png}
+	\caption{The execution of the part of a single round where a certain pair of agents plays the game.}
+\end{figure}
 
 \section{Glossary}
 \textbf{Elementary configuration:}
