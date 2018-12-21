@@ -612,18 +612,18 @@ The \texttt{SimulationEngineException} is a type of exception that is thrown whe
 
 This package contains the \texttt{SimulationEngine}-class, which can be used to perform a single repetition on a particular elementary configuration, as well as core classes such as the \texttt{Agent}, the \texttt{game} or the \texttt{Strategy}.
 
-\subsubsection{Class \texttt{AgentInitializer}}
-An \texttt{AgentInitializer} can be used to create the agents of a given segment and initialize them with capital, strategies, and group affiliation.
+\subsubsection{Class \texttt{AgentInitialiser}}
+An \texttt{AgentInitialiser} can be used to create the agents of a given segment and initialise them with capital, strategies, and group affiliation.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{AgentInitializer()}
-\item[] Creates a new \texttt{AgentInitializer}.
+\item \texttt{AgentInitialiser()}
+\item[] Creates a new \texttt{AgentInitialiser}.
 \end{itemize}
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{List<Agent> initializeAgents(Segment segment)}
+\item \texttt{List<Agent> initialiseAgents(Segment segment)}
 \item[] Creates and returns all agents of the given segment and initialises them with capital, strategy and group affiliation.
 \item[] Returns: the initialised agents
 \end{itemize}
@@ -910,16 +910,16 @@ Methods:
 
 \subsubsection{Class \texttt{EngineSegment}}
 
-This class represents a segment used by the \texttt{AgentInitializer}. This is characterized by the number of associated agents, the \texttt{id} of the group to which the segment belongs, and the initial capital and strategy distribution.
+This class represents a segment as used by the \texttt{AgentInitialiser}. It is characterized by the number of its agents, the \texttt{id} of the group to which its agents belong and its capital and strategy distribution.
 
 Constructors:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{EngineSegment(int agentCount, int groupId, DiscreteDistribution capitalDistribution, UniformFiniteDistribution<Strategy> strategyDistribution, boolean cohesive)}
 	\item[] Creates a new \texttt{EngineSegment} with the given parameter set.
 	\item[] \texttt{agentCount}: the number of agents in this segment
-	\item[] \texttt{groupId}: the group id of agents in this segment;
-	\item[] \texttt{capitalDistribution}: the capital distribution which is used to initialize capital for the agents in this segment
-	\item[] \texttt{strategyDistribution}: the strategy distribution which is used to initialize strategies for the agents in this segment
+	\item[] \texttt{groupId}: the group id of agents in this segment
+	\item[] \texttt{capitalDistribution}: the capital distribution which is used to initialise capital for the agents in this segment
+	\item[] \texttt{strategyDistribution}: the strategy distribution which is used to initialise strategies for the agents in this segment
 	\item[] \texttt{cohesiv}: indicates whether the group of the agents in this segment is cohesive or not
 \end{itemize}
 
@@ -1523,8 +1523,8 @@ This class represents the controller associated with the main window. It defines
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the HeadController and it's databindings with the UI
+\item \texttt{void initialise()}
+\item[] initialises the HeadController and it's databindings with the UI
 \end{itemize}
 
 \subsubsection{Class \texttt{HistoryController}}
@@ -1561,8 +1561,8 @@ This class represents the controller responsible for the detailed output of a si
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initializes()}
-\item[] Initializes the DetailedOutputController and it's databindings with the UI
+\item \texttt{void initialises()}
+\item[] initialises the DetailedOutputController and it's databindings with the UI
 \end{itemize}
 
 \subsubsection{Class \texttt{AbstractedOutputController}}
@@ -1570,8 +1570,8 @@ This class represents the controller responsible for the abstracted output of a 
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the AbstractedOutputController and it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the AbstractedOutputController and it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{MultiConfigOutputController}}
@@ -1579,8 +1579,8 @@ This class represents the controller responsible for the output of a simulation'
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the MultiConfigOutputController and it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the MultiConfigOutputController and it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Interface \texttt{CreationController<T>}}
@@ -1604,8 +1604,8 @@ This class represents the controller responsible for the group creation window. 
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the GroupController and it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the GroupController and it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{PopulationController}}
@@ -1613,8 +1613,8 @@ This class represents the controller responsible for the population creation win
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the PopulationController an it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the PopulationController an it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewGameController}}
@@ -1623,8 +1623,8 @@ It creates new games based on the user input and informs the \texttt{HeadControl
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the NewGameController an it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the NewGameController an it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{NewSrategyController}}
@@ -1632,8 +1632,8 @@ This class represents the controller responsible for the strategy creation windo
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the NewStrategyController an it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the NewStrategyController an it's databindings with the UI.
 \end{itemize}
 
 \subsubsection{Class \texttt{ConfigController}}
@@ -1650,8 +1650,8 @@ Controller:
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{void initialize()}
-\item[] Initializes the ConfigController an it's databindings with the UI.
+\item \texttt{void initialise()}
+\item[] initialises the ConfigController an it's databindings with the UI.
 
 \item \texttt{void setConfiguration(Userconfiguration configuration)}
 \item[] Sets the parameters to the given configuration
@@ -1887,8 +1887,8 @@ This class provides central access to all loaded Plugins of all types as well as
 Methods:
 
 \begin{itemize} \itemsep -10pt
-	\item \texttt{static void initialize()}
-	\item[] Initializes the Repository-instance by loading all available plugins in the current execution environment working directory and all saved entities from the home directory.
+	\item \texttt{static void initialise()}
+	\item[] initialises the Repository-instance by loading all available plugins in the current execution environment working directory and all saved entities from the home directory.
 	\item \texttt{static CentralRepository getInstance()}
 	\item[]Returns the singleton Repository-instance
 	\item[] Returns: the singleton instance
