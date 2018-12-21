@@ -1,0 +1,104 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'package_edu_kit_loop_model_repository_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{629.625bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.77367481)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.79332936,0.69271138){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}HashMapRepository\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.74449077,0.66177784){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-HashMapRepository() «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.05241215,0.09711876){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}edu.kit.model.plugin.PluginLoader\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.00595593,0.06618523){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+<T> loadPlugins(): List<T>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.57891602,0.09711876){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}FileIO\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.39904705,0.06618523){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+<T> loadEntity(file: File): T\end{tabular}}}}%
+    \put(0.39904705,0.04716355){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+<T> loadAllEntities(dir: File): List<T>\end{tabular}}}}%
+    \put(0.39904705,0.02814175){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+<T> loadAllEntities(files: List<File>): List<T>\end{tabular}}}}%
+    \put(0.39904705,0.00911995){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+<T> saveEntity(file: File, entity: T): boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.31328172,0.47829804){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CentralRepository\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.04169148,0.45332043){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-instance: CentralRepository\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.04169148,0.42834282){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-CentralRepository() «ctor»\end{tabular}}}}%
+    \put(0.04169148,0.40932102){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-initialize(): void\end{tabular}}}}%
+    \put(0.04169148,0.39029922){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getInstance(): CentralRepository\end{tabular}}}}%
+    \put(0.04169148,0.37127755){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStrategyRepository(): Repository<Strategy>\end{tabular}}}}%
+    \put(0.04169148,0.35225587){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getGameRepository(): Repository<Game>\end{tabular}}}}%
+    \put(0.04169148,0.33323407){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getPopulationRepository(): Repository<Population>\end{tabular}}}}%
+    \put(0.04169148,0.31421227){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getGroupRepository(): Repository<Group>\end{tabular}}}}%
+    \put(0.04169148,0.29519059){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getEquilibriumCriterionRepository: Repository<Plugin<EquilibriumCriterion> >\end{tabular}}}}%
+    \put(0.04169148,0.27616891){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSuccessQuantifierRepository<Plugin<SuccessQuantifier> >\end{tabular}}}}%
+    \put(0.04169148,0.25714711){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStrategyAdjusterRepository: Repository<Plugin<StrategyAdjuster> >\end{tabular}}}}%
+    \put(0.04169148,0.23812532){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getPairBuilderRepository: Repository<Plugin<PairBuilder> >\end{tabular}}}}%
+    \put(0.04169148,0.21910363){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getDiscreteDistributionRepository: Repository<Plugin<DiscreteDistribution> >\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.56938654,0.75461584){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Object\end{tabular}}}}%
+    \put(0.32757594,0.72963812){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.32876712,0.71061644){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Repository\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.14889815,0.68563884){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getEntityByName(name: String): T\end{tabular}}}}%
+    \put(0.14889815,0.66661703){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addEntity(name: String, entity: T): boolean\end{tabular}}}}%
+    \put(0.14889815,0.64759523){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+containsEntityName(name: String): booelan\end{tabular}}}}%
+    \put(0.14889815,0.62857356){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getAllEntityNames(): List<String>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.15961882,0.15070351){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}uses\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.60035736,0.15070351){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}uses\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{package_edu_kit_loop_model_repository_svg-tex.pdf}}%
+    \put(0.79094699,0.34129315){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}instance\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

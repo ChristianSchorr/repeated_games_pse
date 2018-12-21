@@ -1,0 +1,105 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{854.625bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.34181659)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.74067573,0.15930777){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}DiscreteUniformDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.63624397,0.13651821){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+DiscreteUniformDistribution(min: int, max: int) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.7617376,0.22073822){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}BinomialDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.63624397,0.19794866){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+BinomialDistribution(min: int, max: int, p: double) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.76349276,0.28216867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PoissonDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.63624397,0.25937911){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+PoissonDistribution(lambda: double) «ctor»\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.34664326,0.14175621){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}extends Distribution<Integer>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.0833699,0.32604757){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.07196139,0.31203379){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Distribution<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.00438789,0.29363212){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getProbability(object: E): double\end{tabular}}}}%
+    \put(0.00438789,0.27961825){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getPicker(): Picker<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.43001316,0.32604757){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.43176832,0.31203379){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Picker<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.35541904,0.29363212){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+pickOne(): E\end{tabular}}}}%
+    \put(0.35541904,0.27961825){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+pickMany(i: int): List<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.51338306,0.08910154){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}UniformFiniteDistribution<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.4168495,0.06631198){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+UniformFiniteDistribution<E>() «ctor»\end{tabular}}}}%
+    \put(0.4168495,0.0522982){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+UniformFiniteDistribution<E>(objects: List<E>) «ctor»\end{tabular}}}}%
+    \put(0.4168495,0.03828434){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addObject(object: E): void\end{tabular}}}}%
+    \put(0.4168495,0.02427047){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addObjects(objects: List<E>): void\end{tabular}}}}%
+    \put(0.4168495,0.01025669){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+deleteObject(object: E): boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.23255814,0.09787731){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.2062308,0.08386354){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}FiniteDistribution<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.17112769,0.06546187){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSupport(): List<E>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.26766125,0.229514){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.24484423,0.21550022){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}DiscreteDistribution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.17112769,0.19709855){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSupportMin(q: double): int\end{tabular}}}}%
+    \put(0.17112769,0.18308469){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getSupportMax(q: double): int\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+    \put(0.26227793,0.32777534){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}generates\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{package_edu_kit_loop_model_simulationengine_distribution_svg-tex.pdf}}%
+  \end{picture}%
+\endgroup%

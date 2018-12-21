@@ -22,6 +22,7 @@
 \renewcommand{\dateseparator}{-} % ISO8601 date format
 \usepackage{hyperref}
 \usepackage{bbm}
+\usepackage{svg}
 \usepackage{amsmath} % for $\text{}$
 \usepackage{amssymb}
 \usepackage[nameinlink]{cleveref}
@@ -32,6 +33,7 @@
 \usepackage{subfig}
 \usepackage{float} % für Fließumgebungen; Platzierung H verschiebt nicht
 \usepackage{multirow}
+\usepackage{svg}
 \restylefloat{figure}
 \hypersetup{
 	pdftitle={Entwurf},
@@ -609,6 +611,14 @@ Extends: \texttt{java.lang.Exception}
 The \texttt{SimulationEngineException} is a type of exception that is thrown whenever an error within the \texttt{executeIteration} method of a \texttt{SimulationEngine} has occured. The error gets caught by the simulator which then creates an instance of this class and writes it to the corresponding \texttt{SimulationResult} object.
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine}}
+
+\begin{figure}[h]
+	\centering	
+	\fontsize{3.5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_distribution}
+	
+	\caption{Classdiagram \texttt{edu.kit.loop.model.repository}}
+\end{figure}
 
 This package contains the \texttt{SimulationEngine}-class, which can be used to perform a single repetition on a particular elementary configuration, as well as core classes such as the \texttt{Agent}, the \texttt{game} or the \texttt{Strategy}.
 
@@ -1213,6 +1223,14 @@ Methods:
 \item[] \texttt{vector}: the vector that shall be added to this vector
 \end{itemize}
 
+\subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
+
+This package contains all the functionality for creating custom strategies by combining existing ones to a logical expression.
+
+
+
+
+
 \subsubsection{Interface \texttt{Operator}}
 
 This interface represents a logical operator for combining strategies to generate a new strategy
@@ -1385,6 +1403,15 @@ Methods:
 
 This package contains functionality for generating different types of distributions and for randomly picking values from those distributions.
 
+
+\begin{figure}[h]
+	\centering	
+	\fontsize{6}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_distribution}
+	
+	\caption{Classdiagram \texttt{edu.kit.loop.model.repository}}
+\end{figure}
+
 \subsubsection{Interface \texttt{Distribution<E>}}
 This interface represents a probability distribution over a carrier of objects of type \texttt{E}. An implementation returns the probability of a particular object upon request, and provides a \texttt{Picker <E>} to randomly pull objects from the probability distribution.
 
@@ -1517,6 +1544,15 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.Controller}}
+
+
+\begin{figure}[h]
+	\centering	
+	\fontsize{3.5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_controller}
+	
+	\caption{Classdiagram \texttt{edu.kit.loop.model.repository}}
+\end{figure}
 
 \subsubsection{Class \texttt{HeadController}}
 This class represents the controller associated with the main window. It defines the interface between the model and the controller structure. It is mainly responsible for starting simulations by providing \texttt{UserConfiguration}s to the simulator and for delegating further task to the other controllers.
@@ -1661,6 +1697,15 @@ Methods:
 \subsection{Package \texttt{edu.kit.loop.model.plugin}}
 
 This package contains the functionality involved in creating and loading new plugins which extend the simulation process.
+
+
+\begin{figure}[h]
+	\centering	
+	\fontsize{3.5}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_plugin}
+	
+	\caption{Classdiagram \texttt{edu.kit.loop.model.plugin}}
+\end{figure}
 
 \subsubsection{Class \texttt{PluginLoader}}
 
@@ -1827,6 +1872,14 @@ Methods:
 This package contains the functionality of the central repositories, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
 
 
+\begin{figure}[h]
+	\centering	
+	\fontsize{7}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_repository}
+	
+	\caption{Classdiagram \texttt{edu.kit.loop.model.repository}}
+\end{figure}
+
 \subsubsection{Interface \texttt{Repository<T>}}
 
 A repository stores an association of names and entities and makes them available on request.
@@ -1959,6 +2012,37 @@ Methods:
 	\item[]Returns: \texttt{true} if the saving process finished successfully, \texttt{false} otherwise
 	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
 \end{itemize}
+
+\section{Sequence Diagrams}
+This section contains a selection of sequence diagrams to illustrate some important interactions such as the start of a simulation using the \texttt{Simulator} or the execution of a single iteration in the \texttt{SimulationEngine}.
+
+\subsection{Starting Simulations}
+The following sequence diagram illustrates the process of starting a simulation using a \texttt{Simulator}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_simulator.png}
+	\caption{The interaction of some controller with the \texttt{edu.kit.loop.model.simulator} package for the start of a simulation.}
+\end{figure}
+
+\subsection{Execution of an Iteration}
+This sequence diagram illustrates the execution of a single iteration to a given (elementary) configuration by the \texttt{SimulationEngine}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_simulationengine.png}
+	\caption{The execution of a single iteration by an instance of the \texttt{SimulationEngine} class. The execution of the adaption step is shown in a different sequence diagram for the sake of lucidity.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_adaptionstep.png}
+	\caption{The execution of a single adaption step by an instance of the \texttt{SimulationEngine} class. The execution of a round is partly shown in a different sequence diagram for the sake of lucidity.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/sequence_diagram_game.png}
+	\caption{The execution of the part of a single round where a certain pair of agents plays the game.}
+\end{figure}
 
 \section{Glossary}
 \textbf{Elementary configuration:}
