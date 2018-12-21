@@ -623,7 +623,7 @@ Constructors:
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{List<Agent> initializeAgents(Segment segment)}
+\item \texttt{List<Agent> initializeAgents(EngineSegment segment)}
 \item[] Creates and returns all agents of the given segment and initialises them with capital, strategy and group affiliation.
 \item[] Returns: the initialised agents
 \end{itemize}
@@ -683,7 +683,7 @@ This class represents the elementary configuration of a single iteration and con
 
 Constructors:
 \begin{itemize}\itemsep -10pt
-\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, List<Segment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
+\item \texttt{Configuration(Game game, int roundCount, boolean mixedStrategies, List<EngineSegment> segments, PairBuilder pairBuilder, SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion, int maxAdapts)}
 \item[] Creates a new \texttt{Configuration} with the given parameters.
 \item[] \texttt{game}: the game of this configuration
 \item[] \texttt{roundCount}: the amount of rounds per adaption step in this configuration
@@ -714,9 +714,9 @@ Methods:
 \item[] Returns, whether mixed strategies are allowed in this configuration.
 \item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration, \texttt{false} otherwise
 
-\item \texttt{List<Segment> getSegments()}
+\item \texttt{List<EngineSegment> getSegments()}
 \item[] Returns all segments belonging to this configuration
-\item[] Returns: all segments belonging to this configuration as \texttt{List<Segment>}
+\item[] Returns: all segments belonging to this configuration as \texttt{List<EngineSegment>}
 
 \item \texttt{PairBuilder getPairBuilder()}
 \item[] Returns the \texttt{pairBuilder} of this configuration.
