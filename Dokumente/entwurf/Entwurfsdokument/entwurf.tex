@@ -78,7 +78,7 @@ The concept of groups and segments has been revised. The entirety of groups and 
 	\caption{group creation window}
 	\label{fig:group_creation}
 \end{figure}
-
+\newpage
 \textbf{group creation:}
 The name and the description of a group can be entered in corresponding text fields at the top of the group creation window (see Fig. \ref{fig:group_creation}). The amount of segments, their sizes and their strategy- and capital distributions can be specified below, as originally intended in the \enquote{group settings} (see \textit{Pflichtenheft}). Furthermore, a group can be declared as \enquote{cohesive} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
 
@@ -160,8 +160,8 @@ The model contains interfaces representing those variable events and provides im
 \iftrue
 \begin{figure}[h]
 	\centering
-	\fontsize{12}{8}\selectfont
-	\includesvg[width = 0.5 \linewidth]{images/paketdiagramme/package_edu_kit_loop}
+	\fontsize{11}{8}\selectfont
+	\includesvg[width = 0.4 \linewidth]{images/paketdiagramme/package_edu_kit_loop}
 
 	\caption{Classdiagram \texttt{edu.kit.loop}}
 \end{figure}
@@ -177,7 +177,7 @@ Methods:
 \item[] The entry point of the application. Loads the UI and opens the main window.
 \item[] \texttt{args}: the commandline arguments (unused)
 \end{itemize}
-
+\newpage
 \subsection{Package \texttt{edu.kit.loop.model}}
 The model contains the \texttt{Simulator} interface, which provides means of starting und stopping simulations to given configurations. When a simulation is started, an instance of the class \texttt{SimulationResult} is returned instantly, which collects the results of the single iterations as they finish. The execution of the iterations is carried out by instances of the \texttt{SimulationEngine} class.
 
@@ -195,7 +195,7 @@ Lastly, the model contains the plugin system which can be used to integrate own 
 	\caption{Classdiagram \texttt{edu.kit.loop.model}}
 \end{figure}
 \fi
-
+\newpage
 \subsubsection{Interface \texttt{Nameable}}
 
 Implementations of this interface have a name and a description, which can be queried as \texttt {String}s.
@@ -215,7 +215,7 @@ Methods:
 Implements: \texttt{Nameable}, \texttt{java.io.Serializable}
 
 This class represents a population. It offers getter methods for size and group composition.
-
+\newpage
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Population(String name, String description, List<Group> groups, List<Integer> groupSizes)}
@@ -351,7 +351,7 @@ Methods:
 	\item \texttt{int getAgentCount()}
 	\item[] Returns the amount of agents in this configuration
 	\item[] Returns: the amount of agents in this configuration
-
+	\newpage
 	\item \texttt{int getRoundCount()}
 	\item[] Returns the amount of rounds per adaption step in this configuration
 	\item[] Returns: the amount of rounds per adaption step in this configuration
@@ -391,7 +391,7 @@ Methods:
 	\item \texttt{String getStrategyAdjusterName()}
 	\item[] Returns the name of the \texttt{PairBuilder} of this configuration.
 	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
-
+\newpage
 	\item \texttt{List<double> getStrategyAdjusterParameters()}
 	\item[] Returns a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
 	\item[] Returns: a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
@@ -424,18 +424,19 @@ Methods:
 	\item \texttt{double getEndValue()}
 	\item[] Returns the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise.
 	\item[] Returns: the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise
-
+\newpage
 	\item \texttt{double getStepSize()}
 	\item[] Returns the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise.
 	\item[] Returns: the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise
 \end{itemize}
+
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator}}
 This package contains the \texttt{Simulator}, which is the models interface for starting and stopping simulations.
 \iftrue
 \begin{figure}[h]
 	\centering
-	\fontsize{4.5}{8}\selectfont
+	\fontsize{4.75}{8}\selectfont
 	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulator}
 
 	\caption{Classdiagram \texttt{edu.kit.loop.model.simulator}}
@@ -445,7 +446,7 @@ This package contains the \texttt{Simulator}, which is the models interface for 
 A \texttt{SimulationResult} object contains information about a started simulation, such as its configuration, execution status, \texttt{id} and, if available, the results of the iterations. It is generated by a \texttt{Simulator} when a simulation is started.
 
 The class does not distinguish between multiconfigurations and non-multiconfigurations, so it generally assumes that several elementary configurations underlie.
-
+\newpage
 Constructors:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{SimulationResult(UserConfiguration config, int id)}
@@ -510,7 +511,7 @@ Methods:
 	\item[] \texttt{action}: the action that shall be executed when the simulation is finished
 	\item[] Returns: a handle to a \texttt{SimulationResult} object for the started simulation
 	\item[] Throws: \texttt{ConfigurationException} when the provided configuration is faulty
-
+	\newpage
 	\item \texttt{boolean stopSimulation(SimulationResult sim)}
 	\item[] Stop the execution of the simulation corresponding to the given simulation result if it is currently running.
 	\item[] \texttt{sim}: the \texttt{SimulationResult} object of the simulation whose execution shall be stopped
@@ -544,7 +545,7 @@ Constructors:
 \item[] Creates a new \texttt{ThreadPoolSimulator} with the given maximum amount of running threads.
 \item[] \texttt{maxThreads}: the maximum amount of running threads in the thread pool
 \end{itemize}
-
+\newpage
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{int getRunningIterationCount()}
@@ -578,7 +579,7 @@ This package contains exception classes to categorise the different kinds of err
 \iftrue
 \begin{figure}[h]
 	\centering
-	\fontsize{7}{8}\selectfont
+	\fontsize{8}{8}\selectfont
 	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_Simulator_exception}
 
 	\caption{Classdiagram \texttt{edu.kit.loop.model.simulator.exception}}
@@ -588,7 +589,7 @@ This package contains exception classes to categorise the different kinds of err
 Extends: java.lang.Exception
 
 The \texttt{ConfigurationException} is a type of exception that occurs whenever the simulator gets passed a faulty \texttt{UserConfiguration}. It gets thrown by the \texttt{startSimulation} method of the \texttt{Simulator}interface.
-
+\newpage
 \subsubsection{Class \texttt{InvalidParameterException}}
 Extends: \texttt{ConfigurationException}
 
@@ -655,7 +656,7 @@ Methods:
 	\item[] This method returns a list of all faulty parameters
 	\item[] Returns: a list of all faulty parameters
 \end{itemize}
-
+\newpage
 \subsubsection{Class \texttt{SimulationEngineException}}
 Extends: \texttt{java.lang.Exception}
 
@@ -676,14 +677,14 @@ This package contains the \texttt{SimulationEngine} class, which can be used to 
 
 \begin{figure}[h]
 	\centering
-	\fontsize{3}{8}\selectfont
+	\fontsize{3.5}{8}\selectfont
 	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_part2}
 
 	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine} part 2}
 \end{figure}
 \fi
 
-
+\newpage
 \subsubsection{Class \texttt{AgentInitialiser}}
 An \texttt{AgentInitialiser} can be used to create the agents of a given segment and initialise them with capital, strategies, and group affiliation.
 
@@ -696,7 +697,7 @@ Methods:
 
 \subsubsection{Interface \texttt{SimulationHistory}}
 An implementation of the \texttt{SimulationHistory} interface always stores the results of all games of the current adaptation step. This is necessary because, for example, strategies such as tit-for-tat or grim can refer to the behaviour of the other agents in previous games.
-
+\newpage
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{void addResult(GameResult result)}
@@ -760,7 +761,7 @@ Constructors:
 \item[] \texttt{equilibriumCriterion}: the equilibrium criterion of this configuration
 \item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration in this configuration
 \end{itemize}
-
+\newpage
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{Game getGame()}
@@ -835,7 +836,7 @@ Constructors:
 \item[] \texttt{efficiency}: the efficiency of the final state
 \item[] \texttt{adapts}: the amount of simulated adaption steps
 \end{itemize}
-
+\newpage
 Methods
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<Agent> getAgents()}
@@ -909,7 +910,7 @@ Methods:
 \item[] Returns the second of both agents.
 \item[] Returns: the second of both agents
 \end{itemize}
-
+\newpage
 \subsubsection{Class \texttt{GameResult}}
 An instance of this class stores the result of a game of two agents. The result consists of:
 
@@ -1009,7 +1010,7 @@ Methods:
 
 \subsubsection{Interface \texttt{PairBuilder}}
 This interface represents a pairing algorithm (ger.: \enquote{Paarbildungsalgorithmus}). An implementation takes a set of agents and the history of the current adaptation step as \texttt{SimulationHistory} and returns a matching of the agents.
-
+\newpage
 Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{List<AgentPair> buildPairs(List<Agent> agents, SimulationHistory history)}
@@ -1069,7 +1070,7 @@ Realizes the \enquote{Absolutkapital ohne Initialkapital} success quantification
 Implements: \texttt{SuccessQuantifier}
 
 Realizes the \enquote{Gleitender Durchschnitt} success quantification described in the specification.
-
+\newpage
 Constructors:
 \begin{itemize}\itemsep -10pt
 \item \texttt{SlidingMean(int windowSize)}
@@ -1185,7 +1186,7 @@ Furthermore, it contains the subpackage \texttt{strategybuilder} which provides 
 \iftrue
 \begin{figure}[h]
 	\centering
-	\fontsize{6}{8}\selectfont
+	\fontsize{6.25}{8}\selectfont
 	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_strategies}
 
 	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine.strategies}}
@@ -1285,7 +1286,7 @@ Methods:
 \item[] Adds the given vector to this vector.
 \item[] \texttt{vector}: the vector that shall be added to this vector
 \end{itemize}
-
+\newpage
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
 
 This package contains functionality for creating new strategies by combining existing ones through logical expressions.
@@ -1293,7 +1294,7 @@ This package contains functionality for creating new strategies by combining exi
 \iftrue
 \begin{figure}[h]
 	\centering
-	\fontsize{5}{8}\selectfont
+	\fontsize{6.75}{8}\selectfont
 	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_simulationengine_strategybuilder}
 
 	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
@@ -1403,7 +1404,7 @@ Methods:
 	\item[] This method returns whether this node is an inner node.
 	\item[] Returns: \texttt{true} if this node is an inner node, otherwise \texttt{false}
 \end{itemize}
-
+\newpage
 \subsubsection{Interface \texttt{Tree<T>}}
 
 This interface represents a graph with tree structure which consists of \texttt{TreeNode<T>} instances.
@@ -1435,7 +1436,7 @@ Constructors:
 Methods:
 \begin{itemize} \itemsep -10pt
 	\item \texttt{boolean checkSyntax()}
-	\item[] This method checks whether the expression represented by this tree is syntactically correct.
+	\item[] Checks whether the expression represented by this tree is syntactically correct.
 	\item[] Returns: \texttt{true} if the syntax is correct, \texttt{false} otherwise
 
 	\item \texttt{SyntaxNode getFaultyNode()}
@@ -1471,6 +1472,7 @@ This package contains different types of distributions and provides means for ra
 	\caption{Classdiagram \texttt{edu.kit.loop.model.simulationengine.distributions}}
 \end{figure}
 \fi
+\newpage
 \subsubsection{Interface \texttt{Distribution<E>}}
 This interface represents a probability distribution over a set of objects of type \texttt{E}. An implementation returns the probability of a given object upon request, and provides a \texttt{Picker <E>} to randomly pick objects from the probability distribution.
 
@@ -1500,7 +1502,7 @@ Methods:
 \item[] \texttt{i}: the amount of elements that shall be picked
 \item[] Returns: the picked objects as \texttt{List<E>}
 \end{itemize}
-
+\newpage
 \subsubsection{Interface \texttt{DiscreteDistribution}}
 Extends: \texttt{Distribution<Integer>}
 
@@ -1590,7 +1592,7 @@ Methods:
 \begin{itemize}\itemsep -10pt
 \item \texttt{void addObject(E object)}
 \item[] Adds the given object to the support.
-\item[] \texttt{object}: the object thta shall be added
+\item[] \texttt{object}: the object that shall be added
 
 \item \texttt{void addObjects(List<E> objects)}
 \item[] Adds the given objects to the support.
@@ -1602,165 +1604,6 @@ Methods:
 \item[] Returns: \texttt{true} if the given object was contained and successfully removed, \texttt{false} otherwise
 \end{itemize}
 
-\subsection{Package \texttt{edu.kit.loop.controller}}
-This package contains controllers for the view. For each program window, there is one associated controller that is automatically instantiated when the window opens and is responsible for processing user input in that window.
-
-\iftrue
-\begin{figure}[h]
-	\centering
-	\fontsize{4}{8}\selectfont
-	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_controller}
-
-	\caption{Classdiagram \texttt{edu.kit.loop.controller}}
-\end{figure}
-\fi
-\subsubsection{Class \texttt{HeadController}}
-This controller is associated with the main window and thus instantiated when the program starts. It is also responsible for the communication between controller and model.
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] Initialises the \texttt{HeadController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{HistoryController}}
-This controller manages the list of all running and finsihed simulations in the main window. It stores a list of the \texttt{SimulationResult} objects of all started simulations.
-the
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void addSimulation(SimulationResult result)}
-\item[] Adds a new simulation to the controller
-\item[] \texttt{result}: the \texttt{SimulationResult} object of the simulation that shall be added
-
-\item \texttt{SimulationResult getSelectedSimulation()}
-\item[] Returns the currently selected simulation in the list
-\item[] Returns: the currently selected simulation
-
-\item \texttt{List<SimulationResult> getAllSimulations()}
-\item[] Returns all simulations in the simulation list.
-\item[] Returns: a list of all simulations in the list
-\end{itemize}
-
-\subsubsection{Class \texttt{OutputController}}
-This controller is responsible for displaying the results of finished simulations in the main window.
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void setSimulation(SimulationResult result)}
-\item[] Sets the simulation whose results shall be displayed.
-\item[] \texttt{result}: the \texttt{SimulationResult} object of the simulation whose results shall be displayed
-
-\end{itemize}
-
-\subsubsection{Class \texttt{DetailedOutputController}}
-This class represents the controller responsible for the detailed output of a simulation's result (Page 1 in the output described in the \textit{Pflichtenheft}).
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialises()}
-\item[] Initialises the \texttt{DetailedOutputController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{AbstractedOutputController}}
-This class represents the controller responsible for the abstracted output of a simulation's result (Page 2 in the output described in the \textit{Pflichtenheft}).
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] initialises the \texttt{AbstractedOutputController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{MultiConfigOutputController}}
-This class represents the controller responsible for the output of a multi-simulations abstracted multiconfiguration-results (Page 3 in the output described in the \textit{Pflichtenheft}).
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] initialises the \texttt{MultiConfigOutputController}.
-\end{itemize}
-
-\subsubsection{Interface \texttt{CreationController<T>}}
-
-This interface gets implemented by all controllers which are associated with creation windows. It provides the possibility to register a callback that is called whenever a new instance is created.
-
-Parameter:
-\begin{itemize} \itemsep -10pt
-	\item \texttt{<T>}: the type of the entity created by the controller
-\end{itemize}
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void registerElementCreated(Consumer<T> action)}
-\item[] Registers a callback which gets invoked whenever a new entity has been created and passes the newly created entity to it.
-\item[] \texttt{action}: the callback which shall be registered
-\end{itemize}
-
-\subsubsection{Class \texttt{GroupController}}
-Implements: \texttt{CreationController<Group>}
-
-This class represents the controller associated with the group creation window. It creates new groups based on the user input and notifies the \texttt{HeadController} whenever a new group has been created.
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] Initialises the \texttt{GroupController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{PopulationController}}
-Implements: \texttt{CreationController<Population>}
-
-This class represents the controller associated with the population creation window. It creates new populations based on the user input and notifies the \texttt{HeadController} whenever a new population has been created.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] Initialises the \texttt{PopulationController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{NewGameController}}
-Implements: \texttt{CreationController<Game>}
-
-This class represents the controller associated with the game creation window. It creates new games based on the user input and notifies the \texttt{HeadController} whenever a new game has been created.
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] Initialises the \texttt{NewGameController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{NewStrategyController}}
-Implements: \texttt{CreationController<Strategy>}
-
-This class represents the controller associated with the strategy creation window. It creates new strategies based on the user input and informs the \texttt{HeadController} whenever a new strategy has been created.
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] Initialises the \texttt{NewStrategyController}.
-\end{itemize}
-
-\subsubsection{Class \texttt{ConfigController}}
-Implements: \texttt{CreationController<UserConfiguration>}
-
-This class represents the controller associated with the configuration window. It creates new \texttt{UserConfiguration}s from the users input and informs the HeadController when a new \texttt{UserConfiguration} has been created.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{ConfigController(UserConfiguration configuration)}
-\item[] Creates a new \texttt{ConfigController} with the given configuration.
-\end{itemize}
-
-Methods:
-\begin{itemize}\itemsep -10pt
-\item \texttt{void initialise()}
-\item[] Initialises the \texttt{ConfigController}.
-
-\item \texttt{void setConfiguration(Userconfiguration configuration)}
-\item[] Sets the configuration shown in the configuration window to the given one.
-\item[] \texttt{configuration}: the configuration the configuration window shall show
-
-\end{itemize}
-
 \subsection{Package \texttt{edu.kit.loop.model.plugin}}
 
 This package contains the plugin system which can be used to integrate own implementations of the pair builder, success quantifier, strategy adjuster, equilibrium criterion or discrete distribution.
@@ -1768,12 +1611,12 @@ This package contains the plugin system which can be used to integrate own imple
 \iftrue
 \begin{figure}[h]
 	\centering
-	\fontsize{5.75}{8}\selectfont
+	\fontsize{6.5}{8}\selectfont
 	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_model_plugin}
 
 	\caption{Classdiagram \texttt{edu.kit.loop.model.plugin}}
 \end{figure}
-\fi
+
 \subsubsection{Class \texttt{PluginLoader}}
 
 This class provides the functionality to dynamically load plugins at run time using the Java \texttt{ServiceLoader}-API. It is invoked by the \texttt{HeadController} at the start of the program to load all plugins.
@@ -1950,6 +1793,7 @@ The \texttt{CentralRepository} singleton class is the programs central access po
 	\caption{Classdiagram \texttt{edu.kit.loop.model.repository}}
 \end{figure}
 \fi
+\newpage
 \subsubsection{Interface \texttt{Repository<T>}}
 
 A repository stores an association of names and entities and makes them available on request.
@@ -1959,7 +1803,7 @@ Parameters:
 	\item \texttt{<T>} the type of the entities that shall be stored in this repository
 \end{itemize}
 
-
+\newpage
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{T getEntityByName(String name)}
@@ -2072,6 +1916,165 @@ Methods:
 	\item[] \texttt{entity}: the entity that shall be saved
 	\item[]Returns: \texttt{true} if the saving process finished successfully, \texttt{false} otherwise
 	\item[] Throws: \texttt{IOException} when the given entity can not be serialized or the given file doesn't exist and can not be created
+\end{itemize}
+
+\subsection{Package \texttt{edu.kit.loop.controller}}
+This package contains controllers for the view. For each program window, there is one associated controller that is automatically instantiated when the window opens and is responsible for processing user input in that window.
+
+\iftrue
+\begin{figure}[h]
+	\centering
+	\fontsize{4}{8}\selectfont
+	\includesvg[width = \linewidth]{images/paketdiagramme/package_edu_kit_loop_controller}
+	
+	\caption{Classdiagram \texttt{edu.kit.loop.controller}}
+\end{figure}
+\fi
+\subsubsection{Class \texttt{HeadController}}
+This controller is associated with the main window and thus instantiated when the program starts. It is also responsible for the communication between controller and model.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] Initialises the \texttt{HeadController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{HistoryController}}
+This controller manages the list of all running and finsihed simulations in the main window. It stores a list of the \texttt{SimulationResult} objects of all started simulations.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void addSimulation(SimulationResult result)}
+	\item[] Adds a new simulation to the controller
+	\item[] \texttt{result}: the \texttt{SimulationResult} object of the simulation that shall be added
+	
+	\item \texttt{SimulationResult getSelectedSimulation()}
+	\item[] Returns the currently selected simulation in the list
+	\item[] Returns: the currently selected simulation
+	
+	\item \texttt{List<SimulationResult> getAllSimulations()}
+	\item[] Returns all simulations in the simulation list.
+	\item[] Returns: a list of all simulations in the list
+\end{itemize}
+
+\subsubsection{Class \texttt{OutputController}}
+This controller is responsible for displaying the results of finished simulations in the main window.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void setSimulation(SimulationResult result)}
+	\item[] Sets the simulation whose results shall be displayed.
+	\item[] \texttt{result}: the \texttt{SimulationResult} object of the simulation whose results shall be displayed
+	
+\end{itemize}
+
+\subsubsection{Class \texttt{DetailedOutputController}}
+This class represents the controller responsible for the detailed output of a simulation's result (Page 1 in the output described in the \enquote{Pflichtenheft}).
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialises()}
+	\item[] Initialises the \texttt{DetailedOutputController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{AbstractedOutputController}}
+This class represents the controller responsible for the abstracted output of a simulation's result (Page 2 in the output described in the \enquote{Pflichtenheft}).
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] initialises the \texttt{AbstractedOutputController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{MultiConfigOutputController}}
+This class represents the controller responsible for the output of a multi-simulations abstracted multiconfiguration-results (Page 3 in the output described in the \enquote{Pflichtenheft}).
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] initialises the \texttt{MultiConfigOutputController}.
+\end{itemize}
+
+\subsubsection{Interface \texttt{CreationController<T>}}
+
+This interface gets implemented by all controllers which are associated with creation windows. It provides the possibility to register a callback that is called whenever a new instance is created.
+
+Parameter:
+\begin{itemize} \itemsep -10pt
+	\item \texttt{<T>}: the type of the entity created by the controller
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void registerElementCreated(Consumer<T> action)}
+	\item[] Registers a callback which gets invoked whenever a new entity has been created and passes the newly created entity to it.
+	\item[] \texttt{action}: the callback which shall be registered
+\end{itemize}
+
+\subsubsection{Class \texttt{GroupController}}
+Implements: \texttt{CreationController<Group>}
+
+This class represents the controller associated with the group creation window. It creates new groups based on the user input and notifies the \texttt{HeadController} whenever a new group has been created.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] Initialises the \texttt{GroupController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{PopulationController}}
+Implements: \texttt{CreationController<Population>}
+
+This class represents the controller associated with the population creation window. It creates new populations based on the user input and notifies the \texttt{HeadController} whenever a new population has been created.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] Initialises the \texttt{PopulationController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{NewGameController}}
+Implements: \texttt{CreationController<Game>}
+
+This class represents the controller associated with the game creation window. It creates new games based on the user input and notifies the \texttt{HeadController} whenever a new game has been created.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] Initialises the \texttt{NewGameController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{NewStrategyController}}
+Implements: \texttt{CreationController<Strategy>}
+
+This class represents the controller associated with the strategy creation window. It creates new strategies based on the user input and informs the \texttt{HeadController} whenever a new strategy has been created.
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] Initialises the \texttt{NewStrategyController}.
+\end{itemize}
+
+\subsubsection{Class \texttt{ConfigController}}
+Implements: \texttt{CreationController<UserConfiguration>}
+
+This class represents the controller associated with the configuration window. It creates new \texttt{UserConfiguration}s from the users input and informs the HeadController when a new \texttt{UserConfiguration} has been created.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{ConfigController(UserConfiguration configuration)}
+	\item[] Creates a new \texttt{ConfigController} with the given configuration.
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{void initialise()}
+	\item[] Initialises the \texttt{ConfigController}.
+	
+	\item \texttt{void setConfiguration(Userconfiguration configuration)}
+	\item[] Sets the configuration shown in the configuration window to the given one.
+	\item[] \texttt{configuration}: the configuration the configuration window shall show
+	
 \end{itemize}
 
 \section{Sequence Diagrams}

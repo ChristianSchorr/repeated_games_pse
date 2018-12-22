@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{847.5bp}%
+    \setlength{\unitlength}{712.5bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,71 +50,69 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.72522124)%
+  \begin{picture}(1,0.76789474)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.52477876,0.3039823){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Object\end{tabular}}}}%
-    \put(0.39380531,0.28555982){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PluginLoader\end{tabular}}}}%
+    \put(0.45052632,0.38263158){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Object\end{tabular}}}}%
+    \put(0.29263158,0.36055916){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PluginLoader\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.32300885,0.26271257){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+loadPlugins(): List<T>\end{tabular}}}}%
+    \put(0.20526316,0.33322368){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+static loadPlugins(): List<T>\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.73451327,0.29352442){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ParameterValidator\end{tabular}}}}%
+    \put(0.70947368,0.37003284){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ParameterValidator\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.61504425,0.27067717){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+isValueValid(val: double, param: Parameter): booelan\end{tabular}}}}%
-    \put(0.61504425,0.25667956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getClosestValid(val: double, param: Parameter): double\end{tabular}}}}%
+    \put(0.55263158,0.34269737){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+static isValueValid(val: double, param: Parameter): booelan\end{tabular}}}}%
+    \put(0.55263158,0.32588821){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+static getClosestValid(val: double, param: Parameter): double\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.75221239,0.51476336){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Parameter\end{tabular}}}}%
+    \put(0.71263158,0.57003284){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Parameter\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.57079646,0.49191611){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Parameter(minVal: double, maxVal: double) «ctor»\end{tabular}}}}%
-    \put(0.57079646,0.4779185){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Parameter(minVal: double, maxVal: double, stepSize: double) «ctor»\end{tabular}}}}%
-    \put(0.57079646,0.4639208){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMinValue(): double\end{tabular}}}}%
-    \put(0.57079646,0.4499231){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMaxValue(): double\end{tabular}}}}%
-    \put(0.57079646,0.4359254){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStepSize(): double\end{tabular}}}}%
+    \put(0.5,0.54269737){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Parameter(minVal: double, maxVal: double) «ctor»\end{tabular}}}}%
+    \put(0.5,0.52588821){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+Parameter(minVal: double, maxVal: double, stepSize: double) «ctor»\end{tabular}}}}%
+    \put(0.5,0.50907895){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMinValue(): double\end{tabular}}}}%
+    \put(0.5,0.49226968){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getMaxValue(): double\end{tabular}}}}%
+    \put(0.5,0.47546053){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getStepSize(): double\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.13097345,0.04573681){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GenericRenderer\end{tabular}}}}%
+    \put(0.15894737,0.05424337){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GenericRenderer\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.00442478,0.02288956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GenericRenderer(params: List<Parameter>) «ctor»\end{tabular}}}}%
-    \put(0.00442478,0.00889195){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GenericRenderer(plugin: Plugin) «ctor»\end{tabular}}}}%
+    \put(0.00526316,0.02690789){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GenericRenderer(params: List<Parameter>) «ctor»\end{tabular}}}}%
+    \put(0.00526316,0.01009874){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+GenericRenderer(plugin: Plugin) «ctor»\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.55486726,0.04573681){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}TextFieldPluginControl\end{tabular}}}}%
+    \put(0.70947368,0.05424337){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}TextFieldPluginControl\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.44690265,0.02288956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+TextFieldPluginControl(params: List<Parameter>) «ctor»\end{tabular}}}}%
-    \put(0.44690265,0.00889195){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addParameter(param: Parameter): void\end{tabular}}}}%
+    \put(0.57368421,0.02690789){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+TextFieldPluginControl(params: List<Parameter>) «ctor»\end{tabular}}}}%
+    \put(0.57368421,0.01009874){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+addParameter(param: Parameter): void\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.66017699,0.18732973){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}javafx.scene.layout.Pane\end{tabular}}}}%
+    \put(0.70736842,0.26476968){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}javafx.scene.layout.Pane\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.40884956,0.19617929){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{PluginControl}\end{tabular}}}}%
+    \put(0.74421053,0.21213811){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{PluginControl}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.34955752,0.17333204){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getParameter(): List<double>}\end{tabular}}}}%
+    \put(0.66842105,0.18480263){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getParameter(): List<double>}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.14778761,0.19617929){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
-    \put(0.13539823,0.18218159){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PluginRenderer\end{tabular}}}}%
+    \put(0.08947368,0.21213811){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.07473684,0.19532895){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PluginRenderer\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=15]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.0840708,0.1637592){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+render(): PluginControl\end{tabular}}}}%
+    \put(0.00526316,0.17325663){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+render(): PluginControl\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=16]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.49292035,0.70945363){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
-    \put(0.45309735,0.69545593){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}edu.kit.model.Nameable\end{tabular}}}}%
+    \put(0.41052632,0.74898021){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}«interface»\end{tabular}}}}%
+    \put(0.36736842,0.73217105){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}edu.kit.model.Nameable\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=17]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.42035398,0.67260876){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getName(): String\end{tabular}}}}%
-    \put(0.42035398,0.65861106){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getDescription(): String\end{tabular}}}}%
+    \put(0.32105263,0.70483558){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getName(): String\end{tabular}}}}%
+    \put(0.32105263,0.68802632){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getDescription(): String\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=18]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.44159292,0.52522124){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Nameable\end{tabular}}}}%
-    \put(0.29380531,0.50679876){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{Plugin}\end{tabular}}}}%
+    \put(0.35157895,0.58263158){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T: Nameable\end{tabular}}}}%
+    \put(0.17368421,0.56055916){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{Plugin}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=19]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.15486726,0.4839515){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getRenderer(): PluginRenderer\end{tabular}}}}%
-    \put(0.15486726,0.46995389){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getParameters(): List<Parameter>}\end{tabular}}}}%
-    \put(0.15486726,0.45595619){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getNewInstance(params: List<double>): T}\end{tabular}}}}%
+    \put(0.00526316,0.53322368){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+getRenderer(): PluginRenderer\end{tabular}}}}%
+    \put(0.00526316,0.51641453){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getParameters(): List<Parameter>}\end{tabular}}}}%
+    \put(0.00526316,0.49960526){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{+getNewInstance(params: List<double>): T}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.43716814,0.36424009){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}loads\end{tabular}}}}%
+    \put(0.34105263,0.422648){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}loads\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=21]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.80884956,0.35981531){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}validates\end{tabular}}}}%
+    \put(0.77263158,0.41738484){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}validates\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=22]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.38114885,0.02964602){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}creates\end{tabular}}}}%
+    \put(0.47641242,0.03526316){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}creates\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=23]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.11858407,0.09875336){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}implements\end{tabular}}}}%
+    \put(0.43430715,0.20368421){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}creates\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=24]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
-    \put(0.29265327,0.18893805){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}creates\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=25]{package_edu_kit_loop_model_plugin_svg-tex.pdf}}%
   \end{picture}%
 \endgroup%

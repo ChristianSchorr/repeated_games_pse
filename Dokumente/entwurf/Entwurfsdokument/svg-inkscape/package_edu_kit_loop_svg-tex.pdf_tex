@@ -50,15 +50,12 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.80732177)%
+  \begin{picture}(1,0.22928709)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{package_edu_kit_loop_svg-tex.pdf}}%
-    \put(0.10019268,0.73753603){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}javafx.application.Application\end{tabular}}}}%
+    \put(0.43930636,0.16004316){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Main\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{package_edu_kit_loop_svg-tex.pdf}}%
-    \put(0.43545279,0.15950135){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Main\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{package_edu_kit_loop_svg-tex.pdf}}%
-    \put(0.01926782,0.05888709){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+main(args: String[]): void\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{package_edu_kit_loop_svg-tex.pdf}}%
+    \put(0.01926782,0.0599711){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}+static main(args: String[]): void\end{tabular}}}}%
   \end{picture}%
 \endgroup%
