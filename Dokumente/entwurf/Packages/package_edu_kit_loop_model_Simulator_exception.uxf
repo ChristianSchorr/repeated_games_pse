@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>441</x>
-      <y>224</y>
-      <w>119</w>
-      <h>21</h>
+      <x>657</x>
+      <y>207</y>
+      <w>153</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>java.lang.Exception
+-
 -</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>448</x>
-      <y>294</y>
-      <w>371</w>
-      <h>63</h>
+      <x>666</x>
+      <y>297</y>
+      <w>441</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>SimulationEngineException
 -
 -
-+SimulationEngineException(configurationNr: int, iterationNr: int) &lt;&lt;ctor&gt;&gt;
-+getConfigurationNr():int
-+getIterationNr():int
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>413</x>
-      <y>399</y>
-      <w>378</w>
-      <h>63</h>
+      <x>621</x>
+      <y>432</y>
+      <w>486</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>InvalidParameterException
 -
 -
-+InvalidParameterException(val: double, name: String, configNr: int) &lt;&lt;ctor&gt;&gt;
++InvalidParameterException(val: double, parameterName: String) &lt;&lt;ctor&gt;&gt;
 +getParameterValue(): double
 +getParameterName(): String</panel_attributes>
     <additional_attributes/>
@@ -49,39 +47,39 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>336</x>
-      <y>567</y>
-      <w>252</w>
-      <h>49</h>
+      <x>621</x>
+      <y>648</y>
+      <w>486</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>PluginNotFoundException
 -
 -
-+PluginNotFoundException(name: String) &lt;&lt;ctor&gt;&gt;</panel_attributes>
++PluginNotFoundException(pluginName: String) &lt;&lt;ctor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>308</x>
-      <y>497</y>
-      <w>385</w>
-      <h>49</h>
+      <x>621</x>
+      <y>558</y>
+      <w>486</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>PluginConfigurationException
 -
 -
-+PluginConfigurationException(name: String, params: List&lt;double&gt;) &lt;&lt;ctor&gt;&gt;
++PluginConfigurationException(pluginName: String, params: List&lt;double&gt;) &lt;&lt;ctor&gt;&gt;
 +getParameter(): List&lt;double&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>210</x>
-      <y>399</y>
-      <w>140</w>
-      <h>35</h>
+      <x>405</x>
+      <y>432</y>
+      <w>189</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>/PluginException/
 -
@@ -92,15 +90,14 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>245</x>
-      <y>294</y>
-      <w>175</w>
-      <h>35</h>
+      <x>405</x>
+      <y>297</y>
+      <w>225</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>/ConfigurationException/
 -
 -
-+getConfigurationNummer(): int
 
 
 
@@ -110,32 +107,32 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>266</x>
-      <y>427</y>
-      <w>56</w>
-      <h>98</h>
+      <x>468</x>
+      <y>468</y>
+      <w>171</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0;60.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0;170.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>266</x>
-      <y>441</y>
-      <w>84</w>
-      <h>168</h>
+      <x>468</x>
+      <y>558</y>
+      <w>171</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;220.0;100.0;220.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0;170.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>322</y>
-      <w>238</w>
-      <h>91</h>
+      <x>576</x>
+      <y>333</y>
+      <w>306</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0;320.0;70.0;320.0;110.0</additional_attributes>
@@ -143,34 +140,34 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>266</x>
-      <y>364</y>
-      <w>133</w>
-      <h>49</h>
+      <x>468</x>
+      <y>387</y>
+      <w>135</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>238</y>
-      <w>161</w>
-      <h>70</h>
+      <x>720</x>
+      <y>234</y>
+      <w>189</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0;210.0;50.0;210.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;190.0;40.0;190.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>266</y>
-      <w>133</w>
-      <h>42</h>
+      <x>513</x>
+      <y>261</y>
+      <w>234</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;10.0;10.0;40.0</additional_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0;10.0;40.0</additional_attributes>
   </element>
 </diagram>
