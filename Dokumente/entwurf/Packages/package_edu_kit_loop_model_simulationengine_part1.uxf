@@ -123,7 +123,7 @@ m1=1</panel_attributes>
     <panel_attributes>AgentInitializer
 --
 --
-+initialiseAgents(Segment: segment): List&lt;Agent&gt;</panel_attributes>
++initialiseAgents(segment: EngineSegment): List&lt;Agent&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -299,7 +299,7 @@ generates</panel_attributes>
       <w>182</w>
       <h>28</h>
     </coordinates>
-    <panel_attributes>Segment
+    <panel_attributes>EngineSegment
 -
 -
 </panel_attributes>

@@ -85,13 +85,13 @@ p2Cooperates: boolean): GameResult
 -
 -
 +Configuration(Game game, int roundCount, boolean mixedStrategies,
-List&lt;Segment&gt; segments, PairBuilder pairBuilder,
+List&lt;EngineSegment&gt; segments, PairBuilder pairBuilder,
 SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster,
 EquilibriumCriterion equilibriumCriterion, int maxAdapts) &lt;&lt;ctor&gt;&gt;
 +getGame(): Game
 +getRoundCount(): int
 +allowsMixedStrategies(): boolean
-+getSegments(): List&lt;Segment&gt;
++getSegments(): List&lt;EngineSegment&gt;
 +getPairBuilder(): PairBuilder
 +getSuccessQuantifier(): SuccesQuantifier
 +getStrategyAdjuster(): StrategeyAdjuster
@@ -465,7 +465,7 @@ EquilibriumCriterion equilibriumCriterion, int maxAdapts) &lt;&lt;ctor&gt;&gt;
       <w>343</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>Segment
+    <panel_attributes>EngineSegment
 -
 -
 +getAgentCount(): int

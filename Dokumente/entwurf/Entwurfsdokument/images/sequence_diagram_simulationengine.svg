@@ -346,8 +346,8 @@
       /><path fill="none" stroke-miterlimit="10" stroke-dasharray="none" d="M22.2583 27 L11 20.5 L22.2583 14" clip-path="url(#clipPath22)" stroke-linecap="square"
     /></g
     ><g font-family="sans-serif" font-size="14px" transform="translate(340,220)"
-    ><text x="37.4902" xml:space="preserve" y="16" clip-path="url(#clipPath22)" stroke="none"
-      >segments : Collection&lt;Segment&gt;</text
+    ><text x="35.5386" xml:space="preserve" y="16" clip-path="url(#clipPath22)" stroke="none"
+      >segments : List&lt;EngineSegment&gt;</text
     ></g
     ><g stroke-dasharray="8,5" stroke-miterlimit="5" transform="translate(1850,90)" stroke-linecap="butt"
     ><path fill="none" d="M10.5 10.5 L10.5 1190.5" clip-path="url(#clipPath23)"

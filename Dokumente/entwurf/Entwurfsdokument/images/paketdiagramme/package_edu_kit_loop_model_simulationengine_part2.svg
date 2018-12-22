@@ -110,8 +110,8 @@
     /></g
     ><g transform="translate(280,320)"
     ><rect fill="none" x="0.5" width="488.5" height="98.5" y="0.5" clip-path="url(#clipPath3)"
-      /><text x="216" font-size="14px" y="17.9688" clip-path="url(#clipPath3)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >Segment</text
+      /><text x="195" font-size="14px" y="17.9688" clip-path="url(#clipPath3)" font-family="sans-serif" stroke="none" xml:space="preserve"
+      >EngineSegment</text
       ><path fill="none" d="M1 23.9688 L489 23.9688" clip-path="url(#clipPath3)"
       /><path fill="none" d="M1 28.9688 L489 28.9688" clip-path="url(#clipPath3)"
       /><text x="5" font-size="14px" y="43.9375" clip-path="url(#clipPath3)" font-family="sans-serif" stroke="none" xml:space="preserve"
@@ -277,7 +277,7 @@
       /><text x="5" font-size="14px" y="43.9375" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+Configuration(Game game, int roundCount, boolean mixedStrategies,</text
       ><text x="5" font-size="14px" y="59.9062" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >List&lt;Segment&gt; segments, PairBuilder pairBuilder,</text
+      >List&lt;EngineSegment&gt; segments, PairBuilder pairBuilder,</text
       ><text x="5" font-size="14px" y="75.875" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >SuccessQuantifier successQuantifier, SrategyAdjuster strategyAdjuster,</text
       ><text x="5" font-size="14px" y="91.8438" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
@@ -289,7 +289,7 @@
       ><text x="5" font-size="14px" y="139.75" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+allowsMixedStrategies(): boolean</text
       ><text x="5" font-size="14px" y="155.7188" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >+getSegments(): List&lt;Segment&gt;</text
+      >+getSegments(): List&lt;EngineSegment&gt;</text
       ><text x="5" font-size="14px" y="171.6875" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+getPairBuilder(): PairBuilder</text
       ><text x="5" font-size="14px" y="187.6562" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"

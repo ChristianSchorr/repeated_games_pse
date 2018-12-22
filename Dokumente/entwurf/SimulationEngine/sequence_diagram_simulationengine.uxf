@@ -400,7 +400,7 @@ result: IterationResult</panel_attributes>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-segments : Collection&lt;Segment&gt;</panel_attributes>
+segments : List&lt;EngineSegment&gt;</panel_attributes>
     <additional_attributes>10.0;20.0;270.0;20.0</additional_attributes>
   </element>
   <element>

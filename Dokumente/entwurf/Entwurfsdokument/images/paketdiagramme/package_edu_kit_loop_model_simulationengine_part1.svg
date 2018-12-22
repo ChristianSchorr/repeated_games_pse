@@ -77,8 +77,8 @@
     /></g
     ><g transform="translate(1100,380)"
     ><rect fill="none" x="0.5" width="258.5" height="38.5" y="0.5" clip-path="url(#clipPath2)"
-      /><text x="101" font-size="14px" y="17.9688" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >Segment</text
+      /><text x="80" font-size="14px" y="17.9688" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve"
+      >EngineSegment</text
       ><path fill="none" d="M1 23.9688 L259 23.9688" clip-path="url(#clipPath2)"
       /><path fill="none" d="M1 28.9688 L259 28.9688" clip-path="url(#clipPath2)"
     /></g
@@ -201,7 +201,7 @@
       ><path fill="none" d="M1 23.9688 L439 23.9688" clip-path="url(#clipPath8)"
       /><path fill="none" d="M1 28.9688 L439 28.9688" clip-path="url(#clipPath8)"
       /><text x="5" font-size="14px" y="43.9375" clip-path="url(#clipPath8)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >+initialiseAgents(Segment: segment): List&lt;Agent&gt;</text
+      >+initialiseAgents(segment: EngineSegment): List&lt;Agent&gt;</text
     ></g
     ><g fill="rgb(255,255,255)" fill-opacity="0" transform="translate(410,570)" stroke-opacity="0" stroke="rgb(255,255,255)"
     ><rect x="0.5" width="438.5" height="148.5" y="0.5" clip-path="url(#clipPath9)" stroke="none"
