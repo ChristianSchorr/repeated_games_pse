@@ -55,17 +55,17 @@
 	\centering
 	\vspace*{5cm}
 	\includegraphics[width = 0.7\linewidth]{images/Logos/loop.png}\par
-	{\huge\bfseries Ein Simulator für wiederholte Spiele\par}
+	{\huge\bfseries A Simulator for Repeated Games\par}
 	%\vspace{1cm}
-	{\Large Entwurfsdokument\par}
+	{\Large Design Document\par}
 	\vspace{2cm}
 	{\Large\itshape Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing\par}
 	\vfill
 	{\large \today\par}
 \end{titlepage}
 
-%\tableofcontents
-%\pagebreak
+\tableofcontents
+\pagebreak
 
 \section{Introduction}
 This document contains the design for \enquote{loop}, a simulation software for repeated games, as described in the \textit{Pflichtenheft}.
@@ -79,19 +79,19 @@ The object-oriented architecture of the project follows the model-view-controlle
 	\label{package_overview}
 \end{figure}
 
-\subsection{The view}
+\subsection{The View}
 Since the user interface (UI) of the program was designed using the javafx UI-Builder, the \texttt{view}-package contains mainly auto-generated XML-files from which the UI classes are generated at run time.
 
 The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
 
-\subsection{The controller}
+\subsection{The Controller}
 The controller consists of a tree-like class hierarchy. At the top resides the \texttt{HeadController}, who is associated with the main window and thus instantiated when the program starts. The other controllers are arranged below and associated with the different popup windows such as the configuration- or the strategy creation window.
 
 When the user requests a task that requires the involvement of the model (such as starting a simulation or saving a configuration file), the \texttt{HeadController} invokes the model, observes it for updates in its computation progress and updates the view accordingly.
 
 When the user navigates to other windows the \texttt{HeadController} opens them and observes the corresponding controller so it can relay tasks to the model or close the window if needed.
 
-\subsection{The model}
+\subsection{The Model}
 The model contains the \texttt{Simulator} class, which provides means for starting and stopping simulations to given configurations.
 
 Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} offers a possibility to observe it in the sense that a method may be registered as functional interface which will be called whenever an iteration finishes.
@@ -100,7 +100,7 @@ The execution of a single iteration itself is encapsulated in the \texttt{Simula
 
 The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
 
-\section{Specification changes}
+\section{Specification Changes}
 
 \subsection{Populations}
 The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games).
@@ -141,7 +141,7 @@ The list of all variables that can appear as literals in a strategy was extended
 \item In previous games (of the current adaption step), B has cooperated always/never/last time/at least once in games with agents that have a similar capital as A.
 \end{itemize}
 
-\subsection{Plugin system}
+\subsection{Plugin System}
 
 A plugin system which allows to dynamically load new functionality at runtime has been added. This grants the user the flexibility to implement and integrate own versions of the following algorithms and mechanisms:
 \begin{itemize} \itemsep -10pt
@@ -154,7 +154,7 @@ A plugin system which allows to dynamically load new functionality at runtime ha
 
 Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dinamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
 
-\section{Packages and classes}
+\section{Packages and Classes}
 
 \subsection{Package \texttt{edu.kit.loop}}
 \iftrue
