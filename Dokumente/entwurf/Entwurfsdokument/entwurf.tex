@@ -80,7 +80,7 @@ The concept of groups and segments has been revised. The entirety of groups and 
 \end{figure}
 
 \textbf{group creation:}
-The name and the description of a group can be entered in corresponding text fields at the top of the group creation window (see Fig. \ref{fig:group_creation}). The amount of segments, their sizes and their strategy- and capital distributions can be configurated via a Tab-Control element (as originally in the configuration window). Furthermore, a group can be declared as \enquote{coherent} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
+The name and the description of a group can be entered in corresponding text fields at the top of the group creation window (see Fig. \ref{fig:group_creation}). The amount of segments, their sizes and their strategy- and capital distributions can be specified below, as originally intended in the \enquote{group settings} (see \textit{Pflichtenheft}). Furthermore, a group can be declared as \enquote{cohesive} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
 
 \begin{figure}[h]
 	\centering
@@ -92,7 +92,7 @@ The name and the description of a group can be entered in corresponding text fie
 \textbf{population creation:}
 The name and the description of a population can be entered in corresponding text fields at the top of the creation window (see Fig. \ref{fig:population_creation}). Below, \(1\) to \(16\) groups can be added, each with specified size. Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
 
-The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the former \enquote{basic} and \enquote{advanced} settings have been fused (see Fig. \ref{fig:new_config}). Below the dropdown menu, a section showing the composition of the selected population can expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
+The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the former \enquote{basic} and \enquote{advanced} settings have been fused (see Fig. \ref{fig:new_config}). Below the dropdown menu, a section showing the composition of the selected population can be expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
 
 \begin{figure}[h]
 	\centering
@@ -119,7 +119,7 @@ A plugin system which allows to dynamically load new functionality at runtime ha
 	\item the discrete distribution (used to initialise agents with capital)
 \end{itemize}
 
-Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dinamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
+Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dynamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
 
 \section{Introduction}
 This document contains the design for \enquote{loop}, a simulation software for repeated games, as described in the \textit{Pflichtenheft}.
@@ -148,9 +148,9 @@ When the user navigates to other windows the \texttt{HeadController} opens them 
 \subsection{The Model}
 The model contains the \texttt{Simulator} class, which provides means for starting and stopping simulations to given configurations.
 
-Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} offers a possibility to observe it in the sense that a method may be registered as functional interface which will be called whenever an iteration finishes.
+Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} provides a way to observe it in the sense that a callback may be registered which will be performed whenever an iteration finishes.
 
-The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as an instance of the \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a variable event such as the strategy adjustion or the agent pairing occurs.
+The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a variable event such as the strategy adjustion or the agent pairing occurs.
 
 The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
 
@@ -1657,7 +1657,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{DetailedOutputController}}
-This class represents the controller responsible for the detailed output of a simulation's result (Page 1 in the output described in the \enquote{Pflichtenheft}).
+This class represents the controller responsible for the detailed output of a simulation's result (Page 1 in the output described in the \textit{Pflichtenheft}).
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1666,7 +1666,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{AbstractedOutputController}}
-This class represents the controller responsible for the abstracted output of a simulation's result (Page 2 in the output described in the \enquote{Pflichtenheft}).
+This class represents the controller responsible for the abstracted output of a simulation's result (Page 2 in the output described in the \textit{Pflichtenheft}).
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -1675,7 +1675,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{MultiConfigOutputController}}
-This class represents the controller responsible for the output of a multi-simulations abstracted multiconfiguration-results (Page 3 in the output described in the \enquote{Pflichtenheft}).
+This class represents the controller responsible for the output of a multi-simulations abstracted multiconfiguration-results (Page 3 in the output described in the \textit{Pflichtenheft}).
 
 Methods:
 \begin{itemize}\itemsep -10pt
@@ -2119,6 +2119,6 @@ This sequence diagram illustrates the execution of a single iteration to a given
 
 A configuration in which multiconfiguration is disabled. In the case of a multiconfiguration, the set of its associated elementary configurations is the set of all elementary configurations in which the multiconfiguration parameter passes through the specified set of values.
 
-For an explanation of commonly used terms such as \enquote{strategy} (ger.: \enquote{Strategie}), \enquote{segment} (ger.: \enquote{Segment}) or \enquote{adaption step} (ger.: \enquote{Adaptionsschritt}) see the \enquote{Pflichtenheft}.
+For an explanation of commonly used terms such as \enquote{strategy} (ger.: \enquote{Strategie}), \enquote{segment} (ger.: \enquote{Segment}) or \enquote{adaption step} (ger.: \enquote{Adaptionsschritt}) see the \textit{Pflichtenheft}.
 
 \end{document}
