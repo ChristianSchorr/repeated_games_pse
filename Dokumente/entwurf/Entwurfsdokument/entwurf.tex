@@ -67,39 +67,6 @@
 \tableofcontents
 \pagebreak
 
-\section{Introduction}
-This document contains the design for \enquote{loop}, a simulation software for repeated games, as described in the \textit{Pflichtenheft}.
-
-The object-oriented architecture of the project follows the model-view-controller (MVC) pattern, thus consists of three main packages: \texttt{view}, \texttt{controller} and \texttt{model}. The communication between view and model relies solely on the controller, hence the entirety of the model is decoupled from the view.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/package_diagram_overview.png}
-	\caption{Sketch of the package structure. The view notifies the controller when the user interacts with the UI, who then uses the model to carry out tasks requested by the user. The controller observes the model to notice changes in the models computations and updates the view accordingly.}
-	\label{package_overview}
-\end{figure}
-
-\subsection{The View}
-Since the user interface (UI) of the program was designed using the javafx UI-Builder, the \texttt{view}-package contains mainly auto-generated XML-files from which the UI classes are generated at run time.
-
-The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
-
-\subsection{The Controller}
-The controller consists of a tree-like class hierarchy. At the top resides the \texttt{HeadController}, who is associated with the main window and thus instantiated when the program starts. The other controllers are arranged below and associated with the different popup windows such as the configuration- or the strategy creation window.
-
-When the user requests a task that requires the involvement of the model (such as starting a simulation or saving a configuration file), the \texttt{HeadController} invokes the model, observes it for updates in its computation progress and updates the view accordingly.
-
-When the user navigates to other windows the \texttt{HeadController} opens them and observes the corresponding controller so it can relay tasks to the model or close the window if needed.
-
-\subsection{The Model}
-The model contains the \texttt{Simulator} class, which provides means for starting and stopping simulations to given configurations.
-
-Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} offers a possibility to observe it in the sense that a method may be registered as functional interface which will be called whenever an iteration finishes.
-
-The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as an instance of the \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a variable event such as the strategy adjustion or the agent pairing occurs.
-
-The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
-
 \section{Specification Changes}
 
 \subsection{Populations}
@@ -153,6 +120,39 @@ A plugin system which allows to dynamically load new functionality at runtime ha
 \end{itemize}
 
 Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dinamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
+
+\section{Introduction}
+This document contains the design for \enquote{loop}, a simulation software for repeated games, as described in the \textit{Pflichtenheft}.
+
+The object-oriented architecture of the project follows the model-view-controller (MVC) pattern, thus consists of three main packages: \texttt{view}, \texttt{controller} and \texttt{model}. The communication between view and model relies solely on the controller, hence the entirety of the model is decoupled from the view.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/package_diagram_overview.png}
+	\caption{Sketch of the package structure. The view notifies the controller when the user interacts with the UI, who then uses the model to carry out tasks requested by the user. The controller observes the model to notice changes in the models computations and updates the view accordingly.}
+	\label{package_overview}
+\end{figure}
+
+\subsection{The View}
+Since the user interface (UI) of the program was designed using the javafx UI-Builder, the \texttt{view}-package contains mainly auto-generated XML-files from which the UI classes are generated at run time.
+
+The communication between view and model relies solely on the controller. Each window in the view has one controller assigned to it, that will be instantiated automatically when the window is opened and handles any input performed by the user.
+
+\subsection{The Controller}
+The controller consists of a tree-like class hierarchy. At the top resides the \texttt{HeadController}, who is associated with the main window and thus instantiated when the program starts. The other controllers are arranged below and associated with the different popup windows such as the configuration- or the strategy creation window.
+
+When the user requests a task that requires the involvement of the model (such as starting a simulation or saving a configuration file), the \texttt{HeadController} invokes the model, observes it for updates in its computation progress and updates the view accordingly.
+
+When the user navigates to other windows the \texttt{HeadController} opens them and observes the corresponding controller so it can relay tasks to the model or close the window if needed.
+
+\subsection{The Model}
+The model contains the \texttt{Simulator} class, which provides means for starting and stopping simulations to given configurations.
+
+Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} offers a possibility to observe it in the sense that a method may be registered as functional interface which will be called whenever an iteration finishes.
+
+The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as an instance of the \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a variable event such as the strategy adjustion or the agent pairing occurs.
+
+The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
 
 \section{Packages and Classes}
 
@@ -577,6 +577,8 @@ Methods:
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator.exception}}
+This package contains exception classes to categorise the different kinds of errors that can occur in the process of starting and executing simulations. The exceptions are roughly distinguished in two types. A \texttt{ConfigurationException} is thrown when the given configuration is faulty, for example if some parameters are invalid or a given plugin cannot be found. A \texttt{SimulationEngineException} is thrown when the given configuration was valid and the simulation was started, but an error occured within the execution of some iteration (by an instance of the \texttt{SimulationEngine} class). This could happen for example if one of the integrated plugins used in the simulation is bugged.
+
 \iftrue
 \begin{figure}[h]
 	\centering
