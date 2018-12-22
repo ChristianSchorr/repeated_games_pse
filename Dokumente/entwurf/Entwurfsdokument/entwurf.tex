@@ -96,42 +96,42 @@ The model contains the \texttt{Simulator} class, which provides means for starti
 
 Since the execution of a simulation might take a considerable amount of time, depending on the configuration and the accessible hardware resources, simulations will be started asynchronously and an instance of the \texttt{SimulationResult} class will be returned instantly, which will be filled with the results of the single iterations as they finish. The \texttt{SimulationResult} offers a possibility to observe it in the sense that a method may be registered as functional interface which will be called whenever an iteration finishes.
 
-The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as an instance of the \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a varaible event such as the strategy adjustion or the agent pairing occurs.
+The execution of a single iteration itself is encapsulated in the \texttt{SimulationEngine} class. It receives an instance of the \texttt{Configuation} class and returns the result of the simulation as an instance of the \texttt{IterationResult}. The simulation process is implemented as a template method and the configuration is queried whenever a variable event such as the strategy adjustion or the agent pairing occurs.
 
 The model contains interfaces representing those variable events and provides implementations for the mechanisms and algorithms described in the \textit{Pflichtenheft}. The user may implement those interfaces himself and integrate them in the program using the plug-in system which is also part of the model.
 
 \section{Specification changes}
 
 \subsection{Populations}
-The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games) (see \cref{fig:new_config}).
+The concept of groups and segments has been revised. The entirety of groups and segments with all their settings (except for the multiconfiguration) is now called a \enquote{population}. The creation of groups and segments no longer takes place in the configuration window. Instead, populations and groups can be created, stored and loaded individually (such as strategies or games).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/group_window.png}
+	\caption{group creation window}
+	\label{fig:group_creation}
+\end{figure}
+
+\textbf{group creation:}
+The name and the description of a group can be entered in corresponding text fields at the top of the group creation window (see Fig. \ref{fig:group_creation}). The amount of segments, their sizes and their strategy- and capital distributions can be configurated via a Tab-Control element (as originally in the configuration window). Furthermore, a group can be declared as \enquote{coherent} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \linewidth]{images/population_window.png}
+	\caption{population creation window}
+	\label{fig:population_creation}
+\end{figure}
+
+\textbf{population creation:}
+The name and the description of a population can be entered in corresponding text fields at the top of the creation window (see Fig. \ref{fig:population_creation}). Below, \(1\) to \(16\) groups can be added, each with specified size. Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
+
+The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the former \enquote{basic} and \enquote{advanced} settings have been fused (see Fig. \ref{fig:new_config}). Below the dropdown menu, a section showing the composition of the selected population can expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width = \linewidth]{images/new_config.png}
 	\caption{new configuration window with population selection}
 	\label{fig:new_config}
-\end{figure}
-
-\textbf{Group Creation:}
-The name and the description of a group can be entered in corresponding text fields at the top of the creation window. The amount of segments, their sizes and their strategy- and capital distributions can be configurated via a Tab-Control element (as originally in the configuration window). Furthermore, a group can be declared as \enquote{coherent} by activating a correspondig checkbox. Per default, this checkbox is activated. When it is deactivated, the agents of this group no longer consider each other as agents of the same group. This replaces the concept of \enquote{groupless agents}. Once the group configuration is completed, the group can be exported as a file. Such a file can also be imported.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width = \linewidth]{images/group_window.png}
-	\caption{new configuration window with population selection}
-	\label{fig:group_creation}
-\end{figure}
-
-\textbf{Population Creation:}
-The name and the description of a population can be entered in corresponding text fields at the top of the creation window. Below, \(1\) to \(16\) groups can be added, each with specified size (see \cref{fig:population_creation}). Once the population configuration is completed, the population can be exported as a file. Such a file can also be imported.
-
-The configuration window is no longer divided in three parts. The \enquote{group settings} have been replaced by a single dropdown menu titled \enquote{population} and the \enquote{basic} and \enquote{advanced} settings have been fused. Below the dropdown menu, a section showing the composition of the selected population can expanded. This section looks the same as the former \enquote{group settings} and can be used to activate the multiconfiguration for groups or segments, though the population itself cannot be changed.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width = \linewidth]{images/population_window.png}
-	\caption{new configuration window with population selection}
-	\label{fig:population_creation}
 \end{figure}
 
 \subsection{Strategies}
@@ -149,7 +149,7 @@ A plugin system which allows to dynamically load new functionality at runtime ha
 	\item the success quantifier
 	\item the strategy adjuster
 	\item the pair builder
-	\item the discrete distribution
+	\item the discrete distribution (used to initialise agents with capital)
 \end{itemize}
 
 Furthermore it is possible to make the plugins user configurable in the configuration window. Therefor plugins provide a renderer which creates user control objects that can be dinamically embedded into the UI within the configuration window. The plugins are loaded automatically at the start of the program.
@@ -173,15 +173,15 @@ This class contains the main method of the program and initialises the main wind
 
 Methods:
 \begin{itemize}\itemsep -10pt
-\item \texttt{static void main(String[] args))}
-\item[] The entry point of the application. Loads the UI and starts the window.
-\item[] \texttt{args}: the commandline arguments. (unused)
+\item \texttt{static void main(String[] args)}
+\item[] The entry point of the application. Loads the UI and opens the main window.
+\item[] \texttt{args}: the commandline arguments (unused)
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model}}
 The model contains the \texttt{Simulator} interface, which provides means of starting und stopping simulations to given configurations. When a simulation is started, an instance of the class \texttt{SimulationResult} is returned instantly, which collects the results of the single iterations as they finish. The execution of the iterations is carried out by instances of the \texttt{SimulationEngine} class.
 
-The model contains a central repository which gives static access to all available populations, groups, strategies, games, pair builders, success quantifiers, strategy adjusters, equilibrium criteria and capital distributions. The access key for the stored instances is their name, wherefore all corresponding classes and interfaces implement the \texttt{Nameable} interface. Populations, groups, strategies, games and configurations can also be exported and imported as files, which is why all of those must be \texttt{Serializable}.
+The model contains a central repository which gives static access to all available populations, groups, strategies, games, pair builders, success quantifiers, strategy adjusters, equilibrium criteria and discrete distributions. The access key for the stored instances is their name, wherefore all corresponding classes and interfaces implement the \texttt{Nameable} interface. Populations, groups, strategies, games and configurations can also be exported and imported as files, which is why all of those must be \texttt{Serializable}.
 
 The configuration of a simulation, as specified by the user in the configuration window, is represented by the \texttt{UserConfiguration} class. It directly stores the users input, where numerical inputs are represented by \texttt{integer}s or \texttt{double}s and algorithms, populations, strategies etc. are represented as \texttt{String}s containing the corresponding names. When a simulation to a given \texttt{UserConfiguration} is started, an instance of the \texttt{Configuration} class is generated for each associated elementary configuration. An instance of the \texttt{Configuration} class contains only the information needed to execute a single iteration and holds references to concrete instances of all involved classes (such as the pair builder, the success quantifier and the strategies).
 
@@ -1154,7 +1154,7 @@ Methods:
 \end{itemize}
 
 \subsubsection{Class \texttt{StrategyEquilibrium}}
-Implements: \texttt{CountingEquilibriumCriterion}
+Extends: \texttt{CountingEquilibriumCriterion}
 
 Realises the \enquote{Strategiegleichgewicht} described in the specification.
 
@@ -1167,9 +1167,9 @@ Constructors:
 \end{itemize}
 
 \subsubsection{Class \texttt{RankingEquilibrium}}
-Implements: \texttt{CountingEquilibriumCriterion}
+Extends: \texttt{CountingEquilibriumCriterion}
 
-Realies the \enquote{Ranggleichgewicht} described in the specification.
+Realises the \enquote{Ranggleichgewicht} described in the specification.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
@@ -1290,7 +1290,7 @@ Methods:
 
 \subsection{Package \texttt{edu.kit.loop.model.simulationengine.strategy.strategybuilder}}
 
-This package contains functionality for creating custom strategies by combining existing ones through logical expressions.
+This package contains functionality for creating new strategies by combining existing ones through logical expressions.
 
 \iftrue
 \begin{figure}[h]
@@ -1305,15 +1305,15 @@ This package contains functionality for creating custom strategies by combining 
 
 \subsubsection{Interface \texttt{Operator}}
 
-This interface represents a logical operator for combining strategies.
+This interface represents a unary or binary logical operator for combining strategies.
 
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{Strategy combineStrategies(Strategy strat1, Strategy strat2)}
-	\item[] This method creates a new \texttt{Strategy}-instance by combining the given strategies
-	\item[] \texttt{strat1}: the first of the strategies to combine
-	\item[] \texttt{strat2}: the second of the strategies to combine
-	\item[] Returns: the combined strategy
+	\item[] This method creates a new strategy by logically connecting the given ones
+	\item[] \texttt{strat1}: the first argument for the operator
+	\item[] \texttt{strat2}: the second argument for the operator (will be ignored in case of a unary operator)
+	\item[] Returns: the new strategy
 \end{itemize}
 
 \subsubsection{Class \texttt{AND}}
@@ -1355,7 +1355,7 @@ This class is an operator that creates a new \texttt{Strategy} by combining the 
 
 Implements: \texttt{Operator}
 
-This class is an operator that creates a new \texttt{Strategy} by negating the first of the two given strategies.
+This class is an operator that creates a new \texttt{Strategy} by negating a given one.
 
 \subsubsection{Interface \texttt{TreeNode<T>}}
 
@@ -1550,7 +1550,7 @@ Constructors:
 \subsubsection{Class \texttt{DiscreteUniformDistribution}}
 Implements: \texttt{DiscreteDistribution}
 
-Represents a discrete equal distribution.
+Represents a discrete uniform distribution.
 
 Constructors:
 \begin{itemize}\itemsep -10pt
@@ -1683,7 +1683,7 @@ Methods:
 
 \subsubsection{Interface \texttt{CreationController<T>}}
 
-This interface gets implemented by all controllers which are associated with creation windows. It provides the possibility to register a callback that gets called whenever a new instance is created.
+This interface gets implemented by all controllers which are associated with creation windows. It provides the possibility to register a callback that is called whenever a new instance is created.
 
 Parameter:
 \begin{itemize} \itemsep -10pt
@@ -1778,7 +1778,7 @@ This package contains the plugin system which can be used to integrate own imple
 \fi
 \subsubsection{Class \texttt{PluginLoader}}
 
-This class provides the functionality to dynamically load plugins at run time using the Java \texttt{ServiceLoader}-API.
+This class provides the functionality to dynamically load plugins at run time using the Java \texttt{ServiceLoader}-API. It is invoked by the \texttt{HeadController} at the start of the program to load all plugins.
 
 Methods:
 
@@ -1789,10 +1789,12 @@ Methods:
 	\item[]Returns: a list of the loaded plugins
 \end{itemize}
 
-\subsubsection{abstract Class \texttt{PluginControl}}
+\subsubsection{Abstract Class \texttt{PluginControl}}
 Extends: \texttt{javafx.scene.layout.Pane}
 
-This class serves as a control element for the configuration of a plugin that can be dynamically embedded into the UI by the \texttt{ConfigController}. It provides functionality for querying the configuration parameters entered by the user.
+This class serves as a control element for the configuration of a plugin that can be dynamically embedded into the UI. Upon request, it returns the entered values of the parameters.
+
+If the user selects an algorithm or mechanism that was integrated per plugin in the configuration window, the corresponding \texttt{PluginControl} object will be inserted below the corresponding dropdown menu to configurate the parameters of the plugin.
 
 Methods:
 
@@ -1841,10 +1843,9 @@ Methods:
 \subsubsection{Class \texttt{GenericRenderer}}
 Implements: \texttt{PluginRenderer}
 
-This class implements the \texttt{PluginRenderer} interface and creates a generic text-based configuration control (\texttt{TextFieldPluginControl} instance) for any plug-in.
+This class implements the \texttt{PluginRenderer} interface and creates a \texttt{TextFieldPluginControl} instance for any given plugin.
 
 Constructors:
-
 \begin{itemize}\itemsep -10pt
 	\item \texttt{GenericRenderer(Plugin plugin)}
 	\item[] Creates a new \texttt{GenericRenderer} for the given plugin.
@@ -1923,8 +1924,8 @@ Parameter:
 Methods:
 \begin{itemize}\itemsep -10pt
 	\item \texttt{PluginRenderer getRenderer()}
-	\item[] Returns a \texttt{PluginRenderer}-instance for this plugin
-	\item[] Returns: a \texttt{PluginRenderer}-instance for this plugin
+	\item[] Returns a \texttt{PluginRenderer} for this plugin
+	\item[] Returns: a \texttt{PluginRenderer} for this plugin
 
 	\item \texttt{abstract List<Parameter> getParameters()}
 	\item[] Returns a list of the configuration parameters of this plugin
@@ -1932,13 +1933,15 @@ Methods:
 
 	\item \texttt{abstract T getNewInstance(List<double> params)}
 	\item[] Creates and returns a new instance of the functionality holding class of this plugin with the given values as parameters
-	\item[] \texttt{params}: a list with the values of the configuration \texttt{Parameter}s
+	\item[] \texttt{params}: a list with the values of the configuration parameters
 	\item[] Returns: the newly created and parametrised instance of the funcitonaliy holding class
 \end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.repository}}
 
-This package contains the central repository, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained.
+This package contains the central repository, through which all currently available games, strategies, populations as well as pairing algorithms, success quantifications, adaptation mechanisms, equilibrium criteria and discrete distributions can be obtained. The repository does not distinguish between algorithms and mechanisms that were integrated per plugin and such that are present by default. This is because the default implementations of the interfaces that may be extended per plugin are also stored in corresponding \texttt{Plugin<T>} instances that are instanciated at program start.
+
+The \texttt{CentralRepository} singleton class is the programs central access point to all available games, strategies, etc. Upon initialisation, it creates an instance of the \texttt{Repository<T>} interface for each type \texttt{T} of stored objects (\texttt{Game}, \texttt{Population}, \texttt{Plugin<PairBuilder>},...) and loads all plugins, games, strategies, populations and groups using the \texttt{PluginLoader} and the \texttt{FileIO} respectively. The loaded instances are then stored in the corresponding repositories. Whenever the user loads a game, strategy, population or game from a file, the \texttt{FileIO} is used to extract the object from the file and the \texttt{CentralRepository} then stores that object in the corresponding repository. The \texttt{FileIO} is also used whenever the user exports a game, strategy, population or group as a file during runtime.
 
 \iftrue
 \begin{figure}[h]
@@ -1995,13 +1998,6 @@ Parameters:
 	\item \texttt{<T>} the type of the entities that shall be stored in this repository
 \end{itemize}
 
-Constructors:
-
-\begin{itemize} \itemsep -10pt
-	\item \texttt{HasMapRepository()}
-	\item[] Creates a new \texttt{Repository}.
-\end{itemize}
-
 \subsubsection{Class \texttt{CentralRepository}}
 
 This class provides central access to all loaded plugins as well as all available strategies, games, populations and groups. It provides getter methods for the \texttt{Repository<T>} instances for all those types. It is implemented as a singleton.
@@ -2009,38 +2005,36 @@ This class provides central access to all loaded plugins as well as all availabl
 Methods:
 
 \begin{itemize} \itemsep -10pt
-	\item \texttt{static void initialise()}
-	\item[] initialises the Repository-instance by loading all available plugins in the current execution environment working directory and all saved entities from the home directory.
 	\item \texttt{static CentralRepository getInstance()}
-	\item[]Returns the singleton Repository-instance
+	\item[]Returns the singleton instance
 	\item[] Returns: the singleton instance
 	\item \texttt{Repository<Strategy> getStrategyRepository()}
-	\item[]Returns the repository containing all currently loaded strategies
+	\item[]Returns the repository containing all currently available strategies
 	\item[] Returns: the strategy repository
 	\item \texttt{Repository<Game> getGameRepository()}
-	\item[]Returns the repository containing all currently loaded games
+	\item[]Returns the repository containing all currently available games
 	\item[] Returns: the game repository
 	\item \texttt{Repository<Population> getPopulationRepository()}
-	\item[]Returns the repository containing all currently loaded populations
+	\item[]Returns the repository containing all currently available populations
 	\item[] Returns: the population repository
 	\item \texttt{Repository<Group> getGroupRepository()}
-	\item[]Returns the repository containing all currently loaded groups
+	\item[]Returns the repository containing all currently available groups
 	\item[] Returns: the group repository
 	\item \texttt{Repository<Plugin<EquilibriumCriterion>\,> getEquilibriumCriterionRepository()}
-	\item[]Returns the repository containing all currently loaded \texttt{EquilibriumCriterion}-plugins
+	\item[]Returns the repository containing all currently available \texttt{EquilibriumCriterion}-plugins
 	\item[] Returns: the equilibrium criterion repository
 	\item\texttt{Repository<Plugin<SuccessQuantifier>\,> getSuccessQuantifiernRepository()}
-	\item[]Returns the repository containing all currently loaded \texttt{SuccessQuantifier}-plugins
+	\item[]Returns the repository containing all currently available \texttt{SuccessQuantifier}-plugins
 	\item[] Returns: the success quantifier criterion repository
 	SuccessQuantifier
 	\item\texttt{Repository<Plugin<StrategyAdjuster>\,> getStrategyAdjusterRepository()}
-	\item[]Returns the repository containing all currently loaded \texttt{StrategyAdjuster}-plugins
+	\item[]Returns the repository containing all currently available \texttt{StrategyAdjuster}-plugins
 	\item[] Returns: the strategy adjuster repository
 	\item\texttt{Repository<Plugin<PairBuilder>\,> getPairBuilderRepository()}
-	\item[]Returns the repository containing all currently loaded \texttt{PairBuilder}-plugins
+	\item[]Returns the repository containing all currently available \texttt{PairBuilder}-plugins
 	\item[] Returns: the pair builderrepository
 	\item\texttt{Repository<Plugin<DiscreteDistribution>\,> getDiscreteDistributionRepository()}
-	\item[]Returns the repository containing all currently loaded \texttt{DiscreteDistribution}-plugins
+	\item[]Returns the repository containing all currently available \texttt{DiscreteDistribution}-plugins
 	\item[] Returns: the success discrete distribution repository
 \end{itemize}
 
@@ -2121,6 +2115,6 @@ This sequence diagram illustrates the execution of a single iteration to a given
 \section{Glossary}
 \textbf{Elementary configuration:}
 
-A configuration in which multiconfiguration is disabled. In the case of a multiconfiguration, the set of elementary configurations is the set of all elementary configurations in which the multiconfiguration parameter passes through the specified set of values. In the case of an elementary configuration, the configuration itself is meant again.
+A configuration in which multiconfiguration is disabled. In the case of a multiconfiguration, the set of its associated elementary configurations is the set of all elementary configurations in which the multiconfiguration parameter passes through the specified set of values.
 
 \end{document}
