@@ -195,133 +195,6 @@ Lastly, the model contains the plugin system which can be used to integrate own 
 	\caption{Classdiagram \texttt{edu.kit.loop.model}}
 \end{figure}
 \fi
-\subsubsection{Class \texttt{UserConfiguration}}
-Implements: \texttt{java.io.Serializable}
-
-This class represents a user-created configuration. It provides getter methods for all parameters as well as static access to a default configuration.
-
-Constructors:
-\begin{itemize}\itemsep -10pt
-\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierParameters, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
-\item[] Creates a new \texttt{UserConfiguration} with the given parameters
-\item[] \texttt{gameName}: the name of the game
-\item[] \texttt{agentCount}: the amount of agents
-\item[] \texttt{roundCount}: the amount of rounds per adaptionstep
-\item[] \texttt{iterationCount}: the amount of iterations
-\item[] \texttt{availableStrategyNames}: a list with the names of all allowed strategies
-\item[] \texttt{mixedAllowed}: \texttt{true}, if mixed strategies are allowed, \texttt{false} otherwise.
-\item[] \texttt{populationName}: the name of the population
-\item[] \texttt{pairBuilderNames}: the name of the pair builder
-\item[] \texttt{pairBuilderParameters}: a list with the values of the parameters of the pair builder
-\item[] \texttt{successQuantifierNames}: the name of the success quantifier
-\item[] \texttt{successQuantifierParameters}: a list with the values of the parameters of the success quantifier
-\item[] \texttt{strategyAdjusterName}: the name of the strategy adjuster
-\item[] \texttt{strategyAdjusterParameters}: a list with the values of the parameters of the strategy adjuster
-\item[] \texttt{equilibriumCriterionName}: the name of the equilibrium criterion
-\item[] \texttt{equilibriumCriterionParameters}: a list with the values of the parameters of the equilibrium criterion
-\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration
-\item[] \texttt{isMulticonfiguration}: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
-\item[] \texttt{variableParameterName}: the name of the multiconfiguration parameter, if this is a multiconfiguration, \texttt{""} otherwise
-\item[] \texttt{startValue}: the starting value of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
-\item[] \texttt{endValue}: the end value of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
-\item[] \texttt{stepSize}: the step size of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
-\end{itemize}
-
-Methods:
-\begin{itemize}\itemsep -10pt
-	\item \texttt{static UserConfiguration getDefaultConfiguration()}
-	\item[] Returns a default version of this configuration. The default configuration will be the active configuration at the start of the program.
-	\item[] Returns: a default configuration
-
-	\item \texttt{String getGameName()}
-	\item[] Returns the name of the game of this configuration
-	\item[] Returns: the name of the game of this configuration
-
-	\item \texttt{int getAgentCount()}
-	\item[] Returns the amount of agents in this configuration
-	\item[] Returns: the amount of agents in this configuration
-
-	\item \texttt{int getRoundCount()}
-	\item[] Returns the amount of rounds per adaption step in this configuration
-	\item[] Returns: the amount of rounds per adaption step in this configuration
-
-	\item \texttt{int getIterationCount()}
-	\item[] Returns the amount of iterations in this configuration
-	\item[] Returns: the amount of iterations in this configuration
-
-	\item \texttt{List<String> getAvailableStrategyNames()}
-	\item[] Returns a list with names of all available strategies in this configuration
-	\item[] Returns: a list with names of all available strategies in this configuration
-
-	\item \texttt{boolean getMixedAllowed()}
-	\item[] Returns, whether mixed strategies are allowed in this configuration
-	\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration; \texttt{false} otherwise
-
-	\item \texttt{String getPopulationName()}
-	\item[] Returns the name of the \texttt{Population} of this configuration
-	\item[] Returns: a list with the names of all populations in this configuration
-
-	\item \texttt{String getPairBuilderName()}
-	\item[] Returns the name of the \texttt{PairBuilder} of this configuration
-	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
-
-	\item \texttt{List<double> getPairBuilderParameters()}
-	\item[] Returns a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
-	\item[] Returns: a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
-
-	\item \texttt{String getSuccessQuantifierName()}
-	\item[] Returns the name of the \texttt{SuccessQuantifier} of this configuration
-	\item[] Returns: the name of the \texttt{SuccessQuantifier} of this configuration
-
-	\item \texttt{List<double> getSuccessQuantifierParameters()}
-	\item[] Returns a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
-	\item[] Returns: a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
-
-	\item \texttt{String getStrategyAdjusterName()}
-	\item[] Returns the name of the \texttt{PairBuilder} of this configuration.
-	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
-
-	\item \texttt{List<double> getStrategyAdjusterParameters()}
-	\item[] Returns a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
-	\item[] Returns: a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
-
-
-	\item \texttt{String getEquilibriumCriterionName()}
-	\item[] Returns the name of the \texttt{EquilibriumCriterion} of this configuration.
-	\item[] Returns: the name of the \texttt{EquilibriumCriterion} of this configuration.
-
-	\item \texttt{List<double> getEquilibriumParameters()}
-	\item[] Returns a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
-	\item[] Returns: a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
-
-	\item \texttt{int getMaxAdapts()}
-	\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
-	\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
-
-	\item \texttt{boolean isMulticonfiguration()}
-	\item[] Returns whether this is a multiconfiguration.
-	\item[] Returns: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
-
-	\item \texttt{String getVariableParameterName()}
-	\item[] Returns the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \texttt{""} otherwise.
-	\item[] Returns: the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \texttt{""} otherwise
-
-	\item \texttt{double getStartValue()}
-	\item[] Returns the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
-	\item[] Returns: the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
-
-	\item \texttt{double getEndValue()}
-	\item[] Returns the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
-	\item[] Returns: the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
-
-	\item \texttt{double getStepSize()}
-	\item[] Returns the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise.
-	\item[] Returns: the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration; \(0\) otherwise
-
-
-
-\end{itemize}
-
 
 \subsubsection{Interface \texttt{Nameable}}
 
@@ -433,6 +306,129 @@ Methods:
 \item[] Returns: the names of the strategies in the strategy distribution of this segment
 \end{itemize}
 
+\subsubsection{Class \texttt{UserConfiguration}}
+Implements: \texttt{java.io.Serializable}
+
+This class represents a user-created configuration. It provides getter methods for all parameters as well as static access to a default configuration.
+
+Constructors:
+\begin{itemize}\itemsep -10pt
+\item \texttt{UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount, List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName, List<double> pairBuilderParameters, String successQuantifierName, List<double> successQuantifierParameters, String strategyAdjusterName, List<double> strategyAdjusterParameters, String\\ equilibriumCriterionName, List<double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration, String variableParameterName, double startValue, double endValue, double stepSize)}
+\item[] Creates a new \texttt{UserConfiguration} with the given parameters
+\item[] \texttt{gameName}: the name of the game
+\item[] \texttt{agentCount}: the amount of agents
+\item[] \texttt{roundCount}: the amount of rounds per adaptionstep
+\item[] \texttt{iterationCount}: the amount of iterations
+\item[] \texttt{availableStrategyNames}: a list with the names of all allowed strategies
+\item[] \texttt{mixedAllowed}: \texttt{true}, if mixed strategies are allowed, \texttt{false} otherwise.
+\item[] \texttt{populationName}: the name of the population
+\item[] \texttt{pairBuilderNames}: the name of the pair builder
+\item[] \texttt{pairBuilderParameters}: a list with the values of the parameters of the pair builder
+\item[] \texttt{successQuantifierNames}: the name of the success quantifier
+\item[] \texttt{successQuantifierParameters}: a list with the values of the parameters of the success quantifier
+\item[] \texttt{strategyAdjusterName}: the name of the strategy adjuster
+\item[] \texttt{strategyAdjusterParameters}: a list with the values of the parameters of the strategy adjuster
+\item[] \texttt{equilibriumCriterionName}: the name of the equilibrium criterion
+\item[] \texttt{equilibriumCriterionParameters}: a list with the values of the parameters of the equilibrium criterion
+\item[] \texttt{maxAdapts}: the maximum amount of simulated adaption steps per iteration
+\item[] \texttt{isMulticonfiguration}: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
+\item[] \texttt{variableParameterName}: the name of the multiconfiguration parameter, if this is a multiconfiguration, \texttt{""} otherwise
+\item[] \texttt{startValue}: the starting value of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
+\item[] \texttt{endValue}: the end value of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
+\item[] \texttt{stepSize}: the step size of the multiconfiguration parameter, if this is a multiconfiguration, \(0\) otherwise
+\end{itemize}
+
+Methods:
+\begin{itemize}\itemsep -10pt
+	\item \texttt{static UserConfiguration getDefaultConfiguration()}
+	\item[] Returns a default version of this configuration. The default configuration will be the active configuration at the start of the program.
+	\item[] Returns: a default configuration
+
+	\item \texttt{String getGameName()}
+	\item[] Returns the name of the game of this configuration
+	\item[] Returns: the name of the game of this configuration
+
+	\item \texttt{int getAgentCount()}
+	\item[] Returns the amount of agents in this configuration
+	\item[] Returns: the amount of agents in this configuration
+
+	\item \texttt{int getRoundCount()}
+	\item[] Returns the amount of rounds per adaption step in this configuration
+	\item[] Returns: the amount of rounds per adaption step in this configuration
+
+	\item \texttt{int getIterationCount()}
+	\item[] Returns the amount of iterations in this configuration
+	\item[] Returns: the amount of iterations in this configuration
+
+	\item \texttt{List<String> getAvailableStrategyNames()}
+	\item[] Returns a list with names of all available strategies in this configuration
+	\item[] Returns: a list with names of all available strategies in this configuration
+
+	\item \texttt{boolean getMixedAllowed()}
+	\item[] Returns, whether mixed strategies are allowed in this configuration
+	\item[] Returns: \texttt{true}, if mixed strategies are allowed in this configuration; \texttt{false} otherwise
+
+	\item \texttt{String getPopulationName()}
+	\item[] Returns the name of the \texttt{Population} of this configuration
+	\item[] Returns: a list with the names of all populations in this configuration
+
+	\item \texttt{String getPairBuilderName()}
+	\item[] Returns the name of the \texttt{PairBuilder} of this configuration
+	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
+
+	\item \texttt{List<double> getPairBuilderParameters()}
+	\item[] Returns a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{PairBuilder} of this configuration
+
+	\item \texttt{String getSuccessQuantifierName()}
+	\item[] Returns the name of the \texttt{SuccessQuantifier} of this configuration
+	\item[] Returns: the name of the \texttt{SuccessQuantifier} of this configuration
+
+	\item \texttt{List<double> getSuccessQuantifierParameters()}
+	\item[] Returns a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{SuccessQuantifier} of this configuration
+
+	\item \texttt{String getStrategyAdjusterName()}
+	\item[] Returns the name of the \texttt{PairBuilder} of this configuration.
+	\item[] Returns: the name of the \texttt{PairBuilder} of this configuration
+
+	\item \texttt{List<double> getStrategyAdjusterParameters()}
+	\item[] Returns a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{StrategyAdjuster} of this configuration
+
+
+	\item \texttt{String getEquilibriumCriterionName()}
+	\item[] Returns the name of the \texttt{EquilibriumCriterion} of this configuration.
+	\item[] Returns: the name of the \texttt{EquilibriumCriterion} of this configuration.
+
+	\item \texttt{List<double> getEquilibriumParameters()}
+	\item[] Returns a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
+	\item[] Returns: a list with the values of the parameters of the \texttt{EquilibriumCriterion} of this configuration
+
+	\item \texttt{int getMaxAdapts()}
+	\item[] Returns the maximum amount of simulated adaption steps per iteration in this configuration
+	\item[] Returns: the maximum amount of simulated adaption steps per iteration in this configuration
+
+	\item \texttt{boolean isMulticonfiguration()}
+	\item[] Returns whether this is a multiconfiguration.
+	\item[] Returns: \texttt{true}, if this is a multiconfiguration, \texttt{false} otherwise
+
+	\item \texttt{String getVariableParameterName()}
+	\item[] Returns the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \texttt{""} otherwise.
+	\item[] Returns: the name of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \texttt{""} otherwise
+
+	\item \texttt{double getStartValue()}
+	\item[] Returns the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise.
+	\item[] Returns: the starting value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise
+
+	\item \texttt{double getEndValue()}
+	\item[] Returns the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise.
+	\item[] Returns: the end value of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise
+
+	\item \texttt{double getStepSize()}
+	\item[] Returns the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise.
+	\item[] Returns: the step size of the multiconfiguration parameter of this configuration, if this is a multiconfiguration, \(0\) otherwise
+\end{itemize}
 
 \subsection{Package \texttt{edu.kit.loop.model.simulator}}
 This package contains the \texttt{Simulator}, which is the models interface for starting and stopping simulations.
