@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
     
-    private Collection<E> support;
+    private List<E> support;
     
     /**
      * Creates a new uniform finite distribution with empty support.
@@ -71,15 +71,8 @@ public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
 
             @Override
             public E pickOne() {
-                int n = new Random().nextInt(support.size());
-                int i = 0;
-                Iterator<E> it = support.iterator();
-                E result = it.next();
-                while (n > i) {
-                    result = it.next();
-                    i++;
-                }
-                return result;
+                int i = new Random().nextInt(support.size());
+                return support.get(i);
             }
 
             @Override
