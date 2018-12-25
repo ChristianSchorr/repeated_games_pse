@@ -15,7 +15,7 @@ import java.util.List;
 public class GameResult {
     private Agent player1, player2;
     private boolean hasCooperated1, hasCooperated2;
-    private double payoff1, payoff2;
+    private int payoff1, payoff2;
     
     /**
      * Creates a new game result.
@@ -27,7 +27,7 @@ public class GameResult {
      * @param payoff1 the received payoff of the first player
      * @param payoff2 the received payoff of the second player
      */
-    public GameResult(Agent player1, Agent player2, boolean hasCooperated1, boolean hasCooperated2, double payoff1, double payoff2) {
+    public GameResult(Agent player1, Agent player2, boolean hasCooperated1, boolean hasCooperated2, int payoff1, int payoff2) {
         this.player1 = player1;
         this.player2 = player2;
         this.hasCooperated1 = hasCooperated1;
@@ -54,7 +54,7 @@ public class GameResult {
      * @return the received payoff of the given agent in this game, if he was one of the
      * players, {@code 0} otherwise
      */
-    public double getPayoff(final Agent agent) {
+    public int getPayoff(final Agent agent) {
         if (agent == player1) return payoff1;
         if (agent == player2) return payoff2;
         return 0;

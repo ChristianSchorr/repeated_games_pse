@@ -28,6 +28,16 @@ public interface SimulationHistory {
     List<GameResult> getAllResults();
     
     /**
+     * Returns a list of the results of all games in the given round of the
+     * current adaption step.
+     * 
+     * @param round the round whose results shall be returned
+     * @return a list of the results of all games in the given round of the
+     *         current adaption step
+     */
+    List<GameResult> getResultsOfRound(int round);
+    
+    /**
      * Returns a list of the results of all games of the given agent.
      * 
      * @param agent the agent whose game results shall be returned

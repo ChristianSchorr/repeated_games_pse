@@ -1,5 +1,6 @@
 package loop.model.simulationengine.distributions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class testMain {
@@ -23,6 +24,12 @@ public class testMain {
         //binomial distribution
         
         //uniform distribution
+        
+        List<Integer> testlist = new ArrayList<Integer>();
+        testlist.add(1);
+        testlist.add(2);
+        testlist.sort((Integer i1, Integer i2) -> (i1 - i2));
+        System.out.println(testlist);
     }
 
 }

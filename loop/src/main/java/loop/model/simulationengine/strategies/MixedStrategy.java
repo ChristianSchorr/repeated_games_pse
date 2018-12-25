@@ -23,6 +23,11 @@ public class MixedStrategy implements Strategy, RealVector {
     private List<Double> probabilities;
     
     /**
+     * The accuracy with which the sum of all probabilities must be equal to one.
+     */
+    private static final double ACCURACY = Math.pow(10, -7);
+    
+    /**
      * Creates a new mixed strategy consisting of the gicen strategies with the given probabilities.
      * 
      * @param name the name of the strategy
@@ -35,7 +40,21 @@ public class MixedStrategy implements Strategy, RealVector {
         this.description = description;
         
         if (strategies.size() != probabilities.size()) {
-            throw new IllegalArgumentException("Invalid initialisation of a new mixed strategy");
+            throw new IllegalArgumentException("Invalid initialisation of new mixed strategy: "
+                    + ((strategies.size() > probabilities.size()) ? "more" : "less") + " given"
+                    + " strategies then probabilities");
+        }
+        double sum = 0;
+        for (Double d: probabilities) {
+            if (d < 0 || d > 1) {
+                throw new IllegalArgumentException("Invalid initialisation of new mixed strategy: "
+                        + "one of the given probabilities not between zero and one");
+            }
+            sum += d;
+        }
+        if (Math.abs(sum - 1) > MixedStrategy.ACCURACY) {
+            throw new IllegalArgumentException("Invalid initialisation of new mixed strategy: "
+                    + "given probabilitis do not sum to one.");
         }
         
         this.strategies = new ArrayList<Strategy>(strategies.size());

@@ -29,7 +29,7 @@ public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
      * Creates a new uniform finite distribution with the given objects as support.
      * @param objects the objects the support of this distribution shall consist of
      */
-    public UniformFiniteDistribution(Collection<E> objects) {
+    public UniformFiniteDistribution(final Collection<E> objects) {
         this.support = new ArrayList<E>(objects);
     }
     
@@ -37,7 +37,7 @@ public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
      * Adds the given object to the support.
      * @param object the object that shall be added
      */
-    void addObject(E object) {
+    public void addObject(final E object) {
         support.add(object);
     }
     
@@ -45,7 +45,7 @@ public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
      * Adds the given objects to the support.
      * @param objects the objects that shall be added
      */
-    void addObjects(Collection<E> objects) {
+    public void addObjects(final Collection<E> objects) {
         support.addAll(objects);
     }
     
@@ -54,15 +54,35 @@ public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
      * @param object the object that shall be removed
      * @return {@code true} if the given object was contained and successfully removed, {@code false} otherwise
      */
-    boolean removeObject(E object) {
+    public boolean removeObject(final E object) {
         if (!support.contains(object)) return false;
         support.remove(object);
         return true;
     }
     
+    /**
+     * Picks a random object from this distribution and then removes it.
+     * 
+     * @return the picked object
+     */
+    public E pickAndRemove() {
+        E object = this.getPicker().pickOne();
+        this.removeObject(object);
+        return object;
+    }
+    
+    /**
+     * Returns whether the support of this distribution is empty.
+     * 
+     * @return whether the support of this distribution is empty
+     */
+    public boolean isEmpty() {
+        return this.support.isEmpty();
+    }
+    
     @Override
-    public double getProbability(E object) {
-        return 1 / support.size();
+    public double getProbability(final E object) {
+        return this.support.contains(object) ? (1 / support.size()) : 0;
     }
 
     @Override
