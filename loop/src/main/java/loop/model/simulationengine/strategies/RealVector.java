@@ -25,16 +25,21 @@ public interface RealVector extends Vector<Double> {
     double getSumNorm();
     
     /**
-     * Multiplies the vector by the given scalar.
+     * Multiplies the vector by the given scalar and returns itself.
      * 
      * @param scalar the scalar the vector shall be multiplied with
+     * @return this vector after multiplication
      */
-    void mutliplyBy(double scalar);
+    RealVector mutliplyBy(double scalar);
     
     /**
-     * Adds the given vector to this vector.
+     * Adds the given vector to this vector and returns itself.
      * 
      * @param vector the vector that shall be added to this vector
+     * @return this vector after addition
      */
-    void add(RealVector vector);
+    RealVector add(RealVector vector);
+    
+    @Override
+    RealVector clone();
 }

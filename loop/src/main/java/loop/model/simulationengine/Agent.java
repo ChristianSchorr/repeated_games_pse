@@ -78,4 +78,15 @@ public class Agent {
     public int getGroupId() {
         return this.groupId;
     }
+    
+    /**
+     * Returns a copy of this agent.
+     * 
+     * @return a copy of this agent
+     */
+    public Agent getCopy() {
+        Agent copy = new Agent(this.initialCapital, this.strategy, this.groupId);
+        copy.capital = this.capital;
+        return copy;
+    }
 }

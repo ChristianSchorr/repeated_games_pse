@@ -92,7 +92,7 @@ public class MixedStrategy implements Strategy, RealVector {
     }
 
     @Override
-    public Vector<Double> clone() {
+    public RealVector clone() {
         return new MixedStrategy(this.name, this.description, this.strategies, this.probabilities);
     }
 
@@ -113,18 +113,22 @@ public class MixedStrategy implements Strategy, RealVector {
     }
 
     @Override
-    public void mutliplyBy(double scalar) {
+    public RealVector mutliplyBy(double scalar) {
         for (int i = 0; i < this.probabilities.size(); i++) 
             this.probabilities.set(i, scalar * this.probabilities.get(i));
+        
+        return this;
     }
 
     @Override
-    public void add(RealVector vector) {
+    public RealVector add(RealVector vector) {
         if (this.getSize() != vector.getSize()) {
             throw new IllegalArgumentException("Attempted to add two real vectors of different sizes");
         }
         for (int i = 0; i < this.probabilities.size(); i++)
             this.probabilities.set(i, this.probabilities.get(i) + vector.getComponent(i));
+        
+        return this;
     }
 
     @Override
