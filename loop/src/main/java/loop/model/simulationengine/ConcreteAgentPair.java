@@ -1,7 +1,4 @@
-package loop.model.simulationengine.strategies;
-
-import loop.model.simulationengine.Agent;
-import loop.model.simulationengine.AgentPair;
+package loop.model.simulationengine;
 
 /**
  * An implementation of the {@link AgentPair} interface.

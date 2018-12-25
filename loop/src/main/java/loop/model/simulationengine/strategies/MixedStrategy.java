@@ -22,6 +22,14 @@ public class MixedStrategy implements Strategy, RealVector {
     private List<Strategy> strategies;
     private List<Double> probabilities;
     
+    /**
+     * Creates a new mixed strategy consisting of the gicen strategies with the given probabilities.
+     * 
+     * @param name the name of the strategy
+     * @param description the description of the strategy
+     * @param strategies the strategies this mixed strategy consists of
+     * @param probabilities the probabilities of the given strategies (in the same order)
+     */
     public MixedStrategy(String name, String description, List<Strategy> strategies, List<Double> probabilities) {
         this.name = name;
         this.description = description;

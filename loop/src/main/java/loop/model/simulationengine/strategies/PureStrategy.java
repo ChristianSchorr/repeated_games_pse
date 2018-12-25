@@ -4,6 +4,7 @@ import java.util.function.BiPredicate;
 
 import loop.model.simulationengine.Agent;
 import loop.model.simulationengine.AgentPair;
+import loop.model.simulationengine.ConcreteAgentPair;
 import loop.model.simulationengine.SimulationHistory;
 
 public class PureStrategy implements Strategy, java.io.Serializable {
