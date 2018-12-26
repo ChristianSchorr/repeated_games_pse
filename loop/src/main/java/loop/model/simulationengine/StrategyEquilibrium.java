@@ -48,6 +48,7 @@ public class StrategyEquilibrium extends CountingEquilibriumCriterion {
             newStrategies.add(a.getStrategy());
         }
         
+        //Check whether all strategies are mixed
         boolean allMixed = true;
         for (Strategy s: oldStrategies) {
             if (!(s instanceof MixedStrategy)) allMixed = false;
@@ -60,6 +61,8 @@ public class StrategyEquilibrium extends CountingEquilibriumCriterion {
         for (int i = 0; i < agents.size(); i++) {
             if (allMixed) {
                 diff += ((MixedStrategy) newStrategies.get(i)).clone().add(((MixedStrategy) oldStrategies.get(i)).mutliplyBy(-1)).getSumNorm(); 
+            } else {
+                diff += (newStrategies.get(i) != oldStrategies.get(i)) ? 2 : 0;
             }
         }
         diff *= 0.5;

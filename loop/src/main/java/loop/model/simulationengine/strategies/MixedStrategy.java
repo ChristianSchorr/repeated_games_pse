@@ -145,5 +145,14 @@ public class MixedStrategy implements Strategy, RealVector {
         }
         return prob;
     }
+    
+    /**
+     * Returns the component strategies this mixed strategy consists of.
+     * 
+     * @return the component strategies this mixed strategy consists of
+     */
+    public List<Strategy> getComponentStrategies() {
+        return this.strategies;
+    }
 
 }
