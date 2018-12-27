@@ -1,7 +1,5 @@
 package loop.model.simulationengine;
 
-import static org.junit.Assert.assertArrayEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,7 @@ import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
 /**
- * Realises the “Strategiegleichgewicht” described in the specication.
+ * Realises the ï¿½Strategiegleichgewichtï¿½ described in the specication.
  * 
  * @author Peter Koepernik
  *
