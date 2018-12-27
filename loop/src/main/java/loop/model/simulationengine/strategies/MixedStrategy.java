@@ -28,7 +28,7 @@ public class MixedStrategy implements Strategy, RealVector {
     private static final double ACCURACY = Math.pow(10, -7);
     
     /**
-     * Creates a new mixed strategy consisting of the gicen strategies with the given probabilities.
+     * Creates a new mixed strategy consisting of the given strategies with the given probabilities.
      * 
      * @param name the name of the strategy
      * @param description the description of the strategy
