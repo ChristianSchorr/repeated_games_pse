@@ -33,19 +33,23 @@ public class SuccessQuantifierTest {
         //total capital
         SuccessQuantifier totalCapital = new TotalCapital();
         testRankingValidOnEmptyHistory(totalCapital);
+        testRankingValidOnNonEmptyHistory(totalCapital);
         
         //total payoff
         SuccessQuantifier totalPayoff = new TotalPayoff();
         testRankingValidOnEmptyHistory(totalPayoff);
+        testRankingValidOnNonEmptyHistory(totalPayoff);
         
         //payoff in last adapt
         SuccessQuantifier payoffInLastAdapt = new PayoffInLastAdapt();
         testRankingValidOnEmptyHistory(payoffInLastAdapt);
+        testRankingValidOnNonEmptyHistory(payoffInLastAdapt);
         
         //sliding mean
         int w = 10;
         SuccessQuantifier slidingMean = new SlidingMean(w);
         testRankingValidOnEmptyHistory(slidingMean);
+        testRankingValidOnNonEmptyHistory(slidingMean);
     }
     
     private void testRankingValidOnEmptyHistory(SuccessQuantifier successQuantifier) {
@@ -55,6 +59,24 @@ public class SuccessQuantifierTest {
         
         //create ranking
         List<Agent> rankedAgents = successQuantifier.createRanking(agents, new SimulationHistoryTable());
+        
+        //test ranking
+        assertTrue(agents.size() == rankedAgents.size());
+        
+        for (Agent agent: agents) {
+            assertTrue(rankedAgents.contains(agent));
+        }
+    }
+    
+    private void testRankingValidOnNonEmptyHistory(SuccessQuantifier successQuantifier) {
+        //initialise agents
+        int agentCount = 1000;
+        int rounds = 100;
+        List<Agent> agents = TestUtility.getStandardAgents(agentCount);
+        SimulationHistory history = TestUtility.getHistory(agents, rounds);
+        
+        //create ranking
+        List<Agent> rankedAgents = successQuantifier.createRanking(agents, history);
         
         //test ranking
         assertTrue(agents.size() == rankedAgents.size());
