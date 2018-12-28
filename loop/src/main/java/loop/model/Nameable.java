@@ -3,7 +3,7 @@ package loop.model;
 
 /**
  * Implementations of this interface have a name and a description, which can be queried
- * as {@code String}s.
+ * as {@link String}s.
  * 
  * @author Peter Koepernik
  *
