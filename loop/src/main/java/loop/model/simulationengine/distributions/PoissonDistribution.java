@@ -1,5 +1,7 @@
 package loop.model.simulationengine.distributions;
 
+import java.math.BigInteger;
+
 /**
  * Represents a Poisson distribution.
  * 
@@ -25,7 +27,7 @@ public class PoissonDistribution implements DiscreteDistribution {
     @Override
     public double getProbability(final Integer object) {
         if (object < 0) return 0;
-        return Math.exp(-lambda) * Math.pow(lambda, object) / factorial(object);
+        return Math.exp(-lambda) * Math.pow(lambda, object) / factorial(BigInteger.valueOf(object)).doubleValue();
     }
 
     @Override
@@ -43,8 +45,13 @@ public class PoissonDistribution implements DiscreteDistribution {
         return DiscreteDistributionUtility.getSupportMax(this, q, (int) Math.round(lambda));
     }
     
-    private int factorial(int n) {
-        if (n < 0) return -1;
-        return (n == 0) ? (1) : (n * factorial(n - 1));
+    private BigInteger factorial(BigInteger number) {
+        BigInteger result = BigInteger.valueOf(1);
+
+        for (long factor = 2; factor <= number.longValue(); factor++) {
+            result = result.multiply(BigInteger.valueOf(factor));
+        }
+
+        return result;
     }
 }

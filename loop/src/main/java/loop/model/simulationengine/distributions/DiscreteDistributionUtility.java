@@ -53,15 +53,15 @@ public class DiscreteDistributionUtility {
                 int max = dist.getSupportMax(1 - ACCURACY);
                 int n = max - min;
                 double[] cumProbs = new double[n + 1];
-                cumProbs[min] = dist.getProbability(min);
+                cumProbs[0] = dist.getProbability(min);
                 for (int i = 0; i < n; i++) {
                     cumProbs[i + 1] = cumProbs[i] + dist.getProbability(i + 1);
                 }
-                cumProbs[min + n] = 1;
+                cumProbs[n] = 1;
                 double r = new Random().nextDouble();
                 int res = 0;
                 while (r > cumProbs[res]) res++;
-                return res;
+                return (min + res);
             }
 
             @Override
@@ -79,7 +79,8 @@ public class DiscreteDistributionUtility {
         int min = center;
         int max = center;
         double prob = dist.getProbability(center);
-        while (prob < q) {
+        double securityFactor = 0.0;
+        while (prob < q + securityFactor * (1.0 - q)) {
             if (dist.getProbability(max + 1) >= dist.getProbability(min - 1)) {
                 prob += dist.getProbability(++max);
                 continue;
@@ -99,11 +100,11 @@ public class DiscreteDistributionUtility {
         }
         
         public int getMin() {
-            return min;
+            return this.min;
         }
         
         public int getMax() {
-            return max;
+            return this.max;
         }
     }
 }
