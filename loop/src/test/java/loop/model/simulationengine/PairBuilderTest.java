@@ -39,18 +39,13 @@ public class PairBuilderTest {
     @Test
     public void testRandomPairBuilder() {
         PairBuilder randomPairBuilder = new RandomPairBuilder();
-        testPairBuilder(randomPairBuilder);
+        testPairingValid(randomPairBuilder);
     }
     
-    private void testPairBuilder(PairBuilder pairBuilder) {
+    private void testPairingValid(PairBuilder pairBuilder) {
         //initialise agents
         int agentCount = 1000;
-        DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 10);
-        UniformFiniteDistribution<Strategy> strategyDistribution = new UniformFiniteDistribution<Strategy>();
-        Strategy coop = new PureStrategy("", "", (AgentPair pair, SimulationHistory history) -> true);
-        strategyDistribution.addObject(coop);
-        EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
-        List<Agent> agents = new AgentInitialiser().initialiseAgents(segment, false);
+        List<Agent> agents = TestUtility.getStandardAgents(agentCount);
         
         //create pairs
         List<AgentPair> pairs = pairBuilder.buildPairs(agents, new SimulationHistoryTable());
@@ -63,10 +58,8 @@ public class PairBuilderTest {
         
         for (AgentPair pair: pairs) {
             //agents paired twice?
-            if (agentsContained.get(pair.getFirstAgent()) == true)
-                fail("Agent paired twice.");
-            if (agentsContained.get(pair.getSecondAgent()) == true)
-                fail("Agent paired twice.");
+            assertFalse(agentsContained.get(pair.getFirstAgent()));
+            assertFalse(agentsContained.get(pair.getSecondAgent()));
             
             agentsContained.put(pair.getFirstAgent(), true);
             agentsContained.put(pair.getSecondAgent(), true);
@@ -74,8 +67,7 @@ public class PairBuilderTest {
         
         //every agent paired at least once?
         for (Agent agent: agents) {
-            if (agentsContained.get(agent) == false)
-                fail("Agent not paired.");
+            assertTrue(agentsContained.get(agent));
         }
     }
 }

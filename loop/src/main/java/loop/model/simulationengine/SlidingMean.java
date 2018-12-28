@@ -25,6 +25,8 @@ public class SlidingMean implements SuccessQuantifier {
     @Override
     public List<Agent> createRanking(List<Agent> agents, SimulationHistory history) {
         int R = history.getResultsByAgent(agents.get(0)).size();
+        if (R == 0) return agents;
+        
         int[][] a = new int[agents.size()][R];
         int[][] A = new int[agents.size()][R];
         
