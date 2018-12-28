@@ -1,16 +1,10 @@
-package loop.model.exception;
+package loop.model.simulator;
 
 import static org.junit.Assert.*;
-
-import java.util.function.Consumer;
-
 import org.junit.Test;
 
 import loop.model.UserConfiguration;
-import loop.model.simulationengine.IterationResult;
 import loop.model.simulator.SimulationResult;
-import loop.model.simulator.Simulator;
-import loop.model.simulator.exception.ConfigurationException;
 
 /**
  * This class contains unit tests for the
