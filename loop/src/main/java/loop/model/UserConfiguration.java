@@ -105,7 +105,10 @@ public class UserConfiguration implements Serializable {
 	 * @return a default configuration
 	 */
 	public static UserConfiguration getDefaultConfiguration() {
-		return null;
+		
+		UserConfiguration config = new UserConfiguration("", 100, 100, 10, null, false, "", "", null, "", null, "", null, "", null,
+														 100, false, "", 0,0,0);
+		return config;
 	}
 	
 	/**
