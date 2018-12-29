@@ -1,6 +1,9 @@
 package loop.model.simulationengine.strategies;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.stream.Stream;
 
 import loop.model.simulationengine.Agent;
 import loop.model.simulationengine.AgentPair;
@@ -56,10 +59,11 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the tit-for-tat strategy
      */
     public static PureStrategy titForTat() {
+        
         return new PureStrategy(
-                "tit-for-tat", "-", (pair, history) -> 
-                history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent()))
-                .hasCooperated(pair.getSecondAgent())
+                "tit-for-tat", "-", (pair, history) ->
+                toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent())))
+                .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()))
                 );
     }
     
@@ -91,7 +95,13 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the "never cooperate" strategy
      */
     public static PureStrategy neverCooperate() {
-        return new PureStrategy("never cooperate", "-", (pair, history) -> true);
+        return new PureStrategy("never cooperate", "-", (pair, history) -> false);
     }
-
+    
+    private static <T> Stream<T> toStream(T t) {
+        List<T> list = new ArrayList<T>();
+        list.add(t);
+        return list.stream();
+    }
+    
 }

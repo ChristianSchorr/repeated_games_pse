@@ -54,16 +54,11 @@ public class MixedStrategy implements Strategy, RealVector {
         }
         if (Math.abs(sum - 1) > MixedStrategy.ACCURACY) {
             throw new IllegalArgumentException("Invalid initialisation of new mixed strategy: "
-                    + "given probabilitis do not sum to one.");
+                    + "given probabilities do not sum to one.");
         }
         
-        this.strategies = new ArrayList<Strategy>();
-        this.probabilities = new ArrayList<Double>();
-
-        for (int i = 0; i < strategies.size(); i++) {
-            this.strategies.add(strategies.get(i));
-            this.probabilities.add(probabilities.get(i));
-        }
+        this.strategies = new ArrayList<Strategy>(strategies);
+        this.probabilities = new ArrayList<Double>(probabilities);
     }
     
     @Override
@@ -89,6 +84,15 @@ public class MixedStrategy implements Strategy, RealVector {
     @Override
     public void setComponent(int index, Double value) {
         this.probabilities.set(index, value);
+    }
+    
+    /**
+     * Returns the component strategies this mixed strategy consists of.
+     * 
+     * @return the component strategies this mixed strategy consists of
+     */
+    public List<Strategy> getComponentStrategies() {
+        return this.strategies;
     }
 
     @Override
@@ -144,15 +148,6 @@ public class MixedStrategy implements Strategy, RealVector {
             prob += this.probabilities.get(i) * this.strategies.get(i).getCooperationProbability(player, opponent, history);
         }
         return prob;
-    }
-    
-    /**
-     * Returns the component strategies this mixed strategy consists of.
-     * 
-     * @return the component strategies this mixed strategy consists of
-     */
-    public List<Strategy> getComponentStrategies() {
-        return this.strategies;
     }
 
 }

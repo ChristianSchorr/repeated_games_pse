@@ -37,23 +37,23 @@ public class SimulationEngineTest {
     @Test
     public void test() {
         int agentCount = 50;
-        int roundCount  = 500;
-        int maxAdapts = 1000;
+        int roundCount  = 200;
+        int maxAdapts = 100000;
         PairBuilder pairBuilder = new RandomPairBuilder();
         SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
         EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(0.01, 50);
         Game game = ConcreteGame.prisonersDilemma();
-        boolean mixedStrategies = false;
+        boolean mixedStrategies = true;
         
         //engine segments
         DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 0);
         
         UniformFiniteDistribution<Strategy> strategyDistribution = new UniformFiniteDistribution<Strategy>();
-        Strategy coop = new PureStrategy("coop", "", (pair, history) -> true);
-        Strategy notCoop = new PureStrategy("notcoop", "", (pair, history) -> false);
-        strategyDistribution.addObject(coop);
-        strategyDistribution.addObject(notCoop);
+        //strategyDistribution.addObject(PureStrategy.alwaysCooperate());
+        strategyDistribution.addObject(PureStrategy.neverCooperate());
+        //strategyDistribution.addObject(PureStrategy.titForTat());
+        strategyDistribution.addObject(PureStrategy.grim());
         
         EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
         List<EngineSegment> segments = new ArrayList<EngineSegment>();

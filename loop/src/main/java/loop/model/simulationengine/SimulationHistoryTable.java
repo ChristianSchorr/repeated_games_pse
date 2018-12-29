@@ -79,7 +79,7 @@ public class SimulationHistoryTable implements SimulationHistory {
             }
         }
         
-        return null;
+        return queriedResults;
     }
 
     @Override

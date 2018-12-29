@@ -1,5 +1,7 @@
 package loop.model.simulationengine;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -120,7 +122,22 @@ public class SimulationEngine {
         }
         
         if (allMixed) {
-            
+            Map<Strategy, Double> stratCounts = new HashMap<Strategy, Double>();
+            for (Agent agent: agents) {
+                MixedStrategy strategy = (MixedStrategy) agent.getStrategy();
+                for (Strategy pureStrategy: strategy.getComponentStrategies()) {
+                    if (stratCounts.containsKey(pureStrategy)) {
+                        stratCounts.put(pureStrategy, stratCounts.get(pureStrategy)
+                                + strategy.getComponent(strategy.getComponentStrategies().indexOf(pureStrategy)));
+                    } else {
+                        stratCounts.put(pureStrategy, strategy.getComponent(strategy.getComponentStrategies().indexOf(pureStrategy)));
+                    }
+                }
+            }
+            for (Strategy strategy: stratCounts.keySet()) {              
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                System.out.println(String.format("strategy %-20s: %s.", strategy.getName(), formatter.format(stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%"));
+            }
         } else {
             Map<Strategy, Integer> stratCounts = new HashMap<Strategy, Integer>();
             for (Agent agent: agents) {
@@ -131,8 +148,9 @@ public class SimulationEngine {
                     stratCounts.put(strategy, 1);
                 }
             }
-            for (Strategy strategy: stratCounts.keySet()) {              
-                System.out.println("Strategy " + strategy.getName() + ": " + (double) stratCounts.get(strategy) / (double) agents.size() * 100.0 + "%.");
+            for (Strategy strategy: stratCounts.keySet()) {
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                System.out.println(String.format("strategy %-20s: %s.", strategy.getName(), formatter.format((double) stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%"));
             }
         }
     }
