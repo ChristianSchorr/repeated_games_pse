@@ -37,9 +37,9 @@ public class SimulationEngineTest {
     @Test
     public void test() {
         int agentCount = 50;
-        int roundCount  = 200;
+        int roundCount  = 50;
         int maxAdapts = 100000;
-        PairBuilder pairBuilder = new RandomPairBuilder();
+        PairBuilder pairBuilder = new CooperationConsideringPairBuilder();
         SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
         EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(0.005, 50);

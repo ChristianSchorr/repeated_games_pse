@@ -17,30 +17,32 @@ public class CooperationConsideringPairBuilder implements PairBuilder {
     
     private PairBuilder randomPairBuilder = new RandomPairBuilder();
     
+    private SimpleWeightedGraph<Agent, AgentPair> graph;
+    private List<Agent> allAgents;
+    private List<AgentPair> allPairs;
+    
     @Override
     public List<AgentPair> buildPairs(List<Agent> agents, SimulationHistory history) {
-        SimpleWeightedGraph<Agent, AgentPair> graph = new SimpleWeightedGraph<Agent, AgentPair>(null);
-        for (Agent a1: agents) {
-            for (Agent a2: agents) {
-                if (a1 == a2) continue;
-                if (!graph.containsVertex(a1)) graph.addVertex(a1);
-                if (!graph.containsVertex(a2)) graph.addVertex(a2);
-                
-                if (!graph.containsEdge(a1, a2)) {
-                    AgentPair agentPair = new ConcreteAgentPair(a1, a2);
-                    graph.addEdge(a1, a2, agentPair);
-                    double weight = a1.getStrategy().getCooperationProbability(a1, a2, history)
-                            + a2.getStrategy().getCooperationProbability(a2, a1, history);
-                    graph.setEdgeWeight(agentPair, weight);
-                }
-            }
+        //initialise graph etc. on first call with new agents
+        if (this.allAgents == null || this.allAgents.size() != agents.size() || !this.allAgents.containsAll(agents)) {
+            init(agents);
         }
         
+        //set edge weights
+        for (AgentPair pair: allPairs) {
+            Agent a1 = pair.getFirstAgent();
+            Agent a2 = pair.getSecondAgent();
+            double weight = a1.getStrategy().getCooperationProbability(a1, a2, history)
+                    + a2.getStrategy().getCooperationProbability(a2, a1, history);
+            graph.setEdgeWeight(pair, weight);
+        }
+        
+        //create matching
         MatchingAlgorithm.Matching<Agent, AgentPair> matching = new PathGrowingWeightedMatching<Agent, AgentPair>(graph, false).getMatching();
         List<AgentPair> pairs = new ArrayList<AgentPair>(matching.getEdges());
         
+        //pair unmatched agents
         if (2 * pairs.size() != agents.size()) {
-            System.out.println("Hello");
             List<Agent> pairedAgents = new ArrayList<Agent>();
             for (AgentPair pair: pairs) {
                 pairedAgents.add(pair.getFirstAgent());
@@ -53,6 +55,27 @@ public class CooperationConsideringPairBuilder implements PairBuilder {
         }
         
         return pairs;
+    }
+    
+    private void init(List<Agent> agents) {
+        this.allAgents = new ArrayList<Agent>();
+        this.allPairs = new ArrayList<AgentPair>();
+        graph = new SimpleWeightedGraph<Agent, AgentPair>(null);
+        
+        for (Agent a1: agents) {
+            this.allAgents.add(a1);
+            for (Agent a2: agents) {
+                if (a1 == a2) continue;
+                if (!graph.containsVertex(a1)) graph.addVertex(a1);
+                if (!graph.containsVertex(a2)) graph.addVertex(a2);
+                
+                if (!graph.containsEdge(a1, a2)) {
+                    AgentPair agentPair = new ConcreteAgentPair(a1, a2);
+                    this.allPairs.add(agentPair);
+                    graph.addEdge(a1, a2, agentPair);
+                }
+            }
+        }
     }
 
 }
