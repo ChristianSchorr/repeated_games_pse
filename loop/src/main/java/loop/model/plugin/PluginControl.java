@@ -13,7 +13,7 @@ import java.util.List;
  * @author Pierre Toussing
  *
  */
-public abstract class PluginControl extends javafx.scene.layout.Pane{
+public abstract class PluginControl extends javafx.scene.layout.VBox {
 
 	/**
 	 * Returns a list of the entered parameter values.
