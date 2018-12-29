@@ -42,7 +42,7 @@ public class SimulationEngineTest {
         PairBuilder pairBuilder = new RandomPairBuilder();
         SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
-        EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(0.01, 50);
+        EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(0.005, 50);
         Game game = ConcreteGame.prisonersDilemma();
         boolean mixedStrategies = true;
         
@@ -50,9 +50,9 @@ public class SimulationEngineTest {
         DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 0);
         
         UniformFiniteDistribution<Strategy> strategyDistribution = new UniformFiniteDistribution<Strategy>();
-        //strategyDistribution.addObject(PureStrategy.alwaysCooperate());
+        strategyDistribution.addObject(PureStrategy.alwaysCooperate());
         strategyDistribution.addObject(PureStrategy.neverCooperate());
-        //strategyDistribution.addObject(PureStrategy.titForTat());
+        strategyDistribution.addObject(PureStrategy.titForTat());
         strategyDistribution.addObject(PureStrategy.grim());
         
         EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
@@ -64,6 +64,7 @@ public class SimulationEngineTest {
         
         //execute
         IterationResult result = this.engine.executeIteration(configuration);
+        System.out.println("efficiency: " + result.getEfficiency());
     }
     
 }

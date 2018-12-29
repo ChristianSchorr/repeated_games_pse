@@ -38,6 +38,10 @@ public class PairBuilderTest {
         testPairingValidOnNonEmptyHistory(randomPairBuilder);
         
         //cooperation considering pair builder
+        PairBuilder coopConsideringPairBuilder = new CooperationConsideringPairBuilder();
+        testPairingValidOnEmptyHistory(coopConsideringPairBuilder);
+        testPairingValidOnNonEmptyHistory(coopConsideringPairBuilder);
+        
         
         //random cooperation considering pair builder
     }

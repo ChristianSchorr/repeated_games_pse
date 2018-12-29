@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import loop.model.simulationengine.strategies.MixedStrategy;
+import loop.model.simulationengine.strategies.RealVector;
 import loop.model.simulationengine.strategies.Strategy;
 
 /**
@@ -110,7 +111,7 @@ public class SimulationEngine {
     }
     
     private void printStepInfo() {
-        System.out.println("\n ------step " + this.adaptionsteps + "------");
+        System.out.println("\n-----------step " + this.adaptionsteps + "-----------");
         
         //strategy composition
         boolean allMixed = true;
@@ -134,10 +135,23 @@ public class SimulationEngine {
                     }
                 }
             }
-            for (Strategy strategy: stratCounts.keySet()) {              
-                NumberFormat formatter = new DecimalFormat("#0.00");
+            List<Strategy> sortedStrategies = new ArrayList<Strategy>(stratCounts.keySet());
+            sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+            NumberFormat formatter = new DecimalFormat("#0.00");
+            for (Strategy strategy: sortedStrategies) {
                 System.out.println(String.format("strategy %-20s: %s.", strategy.getName(), formatter.format(stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%"));
             }
+            
+            double meanStratDistance = 0.0;
+            Agent sampleAgent = agents.get(0);
+            RealVector minusStratSample = ((MixedStrategy) sampleAgent.getStrategy()).clone().mutliplyBy(-1);
+            for (Agent agent: agents) {
+                if (agent == sampleAgent) continue;
+                MixedStrategy strat = (MixedStrategy) agent.getStrategy();
+                meanStratDistance += strat.clone().add(minusStratSample).getSumNorm();
+            }
+            meanStratDistance /= (double) 2 * (agents.size() - 1);
+            System.out.println(String.format("mean strategy distance = %s", formatter.format(meanStratDistance)));
         } else {
             Map<Strategy, Integer> stratCounts = new HashMap<Strategy, Integer>();
             for (Agent agent: agents) {
@@ -148,7 +162,9 @@ public class SimulationEngine {
                     stratCounts.put(strategy, 1);
                 }
             }
-            for (Strategy strategy: stratCounts.keySet()) {
+            List<Strategy> sortedStrategies = new ArrayList<Strategy>(stratCounts.keySet());
+            sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+            for (Strategy strategy: sortedStrategies) {
                 NumberFormat formatter = new DecimalFormat("#0.00");
                 System.out.println(String.format("strategy %-20s: %s.", strategy.getName(), formatter.format((double) stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%"));
             }

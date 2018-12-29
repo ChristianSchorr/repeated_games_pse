@@ -45,7 +45,7 @@ public class RankingEquilibrium extends CountingEquilibriumCriterion {
         for (int i = 0; i < agents.size(); i++) {
             diff += Math.abs(i - oldRank[i]);
         }
-        
+
         return (diff < 0.5 * alpha * agents.size() * agents.size());
     }
 
