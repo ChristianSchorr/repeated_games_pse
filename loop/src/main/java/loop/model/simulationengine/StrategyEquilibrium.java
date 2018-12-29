@@ -7,7 +7,7 @@ import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
 /**
- * Realises the �Strategiegleichgewicht� described in the specication.
+ * Realises the "Strategiegleichgewicht" described in the specification.
  * 
  * @author Peter Koepernik
  *
@@ -58,7 +58,7 @@ public class StrategyEquilibrium extends CountingEquilibriumCriterion {
         double diff = 0;
         for (int i = 0; i < agents.size(); i++) {
             if (allMixed) {
-                diff += ((MixedStrategy) newStrategies.get(i)).clone().add(((MixedStrategy) oldStrategies.get(i)).mutliplyBy(-1)).getSumNorm(); 
+                diff += ((MixedStrategy) newStrategies.get(i)).clone().add(((MixedStrategy) oldStrategies.get(i)).clone().mutliplyBy(-1)).getSumNorm(); 
             } else {
                 diff += (newStrategies.get(i) != oldStrategies.get(i)) ? 2 : 0;
             }

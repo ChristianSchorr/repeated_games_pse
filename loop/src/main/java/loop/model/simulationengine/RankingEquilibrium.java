@@ -3,7 +3,7 @@ package loop.model.simulationengine;
 import java.util.List;
 
 /**
- * Realises the “Ranggleichgewicht” described in the specication.
+ * Realises the “Ranggleichgewicht” described in the specification.
  * 
  * @author Peter Koepernik
  *

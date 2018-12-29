@@ -34,7 +34,7 @@ public abstract class CountingEquilibriumCriterion implements EquilibriumCriteri
     }
     
     /**
-     * Returns whether the ewuilibrium condition is met for the current adaption step.
+     * Returns whether the equilibrium condition is met for the current adaption step.
      * 
      * @param lastRoundAgentsFlatCopy a list of the current agents ordered as they were last round
      * @param lastRoundAgentsDeepCopy a deep copy of the list of all agents from last round

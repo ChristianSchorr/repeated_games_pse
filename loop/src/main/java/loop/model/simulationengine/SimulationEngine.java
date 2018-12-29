@@ -1,7 +1,12 @@
 package loop.model.simulationengine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import loop.model.simulationengine.strategies.MixedStrategy;
+import loop.model.simulationengine.strategies.Strategy;
 
 /**
  * This class provides a method to execute a single iteration to a given (elementary) configuration.
@@ -44,6 +49,7 @@ public class SimulationEngine {
         
         while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
+            printStepInfo();
         }
         
         IterationResult result = createResult();
@@ -99,6 +105,36 @@ public class SimulationEngine {
         boolean p1Cooperates = p1.getStrategy().isCooperative(p1, p2, history);
         boolean p2Cooperates = p2.getStrategy().isCooperative(p2, p1, history);
         history.addResult(configuration.getGame().play(p1, p2, p1Cooperates, p2Cooperates));
+    }
+    
+    private void printStepInfo() {
+        System.out.println("\n ------step " + this.adaptionsteps + "------");
+        
+        //strategy composition
+        boolean allMixed = true;
+        List<Strategy> strategies = new ArrayList<Strategy>();
+        for (Agent agent: agents) {
+            if (!(agent.getStrategy() instanceof MixedStrategy))
+                allMixed = false;
+            strategies.add(agent.getStrategy());
+        }
+        
+        if (allMixed) {
+            
+        } else {
+            Map<Strategy, Integer> stratCounts = new HashMap<Strategy, Integer>();
+            for (Agent agent: agents) {
+                Strategy strategy = agent.getStrategy();
+                if (stratCounts.containsKey(strategy)) {
+                    stratCounts.put(strategy, stratCounts.get(strategy) + 1);
+                } else {
+                    stratCounts.put(strategy, 1);
+                }
+            }
+            for (Strategy strategy: stratCounts.keySet()) {              
+                System.out.println("Strategy " + strategy.getName() + ": " + (double) stratCounts.get(strategy) / (double) agents.size() * 100.0 + "%.");
+            }
+        }
     }
     
 }
