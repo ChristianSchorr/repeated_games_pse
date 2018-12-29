@@ -57,12 +57,12 @@ public class MixedStrategy implements Strategy, RealVector {
                     + "given probabilitis do not sum to one.");
         }
         
-        this.strategies = new ArrayList<Strategy>(strategies.size());
-        this.probabilities = new ArrayList<Double>(strategies.size());
-        
+        this.strategies = new ArrayList<Strategy>();
+        this.probabilities = new ArrayList<Double>();
+
         for (int i = 0; i < strategies.size(); i++) {
-            this.strategies.set(i, strategies.get(i));
-            this.probabilities.set(i, probabilities.get(i));
+            this.strategies.add(strategies.get(i));
+            this.probabilities.add(probabilities.get(i));
         }
     }
     

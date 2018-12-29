@@ -10,7 +10,7 @@ import loop.model.simulationengine.strategies.Strategy;
 
 /**
  * Provides some auxiliary methods helpful to test classes related to the simulation engine package, for example
- * sample initialisations of agents.
+ * sample initialisations of agents or simulation of a few rounds for a given set of agents.
  * 
  * @author Peter Koepernik
  *
@@ -23,7 +23,7 @@ public class TestUtility {
      * @param agentCount the amount of agents to be created
      * @return a list of the initialised agents
      */
-    public static List<Agent> getStandardAgents(final int agentCount) {
+    public static List<Agent> getStandardAgents(final int agentCount, final boolean mixedStrategies) {
         DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 0);
         
         UniformFiniteDistribution<Strategy> strategyDistribution = new UniformFiniteDistribution<Strategy>();
@@ -31,7 +31,7 @@ public class TestUtility {
         strategyDistribution.addObject(coop);
         
         EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
-        List<Agent> agents = new AgentInitialiser().initialiseAgents(segment, false);
+        List<Agent> agents = new AgentInitialiser().initialiseAgents(segment, mixedStrategies);
         return agents;
     }
     

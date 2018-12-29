@@ -55,7 +55,7 @@ public class SuccessQuantifierTest {
     private void testRankingValidOnEmptyHistory(SuccessQuantifier successQuantifier) {
         //initialise agents
         int agentCount = 1000;
-        List<Agent> agents = TestUtility.getStandardAgents(agentCount);
+        List<Agent> agents = TestUtility.getStandardAgents(agentCount, false);
         
         //create ranking
         List<Agent> rankedAgents = successQuantifier.createRanking(agents, new SimulationHistoryTable());
@@ -72,7 +72,7 @@ public class SuccessQuantifierTest {
         //initialise agents
         int agentCount = 1000;
         int rounds = 100;
-        List<Agent> agents = TestUtility.getStandardAgents(agentCount);
+        List<Agent> agents = TestUtility.getStandardAgents(agentCount, false);
         SimulationHistory history = TestUtility.getHistory(agents, rounds);
         
         //create ranking

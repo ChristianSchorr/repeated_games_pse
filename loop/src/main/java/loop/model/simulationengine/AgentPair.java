@@ -1,5 +1,7 @@
 package loop.model.simulationengine;
 
+import java.util.List;
+
 /**
  * This interface represents a pair of agents
  * 
@@ -21,4 +23,11 @@ public interface AgentPair {
      * @return the second of both agents
      */
     Agent getSecondAgent();
+    
+    /**
+     * Returns both agents as list.
+     * 
+     * @return both agents as list
+     */
+    List<Agent> getAgents();
 }

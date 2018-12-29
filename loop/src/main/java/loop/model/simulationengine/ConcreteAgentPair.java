@@ -1,5 +1,8 @@
 package loop.model.simulationengine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An implementation of the {@link AgentPair} interface.
  * 
@@ -30,6 +33,14 @@ public class ConcreteAgentPair implements AgentPair {
     @Override
     public Agent getSecondAgent() {
         return this.secondAgent;
+    }
+
+    @Override
+    public List<Agent> getAgents() {
+        List<Agent> agents = new ArrayList<Agent>();
+        agents.add(this.firstAgent);
+        agents.add(this.secondAgent);
+        return agents;
     }
 
 }

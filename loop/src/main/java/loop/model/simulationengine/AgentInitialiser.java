@@ -29,8 +29,8 @@ public class AgentInitialiser {
         //determine intial capitals and strategies
         List<Integer> capitals = segment.getCapitalDistribution().getPicker().pickMany(segment.getAgentCount());
         List<Strategy> strategies = segment.getStrategyDistribution().getPicker().pickMany(segment.getAgentCount());
-        
-        //wrapping intial strategies in mixed strategy objects if necessary
+
+        //wrapping initial strategies in mixed strategy objects if necessary
         if (mixedStrategiesAllowed) {
             for (int i = 0; i < strategies.size(); i++) {
                 List<Strategy> wrappedSingleStrategy = new ArrayList<Strategy>();
