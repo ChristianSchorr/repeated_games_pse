@@ -10,28 +10,37 @@ import loop.model.Nameable;
  *
  */
 
-public abstract class Parameter implements Nameable{
+public class Parameter implements Nameable{
 	
 	private double minVal, maxVal, stepSize;
+	private String name, description;
 
 	/**
 	 * Creates a new unbounded Parameter.
+	 * @param name: The name of the parameter
+	 * @param name: The description of the parameter
 	 */
-	public Parameter() {
+	public Parameter(String name, String description) {
 		this.minVal = Double.NEGATIVE_INFINITY;
 		this.maxVal = Double.POSITIVE_INFINITY;
 		this.stepSize = 0;
+		this.name = name;
+		this.description = description;
 	}
 	
 	/**
 	 * Creates a new bounded Parameter
 	 * @param minVal: the lower bound of the Parameter
 	 * @param maxVal: the upper bound of the Parameter
+	 * @param name: The name of the parameter
+	 * @param name: The description of the parameter
 	 */
-	public Parameter(double minVal, double maxVal) {
+	public Parameter(double minVal, double maxVal, String name, String description) {
 		this.minVal = minVal;
 		this.maxVal = maxVal;
 		this.stepSize = 0;
+		this.name = name;
+		this.description = description;
 	}
 	
 	/**
@@ -39,11 +48,15 @@ public abstract class Parameter implements Nameable{
 	 * @param minVal: the lower bound of the Parameter
 	 * @param maxVal: the upper bound of the Parameter
 	 * @param stepSize: the granularity of the parameter
+	 * @param name: The name of the parameter
+	 * @param name: The description of the parameter
 	 */
-	public Parameter(double minVal, double maxVal, double stepSize) {
+	public Parameter(double minVal, double maxVal, double stepSize, String name, String description) {
 		this.minVal = minVal;
 		this.maxVal = maxVal;
 		this.stepSize = stepSize;
+		this.name = name;
+		this.description = description;
 	}
 
 	/**
@@ -68,5 +81,15 @@ public abstract class Parameter implements Nameable{
 	 */
 	public double getStepSize() {
 		return stepSize;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
 	}
 }
