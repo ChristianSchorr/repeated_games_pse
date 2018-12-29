@@ -1,6 +1,8 @@
 package loop.model.simulationengine.distributions;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a Poisson distribution.
@@ -11,6 +13,7 @@ import java.math.BigInteger;
 public class PoissonDistribution implements DiscreteDistribution {
 
     private double lambda;
+    private org.apache.commons.math3.distribution.PoissonDistribution dist;
     
     /**
      * Creates a new Poisson distribution with the given mean.
@@ -22,17 +25,33 @@ public class PoissonDistribution implements DiscreteDistribution {
             throw new IllegalArgumentException("passed a negative value as the mean of a poisson distribution.");
         }
         this.lambda = lambda;
+        this.dist = new org.apache.commons.math3.distribution.PoissonDistribution(lambda);
     }
     
     @Override
     public double getProbability(final Integer object) {
         if (object < 0) return 0;
-        return Math.exp(-lambda) * Math.pow(lambda, object) / factorial(BigInteger.valueOf(object)).doubleValue();
+        return dist.probability(object);
     }
 
     @Override
     public Picker<Integer> getPicker() {
-        return DiscreteDistributionUtility.getPicker(this);
+        return new Picker<Integer>() {
+            
+            @Override
+            public Integer pickOne() {
+                return dist.sample();
+            }
+            
+            @Override
+            public List<Integer> pickMany(final int i) {
+                List<Integer> res = new ArrayList<Integer>();
+                for (int j = 0; j < i; j++) {
+                    res.add(pickOne());
+                }
+                return res;
+            }
+        };
     }
 
     @Override
@@ -43,15 +62,5 @@ public class PoissonDistribution implements DiscreteDistribution {
     @Override
     public int getSupportMax(final double q) {
         return DiscreteDistributionUtility.getSupportMax(this, q, (int) Math.round(lambda));
-    }
-    
-    private BigInteger factorial(BigInteger number) {
-        BigInteger result = BigInteger.valueOf(1);
-
-        for (long factor = 2; factor <= number.longValue(); factor++) {
-            result = result.multiply(BigInteger.valueOf(factor));
-        }
-
-        return result;
     }
 }

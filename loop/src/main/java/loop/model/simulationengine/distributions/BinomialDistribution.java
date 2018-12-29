@@ -1,5 +1,8 @@
 package loop.model.simulationengine.distributions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a binomial distribution.
  * 
@@ -12,6 +15,7 @@ public class BinomialDistribution implements DiscreteDistribution {
     private int max;
     private double p;
     private int n;
+    private org.apache.commons.math3.distribution.BinomialDistribution dist;
     
     /**
      * Creates a new binomial distribution with the given parameters.
@@ -28,18 +32,35 @@ public class BinomialDistribution implements DiscreteDistribution {
         this.max = max;
         this.p = p;
         this.n = max - min;
+        
+        this.dist = new org.apache.commons.math3.distribution.BinomialDistribution(n, p);
     }
     
     @Override
     public double getProbability(Integer object) {
         if (object < min || object > max) return 0;
         int k = object - min;
-        return binCoeff(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+        return this.dist.probability(k);
     }
 
     @Override
     public Picker<Integer> getPicker() {
-        return DiscreteDistributionUtility.getPicker(this);
+        return new Picker<Integer>() {
+            
+            @Override
+            public Integer pickOne() {
+                return dist.sample();
+            }
+            
+            @Override
+            public List<Integer> pickMany(final int i) {
+                List<Integer> res = new ArrayList<Integer>();
+                for (int j = 0; j < i; j++) {
+                    res.add(pickOne());
+                }
+                return res;
+            }
+        };
     }
 
     @Override

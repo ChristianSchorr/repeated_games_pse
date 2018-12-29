@@ -33,8 +33,8 @@ public class DiscreteDistributionTest {
     @Test
     public void testPoisson() {
         //test different values of lambda
-        double minLambda = 0;
-        double maxLambda = 100;
+        double minLambda = 1;
+        double maxLambda = 1000;
         double stepSize = 1;
         for (double lambda = minLambda; lambda <= maxLambda; lambda += stepSize) {
             DiscreteDistribution poissonDistribution = new PoissonDistribution(lambda);
