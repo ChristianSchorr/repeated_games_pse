@@ -1,10 +1,15 @@
 package loop.model.simulator;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import loop.model.UserConfiguration;
+import loop.model.simulationengine.IterationResult;
 import loop.model.simulator.SimulationResult;
+import loop.model.simulator.exception.SimulationEngineException;
 
 /**
  * This class contains unit tests for the
@@ -14,6 +19,13 @@ import loop.model.simulator.SimulationResult;
  *
  */
 public class SimulationResultTest {
+	
+	private SimulationResult testSimResult;
+	private int testCount = 0;
+	
+	private SimulationEngineException testException;
+	private IterationResult testIterationResult;
+	
 	
 	@Test
 	public void testGetId() {
@@ -36,22 +48,79 @@ public class SimulationResultTest {
 	
 	@Test
 	public void testGetConfigurationCount() {
-		fail();
+		testSimResult = new SimulationResult(null, -1);
+		testIterationResult = new IterationResult(null, null, false, 0, 0);
+		
+		testSimResult.addIterationResult(testIterationResult, 0);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		testSimResult.addIterationResult(testIterationResult, 2);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		
+		int configCount = testSimResult.getConfigurationCount();
+		assertEquals(configCount, 3);		
 	}
 	
 	@Test
 	public void testGetIterationResults() {
-		fail();
+		testSimResult = new SimulationResult(null, -1);
+		testIterationResult = new IterationResult(null, null, false, 0, 0);
+		
+		testSimResult.addIterationResult(testIterationResult, 0);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		testSimResult.addIterationResult(testIterationResult, 1);
+		testSimResult.addIterationResult(testIterationResult, 0);
+		List<IterationResult> results1 = testSimResult.getIterationResults(0);
+		List<IterationResult> results2 = testSimResult.getIterationResults(1);
+		assertEquals(results1.size(), 2);
+		assertEquals(results2.size(), 5);
+		for (IterationResult res : results1) {
+			assertEquals(res, testIterationResult);
+		}
+		for (IterationResult res : results2) {
+			assertEquals(res, testIterationResult);
+		}
 	}
 	
 	@Test
 	public void testRegisterExceptionHandler() {
-		fail();
+		testCount = 0;
+		testSimResult = new SimulationResult(null, -1);
+		testException = new SimulationEngineException();
+		
+		testSimResult.registerExceptionHandler((res, e) -> testExceptionHandler(res, e));
+		testSimResult.addSimulationEngineException(testException);
+		testSimResult.addSimulationEngineException(testException);
+		testSimResult.addSimulationEngineException(testException);
+		testSimResult.addSimulationEngineException(testException);
+		assertEquals(testCount, 4);		
 	}
 	
 	@Test
 	public void testRegisterIterationFinished() {
-		fail();
+		testCount = 0;
+		testSimResult = new SimulationResult(null, -1);
+		testIterationResult = new IterationResult(null, null, false, 0, 0);
+		
+		testSimResult.registerIterationFinished((res, iterRes) -> testFinishedHandler(res, iterRes));
+		testSimResult.addIterationResult(testIterationResult, 0);
+		testSimResult.addIterationResult(testIterationResult, 0);
+		testSimResult.addIterationResult(testIterationResult, 0);
+		testSimResult.addIterationResult(testIterationResult, 0);
+		assertEquals(testCount, 4);		
 	}
 	
+	private void testExceptionHandler(SimulationResult result, SimulationEngineException ex) {
+		assertEquals(testSimResult, result);
+		assertEquals(testException, ex);
+		testCount++;
+	}
+	
+	private void testFinishedHandler(SimulationResult result, IterationResult iterRes) {
+		assertEquals(testSimResult, result);
+		assertEquals(testIterationResult, iterRes);
+		testCount++;
+	}
 }

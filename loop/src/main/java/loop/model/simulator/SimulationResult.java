@@ -26,7 +26,7 @@ public class SimulationResult {
 
 	private List<List<IterationResult>> iterationResults;
 	private List<SimulationEngineException> exceptions;
-		
+
 	private List<BiConsumer<SimulationResult, IterationResult>> resultHandlers;
 	private List<BiConsumer<SimulationResult, SimulationEngineException>> exceptionHandlers;
 
@@ -42,7 +42,7 @@ public class SimulationResult {
 		this.id = id;
 		iterationResults = new ArrayList<List<IterationResult>>();
 		exceptions = new ArrayList<SimulationEngineException>();
-		
+
 		resultHandlers = new ArrayList<BiConsumer<SimulationResult, IterationResult>>();
 		exceptionHandlers = new ArrayList<BiConsumer<SimulationResult, SimulationEngineException>>();
 	}
@@ -55,13 +55,12 @@ public class SimulationResult {
 	 * @param i      the elementary configuration to which the given result shall be
 	 *               added
 	 */
-	protected void addIterationResult(IterationResult result, int i) {
-		int listsToAdd = (i + 1) - iterationResults.size();
-		for (int j = 0; j < listsToAdd; i++) {
+	public void addIterationResult(IterationResult result, int i) {
+		while ((i + 1) > iterationResults.size()) {
 			iterationResults.add(new ArrayList<IterationResult>());
-		}		
+		}
 		iterationResults.get(i).add(result);
-		
+
 		// notify listeners
 		for (BiConsumer<SimulationResult, IterationResult> handler : resultHandlers) {
 			handler.accept(this, result);
@@ -74,9 +73,9 @@ public class SimulationResult {
 	 * 
 	 * @param ex the exception that shall be added
 	 */
-	protected void addSimulationEngineException(SimulationEngineException ex) {
+	public void addSimulationEngineException(SimulationEngineException ex) {
 		exceptions.add(ex);
-		
+
 		// notify listeners
 		for (BiConsumer<SimulationResult, SimulationEngineException> handler : exceptionHandlers) {
 			handler.accept(this, ex);
@@ -116,7 +115,8 @@ public class SimulationResult {
 	 *         elementary configuration
 	 */
 	public List<IterationResult> getIterationResults(int i) {
-		if (i < 0 || i > iterationResults.size() - 1) return null;
+		if (i < 0 || i > iterationResults.size() - 1)
+			return null;
 		return iterationResults.get(i);
 	}
 
