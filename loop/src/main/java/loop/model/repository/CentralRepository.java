@@ -22,7 +22,30 @@ import loop.model.simulationengine.strategies.Strategy;
  */
 public class CentralRepository {
 
-	private CentralRepository instance;
+	private static CentralRepository instance;
+	
+	private Repository<Strategy> stratRepo;
+	private Repository<Game> gameRepo;
+	private Repository<Population> populationRepo;
+	private Repository<Group> groupRepo;
+	private Repository<Plugin<EquilibriumCriterion>> equilibriumCriterinoRepo;
+	private Repository<Plugin<SuccessQuantifier>> successQuantifierRepo;
+	private Repository<Plugin<StrategyAdjuster>> strategyAdjusterRepo;
+	private Repository<Plugin<PairBuilder>> pairBuilderRepo;
+	private Repository<Plugin<DiscreteDistribution>> discreteDistributionRepo;
+	
+	
+	private CentralRepository() {
+		stratRepo = new HashMapRepository<Strategy>();
+		gameRepo = new HashMapRepository<Game>();
+		populationRepo = new HashMapRepository<Population>();
+		groupRepo = new HashMapRepository<Group>();
+		equilibriumCriterinoRepo = new HashMapRepository<Plugin<EquilibriumCriterion>>();
+		successQuantifierRepo = new HashMapRepository<Plugin<SuccessQuantifier>>();
+		strategyAdjusterRepo = new HashMapRepository<Plugin<StrategyAdjuster>>();
+		pairBuilderRepo = new HashMapRepository<Plugin<PairBuilder>>();
+		discreteDistributionRepo = new HashMapRepository<Plugin<DiscreteDistribution>>();		
+	}
 
 	/**
 	 * Returns the singleton instance
@@ -30,7 +53,11 @@ public class CentralRepository {
 	 * @return the singleton instance
 	 */
 	public static CentralRepository getInstance() {
-		return null;
+		if (instance == null) {
+			instance = new CentralRepository();
+			instance.initialize();
+		}
+		return instance;
 	}
 
 	/**
@@ -39,7 +66,7 @@ public class CentralRepository {
 	 * @return the strategy repository
 	 */
 	public Repository<Strategy> getStrategyRepository() {
-		return null;
+		return stratRepo;
 	}
 	
 	/**
@@ -48,7 +75,7 @@ public class CentralRepository {
 	 * @return the game repository
 	 */
 	public Repository<Game> getGameRepository() {
-		return null;
+		return gameRepo;
 	}
 
 	/**
@@ -57,7 +84,7 @@ public class CentralRepository {
 	 * @return the population repository
 	 */
 	public Repository<Population> getPopulationRepository() {
-		return null;
+		return populationRepo;
 	}
 	
 	/**
@@ -66,7 +93,7 @@ public class CentralRepository {
 	 * @return the group repository
 	 */
 	public Repository<Group> getGroupRepository() {
-		return null;
+		return groupRepo;
 	}
 	
 	/**
@@ -75,7 +102,7 @@ public class CentralRepository {
 	 * @return the equilibrium criterion repository
 	 */
 	public Repository<Plugin<EquilibriumCriterion>> getEquilibriumCriterionRepository() {
-		return null;
+		return equilibriumCriterinoRepo;
 	}
 	
 	/**
@@ -84,7 +111,7 @@ public class CentralRepository {
 	 * @return the success quantifier repository
 	 */
 	public Repository<Plugin<SuccessQuantifier>> getSuccessQuantifiernRepository() {
-		return null;
+		return successQuantifierRepo;
 	}
 	
 	/**
@@ -93,7 +120,7 @@ public class CentralRepository {
 	 * @return the strategy adjuster repository
 	 */
 	public Repository<Plugin<StrategyAdjuster>> getStrategyAdjusterRepository() {
-		return null;
+		return strategyAdjusterRepo;
 	}
 	
 	/**
@@ -102,7 +129,7 @@ public class CentralRepository {
 	 * @return the pair builder repository
 	 */
 	public Repository<Plugin<PairBuilder>> getPairBuilderRepository() {
-		return null;
+		return pairBuilderRepo;
 	}
 	
 	/**
@@ -111,8 +138,10 @@ public class CentralRepository {
 	 * @return the discrete distribution repository
 	 */
 	public Repository<Plugin<DiscreteDistribution>> getDiscreteDistributionRepository() {
-		return null;
+		return discreteDistributionRepo;
 	}
 	
-	
+	private void initialize() {
+		
+	}
 }
