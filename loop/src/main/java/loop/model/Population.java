@@ -20,7 +20,21 @@ public class Population implements Nameable, Serializable {
 	private List<Integer> groupSizes;
 	
 	public Population(String name, String description, List<Group> groups, List<Integer> groupSizes) {
-		this.name = name;
+	    if (groups.size() != groupSizes.size()) {
+            throw new IllegalArgumentException("Invalid parameters in creation of new population: more or less groups given then group sizes.");
+        }
+	    int sizeSum = 0;
+        for (Integer a: groupSizes) {
+            if (a < 1)
+                throw new IllegalArgumentException("Invalid parameters in creation of new population: groups must have sizes larger than zero.");
+            
+            sizeSum += a;
+        }
+        if (sizeSum % 2 == 1) {
+            throw new IllegalArgumentException("Invalid parameters in creation of new population: agent count must be even.");
+        }
+	    
+	    this.name = name;
 		this.description = description;
 		this.groups = groups;
 		this.groupSizes = groupSizes;
@@ -32,11 +46,11 @@ public class Population implements Nameable, Serializable {
 	 * @return the size of this population
 	 */
 	public int getSize() {
-		int groupSize = 0;
+		int size = 0;
 		for (int i : groupSizes) {
-			groupSize += i;
+			size += i;
 		}
-		return groupSize;
+		return size;
 	}
 	
 	/**

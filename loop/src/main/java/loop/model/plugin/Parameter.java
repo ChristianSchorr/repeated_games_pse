@@ -10,7 +10,7 @@ import loop.model.Nameable;
  *
  */
 
-public class Parameter implements Nameable{
+public class Parameter implements Nameable {
 	
 	private double minVal, maxVal, stepSize;
 	private String name, description;

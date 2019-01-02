@@ -9,8 +9,9 @@ import java.util.List;
  * @author Pierre Toussing
  *
  */
-public class GenericRenderer implements PluginRenderer{
-	private PluginControl control;
+public class GenericRenderer implements PluginRenderer {
+	
+    private PluginControl control;
 	
 	/**
 	 * Creates a new GenericRenderer for the given plugin

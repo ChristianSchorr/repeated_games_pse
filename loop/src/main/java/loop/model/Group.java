@@ -31,7 +31,22 @@ public class Group implements Serializable, Nameable {
 	 * @param isCohesive indicates whether this group is cohesive
 	 */
 	public Group(String name, String description, List<Segment> segments, List<Double> segmentSizes, boolean isCohesive) {
-		this.name = name;
+		if (segments.size() != segmentSizes.size()) {
+		    throw new IllegalArgumentException("Invalid parameters in creation of new group: more or less segments given then segment sizes.");
+		}
+		double sizeSum = 0.0;
+		for (Double d: segmentSizes) {
+		    if (d < 0 || d > 1)
+		        throw new IllegalArgumentException("Invalid parameters in creation of new group: segment size not between zero and one.");
+		    
+		    sizeSum += d;
+		}
+		final double ACCURACY = Math.pow(10, -7);
+		if (Math.abs(sizeSum - 1) > ACCURACY) {
+		    throw new IllegalArgumentException("Invalid parameters in creation of new group: segment sizes do not sum up to one.");
+		}
+		
+	    this.name = name;
 		this.description = description;
 		this.segments = segments;
 		this.segmentSizes = segmentSizes;
