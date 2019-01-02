@@ -29,6 +29,10 @@ public class SimulationEngine {
     private boolean equilibriumReached;
     private Configuration configuration;
     
+    private boolean printInfo = true;
+    private int printPeriod = 5;
+    private int printCounter;
+    
     /**
      * Executes an iteration to the given elementary configuration and returns the result
      * as an instance of the {@link IterationResult} class.
@@ -49,6 +53,8 @@ public class SimulationEngine {
         
         adaptionsteps = 0;
         equilibriumReached = false;
+        
+        int printCounter = 1;
         
         while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
@@ -111,9 +117,16 @@ public class SimulationEngine {
     }
     
     private void printStepInfo() {
+        if (!printInfo) return;
+        if (printCounter++ < printPeriod && this.equilibriumReached == false && this.adaptionsteps != 1) {
+            System.out.print(".");
+            return;
+        }
+        printCounter = (this.adaptionsteps == 1) ? 2 : 1;
+        
         System.out.println("\n-----------step " + this.adaptionsteps + "-----------");
         
-        //strategy composition
+        //all strategies mixed?
         boolean allMixed = true;
         List<Strategy> strategies = new ArrayList<Strategy>();
         for (Agent agent: agents) {
@@ -123,9 +136,15 @@ public class SimulationEngine {
         }
         
         if (allMixed) {
+            List<MixedStrategy> mixedStrategies = new ArrayList<MixedStrategy>();
+            //cast to mixed strategies
+            for (Strategy strategy: strategies) {
+                mixedStrategies.add((MixedStrategy) strategy);
+            }
+            
+            //strategy composition
             Map<Strategy, Double> stratCounts = new HashMap<Strategy, Double>();
-            for (Agent agent: agents) {
-                MixedStrategy strategy = (MixedStrategy) agent.getStrategy();
+            for (MixedStrategy strategy: mixedStrategies) {
                 for (Strategy pureStrategy: strategy.getComponentStrategies()) {
                     if (stratCounts.containsKey(pureStrategy)) {
                         stratCounts.put(pureStrategy, stratCounts.get(pureStrategy)
@@ -135,13 +154,35 @@ public class SimulationEngine {
                     }
                 }
             }
-            List<Strategy> sortedStrategies = new ArrayList<Strategy>(stratCounts.keySet());
-            sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
-            NumberFormat formatter = new DecimalFormat("#0.00");
-            for (Strategy strategy: sortedStrategies) {
-                System.out.println(String.format("strategy %-20s: %s.", strategy.getName(), formatter.format(stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%"));
+            
+            //mean rank of each strategy
+            List<Strategy> pureStrategies = mixedStrategies.get(0).getComponentStrategies();
+            double[] strategySum = new double[pureStrategies.size()];
+            double[] strategyRankingSum = new double[pureStrategies.size()];
+            for (MixedStrategy strategy: mixedStrategies) {
+                for (int i = 0; i < pureStrategies.size(); i++) {
+                    strategySum[i] += strategy.getComponent(i);
+                    strategyRankingSum[i] += (1 + mixedStrategies.indexOf(strategy)) * strategy.getComponent(i);
+                }
+            }
+            double[] meanRank = new double[pureStrategies.size()];
+            for (int i = 0; i < pureStrategies.size(); i++) {
+                meanRank[i] = strategyRankingSum[i] / strategySum[i];
             }
             
+            
+            //print strategy composition and mean ranks
+            List<Strategy> sortedStrategies = new ArrayList<Strategy>(pureStrategies);
+            sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+            NumberFormat percentFormatter = new DecimalFormat("#0.00");
+            NumberFormat rankFormatter = new DecimalFormat("#0.0");
+            for (Strategy strategy: sortedStrategies) {
+                System.out.println(String.format("strategy %-20s: %7s | mean rank: %6s",
+                        strategy.getName(), percentFormatter.format(stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%",
+                        rankFormatter.format(meanRank[pureStrategies.indexOf(strategy)])));
+            }
+            
+            //calculate and print mean strategy distance (from number 1 strategy to others in ||.||_1-norm)
             double meanStratDistance = 0.0;
             Agent sampleAgent = agents.get(0);
             RealVector minusStratSample = ((MixedStrategy) sampleAgent.getStrategy()).clone().mutliplyBy(-1);
@@ -151,8 +192,9 @@ public class SimulationEngine {
                 meanStratDistance += strat.clone().add(minusStratSample).getSumNorm();
             }
             meanStratDistance /= (double) 2 * (agents.size() - 1);
-            System.out.println(String.format("mean strategy distance = %s", formatter.format(meanStratDistance)));
+            System.out.println(String.format("mean strategy distance = %s", percentFormatter.format(meanStratDistance)));
         } else {
+            //calculate strategy composition
             Map<Strategy, Integer> stratCounts = new HashMap<Strategy, Integer>();
             for (Agent agent: agents) {
                 Strategy strategy = agent.getStrategy();
@@ -162,11 +204,29 @@ public class SimulationEngine {
                     stratCounts.put(strategy, 1);
                 }
             }
+            //calculate mean strategy ranks
+            double[] strategySum = new double[strategies.size()];
+            double[] strategyRankingSum = new double[strategies.size()];
+            for (Agent agent: agents) {
+                Strategy strategy = agent.getStrategy();
+                strategySum[strategies.indexOf(strategy)] += 1;
+                strategyRankingSum[strategies.indexOf(strategy)] += (1 + agents.indexOf(agent));
+            }
+            double[] meanRank = new double[strategies.size()];
+            for (int i = 0; i < strategies.size(); i++) {
+                meanRank[i] = strategyRankingSum[i] / strategySum[i];
+            }
+            
+            //print strategy composition
             List<Strategy> sortedStrategies = new ArrayList<Strategy>(stratCounts.keySet());
             sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+            NumberFormat percentFormatter = new DecimalFormat("#0.00");
+            NumberFormat rankFormatter = new DecimalFormat("#0.0");
             for (Strategy strategy: sortedStrategies) {
-                NumberFormat formatter = new DecimalFormat("#0.00");
-                System.out.println(String.format("strategy %-20s: %s.", strategy.getName(), formatter.format((double) stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%"));
+                System.out.println(String.format("strategy %-20s: %7s | mean rank: %6s",
+                        strategy.getName(), percentFormatter.format((double) stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%",
+                        rankFormatter.format(meanRank[strategies.indexOf(strategy)])
+                        ));
             }
         }
     }

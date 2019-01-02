@@ -42,8 +42,11 @@ public class PairBuilderTest {
         testPairingValidOnEmptyHistory(coopConsideringPairBuilder);
         testPairingValidOnNonEmptyHistory(coopConsideringPairBuilder);
         
-        
         //random cooperation considering pair builder
+        double randomness = 0.5;
+        PairBuilder randomCoopConsideringPairBuilder = new RandomCooperationConsideringPairBuilder(randomness);
+        testPairingValidOnEmptyHistory(randomCoopConsideringPairBuilder);
+        testPairingValidOnNonEmptyHistory(randomCoopConsideringPairBuilder);
     }
     
     private void testPairingValidOnEmptyHistory(PairBuilder pairBuilder) {

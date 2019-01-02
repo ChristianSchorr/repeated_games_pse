@@ -16,7 +16,6 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 public class CooperationConsideringPairBuilder implements PairBuilder {
     
     private PairBuilder randomPairBuilder = new RandomPairBuilder();
-    
     private SimpleWeightedGraph<Agent, AgentPair> graph;
     private List<Agent> allAgents;
     private List<AgentPair> allPairs;
