@@ -28,7 +28,7 @@ public class PairBuilderTest {
     
     /**
      * Tests the standard implementations of the {@link PairBuilder}, namely the {@link RandomPairBuilder},
-     * the {@link CooperationConsideringPairBuilder} and {@link RandomCooperationConsideringPairBuilder}. 
+     * the {@link CooperationConsideringPairBuilder} and the {@link RandomCooperationConsideringPairBuilder}. 
      */
     @Test
     public void testStandardImplementations() {

@@ -54,7 +54,7 @@ public class SimulationEngine {
         adaptionsteps = 0;
         equilibriumReached = false;
         
-        int printCounter = 1;
+        printCounter = 1;
         
         while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
@@ -97,14 +97,7 @@ public class SimulationEngine {
     }
     
     private IterationResult createResult() {
-        double efficiency = 0;
-        for (Agent a: agents) {
-            for (Agent b: agents) {
-                if (a == b) continue;
-                efficiency += a.getStrategy().getCooperationProbability(a, b, history);
-            }
-        }
-        efficiency /= agents.size() * (agents.size() - 1);
+        double efficiency = calculateEfficiency();
         return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps);
     }
     
@@ -114,6 +107,18 @@ public class SimulationEngine {
         boolean p1Cooperates = p1.getStrategy().isCooperative(p1, p2, history);
         boolean p2Cooperates = p2.getStrategy().isCooperative(p2, p1, history);
         history.addResult(configuration.getGame().play(p1, p2, p1Cooperates, p2Cooperates));
+    }
+    
+    private double calculateEfficiency() {
+        double efficiency = 0.0;
+        for (Agent a: agents) {
+            for (Agent b: agents) {
+                if (a == b) continue;
+                efficiency += a.getStrategy().getCooperationProbability(a, b, history);
+            }
+        }
+        efficiency /= agents.size() * (agents.size() - 1);
+        return efficiency;
     }
     
     private void printStepInfo() {
@@ -134,6 +139,10 @@ public class SimulationEngine {
                 allMixed = false;
             strategies.add(agent.getStrategy());
         }
+        
+        //formatters for output
+        NumberFormat percentFormatter = new DecimalFormat("#0.00");
+        NumberFormat rankFormatter = new DecimalFormat("#0.0");
         
         if (allMixed) {
             List<MixedStrategy> mixedStrategies = new ArrayList<MixedStrategy>();
@@ -174,8 +183,6 @@ public class SimulationEngine {
             //print strategy composition and mean ranks
             List<Strategy> sortedStrategies = new ArrayList<Strategy>(pureStrategies);
             sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
-            NumberFormat percentFormatter = new DecimalFormat("#0.00");
-            NumberFormat rankFormatter = new DecimalFormat("#0.0");
             for (Strategy strategy: sortedStrategies) {
                 System.out.println(String.format("strategy %-20s: %7s | mean rank: %6s",
                         strategy.getName(), percentFormatter.format(stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%",
@@ -192,7 +199,7 @@ public class SimulationEngine {
                 meanStratDistance += strat.clone().add(minusStratSample).getSumNorm();
             }
             meanStratDistance /= (double) 2 * (agents.size() - 1);
-            System.out.println(String.format("mean strategy distance = %s", percentFormatter.format(meanStratDistance)));
+            System.out.println(String.format("mean strategy distance: %s", percentFormatter.format(meanStratDistance)));
         } else {
             //calculate strategy composition
             Map<Strategy, Integer> stratCounts = new HashMap<Strategy, Integer>();
@@ -217,11 +224,9 @@ public class SimulationEngine {
                 meanRank[i] = strategyRankingSum[i] / strategySum[i];
             }
             
-            //print strategy composition
+            //print strategy composition and mean ranks
             List<Strategy> sortedStrategies = new ArrayList<Strategy>(stratCounts.keySet());
             sortedStrategies.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
-            NumberFormat percentFormatter = new DecimalFormat("#0.00");
-            NumberFormat rankFormatter = new DecimalFormat("#0.0");
             for (Strategy strategy: sortedStrategies) {
                 System.out.println(String.format("strategy %-20s: %7s | mean rank: %6s",
                         strategy.getName(), percentFormatter.format((double) stratCounts.get(strategy) / (double) agents.size() * 100.0) + "%",
@@ -229,6 +234,7 @@ public class SimulationEngine {
                         ));
             }
         }
+        System.out.println(String.format("efficiency: %s", percentFormatter.format(calculateEfficiency())));
     }
     
 }

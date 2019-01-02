@@ -36,13 +36,15 @@ public class SimulationEngineTest {
 
     @Test
     public void testOneSegment() {
-        int agentCount = 70;
+        int agentCount = 50;
         int roundCount  = 200;
         int maxAdapts = 100000;
         PairBuilder pairBuilder = new RandomPairBuilder();
-        SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
+        SuccessQuantifier successQuantifier = new TotalCapital();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
-        EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(0.005, 50);
+        int G = 50;
+        double alpha = 0.005;
+        EquilibriumCriterion equilibriumCriterion = new RankingEquilibrium(alpha, G);
         Game game = ConcreteGame.prisonersDilemma();
         boolean mixedStrategies = true;
         
@@ -64,7 +66,16 @@ public class SimulationEngineTest {
         
         //execute
         IterationResult result = this.engine.executeIteration(configuration);
-        System.out.println("efficiency: " + result.getEfficiency());
+        
+        //test iteration result
+        assertTrue(result != null);
+        assertTrue(result.getAgents().size() == agentCount);
+        assertTrue((0 <= result.getEfficiency()) && (result.getEfficiency() <= 1));
+        assertTrue(result.getAdapts() <= maxAdapts);
+        if (!result.equilibriumReached())
+            assertTrue(result.getAdapts() == maxAdapts);
+        assertTrue(result.getAdapts() >= G);
+        assertTrue(result.getHistory() != null);
     }
     
     //@Test
