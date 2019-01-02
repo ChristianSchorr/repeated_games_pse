@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import loop.model.simulationengine.Agent;
 import loop.model.simulationengine.AgentPair;
 import loop.model.simulationengine.ConcreteAgentPair;
+import loop.model.simulationengine.GameResult;
 import loop.model.simulationengine.SimulationHistory;
 
 /**
@@ -68,6 +69,26 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     }
     
     /**
+     * Returns an instance of the {@link PureStrategy} class representing the tit-for-tat strategy, where instead
+     * of looking at the last game between the player and the opponent the last game between the opponent and an
+     * agent of the same (cohesive) group as the player is considered. if the player is part of a non-cohesive group,
+     * this strategy leads to the same results as the common tit-for-tat strategy.
+     * 
+     * @return an instance of the {@link PureStrategy} class representing the group tit-for-tat strategy
+     */
+    public static PureStrategy groupTitForTat() {
+        BiPredicate<AgentPair, GameResult> relevantResult = (pair, result) -> 
+                result.hasAgent(pair.getSecondAgent())
+                && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
+        
+        return new PureStrategy(
+                "group tit-for-tat", "-", (pair, history) ->
+                toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result)))
+                .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()))
+                );
+    }
+    
+    /**
      * Returns an instance of the {@link PureStrategy} class representing the grim strategy.
      * 
      * @return an instance of the {@link PureStrategy} class representing the grim strategy
@@ -76,6 +97,26 @@ public class PureStrategy implements Strategy, java.io.Serializable {
         return new PureStrategy(
                 "grim", "-", (pair, history) ->
                 history.getAllWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent()))
+                .stream().allMatch((result) -> result.hasCooperated(pair.getSecondAgent()))
+                );
+    }
+    
+    /**
+     * Returns an instance of the {@link PureStrategy} class representing the grim strategy, where instead
+     * of looking at the last game between the player and the opponent the last game between the opponent and an
+     * agent of the same (cohesive) group as the player is considered. if the player is part of a non-cohesive group,
+     * this strategy leads to the same results as the common grim strategy.
+     * 
+     * @return an instance of the {@link PureStrategy} class representing the group grim strategy
+     */
+    public static PureStrategy groupGrim() {
+        BiPredicate<AgentPair, GameResult> relevantResult = (pair, result) -> 
+                result.hasAgent(pair.getSecondAgent())
+                && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
+        
+        return new PureStrategy(
+                "group grim", "-", (pair, history) ->
+                history.getAllWhere((result) -> relevantResult.test(pair, result))
                 .stream().allMatch((result) -> result.hasCooperated(pair.getSecondAgent()))
                 );
     }

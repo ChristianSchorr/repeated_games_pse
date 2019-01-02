@@ -28,7 +28,7 @@ public class PairBuilderTest {
     
     /**
      * Tests the standard implementations of the {@link PairBuilder}, namely the {@link RandomPairBuilder},
-     * the {@link CooperationConsideringPairBuilder} and {@link RandomCooperationConsideringPairBuilder}. 
+     * the {@link CooperationConsideringPairBuilder} and the {@link RandomCooperationConsideringPairBuilder}. 
      */
     @Test
     public void testStandardImplementations() {
@@ -42,8 +42,11 @@ public class PairBuilderTest {
         testPairingValidOnEmptyHistory(coopConsideringPairBuilder);
         testPairingValidOnNonEmptyHistory(coopConsideringPairBuilder);
         
-        
         //random cooperation considering pair builder
+        double randomness = 0.5;
+        PairBuilder randomCoopConsideringPairBuilder = new RandomCooperationConsideringPairBuilder(randomness);
+        testPairingValidOnEmptyHistory(randomCoopConsideringPairBuilder);
+        testPairingValidOnNonEmptyHistory(randomCoopConsideringPairBuilder);
     }
     
     private void testPairingValidOnEmptyHistory(PairBuilder pairBuilder) {

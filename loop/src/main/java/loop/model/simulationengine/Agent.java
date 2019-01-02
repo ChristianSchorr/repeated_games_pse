@@ -80,6 +80,18 @@ public class Agent {
     }
     
     /**
+     * Return whether this agent and the given one are group affiliated, i.e. both are member of
+     * the same cohesive group.
+     * 
+     * @param otherAgent the other agent
+     * @return whether this agent and the given one are group affiliated
+     */
+    public boolean isGroupAffiliated(Agent otherAgent) {
+        if (otherAgent == this) return true;
+        return (otherAgent.getGroupId() != -1 && otherAgent.getGroupId() == this.groupId);
+    }
+    
+    /**
      * Returns a copy of this agent.
      * 
      * @return a copy of this agent

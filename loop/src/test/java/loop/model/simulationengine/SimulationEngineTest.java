@@ -35,11 +35,55 @@ public class SimulationEngineTest {
     }
 
     @Test
-    public void test() {
+    public void testOneSegment() {
         int agentCount = 50;
-        int roundCount  = 50;
+        int roundCount  = 200;
         int maxAdapts = 100000;
-        PairBuilder pairBuilder = new CooperationConsideringPairBuilder();
+        PairBuilder pairBuilder = new RandomPairBuilder();
+        SuccessQuantifier successQuantifier = new TotalCapital();
+        StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
+        int G = 50;
+        double alpha = 0.005;
+        EquilibriumCriterion equilibriumCriterion = new RankingEquilibrium(alpha, G);
+        Game game = ConcreteGame.prisonersDilemma();
+        boolean mixedStrategies = true;
+        
+        //engine segments
+        DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 0);
+        
+        UniformFiniteDistribution<Strategy> strategyDistribution = new UniformFiniteDistribution<Strategy>();
+        strategyDistribution.addObject(PureStrategy.alwaysCooperate());
+        strategyDistribution.addObject(PureStrategy.neverCooperate());
+        strategyDistribution.addObject(PureStrategy.titForTat());
+        strategyDistribution.addObject(PureStrategy.grim());
+        
+        EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
+        List<EngineSegment> segments = new ArrayList<EngineSegment>();
+        segments.add(segment);
+        
+        Configuration configuration = new Configuration(game, roundCount, mixedStrategies, segments, pairBuilder,
+                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts);
+        
+        //execute
+        IterationResult result = this.engine.executeIteration(configuration);
+        
+        //test iteration result
+        assertTrue(result != null);
+        assertTrue(result.getAgents().size() == agentCount);
+        assertTrue((0 <= result.getEfficiency()) && (result.getEfficiency() <= 1));
+        assertTrue(result.getAdapts() <= maxAdapts);
+        if (!result.equilibriumReached())
+            assertTrue(result.getAdapts() == maxAdapts);
+        assertTrue(result.getAdapts() >= G);
+        assertTrue(result.getHistory() != null);
+    }
+    
+    //@Test
+    public void testTwoGroups() {
+        int agentCount = 50;
+        int roundCount  = 200;
+        int maxAdapts = 100000;
+        PairBuilder pairBuilder = new RandomPairBuilder();
         SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
         EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(0.005, 50);
