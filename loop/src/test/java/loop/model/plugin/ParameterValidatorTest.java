@@ -13,13 +13,14 @@ import org.junit.Test;
  */
 public class ParameterValidatorTest {
 	public Parameter p1, p2;
+	final static double tolerance = 0.1e-8;	//floating point precision
 	
 	/**
 	 * Initialize two parameters used in the tests
 	 */
 	@Before
 	public void setUp() {
-		p1 = new Parameter(3, 7, 0.1, "test", "test");
+		p1 = new Parameter(1, 7, 0.1, "test", "test");
 		p2 = new Parameter(0, 2, "test", "test");
 	}
 	
@@ -45,14 +46,14 @@ public class ParameterValidatorTest {
 	@Test
 	public void testGetClosest() {
 		//Tests for p1
-		assertTrue(ParameterValidator.getClosestValid(8, p1) == 7);
-		assertTrue(ParameterValidator.getClosestValid(5.5, p1) == 5.5);
-		assertTrue(ParameterValidator.getClosestValid(2.378, p1) == 2.4);
-		assertTrue(ParameterValidator.getClosestValid(2.35, p1) == 2.3);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(5.5, p1) - 5.5) < tolerance);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(8, p1) - 7) < tolerance);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(2.378, p1) - 2.4) < tolerance);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(2.35, p1) - 2.3) < tolerance);
 		
 		//Tests for p2
-		assertTrue(ParameterValidator.getClosestValid(8, p2) == 2);
-		assertTrue(ParameterValidator.getClosestValid(-14, p2) == 0);
-		assertTrue(ParameterValidator.getClosestValid(1.378, p1) == 1.378);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(8, p2) - 2) < tolerance);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(-14, p2) - 0) < tolerance);
+		assertTrue(Math.abs(ParameterValidator.getClosestValid(1.378, p2) - 1.378) < tolerance);		
 	}
 }

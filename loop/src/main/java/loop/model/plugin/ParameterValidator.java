@@ -8,6 +8,7 @@ package loop.model.plugin;
  *
  */
 public class ParameterValidator {
+	final static double tolerance = 0.1e-8;	//floating point precision
 
 	/**
 	 * Checks if the given value is a valid assignment for the given parameter
@@ -26,8 +27,8 @@ public class ParameterValidator {
 				return true;
 			}
 			else {								//checks if valid for given granularity
-				for(double i = min; i <= max; i += step) {
-					if (i == val) {
+				for(double i = min; i <= max; i = Double.sum(i, step)) {
+					if (Math.abs(i - val) < tolerance) {
 						return true;
 					}
 				}
