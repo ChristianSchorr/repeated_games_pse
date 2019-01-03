@@ -12,7 +12,7 @@ import org.junit.Test;
  *
  */
 public class ParameterValidatorTest {
-	public Parameter p1, p2;
+	private Parameter p1, p2;
 	final static double tolerance = 0.1e-8;	//floating point precision
 	
 	/**
