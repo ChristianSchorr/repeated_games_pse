@@ -31,4 +31,7 @@ dependencies {
     
     //graph library for pair builders
     implementation 'org.jgrapht:jgrapht-core:1.3.0'
+    
+    //complements the Java FX distribution
+    implementation 'org.controlsfx:controlsfx:9.0.0'
 }
