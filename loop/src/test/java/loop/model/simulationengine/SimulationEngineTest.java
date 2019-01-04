@@ -40,11 +40,11 @@ public class SimulationEngineTest {
         int roundCount  = 200;
         int maxAdapts = 100000;
         PairBuilder pairBuilder = new RandomPairBuilder();
-        SuccessQuantifier successQuantifier = new TotalCapital();
+        SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
         int G = 50;
         double alpha = 0.005;
-        EquilibriumCriterion equilibriumCriterion = new RankingEquilibrium(alpha, G);
+        EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(alpha, G);
         Game game = ConcreteGame.prisonersDilemma();
         boolean mixedStrategies = true;
         
