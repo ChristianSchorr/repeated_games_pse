@@ -62,7 +62,7 @@ public class SimulationEngineTest {
         segments.add(segment);
         
         Configuration configuration = new Configuration(game, roundCount, mixedStrategies, segments, pairBuilder,
-                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts);
+                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, -1);
         
         //execute
         IterationResult result = this.engine.executeIteration(configuration);
@@ -104,7 +104,7 @@ public class SimulationEngineTest {
         segments.add(segment);
         
         Configuration configuration = new Configuration(game, roundCount, mixedStrategies, segments, pairBuilder,
-                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts);
+                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, -1);
         
         //execute
         IterationResult result = this.engine.executeIteration(configuration);

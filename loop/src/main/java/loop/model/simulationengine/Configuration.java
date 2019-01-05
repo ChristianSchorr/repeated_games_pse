@@ -29,6 +29,7 @@ public class Configuration {
     private StrategyAdjuster strategyAdjuster;
     private EquilibriumCriterion equilibriumCriterion;
     private int maxAdapts;
+    private int totalIterations;
     
     /**
      * Creates a new configuration with the given parameters.
@@ -45,7 +46,7 @@ public class Configuration {
      */
     public Configuration(Game game, int roundCount, boolean mixedAllowed, List<EngineSegment> segments, PairBuilder pairBuilder,
             SuccessQuantifier successQuantifier, StrategyAdjuster strategyAdjuster, EquilibriumCriterion equilibriumCriterion,
-            int maxAdapts) {
+            int maxAdapts, int totalIterations) {
         this.game = game;
         this.roundCount = roundCount;
         this.mixedAllowed = mixedAllowed;
@@ -55,6 +56,7 @@ public class Configuration {
         this.strategyAdjuster = strategyAdjuster;
         this.equilibriumCriterion = equilibriumCriterion;
         this.maxAdapts = maxAdapts;
+        this.totalIterations = totalIterations;
     }
     
     /**
@@ -136,5 +138,14 @@ public class Configuration {
      */
     public int getMaxAdapts() {
         return this.maxAdapts;
+    }
+    
+    /**
+     * Returns the total count of iterations in this configuration
+     * 
+     * @return the total count of iterations in this configuration
+     */
+    public int getTotalIterations() {
+    	return totalIterations;
     }
 }
