@@ -205,6 +205,10 @@ public class ThreadPoolSimulator implements Simulator {
 			iterationsLeft = new ArrayList<Integer>();
 				
 			List<Configuration> configs = buffer.peekAllConfigurations();
+			for (Configuration config: configs) {
+				totalIterationsLeft += config.getTotalIterations();
+				iterationsLeft.add(config.getTotalIterations());
+			}
 		}
 
 		private Configuration getNextConfiguration() throws ConfigurationException {
@@ -212,12 +216,16 @@ public class ThreadPoolSimulator implements Simulator {
 				return null;
 			totalIterationsLeft--;
 			for (int i = 0; i < iterationsLeft.size(); i++) {
-				if (iterationsLeft.get(i) > 0 && buffer.hasConfiguration(i))
-					return buffer.getConfiguration(i);
+				if (iterationsLeft.get(i) > 0 && buffer.hasConfiguration(i)) {
+					iterationsLeft.set(i, iterationsLeft.get(i) - 1);
+					return buffer.getConfiguration(i);					
+				}
 			}
 			for (int i = 0; i < iterationsLeft.size(); i++) {
-				if (iterationsLeft.get(i) > 0)
+				if (iterationsLeft.get(i) > 0) {
+					iterationsLeft.set(i, iterationsLeft.get(i) - 1);					
 					return buffer.getConfiguration(i);
+				}
 			}
 			return null;
 		}
