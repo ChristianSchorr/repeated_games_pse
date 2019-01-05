@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -48,25 +49,6 @@ public class DetailedOutputController {
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
-    
-    /*-----------------title-----------------*/
-    
-    @FXML
-    private Label gameNameLabel;
-    
-    @FXML
-    private Label gameIdLabel;
-    
-    /*-----------------header line-----------------*/
-    
-    @FXML
-    private Label exitConditionLabel;
-    
-    @FXML
-    private Label multiconfigurationLabel;
-    
-    @FXML
-    private Label multiconfigurationParameterNameLabel;
     
     /*-----------------slider line-----------------*/
     
@@ -112,20 +94,27 @@ public class DetailedOutputController {
     
     @FXML
     private RangeSlider consideredAgentsRangeSlider;
-    private int min;
-    private int max;
-    
-    /*-----------------navigation to other result pages-----------------*/
-    // TODO
-    /*------------------------------------------------------------------*/
+    private int minRankIndex; //minimal index of an agent in the list of all agents (increases as max decreases)
+    private int maxRankIndex; //maximal index of an agent in the list of all agents (increases as min decreases)
     
     /**
      * Called by the FXMLLoader when initialization is complete
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        this.iterationSlider.setSnapToTicks(true);
+        this.iterationSlider.setMajorTickUnit(1);
+        this.iterationSlider.setMinorTickCount(0);
+        this.iterationSlider.setShowTickLabels(false);
+        this.iterationSlider.setShowTickMarks(true);
         this.iterationSlider.setMin(1);
-        //TODO
+        
+        this.configSlider.setSnapToTicks(true);
+        this.configSlider.setMajorTickUnit(1);
+        this.configSlider.setMinorTickCount(0);
+        this.configSlider.setShowTickLabels(false);
+        this.configSlider.setShowTickMarks(true);
+        this.configSlider.setMin(1);
     }
     
     /**
@@ -136,22 +125,30 @@ public class DetailedOutputController {
     public void setDisplayedResult(SimulationResult result) {
         this.displayedResult = result;
         this.config = result.getUserConfiguration();
+        
+        this.iterationSlider.setMax(config.getIterationCount());
+        this.configSlider.setMax(config.getParameterValues().size());
+        
+        /*this.consideredAgentsRangeSlider.highValueProperty().addListener((source, oldHigh, newHigh) -> {
+            updateRankIndices(minPercent, newHigh.intValue());
+            if (minRankIndex >= maxRankIndex) {
+                this.consideredAgentsRangeSlider.setHighValue(oldHigh.doubleValue());
+                updateRankIndices(minPercent, maxPercent);
+            } else {
+                maxPercent = newHigh.intValue();
+            }
+            updateCharts();
+        });*/
+        
         update();
     }
+    
+    /*-----------------------------------------------update methods-----------------------------------------------*/
     
     /**
      * Updates the whole output window.
      */
     public void update() {
-        //update local variables from user input
-        updateLocalVariables();
-        
-        //title
-        updateTitle();
-        
-        //header line
-        updateHeaderLine();
-        
         //slider line
         updateSliders();
         
@@ -160,31 +157,6 @@ public class DetailedOutputController {
         
         //pie and bar chart
         updateCharts();
-    }
-    
-    private void updateLocalVariables() {
-        this.selectedIterationNumber = this.iterationSlider.valueProperty().intValue();
-        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() : 0;
-        this.meanOverAllIterations = this.meanOverAllIterationsCheckbox.isSelected();
-        this.min = this.consideredAgentsRangeSlider.lowValueProperty().intValue();
-        this.max = this.consideredAgentsRangeSlider.highValueProperty().intValue();
-        
-        this.selectedIteration = this.meanOverAllIterations ? null
-                : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
-    }
-    
-    private void updateTitle() {
-        this.gameNameLabel.setText(config.getGameName());
-        this.gameIdLabel.setText(String.format("#%03s", this.displayedResult.getId()));
-    }
-    
-    private void updateHeaderLine() {
-        this.exitConditionLabel.setText(config.getEquilibriumCriterionName());
-        
-        this.multiconfigurationLabel.setText(config.isMulticonfiguration() ? "Yes" : "No");
-        
-        this.multiconfigurationParameterNameLabel.setVisible(config.isMulticonfiguration());
-        this.multiconfigurationParameterNameLabel.setText("Multiconfiguration Parameter: " + config.getVariableParameterName());
     }
     
     private void updateSliders() {
@@ -240,22 +212,18 @@ public class DetailedOutputController {
         
         List<Strategy> strategies = new ArrayList<Strategy>();
         
-        //minimal/maximal index of an agent in the list of all agents (increases as max/min decreases)
-        int minIndex = (int) Math.floor((1 - max) * config.getAgentCount());
-        int maxIndex = config.getAgentCount() - 1 - (int) Math.floor(min * config.getAgentCount());
-        
         if (this.meanOverAllIterations) {
             List<IterationResult> iterations = this.displayedResult.getIterationResults(selectedConfigurationNumber);
             
             for (IterationResult it: iterations) {
                 for (Agent a: it.getAgents()) {
-                    if (minIndex <= it.getAgents().indexOf(a) && it.getAgents().indexOf(a) <= maxIndex)
+                    if (minRankIndex <= it.getAgents().indexOf(a) && it.getAgents().indexOf(a) <= maxRankIndex)
                         strategies.add(a.getStrategy());
                 }
             }
         } else {
             for (Agent a: this.selectedIteration.getAgents()) {
-                if (minIndex <= selectedIteration.getAgents().indexOf(a) && selectedIteration.getAgents().indexOf(a) <= maxIndex)
+                if (minRankIndex <= selectedIteration.getAgents().indexOf(a) && selectedIteration.getAgents().indexOf(a) <= maxRankIndex)
                     strategies.add(a.getStrategy());
             }
         }
@@ -372,7 +340,10 @@ public class DetailedOutputController {
         if (groups.stream().anyMatch(group -> !group.isCohesive()))
             groupHistograms.put("Groupless Agents", new int[binCount]);
         
-        groupCapitals.forEach((s, dist) -> dist.forEach((cap, agents) -> groupHistograms.get(s)[binIndex(binWidth, cap, minCapital)] += agents));
+        groupCapitals.forEach((s, dist) -> dist.forEach((cap, agents) -> {
+            if (cap < minCapital || maxCapital < cap) return;
+            groupHistograms.get(s)[binIndex(binWidth, cap, minCapital)] += agents;
+        }));
         
         //calculate mean of each bin for labeling
         int[] histogramLabels = new int[binCount];
@@ -412,6 +383,51 @@ public class DetailedOutputController {
         return index;
     }
     
-    //TODO: handler methoden für buttons etc.
-    //in handler für range slider verschiebung: wenn kein agent mehr den range constraint erfüllt änderung rückgängig machen
+    /*-----------------------------------------------event handlers-----------------------------------------------*/
+    
+    @FXML
+    private void handleIterationSlider(ActionEvent event) {
+        this.selectedIterationNumber = this.iterationSlider.valueProperty().intValue();
+        this.selectedIteration = this.meanOverAllIterations ? null
+                : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
+        
+        updateDescription();
+        updateCharts();
+    }
+    
+    @FXML
+    private void handleConfigurationSlider(ActionEvent event) {
+        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() : 0;
+        this.selectedIteration = this.meanOverAllIterations ? null
+                : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
+        
+        updateSliders();
+        updateDescription();
+        updateCharts();
+    }
+    
+    @FXML
+    private void handleMeanOverAllIterationsCheckbox(ActionEvent event) {
+        this.meanOverAllIterations = this.meanOverAllIterationsCheckbox.isSelected();
+        this.selectedIteration = this.meanOverAllIterations ? null
+                : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
+        
+        updateDescription();
+        updateCharts();
+    }
+    
+    @FXML
+    private void handleRangeSlider(ActionEvent event) {
+        int minPercent = (int) this.consideredAgentsRangeSlider.getLowValue();
+        int maxPercent = (int) this.consideredAgentsRangeSlider.getHighValue();
+        updateRankIndices(minPercent, maxPercent);
+        
+        updateCharts();
+    }
+    
+    private void updateRankIndices(int minPercent, int maxPercent) {
+        minRankIndex = (int) Math.floor((1 - maxPercent) * config.getAgentCount());
+        maxRankIndex = config.getAgentCount() - 1 - (int) Math.floor(minPercent * config.getAgentCount());
+    }
+    
 }
