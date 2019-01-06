@@ -15,11 +15,11 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import loop.model.Group;
+import loop.model.simulationengine.IterationResult;
 
 /**
  * This class represents the controller responsible for the abstracted output of a simulation’s
- * result (Page 2 in the output described in the “Pichtenheft”).
+ * result (Page 2 in the output described in the “Pflichtenheft”).
  * 
  * @author Peter Koepernik
  *
@@ -135,7 +135,7 @@ public class AbstractedOutputController {
     }
     
     private void updateEfficiencyChart() {
-      //setup the diagram
+        //setup the diagram
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
@@ -145,13 +145,8 @@ public class AbstractedOutputController {
         
         //calculate histogram
         List<Double> efficiencies = new ArrayList<Double>();
-        displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(it -> {
-            switch (this.consideredIterationsComboBox.getValue()) {
-                case ALL: return true;
-                case ONLY_EQUI: return it.equilibriumReached();
-                default: return !it.equilibriumReached();
-            }
-        }).forEach(it -> efficiencies.add(it.getEfficiency()));
+        displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
+                it -> filterIteration(it)).forEach(it -> efficiencies.add(it.getEfficiency()));
         Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 1);
         
         //update chart
@@ -175,13 +170,8 @@ public class AbstractedOutputController {
         
         //calculate histogram
         List<Integer> steps = new ArrayList<Integer>();
-        displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(it -> {
-            switch (this.consideredIterationsComboBox.getValue()) {
-                case ALL: return true;
-                case ONLY_EQUI: return it.equilibriumReached();
-                default: return !it.equilibriumReached();
-            }
-        }).forEach(it -> steps.add(it.getAdapts()));
+        displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
+                it -> filterIteration(it)).forEach(it -> steps.add(it.getAdapts()));
         Map<String, Integer> hist = ChartUtils.createHistogram(steps, NUMBER_OF_BINS, CUTOFF, false);
         
         //update chart
@@ -194,7 +184,15 @@ public class AbstractedOutputController {
         this.meanExecutedAdaptsLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(0).format(mean)));
     }
     
-/*-----------------------------------------------event handlers-----------------------------------------------*/
+    private boolean filterIteration(IterationResult it) {
+        switch (this.consideredIterationsComboBox.getValue()) {
+            case ALL: return true;
+            case ONLY_EQUI: return it.equilibriumReached();
+            default: return !it.equilibriumReached();
+        }
+    }
+    
+    /*-----------------------------------------------event handlers-----------------------------------------------*/
     
     @FXML
     private void handleConfigurationSlider(ActionEvent event) {

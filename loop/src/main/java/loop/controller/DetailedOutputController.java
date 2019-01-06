@@ -1,15 +1,11 @@
 package loop.controller;
 
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,7 +84,7 @@ public class DetailedOutputController {
     private PieChart strategyChart;
     
     @FXML
-    private BarChart<Number, Number> capitalDiagram;
+    private BarChart<String, Number> capitalDiagram;
     private static final int NUMBER_OF_BINS = 15;
     private static final double CUTOFF = 0.05; //cuts off x% to the right and left of the distribution
     
@@ -187,8 +183,7 @@ public class DetailedOutputController {
             meanEfficiency /= config.getIterationCount();
             this.exitDescriptionLabel.setText(String.format("Equilibrium reached in %d% of all simulations, on average %d executed adaption steps.",
                     (int) 100 * equilibriumPortion, (int) meanAdapts));
-            NumberFormat formatter = new DecimalFormat("#0.00");
-            this.efficiencyLabel.setText(String.format("Mean efficiency of final state: ", formatter.format(meanEfficiency)));
+            this.efficiencyLabel.setText(String.format("Mean efficiency of final state: ", ChartUtils.decimalFormatter(2).format(meanEfficiency)));
             
             
         } else {
@@ -196,8 +191,7 @@ public class DetailedOutputController {
                     this.selectedIteration.equilibriumReached()
                     ? "Equilibrium reached after " + this.selectedIteration.getAdapts() + " adaption steps."
                     : "No equilibrium reached, cancelled simulation after " + this.selectedIteration.getAdapts() + " adaption steps.");
-            NumberFormat formatter = new DecimalFormat("#0.00");
-            this.efficiencyLabel.setText(String.format("Efficiency of final state: ", formatter.format(this.selectedIteration.getEfficiency())));
+            this.efficiencyLabel.setText(String.format("Efficiency of final state: ", ChartUtils.decimalFormatter(2).format(this.selectedIteration.getEfficiency())));
         }
     }
     
@@ -280,107 +274,58 @@ public class DetailedOutputController {
     
     private void updateCapitalChart() {
         //setup the diagram
-        final NumberAxis xAxis = new NumberAxis();
+        final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        capitalDiagram = new BarChart<Number, Number>(xAxis, yAxis);
+        capitalDiagram = new BarChart<String, Number>(xAxis, yAxis);
         capitalDiagram.setTitle("Capital Distribution");
         xAxis.setLabel("Capital");
         yAxis.setLabel("Agent Count");
         
-        //calculate capital distribution
-        Map<String, Map<Integer, Integer>> groupCapitals = new HashMap<String, Map<Integer, Integer>>(); //maps group names to capital distributions
+        //collect capital values of all relevant agents, sorted after their groups
+        Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
         List<Group> groups = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroups();
-        for (Group group: groups) {
-            if (group.isCohesive())
-                groupCapitals.put(group.getName(), new HashMap<Integer, Integer>());
-        }
+        groups.stream().filter(group -> group.isCohesive()).forEach((group) ->  groupCapitals.put(group.getName(), new ArrayList<Integer>()));
         if (groups.stream().anyMatch(group -> !group.isCohesive()))
-            groupCapitals.put("Groupless Agents", new HashMap<Integer, Integer>());
+            groupCapitals.put("Groupless Agents", new ArrayList<Integer>());
         
-        Set<Integer> allCapitals = new HashSet<Integer>();
-        if (this.meanOverAllIterations) {
-            for (IterationResult it: displayedResult.getIterationResults(selectedConfigurationNumber)) {
-                for (Agent a: it.getAgents()) {
-                    Map<Integer, Integer> dist = (a.getGroupId() != -1) ? groupCapitals.get(groups.get(a.getGroupId()).getName())
-                                                                        : groupCapitals.get("Groupless Agents");
-                    if (!dist.containsKey(a.getCapital()))
-                        dist.put(a.getCapital(), 0);
-                    dist.put(a.getCapital(), dist.get(a.getCapital()) + 1);
-                    
-                    allCapitals.add(a.getCapital());
-                }
-            }
-            //normalize
-            groupCapitals.forEach((s, map) -> map.forEach((cap, agents) -> map.replace(cap, agents / config.getIterationCount())));
+        if (meanOverAllIterations) {
+            //cohesive groups
+            displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
+                    it -> it.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
+                            a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital())));
+            //groupless agents
+            displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
+                    it -> it.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
+                            a -> groupCapitals.get("Groupless Agents").add(a.getCapital())));
         } else {
-            for (Agent a: this.selectedIteration.getAgents()) {
-                Map<Integer, Integer> dist = (a.getGroupId() != -1) ? groupCapitals.get(groups.get(a.getGroupId()).getName())
-                                                                    : groupCapitals.get("Groupless Agents");
-                if (!dist.containsKey(a.getCapital()))
-                    dist.put(a.getCapital(), 0);
-                dist.put(a.getCapital(), dist.get(a.getCapital()) + 1);
-                
-                allCapitals.add(a.getCapital());
-            }
+            //cohesive groups
+            selectedIteration.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
+                    a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital()));
+            //groupless agents
+            selectedIteration.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
+                    a -> groupCapitals.get("Groupless Agents").add(a.getCapital()));
         }
         
-        //create and fill bins
-        Integer[] sortedCapitals = allCapitals.stream().sorted().toArray(Integer[]::new);
-        int minCapital = sortedCapitals[(int) Math.floor(CUTOFF * sortedCapitals.length)];
-        int maxCapital = sortedCapitals[sortedCapitals.length - 1 - (int) Math.floor(CUTOFF * sortedCapitals.length)];
-        
-        int binWidth = (int) Math.ceil(((double) (maxCapital - minCapital)) / (double) NUMBER_OF_BINS);
-        int binCount = (int) Math.ceil(((double) (maxCapital - minCapital + 1)) / (double) binWidth);
-        
-        Map<String, int[]> groupHistograms = new HashMap<String, int[]>();
-        for (Group group: groups) {
-            if (group.isCohesive())
-                groupHistograms.put(group.getName(), new int[binCount]);
-        }
-        if (groups.stream().anyMatch(group -> !group.isCohesive()))
-            groupHistograms.put("Groupless Agents", new int[binCount]);
-        
-        groupCapitals.forEach((s, dist) -> dist.forEach((cap, agents) -> {
-            if (cap < minCapital || maxCapital < cap) return;
-            groupHistograms.get(s)[binIndex(binWidth, cap, minCapital)] += agents;
-        }));
-        
-        //calculate mean of each bin for labeling
-        int[] histogramLabels = new int[binCount];
-        int offset = (int) Math.round(((double) (binWidth - 1)) / 2.0);
-        for (int i = 0; i < binCount; i++) {
-            histogramLabels[i] = minCapital + i * binWidth + offset;
+        //create histograms
+        Map<String, Map<String, Integer>> groupHistograms = new HashMap<String, Map<String, Integer>>();
+        groupCapitals.forEach(
+                (groupName, capitals) -> groupHistograms.put(groupName, ChartUtils.createHistogram(capitals, NUMBER_OF_BINS, CUTOFF, true)));
+        if (meanOverAllIterations) { //normalize
+            groupHistograms.forEach((groupName, hist) -> hist.forEach((binLabel, value) -> value /= config.getIterationCount()));
         }
         
-        //create bar chart data
-        List<XYChart.Series<Number, Number>> groupData = new ArrayList<XYChart.Series<Number, Number>>();
-        for (Group group: groups) { //cohesive groups
-            if (!group.isCohesive()) continue;
-            
-            int[] histogram = groupHistograms.get(group.getName());
-            XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
-            series.setName(group.getName());
-            for (int i = 0; i < binCount; i++) {
-                series.getData().add(new XYChart.Data<Number, Number>(histogramLabels[i], histogram[i]));
-            }
-            groupData.add(series);
-        }
-        
-        XYChart.Series<Number, Number> grouplessSeries = new XYChart.Series<Number, Number>(); //groupless agents
-        grouplessSeries.setName("Groupless Agents");
-        for (int i = 0; i < binCount; i++) {
-            grouplessSeries.getData().add(new XYChart.Data<Number, Number>(histogramLabels[i], groupHistograms.get("Groupless Agents")[i]));
-        }
-        groupData.add(grouplessSeries);
+        //create histogram data
+        List<XYChart.Series<String, Number>> groupSeries = new ArrayList<XYChart.Series<String, Number>>();
+        groupHistograms.forEach(
+                (groupName, hist) -> { //includes the groupless agents
+                    XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+                    series.setName(groupName);
+                    hist.forEach((binLabel, value) -> series.getData().add(new XYChart.Data<String, Number>(binLabel, value)));
+                    groupSeries.add(series);
+                });
         
         //add data to bar chart
-        this.capitalDiagram.getData().addAll(groupData);
-    }
-    
-    private int binIndex(int binWidth, int number, int min) {
-        int index = 0;
-        while (number > min - 1 + (index + 1) * binWidth) index++;
-        return index;
+        capitalDiagram.getData().addAll(groupSeries);
     }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/
