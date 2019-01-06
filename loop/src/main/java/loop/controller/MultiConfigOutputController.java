@@ -9,7 +9,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
+import loop.model.UserConfiguration;
 import loop.model.simulationengine.IterationResult;
+import loop.model.simulator.SimulationResult;
 
 /**
  * This class represents the controller responsible for the output of a multi-simulations

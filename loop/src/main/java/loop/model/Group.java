@@ -69,7 +69,7 @@ public class Group implements Serializable, Nameable {
 	 * @param segment the segment whose relative size shall be returned
 	 * @return the relative size of the given Segment if it is part of this group, 0 otherwise
 	 */
-	public double getSegmentSizes(Segment segment) {
+	public double getSegmentSize(Segment segment) {
 		if (this.segments.contains(segment)) {
 			int segmentIndex = this.segments.indexOf(segment);
 			return this.segmentSizes.get(segmentIndex);

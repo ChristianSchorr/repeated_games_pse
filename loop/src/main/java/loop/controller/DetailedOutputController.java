@@ -20,10 +20,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import loop.model.Group;
+import loop.model.UserConfiguration;
+import loop.model.repository.CentralRepository;
 import loop.model.simulationengine.Agent;
 import loop.model.simulationengine.IterationResult;
 import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.Strategy;
+import loop.model.simulator.SimulationResult;
 
 import org.controlsfx.control.RangeSlider;
 

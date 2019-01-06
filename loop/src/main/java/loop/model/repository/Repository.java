@@ -20,7 +20,16 @@ public interface Repository<T> {
 	 * @return the entity with the given name if stored, {@code null} otherwise
 	 */
 	public T getEntityByName(String name);
-
+	
+	/**
+	 * Returns the entities with the given names in the order the names were given,
+	 * where {@code null} is used for each name not corresponding to a stored entity.
+	 * 
+	 * @param names the names of the desired entities
+	 * @return the entities with the given names
+	 */
+	public List<T> getEntitiesByNames(List<String> names);
+	
 	/**
 	 * Adds a new entity with the given name to the repository, if no entity with
 	 * the given name is already stored.

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import loop.model.UserConfiguration;
+import loop.model.simulator.SimulationResult;
 
 /**
  * This controller is responsible for displaying the results of finished simulations in the main

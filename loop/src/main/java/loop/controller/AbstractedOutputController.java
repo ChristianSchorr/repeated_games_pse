@@ -15,7 +15,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import loop.model.UserConfiguration;
 import loop.model.simulationengine.IterationResult;
+import loop.model.simulator.SimulationResult;
 
 /**
  * This class represents the controller responsible for the abstracted output of a simulation’s
@@ -98,8 +100,7 @@ public class AbstractedOutputController {
         this.displayedResult = result;
         this.config = result.getUserConfiguration();
         
-        this.configSlider.setMax(config.getParameterValues().size());
-        
+        this.configSlider.setMax(displayedResult.getConfigurationCount());
         update();
     }
     

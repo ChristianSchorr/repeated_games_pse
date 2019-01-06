@@ -37,6 +37,7 @@ public class UserConfiguration implements Serializable {
 	private int maxAdapts;
 	private boolean isMulticonfiguration;
 	private String variableParameterName;
+	private List<Double> parameterValues;
 	private double startValue;
 	private double endValue;
 	private double stepSize;
@@ -63,6 +64,8 @@ public class UserConfiguration implements Serializable {
 	 * @param isMulticonfiguration {@code true}, if this is a multiconfiguration, {@code false} otherwise
 	 * @param variableParameterName the name of the multiconfiguration parameter,
 	 * 		  if this is a multiconfiguration, "" otherwise
+	 * @param parameterValues the values of the multiconfiguration parameter, if this is multiconfiguration,
+	 *        {@code null} otherwise
 	 * @param startValue the starting value of the multiconfiguration parameter, if this is a 
 	 *        multiconfiguration, {@code 0} otherwise
 	 * @param endValue the end value of the multiconfiguration parameter, if this is a multiconfiguration,
@@ -74,7 +77,7 @@ public class UserConfiguration implements Serializable {
 			List<Double> pairBuilderParameters, String successQuantifierName, List<Double> successQuantifierParameters,
 			String strategyAdjusterName, List<Double> strategyAdjusterParameters, String equilibriumCriterionName,
 			List<Double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration,
-			String variableParameterName, double startValue, double endValue, double stepSize) {
+			String variableParameterName, List<Double> parameterValues, double startValue, double endValue, double stepSize) {
 		
 		this.gameName = gameName;
 		this.agentCount = agentCount;
@@ -94,6 +97,7 @@ public class UserConfiguration implements Serializable {
 		this.maxAdapts = maxAdapts;
 		this.isMulticonfiguration = isMulticonfiguration;
 		this.variableParameterName = variableParameterName;
+		this.parameterValues = parameterValues;
 		this.startValue = startValue;
 		this.endValue = endValue;
 		this.stepSize = stepSize;
@@ -107,7 +111,7 @@ public class UserConfiguration implements Serializable {
 	public static UserConfiguration getDefaultConfiguration() {
 		
 		UserConfiguration config = new UserConfiguration("", 100, 100, 10, null, false, "", "", null, "", null, "", null, "", null,
-														 100, false, "", 0,0,0);
+														 100, false, "", null, 0, 0, 0);
 		return config;
 	}
 	
@@ -255,6 +259,16 @@ public class UserConfiguration implements Serializable {
 	 */
 	public String getVariableParameterName() {
 		return variableParameterName;
+	}
+	
+	/**
+	 * Returns the values of the multiconfiguration parameter if this is a multiconfiguration,
+	 * {@code null} otherwise
+	 * @return the values of the multiconfiguration parameter if this is a multiconfiguration,
+     *         {@code null} otherwise
+	 */
+	public List<Double> getParameterValues() {
+	    return parameterValues;
 	}
 	
 	/**

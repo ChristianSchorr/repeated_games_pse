@@ -14,6 +14,7 @@ import java.util.List;
 public class Segment implements Serializable {
 	
 	private String capitalDistributionName;
+	private List<Double> capitalDistributionParameters;
 	private List<String> strategyNames;
 	
 	
@@ -23,8 +24,9 @@ public class Segment implements Serializable {
 	 * @param capitalDistributionName the name of the capital distribution of this segment
 	 * @param strategyNames the names of the strategies in the strategy distribution of this segment
 	 */
-	public Segment(String capitalDistributionName, List<String> strategyNames) {
+	public Segment(String capitalDistributionName, List<Double> capitalDistributionParameters, List<String> strategyNames) {
 		this.capitalDistributionName = capitalDistributionName;
+		this.capitalDistributionParameters = capitalDistributionParameters;
 		this.strategyNames = strategyNames;
 	}
 	
@@ -35,6 +37,15 @@ public class Segment implements Serializable {
 	 */
 	public String getCapitalDistributionName() {
 		return this.capitalDistributionName;
+	}
+	
+	/**
+	 * Returns the parameters of the capital distribution of this segment.
+	 * 
+	 * @return the parameters of the capital distribution of this segment
+	 */
+	public List<Double> getCapitalDistributionParameters() {
+	    return this.capitalDistributionParameters;
 	}
 	
 	/**

@@ -3,7 +3,10 @@ package loop.model.simulator;
 import java.util.ArrayList;
 import java.util.List;
 
+import loop.model.Group;
+import loop.model.Population;
 import loop.model.UserConfiguration;
+import loop.model.repository.CentralRepository;
 import loop.model.simulationengine.ConcreteGame;
 import loop.model.simulationengine.Configuration;
 import loop.model.simulationengine.EngineSegment;
@@ -48,18 +51,36 @@ public class ConfigurationCreator {
 	 */
 	public static List<Configuration> generateConfigurations(UserConfiguration config) throws ConfigurationException {
 		
-		int agentCount = 50;
-        int roundCount  = 200;
-        int maxAdapts = 100000;
-        PairBuilder pairBuilder = new RandomPairBuilder();
-        SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
-        StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
-        int G = 50;
-        double alpha = 0.005;
-        EquilibriumCriterion equilibriumCriterion = new StrategyEquilibrium(alpha, G);
-        Game game = ConcreteGame.prisonersDilemma();
-        boolean mixedStrategies = true;
+	    Game game = CentralRepository.getInstance().getGameRepository().getEntityByName(config.getGameName());
+	    int roundCount = config.getRoundCount();
+	    boolean mixedStrategies = config.getMixedAllowed();
+	    PairBuilder pairBuilder = CentralRepository.getInstance().getPairBuilderRepository()
+	            .getEntityByName(config.getPairBuilderName()).getNewInstance(config.getPairBuilderParameters());
+	    SuccessQuantifier successQuantifier = CentralRepository.getInstance().getSuccessQuantifiernRepository()
+	            .getEntityByName(config.getSuccessQuantifierName()).getNewInstance(config.getSuccessQuantifierParameters());
+	    StrategyAdjuster strategyAdjuster = CentralRepository.getInstance().getStrategyAdjusterRepository()
+	            .getEntityByName(config.getStrategyAdjusterName()).getNewInstance(config.getStrategyAdjusterParameters());
+	    EquilibriumCriterion equilibriumCriterion = CentralRepository.getInstance().getEquilibriumCriterionRepository()
+	            .getEntityByName(config.getEquilibriumCriterionName()).getNewInstance(config.getEquilibriumCriterionParameters());
+	    int maxAdapts = config.getMaxAdapts();
+	    
+	    //engine segments
+	    Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName());
+	    List<Group> groups = population.getGroups();
+	    List<EngineSegment> engineSegments = new ArrayList<EngineSegment>();
+	    groups.forEach(group -> group.getSegments().forEach(
+	                    seg -> engineSegments.add(new EngineSegment(
+	                        (int) (population.getGroupSize(group) * group.getSegmentSize(seg)),
+	                        group.isCohesive() ? groups.indexOf(group) : -1,
+	                        CentralRepository.getInstance().getDiscreteDistributionRepository()
+	                            .getEntityByName(seg.getCapitalDistributionName()).getNewInstance(seg.getCapitalDistributionParameters()),
+	                        new UniformFiniteDistribution<Strategy>(
+	                                CentralRepository.getInstance().getStrategyRepository().getEntitiesByNames(seg.getStrategyNames()))
+	                    ))));
         
+	    Configuration configuration = new Configuration(game, roundCount, mixedStrategies, engineSegments, pairBuilder,
+                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, config.getIterationCount());
+	    
         //engine segments
         DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 0);
         
@@ -69,11 +90,11 @@ public class ConfigurationCreator {
         strategyDistribution.addObject(PureStrategy.titForTat());
         strategyDistribution.addObject(PureStrategy.grim());
         
-        EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
+        EngineSegment segment = new EngineSegment(100, -1, capitalDistribution, strategyDistribution);
         List<EngineSegment> segments = new ArrayList<EngineSegment>();
         segments.add(segment);
         
-        Configuration configuration = new Configuration(game, roundCount, mixedStrategies, segments, pairBuilder,
+        configuration = new Configuration(game, roundCount, mixedStrategies, segments, pairBuilder,
                 successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, 16);
         List<Configuration> list = new ArrayList<Configuration>();
         list.add(configuration);

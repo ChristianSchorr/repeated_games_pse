@@ -23,6 +23,13 @@ public class HashMapRepository<T> implements Repository<T> {
 	}
 
 	@Override
+    public List<T> getEntitiesByNames(List<String> names) {
+        List<T> entities = new ArrayList<T>();
+	    names.forEach(name -> entities.add(getEntityByName(name)));
+	    return entities;
+    }
+	
+	@Override
 	public boolean addEntity(String name, T entity) {
 		if (repo.containsKey(name)) return false;
 		repo.put(name, entity);
