@@ -87,6 +87,15 @@ public class MixedStrategy implements Strategy, RealVector {
     }
     
     /**
+     * Returns a list of all probabilities (components of the vector this strategy represents).
+     * 
+     * @return a list of all probabilities
+     */
+    public List<Double> getComponents() {
+        return this.probabilities;
+    }
+    
+    /**
      * Returns the component strategies this mixed strategy consists of.
      * 
      * @return the component strategies this mixed strategy consists of
