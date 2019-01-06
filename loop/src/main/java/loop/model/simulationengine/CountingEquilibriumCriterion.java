@@ -20,6 +20,13 @@ public abstract class CountingEquilibriumCriterion implements EquilibriumCriteri
     
     @Override
     public boolean isEquilibrium(final List<Agent> agents, final SimulationHistory history) {
+        //check if first round
+        if (history.getResultsByAgent(agents.get(0)).size() == 1) {
+            this.lastRoundAgentsFlatCopy = null;
+            this.lastRoundAgentsDeepCopy = null;
+        }
+        
+        //check for equilibrium
         boolean isEquilibrium = false;
         if (this.lastRoundAgentsFlatCopy != null && this.lastRoundAgentsFlatCopy != null
                 && this.hasEquilibriumCondition(lastRoundAgentsFlatCopy, lastRoundAgentsDeepCopy, agents)) {
