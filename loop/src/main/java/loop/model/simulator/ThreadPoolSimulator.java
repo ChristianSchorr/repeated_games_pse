@@ -35,7 +35,7 @@ public class ThreadPoolSimulator implements Simulator {
 	private Queue<SimulatorTask> runningSimulations;
 	private ArrayList<SimulatorTask> finishingSimulations;
 	private ArrayList<SimulationResult> finishedSimulations;
-	
+
 	private static int nextSimulationId = 1;
 
 	/**
@@ -53,7 +53,7 @@ public class ThreadPoolSimulator implements Simulator {
 	 */
 	public ThreadPoolSimulator(int maxThreads) {
 		threadCount = maxThreads;
-		threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadCount);
+		threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 		runningSimulations = new LinkedList<ThreadPoolSimulator.SimulatorTask>();
 
 		finishedSimulations = new ArrayList<SimulationResult>();
@@ -74,11 +74,13 @@ public class ThreadPoolSimulator implements Simulator {
 
 		SimulatorTask task = new SimulatorTask(simResult, configBuffer, action);
 		runningSimulations.add(task);
-		scheduleNextIteration();
+		for (int i = 0; i < threadCount; i++) {
+			scheduleNextIteration();
+		}
 		return simResult;
 	}
 
-	private void scheduleNextIteration() throws ConfigurationException {
+	private void scheduleNextIteration() throws ConfigurationException {	
 		// update finishing tasks
 		SimulatorTask finishedSimulation = finishingSimulations.stream()
 				.filter(tsk -> tsk.runningIterations.size() == 0).findFirst().orElse(null);
@@ -99,17 +101,16 @@ public class ThreadPoolSimulator implements Simulator {
 			return;
 
 		SimulatorTask task = runningSimulations.peek();
-
 		Configuration config = task.getNextConfiguration();
-		int index = task.buffer.getIndex(config);
-
+		int index = task.buffer.getLastIndex();
+		
 		// start iteration execution
 		CompletableFuture<IterationResult> future = CompletableFuture.supplyAsync(() -> {
-			SimulationEngine engine = new SimulationEngine();
+			SimulationEngine engine = new SimulationEngine();		
 			return engine.executeIteration(config);
 		}, threadPool);
 
-		// handle iteration finished and exceptions
+		// handle iteration finished
 		future.thenAccept((res) -> {
 			task.simResult.addIterationResult(res, index);
 			task.runningIterations.remove(future);
@@ -120,9 +121,11 @@ public class ThreadPoolSimulator implements Simulator {
 				e.printStackTrace();
 			}
 		}).exceptionally((ex) -> {
+			System.out.println("EXCEPTION");
 			task.simResult.addSimulationEngineException(new SimulationEngineException());
 			return null;
 		});
+
 		task.runningIterations.add(future);
 	}
 
@@ -203,9 +206,9 @@ public class ThreadPoolSimulator implements Simulator {
 			this.finishedHandler = finishedHandler;
 			runningIterations = new ArrayList<CompletableFuture<IterationResult>>();
 			iterationsLeft = new ArrayList<Integer>();
-				
+
 			List<Configuration> configs = buffer.peekAllConfigurations();
-			for (Configuration config: configs) {
+			for (Configuration config : configs) {
 				totalIterationsLeft += config.getTotalIterations();
 				iterationsLeft.add(config.getTotalIterations());
 			}
@@ -218,12 +221,12 @@ public class ThreadPoolSimulator implements Simulator {
 			for (int i = 0; i < iterationsLeft.size(); i++) {
 				if (iterationsLeft.get(i) > 0 && buffer.hasConfiguration(i)) {
 					iterationsLeft.set(i, iterationsLeft.get(i) - 1);
-					return buffer.getConfiguration(i);					
+					return buffer.getConfiguration(i);
 				}
 			}
 			for (int i = 0; i < iterationsLeft.size(); i++) {
 				if (iterationsLeft.get(i) > 0) {
-					iterationsLeft.set(i, iterationsLeft.get(i) - 1);					
+					iterationsLeft.set(i, iterationsLeft.get(i) - 1);
 					return buffer.getConfiguration(i);
 				}
 			}
@@ -235,11 +238,13 @@ public class ThreadPoolSimulator implements Simulator {
 
 		private UserConfiguration config;
 		private ArrayList<Queue<Configuration>> buffer;
+		private int lastIndex;
 
 		public ConfigurationBuffer(UserConfiguration config, int threads) throws ConfigurationException {
 			this.config = config;
 
 			// initialize the buffer
+			buffer = new ArrayList<Queue<Configuration>>();
 			List<Configuration> configs = ConfigurationCreator.generateConfigurations(config);
 			for (Configuration engineConfig : configs) {
 				Queue<Configuration> configBuffer = new LinkedList<Configuration>();
@@ -248,7 +253,7 @@ public class ThreadPoolSimulator implements Simulator {
 			}
 
 			// fill the buffer with some copies
-			for (int i = 0; i < threads - 1; i++) {
+			for (int i = 0; i < 2 * threads; i++) {
 				configs = ConfigurationCreator.generateConfigurations(config);
 				for (int j = 0; j < configs.size(); j++) {
 					buffer.get(j).add(configs.get(j));
@@ -272,14 +277,14 @@ public class ThreadPoolSimulator implements Simulator {
 					buffer.get(j).add(configs.get(j));
 				}
 			}
+			lastIndex = index;
 			return buffer.get(index).remove();
 		}
 
-		private int getIndex(Configuration config) {
-			return IntStream.range(0, buffer.size()).filter((i) -> buffer.get(i).peek().equals(config)).findFirst()
-					.orElse(-1);
+		private int getLastIndex() {
+			return lastIndex;
 		}
-		
+
 		private List<Configuration> peekAllConfigurations() {
 			return buffer.stream().map((q) -> q.peek()).collect(Collectors.toList());
 		}
