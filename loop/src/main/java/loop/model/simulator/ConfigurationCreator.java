@@ -12,25 +12,17 @@ import loop.model.Segment;
 import loop.model.UserConfiguration;
 import loop.model.plugin.Plugin;
 import loop.model.repository.CentralRepository;
-import loop.model.simulationengine.ConcreteGame;
 import loop.model.simulationengine.Configuration;
 import loop.model.simulationengine.EngineSegment;
 import loop.model.simulationengine.EquilibriumCriterion;
 import loop.model.simulationengine.Game;
 import loop.model.simulationengine.PairBuilder;
-import loop.model.simulationengine.PayoffInLastAdapt;
-import loop.model.simulationengine.RandomPairBuilder;
-import loop.model.simulationengine.ReplicatorDynamic;
 import loop.model.simulationengine.StrategyAdjuster;
-import loop.model.simulationengine.StrategyEquilibrium;
 import loop.model.simulationengine.SuccessQuantifier;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
-import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;
-import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.exception.ConfigurationException;
-import loop.model.simulator.exception.PluginConfigurationException;
 import loop.model.simulator.exception.PluginNotFoundException;
 
 /**
@@ -46,6 +38,7 @@ public class ConfigurationCreator {
     
     private static Game game;
     private static int roundCount;
+    private static int iterationCount;
     private static boolean mixedStrategies;
     private static List<EngineSegment> engineSegments;
     private static SuccessQuantifier successQuantifier;
@@ -70,56 +63,132 @@ public class ConfigurationCreator {
 	public static List<Configuration> generateConfigurations(UserConfiguration config) throws ConfigurationException {
 	    List<Configuration> configurations = new ArrayList<Configuration>();
 	    
+	    if (!config.isMulticonfiguration()) { //no multiconfiguration
+	        configureAllExcept(null, config);
+	        configurations.add(new Configuration(game, roundCount, mixedStrategies, engineSegments, pairBuilder,
+	                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, config.getIterationCount()));
+	        return configurations;
+	    }
+	    
+	    MulticonfigurationParameter multiParam = config.getMulticonfigurationParameter();
+	    configureAllExcept(multiParam.getType(), config);
+	    switch(multiParam.getType()) {
+	        case ROUND_COUNT:
+	            multiParam.getParameterValues().stream().mapToInt(d -> d.intValue()).forEach(
+	                    (rounds) -> {
+	                        roundCount = rounds;
+	                        configurations.add(createConfiguration());
+	                    });
+	            return configurations;
+	        case PB_PARAM:
+	            Plugin<PairBuilder> pluginPB = CentralRepository.getInstance().getPairBuilderRepository().getEntityByName(config.getPairBuilderName());
+	            multiconfiguredParameters(pluginPB, config.getPairBuilderParameters(), config.getMulticonfigurationParameter()).forEach(
+	                            params -> {
+	                                pairBuilder = pluginPB.getNewInstance(params);
+	                                configurations.add(createConfiguration());
+	                            });
+	            return configurations;
+	        case SQ_PARAM:
+                Plugin<SuccessQuantifier> pluginSQ = CentralRepository.getInstance().getSuccessQuantifiernRepository().getEntityByName(config.getSuccessQuantifierName());
+                multiconfiguredParameters(pluginSQ, config.getSuccessQuantifierParameters(), config.getMulticonfigurationParameter()).forEach(
+                                params -> {
+                                    successQuantifier = pluginSQ.getNewInstance(params);
+                                    configurations.add(createConfiguration());
+                                });
+                return configurations;
+	        case SA_PARAM:
+                Plugin<StrategyAdjuster> pluginSA = CentralRepository.getInstance().getStrategyAdjusterRepository().getEntityByName(config.getStrategyAdjusterName());
+                multiconfiguredParameters(pluginSA, config.getStrategyAdjusterParameters(), config.getMulticonfigurationParameter()).forEach(
+                                params -> {
+                                    strategyAdjuster = pluginSA.getNewInstance(params);
+                                    configurations.add(createConfiguration());
+                                });
+                return configurations;
+	        case EC_PARAM:
+                Plugin<EquilibriumCriterion> pluginEC = CentralRepository.getInstance().getEquilibriumCriterionRepository().getEntityByName(config.getEquilibriumCriterionName());
+                multiconfiguredParameters(pluginEC, config.getEquilibriumCriterionParameters(), config.getMulticonfigurationParameter()).forEach(
+                                params -> {
+                                    equilibriumCriterion = pluginEC.getNewInstance(params);
+                                    configurations.add(createConfiguration());
+                                });
+                return configurations;
+	        case MAX_ADAPTS:
+	            multiParam.getParameterValues().stream().mapToInt(d -> d.intValue()).forEach(
+                        (adapts) -> {
+                            maxAdapts = adapts;
+                            configurations.add(createConfiguration());
+                        });
+                return configurations;
+            default: //CD_PARAM, SEGMENT_SIZE and GROUP_SIZE
+                multiconfiguredPopulations(config.getMulticonfigurationParameter().getType(), config).forEach(
+                        (pop) -> {
+                            initialiseEngineSegments(pop);
+                            configurations.add(createConfiguration());
+                        });
+                return configurations;
+	    }
+	}
+	
+	//TODO exceptions schmeiﬂen (pluginnotfound und pluginparameter)
+	private static void configureAllExcept(MulticonfigurationParameterType type, UserConfiguration config) {
 	    game = CentralRepository.getInstance().getGameRepository().getEntityByName(config.getGameName());
-	    roundCount = config.getRoundCount();
+	    iterationCount = config.getIterationCount();
+	    if (!type.equals(MulticonfigurationParameterType.ROUND_COUNT))
+	        roundCount = config.getRoundCount();
 	    mixedStrategies = config.getMixedAllowed();
-	    pairBuilder = CentralRepository.getInstance().getPairBuilderRepository()
-	            .getEntityByName(config.getPairBuilderName()).getNewInstance(config.getPairBuilderParameters());
-	    successQuantifier = CentralRepository.getInstance().getSuccessQuantifiernRepository()
-	            .getEntityByName(config.getSuccessQuantifierName()).getNewInstance(config.getSuccessQuantifierParameters());
-	    strategyAdjuster = CentralRepository.getInstance().getStrategyAdjusterRepository()
-	            .getEntityByName(config.getStrategyAdjusterName()).getNewInstance(config.getStrategyAdjusterParameters());
-	    equilibriumCriterion = CentralRepository.getInstance().getEquilibriumCriterionRepository()
-	            .getEntityByName(config.getEquilibriumCriterionName()).getNewInstance(config.getEquilibriumCriterionParameters());
-	    maxAdapts = config.getMaxAdapts();
+	    if (!type.equals(MulticonfigurationParameterType.PB_PARAM))
+    	    pairBuilder = CentralRepository.getInstance().getPairBuilderRepository()
+                .getEntityByName(config.getPairBuilderName()).getNewInstance(config.getPairBuilderParameters());
+	    if (!type.equals(MulticonfigurationParameterType.SQ_PARAM))
+    	    successQuantifier = CentralRepository.getInstance().getSuccessQuantifiernRepository()
+                .getEntityByName(config.getSuccessQuantifierName()).getNewInstance(config.getSuccessQuantifierParameters());
+	    if (!type.equals(MulticonfigurationParameterType.SA_PARAM))
+    	    strategyAdjuster = CentralRepository.getInstance().getStrategyAdjusterRepository()
+                .getEntityByName(config.getStrategyAdjusterName()).getNewInstance(config.getStrategyAdjusterParameters());
+	    if (!type.equals(MulticonfigurationParameterType.EC_PARAM))
+    	    equilibriumCriterion = CentralRepository.getInstance().getEquilibriumCriterionRepository()
+                .getEntityByName(config.getEquilibriumCriterionName()).getNewInstance(config.getEquilibriumCriterionParameters());
+	    if (!type.equals(MulticonfigurationParameterType.MAX_ADAPTS))
+    	    maxAdapts = config.getMaxAdapts();
 	    
-	    //engine segments
-	    Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName());
-	    List<Group> groups = population.getGroups();
-	    engineSegments = new ArrayList<EngineSegment>();
-	    groups.forEach(group -> group.getSegments().forEach(
-	                    seg -> engineSegments.add(new EngineSegment(
-	                        (int) (population.getGroupSize(group) * group.getSegmentSize(seg)),
-	                        group.isCohesive() ? groups.indexOf(group) : -1,
-	                        CentralRepository.getInstance().getDiscreteDistributionRepository()
-	                            .getEntityByName(seg.getCapitalDistributionName()).getNewInstance(seg.getCapitalDistributionParameters()),
-	                        new UniformFiniteDistribution<Strategy>(
-	                                CentralRepository.getInstance().getStrategyRepository().getEntitiesByNames(seg.getStrategyNames()))
-	                    ))));
-        
-	    Configuration configuration = new Configuration(game, roundCount, mixedStrategies, engineSegments, pairBuilder,
-                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, config.getIterationCount());
+	    if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
+                || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
+	        //initialise segments
+	        Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName());
+	        initialiseEngineSegments(population);
+	    }
 	    
-        //engine segments
-        DiscreteDistribution capitalDistribution = new DiscreteUniformDistribution(0, 0);
-        
-        UniformFiniteDistribution<Strategy> strategyDistribution = new UniformFiniteDistribution<Strategy>();
-        strategyDistribution.addObject(PureStrategy.alwaysCooperate());
-        strategyDistribution.addObject(PureStrategy.neverCooperate());
-        strategyDistribution.addObject(PureStrategy.titForTat());
-        strategyDistribution.addObject(PureStrategy.grim());
-        
-        EngineSegment segment = new EngineSegment(100, -1, capitalDistribution, strategyDistribution);
-        List<EngineSegment> segments = new ArrayList<EngineSegment>();
-        segments.add(segment);
-        
-        configuration = new Configuration(game, roundCount, mixedStrategies, segments, pairBuilder,
-                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, 16);
-        
-        configurations.add(configuration);
-        
-		return configurations;
-
+	}
+	
+	private static void initialiseEngineSegments(Population population) {
+        List<Group> groups = population.getGroups();
+        engineSegments = new ArrayList<EngineSegment>();
+        groups.forEach(group -> group.getSegments().forEach(
+                        seg -> engineSegments.add(new EngineSegment(
+                            (int) (population.getGroupSize(group) * group.getSegmentSize(seg)),
+                            group.isCohesive() ? groups.indexOf(group) : -1,
+                            CentralRepository.getInstance().getDiscreteDistributionRepository()
+                                .getEntityByName(seg.getCapitalDistributionName()).getNewInstance(seg.getCapitalDistributionParameters()),
+                            new UniformFiniteDistribution<Strategy>(
+                                    CentralRepository.getInstance().getStrategyRepository().getEntitiesByNames(seg.getStrategyNames()))
+                        ))));
+	}
+	
+	private static List<List<Double>> multiconfiguredParameters(Plugin<?> plugin,
+	        List<Double> pluginParameterValues, MulticonfigurationParameter multiParam) {
+	    List<List<Double>> parameters = new ArrayList<List<Double>>();
+	    while (parameters.size() < multiParam.getParameterValues().size()) {
+	        parameters.add(new ArrayList<Double>(pluginParameterValues));
+	    }
+	    
+	    int paramIndex = plugin.getParameters().indexOf(
+	            plugin.getParameters().stream().filter(p -> p.getName().equals(multiParam.getParameterName())).findAny().get());
+	    
+	    for (int i = 0; i < multiParam.getParameterValues().size(); i++) {
+	        parameters.get(i).set(paramIndex, multiParam.getParameterValues().get(i));
+	    }
+	    
+	    return parameters;
 	}
 	
 	private static List<Population> multiconfiguredPopulations(MulticonfigurationParameterType type, UserConfiguration config)
@@ -249,6 +318,11 @@ public class ConfigurationCreator {
 	private static Segment copySegment(Segment segment) {
 	    return new Segment(segment.getCapitalDistributionName(), new ArrayList<Double>(segment.getCapitalDistributionParameters()),
 	            new ArrayList<String>(segment.getStrategyNames()));
+	}
+	
+	private static Configuration createConfiguration() {
+	    return new Configuration(game, roundCount, mixedStrategies, engineSegments, pairBuilder,
+                successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, iterationCount);
 	}
 	
 }
