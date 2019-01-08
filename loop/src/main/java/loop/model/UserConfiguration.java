@@ -1,6 +1,7 @@
 package loop.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import loop.model.simulationengine.strategies.RealVector;
@@ -36,12 +37,12 @@ public class UserConfiguration implements Serializable {
 	private List<Double> equilibriumCriterionParameters;
 	private int maxAdapts;
 	private boolean isMulticonfiguration;
-	private String variableParameterName;
-	private List<Double> parameterValues;
+	//private String variableParameterName;
+	private MulticonfigurationParameter multiconfigurationParameter;
+	//private List<Double> parameterValues;
 	private double startValue;
 	private double endValue;
 	private double stepSize;
-	
 	
 	/**
 	 * Creates a new UserConfiguration with the given parameters
@@ -62,22 +63,15 @@ public class UserConfiguration implements Serializable {
 	 * @param equilibriumCriterionParameters a list with the values of the parameters of the equilibrium criterion
 	 * @param maxAdapts the maximum amount of simulated adaption steps per iteration
 	 * @param isMulticonfiguration {@code true}, if this is a multiconfiguration, {@code false} otherwise
-	 * @param variableParameterName the name of the multiconfiguration parameter,
-	 * 		  if this is a multiconfiguration, "" otherwise
-	 * @param parameterValues the values of the multiconfiguration parameter, if this is multiconfiguration,
-	 *        {@code null} otherwise
-	 * @param startValue the starting value of the multiconfiguration parameter, if this is a 
-	 *        multiconfiguration, {@code 0} otherwise
-	 * @param endValue the end value of the multiconfiguration parameter, if this is a multiconfiguration,
-	 * 		  {@code 0} otherwise
-	 * @param stepSize the step size of the multiconfiguration parameter, if this is a multiconfiguration, 0 otherwise
+	 * @param multiconfigurationParameter the multiconfiguration parameter, if this is a multiconfiguration,
+	 *                                    {@code null} otherwise
 	 */
 	public UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount,
 			List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName,
 			List<Double> pairBuilderParameters, String successQuantifierName, List<Double> successQuantifierParameters,
 			String strategyAdjusterName, List<Double> strategyAdjusterParameters, String equilibriumCriterionName,
 			List<Double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration,
-			String variableParameterName, List<Double> parameterValues, double startValue, double endValue, double stepSize) {
+			MulticonfigurationParameter multiconfigurationParameter) {
 		
 		this.gameName = gameName;
 		this.agentCount = agentCount;
@@ -96,11 +90,7 @@ public class UserConfiguration implements Serializable {
 		this.equilibriumCriterionParameters = equilibriumCriterionParameters;
 		this.maxAdapts = maxAdapts;
 		this.isMulticonfiguration = isMulticonfiguration;
-		this.variableParameterName = variableParameterName;
-		this.parameterValues = parameterValues;
-		this.startValue = startValue;
-		this.endValue = endValue;
-		this.stepSize = stepSize;
+		this.multiconfigurationParameter = multiconfigurationParameter;
 	}
 	
 	/**
@@ -110,8 +100,8 @@ public class UserConfiguration implements Serializable {
 	 */
 	public static UserConfiguration getDefaultConfiguration() {
 		
-		UserConfiguration config = new UserConfiguration("", 100, 100, 10, null, false, "", "", null, "", null, "", null, "", null,
-														 100, false, "", null, 0, 0, 0);
+		UserConfiguration config = null;// new UserConfiguration("", 100, 100, 10, null, false, "", "", null, "", null, "", null, "", null,
+														// 100, false, "", 0, 0, 0);
 		return config;
 	}
 	
@@ -252,13 +242,22 @@ public class UserConfiguration implements Serializable {
 	}
 	
 	/**
+	 * Returns the multiconfiguration parameter, if this is a multiconfiguration, {@code null} otherwise.
+	 * 
+	 * @return the multiconfiguration parameter, if this is a multiconfiguration, {@code null} otherwise
+	 */
+	public MulticonfigurationParameter getMulticonfigurationParameter() {
+	    return this.multiconfigurationParameter;
+	}
+	
+	/**
 	 * Returns the name of the multiconfiguration parameter of this configuration, if this
 	 * is a multiconfiguration, "" otherwise.
 	 * @return the name of the multiconfiguration parameter of this configuration, if this
 	 * is a multiconfiguration, "" otherwise.
 	 */
 	public String getVariableParameterName() {
-		return variableParameterName;
+		return this.multiconfigurationParameter.getParameterName();
 	}
 	
 	/**
@@ -268,36 +267,6 @@ public class UserConfiguration implements Serializable {
      *         {@code null} otherwise
 	 */
 	public List<Double> getParameterValues() {
-	    return parameterValues;
-	}
-	
-	/**
-	 * Returns the starting value of the multiconfiguration parameter of this configuration,
-	 * if this is a multiconfiguration, {@code 0} otherwise.
-	 * @return the starting value of the multiconfiguration parameter of this configuration,
-	 * if this is a multiconfiguration, {@code 0} otherwise.
-	 */
-	public double getStartValue() {
-		return startValue;
-	}
-	
-	/**
-	 * Returns the end value of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 * @return the end value of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 */
-	public double getEndValue() {
-		return endValue;
-	}
-	
-	/**
-	 * Returns the step size of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 * @return the step size of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 */
-	public double getStepSize() {
-		return stepSize;
+	    return this.multiconfigurationParameter.getParameterValues();
 	}
 }
