@@ -76,6 +76,15 @@ public class Population implements Nameable, Serializable {
 	}
 	
 	/**
+	 * Returns the sizes of the groups this population consists of.
+	 * 
+	 * @return the sizes of the groups this population consists of
+	 */
+	public List<Integer> getGroupSizes() {
+	    return this.groupSizes;
+	}
+	
+	/**
 	 * Returns the amount of groups in this population
 	 * 
 	 * @return the amount of groups in this population

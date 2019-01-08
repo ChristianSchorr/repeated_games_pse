@@ -20,9 +20,14 @@ public class MulticonfigurationParameter {
     private double stepSize;
     
     /**
-     * Only used if type is GROUP_SIZE or SEGMENT_SIZE.
+     * Only used if type is GROUP_SIZE, SEGMENT_SIZE or CD_PARAM.
      */
     private String groupName = null;
+    
+    /**
+     * Only used if type is CD_PARAM.
+     */
+    private int segmentIndex;
     
     /**
      * Constructor for ROUND_COUNT, ITERATION_COUNT and MAX_ADAPTS
@@ -46,7 +51,7 @@ public class MulticonfigurationParameter {
     }
     
     /**
-     * Constructor for PB_PARAM, SA_PARAM, SQ_PARAM, EC_PARAM and CD_PARAM.
+     * Constructor for PB_PARAM, SA_PARAM, SQ_PARAM and EC_PARAM.
      * 
      * @param type the type of the multiconfiguration parameter
      * @param startValue the start value of the parameter
@@ -58,8 +63,7 @@ public class MulticonfigurationParameter {
      */
     public MulticonfigurationParameter(MulticonfigurationParameterType type, double startValue, double endValue, double stepSize, String parameterName, String pluginName) {
         if (!(type.equals(MulticonfigurationParameterType.PB_PARAM) || type.equals(MulticonfigurationParameterType.SA_PARAM)
-           || type.equals(MulticonfigurationParameterType.SQ_PARAM) || type.equals(MulticonfigurationParameterType.EC_PARAM)
-           || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
+           || type.equals(MulticonfigurationParameterType.SQ_PARAM) || type.equals(MulticonfigurationParameterType.EC_PARAM))) {
             throw new IllegalArgumentException("Wrong constructor used.");
         }
         this.type = type;
@@ -109,6 +113,19 @@ public class MulticonfigurationParameter {
         createParameterValueList();
     }
     
+    public MulticonfigurationParameter(double startValue, double endValue, double stepSize, String parameterName, String pluginName, String groupName, int segmentIndex) {
+        this.type = MulticonfigurationParameterType.CD_PARAM;
+        this.parameterName = String.format(type.getDescriptionFormat(), parameterName, pluginName);
+        this.startValue = startValue;
+        this.endValue = endValue;
+        this.stepSize = stepSize;
+        
+        this.groupName = groupName;
+        this.segmentIndex = segmentIndex;
+        
+        createParameterValueList();
+    }
+    
     private void createParameterValueList() {
         this.parameterValues = new ArrayList<Double>();
         double param = startValue;
@@ -143,10 +160,10 @@ public class MulticonfigurationParameter {
     }
     
     /**
-     * Returns the group name of the multiconfigured group if this parameter is of type GROUP_SIZE or SEGMENT_SIZE, otherwise
-     * throws an exception.
+     * Returns the group name of the multiconfigured group if this parameter is of type GROUP_SIZE, SEGMENT_SIZE or CD_PARAM,
+     * otherwise throws an exception.
      * 
-     * @return the group name of the multiconfigured group if this parameter is of type GROUP_SIZE or SEGMENT_SIZE
+     * @return the group name of the multiconfigured group if this parameter is of type GROUP_SIZE, SEGMENT_SIZE or CD_PARAM
      */
     public String getGroupName() {
         if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE))) {
@@ -155,4 +172,16 @@ public class MulticonfigurationParameter {
         return this.groupName;
     }
     
+    /**
+     * Returns the index of the multiconfigured segment in the multiconfigured group if this is of type CD_PARAM, otherwise throws
+     * an exception.
+     * 
+     * @return the index of the multiconfigured segment in the multiconfigured group if this is of type CD_PARAM
+     */
+    public int getSegmentIndex() {
+        if (!type.equals(MulticonfigurationParameterType.CD_PARAM)) {
+            throw new IllegalArgumentException("segment index not defined for multiconfiguration parameter '" + this.parameterName + "'.");
+        }
+        return this.segmentIndex;
+    }
 }

@@ -269,34 +269,4 @@ public class UserConfiguration implements Serializable {
 	public List<Double> getParameterValues() {
 	    return this.multiconfigurationParameter.getParameterValues();
 	}
-	
-	/**
-	 * Returns the starting value of the multiconfiguration parameter of this configuration,
-	 * if this is a multiconfiguration, {@code 0} otherwise.
-	 * @return the starting value of the multiconfiguration parameter of this configuration,
-	 * if this is a multiconfiguration, {@code 0} otherwise.
-	 */
-	public double getStartValue() {
-		return startValue;
-	}
-	
-	/**
-	 * Returns the end value of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 * @return the end value of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 */
-	public double getEndValue() {
-		return endValue;
-	}
-	
-	/**
-	 * Returns the step size of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 * @return the step size of the multiconfiguration parameter of this configuration, if
-	 * this is a multiconfiguration, {@code 0} otherwise.
-	 */
-	public double getStepSize() {
-		return stepSize;
-	}
 }

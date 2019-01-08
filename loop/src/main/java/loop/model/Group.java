@@ -77,6 +77,15 @@ public class Group implements Serializable, Nameable {
 	}
 	
 	/**
+	 * Returns the sizes of the segments this group consists of.
+	 * 
+	 * @return the sizes of the segments this group consists of
+	 */
+	public List<Double> getSegmentSizes() {
+	    return this.segmentSizes;
+	}
+	
+	/**
 	 * Returns whether this group is cohesive
 	 * 
 	 * @return true if this group is cohesive, false otherwise
@@ -90,7 +99,7 @@ public class Group implements Serializable, Nameable {
 	 * 
 	 * @return the amount of segments in this group
 	 */
-	public int getSegementCount() {
+	public int getSegmentCount() {
 		return this.segments.size();
 	}
 
