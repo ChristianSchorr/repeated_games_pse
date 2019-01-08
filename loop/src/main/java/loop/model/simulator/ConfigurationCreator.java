@@ -36,7 +36,7 @@ import loop.model.simulator.exception.ConfigurationException;
  *
  */
 public class ConfigurationCreator {
-
+    
 	/**
 	 * Generates all associated elementary configurations to the given
 	 * {@link UserConfiguration} and returns them as {@link Configuration}s.
@@ -51,6 +51,8 @@ public class ConfigurationCreator {
 	 */
 	public static List<Configuration> generateConfigurations(UserConfiguration config) throws ConfigurationException {
 		
+	    
+	    
 	    Game game = CentralRepository.getInstance().getGameRepository().getEntityByName(config.getGameName());
 	    int roundCount = config.getRoundCount();
 	    boolean mixedStrategies = config.getMixedAllowed();

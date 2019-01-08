@@ -374,8 +374,9 @@ public class DetailedOutputController {
     }
     
     private void updateRankIndices(int minPercent, int maxPercent) {
-        minRankIndex = (int) Math.floor((1 - maxPercent) * config.getAgentCount());
-        maxRankIndex = config.getAgentCount() - 1 - (int) Math.floor(minPercent * config.getAgentCount());
+        int agentCount = displayedResult.getIterationResults(selectedConfigurationNumber).get(0).getAgents().size();
+        minRankIndex = (int) Math.floor((1 - maxPercent) * agentCount);
+        maxRankIndex = agentCount - 1 - (int) Math.floor(minPercent * agentCount);
     }
     
 }

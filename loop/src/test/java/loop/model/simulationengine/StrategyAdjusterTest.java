@@ -33,8 +33,8 @@ public class StrategyAdjusterTest {
     @Test
     public void testStandardImplementations() {
         //replicator dynamic
-        for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1) {
-            for (double beta = 0.0; beta <= 1.0; beta += 0.1) {
+        for (double alpha = 0.0; alpha <= 1.0; alpha += 0.2) {
+            for (double beta = 0.0; beta <= 1.0; beta += 0.2) {
                 StrategyAdjuster replicatorDynamic = new ReplicatorDynamic(alpha, beta);
                 testStrategiesValidOnEmptyHistory(replicatorDynamic);
                 testStrategiesValidOnNonEmptyHistory(replicatorDynamic);
@@ -43,8 +43,8 @@ public class StrategyAdjusterTest {
         }
         
       //preferential adaption
-        for (double alpha = 0.0; alpha <= 1.0; alpha += 0.1) {
-            for (double beta = 0.0; beta <= 1.0; beta += 0.1) {
+        for (double alpha = 0.0; alpha <= 1.0; alpha += 0.2) {
+            for (double beta = 0.0; beta <= 1.0; beta += 0.2) {
                 StrategyAdjuster preferentialAdaption = new PreferentialAdaption(alpha, beta);
                 testStrategiesValidOnEmptyHistory(preferentialAdaption);
                 testStrategiesValidOnNonEmptyHistory(preferentialAdaption);
