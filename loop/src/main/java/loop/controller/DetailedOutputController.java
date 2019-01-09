@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import loop.model.Group;
 import loop.model.UserConfiguration;
 import loop.model.repository.CentralRepository;
@@ -87,14 +91,28 @@ public class DetailedOutputController {
     private PieChart strategyChart;
     
     @FXML
+    private ImageView strategyBufferGifView;
+    
+    @FXML
+    private Rectangle strategyBufferRectangle;
+    
+    @FXML
     private BarChart<String, Number> capitalDiagram;
     private static final int NUMBER_OF_BINS = 15;
     private static final double CUTOFF = 0.05; //cuts off x% to the right and left of the distribution
     
     @FXML
+    private ImageView capitalBufferGifView;
+    
+    @FXML
+    private Rectangle capitalBufferRectangle;
+    
+    @FXML
     private RangeSlider consideredAgentsRangeSlider;
     private int minRankIndex; //minimal index of an agent in the list of all agents (increases as max decreases)
     private int maxRankIndex; //maximal index of an agent in the list of all agents (increases as min decreases)
+    
+    private Future<?> chartUpdater;
     
     /**
      * Called by the FXMLLoader when initialization is complete
@@ -122,6 +140,10 @@ public class DetailedOutputController {
      * @param result the result that shall be displayed
      */
     public void setDisplayedResult(SimulationResult result) {
+        if (chartUpdater != null) {
+            chartUpdater.cancel(true);
+        }
+        
         this.displayedResult = result;
         this.config = result.getUserConfiguration();
         
@@ -199,137 +221,180 @@ public class DetailedOutputController {
     }
     
     private void updateCharts() {
-        updateStrategyChart();
-        updateCapitalChart();
+        if (chartUpdater != null) {
+            chartUpdater.cancel(true);
+        }
+        chartUpdater = CompletableFuture.supplyAsync(() -> {
+            ChartUpdater updater = new ChartUpdater();
+            updater.run();
+            return null;
+        });
+        
     }
     
-    private void updateStrategyChart() {
+    private class ChartUpdater implements Runnable {
         
-        ObservableList<PieChart.Data> pieChartData = null;
+        @Override
+        public void run() {
+            showBufferingAnimationStrategy();
+            showBufferingAnimationCapital();
+            updateStrategyChart();
+            endBufferingAnimationStrategy();
+            updateCapitalChart();
+            endBufferingAnimationCapital();
+        }
         
-        List<Strategy> strategies = new ArrayList<Strategy>();
+        private void showBufferingAnimationStrategy() {
+            strategyBufferGifView.setVisible(true);
+            strategyBufferRectangle.setVisible(true);
+        }
         
-        if (this.meanOverAllIterations) {
-            List<IterationResult> iterations = this.displayedResult.getIterationResults(selectedConfigurationNumber);
+        private void endBufferingAnimationStrategy() {
+            strategyBufferGifView.setVisible(false);
+            strategyBufferRectangle.setVisible(false);
+        }
+        
+        private void showBufferingAnimationCapital() {
+            capitalBufferGifView.setVisible(true);
+            capitalBufferRectangle.setVisible(true);
+        }
+        
+        private void endBufferingAnimationCapital() {
+            capitalBufferGifView.setVisible(false);
+            capitalBufferRectangle.setVisible(false);
+        }
+        
+        private void updateStrategyChart() {
             
-            for (IterationResult it: iterations) {
-                for (Agent a: it.getAgents()) {
-                    if (minRankIndex <= it.getAgents().indexOf(a) && it.getAgents().indexOf(a) <= maxRankIndex)
+            ObservableList<PieChart.Data> pieChartData = null;
+            
+            List<Strategy> strategies = new ArrayList<Strategy>();
+            
+            if (meanOverAllIterations) {
+                List<IterationResult> iterations = displayedResult.getIterationResults(selectedConfigurationNumber);
+                
+                for (IterationResult it: iterations) {
+                    for (Agent a: it.getAgents()) {
+                        if (minRankIndex <= it.getAgents().indexOf(a) && it.getAgents().indexOf(a) <= maxRankIndex)
+                            strategies.add(a.getStrategy());
+                    }
+                }
+            } else {
+                for (Agent a: selectedIteration.getAgents()) {
+                    if (minRankIndex <= selectedIteration.getAgents().indexOf(a) && selectedIteration.getAgents().indexOf(a) <= maxRankIndex)
                         strategies.add(a.getStrategy());
                 }
             }
-        } else {
-            for (Agent a: this.selectedIteration.getAgents()) {
-                if (minRankIndex <= selectedIteration.getAgents().indexOf(a) && selectedIteration.getAgents().indexOf(a) <= maxRankIndex)
-                    strategies.add(a.getStrategy());
-            }
-        }
-        
-        if (config.getMixedAllowed()) { //mixed strategies
-            //cast to mixed strategies
-            List<MixedStrategy> mixedStrategies = new ArrayList<MixedStrategy>();
-            for (Strategy s: strategies) {
-                mixedStrategies.add((MixedStrategy) s);
-            }
             
-            //initialise map
-            Map<String, Double> portions = new HashMap<String, Double>();
-            List<Strategy> pureStrategies = mixedStrategies.get(0).getComponentStrategies();
-            for (Strategy s: pureStrategies) {
-                portions.put(s.getName(), 0.0);
-            }
-            
-            //calculate portions
-            for (MixedStrategy s: mixedStrategies) {
-                for (int i = 0; i < s.getSize(); i++) {
-                    portions.put(s.getComponentStrategies().get(i).getName(),
-                            portions.get(s.getComponentStrategies().get(i).getName()) + s.getComponent(i));
+            if (config.getMixedAllowed()) { //mixed strategies
+                //cast to mixed strategies
+                List<MixedStrategy> mixedStrategies = new ArrayList<MixedStrategy>();
+                for (Strategy s: strategies) {
+                    mixedStrategies.add((MixedStrategy) s);
                 }
+                
+                //initialise map
+                Map<String, Double> portions = new HashMap<String, Double>();
+                List<Strategy> pureStrategies = mixedStrategies.get(0).getComponentStrategies();
+                for (Strategy s: pureStrategies) {
+                    portions.put(s.getName(), 0.0);
+                }
+                
+                //calculate portions
+                for (MixedStrategy s: mixedStrategies) {
+                    for (int i = 0; i < s.getSize(); i++) {
+                        portions.put(s.getComponentStrategies().get(i).getName(),
+                                portions.get(s.getComponentStrategies().get(i).getName()) + s.getComponent(i));
+                    }
+                }
+                
+                //create pie chart data
+                List<PieChart.Data> dataList = new ArrayList<PieChart.Data>();
+                for (String strategyName: portions.keySet()) {
+                    dataList.add(new PieChart.Data(strategyName, portions.get(strategyName)));
+                }
+                
+                pieChartData = FXCollections.observableArrayList(dataList);
+            } else { //only pure strategies
+                //calculate strategy counts
+                Map<String, Integer> portions = new HashMap<String, Integer>();
+                for (Strategy s: strategies) {
+                    if (!portions.containsKey(s.getName()))
+                        portions.put(s.getName(), 0);
+                    portions.put(s.getName(), portions.get(s.getName()) + 1);
+                }
+                
+              //create pie chart data
+                List<PieChart.Data> dataList = new ArrayList<PieChart.Data>();
+                for (String strategyName: portions.keySet()) {
+                    dataList.add(new PieChart.Data(strategyName, portions.get(strategyName)));
+                }
+                
+                pieChartData = FXCollections.observableArrayList(dataList);
             }
             
-            //create pie chart data
-            List<PieChart.Data> dataList = new ArrayList<PieChart.Data>();
-            for (String strategyName: portions.keySet()) {
-                dataList.add(new PieChart.Data(strategyName, portions.get(strategyName)));
-            }
-            
-            pieChartData = FXCollections.observableArrayList(dataList);
-        } else { //only pure strategies
-            //calculate strategy counts
-            Map<String, Integer> portions = new HashMap<String, Integer>();
-            for (Strategy s: strategies) {
-                if (!portions.containsKey(s.getName()))
-                    portions.put(s.getName(), 0);
-                portions.put(s.getName(), portions.get(s.getName()) + 1);
-            }
-            
-          //create pie chart data
-            List<PieChart.Data> dataList = new ArrayList<PieChart.Data>();
-            for (String strategyName: portions.keySet()) {
-                dataList.add(new PieChart.Data(strategyName, portions.get(strategyName)));
-            }
-            
-            pieChartData = FXCollections.observableArrayList(dataList);
+            strategyChart.setData(pieChartData);
         }
         
-        this.strategyChart.setData(pieChartData);
+        private void updateCapitalChart() {
+            //setup the diagram
+            final CategoryAxis xAxis = new CategoryAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            capitalDiagram = new BarChart<String, Number>(xAxis, yAxis);
+            capitalDiagram.setTitle("Capital Distribution");
+            xAxis.setLabel("Capital");
+            yAxis.setLabel("Agent Count");
+            
+            //collect capital values of all relevant agents, sorted after their groups
+            Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
+            List<Group> groups = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroups();
+            groups.stream().filter(group -> group.isCohesive()).forEach((group) ->  groupCapitals.put(group.getName(), new ArrayList<Integer>()));
+            if (groups.stream().anyMatch(group -> !group.isCohesive()))
+                groupCapitals.put("Groupless Agents", new ArrayList<Integer>());
+            
+            if (meanOverAllIterations) {
+                //cohesive groups
+                displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
+                        it -> it.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
+                                a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital())));
+                //groupless agents
+                displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
+                        it -> it.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
+                                a -> groupCapitals.get("Groupless Agents").add(a.getCapital())));
+            } else {
+                //cohesive groups
+                selectedIteration.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
+                        a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital()));
+                //groupless agents
+                selectedIteration.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
+                        a -> groupCapitals.get("Groupless Agents").add(a.getCapital()));
+            }
+            
+            //create histograms
+            Map<String, Map<String, Integer>> groupHistograms = new HashMap<String, Map<String, Integer>>();
+            groupCapitals.forEach(
+                    (groupName, capitals) -> groupHistograms.put(groupName, ChartUtils.createHistogram(capitals, NUMBER_OF_BINS, CUTOFF, true)));
+            if (meanOverAllIterations) { //normalize
+                groupHistograms.forEach((groupName, hist) -> hist.forEach((binLabel, value) -> value /= config.getIterationCount()));
+            }
+            
+            //create histogram data
+            List<XYChart.Series<String, Number>> groupSeries = new ArrayList<XYChart.Series<String, Number>>();
+            groupHistograms.forEach(
+                    (groupName, hist) -> { //includes the groupless agents
+                        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+                        series.setName(groupName);
+                        hist.forEach((binLabel, value) -> series.getData().add(new XYChart.Data<String, Number>(binLabel, value)));
+                        groupSeries.add(series);
+                    });
+            
+            //add data to bar chart
+            capitalDiagram.getData().addAll(groupSeries);
+        }
+
     }
     
-    private void updateCapitalChart() {
-        //setup the diagram
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        capitalDiagram = new BarChart<String, Number>(xAxis, yAxis);
-        capitalDiagram.setTitle("Capital Distribution");
-        xAxis.setLabel("Capital");
-        yAxis.setLabel("Agent Count");
-        
-        //collect capital values of all relevant agents, sorted after their groups
-        Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
-        List<Group> groups = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroups();
-        groups.stream().filter(group -> group.isCohesive()).forEach((group) ->  groupCapitals.put(group.getName(), new ArrayList<Integer>()));
-        if (groups.stream().anyMatch(group -> !group.isCohesive()))
-            groupCapitals.put("Groupless Agents", new ArrayList<Integer>());
-        
-        if (meanOverAllIterations) {
-            //cohesive groups
-            displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
-                    it -> it.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
-                            a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital())));
-            //groupless agents
-            displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
-                    it -> it.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
-                            a -> groupCapitals.get("Groupless Agents").add(a.getCapital())));
-        } else {
-            //cohesive groups
-            selectedIteration.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
-                    a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital()));
-            //groupless agents
-            selectedIteration.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
-                    a -> groupCapitals.get("Groupless Agents").add(a.getCapital()));
-        }
-        
-        //create histograms
-        Map<String, Map<String, Integer>> groupHistograms = new HashMap<String, Map<String, Integer>>();
-        groupCapitals.forEach(
-                (groupName, capitals) -> groupHistograms.put(groupName, ChartUtils.createHistogram(capitals, NUMBER_OF_BINS, CUTOFF, true)));
-        if (meanOverAllIterations) { //normalize
-            groupHistograms.forEach((groupName, hist) -> hist.forEach((binLabel, value) -> value /= config.getIterationCount()));
-        }
-        
-        //create histogram data
-        List<XYChart.Series<String, Number>> groupSeries = new ArrayList<XYChart.Series<String, Number>>();
-        groupHistograms.forEach(
-                (groupName, hist) -> { //includes the groupless agents
-                    XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-                    series.setName(groupName);
-                    hist.forEach((binLabel, value) -> series.getData().add(new XYChart.Data<String, Number>(binLabel, value)));
-                    groupSeries.add(series);
-                });
-        
-        //add data to bar chart
-        capitalDiagram.getData().addAll(groupSeries);
-    }
+    
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/
     
