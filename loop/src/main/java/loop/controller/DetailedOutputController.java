@@ -229,39 +229,28 @@ public class DetailedOutputController {
             updater.run();
             return null;
         });
-        
     }
     
     private class ChartUpdater implements Runnable {
         
         @Override
         public void run() {
-            showBufferingAnimationStrategy();
-            showBufferingAnimationCapital();
+            setBufferingAnimationStrategy(true);
+            setBufferingAnimationCapital(true);
             updateStrategyChart();
-            endBufferingAnimationStrategy();
+            setBufferingAnimationStrategy(false);
             updateCapitalChart();
-            endBufferingAnimationCapital();
+            setBufferingAnimationCapital(false);
         }
         
-        private void showBufferingAnimationStrategy() {
-            strategyBufferGifView.setVisible(true);
-            strategyBufferRectangle.setVisible(true);
+        private void setBufferingAnimationStrategy(boolean enabled) {
+            strategyBufferGifView.setVisible(enabled);
+            strategyBufferRectangle.setVisible(enabled);
         }
         
-        private void endBufferingAnimationStrategy() {
-            strategyBufferGifView.setVisible(false);
-            strategyBufferRectangle.setVisible(false);
-        }
-        
-        private void showBufferingAnimationCapital() {
-            capitalBufferGifView.setVisible(true);
-            capitalBufferRectangle.setVisible(true);
-        }
-        
-        private void endBufferingAnimationCapital() {
-            capitalBufferGifView.setVisible(false);
-            capitalBufferRectangle.setVisible(false);
+        private void setBufferingAnimationCapital(boolean enabled) {
+            capitalBufferGifView.setVisible(enabled);
+            capitalBufferRectangle.setVisible(enabled);
         }
         
         private void updateStrategyChart() {

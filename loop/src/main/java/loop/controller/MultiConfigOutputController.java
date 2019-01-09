@@ -2,6 +2,8 @@ package loop.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +11,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import loop.model.UserConfiguration;
 import loop.model.simulationengine.IterationResult;
 import loop.model.simulator.SimulationResult;
@@ -43,7 +47,21 @@ public class MultiConfigOutputController {
     private LineChart<Number, Number> efficiencyAndFrequencyChart;
     
     @FXML
+    private ImageView effBufferGifView;
+    
+    @FXML
+    private Rectangle effBufferRectangle;
+    
+    @FXML
     private LineChart<Number, Number> executedAdaptsChart;
+    
+    @FXML
+    private ImageView adaptsBufferGifView;
+    
+    @FXML
+    private Rectangle adaptsBufferRectangle;
+    
+    private Future<?> chartUpdater;
     
     /**
      * Called by the FXMLLoader when initialization is complete
@@ -59,6 +77,10 @@ public class MultiConfigOutputController {
      * @param result the result that shall be displayed
      */
     public void setDisplayedResult(SimulationResult result) {
+        if (chartUpdater != null) {
+            chartUpdater.cancel(true);
+        }
+        
         this.displayedResult = result;
         this.config = result.getUserConfiguration();
         
@@ -73,64 +95,93 @@ public class MultiConfigOutputController {
     }
     
     private void updateCharts() {
-        updateEfficiencyAndFrequencyChart();
-        updateExecutedAdaptsChart();
+        if (chartUpdater != null) {
+            chartUpdater.cancel(true);
+        }
+        chartUpdater = CompletableFuture.supplyAsync(() -> {
+            ChartUpdater updater = new ChartUpdater();
+            updater.run();
+            return null;
+        });
     }
     
-    private void updateEfficiencyAndFrequencyChart() {
-        //initialize chart
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        efficiencyAndFrequencyChart = new LineChart<Number, Number>(xAxis, yAxis);
-        efficiencyAndFrequencyChart.setTitle("Mean Efficiency and Equilibrium Frequency");
-        xAxis.setLabel(config.getVariableParameterName());
+private class ChartUpdater implements Runnable {
         
-        //efficiency
-        XYChart.Series<Number, Number> efficiencySeries = new XYChart.Series<Number, Number>();
-        efficiencySeries.setName("Mean Efficiency");
-        for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
-            double meanEfficiency = displayedResult.getIterationResults(i).stream().filter(it -> filterIteration(it))
-                    .mapToDouble(it -> it.getEfficiency()).sum() / (double) config.getIterationCount();
-            efficiencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanEfficiency));
-        }
-        efficiencyAndFrequencyChart.getData().add(efficiencySeries);
-        
-        //equilibrium frequency
-        XYChart.Series<Number, Number> frequencySeries = new XYChart.Series<Number, Number>();
-        frequencySeries.setName("Equilibrium Frequency");
-        for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
-            double equilibriumFrequency = ((double) displayedResult.getIterationResults(i).stream().filter(
-                    it -> it.equilibriumReached()).count()) / (double) config.getIterationCount();
-            frequencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), equilibriumFrequency));
-        }
-        efficiencyAndFrequencyChart.getData().add(frequencySeries);
-    }
-    
-    private void updateExecutedAdaptsChart() {
-        //initialize chart
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        executedAdaptsChart = new LineChart<Number, Number>(xAxis, yAxis);
-        executedAdaptsChart.setTitle("Mean Amount of Executed Adaption Steps");
-        xAxis.setLabel(config.getVariableParameterName());
-        
-        //calculate chart data
-        XYChart.Series<Number, Number> adaptsSeries = new XYChart.Series<Number, Number>();
-        //adaptsSeries.setName("Executed Adapts");
-        for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
-            int meanAdapts = displayedResult.getIterationResults(i).stream().filter(it -> filterIteration(it))
-                    .mapToInt(it -> it.getAdapts()).sum() / config.getIterationCount();
-            adaptsSeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanAdapts));
+        @Override
+        public void run() {
+            setBufferingAnimationEfficiency(true);
+            setBufferingAnimationAdapts(true);
+            updateEfficiencyAndFrequencyChart();
+            setBufferingAnimationEfficiency(false);
+            updateExecutedAdaptsChart();
+            setBufferingAnimationAdapts(false);
         }
         
-        executedAdaptsChart.getData().add(adaptsSeries);
-    }
-    
-    private boolean filterIteration(IterationResult it) {
-        switch (this.consideredIterationsComboBox.getValue()) {
-            case ALL: return true;
-            case ONLY_EQUI: return it.equilibriumReached();
-            default: return !it.equilibriumReached();
+        private void setBufferingAnimationEfficiency(boolean enabled) {
+            effBufferGifView.setVisible(enabled);
+            effBufferRectangle.setVisible(enabled);
+        }
+        
+        private void setBufferingAnimationAdapts(boolean enabled) {
+            adaptsBufferGifView.setVisible(enabled);
+            adaptsBufferRectangle.setVisible(enabled);
+        }
+        
+        private void updateEfficiencyAndFrequencyChart() {
+            //initialize chart
+            final NumberAxis xAxis = new NumberAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            efficiencyAndFrequencyChart = new LineChart<Number, Number>(xAxis, yAxis);
+            efficiencyAndFrequencyChart.setTitle("Mean Efficiency and Equilibrium Frequency");
+            xAxis.setLabel(config.getVariableParameterName());
+            
+            //efficiency
+            XYChart.Series<Number, Number> efficiencySeries = new XYChart.Series<Number, Number>();
+            efficiencySeries.setName("Mean Efficiency");
+            for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
+                double meanEfficiency = displayedResult.getIterationResults(i).stream().filter(it -> filterIteration(it))
+                        .mapToDouble(it -> it.getEfficiency()).sum() / (double) config.getIterationCount();
+                efficiencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanEfficiency));
+            }
+            efficiencyAndFrequencyChart.getData().add(efficiencySeries);
+            
+            //equilibrium frequency
+            XYChart.Series<Number, Number> frequencySeries = new XYChart.Series<Number, Number>();
+            frequencySeries.setName("Equilibrium Frequency");
+            for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
+                double equilibriumFrequency = ((double) displayedResult.getIterationResults(i).stream().filter(
+                        it -> it.equilibriumReached()).count()) / (double) config.getIterationCount();
+                frequencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), equilibriumFrequency));
+            }
+            efficiencyAndFrequencyChart.getData().add(frequencySeries);
+        }
+        
+        private void updateExecutedAdaptsChart() {
+            //initialize chart
+            final NumberAxis xAxis = new NumberAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            executedAdaptsChart = new LineChart<Number, Number>(xAxis, yAxis);
+            executedAdaptsChart.setTitle("Mean Amount of Executed Adaption Steps");
+            xAxis.setLabel(config.getVariableParameterName());
+            
+            //calculate chart data
+            XYChart.Series<Number, Number> adaptsSeries = new XYChart.Series<Number, Number>();
+            //adaptsSeries.setName("Executed Adapts");
+            for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
+                int meanAdapts = displayedResult.getIterationResults(i).stream().filter(it -> filterIteration(it))
+                        .mapToInt(it -> it.getAdapts()).sum() / config.getIterationCount();
+                adaptsSeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanAdapts));
+            }
+            
+            executedAdaptsChart.getData().add(adaptsSeries);
+        }
+        
+        private boolean filterIteration(IterationResult it) {
+            switch (consideredIterationsComboBox.getValue()) {
+                case ALL: return true;
+                case ONLY_EQUI: return it.equilibriumReached();
+                default: return !it.equilibriumReached();
+            }
         }
     }
     

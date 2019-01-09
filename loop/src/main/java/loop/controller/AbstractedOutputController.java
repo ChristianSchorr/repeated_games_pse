@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import loop.model.UserConfiguration;
 import loop.model.simulationengine.IterationResult;
 import loop.model.simulator.SimulationResult;
@@ -72,10 +76,24 @@ public class AbstractedOutputController {
     private final static int EFFICIENCY_MEAN_PRECISION = 3; //amount of positions after decimal point in the efficiency mean
     
     @FXML
+    private ImageView efficiencyBufferGifView;
+    
+    @FXML
+    private Rectangle efficiencyBufferRectangle;
+    
+    @FXML
     private BarChart<String, Number> executedAdaptsChart;
     
     @FXML
     private Label meanExecutedAdaptsLabel;
+    
+    @FXML
+    private ImageView adaptsBufferGifView;
+    
+    @FXML
+    private Rectangle adaptsBufferRectangle;
+    
+    private Future<?> chartUpdater;
     
     /**
      * Called by the FXMLLoader when initialization is complete
@@ -97,6 +115,10 @@ public class AbstractedOutputController {
      * @param result the result that shall be displayed
      */
     public void setDisplayedResult(SimulationResult result) {
+        if (chartUpdater != null) {
+            chartUpdater.cancel(true);
+        }
+        
         this.displayedResult = result;
         this.config = result.getUserConfiguration();
         
@@ -131,65 +153,94 @@ public class AbstractedOutputController {
     }
     
     private void updateCharts() {
-        updateEfficiencyChart();
-        updateExecutedAdaptsChart();
+        if (chartUpdater != null) {
+            chartUpdater.cancel(true);
+        }
+        chartUpdater = CompletableFuture.supplyAsync(() -> {
+            ChartUpdater updater = new ChartUpdater();
+            updater.run();
+            return null;
+        });
     }
     
-    private void updateEfficiencyChart() {
-        //setup the diagram
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
-        efficiencyChart.setTitle("Efficiency Distribution");
-        xAxis.setLabel("Efficiency");
-        yAxis.setLabel("Agent Count");
+    private class ChartUpdater implements Runnable {
         
-        //calculate histogram
-        List<Double> efficiencies = new ArrayList<Double>();
-        displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
-                it -> filterIteration(it)).forEach(it -> efficiencies.add(it.getEfficiency()));
-        Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 1);
+        @Override
+        public void run() {
+            setBufferingAnimationEfficiency(true);
+            setBufferingAnimationAdapts(true);
+            updateEfficiencyChart();
+            setBufferingAnimationEfficiency(false);
+            updateExecutedAdaptsChart();
+            setBufferingAnimationAdapts(false);
+        }
         
-        //update chart
-        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
-        efficiencyChart.getData().add(series);
+        private void setBufferingAnimationEfficiency(boolean enabled) {
+            efficiencyBufferGifView.setVisible(enabled);
+            efficiencyBufferRectangle.setVisible(enabled);
+        }
         
-        //update mean efficiency
-        double mean = efficiencies.stream().mapToDouble(val -> val.doubleValue()).sum() / efficiencies.size();
-        this.meanEfficiencyLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(EFFICIENCY_MEAN_PRECISION).format(mean)));
-    }
-    
-    private void updateExecutedAdaptsChart() {
-        //setup the diagram
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
-        efficiencyChart.setTitle("Distribution of Executed Adaption Steps");
-        xAxis.setLabel("Executed Adaption Steps");
-        yAxis.setLabel("Agent Count");
+        private void setBufferingAnimationAdapts(boolean enabled) {
+            adaptsBufferGifView.setVisible(enabled);
+            adaptsBufferRectangle.setVisible(enabled);
+        }
         
-        //calculate histogram
-        List<Integer> steps = new ArrayList<Integer>();
-        displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
-                it -> filterIteration(it)).forEach(it -> steps.add(it.getAdapts()));
-        Map<String, Integer> hist = ChartUtils.createHistogram(steps, NUMBER_OF_BINS, CUTOFF, false);
+        private void updateEfficiencyChart() {
+            //setup the diagram
+            final CategoryAxis xAxis = new CategoryAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
+            efficiencyChart.setTitle("Efficiency Distribution");
+            xAxis.setLabel("Efficiency");
+            yAxis.setLabel("Agent Count");
+            
+            //calculate histogram
+            List<Double> efficiencies = new ArrayList<Double>();
+            displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
+                    it -> filterIteration(it)).forEach(it -> efficiencies.add(it.getEfficiency()));
+            Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 1);
+            
+            //update chart
+            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+            hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
+            efficiencyChart.getData().add(series);
+            
+            //update mean efficiency
+            double mean = efficiencies.stream().mapToDouble(val -> val.doubleValue()).sum() / efficiencies.size();
+            meanEfficiencyLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(EFFICIENCY_MEAN_PRECISION).format(mean)));
+        }
         
-        //update chart
-        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
-        this.executedAdaptsChart.getData().add(series);
+        private void updateExecutedAdaptsChart() {
+            //setup the diagram
+            final CategoryAxis xAxis = new CategoryAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
+            efficiencyChart.setTitle("Distribution of Executed Adaption Steps");
+            xAxis.setLabel("Executed Adaption Steps");
+            yAxis.setLabel("Agent Count");
+            
+            //calculate histogram
+            List<Integer> steps = new ArrayList<Integer>();
+            displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
+                    it -> filterIteration(it)).forEach(it -> steps.add(it.getAdapts()));
+            Map<String, Integer> hist = ChartUtils.createHistogram(steps, NUMBER_OF_BINS, CUTOFF, false);
+            
+            //update chart
+            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+            hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
+            executedAdaptsChart.getData().add(series);
+            
+            //update mean efficiency
+            double mean = steps.stream().mapToDouble(val -> val.doubleValue()).sum() / steps.size();
+            meanExecutedAdaptsLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(0).format(mean)));
+        }
         
-        //update mean efficiency
-        double mean = steps.stream().mapToDouble(val -> val.doubleValue()).sum() / steps.size();
-        this.meanExecutedAdaptsLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(0).format(mean)));
-    }
-    
-    private boolean filterIteration(IterationResult it) {
-        switch (this.consideredIterationsComboBox.getValue()) {
-            case ALL: return true;
-            case ONLY_EQUI: return it.equilibriumReached();
-            default: return !it.equilibriumReached();
+        private boolean filterIteration(IterationResult it) {
+            switch (consideredIterationsComboBox.getValue()) {
+                case ALL: return true;
+                case ONLY_EQUI: return it.equilibriumReached();
+                default: return !it.equilibriumReached();
+            }
         }
     }
     

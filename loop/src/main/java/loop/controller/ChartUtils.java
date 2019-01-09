@@ -21,7 +21,7 @@ public class ChartUtils {
      * @param values the values out of which a histogram shall be created
      * @return the histogram
      */
-    public static <T> Map<T, Integer> createHistogram(List<T> values) {
+    public static synchronized <T> Map<T, Integer> createHistogram(List<T> values) {
         Map<T, Integer> hist = new HashMap<T, Integer>();
         values.forEach(val -> hist.put(val, 0));
         values.forEach(val -> hist.put(val, hist.get(val) + 1));
@@ -38,7 +38,7 @@ public class ChartUtils {
      * @return the histogram
      */
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable<? super T>> Map<T, Integer> createHistogram(List<T> values, double cutoff) {
+    public static synchronized <T extends Comparable<? super T>> Map<T, Integer> createHistogram(List<T> values, double cutoff) {
         if (cutoff < 0.0 || cutoff > 0.5) {
             throw new IllegalArgumentException("cutoff must be between 0 and 0.5");
         }
@@ -62,7 +62,7 @@ public class ChartUtils {
      * @param showMeanAsBinLabel if this is {@code true}, the mean value of a bins covered interval will be used as its label, otherwise the bounds
      * @return the histogram
      */
-    public static Map<String, Integer> createHistogram(List<Integer> values, int desiredBinCount, double cutoff, boolean showMeanAsBinLabel) {
+    public static synchronized Map<String, Integer> createHistogram(List<Integer> values, int desiredBinCount, double cutoff, boolean showMeanAsBinLabel) {
         Integer[] sortedValues = values.stream().sorted().toArray(Integer[]::new);
         int minValue = sortedValues[(int) Math.floor(cutoff * sortedValues.length)];
         int maxValue = sortedValues[sortedValues.length - 1 - (int) Math.floor(cutoff * sortedValues.length)];
@@ -110,7 +110,7 @@ public class ChartUtils {
      * @param showMeanAsBinLabel if this is {@code true}, the mean value of a bins covered interval will be used as its label, otherwise the bounds
      * @return the histogram
      */
-    public static Map<String, Integer> createHistogram(List<Double> values, int binCount, double cutoff, boolean showMeanAsBinLabel, int decimalPrecision) {
+    public static synchronized Map<String, Integer> createHistogram(List<Double> values, int binCount, double cutoff, boolean showMeanAsBinLabel, int decimalPrecision) {
         Double[] sortedValues = values.stream().sorted().toArray(Double[]::new);
         double minValue = sortedValues[(int) Math.floor(cutoff * sortedValues.length)];
         double maxValue = sortedValues[sortedValues.length - 1 - (int) Math.floor(cutoff * sortedValues.length)];
@@ -155,7 +155,7 @@ public class ChartUtils {
      * @param precision the amount of positions after decimal point
      * @return the number formatter
      */
-    public static NumberFormat decimalFormatter(int precision) {
+    public static synchronized NumberFormat decimalFormatter(int precision) {
         if (precision == 0) return new DecimalFormat("#0");
         
         String zeros = "";
