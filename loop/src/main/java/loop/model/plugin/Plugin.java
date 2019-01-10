@@ -13,13 +13,16 @@ import loop.model.Nameable;
  *
  * @param <T> The type of the class that implements the plugin functionality.
  */
-public abstract class Plugin<T> implements Nameable{
+public abstract class Plugin<T> implements Nameable {
 	
 	/**
 	 * Returns a PluginRenderer for this plugin
 	 * @return a PluginRenderer for this plugin
 	 */
-	public abstract PluginRenderer getRenderer();	
+	public PluginRenderer getRenderer() {
+	    return new GenericRenderer(getParameters());
+	}
+	
 	/**
 	 * Returns a list of the configuration parameters of this plugin
 	 * @return a list of the configuration parameters of this plugin

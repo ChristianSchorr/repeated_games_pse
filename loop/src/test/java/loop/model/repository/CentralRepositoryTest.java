@@ -6,7 +6,7 @@ import org.junit.Test;
 
 
 /**
- * This class test the {@link CentralRepository}-class
+ * This class tests the {@link CentralRepository}-class.
  * 
  * @author Christian Schorr
  *

@@ -1,5 +1,8 @@
 package loop.model.plugin;
 
+import java.util.List;
+import com.google.common.collect.Streams;
+
 /**
  * This class provides functionality for validating a parameter assignment via static auxiliary
  * methods.
@@ -35,6 +38,18 @@ public class ParameterValidator {
 			}
 		}
 		return false;							//default
+	}
+	
+	/**
+	 * Checks if the given values are valid assignments to the given parameters.
+	 * 
+	 * @param values the given values
+	 * @param params the given parameters
+	 * @return  if the given values are valid assignments to the given parameters
+	 */
+	public static boolean areValuesValid(List<Double> values, List<Parameter> params) {
+	    if (values.size() != params.size()) return false;
+	    return Streams.zip(values.stream(), params.stream(), (val, param) -> isValueValid(val, param)).allMatch(b -> b);
 	}
 	
 	/**

@@ -3,6 +3,9 @@ package loop.model.simulationengine;
 import java.util.ArrayList;
 import java.util.List;
 
+import loop.model.plugin.Parameter;
+import loop.model.plugin.Plugin;
+import loop.model.plugin.PluginRenderer;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;
 
 /**
@@ -12,6 +15,12 @@ import loop.model.simulationengine.distributions.UniformFiniteDistribution;
  *
  */
 public class RandomPairBuilder implements PairBuilder {
+    
+    /**
+     * The name of this pair builder.
+     */
+    public static final String NAME = "Random Pair Builder";
+    private static final String DESCRIPTION = "Randomly builds pairs of agents until all agents are matched.";
 
     @Override
     public List<AgentPair> buildPairs(final List<Agent> agents, final SimulationHistory history) {
@@ -23,5 +32,42 @@ public class RandomPairBuilder implements PairBuilder {
         }
         return pairs;
     }
+    
+    /**
+     * Returns a {@link Plugin} instance wrapping this implementation of the {@link PairBuilder} interface.
+     * 
+     * @return a plugin instance.
+     */
+    public static Plugin<PairBuilder> getPlugin() {
+        if (plugin == null) {
+            plugin = new RandomPairBuilderPlugin();
+        }
+        return plugin;
+    }
+    
+    private static RandomPairBuilderPlugin plugin;
+    
+    private static class RandomPairBuilderPlugin extends Plugin<PairBuilder> {
 
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public String getDescription() {
+            return DESCRIPTION;
+        }
+
+        @Override
+        public List<Parameter> getParameters() {
+            return new ArrayList<Parameter>();
+        }
+
+        @Override
+        public PairBuilder getNewInstance(List<Double> params) {
+            return new RandomPairBuilder();
+        }
+    }
+    
 }

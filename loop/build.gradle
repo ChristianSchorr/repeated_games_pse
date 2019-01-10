@@ -34,4 +34,6 @@ dependencies {
     
     //complements the Java FX distribution
     implementation 'org.controlsfx:controlsfx:9.0.0'
+    
+    //implementation 'com.google.guava:guava:21.0'
 }
