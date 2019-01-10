@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import loop.model.plugin.Parameter;
+import loop.model.plugin.ParameterValidator;
 import loop.model.plugin.Plugin;
 import loop.model.plugin.PluginRenderer;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;
@@ -48,7 +49,9 @@ public class RandomPairBuilder implements PairBuilder {
     private static RandomPairBuilderPlugin plugin;
     
     private static class RandomPairBuilderPlugin extends Plugin<PairBuilder> {
-
+        
+        private List<Parameter> parameters = new ArrayList<Parameter>();
+        
         @Override
         public String getName() {
             return NAME;
@@ -61,11 +64,14 @@ public class RandomPairBuilder implements PairBuilder {
 
         @Override
         public List<Parameter> getParameters() {
-            return new ArrayList<Parameter>();
+            return parameters;
         }
 
         @Override
         public PairBuilder getNewInstance(List<Double> params) {
+            if (!ParameterValidator.areValuesValid(params, parameters)) {
+                throw new IllegalArgumentException("Invalid parameters given for the creation of a 'random pair builder' object");
+            }
             return new RandomPairBuilder();
         }
     }

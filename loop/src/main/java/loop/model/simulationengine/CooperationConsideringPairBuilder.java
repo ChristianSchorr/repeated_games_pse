@@ -7,6 +7,10 @@ import org.jgrapht.alg.interfaces.MatchingAlgorithm;
 import org.jgrapht.alg.matching.PathGrowingWeightedMatching;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
+import loop.model.plugin.Parameter;
+import loop.model.plugin.ParameterValidator;
+import loop.model.plugin.Plugin;
+
 /**
  * Realises the "Paarbildung nach Wunsch" pairing mechanism as described in the specification.
  * 
@@ -14,6 +18,10 @@ import org.jgrapht.graph.SimpleWeightedGraph;
  *
  */
 public class CooperationConsideringPairBuilder implements PairBuilder {
+    
+    public static final String NAME = "Cooperation Considering Pair Builder";
+    private static final String DESCRIPTION = "Tries to maximize mutual cooperation probability for each builded pair, i.e. builds pairs"
+            + " such that the probability of both agents cooperating is as high as possible for each pair.";
     
     private PairBuilder randomPairBuilder = new RandomPairBuilder();
     private SimpleWeightedGraph<Agent, AgentPair> graph;
@@ -74,6 +82,48 @@ public class CooperationConsideringPairBuilder implements PairBuilder {
                     graph.addEdge(a1, a2, agentPair);
                 }
             }
+        }
+    }
+    
+    /**
+     * Returns a {@link Plugin} instance wrapping this implementation of the {@link PairBuilder} interface.
+     * 
+     * @return a plugin instance.
+     */
+    public static Plugin<PairBuilder> getPlugin() {
+        if (plugin == null) {
+            plugin = new CooperationConsideringPairBuilderPlugin();
+        }
+        return plugin;
+    }
+    
+    private static CooperationConsideringPairBuilderPlugin plugin;
+    
+    private static class CooperationConsideringPairBuilderPlugin extends Plugin<PairBuilder> {
+        
+        private List<Parameter> parameters = new ArrayList<Parameter>();
+        
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public String getDescription() {
+            return DESCRIPTION;
+        }
+
+        @Override
+        public List<Parameter> getParameters() {
+            return parameters;
+        }
+
+        @Override
+        public PairBuilder getNewInstance(List<Double> params) {
+            if (!ParameterValidator.areValuesValid(params, parameters)) {
+                throw new IllegalArgumentException("Invalid parameters given for the creation of a 'coop considering pair builder' object");
+            }
+            return new CooperationConsideringPairBuilder();
         }
     }
 
