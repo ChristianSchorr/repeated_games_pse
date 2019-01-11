@@ -105,7 +105,7 @@ public class MultiConfigOutputController {
         });
     }
     
-private class ChartUpdater implements Runnable {
+    private class ChartUpdater implements Runnable {
         
         @Override
         public void run() {

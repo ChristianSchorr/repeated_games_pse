@@ -315,7 +315,7 @@ public class ConfigurationCreatorTest {
             EngineSegment g1seg1 = segments.get(0);
             EngineSegment g1seg2 = segments.get(1);
             int groupSize = start + i * step;
-          //g1seg1
+            //g1seg1
             assertEquals((int) (0.5 * groupSize), g1seg1.getAgentCount());
             assertTrue(g1seg1.getCapitalDistribution() instanceof PoissonDistribution);
             assertEquals(1, g1seg1.getStrategyDistribution().getSupport().size());
@@ -337,7 +337,6 @@ public class ConfigurationCreatorTest {
         double end = 0.7;
         double step = 0.05;
         int configCount = 13;
-        //alpha
         MulticonfigurationParameter multiParam = 
             new MulticonfigurationParameter(start, end, step, group1.getName());
         
@@ -369,14 +368,14 @@ public class ConfigurationCreatorTest {
             EngineSegment g1seg2 = segments.get(1);
             double segmentSize = start + i * step;
             //g1seg1
-            assertEquals((int) (segmentSize * 100), g1seg1.getAgentCount(), 2); //allow some rounding errors
+            assertEquals((int) (segmentSize * population.getGroupSize(group1)), g1seg1.getAgentCount(), 2); //allow some rounding errors
             assertTrue(g1seg1.getCapitalDistribution() instanceof PoissonDistribution);
             assertEquals(1, g1seg1.getStrategyDistribution().getSupport().size());
             assertEquals(PureStrategy.alwaysCooperate().getName(), g1seg1.getStrategyDistribution().getPicker().pickOne().getName());
             assertEquals(-1, g1seg1.getGroupId());
             
             //g1seg2
-            assertEquals((int) ((1.0 - segmentSize) * 100), g1seg2.getAgentCount(), 2); //allow some rounding errors
+            assertEquals((int) ((1.0 - segmentSize) * population.getGroupSize(group1)), g1seg2.getAgentCount(), 2); //allow some rounding errors
             assertTrue(g1seg2.getCapitalDistribution() instanceof PoissonDistribution);
             assertEquals(1, g1seg2.getStrategyDistribution().getSupport().size());
             assertEquals(PureStrategy.neverCooperate().getName(), g1seg2.getStrategyDistribution().getPicker().pickOne().getName());
