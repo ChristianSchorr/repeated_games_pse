@@ -3,6 +3,10 @@ package loop.model.simulationengine.distributions;
 import java.util.ArrayList;
 import java.util.List;
 
+import loop.model.plugin.Parameter;
+import loop.model.plugin.ParameterValidator;
+import loop.model.plugin.Plugin;
+
 /**
  * Represents a binomial distribution.
  * 
@@ -10,7 +14,7 @@ import java.util.List;
  *
  */
 public class BinomialDistribution implements DiscreteDistribution {
-
+    
     private int min;
     private int max;
     private double p;
@@ -49,7 +53,7 @@ public class BinomialDistribution implements DiscreteDistribution {
             
             @Override
             public Integer pickOne() {
-                return dist.sample();
+                return min + dist.sample();
             }
             
             @Override
@@ -73,20 +77,60 @@ public class BinomialDistribution implements DiscreteDistribution {
         return DiscreteDistributionUtility.getSupportMax(this, q, (int) Math.round(n * p));
     }
     
-    private int binCoeff(int n, int k)
-    {
-        if ((n < 0) || (k < 0) || (k > n))
-            throw new IllegalArgumentException(n + ", " + k);
-        if (k > n/2) k = n - k;
-
-        int result = 1;
-
-        for (int i = n - k + 1; i <= n; i++)
-            result *= i;
-        for (int i = 2; i <= k; i++)
-            result /= i;
-
-        return result;
+    private static final String NAME = "Binomial Distribution";
+    private static final String DESCRIPTION = "This is a binomial distribution that is shifted such that instead of taking values between"
+            + " 0 and n, it takes values between specifiable bounds a and b, where a and b must be non-negative integers.";
+    
+    /**
+     * Returns a {@link Plugin} instance wrapping this implementation of the {@link DiscreteDistribution} interface.
+     * 
+     * @return a plugin instance.
+     */
+    public static Plugin<DiscreteDistribution> getPlugin() {
+        if (plugin == null) {
+            plugin = new BinomialDistributionPlugin();
+        }
+        return plugin;
     }
+    
+    private static BinomialDistributionPlugin plugin;
+    
+    private static class BinomialDistributionPlugin extends Plugin<DiscreteDistribution> {
+        
+        private List<Parameter> parameters = new ArrayList<Parameter>();
+        
+        public BinomialDistributionPlugin() {
+            Parameter minParameter = new Parameter(0.0, 500.0, 1.0, "lower bound", "The lower bound of the distribution.");
+            Parameter maxParameter = new Parameter(0.0, 500.0, 1.0, "upper bound", "The upper bound of the distribution.");
+            Parameter probParameter = new Parameter(0.0, 1.0, "probability", "The probability of success, characterizing the bernoulli chain"
+                    + " modelled by this distribution.");
+            parameters.add(minParameter);
+            parameters.add(maxParameter);
+            parameters.add(probParameter);
+        }
+        
+        @Override
+        public String getName() {
+            return NAME;
+        }
 
+        @Override
+        public String getDescription() {
+            return DESCRIPTION;
+        }
+
+        @Override
+        public List<Parameter> getParameters() {
+            return parameters;
+        }
+
+        @Override
+        public DiscreteDistribution getNewInstance(List<Double> params) {
+            if (!ParameterValidator.areValuesValid(params, parameters)) {
+                throw new IllegalArgumentException("Invalid parameters given for the creation of a 'binomial distribution' object");
+            }
+            return new BinomialDistribution(params.get(0).intValue(), params.get(1).intValue(), params.get(2));
+        }
+    }
+    
 }

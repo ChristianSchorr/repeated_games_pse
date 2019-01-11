@@ -7,7 +7,6 @@ import java.util.Random;
 import loop.model.plugin.Parameter;
 import loop.model.plugin.ParameterValidator;
 import loop.model.plugin.Plugin;
-import loop.model.simulationengine.PreferentialAdaption.PreferentialAdaptionPlugin;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;
 import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.Strategy;

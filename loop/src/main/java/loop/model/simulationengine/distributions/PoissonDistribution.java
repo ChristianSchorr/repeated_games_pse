@@ -1,8 +1,11 @@
 package loop.model.simulationengine.distributions;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
+import loop.model.plugin.Parameter;
+import loop.model.plugin.ParameterValidator;
+import loop.model.plugin.Plugin;
 
 /**
  * Represents a Poisson distribution.
@@ -63,4 +66,55 @@ public class PoissonDistribution implements DiscreteDistribution {
     public int getSupportMax(final double q) {
         return DiscreteDistributionUtility.getSupportMax(this, q, (int) Math.round(lambda));
     }
+    
+    private static final String NAME = "Poisson Distribution";
+    private static final String DESCRIPTION = "This is a poisson distribution.";
+    
+    /**
+     * Returns a {@link Plugin} instance wrapping this implementation of the {@link DiscreteDistribution} interface.
+     * 
+     * @return a plugin instance.
+     */
+    public static Plugin<DiscreteDistribution> getPlugin() {
+        if (plugin == null) {
+            plugin = new PoissonDistributionPlugin();
+        }
+        return plugin;
+    }
+    
+    private static PoissonDistributionPlugin plugin;
+    
+    private static class PoissonDistributionPlugin extends Plugin<DiscreteDistribution> {
+        
+        private List<Parameter> parameters = new ArrayList<Parameter>();
+        
+        public PoissonDistributionPlugin() {
+            Parameter lambdaParameter = new Parameter(0.0, 500.0, "mean", "The mean of this distribution.");
+            parameters.add(lambdaParameter);
+        }
+        
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public String getDescription() {
+            return DESCRIPTION;
+        }
+
+        @Override
+        public List<Parameter> getParameters() {
+            return parameters;
+        }
+
+        @Override
+        public DiscreteDistribution getNewInstance(List<Double> params) {
+            if (!ParameterValidator.areValuesValid(params, parameters)) {
+                throw new IllegalArgumentException("Invalid parameters given for the creation of a 'poisson distribution' object");
+            }
+            return new PoissonDistribution(params.get(0));
+        }
+    }
+    
 }
