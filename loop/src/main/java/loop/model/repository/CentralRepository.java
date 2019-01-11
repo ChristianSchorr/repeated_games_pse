@@ -3,12 +3,27 @@ package loop.model.repository;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.plugin.Plugin;
+import loop.model.simulationengine.ConcreteGame;
+import loop.model.simulationengine.CooperationConsideringPairBuilder;
 import loop.model.simulationengine.EquilibriumCriterion;
 import loop.model.simulationengine.Game;
 import loop.model.simulationengine.PairBuilder;
+import loop.model.simulationengine.PayoffInLastAdapt;
+import loop.model.simulationengine.PreferentialAdaption;
+import loop.model.simulationengine.RandomCooperationConsideringPairBuilder;
+import loop.model.simulationengine.RandomPairBuilder;
+import loop.model.simulationengine.RankingEquilibrium;
+import loop.model.simulationengine.ReplicatorDynamic;
+import loop.model.simulationengine.SlidingMean;
 import loop.model.simulationengine.StrategyAdjuster;
+import loop.model.simulationengine.StrategyEquilibrium;
 import loop.model.simulationengine.SuccessQuantifier;
+import loop.model.simulationengine.TotalCapital;
+import loop.model.simulationengine.TotalPayoff;
+import loop.model.simulationengine.distributions.BinomialDistribution;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
+import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
+import loop.model.simulationengine.distributions.PoissonDistribution;
 import loop.model.simulationengine.strategies.Strategy;
 
 /**
@@ -28,7 +43,7 @@ public class CentralRepository {
 	private Repository<Game> gameRepo;
 	private Repository<Population> populationRepo;
 	private Repository<Group> groupRepo;
-	private Repository<Plugin<EquilibriumCriterion>> equilibriumCriterinoRepo;
+	private Repository<Plugin<EquilibriumCriterion>> equilibriumCriterionRepo;
 	private Repository<Plugin<SuccessQuantifier>> successQuantifierRepo;
 	private Repository<Plugin<StrategyAdjuster>> strategyAdjusterRepo;
 	private Repository<Plugin<PairBuilder>> pairBuilderRepo;
@@ -40,7 +55,7 @@ public class CentralRepository {
 		gameRepo = new HashMapRepository<Game>();
 		populationRepo = new HashMapRepository<Population>();
 		groupRepo = new HashMapRepository<Group>();
-		equilibriumCriterinoRepo = new HashMapRepository<Plugin<EquilibriumCriterion>>();
+		equilibriumCriterionRepo = new HashMapRepository<Plugin<EquilibriumCriterion>>();
 		successQuantifierRepo = new HashMapRepository<Plugin<SuccessQuantifier>>();
 		strategyAdjusterRepo = new HashMapRepository<Plugin<StrategyAdjuster>>();
 		pairBuilderRepo = new HashMapRepository<Plugin<PairBuilder>>();
@@ -102,7 +117,7 @@ public class CentralRepository {
 	 * @return the equilibrium criterion repository
 	 */
 	public Repository<Plugin<EquilibriumCriterion>> getEquilibriumCriterionRepository() {
-		return equilibriumCriterinoRepo;
+		return equilibriumCriterionRepo;
 	}
 	
 	/**
@@ -142,6 +157,38 @@ public class CentralRepository {
 	}
 	
 	private void initialize() {
-		
+		//pair builders
+	    this.pairBuilderRepo.addEntity(RandomPairBuilder.getPlugin().getName(), RandomPairBuilder.getPlugin());
+	    this.pairBuilderRepo.addEntity(CooperationConsideringPairBuilder.getPlugin().getName(), CooperationConsideringPairBuilder.getPlugin());
+	    this.pairBuilderRepo.addEntity(RandomCooperationConsideringPairBuilder.getPlugin().getName(),
+	            RandomCooperationConsideringPairBuilder.getPlugin());
+	    
+	    //success quantifiers
+	    this.successQuantifierRepo.addEntity(PayoffInLastAdapt.getPlugin().getName(), PayoffInLastAdapt.getPlugin());
+	    this.successQuantifierRepo.addEntity(SlidingMean.getPlugin().getName(), SlidingMean.getPlugin());
+	    this.successQuantifierRepo.addEntity(TotalPayoff.getPlugin().getName(), TotalPayoff.getPlugin());
+	    this.successQuantifierRepo.addEntity(TotalCapital.getPlugin().getName(), TotalCapital.getPlugin());
+	    
+	    //strategy adjusters
+	    this.strategyAdjusterRepo.addEntity(ReplicatorDynamic.getPlugin().getName(), ReplicatorDynamic.getPlugin());
+	    this.strategyAdjusterRepo.addEntity(PreferentialAdaption.getPlugin().getName(), PreferentialAdaption.getPlugin());
+	    
+	    //equilibrium criteria
+	    this.equilibriumCriterionRepo.addEntity(StrategyEquilibrium.getPlugin().getName(), StrategyEquilibrium.getPlugin());
+	    this.equilibriumCriterionRepo.addEntity(RankingEquilibrium.getPlugin().getName(), RankingEquilibrium.getPlugin());
+	    
+	    //discrete distributions
+	    this.discreteDistributionRepo.addEntity(PoissonDistribution.getPlugin().getName(), PoissonDistribution.getPlugin());
+	    this.discreteDistributionRepo.addEntity(BinomialDistribution.getPlugin().getName(), BinomialDistribution.getPlugin());
+	    this.discreteDistributionRepo.addEntity(DiscreteUniformDistribution.getPlugin().getName(), DiscreteUniformDistribution.getPlugin());
+	    
+	    //games
+	    this.gameRepo.addEntity(ConcreteGame.prisonersDilemma().getName(), ConcreteGame.prisonersDilemma());
+	    
+	    //load from files
+	    //TODO
+	    
+	    //load plugins
+	    //TODO
 	}
 }
