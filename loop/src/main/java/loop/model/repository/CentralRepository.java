@@ -24,6 +24,7 @@ import loop.model.simulationengine.distributions.BinomialDistribution;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
 import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
 import loop.model.simulationengine.distributions.PoissonDistribution;
+import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
 /**
@@ -157,6 +158,14 @@ public class CentralRepository {
 	}
 	
 	private void initialize() {
+	    //strategies
+	    this.stratRepo.addEntity(PureStrategy.alwaysCooperate().getName(), PureStrategy.alwaysCooperate());
+	    this.stratRepo.addEntity(PureStrategy.neverCooperate().getName(), PureStrategy.neverCooperate());
+	    this.stratRepo.addEntity(PureStrategy.grim().getName(), PureStrategy.grim());
+	    this.stratRepo.addEntity(PureStrategy.groupGrim().getName(), PureStrategy.groupGrim());
+	    this.stratRepo.addEntity(PureStrategy.titForTat().getName(), PureStrategy.titForTat());
+	    this.stratRepo.addEntity(PureStrategy.groupTitForTat().getName(), PureStrategy.groupTitForTat());
+	    
 		//pair builders
 	    this.pairBuilderRepo.addEntity(RandomPairBuilder.getPlugin().getName(), RandomPairBuilder.getPlugin());
 	    this.pairBuilderRepo.addEntity(CooperationConsideringPairBuilder.getPlugin().getName(), CooperationConsideringPairBuilder.getPlugin());

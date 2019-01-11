@@ -14,7 +14,10 @@ import loop.model.plugin.Plugin;
  *
  */
 public class PoissonDistribution implements DiscreteDistribution {
-
+    
+    public static final String NAME = "Poisson Distribution";
+    private static final String DESCRIPTION = "This is a poisson distribution.";
+    
     private double lambda;
     private org.apache.commons.math3.distribution.PoissonDistribution dist;
     
@@ -66,9 +69,6 @@ public class PoissonDistribution implements DiscreteDistribution {
     public int getSupportMax(final double q) {
         return DiscreteDistributionUtility.getSupportMax(this, q, (int) Math.round(lambda));
     }
-    
-    private static final String NAME = "Poisson Distribution";
-    private static final String DESCRIPTION = "This is a poisson distribution.";
     
     /**
      * Returns a {@link Plugin} instance wrapping this implementation of the {@link DiscreteDistribution} interface.

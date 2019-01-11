@@ -14,7 +14,10 @@ import loop.model.plugin.Plugin;
  *
  */
 public class DiscreteUniformDistribution implements DiscreteDistribution {
-
+    
+    public static final String NAME = "Discrete Unfiorm Distribution";
+    private static final String DESCRIPTION = "This is a discrete uniform distribution with specifiable lower and upper bound.";
+    
     private int min;
     private int max;
     
@@ -51,9 +54,6 @@ public class DiscreteUniformDistribution implements DiscreteDistribution {
     public int getSupportMax(double q) {
         return max;
     }
-    
-    private static final String NAME = "Discrete Unfiorm Distribution";
-    private static final String DESCRIPTION = "This is a discrete uniform distribution with specifiable lower and upper bound.";
     
     /**
      * Returns a {@link Plugin} instance wrapping this implementation of the {@link DiscreteDistribution} interface.

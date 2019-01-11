@@ -18,27 +18,27 @@ public enum MulticonfigurationParameterType {
     /**
      * A parameter of the selected pair builder.
      */
-    PB_PARAM("%s in %s"),
+    PB_PARAM("%s"),
     
     /**
      * A parameter of the selected success quantifier.
      */
-    SQ_PARAM("%s in %s"),
+    SQ_PARAM("%s"),
     
     /**
      * A parameter of the selected strategy adjuster
      */
-    SA_PARAM("%s in %s"),
+    SA_PARAM("%s"),
     
     /**
      * A parameter of the selected equilibrium criterion.
      */
-    EC_PARAM("%s in %s"),
+    EC_PARAM("%s"),
     
     /**
      * A parameter of the selected capital distribution.
      */
-    CD_PARAM("%s in %s"),
+    CD_PARAM("%s"),
     
     /**
      * The maximum of executed adaption steps per iteration.

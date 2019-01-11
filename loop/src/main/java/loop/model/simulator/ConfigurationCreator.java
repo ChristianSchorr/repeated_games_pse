@@ -133,25 +133,25 @@ public class ConfigurationCreator {
 	private static void configureAllExcept(MulticonfigurationParameterType type, UserConfiguration config) {
 	    game = CentralRepository.getInstance().getGameRepository().getEntityByName(config.getGameName());
 	    iterationCount = config.getIterationCount();
-	    if (!type.equals(MulticonfigurationParameterType.ROUND_COUNT))
+	    if (type == null || !type.equals(MulticonfigurationParameterType.ROUND_COUNT))
 	        roundCount = config.getRoundCount();
 	    mixedStrategies = config.getMixedAllowed();
-	    if (!type.equals(MulticonfigurationParameterType.PB_PARAM))
+	    if (type == null || !type.equals(MulticonfigurationParameterType.PB_PARAM))
     	    pairBuilder = CentralRepository.getInstance().getPairBuilderRepository()
                 .getEntityByName(config.getPairBuilderName()).getNewInstance(config.getPairBuilderParameters());
-	    if (!type.equals(MulticonfigurationParameterType.SQ_PARAM))
+	    if (type == null || !type.equals(MulticonfigurationParameterType.SQ_PARAM))
     	    successQuantifier = CentralRepository.getInstance().getSuccessQuantifiernRepository()
                 .getEntityByName(config.getSuccessQuantifierName()).getNewInstance(config.getSuccessQuantifierParameters());
-	    if (!type.equals(MulticonfigurationParameterType.SA_PARAM))
+	    if (type == null || !type.equals(MulticonfigurationParameterType.SA_PARAM))
     	    strategyAdjuster = CentralRepository.getInstance().getStrategyAdjusterRepository()
                 .getEntityByName(config.getStrategyAdjusterName()).getNewInstance(config.getStrategyAdjusterParameters());
-	    if (!type.equals(MulticonfigurationParameterType.EC_PARAM))
+	    if (type == null || !type.equals(MulticonfigurationParameterType.EC_PARAM))
     	    equilibriumCriterion = CentralRepository.getInstance().getEquilibriumCriterionRepository()
                 .getEntityByName(config.getEquilibriumCriterionName()).getNewInstance(config.getEquilibriumCriterionParameters());
-	    if (!type.equals(MulticonfigurationParameterType.MAX_ADAPTS))
+	    if (type == null || !type.equals(MulticonfigurationParameterType.MAX_ADAPTS))
     	    maxAdapts = config.getMaxAdapts();
 	    
-	    if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
+	    if (type == null || !(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
                 || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
 	        //initialise segments
 	        Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName());
@@ -187,7 +187,7 @@ public class ConfigurationCreator {
 	    for (int i = 0; i < multiParam.getParameterValues().size(); i++) {
 	        parameters.get(i).set(paramIndex, multiParam.getParameterValues().get(i));
 	    }
-	    
+
 	    return parameters;
 	}
 	

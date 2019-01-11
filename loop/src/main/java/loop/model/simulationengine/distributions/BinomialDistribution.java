@@ -15,6 +15,10 @@ import loop.model.plugin.Plugin;
  */
 public class BinomialDistribution implements DiscreteDistribution {
     
+    public static final String NAME = "Binomial Distribution";
+    private static final String DESCRIPTION = "This is a binomial distribution that is shifted such that instead of taking values between"
+            + " 0 and n, it takes values between specifiable bounds a and b, where a and b must be non-negative integers.";
+    
     private int min;
     private int max;
     private double p;
@@ -76,10 +80,6 @@ public class BinomialDistribution implements DiscreteDistribution {
     public int getSupportMax(double q) {
         return DiscreteDistributionUtility.getSupportMax(this, q, (int) Math.round(n * p));
     }
-    
-    private static final String NAME = "Binomial Distribution";
-    private static final String DESCRIPTION = "This is a binomial distribution that is shifted such that instead of taking values between"
-            + " 0 and n, it takes values between specifiable bounds a and b, where a and b must be non-negative integers.";
     
     /**
      * Returns a {@link Plugin} instance wrapping this implementation of the {@link DiscreteDistribution} interface.

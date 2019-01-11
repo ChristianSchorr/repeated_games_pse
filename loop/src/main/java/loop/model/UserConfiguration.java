@@ -21,10 +21,8 @@ public class UserConfiguration implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String gameName;
-	private int agentCount;
 	private int roundCount;
 	private int iterationCount;
-	private List<String> availableStrategyNames;
 	private boolean mixedAllowed;
 	private String populationName;
 	private String pairBuilderName;
@@ -40,17 +38,12 @@ public class UserConfiguration implements Serializable {
 	//private String variableParameterName;
 	private MulticonfigurationParameter multiconfigurationParameter;
 	//private List<Double> parameterValues;
-	private double startValue;
-	private double endValue;
-	private double stepSize;
 	
 	/**
 	 * Creates a new UserConfiguration with the given parameters
 	 * @param gameName the name of the game
-	 * @param agentCount the amount of agents
 	 * @param roundCount the amount of rounds per adaptionstep
 	 * @param iterationCount the amount of iterations
-	 * @param availableStrategyNames a list with the names of all allowed strategies
 	 * @param mixedAllowed {@code true}, if mixed strategies are allowed, {@code false} otherwise.
 	 * @param populationName the name of the population
 	 * @param pairBuilderName the name of the pair builder
@@ -66,18 +59,16 @@ public class UserConfiguration implements Serializable {
 	 * @param multiconfigurationParameter the multiconfiguration parameter, if this is a multiconfiguration,
 	 *                                    {@code null} otherwise
 	 */
-	public UserConfiguration(String gameName, int agentCount, int roundCount, int iterationCount,
-			List<String> availableStrategyNames, boolean mixedAllowed, String populationName, String pairBuilderName,
+	public UserConfiguration(String gameName, int roundCount, int iterationCount,
+			boolean mixedAllowed, String populationName, String pairBuilderName,
 			List<Double> pairBuilderParameters, String successQuantifierName, List<Double> successQuantifierParameters,
 			String strategyAdjusterName, List<Double> strategyAdjusterParameters, String equilibriumCriterionName,
 			List<Double> equilibriumCriterionParameters, int maxAdapts, boolean isMulticonfiguration,
 			MulticonfigurationParameter multiconfigurationParameter) {
 		
 		this.gameName = gameName;
-		this.agentCount = agentCount;
 		this.roundCount = roundCount;
 		this.iterationCount = iterationCount;
-		this.availableStrategyNames = availableStrategyNames;
 		this.mixedAllowed = mixedAllowed;
 		this.populationName = populationName;
 		this.pairBuilderName = pairBuilderName;
@@ -114,14 +105,6 @@ public class UserConfiguration implements Serializable {
 	}
 	
 	/**
-	 * Returns the amount of agents in this configuration
-	 * @return the amount of agents in this configuration
-	 */
-	public int getAgentCount() {
-		return agentCount;
-	}
-	
-	/**
 	 * Returns the amount of rounds per adaption step in this configuration
 	 * @return the amount of rounds per adaption step in this configuration
 	 */
@@ -135,14 +118,6 @@ public class UserConfiguration implements Serializable {
 	 */
 	public int getIterationCount() {
 		return iterationCount;
-	}
-	
-	/**
-	 * Returns a list with names of all available strategies in this configuration
-	 * @return a list with names of all available strategies in this configuration
-	 */
-	public List<String> getAvailableStrategyNames() {
-		return availableStrategyNames;
 	}
 	
 	/**
