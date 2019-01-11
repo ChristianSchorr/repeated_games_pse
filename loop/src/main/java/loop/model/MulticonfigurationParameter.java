@@ -139,7 +139,7 @@ public class MulticonfigurationParameter {
     private void createParameterValueList() {
         this.parameterValues = new ArrayList<Double>();
         double param = startValue;
-        while (param <= endValue) {
+        while (param <= endValue + Math.pow(10, -7)) {
             parameterValues.add(param);
             param += stepSize;
         }

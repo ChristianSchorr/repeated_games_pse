@@ -109,6 +109,7 @@ public class ConfigurationCreatorTest {
         int start = 100;
         int end = 200;
         int step = 10;
+        int configCount = 11;
         MulticonfigurationParameter multiParam = new MulticonfigurationParameter(MulticonfigurationParameterType.ROUND_COUNT, start, end, step);
         
         UserConfiguration userConfig = new UserConfiguration(gameName, roundCount, iterationCount, mixedAllowed, populationName, pairBuilderName,
@@ -125,7 +126,7 @@ public class ConfigurationCreatorTest {
         assertNotNull(configs);
         assertEquals(11, configs.size());
         
-        for (int i = 0; i <= 10 ; i++) {
+        for (int i = 0; i < configCount ; i++) {
             Configuration config = configs.get(i);
             assertEquals(gameName, config.getGame().getName());
             assertEquals(start + i * step, config.getRoundCount());
@@ -141,6 +142,7 @@ public class ConfigurationCreatorTest {
         int start = 1000;
         int end = 5000;
         int step = 200;
+        int configCount = 21;
         MulticonfigurationParameter multiParam = new MulticonfigurationParameter(MulticonfigurationParameterType.MAX_ADAPTS, start, end, step);
         
         UserConfiguration userConfig = new UserConfiguration(gameName, roundCount, iterationCount, mixedAllowed, populationName, pairBuilderName,
@@ -155,9 +157,9 @@ public class ConfigurationCreatorTest {
             fail("ConfigurationException occured.");
         }
         assertNotNull(configs);
-        assertEquals(21, configs.size());
+        assertEquals(configCount, configs.size());
         
-        for (int i = 0; i <= 10 ; i++) {
+        for (int i = 0; i < configCount ; i++) {
             Configuration config = configs.get(i);
             assertEquals(gameName, config.getGame().getName());
             assertEquals(roundCount, config.getRoundCount());
@@ -173,6 +175,7 @@ public class ConfigurationCreatorTest {
         double start = 0.0;
         double end = 1.0;
         double step = 0.1;
+        int configCount = 11;
         //alpha
         MulticonfigurationParameter multiParam = 
             new MulticonfigurationParameter(MulticonfigurationParameterType.SA_PARAM, start, end, step,
@@ -190,9 +193,9 @@ public class ConfigurationCreatorTest {
             fail("ConfigurationException occured.");
         }
         assertNotNull(configs);
-        assertEquals(11, configs.size());
+        assertEquals(configCount, configs.size());
         
-        for (int i = 0; i <= 10 ; i++) {
+        for (int i = 0; i < configCount ; i++) {
             Configuration config = configs.get(i);
             assertEquals(gameName, config.getGame().getName());
             assertEquals(roundCount, config.getRoundCount());
@@ -225,7 +228,8 @@ public class ConfigurationCreatorTest {
         double start = 1.0;
         double end = 100.0;
         double step = 5.0;
-        //alpha
+        int configCount = 20;
+        //lambda
         MulticonfigurationParameter multiParam = 
             new MulticonfigurationParameter(start, end, step,
                 CentralRepository.getInstance().getDiscreteDistributionRepository().getEntityByName(PoissonDistribution.NAME).getParameters().get(0).getName(),
@@ -243,9 +247,9 @@ public class ConfigurationCreatorTest {
             fail("ConfigurationException occured.");
         }
         assertNotNull(configs);
-        assertEquals(20, configs.size());
+        assertEquals(configCount, configs.size());
         
-        for (int i = 0; i <= 10 ; i++) {
+        for (int i = 0; i < configCount ; i++) {
             Configuration config = configs.get(i);
             assertEquals(gameName, config.getGame().getName());
             assertEquals(roundCount, config.getRoundCount());
@@ -271,6 +275,112 @@ public class ConfigurationCreatorTest {
                 e.printStackTrace();
             }
             assertEquals(start + i * step, lambda, Math.pow(10, -7));
+        }
+    }
+    
+    @Test
+    public void testMultiGroupSizes() {
+        int start = 50;
+        int end = 150;
+        int step = 5;
+        int configCount = 21;
+        //alpha
+        MulticonfigurationParameter multiParam = 
+            new MulticonfigurationParameter(start, end, step, group1.getName());
+        
+        UserConfiguration userConfig = new UserConfiguration(gameName, roundCount, iterationCount, mixedAllowed, populationName, pairBuilderName,
+                pairBuilderParameters, successQuantifierName, successQuantifierParameters, strategyAdjusterName, strategyAdjusterParameters,
+                equilibriumCriterionName, equilibriumCriterionParameters, maxAdapts, true, multiParam);
+        
+        List<Configuration> configs = null;
+        try {
+            configs = ConfigurationCreator.generateConfigurations(userConfig);
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+            fail("ConfigurationException occured.");
+        }
+        assertNotNull(configs);
+        assertEquals(configCount, configs.size());
+        
+        for (int i = 0; i < configCount ; i++) {
+            Configuration config = configs.get(i);
+            assertEquals(gameName, config.getGame().getName());
+            assertEquals(roundCount, config.getRoundCount());
+            assertEquals(mixedAllowed, config.allowsMixedStrategies());
+            assertEquals(maxAdapts, config.getMaxAdapts());
+            testAlgorithmClasses(config);
+            
+            List<EngineSegment> segments = config.getSegments();
+            assertEquals(3, segments.size());
+            EngineSegment g1seg1 = segments.get(0);
+            EngineSegment g1seg2 = segments.get(1);
+            int groupSize = start + i * step;
+          //g1seg1
+            assertEquals((int) (0.5 * groupSize), g1seg1.getAgentCount());
+            assertTrue(g1seg1.getCapitalDistribution() instanceof PoissonDistribution);
+            assertEquals(1, g1seg1.getStrategyDistribution().getSupport().size());
+            assertEquals(PureStrategy.alwaysCooperate().getName(), g1seg1.getStrategyDistribution().getPicker().pickOne().getName());
+            assertEquals(-1, g1seg1.getGroupId());
+            
+            //g1seg2
+            assertEquals((int) (0.5 * groupSize), g1seg2.getAgentCount());
+            assertTrue(g1seg2.getCapitalDistribution() instanceof PoissonDistribution);
+            assertEquals(1, g1seg2.getStrategyDistribution().getSupport().size());
+            assertEquals(PureStrategy.neverCooperate().getName(), g1seg2.getStrategyDistribution().getPicker().pickOne().getName());
+            assertEquals(-1, g1seg2.getGroupId());
+        }
+    }
+    
+    @Test
+    public void testMultiSegmentSizes() {
+        double start = 0.1;
+        double end = 0.7;
+        double step = 0.05;
+        int configCount = 13;
+        //alpha
+        MulticonfigurationParameter multiParam = 
+            new MulticonfigurationParameter(start, end, step, group1.getName());
+        
+        UserConfiguration userConfig = new UserConfiguration(gameName, roundCount, iterationCount, mixedAllowed, populationName, pairBuilderName,
+                pairBuilderParameters, successQuantifierName, successQuantifierParameters, strategyAdjusterName, strategyAdjusterParameters,
+                equilibriumCriterionName, equilibriumCriterionParameters, maxAdapts, true, multiParam);
+        
+        List<Configuration> configs = null;
+        try {
+            configs = ConfigurationCreator.generateConfigurations(userConfig);
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+            fail("ConfigurationException occured.");
+        }
+        assertNotNull(configs);
+        assertEquals(configCount, configs.size());
+        
+        for (int i = 0; i < configCount ; i++) {
+            Configuration config = configs.get(i);
+            assertEquals(gameName, config.getGame().getName());
+            assertEquals(roundCount, config.getRoundCount());
+            assertEquals(mixedAllowed, config.allowsMixedStrategies());
+            assertEquals(maxAdapts, config.getMaxAdapts());
+            testAlgorithmClasses(config);
+            
+            List<EngineSegment> segments = config.getSegments();
+            assertEquals(3, segments.size());
+            EngineSegment g1seg1 = segments.get(0);
+            EngineSegment g1seg2 = segments.get(1);
+            double segmentSize = start + i * step;
+            //g1seg1
+            assertEquals((int) (segmentSize * 100), g1seg1.getAgentCount(), 2); //allow some rounding errors
+            assertTrue(g1seg1.getCapitalDistribution() instanceof PoissonDistribution);
+            assertEquals(1, g1seg1.getStrategyDistribution().getSupport().size());
+            assertEquals(PureStrategy.alwaysCooperate().getName(), g1seg1.getStrategyDistribution().getPicker().pickOne().getName());
+            assertEquals(-1, g1seg1.getGroupId());
+            
+            //g1seg2
+            assertEquals((int) ((1.0 - segmentSize) * 100), g1seg2.getAgentCount(), 2); //allow some rounding errors
+            assertTrue(g1seg2.getCapitalDistribution() instanceof PoissonDistribution);
+            assertEquals(1, g1seg2.getStrategyDistribution().getSupport().size());
+            assertEquals(PureStrategy.neverCooperate().getName(), g1seg2.getStrategyDistribution().getPicker().pickOne().getName());
+            assertEquals(-1, g1seg2.getGroupId());
         }
     }
     
