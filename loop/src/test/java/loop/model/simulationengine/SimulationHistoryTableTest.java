@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -15,7 +14,7 @@ import org.junit.Test;
  *
  */
 
-public class SimulationHistoryTableClass {
+public class SimulationHistoryTableTest {
 	
 	private List<GameResult> results = new ArrayList<GameResult>();
 	private List<GameResult> resultsOfFirstAgent = new ArrayList<GameResult>();
@@ -23,7 +22,7 @@ public class SimulationHistoryTableClass {
 
 	
 	/**
-	 * Tests the result list of the simulationHistoryTable 
+	 * Tests the methods of the SimulationHistoryTable class
 	 */
 	@Test
 	public void testResultList() {
@@ -53,11 +52,13 @@ public class SimulationHistoryTableClass {
         assertEquals(simulationHistoryTable.getLatestResults(), latestResults);
         assertEquals(simulationHistoryTable.getLatesResultsByAgent(agents.get(2)), result3);
         assertNotEquals(simulationHistoryTable.getLatesResultsByAgent(agents.get(2)), result2);
+           
+        assertEquals(simulationHistoryTable.getAllWhere((result) -> result.hasAgent(agents.get(2))), latestResults);
+        assertEquals(simulationHistoryTable.getLatestWhere((result) -> result.hasCooperated(agents.get(1))), result1); 
+        assertEquals(simulationHistoryTable.getLatestWhere((result) -> result.getPayoff(agents.get(0)) > 2), result2); 
                 
 	}
 	
-	
-	
-	
+		
 
 }
