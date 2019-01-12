@@ -199,7 +199,7 @@ public class CentralRepository {
 	    
 	    //load from files
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Strategies"))) {
+			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Strategies"))) {
 				if(p.getClass().equals(PureStrategy.class)) {
 					stratRepo.addEntity(((PureStrategy) p).getName(), (PureStrategy) p);
 				}
@@ -208,7 +208,7 @@ public class CentralRepository {
 			e.printStackTrace();
 		}
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Games"))) {
+			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Games"))) {
 				if(p.getClass().equals(Game.class)) {
 					gameRepo.addEntity(((Game) p).getName(), (Game) p);
 				}
@@ -217,7 +217,7 @@ public class CentralRepository {
 			e.printStackTrace();
 		}
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Groups"))) {
+			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Groups"))) {
 				if(p.getClass().equals(Group.class)) {
 					groupRepo.addEntity(((Group) p).getName(), (Group) p);
 				}
@@ -226,7 +226,7 @@ public class CentralRepository {
 			e.printStackTrace();
 		}
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Populations"))) {
+			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Populations"))) {
 				if(p.getClass().equals(Population.class)) {
 					populationRepo.addEntity(((Population) p).getName(), (Population) p);
 				}
