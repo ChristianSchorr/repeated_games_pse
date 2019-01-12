@@ -1,5 +1,8 @@
 package loop.model.repository;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.plugin.Plugin;
@@ -195,7 +198,42 @@ public class CentralRepository {
 	    this.gameRepo.addEntity(ConcreteGame.prisonersDilemma().getName(), ConcreteGame.prisonersDilemma());
 	    
 	    //load from files
-	    //TODO
+	    try {
+			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Strategies"))) {
+				if(p.getClass().equals(PureStrategy.class)) {
+					stratRepo.addEntity(((PureStrategy) p).getName(), (PureStrategy) p);
+				}
+			};
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	    try {
+			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Games"))) {
+				if(p.getClass().equals(Game.class)) {
+					gameRepo.addEntity(((Game) p).getName(), (Game) p);
+				}
+			};
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	    try {
+			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Groups"))) {
+				if(p.getClass().equals(Group.class)) {
+					groupRepo.addEntity(((Group) p).getName(), (Group) p);
+				}
+			};
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	    try {
+			for(Object p: FileIO.loadAllEntities(new File("./src/main/resources/personallib/Populations"))) {
+				if(p.getClass().equals(Population.class)) {
+					populationRepo.addEntity(((Population) p).getName(), (Population) p);
+				}
+			};
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	    
 	    //load plugins
 	    //TODO
