@@ -74,8 +74,10 @@ public class ThreadPoolSimulator implements Simulator {
 
 		SimulatorTask task = new SimulatorTask(simResult, configBuffer, action);
 		runningSimulations.add(task);
-		for (int i = 0; i < threadCount; i++) {
-			scheduleNextIteration();
+		if (runningSimulations.peek() == task) {
+			for (int i = 0; i < threadCount; i++) {
+				scheduleNextIteration();
+			}
 		}
 		return simResult;
 	}
@@ -88,6 +90,7 @@ public class ThreadPoolSimulator implements Simulator {
 			finishingSimulations.remove(finishedSimulation);
 			finishedSimulations.add(finishedSimulation.simResult);
 			finishedSimulation.finishedHandler.accept(finishedSimulation.simResult);
+			finishedSimulation.simResult.setStatus(SimulationStatus.FINISHED);
 		}
 
 		// update running tasks
@@ -103,6 +106,7 @@ public class ThreadPoolSimulator implements Simulator {
 		SimulatorTask task = runningSimulations.peek();
 		Configuration config = task.getNextConfiguration();
 		int index = task.buffer.getLastIndex();
+		task.simResult.setStatus(SimulationStatus.RUNNING);
 		
 		// start iteration execution
 		CompletableFuture<IterationResult> future = CompletableFuture.supplyAsync(() -> {
@@ -138,6 +142,7 @@ public class ThreadPoolSimulator implements Simulator {
 		for (CompletableFuture<IterationResult> future : task.runningIterations)
 			future.cancel(true);
 		runningSimulations.remove(task);
+		task.simResult.setStatus(SimulationStatus.CANCELED);
 		return true;
 	}
 
@@ -212,6 +217,7 @@ public class ThreadPoolSimulator implements Simulator {
 				totalIterationsLeft += config.getTotalIterations();
 				iterationsLeft.add(config.getTotalIterations());
 			}
+			simResult.setTotalIterations(totalIterationsLeft);
 		}
 
 		private Configuration getNextConfiguration() throws ConfigurationException {

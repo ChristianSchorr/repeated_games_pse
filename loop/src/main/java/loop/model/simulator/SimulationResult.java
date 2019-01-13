@@ -23,12 +23,17 @@ public class SimulationResult {
 
 	private UserConfiguration configuration;
 	private int id;
+	private SimulationStatus status;
+	private int totalIterations;
+	private int finishedIterations = 0;
 
 	private List<List<IterationResult>> iterationResults;
 	private List<SimulationEngineException> exceptions;
 
 	private List<BiConsumer<SimulationResult, IterationResult>> resultHandlers;
 	private List<BiConsumer<SimulationResult, SimulationEngineException>> exceptionHandlers;
+	private List<BiConsumer<SimulationResult, SimulationStatus>> statusChangedHandler;
+
 
 	/**
 	 * Creates a new simulation result to a simulation with given configuration and
@@ -40,11 +45,13 @@ public class SimulationResult {
 	public SimulationResult(UserConfiguration config, int id) {
 		configuration = config;
 		this.id = id;
-		iterationResults = new ArrayList<List<IterationResult>>();
-		exceptions = new ArrayList<SimulationEngineException>();
+		iterationResults = new ArrayList<>();
+		exceptions = new ArrayList<>();
+		status = SimulationStatus.QUEUED;
 
-		resultHandlers = new ArrayList<BiConsumer<SimulationResult, IterationResult>>();
-		exceptionHandlers = new ArrayList<BiConsumer<SimulationResult, SimulationEngineException>>();
+		resultHandlers = new ArrayList<>();
+		exceptionHandlers = new ArrayList<>();
+		statusChangedHandler = new ArrayList<>();
 	}
 
 	/**
@@ -60,6 +67,7 @@ public class SimulationResult {
 			iterationResults.add(new ArrayList<IterationResult>());
 		}
 		iterationResults.get(i).add(result);
+		finishedIterations++;
 
 		// notify listeners
 		for (BiConsumer<SimulationResult, IterationResult> handler : resultHandlers) {
@@ -146,5 +154,35 @@ public class SimulationResult {
 	 */
 	public int getId() {
 		return id;
+	}
+
+
+	/**
+	 * Returns the current status of this simulation
+	 *
+	 * @return the current status of this simulation
+	 */
+	public SimulationStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * Register a handler that will be executed every time the status of this Simulation changes
+	 *
+	 * @param handler the handler that shall be executed whenever the simulation's status changes
+	 */
+	public void registerSimulationStatusChangedHandler(BiConsumer<SimulationResult, SimulationStatus> handler) {
+		statusChangedHandler.add(handler);
+	}
+
+	protected void setStatus(SimulationStatus status) {
+		this.status = status;
+		for(BiConsumer<SimulationResult, SimulationStatus> handler : statusChangedHandler) {
+			handler.accept(this, status);
+		}
+	}
+
+	protected void setTotalIterations(int totalIterations) {
+		this.totalIterations = totalIterations;
 	}
 }
