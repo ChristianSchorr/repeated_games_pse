@@ -185,4 +185,20 @@ public class SimulationResult {
 	protected void setTotalIterations(int totalIterations) {
 		this.totalIterations = totalIterations;
 	}
+
+	/**
+	 * Returns the total number of iterations in this simulation
+	 * @return the total number of iterations in this simulation
+	 */
+	public int getTotalIterations() {
+		return totalIterations;
+	}
+
+	/**
+	 * Returns the number of finished iterations in this simulation
+	 * @return the number of finished iterations in this simulation
+	 */
+	public int getFinishedIterations() {
+		return finishedIterations;
+	}
 }

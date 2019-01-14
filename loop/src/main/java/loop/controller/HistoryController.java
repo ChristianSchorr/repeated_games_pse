@@ -6,8 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 import loop.model.simulator.SimulationResult;
+import loop.view.historylistview.HistoryListCell;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +30,9 @@ public class HistoryController {
     private ResultHistoryItem selectedItem;
     private ObservableList<ResultHistoryItem> history;
 
+    /**
+     * Initializes the history controller
+     */
     public void initialize() {
         history = FXCollections.observableArrayList();
         historyList.setItems(history);
@@ -35,7 +41,7 @@ public class HistoryController {
             selectedItem = newValue;
             outputViewController.setDisplayedResult(selectedItem.getResult());
         });
-
+        historyList.setCellFactory(param -> new HistoryListCell());
     }
 
     /**

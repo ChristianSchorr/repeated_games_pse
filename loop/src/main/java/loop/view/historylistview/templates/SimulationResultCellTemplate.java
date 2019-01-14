@@ -1,12 +1,10 @@
-package loop.view.historylistview;
+package loop.view.historylistview.templates;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import loop.model.simulator.SimulationResult;
-
-import java.io.IOException;
+import loop.controller.ResultHistoryItem;
 
 public abstract class SimulationResultCellTemplate {
 
@@ -19,7 +17,8 @@ public abstract class SimulationResultCellTemplate {
     @FXML
     protected Label idLabel;
 
-    protected void initialize(SimulationResult res) {
+    protected void initialize(ResultHistoryItem item) {
+        SimulationResult res = item.getResult();
         String gameName = res.getUserConfiguration().getGameName();
         int simulationId = res.getId();
 
