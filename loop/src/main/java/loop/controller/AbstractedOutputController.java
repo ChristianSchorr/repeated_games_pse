@@ -175,16 +175,6 @@ public class AbstractedOutputController {
             setBufferingAnimationAdapts(false);
         }
         
-        private void setBufferingAnimationEfficiency(boolean enabled) {
-            efficiencyBufferGifView.setVisible(enabled);
-            efficiencyBufferRectangle.setVisible(enabled);
-        }
-        
-        private void setBufferingAnimationAdapts(boolean enabled) {
-            adaptsBufferGifView.setVisible(enabled);
-            adaptsBufferRectangle.setVisible(enabled);
-        }
-        
         private void updateEfficiencyChart() {
             //setup the diagram
             final CategoryAxis xAxis = new CategoryAxis();
@@ -203,11 +193,11 @@ public class AbstractedOutputController {
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
-            efficiencyChart.getData().add(series);
+            setEfficiencyChartData(series);
             
             //update mean efficiency
             double mean = efficiencies.stream().mapToDouble(val -> val.doubleValue()).sum() / efficiencies.size();
-            meanEfficiencyLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(EFFICIENCY_MEAN_PRECISION).format(mean)));
+            setMeanEfficiencyLabelData(mean);
         }
         
         private void updateExecutedAdaptsChart() {
@@ -228,20 +218,52 @@ public class AbstractedOutputController {
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
-            executedAdaptsChart.getData().add(series);
+            setAdaptsChartData(series);
             
             //update mean efficiency
             double mean = steps.stream().mapToDouble(val -> val.doubleValue()).sum() / steps.size();
-            meanExecutedAdaptsLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(0).format(mean)));
+            setMeanAdaptsLabelData(mean);
         }
         
         private boolean filterIteration(IterationResult it) {
-            switch (consideredIterationsComboBox.getValue()) {
+            switch (getConsideredIterationsValue()) {
                 case ALL: return true;
                 case ONLY_EQUI: return it.equilibriumReached();
                 default: return !it.equilibriumReached();
             }
         }
+    }
+    
+    private synchronized void setBufferingAnimationEfficiency(boolean enabled) {
+        efficiencyBufferGifView.setVisible(enabled);
+        efficiencyBufferRectangle.setVisible(enabled);
+    }
+    
+    private synchronized void setBufferingAnimationAdapts(boolean enabled) {
+        adaptsBufferGifView.setVisible(enabled);
+        adaptsBufferRectangle.setVisible(enabled);
+    }
+    
+    private synchronized String getConsideredIterationsValue() {
+        return consideredIterationsComboBox.getValue();
+    }
+    
+    private synchronized void setEfficiencyChartData(XYChart.Series<String, Number> data) {
+        efficiencyChart.getData().clear();
+        efficiencyChart.getData().add(data);
+    }
+    
+    private synchronized void setMeanEfficiencyLabelData(double meanEfficiency) {
+        meanEfficiencyLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(EFFICIENCY_MEAN_PRECISION).format(meanEfficiency)));
+    }
+    
+    private synchronized void setAdaptsChartData(XYChart.Series<String, Number> data) {
+        executedAdaptsChart.getData().clear();
+        executedAdaptsChart.getData().add(data);
+    }
+    
+    private synchronized void setMeanAdaptsLabelData(double meanAdapts) {
+        meanExecutedAdaptsLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(0).format(meanAdapts)));
     }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/

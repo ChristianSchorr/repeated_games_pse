@@ -2,6 +2,7 @@ package loop.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -243,16 +244,6 @@ public class DetailedOutputController {
             setBufferingAnimationCapital(false);
         }
         
-        private void setBufferingAnimationStrategy(boolean enabled) {
-            strategyBufferGifView.setVisible(enabled);
-            strategyBufferRectangle.setVisible(enabled);
-        }
-        
-        private void setBufferingAnimationCapital(boolean enabled) {
-            capitalBufferGifView.setVisible(enabled);
-            capitalBufferRectangle.setVisible(enabled);
-        }
-        
         private void updateStrategyChart() {
             
             ObservableList<PieChart.Data> pieChartData = null;
@@ -322,7 +313,7 @@ public class DetailedOutputController {
                 pieChartData = FXCollections.observableArrayList(dataList);
             }
             
-            strategyChart.setData(pieChartData);
+            setStrategyChartData(pieChartData);
         }
         
         private void updateCapitalChart() {
@@ -378,12 +369,29 @@ public class DetailedOutputController {
                     });
             
             //add data to bar chart
-            capitalDiagram.getData().addAll(groupSeries);
+            setCapitalChartData(groupSeries);
         }
 
     }
     
+    private synchronized void setBufferingAnimationStrategy(boolean enabled) {
+        strategyBufferGifView.setVisible(enabled);
+        strategyBufferRectangle.setVisible(enabled);
+    }
     
+    private synchronized void setBufferingAnimationCapital(boolean enabled) {
+        capitalBufferGifView.setVisible(enabled);
+        capitalBufferRectangle.setVisible(enabled);
+    }
+    
+    private synchronized void setStrategyChartData(ObservableList<PieChart.Data> data) {
+        strategyChart.setData(data);
+    }
+    
+    private synchronized void setCapitalChartData(Collection<? extends XYChart.Series<String, Number>> data) {
+        capitalDiagram.getData().clear();
+        capitalDiagram.getData().addAll(data);
+    }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/
     

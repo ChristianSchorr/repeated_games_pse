@@ -26,6 +26,14 @@ import loop.model.Population;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 
+/**
+ * This class represents the controller associated with the population creation window. It
+ * creates new populations based on the user input and notifies the {@link HeadController} whenever
+ * a new population has been created.
+ * 
+ * @author Peter Koepernik
+ *
+ */
 public class PopulationController implements CreationController<Population> {
     
     private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Populations";

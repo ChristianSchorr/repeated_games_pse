@@ -117,16 +117,6 @@ public class MultiConfigOutputController {
             setBufferingAnimationAdapts(false);
         }
         
-        private void setBufferingAnimationEfficiency(boolean enabled) {
-            effBufferGifView.setVisible(enabled);
-            effBufferRectangle.setVisible(enabled);
-        }
-        
-        private void setBufferingAnimationAdapts(boolean enabled) {
-            adaptsBufferGifView.setVisible(enabled);
-            adaptsBufferRectangle.setVisible(enabled);
-        }
-        
         private void updateEfficiencyAndFrequencyChart() {
             //initialize chart
             final NumberAxis xAxis = new NumberAxis();
@@ -143,7 +133,6 @@ public class MultiConfigOutputController {
                         .mapToDouble(it -> it.getEfficiency()).sum() / (double) config.getIterationCount();
                 efficiencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanEfficiency));
             }
-            efficiencyAndFrequencyChart.getData().add(efficiencySeries);
             
             //equilibrium frequency
             XYChart.Series<Number, Number> frequencySeries = new XYChart.Series<Number, Number>();
@@ -153,7 +142,8 @@ public class MultiConfigOutputController {
                         it -> it.equilibriumReached()).count()) / (double) config.getIterationCount();
                 frequencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), equilibriumFrequency));
             }
-            efficiencyAndFrequencyChart.getData().add(frequencySeries);
+            
+            setEfficiencyAndFrequencyChartData(efficiencySeries, frequencySeries);
         }
         
         private void updateExecutedAdaptsChart() {
@@ -173,16 +163,41 @@ public class MultiConfigOutputController {
                 adaptsSeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanAdapts));
             }
             
-            executedAdaptsChart.getData().add(adaptsSeries);
+            setAdaptsChartData(adaptsSeries);
         }
         
         private boolean filterIteration(IterationResult it) {
-            switch (consideredIterationsComboBox.getValue()) {
+            switch (getConsideredIterationsValue()) {
                 case ALL: return true;
                 case ONLY_EQUI: return it.equilibriumReached();
                 default: return !it.equilibriumReached();
             }
         }
+    }
+    
+    private void setBufferingAnimationEfficiency(boolean enabled) {
+        effBufferGifView.setVisible(enabled);
+        effBufferRectangle.setVisible(enabled);
+    }
+    
+    private void setBufferingAnimationAdapts(boolean enabled) {
+        adaptsBufferGifView.setVisible(enabled);
+        adaptsBufferRectangle.setVisible(enabled);
+    }
+    
+    private synchronized String getConsideredIterationsValue() {
+        return consideredIterationsComboBox.getValue();
+    }
+    
+    private synchronized void setEfficiencyAndFrequencyChartData(XYChart.Series<Number, Number> effData, XYChart.Series<Number, Number> freqData) {
+        efficiencyAndFrequencyChart.getData().clear();
+        efficiencyAndFrequencyChart.getData().add(effData);
+        efficiencyAndFrequencyChart.getData().add(freqData);
+    }
+    
+    private synchronized void setAdaptsChartData(XYChart.Series<Number, Number> data) {
+        executedAdaptsChart.getData().clear();
+        executedAdaptsChart.getData().add(data);
     }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/

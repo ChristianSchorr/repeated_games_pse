@@ -17,6 +17,14 @@ import loop.model.repository.FileIO;
 import loop.model.simulationengine.ConcreteGame;
 import loop.model.simulationengine.Game;
 
+/**
+ * This class represents the controller associated with the game creation window. It creates
+ * new games based on the user input and notifies the {@link HeadController} whenever a new
+ * game has been created.
+ * 
+ * @author Peter Koepernik
+ *
+ */
 public class NewGameController implements CreationController<Game> {
     
     private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Games";
