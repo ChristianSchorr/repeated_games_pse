@@ -23,7 +23,7 @@ public abstract class SimulationResultCellTemplate {
         int simulationId = res.getId();
 
         nameLabel.setText(gameName);
-        idLabel.setText(String.format("%03d", simulationId));
+        idLabel.setText(String.format("#%03d", simulationId));
     }
 
     public HBox getContainer() {

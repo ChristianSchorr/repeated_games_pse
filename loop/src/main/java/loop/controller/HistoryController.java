@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class HistoryController {
 
     @FXML
-    ListView historyList;
+    ListView<ResultHistoryItem> historyList;
 
     @FXML
     Parent outputView;
@@ -66,7 +66,7 @@ public class HistoryController {
      * Returns all simulations in the simulation list
      * @return a list of all simulations in the list
      */
-    public List<SimulationResult> getALlSimulations() {
+    public List<SimulationResult> getAllSimulations() {
         return history.stream().map(ResultHistoryItem::getResult).collect(Collectors.toList());
     }
 }

@@ -18,7 +18,7 @@ public class HistoryListCell extends ListCell<ResultHistoryItem> {
         setGraphic(null);
 
         if(item != null && !empty) {
-            SimulationResultCellTemplate template = new RunningSimulationResultCellTemplate(item);
+            SimulationResultCellTemplate template = getTemplate(item);//new RunningSimulationResultCellTemplate(item);
             setGraphic(template.getContainer());
         }
     }
