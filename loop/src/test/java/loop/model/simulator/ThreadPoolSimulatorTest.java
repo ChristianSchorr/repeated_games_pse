@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import loop.model.UserConfiguration;
@@ -21,7 +22,7 @@ public class ThreadPoolSimulatorTest {
 	private SimulationResult result;
 	private CountDownLatch lock = new CountDownLatch(16);
 	
-	@Test
+	@Ignore @Test
 	public void startSimulationTest() {
 		ThreadPoolSimulator simulator = new ThreadPoolSimulator(2);
 		UserConfiguration config = UserConfiguration.getDefaultConfiguration();
