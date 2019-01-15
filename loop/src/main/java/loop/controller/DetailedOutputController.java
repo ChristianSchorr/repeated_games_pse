@@ -1,5 +1,6 @@
 package loop.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -23,6 +25,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import loop.model.Group;
 import loop.model.UserConfiguration;
@@ -43,6 +46,8 @@ import org.controlsfx.control.RangeSlider;
  *
  */
 public class DetailedOutputController {
+    
+    private static final String FXML_NAME = "detailedOutput.fxml";
     
     private SimulationResult displayedResult;
     private UserConfiguration config;
@@ -113,7 +118,26 @@ public class DetailedOutputController {
     private int minRankIndex; //minimal index of an agent in the list of all agents (increases as max decreases)
     private int maxRankIndex; //maximal index of an agent in the list of all agents (increases as min decreases)
     
+    @FXML
+    private Pane container; //the pane holding the whole output (probably an HBox or VBox)
+    
     private Future<?> chartUpdater;
+    
+    public DetailedOutputController(SimulationResult result) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        setDisplayedResult(result);
+    }
+    
+    public Pane getContainer() {
+        return container;
+    }
     
     /**
      * Called by the FXMLLoader when initialization is complete

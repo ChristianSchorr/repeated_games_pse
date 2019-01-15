@@ -1,5 +1,6 @@
 package loop.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -7,11 +8,13 @@ import java.util.concurrent.Future;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import loop.model.UserConfiguration;
 import loop.model.simulationengine.IterationResult;
@@ -25,6 +28,8 @@ import loop.model.simulator.SimulationResult;
  *
  */
 public class MultiConfigOutputController {
+    
+    private static final String FXML_NAME = "multiConfigOutput.fxml";
     
     private SimulationResult displayedResult;
     private UserConfiguration config;
@@ -61,7 +66,26 @@ public class MultiConfigOutputController {
     @FXML
     private Rectangle adaptsBufferRectangle;
     
+    @FXML
+    private Pane container; //the pane holding the whole output (probably an HBox or VBox)
+    
     private Future<?> chartUpdater;
+    
+    public MultiConfigOutputController(SimulationResult result) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        setDisplayedResult(result);
+    }
+    
+    public Pane getContainer() {
+        return container;
+    }
     
     /**
      * Called by the FXMLLoader when initialization is complete
@@ -189,7 +213,8 @@ public class MultiConfigOutputController {
         return consideredIterationsComboBox.getValue();
     }
     
-    private synchronized void setEfficiencyAndFrequencyChartData(XYChart.Series<Number, Number> effData, XYChart.Series<Number, Number> freqData) {
+    private synchronized void setEfficiencyAndFrequencyChartData(XYChart.Series<Number, Number> effData,
+            XYChart.Series<Number, Number> freqData) {
         efficiencyAndFrequencyChart.getData().clear();
         efficiencyAndFrequencyChart.getData().add(effData);
         efficiencyAndFrequencyChart.getData().add(freqData);
