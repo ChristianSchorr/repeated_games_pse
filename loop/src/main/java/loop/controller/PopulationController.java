@@ -92,7 +92,6 @@ public class PopulationController implements CreationController<Population> {
         try {
             agentCount = Integer.parseInt(agentCountTextField.getText());
         } catch(NumberFormatException e) {
-            e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "Illegal input for agent count.", ButtonType.OK);
             alert.showAndWait();
             return;
@@ -116,6 +115,12 @@ public class PopulationController implements CreationController<Population> {
     private void handleSavePopulationButton() {
         Population population = createPopulation();
         
+        if (population.getName().trim() == "" || population.getDescription().trim() == "") {
+            Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
@@ -138,7 +143,7 @@ public class PopulationController implements CreationController<Population> {
         stage.close();
     }
     
-    /*---------------------------------button handlers---------------------------------*/
+    /*---------------------------------private helper methods---------------------------------*/
     
     private void removeGroupCell(GroupCellController cell) {
         int index = cellControllers.indexOf(cell);
