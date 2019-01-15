@@ -15,6 +15,7 @@ import loop.model.Nameable;
 
 public class Group implements Serializable, Nameable {
 	
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String description;
 	private List<Segment> segments;
