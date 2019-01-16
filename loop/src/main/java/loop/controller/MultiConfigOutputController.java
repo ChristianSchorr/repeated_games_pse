@@ -1,5 +1,6 @@
 package loop.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -7,11 +8,13 @@ import java.util.concurrent.Future;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import loop.model.UserConfiguration;
 import loop.model.simulationengine.IterationResult;
@@ -25,6 +28,8 @@ import loop.model.simulator.SimulationResult;
  *
  */
 public class MultiConfigOutputController {
+    
+    private static final String FXML_NAME = "multiConfigOutput.fxml";
     
     private SimulationResult displayedResult;
     private UserConfiguration config;
@@ -61,7 +66,26 @@ public class MultiConfigOutputController {
     @FXML
     private Rectangle adaptsBufferRectangle;
     
+    @FXML
+    private Pane container; //the pane holding the whole output (probably an HBox or VBox)
+    
     private Future<?> chartUpdater;
+    
+    public MultiConfigOutputController(SimulationResult result) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        setDisplayedResult(result);
+    }
+    
+    public Pane getContainer() {
+        return container;
+    }
     
     /**
      * Called by the FXMLLoader when initialization is complete
@@ -117,16 +141,6 @@ public class MultiConfigOutputController {
             setBufferingAnimationAdapts(false);
         }
         
-        private void setBufferingAnimationEfficiency(boolean enabled) {
-            effBufferGifView.setVisible(enabled);
-            effBufferRectangle.setVisible(enabled);
-        }
-        
-        private void setBufferingAnimationAdapts(boolean enabled) {
-            adaptsBufferGifView.setVisible(enabled);
-            adaptsBufferRectangle.setVisible(enabled);
-        }
-        
         private void updateEfficiencyAndFrequencyChart() {
             //initialize chart
             final NumberAxis xAxis = new NumberAxis();
@@ -143,7 +157,6 @@ public class MultiConfigOutputController {
                         .mapToDouble(it -> it.getEfficiency()).sum() / (double) config.getIterationCount();
                 efficiencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanEfficiency));
             }
-            efficiencyAndFrequencyChart.getData().add(efficiencySeries);
             
             //equilibrium frequency
             XYChart.Series<Number, Number> frequencySeries = new XYChart.Series<Number, Number>();
@@ -153,7 +166,8 @@ public class MultiConfigOutputController {
                         it -> it.equilibriumReached()).count()) / (double) config.getIterationCount();
                 frequencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), equilibriumFrequency));
             }
-            efficiencyAndFrequencyChart.getData().add(frequencySeries);
+            
+            setEfficiencyAndFrequencyChartData(efficiencySeries, frequencySeries);
         }
         
         private void updateExecutedAdaptsChart() {
@@ -173,16 +187,42 @@ public class MultiConfigOutputController {
                 adaptsSeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), meanAdapts));
             }
             
-            executedAdaptsChart.getData().add(adaptsSeries);
+            setAdaptsChartData(adaptsSeries);
         }
         
         private boolean filterIteration(IterationResult it) {
-            switch (consideredIterationsComboBox.getValue()) {
+            switch (getConsideredIterationsValue()) {
                 case ALL: return true;
                 case ONLY_EQUI: return it.equilibriumReached();
                 default: return !it.equilibriumReached();
             }
         }
+    }
+    
+    private void setBufferingAnimationEfficiency(boolean enabled) {
+        effBufferGifView.setVisible(enabled);
+        effBufferRectangle.setVisible(enabled);
+    }
+    
+    private void setBufferingAnimationAdapts(boolean enabled) {
+        adaptsBufferGifView.setVisible(enabled);
+        adaptsBufferRectangle.setVisible(enabled);
+    }
+    
+    private synchronized String getConsideredIterationsValue() {
+        return consideredIterationsComboBox.getValue();
+    }
+    
+    private synchronized void setEfficiencyAndFrequencyChartData(XYChart.Series<Number, Number> effData,
+            XYChart.Series<Number, Number> freqData) {
+        efficiencyAndFrequencyChart.getData().clear();
+        efficiencyAndFrequencyChart.getData().add(effData);
+        efficiencyAndFrequencyChart.getData().add(freqData);
+    }
+    
+    private synchronized void setAdaptsChartData(XYChart.Series<Number, Number> data) {
+        executedAdaptsChart.getData().clear();
+        executedAdaptsChart.getData().add(data);
     }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/

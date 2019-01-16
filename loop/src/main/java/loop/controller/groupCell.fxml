@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import org.controlsfx.glyphfont.Glyph?>
+<HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card" fx:id="container">
+    <Label fx:id="groupNameLabel"/>
+    <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt" fx:id="groupCountLabel"/>
+    <Button maxWidth="20" prefHeight="20">
+        <graphic>
+            <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500" fontSize="10"/>
+        </graphic>
+    </Button>
+</HBox>

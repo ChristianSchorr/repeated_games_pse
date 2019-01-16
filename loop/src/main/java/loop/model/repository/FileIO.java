@@ -79,7 +79,7 @@ public class FileIO {
 	 * @throws IOException when the given entity can not be serialized or the given file
 	 * doesn’t exist and can not be created
 	 */
-	static <T> void saveEntity(File file, T entity) throws IOException {
+	public static <T> void saveEntity(File file, T entity) throws IOException {
 		FileOutputStream fos = new FileOutputStream (file);
 		@SuppressWarnings("resource")
 		ObjectOutputStream oos = new ObjectOutputStream (fos);

@@ -1,7 +1,9 @@
 package loop.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -22,6 +25,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import loop.model.Group;
 import loop.model.UserConfiguration;
@@ -42,6 +46,8 @@ import org.controlsfx.control.RangeSlider;
  *
  */
 public class DetailedOutputController {
+    
+    private static final String FXML_NAME = "detailedOutput.fxml";
     
     private SimulationResult displayedResult;
     private UserConfiguration config;
@@ -112,7 +118,26 @@ public class DetailedOutputController {
     private int minRankIndex; //minimal index of an agent in the list of all agents (increases as max decreases)
     private int maxRankIndex; //maximal index of an agent in the list of all agents (increases as min decreases)
     
+    @FXML
+    private Pane container; //the pane holding the whole output (probably an HBox or VBox)
+    
     private Future<?> chartUpdater;
+    
+    public DetailedOutputController(SimulationResult result) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        setDisplayedResult(result);
+    }
+    
+    public Pane getContainer() {
+        return container;
+    }
     
     /**
      * Called by the FXMLLoader when initialization is complete
@@ -243,16 +268,6 @@ public class DetailedOutputController {
             setBufferingAnimationCapital(false);
         }
         
-        private void setBufferingAnimationStrategy(boolean enabled) {
-            strategyBufferGifView.setVisible(enabled);
-            strategyBufferRectangle.setVisible(enabled);
-        }
-        
-        private void setBufferingAnimationCapital(boolean enabled) {
-            capitalBufferGifView.setVisible(enabled);
-            capitalBufferRectangle.setVisible(enabled);
-        }
-        
         private void updateStrategyChart() {
             
             ObservableList<PieChart.Data> pieChartData = null;
@@ -322,7 +337,7 @@ public class DetailedOutputController {
                 pieChartData = FXCollections.observableArrayList(dataList);
             }
             
-            strategyChart.setData(pieChartData);
+            setStrategyChartData(pieChartData);
         }
         
         private void updateCapitalChart() {
@@ -378,12 +393,29 @@ public class DetailedOutputController {
                     });
             
             //add data to bar chart
-            capitalDiagram.getData().addAll(groupSeries);
+            setCapitalChartData(groupSeries);
         }
 
     }
     
+    private synchronized void setBufferingAnimationStrategy(boolean enabled) {
+        strategyBufferGifView.setVisible(enabled);
+        strategyBufferRectangle.setVisible(enabled);
+    }
     
+    private synchronized void setBufferingAnimationCapital(boolean enabled) {
+        capitalBufferGifView.setVisible(enabled);
+        capitalBufferRectangle.setVisible(enabled);
+    }
+    
+    private synchronized void setStrategyChartData(ObservableList<PieChart.Data> data) {
+        strategyChart.setData(data);
+    }
+    
+    private synchronized void setCapitalChartData(Collection<? extends XYChart.Series<String, Number>> data) {
+        capitalDiagram.getData().clear();
+        capitalDiagram.getData().addAll(data);
+    }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/
     

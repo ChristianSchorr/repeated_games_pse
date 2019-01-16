@@ -95,3 +95,10 @@ local.properties
 .sts4-cache/
 
 # End of https://www.gitignore.io/api/eclipse
+.idea/encodings.xml
+.idea/libraries/controlsfx_8_40_14.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+loop/loop.iml
