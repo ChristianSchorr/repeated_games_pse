@@ -247,5 +247,5 @@ public class OutputController {
     }*/
     
     //TODO:
-    //set config, save result (buttons top right)
+    //set config, save result buttons
 }
