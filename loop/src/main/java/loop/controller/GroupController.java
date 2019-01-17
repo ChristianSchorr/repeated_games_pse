@@ -1,10 +1,11 @@
 package loop.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.controlsfx.control.ListSelectionView;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -15,9 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import loop.model.Group;
 import loop.model.Segment;
+import loop.model.plugin.Plugin;
+import loop.model.plugin.PluginControl;
 import loop.model.repository.CentralRepository;
-import loop.model.simulationengine.distributions.Distribution;
-import loop.model.simulationengine.strategies.Strategy;
+import loop.model.simulationengine.distributions.DiscreteDistribution;
 
 /**
  * This class represents the controller associated with the group creation window. It creates
@@ -28,9 +30,6 @@ import loop.model.simulationengine.strategies.Strategy;
  *
  */
 public class GroupController implements CreationController<Group> {
-	private Group group;
-	private String name, description;
-	private ArrayList<Segment> segments;
 	
 	/*------global properties-----*/
 	@FXML 
@@ -64,17 +63,6 @@ public class GroupController implements CreationController<Group> {
 		
 	}
 	
-	/*---------------------Handlers-----------*/
-	@FXML
-	private void setName() {
-		name = groupNameTextField.getText();
-	}
-	
-	@FXML
-	private void setDescription() {
-		description = descriptionTextField.getText();
-	}
-	
 	/*----------------------------------------*/
 	
 	@Override
@@ -86,20 +74,44 @@ public class GroupController implements CreationController<Group> {
 	private class TabController {
 		
 		@FXML
-		private ComboBox distributionChoice;
+		private ComboBox<String> distributionChoice;
 		
 		@FXML
 		private FlowPane distributionPluginPane;
 		
 		@FXML
-		private ListSelectionView strategyChoice;
+		private ListSelectionView<String> strategyChoice;
 		
 		@FXML
 		void initialize() {
 			for (String s : CentralRepository.getInstance().getStrategyRepository().getAllEntityNames()) {
 				strategyChoice.getSourceItems().add(s);
 			}
-			
+			PluginControl p = null;
+			distributionPluginPane.getChildren().add(p);
+			distributionChoice.setItems((ObservableList<String>) CentralRepository.getInstance()
+					.getDiscreteDistributionRepository().getAllEntityNames());
+		}
+		
+		@FXML
+		void capitalDistributionSelected() {
+			String selected = distributionChoice.getValue();
+			Plugin<DiscreteDistribution> plugin = CentralRepository.getInstance()
+					.getDiscreteDistributionRepository().getEntityByName(selected);
+			PluginControl newpane = plugin.getRenderer().renderPlugin();
+			distributionPluginPane.getChildren().clear();
+			distributionPluginPane.getChildren().add(newpane);
+		}
+		
+		/**
+		 * Creates a Segment out of the user data.
+		 * @return Segment created out of the user data
+		 */
+		private Segment returnSegment() {
+			String capitalDistributionName = (String) distributionChoice.getValue();
+			List<Double> capitalDistributionParameters = ((PluginControl) distributionPluginPane.getChildren().get(0)).getParameters();
+			List<String> strategyNames = strategyChoice.getTargetItems();		
+			return new Segment(capitalDistributionName, capitalDistributionParameters, strategyNames);
 		}
 	}
 }
