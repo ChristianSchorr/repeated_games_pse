@@ -69,9 +69,9 @@ public class Population implements Nameable, Serializable {
 	 * @return the size of the given group if it is part of this population, 0 otherwise
 	 */
 	public int getGroupSize(Group group) {
-		if (this.groups.contains(group)) {
-			int groupIndex = this.groups.indexOf(group);
-			return this.groupSizes.get(groupIndex);
+		if (groups.contains(group)) {
+			int groupIndex = groups.indexOf(group);
+			return groupSizes.get(groupIndex);
 		} else return 0;
 	}
 	

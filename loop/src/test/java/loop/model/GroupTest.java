@@ -5,21 +5,20 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import loop.model.simulationengine.distributions.BinomialDistribution;
+
 /**
- * Tests the constructors of the {@link Group} class.
+ * Tests the methods of the {@link Group} class.
  * 
  * @author Luc Mercatoris
  * 
  */
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-
-
-public class GroupTest {
-	
+public class GroupTest {	
 	List<Segment> segments = new ArrayList<Segment>();
 	List<Double> segmentSizes = new ArrayList<Double>();
 	List<Double> binomialDistributionParameters = new ArrayList<Double>();
