@@ -27,7 +27,7 @@ public class FileIO {
 	 * @throws IOException when the entity can not be deserialized
 	 */
 	@SuppressWarnings("unchecked")
-	static <T> T loadEntity(File file) throws FileNotFoundException, IOException {
+	public static <T> T loadEntity(File file) throws FileNotFoundException, IOException {
 		T entity = null;
 		FileInputStream fis = new FileInputStream (file);
 		@SuppressWarnings("resource")
@@ -46,7 +46,7 @@ public class FileIO {
 	 * @return a list of all loaded entities
 	 * @throws FileNotFoundException when the given directory doesn’t exist
 	 */
-	static <T> List<T> loadAllEntities(File dir) throws FileNotFoundException {
+	public static <T> List<T> loadAllEntities(File dir) throws FileNotFoundException {
 		ArrayList<T> list = new ArrayList<T>();
 		Stack<File> files = new Stack<File>();
 		pushFilesOnStack(files, dir);
