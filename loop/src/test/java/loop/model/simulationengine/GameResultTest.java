@@ -11,6 +11,12 @@ import org.junit.Test;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
+/**
+ * This class holds tests for implementations of the {@link GameResult} class.
+ * 
+ * @author Sebastian Feurer
+ *
+ */
 public class GameResultTest {
 	GameResult gameresult;
 	Strategy titForTat;
