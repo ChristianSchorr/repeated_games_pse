@@ -7,20 +7,20 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.converter.NumberStringConverter;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.repository.CentralRepository;
@@ -35,9 +35,7 @@ import loop.model.repository.FileIO;
  *
  */
 public class PopulationController implements CreationController<Population> {
-    
-    private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Populations";
-    
+
     private List<String> selectedGroups = new ArrayList<String>();
     private List<Integer> groupSizes = new ArrayList<Integer>();
     private List<GroupCellController> cellControllers = new ArrayList<GroupCellController>();
@@ -53,38 +51,28 @@ public class PopulationController implements CreationController<Population> {
     private TextField populationDescriptionTextField;
     
     @FXML
-    private ComboBox<String> groupSelectionBox;
+    private ChoiceBox<String> groupSelectionBox;
     
     @FXML
     private TextField agentCountTextField;
-    
-    @FXML
-    private Button addGroupButton;
-    
+
     @FXML
     private FlowPane groupPane;
     
     @FXML
     private Label totalAgentCountLabel;
-    private int totalAgentCount = 0;
-    
-    //the stage of the population creator window
-    private Stage stage;
-    
+
+    private IntegerProperty totalAgentCountProperty = new SimpleIntegerProperty();
+    private IntegerProperty agentCountProperty = new SimpleIntegerProperty();
+
     @FXML
     private void initialize() {
-        
+        totalAgentCountLabel.textProperty().bindBidirectional(totalAgentCountProperty, new NumberStringConverter());
+        totalAgentCountProperty.setValue(0);
+        agentCountTextField.textProperty().bindBidirectional(agentCountProperty, new NumberStringConverter());
+        agentCountProperty.setValue(0);
     }
-    
-    /**
-     * Set the stage of this population creation window. Must be called by the creating controller upon creation.
-     * 
-     * @param stage the stage
-     */
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-    
+
     @Override
     public void registerElementCreated(Consumer<Population> action) {
         elementCreatedHandlers.add(action);
@@ -96,22 +84,14 @@ public class PopulationController implements CreationController<Population> {
     private void handleAddGroupButton(ActionEvent action) {
         //get name and agent count
         String groupName = groupSelectionBox.getValue();
-        int agentCount = 0;
-        try {
-            agentCount = Integer.parseInt(agentCountTextField.getText());
-        } catch(NumberFormatException e) {
-            Alert alert = new Alert(AlertType.ERROR, "Illegal input for agent count.", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
+        int agentCount = agentCountProperty.getValue();
         
         //update flow pane
         GroupCellController cellController = new GroupCellController(groupName, agentCount, this);
         groupPane.getChildren().add(cellController.getContainer());
         
         //update agent count
-        totalAgentCount += agentCount;
-        totalAgentCountLabel.setText(String.format("%d", totalAgentCount));
+        totalAgentCountProperty.setValue(totalAgentCountProperty.getValue() + agentCount);
         
         //add to lists
         selectedGroups.add(groupName);
@@ -129,7 +109,7 @@ public class PopulationController implements CreationController<Population> {
         }
         
         //reset
-        this.agentCountTextField.setText("0");
+        agentCountProperty.setValue(0);
         this.populationDescriptionTextField.setText("");
         this.populationNameTextField.setText("");
         groupPane.getChildren().clear();
@@ -151,10 +131,11 @@ public class PopulationController implements CreationController<Population> {
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
-        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
         fileChooser.setInitialFileName(population.getName().toLowerCase());
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", ".pop");
         fileChooser.getExtensionFilters().add(extFilter);
+        Window stage = ((Node) event.getTarget()).getScene().getWindow();
         File saveFile = fileChooser.showSaveDialog(stage);
         
         if (saveFile == null) {
@@ -171,7 +152,6 @@ public class PopulationController implements CreationController<Population> {
         }
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(population));
-        stage.close();
     }
     
     /*---------------------------------private helper methods---------------------------------*/
@@ -182,7 +162,7 @@ public class PopulationController implements CreationController<Population> {
         groupSizes.remove(index);
         cellControllers.remove(index);
         groupPane.getChildren().remove(cell.getContainer());
-        totalAgentCount -= cell.getAgentCount();
+        totalAgentCountProperty.setValue(totalAgentCountProperty.getValue() - cell.getAgentCount());
         totalAgentCountLabel.setText(String.format("%d", cell.getAgentCount()));
     }
     
