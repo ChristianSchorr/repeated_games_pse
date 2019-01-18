@@ -172,6 +172,54 @@ public class PopulationController implements CreationController<Population> {
         stage.close();
     }
     
+    @FXML
+    private void handleLoadPopulation(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Populaiton");
+        fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", ".pop");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if (file == null) {
+            return;
+        }
+        
+        Population population;
+        try {
+            population = (Population) FileIO.loadEntity(file);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "File could not be loaded.", ButtonType.OK);
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
+        }
+        
+        populationNameTextField.setText(population.getName());
+        populationDescriptionTextField.setText(population.getDescription());
+        
+        selectedGroups.clear();
+        groupSizes.clear();
+        cellControllers.clear();
+        groupPane.getChildren().clear();
+        totalAgentCount = population.getSize();
+        totalAgentCountLabel.setText(String.format("%d", totalAgentCount));
+        
+        for (Group group: population.getGroups()) {
+            String groupName = group.getName();
+            int agentCount = population.getGroupSize(group);
+            
+            //update flow pane
+            GroupCellController cellController = new GroupCellController(groupName, agentCount, this);
+            groupPane.getChildren().add(cellController.getContainer());
+            
+            //add to lists
+            selectedGroups.add(groupName);
+            groupSizes.add(agentCount);
+            cellControllers.add(cellController);
+        }
+    }
+    
     /*---------------------------------private helper methods---------------------------------*/
     
     private void removeGroupCell(GroupCellController cell) {
@@ -181,7 +229,7 @@ public class PopulationController implements CreationController<Population> {
         cellControllers.remove(index);
         groupPane.getChildren().remove(cell.getContainer());
         totalAgentCount -= cell.getAgentCount();
-        totalAgentCountLabel.setText(String.format("%d", cell.getAgentCount()));
+        totalAgentCountLabel.setText(String.format("%d", totalAgentCount));
     }
     
     private Population createPopulation() {
