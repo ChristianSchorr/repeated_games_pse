@@ -4,7 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import loop.model.repository.CentralRepository;
+import loop.model.simulationengine.ConcreteGame;
+import loop.model.simulationengine.Configuration;
+import loop.model.simulationengine.EngineSegment;
+import loop.model.simulationengine.EquilibriumCriterion;
+import loop.model.simulationengine.Game;
+import loop.model.simulationengine.PairBuilder;
+import loop.model.simulationengine.PayoffInLastAdapt;
+import loop.model.simulationengine.RandomPairBuilder;
+import loop.model.simulationengine.ReplicatorDynamic;
+import loop.model.simulationengine.StrategyAdjuster;
+import loop.model.simulationengine.StrategyEquilibrium;
+import loop.model.simulationengine.SuccessQuantifier;
+import loop.model.simulationengine.distributions.DiscreteDistribution;
+import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
+import loop.model.simulationengine.distributions.UniformFiniteDistribution;
+import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.RealVector;
+import loop.model.simulationengine.strategies.Strategy;
 
 /**
  * This class represents a user-created configuration. It provides getter methods for all
@@ -90,11 +108,48 @@ public class UserConfiguration implements Serializable {
 	 * @return a default configuration
 	 */
 	public static UserConfiguration getDefaultConfiguration() {
-		
-		UserConfiguration config = null;// new UserConfiguration("", 100, 100, 10, null, false, "", "", null, "", null, "", null, "", null,
-														// 100, false, "", 0, 0, 0);
-		return config;
+	    int agentCount = 50;
+        int roundCount  = 200;
+        int iterationCount = 10;
+        int maxAdapts = 10000;
+        String pairBuilderName = RandomPairBuilder.NAME;
+        List<Double> pairBuilderParameters = new ArrayList<Double>();
+        String successQuantifierName = PayoffInLastAdapt.NAME;
+        List<Double> successQuantifierParameters = new ArrayList<Double>();
+        String strategyAdjusterName = ReplicatorDynamic.NAME;
+        List<Double> strategyAdjusterParameters = toList(0.5, 0.5);
+        String equilibriumCriterionName = StrategyEquilibrium.NAME;
+        double alpha = 0.005;
+        int G = 50;
+        List<Double> equilibriumCriterionParameters = toList(alpha, (double) G);
+        
+        String gameName = ConcreteGame.prisonersDilemma().getName();
+        boolean mixedStrategies = true;
+        
+        String capitalDistributionName = DiscreteUniformDistribution.NAME;
+        List<Double> distParameters = toList(0.0, 0.0);
+        List<String> strategyNames = toList(PureStrategy.alwaysCooperate().getName(), PureStrategy.neverCooperate().getName(),
+                PureStrategy.titForTat().getName(), PureStrategy.grim().getName());
+        Segment segment = new Segment(capitalDistributionName, distParameters, strategyNames);
+        Group group = new Group("DEFAULT_GROUP", "", toList(segment), toList(1.0), false);
+        Population population = new Population("DEFAULT_POPULATION", "", toList(group), toList(agentCount));
+        CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
+        
+        UserConfiguration defaultConfiguration = new UserConfiguration(gameName, roundCount, iterationCount, mixedStrategies, population.getName(),
+                pairBuilderName, pairBuilderParameters, successQuantifierName, successQuantifierParameters, strategyAdjusterName,
+                strategyAdjusterParameters, equilibriumCriterionName, equilibriumCriterionParameters, maxAdapts, false, null);
+	    
+		return defaultConfiguration;
 	}
+	
+	@SuppressWarnings("unchecked")
+    private static <T> List<T> toList(T... items) {
+        List<T> list = new ArrayList<T>();
+        for (int i = 0; i < items.length; i++) {
+            list.add(items[i]);
+        }
+        return list;
+    }
 	
 	/**
 	 * Returns the name of the game of this configuration
