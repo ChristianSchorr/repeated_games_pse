@@ -120,7 +120,26 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void handleSavePopulationButton() {
+    private void resetPopulation(ActionEvent event) {
+        //confirm
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.NO) {
+            return;
+        }
+        
+        //reset
+        this.agentCountTextField.setText("0");
+        this.populationDescriptionTextField.setText("");
+        this.populationNameTextField.setText("");
+        groupPane.getChildren().clear();
+        this.selectedGroups.clear();
+        this.groupSizes.clear();
+        this.cellControllers.clear();
+    }
+    
+    @FXML
+    private void handleSavePopulationButton(ActionEvent event) {
         Population population = createPopulation();
         
         if (population.getName().trim() == "" || population.getDescription().trim() == "") {
@@ -137,6 +156,10 @@ public class PopulationController implements CreationController<Population> {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", ".pop");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);
+        
+        if (saveFile == null) {
+            return;
+        }
         
         try {
             FileIO.saveEntity(saveFile, population);

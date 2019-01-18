@@ -157,12 +157,12 @@ public class HeadController {
 	}
 		
 	@FXML
-	void loadResults() {
-		
+	void loadResults(ActionEvent event) {
+		//TODO
 	}
 	
 	@FXML
-	void startSimuation() {
+	void startSimuation(ActionEvent event) {
 	    SimulationResult result;
         try {
             result = simulator.startSimulation(activeConfiguration);
@@ -176,12 +176,12 @@ public class HeadController {
 	}
 	
 	@FXML
-	void openNewGameWindow() {
-		Parent newGameParent = null;
-		NewGameController controller = null;
+	void openNewGameWindow(ActionEvent event) {
+		Parent newGameParent;
+		NewGameController controller;
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGameWindow.fxml"));
-			controller = loader.getController();
+			controller = (NewGameController) loader.getController();
 		    newGameParent = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -200,9 +200,9 @@ public class HeadController {
         newGameWindow.show();
 	}
 
-	/*
 	@FXML
-	void openNewStrategyWindow() {
+	void openNewStrategyWindow(ActionEvent event) {
+	    /*
 		Parent newStrategyParent = null;
 		try {
 			newStrategyParent = FXMLLoader.load(getClass().getResource("NewStrategyWindow.fxml"));
@@ -217,13 +217,13 @@ public class HeadController {
         // Specifies the modality for new window.
         newStrategyWindow.initModality(Modality.WINDOW_MODAL);      
         newStrategyWindow.show();
+        */
 	}
-	*/
 	
 	@FXML
 	void openNewGroupWindow(ActionEvent event) {
-		Parent newGroupParent = null;
-		GroupController controller = null;
+		Parent newGroupParent;
+		GroupController controller;
 		try {
 		    FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGroupWindow.fxml"));
 		    controller = (GroupController) loader.getController();
@@ -246,9 +246,9 @@ public class HeadController {
 	}
 	
 	@FXML
-	void openNewPopulationWindow() {
-		Parent newPopulationParent = null;
-		PopulationController controller = null;
+	void openNewPopulationWindow(ActionEvent event) {
+		Parent newPopulationParent;
+		PopulationController controller;
 		try {
 		    FXMLLoader loader = new FXMLLoader(getClass().getResource("NewPopulationWindow.fxml"));
 		    controller = (PopulationController) loader.getController();

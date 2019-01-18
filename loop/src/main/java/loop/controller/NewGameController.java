@@ -94,6 +94,10 @@ public class NewGameController implements CreationController<Game> {
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);
         
+        if (saveFile == null) {
+            return;
+        }
+        
         try {
             FileIO.saveEntity(saveFile, game);
         } catch (IOException e) {

@@ -38,7 +38,7 @@ public class SimulationEngineTest {
     public void testOneSegment() {
         int agentCount = 50;
         int roundCount  = 200;
-        int maxAdapts = 100000;
+        int maxAdapts = 10000;
         PairBuilder pairBuilder = new RandomPairBuilder();
         SuccessQuantifier successQuantifier = new PayoffInLastAdapt();
         StrategyAdjuster strategyAdjuster = new ReplicatorDynamic(0.5, 0.5);
