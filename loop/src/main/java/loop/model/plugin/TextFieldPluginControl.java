@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
  * @author Pierre Toussing
  *
  */
-public class TextFieldPluginControl extends PluginControl{
+public class TextFieldPluginControl extends PluginControl {
 	private List<Parameter> params;
 	
 	/**
@@ -62,7 +62,7 @@ public class TextFieldPluginControl extends PluginControl{
 		int i = 0;
 		
 		for (Node n: this.getChildren()) {
-			if (n.getClass().getName().equals("TextField")) {
+			if (n instanceof TextField) {
 				try {
 					d = Double.parseDouble(((TextField)n).getText());
 				}
@@ -82,5 +82,14 @@ public class TextFieldPluginControl extends PluginControl{
 		}
 		return list;
 	}
+
+    @Override
+    public void setParameters(List<Double> parameters) {
+        int i = 0;
+        for (Node n: this.getChildren()) {
+            if (!(n instanceof TextField)) continue;
+            ((TextField) n).setText(parameters.get(i++).toString());
+        }
+    }
 
 }

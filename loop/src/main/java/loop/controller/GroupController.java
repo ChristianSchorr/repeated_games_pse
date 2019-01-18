@@ -20,19 +20,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import loop.model.Group;
-import loop.model.Population;
 import loop.model.Segment;
 import loop.model.plugin.Plugin;
 import loop.model.plugin.PluginControl;
@@ -40,6 +36,7 @@ import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
 import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
+import loop.model.plugin.PluginControl;
 
 /**
  * This class represents the controller associated with the group creation window. It creates
@@ -144,6 +141,52 @@ public class GroupController implements CreationController<Group> {
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
         stage.close();
+	}
+	
+	@FXML
+	void handleLoadGroup(ActionEvent event) {
+	    FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Group");
+        fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", ".grp");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if (file == null) {
+            return;
+        }
+        
+        Group group;
+        try {
+            group = (Group) FileIO.loadEntity(file);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "File could not be loaded.", ButtonType.OK);
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
+        }
+        
+        groupNameTextField.setText(group.getName());
+        descriptionTextField.setText(group.getDescription());
+        isCohesiveCheckBox.setSelected(group.isCohesive());
+        
+        tabControllers.clear();
+        segmentTabs.getTabs().clear();
+        for (Segment segment: group.getSegments()) {
+            TabController tabController = new TabController(this);
+            Tab tab = new Tab();
+            tab.setContent(tabController.getContent());
+            tabControllers.put(tabController, tab);
+            segmentTabs.getTabs().add(tab);
+            
+            tabController.distributionChoice.getSelectionModel().select(segment.getCapitalDistributionName());
+            ((PluginControl) tabController.distributionPluginPane.getChildren().get(0)).setParameters(segment.getCapitalDistributionParameters());
+            segment.getStrategyNames().forEach(s -> {
+                tabController.strategyChoice.getSourceItems().remove(s);
+                tabController.strategyChoice.getTargetItems().add(s);
+            });
+        }
+        segmentTabs.getSelectionModel().select(0);
 	}
 	
 	@FXML

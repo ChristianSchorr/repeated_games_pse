@@ -20,4 +20,10 @@ public abstract class PluginControl extends javafx.scene.layout.VBox {
 	 * @return a list of the entered parameter values
 	 */
 	public abstract List<Double> getParameters();
+	
+	/**
+	 * Sets the parameters to the given ones.
+	 * @param parameters the given parameters
+	 */
+	public abstract void setParameters(List<Double> parameters);
 }
