@@ -9,8 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Pane;
 import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
+import loop.model.simulator.SimulationStatus;
 
 /**
  * This controller is responsible for displaying the results of finished simulations in the main
@@ -59,6 +61,8 @@ public class OutputController {
     @FXML
     private Tab noOutputTab; //im fxml dokument bereits fertig, also mit dem label
     @FXML
+    private Tab notFinishedTab;
+    @FXML
     private Tab detailedOutputTab; //im fxml dokument leer
     @FXML
     private Tab abstractedOutputTab; //im fxml dokument leer
@@ -81,6 +85,10 @@ public class OutputController {
     @FXML
     private Button toMultiOutput;
     
+    
+    @FXML
+    private Pane container;
+    
     /*------------------------------------------------------------------*/
     
     /**
@@ -89,6 +97,10 @@ public class OutputController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         
+    }
+    
+    public Pane getContainer() {
+        return container;
     }
     
     /**
@@ -101,7 +113,14 @@ public class OutputController {
         this.displayedResult = result;
         
         if (result == null) {
-            setNoResultDisplayed();
+            tabPane.getSelectionModel().select(noOutputTab);
+            deactivateAll();
+            return;
+        }
+        
+        if (result.getStatus() != SimulationStatus.FINISHED) {
+            tabPane.getSelectionModel().select(notFinishedTab);
+            deactivateAll();
             return;
         }
         
@@ -211,8 +230,7 @@ public class OutputController {
     
     /*-----------------------------------private helpers-----------------------------------*/
     
-    private void setNoResultDisplayed() {
-        tabPane.getSelectionModel().select(noOutputTab);
+    private void deactivateAll() {
         this.gameNameLabel.setVisible(false);
         this.gameIdLabel.setVisible(false);
         this.exitConditionLabel.setVisible(false);

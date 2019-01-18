@@ -46,11 +46,7 @@ public class Population implements Nameable, Serializable {
 	 * @return the size of this population
 	 */
 	public int getSize() {
-		int size = 0;
-		for (int i : groupSizes) {
-			size += i;
-		}
-		return size;
+	    return groupSizes.stream().mapToInt(i -> i.intValue()).sum();
 	}
 	
 	/**

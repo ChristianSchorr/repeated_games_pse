@@ -14,6 +14,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import loop.model.Group;
 import loop.model.Segment;
 import loop.model.plugin.Plugin;
@@ -57,7 +58,13 @@ public class GroupController implements CreationController<Group> {
 	/*-----Tabs-----*/
 	@FXML
 	private TabPane tabs;
-
+	
+	private Stage stage;
+	
+	public void setStage(Stage stage) {
+	    this.stage = stage;
+	}
+	
 	@FXML 
 	void initialize() {
 		
