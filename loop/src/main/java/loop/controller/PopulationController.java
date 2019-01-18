@@ -36,8 +36,6 @@ import loop.model.repository.FileIO;
  */
 public class PopulationController implements CreationController<Population> {
     
-    private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Populations";
-    
     private List<String> selectedGroups = new ArrayList<String>();
     private List<Integer> groupSizes = new ArrayList<Integer>();
     private List<GroupCellController> cellControllers = new ArrayList<GroupCellController>();
@@ -151,7 +149,7 @@ public class PopulationController implements CreationController<Population> {
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
-        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
         fileChooser.setInitialFileName(population.getName().toLowerCase());
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", ".pop");
         fileChooser.getExtensionFilters().add(extFilter);

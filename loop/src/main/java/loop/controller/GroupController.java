@@ -1,26 +1,45 @@
 package loop.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.controlsfx.control.ListSelectionView;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import loop.model.Group;
+import loop.model.Population;
 import loop.model.Segment;
 import loop.model.plugin.Plugin;
 import loop.model.plugin.PluginControl;
 import loop.model.repository.CentralRepository;
+import loop.model.repository.FileIO;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
+import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
 
 /**
  * This class represents the controller associated with the group creation window. It creates
@@ -32,6 +51,12 @@ import loop.model.simulationengine.distributions.DiscreteDistribution;
  */
 public class GroupController implements CreationController<Group> {
 	
+    private static final String defaultDistributionName = DiscreteUniformDistribution.NAME;
+    
+    private Map<TabController,Tab> tabControllers = new HashMap<TabController,Tab>();
+    
+    private List<Consumer<Group>> elementCreatedHandlers = new ArrayList<Consumer<Group>>();
+    
 	/*------global properties-----*/
 	@FXML 
 	private TextField groupNameTextField;
@@ -46,58 +71,169 @@ public class GroupController implements CreationController<Group> {
 	private Button resetGroupButton;
 	
 	/*------segment organisation-----*/
-	@FXML
-	private Slider segmentProportionsSlider;
 	
 	@FXML
 	private Button addSegmentButton;
 	
 	@FXML
-	private CheckBox allAgentsGrouplessCheckBox;
+	private CheckBox isCohesiveCheckBox;
 	
 	/*-----Tabs-----*/
 	@FXML
-	private TabPane tabs;
+	private TabPane segmentTabs;
 	
 	private Stage stage;
 	
-	public void setStage(Stage stage) {
-	    this.stage = stage;
-	}
-	
 	@FXML 
 	void initialize() {
-		
+	    addSegmentTab();
 	}
 	
-	/*----------------------------------------*/
+	/**
+     * Set the stage of this population creation window. Must be called by the creating controller upon creation.
+     * 
+     * @param stage the stage
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 	
 	@Override
-	public void registerElementCreated(Consumer<Group> action) {
-		// TODO Auto-generated method stub
-		
+    public void registerElementCreated(Consumer<Group> action) {
+        elementCreatedHandlers.add(action);
+    }
+	
+	/*------------------------------button handlers------------------------------*/
+	
+	@FXML
+	void handleAddSegment(ActionEvent event) {
+	    addSegmentTab();
+	}
+	
+	@FXML
+	void handleSaveGroup(ActionEvent event) {
+	    Group group = createGroup();
+	    
+	    if (group.getName().trim() == "" || group.getDescription().trim() == "") {
+            Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+	    
+	    //save dialog
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Group");
+        fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
+        fileChooser.setInitialFileName(group.getName().toLowerCase());
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", ".grp");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File saveFile = fileChooser.showSaveDialog(stage);
+        
+        if (saveFile == null) {
+            return;
+        }
+        
+        try {
+            FileIO.saveEntity(saveFile, group);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        
+        this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
+        stage.close();
+	}
+	
+	@FXML
+	void handleResetGroup(ActionEvent event) {
+	    //confirm
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.NO) {
+            return;
+        }
+        
+        //reset
+	    groupNameTextField.setText("");
+	    descriptionTextField.setText("");
+	    tabControllers.clear();
+	    segmentTabs.getTabs().clear();
+	    addSegmentTab();
+	}
+	
+	/*---------------------------------private helper methods---------------------------------*/
+	
+	private void addSegmentTab() {
+        TabController tabController = new TabController(this);
+        Tab tab = new Tab();
+        tab.setContent(tabController.getContent());
+        tabControllers.put(tabController, tab);
+        segmentTabs.getTabs().add(tab);
+        segmentTabs.getSelectionModel().select(tab);
+    }
+	
+	private void removeTab(TabController controller) {
+	    tabControllers.remove(controller);
+	    segmentTabs.getTabs().remove(tabControllers.get(controller));
+	}
+	
+	private Group createGroup() {
+	    List<Segment> segments = tabControllers.keySet().stream().map(c -> c.returnSegment()).collect(Collectors.toList());
+	    double segmentSize = 1.0 / segments.size();
+	    List<Double> segmentSizes = new ArrayList<Double>();
+	    while (segmentSizes.size() < segments.size()) {
+	        segmentSizes.add(segmentSize);
+	    }
+	    Group group = new Group(groupNameTextField.getText(), descriptionTextField.getText(), segments, segmentSizes, isCohesiveCheckBox.isSelected());
+	    return group;
 	}
 	
 	private class TabController {
+	    
+	    private static final String FXML_NAME = "segmentTab.fxml";
+	    
+		@FXML
+		private ChoiceBox<String> distributionChoice;
 		
 		@FXML
-		private ComboBox<String> distributionChoice;
-		
-		@FXML
-		private FlowPane distributionPluginPane;
+		private Pane distributionPluginPane;
 		
 		@FXML
 		private ListSelectionView<String> strategyChoice;
 		
+		private GroupController parent;
+		
+		@FXML
+		private VBox content;
+		
+		public TabController(GroupController parent) {
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_NAME));
+		    loader.setController(this);
+		    try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		    this.parent = parent;
+		}
+		
 		@FXML
 		void initialize() {
+		    //setup strategy choice
 			for (String s : CentralRepository.getInstance().getStrategyRepository().getAllEntityNames()) {
 				strategyChoice.getSourceItems().add(s);
 			}
-			PluginControl p = null;
-			distributionPluginPane.getChildren().add(p);
+			
+			//setup distribution choice
 			distributionChoice.setItems((ObservableList<String>) CentralRepository.getInstance()
-					.getDiscreteDistributionRepository().getAllEntityNames());
+                    .getDiscreteDistributionRepository().getAllEntityNames());
+            distributionChoice.getSelectionModel().select(defaultDistributionName);
+            
+			PluginControl p = CentralRepository.getInstance().getDiscreteDistributionRepository()
+			        .getEntityByName(defaultDistributionName).getRenderer().renderPlugin();
+			distributionPluginPane.getChildren().add(p);
 		}
 		
 		@FXML
@@ -110,15 +246,24 @@ public class GroupController implements CreationController<Group> {
 			distributionPluginPane.getChildren().add(newpane);
 		}
 		
+		@FXML
+		void handleClosed(ActionEvent event) {
+		    parent.removeTab(this);
+		}
+		
 		/**
 		 * Creates a Segment out of the user data.
 		 * @return Segment created out of the user data
 		 */
-		private Segment returnSegment() {
-			String capitalDistributionName = (String) distributionChoice.getValue();
+		public Segment returnSegment() {
+			String capitalDistributionName = distributionChoice.getValue();
 			List<Double> capitalDistributionParameters = ((PluginControl) distributionPluginPane.getChildren().get(0)).getParameters();
 			List<String> strategyNames = strategyChoice.getTargetItems();		
 			return new Segment(capitalDistributionName, capitalDistributionParameters, strategyNames);
+		}
+		
+		public VBox getContent() {
+		    return content;
 		}
 	}
 }

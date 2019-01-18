@@ -27,8 +27,6 @@ import loop.model.simulationengine.Game;
  */
 public class NewGameController implements CreationController<Game> {
     
-    private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Games";
-    
     private List<Consumer<Game>> elementCreatedHandlers = new ArrayList<Consumer<Game>>();
     
     /*-----------------FXML variables-----------------*/
@@ -88,7 +86,7 @@ public class NewGameController implements CreationController<Game> {
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Game");
-        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        fileChooser.setInitialDirectory(FileIO.GAME_DIR);
         fileChooser.setInitialFileName(game.getName().toLowerCase());
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Game File", ".gam");
         fileChooser.getExtensionFilters().add(extFilter);
