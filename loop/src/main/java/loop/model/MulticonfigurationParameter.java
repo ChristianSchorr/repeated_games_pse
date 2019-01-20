@@ -178,7 +178,7 @@ public class MulticonfigurationParameter {
     public String getGroupName() {
         if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
                 || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
-            throw new IllegalArgumentException("group name not defined for multiconfiguration parameter '" + this.parameterName + "'.");
+            throw new NullPointerException("group name not defined for multiconfiguration parameter '" + this.parameterName + "'.");
         }
         return this.groupName;
     }
@@ -191,7 +191,7 @@ public class MulticonfigurationParameter {
      */
     public int getSegmentIndex() {
         if (!type.equals(MulticonfigurationParameterType.CD_PARAM)) {
-            throw new IllegalArgumentException("segment index not defined for multiconfiguration parameter '" + this.parameterName + "'.");
+            throw new NullPointerException("segment index not defined for multiconfiguration parameter '" + this.parameterName + "'.");
         }
         return this.segmentIndex;
     }

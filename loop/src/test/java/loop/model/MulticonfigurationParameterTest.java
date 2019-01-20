@@ -3,7 +3,6 @@ package loop.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class holds tests for implementations of the {@link MulticonfigurationParameter} class.
@@ -17,27 +16,30 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-
 public class MulticonfigurationParameterTest {
 	private MulticonfigurationParameter multiconfigurationParameter;
 	private MulticonfigurationParameterType type;
-	private String parameterName;
-    private ArrayList<Double> integerValues = new ArrayList<Double>();
-    private ArrayList<Double> floatValues = new ArrayList<Double>();
-    private double startValue;
-    private double endValue;
-    private double stepSize;
-
+    private ArrayList<Double> parameterValues = new ArrayList<Double>();
+    private ArrayList<MulticonfigurationParameterType> counters = new ArrayList<MulticonfigurationParameterType>();
+    private ArrayList<MulticonfigurationParameterType> others = new ArrayList<MulticonfigurationParameterType>();
+    
 	@Before
 	public void setUp() throws Exception {
-		integerValues.add(10.0);
-		integerValues.add(15.0);
-		integerValues.add(20.0);
-		integerValues.add(25.0);
-		integerValues.add(30.0);
-		floatValues.add(0.4);
-		floatValues.add(0.5);
-		floatValues.add(0.6);
+		//setup a list of parameter values
+		parameterValues.add(10.0);
+		parameterValues.add(15.0);
+		parameterValues.add(20.0);
+		parameterValues.add(25.0);
+		parameterValues.add(30.0);	
+		
+		counters.add(MulticonfigurationParameterType.ITERATION_COUNT);
+		counters.add(MulticonfigurationParameterType.ROUND_COUNT);
+		counters.add(MulticonfigurationParameterType.MAX_ADAPTS);
+		
+		others.add(MulticonfigurationParameterType.EC_PARAM);
+		others.add(MulticonfigurationParameterType.SA_PARAM);
+		others.add(MulticonfigurationParameterType.PB_PARAM);
+		others.add(MulticonfigurationParameterType.SQ_PARAM);		
 	}
 
 	@After
@@ -45,47 +47,174 @@ public class MulticonfigurationParameterTest {
 	}
 	
 	/**
-	 * Tests the multiconfiguration parameter 'amount of rounds'
+	 * Tests non valid constructors for the different multiconfiguration parameters
 	 */
 	@Test
-	public void testIterationCount() {
-		type = MulticonfigurationParameterType.ROUND_COUNT;
-		testConstructor1(type);
-		try {	
-			testConstructor3();
-		} catch (IllegalArgumentException e) {
-			assertEquals(e.getMessage(), "Wrong constructor used.");
+	public void testNonValidConstructors() {
+		for (MulticonfigurationParameterType t: MulticonfigurationParameterType.values()) {
+			type = t;
+			if (counters.contains(type)) {
+				try {	
+					testConstructor(type);
+				} catch (IllegalArgumentException e) {
+					assertEquals(e.getMessage(), "Wrong constructor used.");
+				}	
+			} else if (others.contains(type)) {
+				try {
+					testCountConstructor(type);
+				} catch (IllegalArgumentException e) {
+					assertEquals(e.getMessage(), "Wrong constructor used.");
+				}	
+			}
+		}		
+	}
+	
+	/**
+	 * Tests valid constructors for the different multiconfiguration parameters
+	 */
+	@Test
+	public void testValidConstrucors() {
+		for (MulticonfigurationParameterType t: counters) {
+			if (!t.equals(MulticonfigurationParameterType.ITERATION_COUNT)) {
+				testCountConstructor(t);
+			}			
 		}
+		
+		for (MulticonfigurationParameterType t: others) {
+			testConstructor(t);
+		}
+		
+		testCapitalDistributionConstructor();
+		type = MulticonfigurationParameterType.GROUP_SIZE;
+		testGroupSizeConstructor();
+		type = MulticonfigurationParameterType.SEGMENT_SIZE;
+		testSegmentSizeConstructor();
+	}
+	
+	/**
+	 * Tests the getGroupName method for different multiconfiguration parameters
+	 */
+	@Test
+	public void testGetGroupName() {
+		for (MulticonfigurationParameterType t: counters) {
+			if (!t.equals(MulticonfigurationParameterType.ITERATION_COUNT)) {
+				testCountConstructor(t);
+				try {
+					multiconfigurationParameter.getGroupName();
+				} catch (NullPointerException e){					
+					assertEquals(e.getMessage(), "group name not defined for multiconfiguration parameter '" + 
+						multiconfigurationParameter.getParameterName() + "'.");
+				}
+			}
+		}
+		
+		for (MulticonfigurationParameterType t: others) {
+			testConstructor(t);
+			try {
+				multiconfigurationParameter.getGroupName();
+			} catch (NullPointerException e){					
+				assertEquals(e.getMessage(), "group name not defined for multiconfiguration parameter '" + 
+					multiconfigurationParameter.getParameterName() + "'.");
+			}
+		}
+		
+		testCapitalDistributionConstructor();
+		testCapitalDistributionConstructor();
+		assertTrue(multiconfigurationParameter.getGroupName() == "group name");
+		
+		type = MulticonfigurationParameterType.GROUP_SIZE;
+		testGroupSizeConstructor();
+		assertTrue(multiconfigurationParameter.getGroupName() == "group name");
+		
+		type = MulticonfigurationParameterType.SEGMENT_SIZE;
+		testSegmentSizeConstructor();
+		assertTrue(multiconfigurationParameter.getGroupName() == "group name");		
+	}
+	
+	
+	/**
+	 * Tests the getSegmentIndex method
+	 */
+	@Test
+	public void testGetSegmentIndex() {
+		for (MulticonfigurationParameterType t: MulticonfigurationParameterType.values()) {
+			if (t.equals(MulticonfigurationParameterType.CD_PARAM)) {
+				type = MulticonfigurationParameterType.CD_PARAM;
+				testCapitalDistributionConstructor();
+				assertTrue(multiconfigurationParameter.getSegmentIndex() == 2);
+			} else if (counters.contains(t)) {
+				if (!t.equals(MulticonfigurationParameterType.ITERATION_COUNT)) {
+					testCountConstructor(t);
+					try {
+						multiconfigurationParameter.getSegmentIndex();
+					} catch (NullPointerException e){					
+						assertEquals(e.getMessage(), "segment index not defined for multiconfiguration parameter '" + 
+							multiconfigurationParameter.getParameterName() + "'.");
+					}
+				}
+			} else {
+				try {
+					multiconfigurationParameter.getSegmentIndex();
+				} catch (NullPointerException e){					
+					assertEquals(e.getMessage(), "segment index not defined for multiconfiguration parameter '" + 
+						multiconfigurationParameter.getParameterName() + "'.");
+				}
+			}
+		}		
 	}
 	
 	/**
 	 * Tests a constructor for the types ROUND_COUNT, ITERATION_COUNT and MAX_ADAPTS
 	 */
-	private void testConstructor1(MulticonfigurationParameterType type) {
+	private void testCountConstructor(MulticonfigurationParameterType type) {
 		multiconfigurationParameter = new MulticonfigurationParameter(type, 10, 30, 5);
 		assertEquals(type, multiconfigurationParameter.getType());
-		assertEquals(integerValues, multiconfigurationParameter.getParameterValues());
+		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
 		assertEquals(type.getDescriptionFormat(), multiconfigurationParameter.getParameterName());
 	}
 	
 	/**
 	 * Tests a constructor for the types PB_PARAM, SA_PARAM, SQ_PARAM and EC_PARAM
 	 */
-	private void testConstructor2(MulticonfigurationParameterType type) {
-		multiconfigurationParameter = new MulticonfigurationParameter(type, 0.4, 0.6, 0.1, "name");
+	private void testConstructor(MulticonfigurationParameterType type) {
+		multiconfigurationParameter = new MulticonfigurationParameter(type, 10.0, 30.0, 5.0, "parameter name");
 		assertEquals(type, multiconfigurationParameter.getType());
-		assertEquals(floatValues, multiconfigurationParameter.getParameterValues());
-		assertEquals("name", multiconfigurationParameter.getParameterName());
+		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
+		assertEquals("parameter name", multiconfigurationParameter.getParameterName());
 	}
 	
 	/**
 	 * Tests a constructor for the type GROUP_SIZE
 	 */
-	private void testConstructor3() {
+	private void testGroupSizeConstructor() {
 		multiconfigurationParameter = new MulticonfigurationParameter(10, 30, 5, "group name");
 		assertEquals(MulticonfigurationParameterType.GROUP_SIZE, multiconfigurationParameter.getType());
-		assertEquals(integerValues, multiconfigurationParameter.getParameterValues());
+		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
 		assertEquals("group name", multiconfigurationParameter.getGroupName());
+		assertEquals(String.format(type.getDescriptionFormat(), "group name"), multiconfigurationParameter.getParameterName());
+	}
+	
+	/**
+	 * Tests a constructor for the type GROUP_SIZE
+	 */
+	private void testSegmentSizeConstructor() {
+		multiconfigurationParameter = new MulticonfigurationParameter(10.0, 30.0, 5.0, "group name");
+		assertEquals(MulticonfigurationParameterType.SEGMENT_SIZE, multiconfigurationParameter.getType());
+		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
+		assertEquals("group name", multiconfigurationParameter.getGroupName());
+		assertEquals(String.format(type.getDescriptionFormat(), "group name"), multiconfigurationParameter.getParameterName());
+	}
+	
+	/**
+	 * Tests a constructor for the type CD_PARAM
+	 */
+	private void testCapitalDistributionConstructor() {
+		multiconfigurationParameter = new MulticonfigurationParameter(10.0, 30.0, 5.0, "parameter name", "group name", 2);
+		assertEquals(MulticonfigurationParameterType.CD_PARAM, multiconfigurationParameter.getType());
+		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
+		assertEquals("group name", multiconfigurationParameter.getGroupName());
+		assertEquals("parameter name", multiconfigurationParameter.getParameterName());
+		assertTrue(multiconfigurationParameter.getSegmentIndex() == 2);
 	}
 
 }
