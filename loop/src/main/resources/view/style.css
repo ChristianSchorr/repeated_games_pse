@@ -884,3 +884,8 @@
 
 .default-color0.chart-line-symbol { -fx-background-color: -swatch-500; }
 .default-color1.chart-line-symbol { -fx-background-color: #E51400 }
+
+.grid {
+    -fx-background-color: swatch-grey;
+    -fx-background-insets: 0, 2 2 0 0 ;
+}

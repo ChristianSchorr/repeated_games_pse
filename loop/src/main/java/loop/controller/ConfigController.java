@@ -5,11 +5,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
 import loop.model.MulticonfigurationParameter;
@@ -33,6 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
 
 public class ConfigController implements CreationController<UserConfiguration> {
 
@@ -137,9 +140,13 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
 
     public ConfigController() {
+        this(UserConfiguration.getDefaultConfiguration());
+    }
+
+    public ConfigController(UserConfiguration config) {
         creationListener = new ArrayList<>();
         repository = CentralRepository.getInstance();
-        config = UserConfiguration.getDefaultConfiguration();
+        this.config = config;
     }
 
     public void initialize() {
@@ -175,36 +182,36 @@ public class ConfigController implements CreationController<UserConfiguration> {
         ObservableList<String> observablePairBuilderNames = FXCollections.observableArrayList(pairBuilderNames);
         pairBuilderProperty.setValue(config.getPairBuilderName());
         pairBuilderBox.setItems(observablePairBuilderNames);
-        pairBuilderBox.valueProperty().bindBidirectional(pairBuilderProperty);
         pairBuilderBox.valueProperty().addListener((ChangeListener<String>)
                         (observable, oldValue, newValue) -> pairBuilderChanged(oldValue, newValue));
+        pairBuilderBox.valueProperty().bindBidirectional(pairBuilderProperty);
 
         // initialize succesQuantifier
         List<String> successQuantifierNames = repository.getSuccessQuantifiernRepository().getAllEntityNames();
         ObservableList<String> observableSuccessQuantifierNames = FXCollections.observableArrayList(successQuantifierNames);
         successQuantifierProperty.setValue(config.getSuccessQuantifierName());
         successQuantifierBox.setItems(observableSuccessQuantifierNames);
-        successQuantifierBox.valueProperty().bindBidirectional(successQuantifierProperty);
         successQuantifierBox.valueProperty().addListener((ChangeListener<String>)
                 (observable, oldValue, newValue) -> successQuantifierChanged(oldValue, newValue));
+        successQuantifierBox.valueProperty().bindBidirectional(successQuantifierProperty);
 
         // initialize strategyAdjuster
         List<String> strategyAdjusterNames = repository.getStrategyAdjusterRepository().getAllEntityNames();
         ObservableList<String> observableStrategyAdjusterNames = FXCollections.observableArrayList(strategyAdjusterNames);
         strategyAdjusterProperty.setValue(config.getStrategyAdjusterName());
         strategyAdjusterBox.setItems(observableStrategyAdjusterNames);
-        strategyAdjusterBox.valueProperty().bindBidirectional(strategyAdjusterProperty);
         strategyAdjusterBox.valueProperty().addListener((ChangeListener<String>)
                 (observable, oldValue, newValue) -> strategyAdjusterChanged(oldValue, newValue));
+        strategyAdjusterBox.valueProperty().bindBidirectional(strategyAdjusterProperty);
 
         // initialize equilibriumCriterion
         List<String> equilibriumCriterionNames = repository.getEquilibriumCriterionRepository().getAllEntityNames();
         ObservableList<String> observableEquilibriumCriterionNames = FXCollections.observableArrayList(equilibriumCriterionNames);
         equilibriumCriterionProperty.setValue(config.getEquilibriumCriterionName());
         equilibriumCriterionBox.setItems(observableEquilibriumCriterionNames);
-        equilibriumCriterionBox.valueProperty().bindBidirectional(strategyAdjusterProperty);
         equilibriumCriterionBox.valueProperty().addListener((ChangeListener<String>)
                 (observable, oldValue, newValue) -> equilibriumCriterionChanged(oldValue, newValue));
+        equilibriumCriterionBox.valueProperty().bindBidirectional(equilibriumCriterionProperty);
 
         // initialize maxAdaptsLabel
         maxAdaptsProperty.setValue(config.getMaxAdapts());
@@ -446,30 +453,35 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     private void createConfig() {
         boolean isMulti = multiParamProperty.getValue() != null;
-        double startValue = startValueProperty.getValue();
-        double endValue = endValueProperty.getValue();
-        double stepSize = stepSizeProperty.getValue();
-        String paramName = multiParamProperty.getValue().split(":")[0];
 
-        MulticonfigurationParameter param;
-        switch (multiParamType) {
-            case SQ_PARAM:
-            case EC_PARAM:
-            case PB_PARAM:
-            case SA_PARAM:
-                param = new MulticonfigurationParameter(multiParamType, startValue, endValue, stepSize, paramName);
-                break;
-            case MAX_ADAPTS:
-            case ROUND_COUNT:
-            case ITERATION_COUNT:
-                param = new MulticonfigurationParameter(multiParamType, (int)startValue, (int)endValue, (int)stepSize);
-                break;
+        MulticonfigurationParameter param = null;
+
+        if (isMulti) {
+            double startValue = startValueProperty.getValue();
+            double endValue = endValueProperty.getValue();
+            double stepSize = stepSizeProperty.getValue();
+            String paramName = multiParamProperty.getValue().split(":")[0];
+
+               switch (multiParamType) {
+                case SQ_PARAM:
+                case EC_PARAM:
+                case PB_PARAM:
+                case SA_PARAM:
+                    param = new MulticonfigurationParameter(multiParamType, startValue, endValue, stepSize, paramName);
+                    break;
+                case MAX_ADAPTS:
+                case ROUND_COUNT:
+                case ITERATION_COUNT:
+                    param = new MulticonfigurationParameter(multiParamType, (int) startValue, (int) endValue, (int) stepSize);
+                    break;
                 default:
                     // TODO CapitalDistribution, Segment size, Group Size
                     param = null;
                     break;
+            }
         }
-        
+
+        System.out.println(strategyAdjusterControl.getParameters());
 
         config = new UserConfiguration(gameNameProperty.getValue(), roundCountProperty.getValue(),
                 iterationCountProperty.getValue(), mixedStrategyProperty.getValue(), populationProperty.getValue(),

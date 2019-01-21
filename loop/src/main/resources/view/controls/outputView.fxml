@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.controlsfx.glyphfont.Glyph?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<GridPane style="-fx-padding: -16 -16 -16 0" GridPane.columnIndex="1" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="loop.controller.OutputController">
+    <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0" />
+    <VBox style="-fx-padding: 16" styleClass="task-card-green" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="70" />
+                <ColumnConstraints percentWidth="20" />
+            </columnConstraints>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00" />
+                <Label fx:id="gameNameLabel" style="-fx-text-fill: #008A00" styleClass="card-title" />
+                <Label fx:id="gameIdLabel" style="-fx-text-fill: #008A00" styleClass="card-title" />
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                <Separator orientation="VERTICAL" style="-fx-padding: 10 0" />
+                <Button fx:id="toLeft" styleClass="setting-button">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="20" icon="ROTATE_RIGHT" style="-fx-text-fill: grey" />
+                    </graphic>
+                </Button>
+                <Button fx:id="toRight">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="20" icon="DOWNLOAD" style="-fx-text-fill: grey" />
+                    </graphic>
+                </Button>
+                <Button fx:id="toAbstractedOutput"/>
+                <Button fx:id="toDetailedOutput" />
+                <Button fx:id="toMultiOutput" />
+            </HBox>
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="control-label" text="Abbruchbedingung: " />
+            <Label fx:id="exitConditionLabel" />
+            <Label styleClass="control-label" text="Multikonfiguration: " />
+            <Label fx:id="multiconfigurationLabel" />
+            <Label styleClass="control-label" text="Multikonfig. Parameter: " />
+            <Label fx:id="multiconfigurationParameterNameLabel" />
+        </HBox>
+        <Separator style="-fx-padding: 10 0" />
+        <TabPane fx:id="tabPane">
+            <Tab fx:id="noOutputTab" />
+            <Tab fx:id="notFinishedTab" />
+            <Tab fx:id="detailedOutputTab"/>
+            <Tab fx:id="abstractedOutputTab"/>
+            <Tab fx:id="multiConfigOutputTab"/>
+        </TabPane>
+    </VBox>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

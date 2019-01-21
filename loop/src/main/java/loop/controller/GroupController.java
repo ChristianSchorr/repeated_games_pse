@@ -58,13 +58,7 @@ public class GroupController implements CreationController<Group> {
 	/*-----Tabs-----*/
 	@FXML
 	private TabPane tabs;
-	
-	private Stage stage;
-	
-	public void setStage(Stage stage) {
-	    this.stage = stage;
-	}
-	
+
 	@FXML 
 	void initialize() {
 		

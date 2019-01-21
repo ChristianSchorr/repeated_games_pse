@@ -1,11 +1,16 @@
 package loop.model.plugin;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.util.converter.NumberStringConverter;
 
 /**
  * This class is an implementation of the PluginControl class that displays a text field for
@@ -16,6 +21,8 @@ import javafx.scene.control.TextField;
  */
 public class TextFieldPluginControl extends PluginControl{
 	private List<Parameter> params;
+
+	List<DoubleProperty> properties;
 	
 	/**
 	 * Creates a new TextFieldPluginControl.
@@ -23,11 +30,14 @@ public class TextFieldPluginControl extends PluginControl{
 	 */
 	TextFieldPluginControl(List<Parameter> params) {
 		this.params = params;
+		properties = new ArrayList<>();
 		for(Parameter p : params) {
 			Label label = new Label();
 			TextField field = new TextField();
 			label.setText(p.getName() + " :");
-			field.setId(p.getName());
+			DoubleProperty prop = new SimpleDoubleProperty();
+			field.textProperty().bindBidirectional(prop, new NumberStringConverter());
+			properties.add(prop);
 			this.getChildren().addAll(label, field);
 		}
 	}
@@ -57,30 +67,7 @@ public class TextFieldPluginControl extends PluginControl{
 	
 	@Override
 	public List<Double> getParameters() {
-		List<Double> list = new LinkedList<Double>();
-		Double d;
-		int i = 0;
-		
-		for (Node n: this.getChildren()) {
-			if (n.getClass().getName().equals("TextField")) {
-				try {
-					d = Double.parseDouble(((TextField)n).getText());
-				}
-				catch(NumberFormatException e) {
-					//Exception
-					return null;
-				}
-				if (ParameterValidator.isValueValid(d, params.get(i))) {
-					list.add(d);
-					i++;
-				}
-				else {
-					//IllegalArgumentException
-					return null;
-				}
-			}
-		}
-		return list;
+		return properties.stream().map(DoubleProperty::getValue).collect(Collectors.toList());
 	}
 
 }

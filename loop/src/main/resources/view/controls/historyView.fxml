@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.glyphfont.Glyph?>
+<?import javafx.scene.shape.Rectangle?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.HistoryController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="27" />
+        <ColumnConstraints percentWidth="73" />
+    </columnConstraints>
+    <VBox spacing="1" style="-fx-padding: -16 3 0 -16" >
+        <ListView fx:id="historyList" fixedCellSize="100"/>
+    </VBox>
+    <fx:include fx:id="outputView" source="outputView.fxml" />
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

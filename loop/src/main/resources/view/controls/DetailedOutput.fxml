@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.PieChart?>
+<?import org.controlsfx.control.RangeSlider?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox xmlns:fx="http://javafx.com/fxml"  fx:id="container" style="@../style.css">
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label fx:id="iterationSliderLabel"/>
+        <Slider fx:id="iterationSlider"/>
+        <Label fx:id="configSliderLabel"/>
+        <Slider fx:id="configSlider"/>
+        <Label fx:id="configSliderParameterLabel"/>
+    </HBox>
+    <Label fx:id="exitDescriptionLabel" />
+    <Label fx:id="efficiencyLabel" />
+    <CheckBox fx:id="meanOverAllIterationsCheckbox" />
+    <GridPane hgap="10">
+        <VBox>
+            <Label styleClass="card-subtitle" text="Strategieverteilung:" wrapText="true"/>
+            <PieChart fx:id="strategyChart" labelLineLength="1.0" labelsVisible="false" prefHeight="300"
+                      prefWidth="300"/>
+            <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1"/>
+        </VBox>
+        <VBox GridPane.columnIndex="1">
+            <Label styleClass="card-subtitle" text="Kapitalverteilung:"/>
+            <BarChart fx:id="capitalDiagram">
+                <xAxis>
+                    <CategoryAxis side="BOTTOM"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT"/>
+                </yAxis>
+            </BarChart>
+        </VBox>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
+    <ImageView fx:id="strategyBufferGifView" />
+    <Rectangle fx:id="strategyBufferRectangle" />
+    <ImageView fx:id="capitalBufferGifView" />
+    <Rectangle fx:id="capitalBufferRectangle" />
+</VBox>
+
+
+

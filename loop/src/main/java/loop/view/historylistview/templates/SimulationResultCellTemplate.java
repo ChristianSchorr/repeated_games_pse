@@ -6,6 +6,11 @@ import javafx.scene.layout.HBox;
 import loop.model.simulator.SimulationResult;
 import loop.controller.ResultHistoryItem;
 
+/**
+ * This class manges how simulations are displayed in the history list view
+ *
+ * @author Christian Schorr
+ */
 public abstract class SimulationResultCellTemplate {
 
     @FXML

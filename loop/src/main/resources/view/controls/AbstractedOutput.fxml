@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.PieChart?>
+<?import org.controlsfx.control.RangeSlider?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="container" style="@../style.css">
+    <HBox alignment="CENTER_LEFT" spacing="30">
+        <Label text="Gleichgewichtshäufigkeit: " />
+        <Label fx:id="equilibriumFrequencyLabel" />
+        <Label fx:id="configSliderLabel"/>
+        <Slider fx:id="configSlider"/>
+    </HBox>
+    <GridPane hgap="10">
+        <VBox alignment="CENTER">
+            <Label styleClass="card-subtitle" text="Effizienzverteilung der Konfigurationen " wrapText="true" />
+            <BarChart fx:id="efficiencyChart" legendVisible="false">
+                <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" />
+                </yAxis>
+            </BarChart>
+            <HBox>
+                <Label styleClass="control-label" text="Mittelwert: " />
+                <Label fx:id="meanEfficiencyLabel" />
+            </HBox>
+        </VBox>
+        <VBox alignment="CENTER" GridPane.columnIndex="1">
+            <Label styleClass="card-subtitle" text="Einstellungsdauer bis zum Gleichgewicht" />
+            <BarChart fx:id="executedAdaptsChart" legendVisible="false">
+                <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" />
+                </yAxis>
+            </BarChart>
+            <HBox>
+                <Label styleClass="control-label" text="Mittelwert: " />
+                <Label fx:id="meanExecutedAdaptsLabel" />
+            </HBox>
+        </VBox>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50" />
+            <ColumnConstraints percentWidth="50" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
+    <Label fx:id="configSliderParameterLabel" />
+    <ComboBox fx:id="consideredIterationsComboBox" />
+    <ImageView fx:id="efficiencyBufferGifView" />
+    <Rectangle fx:id="efficiencyBufferRectangle" />
+    <ImageView fx:id="adaptsBufferGifView" />
+    <Rectangle fx:id="adaptsBufferRectangle" />
+</VBox>
