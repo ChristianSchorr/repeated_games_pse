@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<VBox xmlns:fx="http://javafx.com/fxml" style="@../style.css">
+    <Label styleClass="card-title" text="Auftragungen über den Multikonfigurationsparameter" wrapText="true" />
+    <GridPane hgap="10">
+        <VBox>
+            <Label styleClass="card-subtitle" text="Effizienz und Häufigkeit der Gleichgewichte" wrapText="true" />
+            <LineChart fx:id="efficiencyAndFrequencyChart" createSymbols="false">
+                <xAxis>
+                    <NumberAxis autoRanging="false"
+                                lowerBound="1"
+                                side="BOTTOM"
+                                upperBound="10"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT"/>
+                </yAxis>
+            </LineChart>
+        </VBox>
+        <VBox GridPane.columnIndex="1">
+            <Label styleClass="card-subtitle" text="Einstellungsdauer bis zu den Gleichgewichten" />
+            <LineChart fx:id="executedAdaptsChart" createSymbols="false">
+                <xAxis>
+                    <NumberAxis autoRanging="false"
+                                lowerBound="1"
+                                side="BOTTOM"
+                                upperBound="10"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT"/>
+                </yAxis>
+            </LineChart>
+        </VBox>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50" />
+            <ColumnConstraints percentWidth="50" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
+</VBox>

@@ -22,14 +22,14 @@ import loop.model.simulator.SimulationResult;
 
 /**
  * This class represents the controller responsible for the output of a multi-simulations
- * abstracted multiconfiguration-results (Page 3 in the output described in the “Pflichtenheft”).
+ * abstracted multiconfiguration-results (Page 3 in the output described in the ï¿½Pflichtenheftï¿½).
  * 
  * @author Peter Koepernik
  *
  */
 public class MultiConfigOutputController {
     
-    private static final String FXML_NAME = "multiConfigOutput.fxml";
+    private static final String FXML_NAME = "/view/controls/MultiConfigOutput.fxml";
     
     private SimulationResult displayedResult;
     private UserConfiguration config;

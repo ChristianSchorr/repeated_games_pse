@@ -14,7 +14,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * This controller manages the list of all running and finsihed simulations in the main win-
+ * dow. It stores a list of the {@link SimulationResult} objects of all started simulations.
+ *
+ * @author Christian Schorr
+ */
 public class HistoryController {
 
     @FXML
@@ -41,15 +46,6 @@ public class HistoryController {
             outputViewController.setDisplayedResult(selectedItem.getResult());
         });
         historyList.setCellFactory(param -> new HistoryListCell());
-        
-        //setup output view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("OutputView.fxml"));
-        outputViewController = loader.getController();
-        try {
-            outputView = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

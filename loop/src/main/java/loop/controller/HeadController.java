@@ -30,140 +30,146 @@ import loop.model.simulator.ThreadPoolSimulator;
 import loop.model.simulator.exception.ConfigurationException;
 
 /**
- * This controller is associated with the main window and thus instantiated when the program starts. 
+ * This controller is associated with the main window and thus instantiated when the program starts.
  * It is also responsible for the communication between controller and model.
- * 
- * @author Pierre Toussing
  *
+ * @author Pierre Toussing
  */
 public class HeadController {
-	
-	private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Configurations";
-			 
-	private UserConfiguration activeConfiguration;
-	
-	private Simulator simulator;
-	
-	private HistoryController historyController;
-	
-	@FXML
-	private Parent historyView;
-	
-	/*---------------------------configuration preview---------------------------*/
-	
-	@FXML
-	private Label populationNameLabel;
-	
-	@FXML
-	private Label gameNameLabel;
-	
-	@FXML
-	private Label iterationCountLabel;
-	
-	@FXML
-	private Label agentCountLabel;
-	
-	@FXML
-	private Label roundCountLabel;
-	
-	@FXML
-	private Label mixedStrategiesLabel;
-	
-	/*---------------------------menu---------------------------*/
-	
-	@FXML
-	private MenuBar menuBar;
-	
-	/*---------------------------buttons top right---------------------------*/
-	
-	@FXML
-	private Button editConfigurationButton;
-	
-	@FXML
-	private Button startSimulationButton;
-	
-	@FXML
-	void initialize() {
-	    //setup history
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
-	    historyController = loader.getController();
+
+    private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Configurations";
+
+    private UserConfiguration activeConfiguration;
+
+    private Simulator simulator;
+
+    @FXML
+    private HistoryController historyViewController;
+
+    @FXML
+    private Parent historyView;
+
+    /*---------------------------configuration preview---------------------------*/
+
+    @FXML
+    private Label populationNameLabel;
+
+    @FXML
+    private Label gameNameLabel;
+
+    @FXML
+    private Label iterationCountLabel;
+
+    @FXML
+    private Label agentCountLabel;
+
+    @FXML
+    private Label roundCountLabel;
+
+    @FXML
+    private Label mixedStrategiesLabel;
+
+    /*---------------------------menu---------------------------*/
+
+    @FXML
+    private MenuBar menuBar;
+
+    /*---------------------------buttons top right---------------------------*/
+
+    @FXML
+    private Button editConfigurationButton;
+
+    @FXML
+    private Button startSimulationButton;
+
+    @FXML
+    void initialize() {
+        //setup history
+	   /* FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/controls/historyView.fxml"));
 	    try {
             historyView = loader.load();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-	    
-	    //load default configuration
-	    updateConfiguration(UserConfiguration.getDefaultConfiguration());
-	    
-	    //create simulator
-	    simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors());
-	}
-	
-	@FXML
-	void saveConfiguration() {
-		 FileChooser fileChooser = new FileChooser();
-	     fileChooser.setTitle("Save Configuration");
-	     fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
-	     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
-	     fileChooser.getExtensionFilters().add(extFilter);
-	     File saveFile = fileChooser.showSaveDialog(new Stage());	       
-	     try {
-	         FileIO.saveEntity(saveFile, activeConfiguration);
-	     } catch (IOException e) {
-	         e.printStackTrace();
-	         Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
-	         alert.showAndWait();
-	         return;
-	     }
-	}
-	
-	@FXML
-	void loadConfiguration() {
-		FileChooser fileChooser = new FileChooser();
-	     fileChooser.setTitle("Open Configuration");
-	     fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
-	     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
-	     fileChooser.getExtensionFilters().add(extFilter);
-	     File openFile = fileChooser.showOpenDialog(new Stage());	
-	     try {
-			updateConfiguration(FileIO.loadEntity(openFile));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-			Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
-	         alert.showAndWait();
-		}
-	}
-	
-	@FXML 
-	void editConfiguraiton() {
-		Parent configParent = null;
-		try {
-			configParent = FXMLLoader.load(getClass().getResource("ConfigurationWindow.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Scene configScene = new Scene(configParent);
-		Stage configWindow = new Stage();
+
+	    historyController = loader.getController();*/
+        //load default configuration
+        updateConfiguration(UserConfiguration.getDefaultConfiguration());
+
+        //create simulator
+        simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors());
+    }
+
+    @FXML
+    void saveConfiguration() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Configuration");
+        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File saveFile = fileChooser.showSaveDialog(new Stage());
+        try {
+            FileIO.saveEntity(saveFile, activeConfiguration);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+    }
+
+    @FXML
+    void loadConfiguration() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Configuration");
+        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File openFile = fileChooser.showOpenDialog(new Stage());
+        try {
+            updateConfiguration(FileIO.loadEntity(openFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void editConfiguraiton() {
+        Parent configParent = null;
+        try {
+            ConfigController controller = new ConfigController();
+            controller.registerElementCreated((config) -> updateConfiguration(config));
+            controller.setConfiguration(activeConfiguration);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/ConfigurationWindow.fxml"));
+            loader.setController(controller);
+            configParent = loader.load();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene configScene = new Scene(configParent);
+        Stage configWindow = new Stage();
         configWindow.setTitle("Edit configuration");
         configWindow.setScene(configScene);
 
         // Specifies the modality for new window.
-        configWindow.initModality(Modality.WINDOW_MODAL);      
+        configWindow.initModality(Modality.WINDOW_MODAL);
         configWindow.show();
-	}
-		
-	@FXML
-	void loadResults(ActionEvent event) {
-		//TODO
-	}
-	
-	@FXML
-	void startSimuation(ActionEvent event) {
-	    SimulationResult result;
+    }
+
+    @FXML
+    void loadResults(ActionEvent event) {
+        //TODO
+    }
+
+    @FXML
+    void startSimuation(ActionEvent event) {
+        SimulationResult result;
         try {
             result = simulator.startSimulation(activeConfiguration);
         } catch (ConfigurationException e) {
@@ -172,36 +178,36 @@ public class HeadController {
             alert.showAndWait();
             return;
         }
-	    historyController.addSimulation(result);
-	}
-	
-	@FXML
-	void openNewGameWindow(ActionEvent event) {
-		Parent newGameParent;
-		NewGameController controller;
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGameWindow.fxml"));
-			controller = (NewGameController) loader.getController();
-		    newGameParent = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
-		Scene newGameScene = new Scene(newGameParent);
-		Stage newGameWindow = new Stage();
+        historyViewController.addSimulation(result);
+    }
+
+    @FXML
+    void openNewGameWindow(ActionEvent event) {
+        Parent newGameParent;
+        NewGameController controller;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGameWindow.fxml"));
+            controller = (NewGameController) loader.getController();
+            newGameParent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Scene newGameScene = new Scene(newGameParent);
+        Stage newGameWindow = new Stage();
         newGameWindow.setTitle("Create a new Game");
         newGameWindow.setScene(newGameScene);
 
         controller.setStage(newGameWindow);
         controller.registerElementCreated(game -> newGameCreated(game));
-        
-        // Specifies the modality for new window.
-        newGameWindow.initModality(Modality.WINDOW_MODAL);      
-        newGameWindow.show();
-	}
 
-	@FXML
-	void openNewStrategyWindow(ActionEvent event) {
+        // Specifies the modality for new window.
+        newGameWindow.initModality(Modality.WINDOW_MODAL);
+        newGameWindow.show();
+    }
+
+    @FXML
+    void openNewStrategyWindow(ActionEvent event) {
 	    /*
 		Parent newStrategyParent = null;
 		try {
@@ -218,91 +224,89 @@ public class HeadController {
         newStrategyWindow.initModality(Modality.WINDOW_MODAL);      
         newStrategyWindow.show();
         */
-	}
-	
-	@FXML
-	void openNewGroupWindow(ActionEvent event) {
-		Parent newGroupParent;
-		GroupController controller;
-		try {
-		    FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGroupWindow.fxml"));
-		    controller = (GroupController) loader.getController();
-			newGroupParent = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
-		Scene newGroupScene = new Scene(newGroupParent);
-		Stage newGroupWindow = new Stage();
+    }
+
+    @FXML
+    void openNewGroupWindow(ActionEvent event) {
+        Parent newGroupParent;
+        GroupController controller;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGroupWindow.fxml"));
+            controller = (GroupController) loader.getController();
+            newGroupParent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Scene newGroupScene = new Scene(newGroupParent);
+        Stage newGroupWindow = new Stage();
         newGroupWindow.setTitle("Create a new Group");
         newGroupWindow.setScene(newGroupScene);
 
-        controller.setStage(newGroupWindow);
         controller.registerElementCreated(g -> newGroupCreated(g));
-        
+
         // Specifies the modality for new window.
-        newGroupWindow.initModality(Modality.WINDOW_MODAL);      
+        newGroupWindow.initModality(Modality.WINDOW_MODAL);
         newGroupWindow.show();
-	}
-	
-	@FXML
-	void openNewPopulationWindow(ActionEvent event) {
-		Parent newPopulationParent;
-		PopulationController controller;
-		try {
-		    FXMLLoader loader = new FXMLLoader(getClass().getResource("NewPopulationWindow.fxml"));
-		    controller = (PopulationController) loader.getController();
-			newPopulationParent = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
-		Scene newPopulationScene = new Scene(newPopulationParent);
-		Stage newPopulationWindow = new Stage();
+    }
+
+    @FXML
+    void openNewPopulationWindow(ActionEvent event) {
+        Parent newPopulationParent;
+        PopulationController controller;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewPopulationWindow.fxml"));
+            controller = (PopulationController) loader.getController();
+            newPopulationParent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Scene newPopulationScene = new Scene(newPopulationParent);
+        Stage newPopulationWindow = new Stage();
         newPopulationWindow.setTitle("Create a new Population");
         newPopulationWindow.setScene(newPopulationScene);
-        
-        controller.setStage(newPopulationWindow);
+
         controller.registerElementCreated(pop -> newPopulationCreated(pop));
 
         // Specifies the modality for new window.
-        newPopulationWindow.initModality(Modality.WINDOW_MODAL);      
+        newPopulationWindow.initModality(Modality.WINDOW_MODAL);
         newPopulationWindow.show();
-	}
-	
-	private void newGameCreated(Game game) {
+    }
+
+    private void newGameCreated(Game game) {
         boolean stored = CentralRepository.getInstance().getGameRepository().addEntity(game.getName(), game);
         if (!stored) {
             //what now?
         }
     }
-	
-	private void newGroupCreated(Group group) {
+
+    private void newGroupCreated(Group group) {
         boolean stored = CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
         if (!stored) {
             //what now?
         }
     }
-	
-	private void newPopulationCreated(Population population) {
-	    boolean stored = CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
-	    if (!stored) {
-	        //what now?
-	    }
-	}
-	
-	private void updateConfiguration(UserConfiguration configuration) {
-		activeConfiguration = configuration;
-		updateConfigurationPreview();
-	}
-	
-	private void updateConfigurationPreview() {
-	    Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(activeConfiguration.getPopulationName());
-		this.agentCountLabel.setText(String.valueOf(population.getSize()));
-		this.gameNameLabel.setText(activeConfiguration.getGameName());
-		this.iterationCountLabel.setText(String.valueOf(activeConfiguration.getIterationCount()));
-		this.mixedStrategiesLabel.setText(activeConfiguration.getMixedAllowed() ? "Yes" : "No");
-		this.populationNameLabel.setText(activeConfiguration.getPopulationName());
-		this.roundCountLabel.setText(String.valueOf(activeConfiguration.getRoundCount()));
-	}
- }
+
+    private void newPopulationCreated(Population population) {
+        boolean stored = CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
+        if (!stored) {
+            //what now?
+        }
+    }
+
+    private void updateConfiguration(UserConfiguration configuration) {
+        activeConfiguration = configuration;
+        updateConfigurationPreview();
+    }
+
+    private void updateConfigurationPreview() {
+        Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(activeConfiguration.getPopulationName());
+        this.agentCountLabel.setText(String.valueOf(population.getSize()));
+        this.gameNameLabel.setText(activeConfiguration.getGameName());
+        this.iterationCountLabel.setText(String.valueOf(activeConfiguration.getIterationCount()));
+        this.mixedStrategiesLabel.setText(activeConfiguration.getMixedAllowed() ? "Yes" : "No");
+        this.populationNameLabel.setText(activeConfiguration.getPopulationName());
+        this.roundCountLabel.setText(String.valueOf(activeConfiguration.getRoundCount()));
+    }
+}

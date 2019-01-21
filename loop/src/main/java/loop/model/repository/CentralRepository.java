@@ -198,6 +198,7 @@ public class CentralRepository {
 	    this.gameRepo.addEntity(ConcreteGame.prisonersDilemma().getName(), ConcreteGame.prisonersDilemma());
 	    
 	    //load from files
+		/*
 	    try {
 			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Strategies"))) {
 				if(p.getClass().equals(PureStrategy.class)) {
@@ -233,7 +234,7 @@ public class CentralRepository {
 			};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		}*/
 	    
 	    //load plugins
 	    //TODO

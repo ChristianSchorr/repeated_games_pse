@@ -9,9 +9,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * This class manges the SimulationResultCellTemplate for finished Simulations
+ *
+ * @author Christian Schorr
+ */
 public class FinishedSimulationResultCellTemplate extends SimulationResultCellTemplate {
 
-    private static final String FXML_NAME = "finishedSimulationCell.fxml";
+    private static final String FXML_NAME = "/view/listViewTemplates/finishedSimulationCell.fxml";
     private ResultHistoryItem item;
 
     private DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -24,12 +29,12 @@ public class FinishedSimulationResultCellTemplate extends SimulationResultCellTe
 
     public FinishedSimulationResultCellTemplate(ResultHistoryItem item) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
-        fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        fxmlLoader.setController(this);
         this.item = item;
     }
 

@@ -10,9 +10,14 @@ import loop.model.simulator.SimulationStatus;
 
 import java.io.IOException;
 
+/**
+ * This class manges the SimulationResultCellTemplate for running Simulations
+ *
+ * @author Christian Schorr
+ */
 public class RunningSimulationResultCellTemplate extends SimulationResultCellTemplate {
 
-    private static final String FXML_NAME = "runningSimulationCell.fxml";
+    private static final String FXML_NAME = "/view/listViewTemplates/runningSimulationCell.fxml";
     private static final String QUEUED_LABEL = "eingereiht";
     private ResultHistoryItem item;
 
@@ -36,6 +41,7 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
     }
 
     public void initialize() {
+        if (item == null) return;
         super.initialize(item);
 
         SimulationResult result = item.getResult();

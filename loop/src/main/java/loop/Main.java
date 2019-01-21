@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 /**
  * This class contains the main method of the program and initialises the main window.
  * 
@@ -16,12 +18,12 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/windows/HomeWindow.fxml"));
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 1024, 720);
 
-        stage.setScene(scene);
         stage.setTitle("loop");
+        stage.setScene(scene);
         stage.show();
     }
     
