@@ -24,10 +24,10 @@
             <Label styleClass="card-subtitle" text="Effizienzverteilung der Konfigurationen " wrapText="true" />
             <BarChart fx:id="efficiencyChart" legendVisible="false">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" />
+                    <CategoryAxis side="BOTTOM" label="Efficiency"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" />
+                    <NumberAxis side="LEFT" label="Agent Count"/>
                 </yAxis>
             </BarChart>
             <HBox>
@@ -39,10 +39,10 @@
             <Label styleClass="card-subtitle" text="Einstellungsdauer bis zum Gleichgewicht" />
             <BarChart fx:id="executedAdaptsChart" legendVisible="false">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" />
+                    <CategoryAxis side="BOTTOM" label="Executed Adaption Steps"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" />
+                    <NumberAxis side="LEFT" label="Agent Count"/>
                 </yAxis>
             </BarChart>
             <HBox>

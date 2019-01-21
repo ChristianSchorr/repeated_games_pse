@@ -6,15 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -130,6 +127,7 @@ public class AbstractedOutputController {
         this.configSlider.setShowTickMarks(true);
         this.configSlider.setMin(1);
         this.consideredIterationsComboBox.getItems().addAll(ALL, ONLY_EQUI, ONLY_NO_EQUI);
+        this.selectedConfigurationNumber = 0;
         setDisplayedResult(displayedResult);
     }
 
@@ -165,7 +163,7 @@ public class AbstractedOutputController {
         int equilibriumCount = (int) this.displayedResult.getIterationResults(selectedConfigurationNumber).stream()
                 .filter(it -> it.equilibriumReached()).count();
         int equilibriumPercentage = (int) Math.round(100 * (((double) equilibriumCount) / ((double) config.getIterationCount())));
-        this.equilibriumFrequencyLabel.setText(String.format("%d//%d (%d)", equilibriumCount, config.getIterationCount(), equilibriumPercentage));
+        this.equilibriumFrequencyLabel.setText(String.format("%d//%d (%d%%)", equilibriumCount, config.getIterationCount(), equilibriumPercentage));
 
         //config slider
         this.configSlider.setVisible(config.isMulticonfiguration());
@@ -181,12 +179,15 @@ public class AbstractedOutputController {
     private void updateCharts() {
         if (chartUpdater != null) {
             chartUpdater.cancel(true);
-        }
+        }/*
         chartUpdater = CompletableFuture.supplyAsync(() -> {
             ChartUpdater updater = new ChartUpdater();
             updater.run();
             return null;
-        });
+        });*/
+        
+        ChartUpdater updater = new ChartUpdater();
+        updater.run();
     }
 
     private class ChartUpdater implements Runnable {
@@ -202,14 +203,6 @@ public class AbstractedOutputController {
         }
 
         private void updateEfficiencyChart() {
-            //setup the diagram
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
-            efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
-            efficiencyChart.setTitle("Efficiency Distribution");
-            xAxis.setLabel("Efficiency");
-            yAxis.setLabel("Agent Count");
-
             //calculate histogram
             List<Double> efficiencies = new ArrayList<Double>();
             displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
@@ -227,14 +220,6 @@ public class AbstractedOutputController {
         }
 
         private void updateExecutedAdaptsChart() {
-            //setup the diagram
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
-            efficiencyChart = new BarChart<String, Number>(xAxis, yAxis);
-            efficiencyChart.setTitle("Distribution of Executed Adaption Steps");
-            xAxis.setLabel("Executed Adaption Steps");
-            yAxis.setLabel("Agent Count");
-
             //calculate histogram
             List<Integer> steps = new ArrayList<Integer>();
             displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
@@ -274,7 +259,9 @@ public class AbstractedOutputController {
     }
 
     private synchronized String getConsideredIterationsValue() {
-        return consideredIterationsComboBox.getValue();
+        //TODO vorläufig
+        return ALL;
+        //return consideredIterationsComboBox.getValue(); das sollte es eigentlich sein
     }
 
     private synchronized void setEfficiencyChartData(XYChart.Series<String, Number> data) {
@@ -283,7 +270,7 @@ public class AbstractedOutputController {
     }
 
     private synchronized void setMeanEfficiencyLabelData(double meanEfficiency) {
-        meanEfficiencyLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(EFFICIENCY_MEAN_PRECISION).format(meanEfficiency)));
+        meanEfficiencyLabel.setText(ChartUtils.decimalFormatter(EFFICIENCY_MEAN_PRECISION).format(meanEfficiency));
     }
 
     private synchronized void setAdaptsChartData(XYChart.Series<String, Number> data) {
@@ -292,7 +279,7 @@ public class AbstractedOutputController {
     }
 
     private synchronized void setMeanAdaptsLabelData(double meanAdapts) {
-        meanExecutedAdaptsLabel.setText(String.format("Mean: %s", ChartUtils.decimalFormatter(0).format(meanAdapts)));
+        meanExecutedAdaptsLabel.setText(ChartUtils.decimalFormatter(0).format(meanAdapts));
     }
 
     /*-----------------------------------------------event handlers-----------------------------------------------*/

@@ -68,8 +68,15 @@ public class ChartUtils {
         int minValue = sortedValues[(int) Math.floor(cutoff * sortedValues.length)];
         int maxValue = sortedValues[sortedValues.length - 1 - (int) Math.floor(cutoff * sortedValues.length)];
         
-        int binWidth = (int) Math.ceil(((double) (maxValue - minValue)) / (double) desiredBinCount);
-        int binCount = (int) Math.ceil(((double) (maxValue - minValue + 1)) / (double) binWidth);
+        final int binWidth;
+        final int binCount;
+        if (minValue != maxValue) {
+            binWidth = (int) Math.ceil(((double) (maxValue - minValue)) / (double) desiredBinCount);
+            binCount = (int) Math.ceil(((double) (maxValue - minValue + 1)) / (double) binWidth);
+        } else {
+            binWidth = 1;
+            binCount = 1;
+        }
         
         //create labels
         String[] binLabels = new String[binCount];
@@ -86,9 +93,11 @@ public class ChartUtils {
         
         //create histogram
         Map<String, Integer> hist = new HashMap<String, Integer>();
-        values.stream().filter(val -> minValue <= val && val <= maxValue).sorted().forEach(val -> {
+        for (int i = 0; i < binLabels.length; i++) {
+            hist.put(binLabels[i], 0);
+        }
+        values.stream().filter(val -> minValue <= val && val <= maxValue).forEach(val -> {
             String binLabel = binLabels[binIndex(binWidth, val, minValue)];
-            hist.putIfAbsent(binLabel, 0);
             hist.put(binLabel, hist.get(binLabel) + 1);
         });
         
@@ -117,7 +126,7 @@ public class ChartUtils {
         double maxValue = sortedValues[sortedValues.length - 1 - (int) Math.floor(cutoff * sortedValues.length)];
         
         double binWidth = (maxValue - minValue) / (double) binCount;
-        
+        System.out.println(binWidth);
         //create labels
         String[] binLabels = new String[binCount];
         NumberFormat formatter = decimalFormatter(decimalPrecision);
@@ -134,9 +143,12 @@ public class ChartUtils {
         
         //create histogram
         Map<String, Integer> hist = new HashMap<String, Integer>();
-        values.stream().filter(val -> minValue <= val && val <= maxValue).sorted().forEach(val -> {
+        for (int i = 0; i < binLabels.length; i++) {
+            hist.put(binLabels[i], 0);
+        }
+        values.stream().filter(val -> minValue <= val && val <= maxValue).forEach(val -> {
+            System.out.println(binIndex(binWidth, val, minValue));
             String binLabel = binLabels[binIndex(binWidth, val, minValue)];
-            hist.putIfAbsent(binLabel, 0);
             hist.put(binLabel, hist.get(binLabel) + 1);
         });
         
@@ -145,7 +157,7 @@ public class ChartUtils {
     
     private static int binIndex(double binWidth, double value, double minValue) {
         int index = 0;
-        while (value > minValue - 1 + (index + 1) * binWidth) index++;
+        while (value > minValue + (index + 1) * binWidth) index++;
         return index;
     }
     
