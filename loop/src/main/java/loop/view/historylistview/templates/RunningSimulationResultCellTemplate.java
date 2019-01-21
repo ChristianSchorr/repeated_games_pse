@@ -30,6 +30,7 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
 
     public RunningSimulationResultCellTemplate(ResultHistoryItem item) {
+        this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
         fxmlLoader.setController(this);
         try {
@@ -37,11 +38,9 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.item = item;
     }
 
     public void initialize() {
-        if (item == null) return;
         super.initialize(item);
 
         SimulationResult result = item.getResult();
