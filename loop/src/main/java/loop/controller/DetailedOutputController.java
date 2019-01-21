@@ -142,14 +142,16 @@ public class DetailedOutputController {
         this.iterationSlider.setShowTickLabels(false);
         this.iterationSlider.setShowTickMarks(true);
         this.iterationSlider.setMin(1);
-
+        this.iterationSlider.valueProperty().addListener((obs, o, n) -> handleIterationSlider());
+        
         this.configSlider.setSnapToTicks(true);
         this.configSlider.setMajorTickUnit(1);
         this.configSlider.setMinorTickCount(0);
         this.configSlider.setShowTickLabels(false);
         this.configSlider.setShowTickMarks(true);
         this.configSlider.setMin(1);
-
+        this.configSlider.valueProperty().addListener((obs, o, n) -> handleConfigurationSlider());;
+        
         this.selectedIterationNumber = 0;
         this.selectedConfigurationNumber = 0;
         this.selectedIteration = this.meanOverAllIterations ? null
@@ -157,6 +159,11 @@ public class DetailedOutputController {
         
         minRankIndex = 0;
         maxRankIndex = displayedResult.getIterationResults(0).get(0).getAgents().size();
+        
+        meanOverAllIterations = false;
+        meanOverAllIterationsCheckbox.selectedProperty().addListener((obs, o, n) -> handleMeanOverAllIterationsCheckbox());
+        
+        //TODO change listener slider
         
         setDisplayedResult(displayedResult);
     }
@@ -212,12 +219,12 @@ public class DetailedOutputController {
     private void updateSliders() {
         this.iterationSlider.setVisible(!meanOverAllIterations);
         this.iterationSliderLabel.setVisible(!meanOverAllIterations);
-        this.iterationSliderLabel.setText(String.format("%s/%s", this.selectedIterationNumber, (int) this.iterationSlider.getMax()));
+        this.iterationSliderLabel.setText(String.format("%s/%s", this.selectedIterationNumber + 1, (int) this.iterationSlider.getMax()));
 
         this.configSlider.setVisible(config.isMulticonfiguration());
         this.configSliderLabel.setVisible(config.isMulticonfiguration());
         this.configSliderParameterLabel.setVisible(config.isMulticonfiguration());
-        this.configSliderLabel.setText(String.format("%s/%s", this.selectedConfigurationNumber, (int) this.configSlider.getMax()));
+        this.configSliderLabel.setText(String.format("%s/%s", this.selectedConfigurationNumber + 1, (int) this.configSlider.getMax()));
 
         if (config.isMulticonfiguration())
             this.configSliderParameterLabel.setText(String.format("%s: %s", this.config.getVariableParameterName(),
@@ -237,11 +244,9 @@ public class DetailedOutputController {
             meanAdapts /= config.getIterationCount();
             equilibriumPortion /= config.getIterationCount();
             meanEfficiency /= config.getIterationCount();
-            this.exitDescriptionLabel.setText(String.format("Equilibrium reached in %d% of all simulations, on average %d executed adaption steps.",
-                    (int) 100 * equilibriumPortion, (int) meanAdapts));
-            this.efficiencyLabel.setText(String.format("Mean efficiency of final state: ", ChartUtils.decimalFormatter(2).format(meanEfficiency)));
-
-
+            this.exitDescriptionLabel.setText(String.format("Equilibrium reached in %d%% of all simulations, on average %d executed adaption steps.",
+                    Math.round(100.0 * equilibriumPortion), Math.round(meanAdapts)));
+            this.efficiencyLabel.setText(String.format("Mean efficiency of final state: %s", ChartUtils.decimalFormatter(2).format(meanEfficiency)));
         } else {
             this.exitDescriptionLabel.setText(
                     this.selectedIteration.equilibriumReached()
@@ -348,14 +353,6 @@ public class DetailedOutputController {
         }
 
         private void updateCapitalChart() {
-            //setup the diagram
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
-            capitalDiagram = new BarChart<String, Number>(xAxis, yAxis);
-            capitalDiagram.setTitle("Capital Distribution");
-            xAxis.setLabel("Capital");
-            yAxis.setLabel("Agent Count");
-
             //collect capital values of all relevant agents, sorted after their groups
             Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
             List<Group> groups = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroups();
@@ -395,7 +392,8 @@ public class DetailedOutputController {
                     (groupName, hist) -> { //includes the groupless agents
                         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
                         series.setName(groupName);
-                        hist.forEach((binLabel, value) -> series.getData().add(new XYChart.Data<String, Number>(binLabel, value)));
+                        hist.keySet().stream().map(s -> Integer.valueOf(s)).sorted().map(i -> String.valueOf(i)).forEach(
+                                (binLabel) -> series.getData().add(new XYChart.Data<String, Number>(binLabel, hist.get(binLabel).intValue())));
                         groupSeries.add(series);
                     });
 
@@ -420,25 +418,25 @@ public class DetailedOutputController {
     }
 
     private synchronized void setCapitalChartData(Collection<? extends XYChart.Series<String, Number>> data) {
+        capitalDiagram.setTitle("Capital Distribution");
         capitalDiagram.getData().clear();
         capitalDiagram.getData().addAll(data);
     }
 
     /*-----------------------------------------------event handlers-----------------------------------------------*/
 
-    @FXML
-    private void handleIterationSlider(ActionEvent event) {
-        this.selectedIterationNumber = this.iterationSlider.valueProperty().intValue();
+    private void handleIterationSlider() {
+        this.selectedIterationNumber = this.iterationSlider.valueProperty().intValue() - 1;
         this.selectedIteration = this.meanOverAllIterations ? null
                 : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
-
+        
+        updateSliders();
         updateDescription();
         updateCharts();
     }
 
-    @FXML
-    private void handleConfigurationSlider(ActionEvent event) {
-        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() : 0;
+    private void handleConfigurationSlider() {
+        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue()  - 1: 0;
         this.selectedIteration = this.meanOverAllIterations ? null
                 : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
 
@@ -447,12 +445,12 @@ public class DetailedOutputController {
         updateCharts();
     }
 
-    @FXML
-    private void handleMeanOverAllIterationsCheckbox(ActionEvent event) {
+    private void handleMeanOverAllIterationsCheckbox() {
         this.meanOverAllIterations = this.meanOverAllIterationsCheckbox.isSelected();
         this.selectedIteration = this.meanOverAllIterations ? null
                 : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
-
+        
+        updateSliders();
         updateDescription();
         updateCharts();
     }
