@@ -8,6 +8,7 @@ import loop.controller.ResultHistoryItem;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 
 /**
  * This class manges the SimulationResultCellTemplate for finished Simulations
@@ -28,22 +29,33 @@ public class FinishedSimulationResultCellTemplate extends SimulationResultCellTe
     private Label finishedTimeLabel;
 
     public FinishedSimulationResultCellTemplate(ResultHistoryItem item) {
+        this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
+        fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        fxmlLoader.setController(this);
-        this.item = item;
     }
 
     public void initialize() {
         super.initialize(item);
 
-        final long duration = item.getFinishTime() - item.getStartTime();
-        totalDurationLabel.setText(timeFormat.format(duration));
+        final Duration duration = Duration.ofMillis(item.getFinishTime() - item.getStartTime());
+        totalDurationLabel.setText(formatDuration(duration));
         finishedTimeLabel.setText(timeFormat.format(item.getFinishTime()));
+    }
+
+    private static String formatDuration(Duration duration) {
+        long seconds = duration.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600,
+                (absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 
 

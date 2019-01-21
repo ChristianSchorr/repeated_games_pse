@@ -18,14 +18,14 @@ public class CanceledSimulationResultCellTemplate extends SimulationResultCellTe
     private ResultHistoryItem item;
 
     public CanceledSimulationResultCellTemplate(ResultHistoryItem item) {
+        this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
+        fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        fxmlLoader.setController(this);
-        this.item = item;
     }
 
     public void initialize() {

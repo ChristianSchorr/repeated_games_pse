@@ -17,18 +17,18 @@ public abstract class SimulationResultCellTemplate {
     private HBox container;
 
     @FXML
-    protected Label nameLabel;
+    private Label gameNameLabel;
 
     @FXML
-    protected Label idLabel;
+    private Label simulationIdLabel;
 
     protected void initialize(ResultHistoryItem item) {
         SimulationResult res = item.getResult();
         String gameName = res.getUserConfiguration().getGameName();
         int simulationId = res.getId();
 
-        nameLabel.setText(gameName);
-        idLabel.setText(String.format("#%03d", simulationId));
+        gameNameLabel.setText(gameName);
+        simulationIdLabel.setText(String.format("#%03d", simulationId));
     }
 
     public HBox getContainer() {

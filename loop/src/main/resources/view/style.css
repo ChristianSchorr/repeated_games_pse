@@ -463,9 +463,6 @@
 	-fx-text-fill: -fx-text-base-color;
 }
 
-.list-cell {
-	-fx-cell-size: 40;
-}
 
 /*******************************************************************************
  *                                                                             *
@@ -870,7 +867,7 @@
 
 .task-card-green {
     -fx-border-color: #008A00;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
 }
 
 .task-card-yellow {
@@ -888,4 +885,8 @@
 .grid {
     -fx-background-color: swatch-grey;
     -fx-background-insets: 0, 2 2 0 0 ;
+}
+
+.list-cell {
+    -fx-padding: 0px;
 }

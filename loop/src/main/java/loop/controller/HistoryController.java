@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import loop.model.simulator.SimulationResult;
 import loop.view.historylistview.HistoryListCell;
+import loop.view.historylistview.RefreshSkin;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +35,8 @@ public class HistoryController {
     private ResultHistoryItem selectedItem;
     private ObservableList<ResultHistoryItem> history;
 
+    private RefreshSkin<ResultHistoryItem> listViewSkin;
+
     /**
      * Initializes the history controller
      */
@@ -46,6 +49,9 @@ public class HistoryController {
             outputViewController.setDisplayedResult(selectedItem.getResult());
         });
         historyList.setCellFactory(param -> new HistoryListCell());
+
+        listViewSkin = new RefreshSkin<>(historyList);
+        historyList.setSkin(listViewSkin);
     }
 
     /**
@@ -55,6 +61,7 @@ public class HistoryController {
     public void addSimulation(SimulationResult simulationResult) {
         ResultHistoryItem item = new ResultHistoryItem(simulationResult);
         history.add(item);
+        item.getResult().registerSimulationStatusChangedHandler((res, stat)-> historyList.refresh());
     }
 
     /**
