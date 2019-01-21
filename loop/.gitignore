@@ -77,4 +77,7 @@ local.properties
 .idea
 .idea/
 
+out
+out/
+
 # End of https://www.gitignore.io/api/eclipse
