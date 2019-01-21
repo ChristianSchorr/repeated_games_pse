@@ -9,7 +9,7 @@ import java.util.List;
  * If the user selects an algorithm or mechanism that was integrated per plugin in the configuration window,
  * the corresponding PluginControl object will be inserted below the
  * corresponding dropdown menu to configurate the parameters of the plugin.
-
+ * 
  * @author Pierre Toussing
  *
  */

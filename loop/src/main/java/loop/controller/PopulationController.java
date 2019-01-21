@@ -161,6 +161,7 @@ public class PopulationController implements CreationController<Population> {
         fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", ".pop");
         fileChooser.getExtensionFilters().add(extFilter);
+        Window stage = ((Node) event.getTarget()).getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         
         if (file == null) {
@@ -184,8 +185,8 @@ public class PopulationController implements CreationController<Population> {
         groupSizes.clear();
         cellControllers.clear();
         groupPane.getChildren().clear();
-        totalAgentCount = population.getSize();
-        totalAgentCountLabel.setText(String.format("%d", totalAgentCount));
+        this.totalAgentCountProperty.setValue(population.getSize());
+        totalAgentCountLabel.setText(String.format("%d", totalAgentCountProperty.getValue()));
         
         for (Group group: population.getGroups()) {
             String groupName = group.getName();

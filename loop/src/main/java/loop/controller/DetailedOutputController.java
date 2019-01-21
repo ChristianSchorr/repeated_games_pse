@@ -154,7 +154,10 @@ public class DetailedOutputController {
         this.selectedConfigurationNumber = 0;
         this.selectedIteration = this.meanOverAllIterations ? null
                 : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
-
+        
+        minRankIndex = 0;
+        maxRankIndex = displayedResult.getIterationResults(0).get(0).getAgents().size();
+        
         setDisplayedResult(displayedResult);
     }
 
@@ -244,7 +247,7 @@ public class DetailedOutputController {
                     this.selectedIteration.equilibriumReached()
                             ? "Equilibrium reached after " + this.selectedIteration.getAdapts() + " adaption steps."
                             : "No equilibrium reached, cancelled simulation after " + this.selectedIteration.getAdapts() + " adaption steps.");
-            this.efficiencyLabel.setText(String.format("Efficiency of final state: ", ChartUtils.decimalFormatter(2).format(this.selectedIteration.getEfficiency())));
+            this.efficiencyLabel.setText(String.format("Efficiency of final state: %s", ChartUtils.decimalFormatter(2).format(this.selectedIteration.getEfficiency())));
         }
     }
 
@@ -274,7 +277,6 @@ public class DetailedOutputController {
         }
 
         private void updateStrategyChart() {
-
             ObservableList<PieChart.Data> pieChartData = null;
 
             List<Strategy> strategies = new ArrayList<Strategy>();
