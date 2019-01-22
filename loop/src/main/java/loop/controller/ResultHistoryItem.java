@@ -16,6 +16,7 @@ public class ResultHistoryItem {
      */
     public ResultHistoryItem(SimulationResult result) {
         this.result = result;
+        statusChanged(result.getStatus());
         result.registerSimulationStatusChangedHandler((res, stat) -> statusChanged(stat));
     }
 
@@ -44,9 +45,11 @@ public class ResultHistoryItem {
     }
 
     private void statusChanged(SimulationStatus newStatus) {
-        if (newStatus == SimulationStatus.RUNNING)
+        if (newStatus == SimulationStatus.RUNNING) {
             startTime = System.currentTimeMillis();
-        else if (newStatus == SimulationStatus.FINISHED)
+        }
+        else if (newStatus == SimulationStatus.FINISHED) {
             finishTime = System.currentTimeMillis();
+        }
     }
 }
