@@ -2,6 +2,7 @@ package loop.model.simulationengine;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -23,6 +24,7 @@ import loop.model.simulationengine.strategies.Strategy;
  */
 public class AgentInitialiserTest {
 	AgentInitialiser agentInitialiser;
+	ArrayList<EngineSegment> engineSegmentList = new ArrayList<EngineSegment>();
 
 	/**
 	 * Initialize the AgentInitialiser agentInitialiser
@@ -54,7 +56,8 @@ public class AgentInitialiserTest {
         strategyDistribution.addObject(PureStrategy.grim());
         
 		EngineSegment engineSegment = new EngineSegment(agentcount, groupid, binomialdis, strategyDistribution);
-		List<Agent> agents = agentInitialiser.initialiseAgents(engineSegment, false);
+		engineSegmentList.add(engineSegment);
+		List<Agent> agents = agentInitialiser.initialiseAgents(engineSegmentList, false);
 		
 		for (Agent agent : agents) {
 			assertTrue("The Strategy of the agent should be grim, alwaysCooperate, "
@@ -85,7 +88,8 @@ public class AgentInitialiserTest {
         strategyDistribution.addObject(PureStrategy.neverCooperate());
         
 		EngineSegment engineSegment = new EngineSegment(agentcount, groupid, binomialdis, strategyDistribution);
-		List<Agent> agents = agentInitialiser.initialiseAgents(engineSegment, true);
+		engineSegmentList.add(engineSegment);
+		List<Agent> agents = agentInitialiser.initialiseAgents(engineSegmentList, true);
 		
 		for (Agent agent : agents) {
 			MixedStrategy mixedStrategy = (MixedStrategy) agent.getStrategy();

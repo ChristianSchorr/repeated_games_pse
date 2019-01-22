@@ -1,5 +1,6 @@
 package loop.model.simulationengine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import loop.model.simulationengine.distributions.DiscreteDistribution;
@@ -30,8 +31,10 @@ public class TestUtility {
         Strategy coop = new PureStrategy("", "", (AgentPair pair, SimulationHistory history) -> true);
         strategyDistribution.addObject(coop);
         
+        ArrayList<EngineSegment> engineSegmentList = new ArrayList<EngineSegment>();
         EngineSegment segment = new EngineSegment(agentCount, -1, capitalDistribution, strategyDistribution);
-        List<Agent> agents = new AgentInitialiser().initialiseAgents(segment, mixedStrategies);
+        engineSegmentList.add(segment);
+        List<Agent> agents = new AgentInitialiser().initialiseAgents(engineSegmentList, mixedStrategies);
         return agents;
     }
     
