@@ -1,5 +1,6 @@
 package loop.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import java.util.List;
  * @author Peter Koepernik
  *
  */
-public class MulticonfigurationParameter {
+public class MulticonfigurationParameter implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     private MulticonfigurationParameterType type;
     private String parameterName;
