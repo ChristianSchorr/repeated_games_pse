@@ -1,6 +1,5 @@
 package loop.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mult;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;

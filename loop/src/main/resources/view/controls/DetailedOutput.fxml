@@ -28,7 +28,6 @@
     </HBox>
     <GridPane hgap="10">
         <VBox>
-            <Label styleClass="card-subtitle" text="Strategieverteilung:" wrapText="true"/>
             <StackPane alignment="CENTER">
             	<PieChart fx:id="strategyChart" labelLineLength="1.0" labelsVisible="false" prefHeight="300"
                       prefWidth="300"/>
@@ -37,7 +36,6 @@
             <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1"/>
         </VBox>
         <VBox GridPane.columnIndex="1">
-            <Label styleClass="card-subtitle" text="Kapitalverteilung:"/>
             <BarChart fx:id="capitalDiagram">
                 <xAxis>
                     <CategoryAxis side="BOTTOM" label="Capital"/>

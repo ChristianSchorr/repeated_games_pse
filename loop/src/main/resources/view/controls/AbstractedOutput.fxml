@@ -22,7 +22,7 @@
     </HBox>
     <GridPane hgap="10">
         <VBox alignment="CENTER">
-            <Label styleClass="card-subtitle" text="Effizienzverteilung der Konfigurationen " wrapText="true" />
+            <!-- <Label styleClass="card-subtitle" text="Effizienzverteilung der Konfigurationen " wrapText="true" /> -->
             <BarChart fx:id="efficiencyChart" legendVisible="false">
                 <xAxis>
                     <CategoryAxis side="BOTTOM" label="Efficiency"/>
@@ -37,7 +37,7 @@
             </HBox>
         </VBox>
         <VBox alignment="CENTER" GridPane.columnIndex="1">
-            <Label styleClass="card-subtitle" text="Einstellungsdauer bis zum Gleichgewicht" />
+            <!-- <Label styleClass="card-subtitle" text="Einstellungsdauer bis zum Gleichgewicht" /> -->
             <BarChart fx:id="executedAdaptsChart" legendVisible="false">
                 <xAxis>
                     <CategoryAxis side="BOTTOM" label="Executed Adaption Steps"/>

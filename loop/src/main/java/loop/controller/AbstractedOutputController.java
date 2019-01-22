@@ -127,6 +127,7 @@ public class AbstractedOutputController {
         this.configSlider.setShowTickMarks(true);
         this.configSlider.setMin(1);
         this.configSlider.valueProperty().addListener((obs, o, n) -> handleConfigurationSlider());
+        
         this.consideredIterationsComboBox.getItems().add(ALL);
         if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> it.equilibriumReached())) {
             this.consideredIterationsComboBox.getItems().add(ONLY_EQUI);
@@ -136,7 +137,12 @@ public class AbstractedOutputController {
         }
         this.consideredIterationsComboBox.setValue(ALL);
         this.consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> updateCharts());
+        
         this.selectedConfigurationNumber = 0;
+        
+        this.efficiencyChart.setTitle("Efficiency Distribution");
+        this.executedAdaptsChart.setTitle("Distribution of Executed Adaption Steps");
+        
         setDisplayedResult(displayedResult);
     }
 
@@ -172,13 +178,13 @@ public class AbstractedOutputController {
         int equilibriumCount = (int) this.displayedResult.getIterationResults(selectedConfigurationNumber).stream()
                 .filter(it -> it.equilibriumReached()).count();
         int equilibriumPercentage = (int) Math.round(100 * (((double) equilibriumCount) / ((double) config.getIterationCount())));
-        this.equilibriumFrequencyLabel.setText(String.format("%d//%d (%d%%)", equilibriumCount, config.getIterationCount(), equilibriumPercentage));
+        this.equilibriumFrequencyLabel.setText(String.format("%d/%d (%d%%)", equilibriumCount, config.getIterationCount(), equilibriumPercentage));
 
         //config slider
         this.configSlider.setVisible(config.isMulticonfiguration());
         this.configSliderLabel.setVisible(config.isMulticonfiguration());
         this.configSliderParameterLabel.setVisible(config.isMulticonfiguration());
-        this.configSliderLabel.setText(String.format("%s/%s", this.selectedConfigurationNumber, (int) this.configSlider.getMax()));
+        this.configSliderLabel.setText(String.format("%s/%s", this.selectedConfigurationNumber + 1, (int) this.configSlider.getMax()));
 
         if (config.isMulticonfiguration())
             this.configSliderParameterLabel.setText(String.format("%s: %s", this.config.getVariableParameterName(),
@@ -296,7 +302,7 @@ public class AbstractedOutputController {
     /*-----------------------------------------------event handlers-----------------------------------------------*/
 
     private void handleConfigurationSlider() {
-        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() : 0;
+        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() - 1 : 0;
         
         String prevSelected = this.consideredIterationsComboBox.getValue();
         this.consideredIterationsComboBox.getItems().clear();

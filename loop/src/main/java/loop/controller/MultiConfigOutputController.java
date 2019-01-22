@@ -72,6 +72,7 @@ public class MultiConfigOutputController {
     private Future<?> chartUpdater;
     
     public MultiConfigOutputController(SimulationResult result) {
+        this.displayedResult = result;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
         fxmlLoader.setController(this);
         try {
@@ -79,8 +80,6 @@ public class MultiConfigOutputController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
-        setDisplayedResult(result);
     }
     
     public Pane getContainer() {
@@ -92,7 +91,22 @@ public class MultiConfigOutputController {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        this.consideredIterationsComboBox.getItems().addAll(ALL, ONLY_EQUI, ONLY_NO_EQUI);
+        consideredIterationsComboBox.getItems().add(ALL);
+        if (displayedResult.getAllIterationResults().stream().allMatch(itList -> itList.stream().anyMatch(it -> it.equilibriumReached()))) {
+            consideredIterationsComboBox.getItems().add(ONLY_EQUI);
+        }
+        if (displayedResult.getAllIterationResults().stream().allMatch(itList -> itList.stream().anyMatch(it -> !it.equilibriumReached()))) {
+            consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
+        }
+        consideredIterationsComboBox.setValue(ALL);
+        consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> updateCharts());
+        setDisplayedResult(displayedResult);
+        
+        efficiencyAndFrequencyChart.setTitle("Mean Efficiency and Equilibrium Frequency");
+        efficiencyAndFrequencyChart.getXAxis().setLabel(config.getVariableParameterName());
+        
+        executedAdaptsChart.setTitle("Mean Amount of Executed Adaption Steps");
+        executedAdaptsChart.getXAxis().setLabel(config.getVariableParameterName());
     }
     
     /**
@@ -121,12 +135,15 @@ public class MultiConfigOutputController {
     private void updateCharts() {
         if (chartUpdater != null) {
             chartUpdater.cancel(true);
-        }
+        }/*
         chartUpdater = CompletableFuture.supplyAsync(() -> {
             ChartUpdater updater = new ChartUpdater();
             updater.run();
             return null;
-        });
+        });*/
+        
+        ChartUpdater updater = new ChartUpdater();
+        updater.run();
     }
     
     private class ChartUpdater implements Runnable {
@@ -142,13 +159,6 @@ public class MultiConfigOutputController {
         }
         
         private void updateEfficiencyAndFrequencyChart() {
-            //initialize chart
-            final NumberAxis xAxis = new NumberAxis();
-            final NumberAxis yAxis = new NumberAxis();
-            efficiencyAndFrequencyChart = new LineChart<Number, Number>(xAxis, yAxis);
-            efficiencyAndFrequencyChart.setTitle("Mean Efficiency and Equilibrium Frequency");
-            xAxis.setLabel(config.getVariableParameterName());
-            
             //efficiency
             XYChart.Series<Number, Number> efficiencySeries = new XYChart.Series<Number, Number>();
             efficiencySeries.setName("Mean Efficiency");
@@ -171,13 +181,6 @@ public class MultiConfigOutputController {
         }
         
         private void updateExecutedAdaptsChart() {
-            //initialize chart
-            final NumberAxis xAxis = new NumberAxis();
-            final NumberAxis yAxis = new NumberAxis();
-            executedAdaptsChart = new LineChart<Number, Number>(xAxis, yAxis);
-            executedAdaptsChart.setTitle("Mean Amount of Executed Adaption Steps");
-            xAxis.setLabel(config.getVariableParameterName());
-            
             //calculate chart data
             XYChart.Series<Number, Number> adaptsSeries = new XYChart.Series<Number, Number>();
             //adaptsSeries.setName("Executed Adapts");
@@ -218,11 +221,15 @@ public class MultiConfigOutputController {
         efficiencyAndFrequencyChart.getData().clear();
         efficiencyAndFrequencyChart.getData().add(effData);
         efficiencyAndFrequencyChart.getData().add(freqData);
+        ((NumberAxis) efficiencyAndFrequencyChart.getXAxis()).setLowerBound(config.getParameterValues().get(0));
+        ((NumberAxis) efficiencyAndFrequencyChart.getXAxis()).setUpperBound(config.getParameterValues().get(config.getParameterValues().size() - 1));
     }
     
     private synchronized void setAdaptsChartData(XYChart.Series<Number, Number> data) {
         executedAdaptsChart.getData().clear();
         executedAdaptsChart.getData().add(data);
+        ((NumberAxis) executedAdaptsChart.getXAxis()).setLowerBound(config.getParameterValues().get(0));
+        ((NumberAxis) executedAdaptsChart.getXAxis()).setUpperBound(config.getParameterValues().get(config.getParameterValues().size() - 1));
     }
     
     /*-----------------------------------------------event handlers-----------------------------------------------*/

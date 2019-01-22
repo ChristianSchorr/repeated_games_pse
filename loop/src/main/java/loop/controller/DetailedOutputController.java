@@ -163,6 +163,9 @@ public class DetailedOutputController {
         meanOverAllIterations = false;
         meanOverAllIterationsCheckbox.selectedProperty().addListener((obs, o, n) -> handleMeanOverAllIterationsCheckbox());
         
+        strategyChart.setTitle("Strategy Distribution");
+        capitalDiagram.setTitle("Capital Distribution");
+        
         //TODO change listener slider
         
         setDisplayedResult(displayedResult);
@@ -434,7 +437,7 @@ public class DetailedOutputController {
     }
 
     private void handleConfigurationSlider() {
-        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue()  - 1: 0;
+        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() - 1: 0;
         this.selectedIteration = this.meanOverAllIterations ? null
                 : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
 

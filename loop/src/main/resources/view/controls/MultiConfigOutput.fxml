@@ -8,17 +8,17 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<VBox xmlns:fx="http://javafx.com/fxml" style="@../style.css">
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox xmlns:fx="http://javafx.com/fxml" style="@../style.css" fx:id="container">
     <Label styleClass="card-title" text="Auftragungen über den Multikonfigurationsparameter" wrapText="true" />
     <GridPane hgap="10">
         <VBox>
-            <Label styleClass="card-subtitle" text="Effizienz und Häufigkeit der Gleichgewichte" wrapText="true" />
+            <!-- <Label styleClass="card-subtitle" text="Effizienz und Häufigkeit der Gleichgewichte" wrapText="true" /> -->
             <LineChart fx:id="efficiencyAndFrequencyChart" createSymbols="false">
                 <xAxis>
-                    <NumberAxis autoRanging="false"
-                                lowerBound="1"
-                                side="BOTTOM"
-                                upperBound="10"/>
+                    <NumberAxis autoRanging="false" side="BOTTOM"/>
                 </xAxis>
                 <yAxis>
                     <NumberAxis side="LEFT"/>
@@ -26,13 +26,10 @@
             </LineChart>
         </VBox>
         <VBox GridPane.columnIndex="1">
-            <Label styleClass="card-subtitle" text="Einstellungsdauer bis zu den Gleichgewichten" />
+            <!-- <Label styleClass="card-subtitle" text="Einstellungsdauer bis zu den Gleichgewichten" /> -->
             <LineChart fx:id="executedAdaptsChart" createSymbols="false">
                 <xAxis>
-                    <NumberAxis autoRanging="false"
-                                lowerBound="1"
-                                side="BOTTOM"
-                                upperBound="10"/>
+                    <NumberAxis autoRanging="false" side="BOTTOM"/>
                 </xAxis>
                 <yAxis>
                     <NumberAxis side="LEFT"/>
@@ -47,4 +44,12 @@
             <RowConstraints />
         </rowConstraints>
     </GridPane>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+    	<Label text="Considered iterations: "/>
+    	<ComboBox fx:id="consideredIterationsComboBox" />
+    </HBox>
+    <ImageView fx:id="effBufferGifView"/>
+    <Rectangle fx:id="effBufferRectangle"/>
+    <ImageView fx:id="adaptsBufferGifView"/>
+    <Rectangle fx:id="adaptsBufferRectangle"/>
 </VBox>

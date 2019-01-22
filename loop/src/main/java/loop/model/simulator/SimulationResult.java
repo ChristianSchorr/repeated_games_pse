@@ -128,6 +128,15 @@ public class SimulationResult {
 		iterationResults.get(i).sort((it1, it2) -> Double.compare(it1.getEfficiency(), it2.getEfficiency()));
 		return iterationResults.get(i);
 	}
+	
+	/**
+	 * Returns the list of all yet available iterations of all elementary configurations.
+	 * 
+	 * @return all yet available iteration results
+	 */
+	public List<List<IterationResult>> getAllIterationResults() {
+	    return iterationResults;
+	}
 
 	/**
 	 * Returns the {@link UserConfiguration} of this simulation.
