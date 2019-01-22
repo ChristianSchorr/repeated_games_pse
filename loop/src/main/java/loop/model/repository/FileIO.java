@@ -38,20 +38,19 @@ public class FileIO {
 
 	/**
 	 * Creates the directories necessary to save and load objects in loop.
+	 * @return true if successful
 	 */
-	public static void initializeDirectories() {
-		File file = new File(currentUsersDir + "/configurations");
-		file.mkdirs();
-		file = new File(currentUsersDir + "/games");
-		file.mkdir();
-		file = new File(currentUsersDir + "/strategies");
-		file.mkdir();
-		file = new File(currentUsersDir + "/groups");
-		file.mkdir();
-		file = new File(currentUsersDir + "/populations");
-		file.mkdir();
-		file = new File(currentUsersDir + "/simulationsresults");
-		file.mkdir();
+	public static boolean initializeDirectories() {
+		Boolean succes = true;
+		String[] directories = {"/configurations" , "/games" , "/strategies" ,
+				"/populations" , "/simulationresults" , "/group"
+		};
+		File file;
+		for(String s: directories) {
+			file = new File(currentUsersDir + s);
+			succes = succes && file.mkdirs();
+		}
+		return succes;
 	}
 	
 

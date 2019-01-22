@@ -161,7 +161,9 @@ public class CentralRepository {
 	}
 	
 	private void initialize() {
-		FileIO.initializeDirectories();
+		if (!FileIO.initializeDirectories()) {
+			System.out.println("Initializing directories failed");
+		}
 	    //strategies
 	    this.stratRepo.addEntity(PureStrategy.alwaysCooperate().getName(), PureStrategy.alwaysCooperate());
 	    this.stratRepo.addEntity(PureStrategy.neverCooperate().getName(), PureStrategy.neverCooperate());
