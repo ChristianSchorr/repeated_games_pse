@@ -152,8 +152,6 @@ public class PopulationController implements CreationController<Population> {
         
         Population population = createPopulation();
         
-        //TODO vorläufig
-        /*
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
@@ -175,10 +173,10 @@ public class PopulationController implements CreationController<Population> {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }*/
+        }
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(population));
-        stage.close();
+        this.stage.close();
     }
     
     @FXML
