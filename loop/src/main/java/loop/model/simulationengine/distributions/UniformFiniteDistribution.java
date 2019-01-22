@@ -81,7 +81,7 @@ public class UniformFiniteDistribution<E> implements FiniteDistribution<E> {
     
     @Override
     public double getProbability(final E object) {
-        return this.support.contains(object) ? (1 / support.size()) : 0;
+        return this.support.contains(object) ? (1.0 / support.size()) : 0;
     }
 
     @Override

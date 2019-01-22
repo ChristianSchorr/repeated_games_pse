@@ -7,9 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Contains test cases for the functionality provided by the {@code loop.model.simulationengine.distributions} package,
- * namely discrete distributions such as the poisson distribution or the binomial distribution or finite distributions
- * over arbitrary types of objects.
+ * Contains test cases for the functionality provided by the {@code loop.model.simulationengine.distributions.DiscreteDistribution} interface,
+ * such as the poisson distribution or the binomial distribution.
  * 
  * @author Peter Koepernik
  *

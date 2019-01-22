@@ -123,9 +123,8 @@ public class GroupController implements CreationController<Group> {
             Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }
-	    //TODO vorläufig
-	    /*
+	    }
+	    
 	    //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Group");
@@ -146,7 +145,7 @@ public class GroupController implements CreationController<Group> {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }*/
+        }
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
         stage.close();
