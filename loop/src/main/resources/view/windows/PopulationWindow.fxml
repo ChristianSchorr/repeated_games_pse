@@ -25,10 +25,10 @@
                 <ColumnConstraints percentWidth="20"/>
             </columnConstraints>
             <VBox spacing="10">
-                <Label styleClass="card-title" text="Population erstellen"/>
-                <Label wrapText="true" styleClass="card-subtitle" text="Hier können neue und eigene Populationen aus vorhandenen Gruppen erstellt werden"/>
-                <TextField fx:id="populationNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name der Population"/>
-                <TextField fx:id="populationDescriptionTextField" alignment="CENTER_LEFT"  promptText="Beschreibung"/>
+                <Label styleClass="card-title" text="Create a new population"/>
+                <Label wrapText="true" styleClass="card-subtitle" text="Here you can create new and own populations from existing groups"/>
+                <TextField fx:id="populationNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name of the population"/>
+                <TextField fx:id="populationDescriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
             </VBox>
             <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
                 <Button onAction="#resetPopulation" styleClass="setting-button">
@@ -49,9 +49,9 @@
 
         <Separator style="-fx-padding: 10 0;"/>
         <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 10">
-            <Label text="Gruppe:"/>
+            <Label text="Group:"/>
             <ChoiceBox fx:id="groupSelectionBox" prefHeight="42.0" prefWidth="189.0"/>
-            <Label text="Agentenzahl in der Gruppe:"/>
+            <Label text="Number of agents in the group:"/>
             <TextField fx:id="agentCountTextField" alignment="TOP_CENTER" maxWidth="50" promptText="100"/>
             <Button onAction="#handleAddGroupButton">
                 <graphic>
@@ -63,7 +63,7 @@
         <FlowPane fx:id="groupPane" GridPane.columnIndex="1" hgap="10" vgap="10" />
         <Separator style="-fx-padding: 10 0;"/>
         <HBox spacing="10">
-            <Label text="Gesamtzahl an Agenten:" style="-fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <Label text="Total number of agents" style="-fx-font-weight: bold; -fx-font-size: 15pt"/>
             <Label fx:id="totalAgentCountLabel" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
         </HBox>
     </VBox>
