@@ -18,6 +18,7 @@ public class DiscreteDistributionTest {
     
     private DiscreteDistribution poissonDistribution;
     private DiscreteDistribution binomialDistribution;
+    private DiscreteUniformDistribution discreteUniformDistribution;
 
     @Before
     public void setUp() throws Exception {
@@ -64,7 +65,7 @@ public class DiscreteDistributionTest {
     	for (double p = minp; p <= maxp; p += stepSize) {
     		binomialDistribution = new BinomialDistribution(lowerBound, upperBound, p);
 
-    		//test support   		
+    		//test support   	
             testSupport(binomialDistribution);
             
             //test picker
@@ -75,6 +76,23 @@ public class DiscreteDistributionTest {
     	}
     }
     
+    /**
+     * Tests the {@link DiscreteUniformDistribution} class.
+     */
+    @Test
+    public void testDiscreteUniformDistribution() {
+    	int lowerBound = 20; 
+    	int upperBound = 50;
+    	discreteUniformDistribution = new DiscreteUniformDistribution(lowerBound, upperBound);
+    	//test support
+    	testSupport(discreteUniformDistribution);
+    	
+    	//test picker
+        Picker<Integer> uniformPicker = discreteUniformDistribution.getPicker();
+        assertTrue(uniformPicker.pickOne() >= 0);
+        int size = 10;
+        assertTrue(uniformPicker.pickMany(size).size() == size);
+    }
     
     /**
      * Tests whether the support bounds returned by a given discrete distribution
@@ -88,7 +106,7 @@ public class DiscreteDistributionTest {
         
         for (double q = 0.0; q < 1; q += stepSize) {
             int min = distribution.getSupportMin(q);
-            int max = distribution.getSupportMax(q);
+            int max = distribution.getSupportMax(q);         
             double supportProbability = 0.0;
             for (int i = min; i <= max; i++) {
                 supportProbability += distribution.getProbability(i);

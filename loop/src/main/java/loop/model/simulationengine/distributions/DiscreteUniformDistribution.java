@@ -37,7 +37,7 @@ public class DiscreteUniformDistribution implements DiscreteDistribution {
     @Override
     public double getProbability(Integer object) {
         if (object < min || object > max) return 0;
-        return 1 / (max - min + 1);
+        return 1.0 / (max - min + 1);
     }
 
     @Override
