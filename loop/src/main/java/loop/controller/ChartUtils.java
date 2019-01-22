@@ -126,7 +126,7 @@ public class ChartUtils {
         double maxValue = sortedValues[sortedValues.length - 1 - (int) Math.floor(cutoff * sortedValues.length)];
         
         double binWidth = (maxValue - minValue) / (double) binCount;
-        System.out.println(binWidth);
+
         //create labels
         String[] binLabels = new String[binCount];
         NumberFormat formatter = decimalFormatter(decimalPrecision);
@@ -147,7 +147,6 @@ public class ChartUtils {
             hist.put(binLabels[i], 0);
         }
         values.stream().filter(val -> minValue <= val && val <= maxValue).forEach(val -> {
-            System.out.println(binIndex(binWidth, val, minValue));
             String binLabel = binLabels[binIndex(binWidth, val, minValue)];
             hist.put(binLabel, hist.get(binLabel) + 1);
         });
