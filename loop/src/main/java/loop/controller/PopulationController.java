@@ -64,13 +64,27 @@ public class PopulationController implements CreationController<Population> {
 
     private IntegerProperty totalAgentCountProperty = new SimpleIntegerProperty();
     private IntegerProperty agentCountProperty = new SimpleIntegerProperty();
-
+    
+    private Stage stage;
+    
+    /**
+    * Set the stage of this population creation window. Must be called by the creating controller upon creation.
+    * 
+    * @param stage the stage
+    */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
     @FXML
     private void initialize() {
         totalAgentCountLabel.textProperty().bindBidirectional(totalAgentCountProperty, new NumberStringConverter());
         totalAgentCountProperty.setValue(0);
         agentCountTextField.textProperty().bindBidirectional(agentCountProperty, new NumberStringConverter());
-        agentCountProperty.setValue(0);
+        agentCountProperty.setValue(20);
+        
+        groupSelectionBox.getItems().addAll(CentralRepository.getInstance().getGroupRepository().getAllEntityNames());
+        groupSelectionBox.getSelectionModel().select(0);
     }
 
     @Override
@@ -82,6 +96,12 @@ public class PopulationController implements CreationController<Population> {
     
     @FXML
     private void handleAddGroupButton(ActionEvent action) {
+        if (agentCountProperty.getValue() <= 0) {
+            Alert alert = new Alert(AlertType.ERROR, "A group must consits of at least one agent.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        } 
+        
         //get name and agent count
         String groupName = groupSelectionBox.getValue();
         int agentCount = agentCountProperty.getValue();
@@ -119,15 +139,21 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void handleSavePopulationButton(ActionEvent event) {
-        Population population = createPopulation();
-        
-        if (population.getName().trim() == "" || population.getDescription().trim() == "") {
+    private void handleSavePopulationButton(ActionEvent event) {        
+        if (populationNameTextField.getText().trim().equals("") || populationDescriptionTextField.getText().trim().equals("")) {
             Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        } else if (this.selectedGroups.isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR, "A population must consist of at least one group.", ButtonType.OK);
             alert.showAndWait();
             return;
         }
         
+        Population population = createPopulation();
+        
+        //TODO vorläufig
+        /*
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
@@ -149,9 +175,10 @@ public class PopulationController implements CreationController<Population> {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }
+        }*/
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(population));
+        stage.close();
     }
     
     @FXML
@@ -212,7 +239,7 @@ public class PopulationController implements CreationController<Population> {
         cellControllers.remove(index);
         groupPane.getChildren().remove(cell.getContainer());
         totalAgentCountProperty.setValue(totalAgentCountProperty.getValue() - cell.getAgentCount());
-        totalAgentCountLabel.setText(String.format("%d", cell.getAgentCount()));
+        totalAgentCountLabel.setText(String.format("%d", totalAgentCountProperty.getValue()));
     }
     
     private Population createPopulation() {
@@ -225,7 +252,7 @@ public class PopulationController implements CreationController<Population> {
     
     private class GroupCellController {
         
-        private static final String FXML_NAME = "groupCell.fxml";
+        private static final String FXML_NAME = "/view/controls/groupCell.fxml";
         
         private String groupName;
         private int agentCount;
@@ -243,18 +270,18 @@ public class PopulationController implements CreationController<Population> {
         public GroupCellController(String groupName, int agentCount, PopulationController parent) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
             fxmlLoader.setController(this);
+            this.groupName = groupName;
+            this.agentCount = agentCount;
+            this.parent = parent;
             try {
                 fxmlLoader.load();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            this.groupName = groupName;
-            this.agentCount = agentCount;
-            this.parent = parent;
         }
         
         @FXML
-        void intialize() {
+        void initialize() {
             groupNameLabel.setText(groupName);
             groupCountLabel.setText(agentCount + " agents.");
         }

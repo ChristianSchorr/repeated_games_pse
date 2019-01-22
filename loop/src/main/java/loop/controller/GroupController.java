@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.controlsfx.control.ListSelectionView;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,6 +84,13 @@ public class GroupController implements CreationController<Group> {
 	
 	@FXML 
 	void initialize() {
+	    segmentTabs.getTabs().addListener((ListChangeListener.Change<? extends Tab> c) -> {
+            int i = 1;
+            for (Tab tab: segmentTabs.getTabs()) {
+                tab.setText("Segment " + (i++));
+            }
+        });
+	    isCohesiveCheckBox.setSelected(true);
 	    addSegmentTab();
 	}
 	
@@ -108,15 +116,16 @@ public class GroupController implements CreationController<Group> {
 	}
 	
 	@FXML
-	void handleSaveGroup(ActionEvent event) {
+	void handleSave(ActionEvent event) {
 	    Group group = createGroup();
 	    
-	    if (group.getName().trim() == "" || group.getDescription().trim() == "") {
+	    if (group.getName().trim().equals("") || group.getDescription().trim().equals("")) {
             Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
             alert.showAndWait();
             return;
         }
-	    
+	    //TODO vorläufig
+	    /*
 	    //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Group");
@@ -137,7 +146,7 @@ public class GroupController implements CreationController<Group> {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }
+        }*/
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
         stage.close();
@@ -190,7 +199,7 @@ public class GroupController implements CreationController<Group> {
 	}
 	
 	@FXML
-	void handleResetGroup(ActionEvent event) {
+	void handleReset(ActionEvent event) {
 	    //confirm
         Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
@@ -203,6 +212,7 @@ public class GroupController implements CreationController<Group> {
 	    descriptionTextField.setText("");
 	    tabControllers.clear();
 	    segmentTabs.getTabs().clear();
+	    isCohesiveCheckBox.setSelected(true);
 	    addSegmentTab();
 	}
 	
@@ -210,11 +220,11 @@ public class GroupController implements CreationController<Group> {
 	
 	private void addSegmentTab() {
         TabController tabController = new TabController(this);
-        Tab tab = new Tab();
-        tab.setContent(tabController.getContent());
-        tabControllers.put(tabController, tab);
-        segmentTabs.getTabs().add(tab);
-        segmentTabs.getSelectionModel().select(tab);
+        Tab newTab = new Tab();
+        newTab.setContent(tabController.getContent());
+        tabControllers.put(tabController, newTab);
+        segmentTabs.getTabs().add(newTab);
+        segmentTabs.getSelectionModel().select(newTab);
     }
 	
 	private void removeTab(TabController controller) {
@@ -235,7 +245,7 @@ public class GroupController implements CreationController<Group> {
 	
 	private class TabController {
 	    
-	    private static final String FXML_NAME = "segmentTab.fxml";
+	    private static final String FXML_NAME = "/view/controls/segmentTab.fxml";
 	    
 		@FXML
 		private ChoiceBox<String> distributionChoice;
@@ -270,9 +280,14 @@ public class GroupController implements CreationController<Group> {
 			}
 			
 			//setup distribution choice
-			distributionChoice.setItems((ObservableList<String>) CentralRepository.getInstance()
+			distributionChoice.getItems().addAll(CentralRepository.getInstance()
                     .getDiscreteDistributionRepository().getAllEntityNames());
             distributionChoice.getSelectionModel().select(defaultDistributionName);
+            distributionChoice.valueProperty().addListener((obs, oldDistName, newDistName) -> {
+                distributionPluginPane.getChildren().clear();
+                distributionPluginPane.getChildren().add(CentralRepository.getInstance().getDiscreteDistributionRepository()
+                    .getEntityByName(newDistName).getRenderer().renderPlugin());
+            });
             
 			PluginControl p = CentralRepository.getInstance().getDiscreteDistributionRepository()
 			        .getEntityByName(defaultDistributionName).getRenderer().renderPlugin();
