@@ -432,8 +432,7 @@ public class DetailedOutputController {
         
         updateSliders();
         updateDescription();
-        //updateCharts();
-        this.strategyChart.setDisable(true);
+        updateCharts();
     }
 
     private void handleConfigurationSlider() {
