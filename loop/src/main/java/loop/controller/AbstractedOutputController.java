@@ -216,7 +216,7 @@ public class AbstractedOutputController {
             List<Double> efficiencies = new ArrayList<Double>();
             displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
                     it -> filterIteration(it)).forEach(it -> efficiencies.add(it.getEfficiency()));
-            Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 1);
+            Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 2);
 
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
