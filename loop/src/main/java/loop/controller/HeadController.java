@@ -185,9 +185,9 @@ public class HeadController {
         Parent newGameParent;
         NewGameController controller;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGameWindow.fxml"));
-            controller = (NewGameController) loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/GameWindow.fxml"));
             newGameParent = loader.load();
+            controller = (NewGameController) loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
             return;

@@ -59,12 +59,22 @@
             </Menu>
             <Menu text="Erweiterungen">
                 <items>
-                    <MenuItem text="Neues Stufenspiel erstellen">
+                    <MenuItem text="Neues Stufenspiel erstellen" onAction="#openNewGameWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CUBES" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
                     <MenuItem text="Neue Strategie erstellen">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
+                        </graphic>
+                    </MenuItem>
+                    <MenuItem text="Neue Gruppe erstellen" >
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
+                        </graphic>
+                    </MenuItem>
+                    <MenuItem text="Neue Population erstellen">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
                         </graphic>
