@@ -1,16 +1,24 @@
 package loop.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import loop.model.UserConfiguration;
+import loop.model.repository.FileIO;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 
@@ -73,7 +81,7 @@ public class OutputController {
     private Button toLeft;
 
     @FXML
-    private Button toRight;
+    private Button saveButton;
 
     @FXML
     private Button toDetailedOutput;
@@ -229,6 +237,15 @@ public class OutputController {
             tabPane.getSelectionModel().select(multiConfigOutputTab);
         }
     }
+    
+    @FXML
+    void saveResult(ActionEvent event) {
+    	FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Results");
+        fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
+        File saveFile = fileChooser.showSaveDialog(new Stage());
+        FileIO.saveResult(displayedResult, saveFile);
+    }
 
     /*-----------------------------------private helpers-----------------------------------*/
 
@@ -239,7 +256,7 @@ public class OutputController {
         this.multiconfigurationLabel.setVisible(false);
         this.multiconfigurationParameterNameLabel.setVisible(false);
         this.toLeft.setDisable(true);
-        this.toRight.setDisable(true);
+        this.saveButton.setDisable(true);
         this.toDetailedOutput.setDisable(true);
         this.toAbstractedOutput.setDisable(true);
         this.toMultiOutput.setDisable(true);
@@ -252,7 +269,7 @@ public class OutputController {
         this.multiconfigurationLabel.setVisible(true);
         this.multiconfigurationParameterNameLabel.setVisible(true);
         this.toLeft.setDisable(false);
-        this.toRight.setDisable(false);
+        this.saveButton.setDisable(false);
         this.toDetailedOutput.setDisable(false);
         this.toAbstractedOutput.setDisable(false);
         this.toMultiOutput.setDisable(false);

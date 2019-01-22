@@ -123,8 +123,6 @@ public class HeadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
-        fileChooser.getExtensionFilters().add(extFilter);
         File openFile = fileChooser.showOpenDialog(new Stage());
         try {
             updateConfiguration(FileIO.loadEntity(openFile));

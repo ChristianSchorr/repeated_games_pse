@@ -30,7 +30,7 @@
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="ROTATE_RIGHT" style="-fx-text-fill: grey" />
                     </graphic>
                 </Button>
-                <Button fx:id="toRight">
+                <Button fx:id="saveButton"  onAction="#saveResult">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="DOWNLOAD" style="-fx-text-fill: grey" />
                     </graphic>

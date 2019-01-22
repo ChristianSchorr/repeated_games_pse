@@ -44,7 +44,7 @@
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey" />
                     </graphic>
                 </Button>
-                <Button onAction="#handleSave">
+                <Button onAction="#handleSaveGameButton">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey" />
                     </graphic>
