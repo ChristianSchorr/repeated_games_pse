@@ -380,9 +380,7 @@ public class DetailedOutputController {
             }
 
             //create histograms
-            Map<String, Map<String, Integer>> groupHistograms = new HashMap<String, Map<String, Integer>>();
-            groupCapitals.forEach(
-                    (groupName, capitals) -> groupHistograms.put(groupName, ChartUtils.createHistogram(capitals, NUMBER_OF_BINS, CUTOFF, true)));
+            Map<String, Map<String, Integer>> groupHistograms = ChartUtils.createHistograms(groupCapitals, NUMBER_OF_BINS, CUTOFF, true);
             if (meanOverAllIterations) { //normalize
                 groupHistograms.forEach((groupName, hist) -> hist.forEach((binLabel, value) -> value /= config.getIterationCount()));
             }

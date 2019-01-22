@@ -73,7 +73,12 @@ public class NewGameController implements CreationController<Game> {
     /*------------------------------button handlers------------------------------*/
     
     @FXML
-    private void handleSaveGameButton() {
+    private void handleReset() {
+        //TODO
+    }
+    
+    @FXML
+    private void handleSave() {
         Game game;
         try {
             game = createGame();
@@ -82,7 +87,7 @@ public class NewGameController implements CreationController<Game> {
             alert.showAndWait();
             return;
         }
-        
+        /*
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Game");
@@ -103,7 +108,7 @@ public class NewGameController implements CreationController<Game> {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }
+        }*/
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(game));
         stage.close();
@@ -130,7 +135,8 @@ public class NewGameController implements CreationController<Game> {
         //check name and description
         String name = gameNameTextField.getText();
         String description = gameDescriptionTextField.getText();
-        if (name.trim() == "" || description.trim() == "") {
+
+        if (name.trim().equals("") || description.trim().equals("")) {
             throw new IllegalArgumentException("Name and description must not be empty.");
         }
         

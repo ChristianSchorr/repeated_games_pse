@@ -2,6 +2,7 @@ package loop.controller;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,64 @@ public class ChartUtils {
         });
         
         return hist;
+    }
+    
+    /**
+     * Creates a histogram for each of the given sets of integers. The integers will be collected in a specifiable amount of bins of equal size,
+     * and each bin will either be labeled with the mean value or the bounds of the interval covered by it. The bins will be determined collectively
+     * for all histograms simultaneously, thus all of the resulting histograms will take their values in the same set of bins.
+     * 
+     * @param valueMap the set of values out of which the histograms shall be created
+     * @param desiredBinCount the desired amount of bins. The actual amount of bins in the resulting histogram may differ due to round-off errors
+     * @param cutoff the cutoff
+     * @param showMeanAsBinLabel if this is {@code true}, the mean value of a bins covered interval will be used as its label, otherwise the bounds
+     * @return the histogram
+     */
+    public static synchronized Map<String, Map<String, Integer>> createHistograms(Map<String, List<Integer>> valueMap, int desiredBinCount, double cutoff, boolean showMeanAsBinLabel) {
+        List<Integer> allValues = new ArrayList<Integer>();
+        valueMap.values().forEach(list -> allValues.addAll(list));
+        Integer[] sortedValues = allValues.stream().sorted().toArray(Integer[]::new);
+        int minValue = sortedValues[(int) Math.floor(cutoff * sortedValues.length)];
+        int maxValue = sortedValues[sortedValues.length - 1 - (int) Math.floor(cutoff * sortedValues.length)];
+        
+        final int binWidth;
+        final int binCount;
+        if (minValue != maxValue) {
+            binWidth = (int) Math.ceil(((double) (maxValue - minValue)) / (double) desiredBinCount);
+            binCount = (int) Math.ceil(((double) (maxValue - minValue + 1)) / (double) binWidth);
+        } else {
+            binWidth = 1;
+            binCount = 1;
+        }
+        
+        //create labels
+        String[] binLabels = new String[binCount];
+        if (showMeanAsBinLabel) {
+            int offset = (int) Math.round(((double) (binWidth - 1)) / 2.0);
+            for (int i = 0; i < binCount; i++) {
+                binLabels[i] = String.format("%d", minValue + i * binWidth + offset);
+            }
+        } else {
+            for (int i = 0; i < binCount; i++) {
+                binLabels[i] = String.format("%d-%d", minValue + i * binWidth, minValue - 1 + (i + 1) * binWidth);
+            }
+        }
+        
+        Map<String, Map<String, Integer>> histograms = new HashMap<String, Map<String, Integer>>();
+        valueMap.forEach((category, values) -> {
+            //create histogram
+            Map<String, Integer> hist = new HashMap<String, Integer>();
+            for (int i = 0; i < binLabels.length; i++) {
+                hist.put(binLabels[i], 0);
+            }
+            values.stream().filter(val -> minValue <= val && val <= maxValue).forEach(val -> {
+                String binLabel = binLabels[binIndex(binWidth, val, minValue)];
+                hist.put(binLabel, hist.get(binLabel) + 1);
+            });
+            histograms.put(category, hist);
+        });
+        
+        return histograms;
     }
     
     private static int binIndex(int binWidth, int value, int minValue) {

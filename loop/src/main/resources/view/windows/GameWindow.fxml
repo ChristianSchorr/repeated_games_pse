@@ -67,24 +67,24 @@
                 <Label text="Spieler 2 kooperiert" GridPane.columnIndex="1" style="-fx-padding: 10;"/>
                 <Label text="Spieler 2 kooperiert nicht" GridPane.columnIndex="2" style="-fx-padding: 10;"/>
                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER" style="-fx-padding: 10">
-                    <TextField fx:id="cc1TextField" maxWidth="50" promptText="-2" alignment="TOP_CENTER"/>
+                    <TextField fx:id="cc1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                     <Label style="control-label" text="/" />
-                    <TextField fx:id="cc2TextField" maxWidth="50" promptText="-2" alignment="TOP_CENTER"/>
+                    <TextField fx:id="cc2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
                 <HBox GridPane.columnIndex="2" GridPane.rowIndex="2" alignment="CENTER" style="-fx-padding: 10">
-                    <TextField fx:id="nn1TextField" maxWidth="50" promptText="-4" alignment="TOP_CENTER"/>
+                    <TextField fx:id="nn1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                     <Label style="control-label" text="/" />
-                    <TextField fx:id="nn2TextField" maxWidth="50" promptText="-4" alignment="TOP_CENTER"/>
+                    <TextField fx:id="nn2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER" style="-fx-padding: 10">
-                    <TextField fx:id="nc1TextField" maxWidth="50" promptText="-2" alignment="TOP_CENTER"/>
+                    <TextField fx:id="nc1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                     <Label style="control-label" text="/" />
-                    <TextField fx:id="nc2TextField" maxWidth="50" promptText="-2" alignment="TOP_CENTER"/>
+                    <TextField fx:id="nc2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
                 <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" alignment="CENTER" style="-fx-padding: 10">
-                    <TextField fx:id="cn1TextField" maxWidth="50" promptText="-2" alignment="TOP_CENTER"/>
+                    <TextField fx:id="cn1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                     <Label style="control-label" text="/" />
-                    <TextField fx:id="cn2TextField" maxWidth="50" promptText="-2" alignment="TOP_CENTER"/>
+                    <TextField fx:id="cn2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
             </GridPane>
         </VBox>

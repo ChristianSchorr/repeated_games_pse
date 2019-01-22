@@ -189,25 +189,25 @@ public class HeadController {
         Platform.exit();
         simulator.stopAllSimulations();
     }
-    
+
     @FXML
     void showInfo(ActionEvent event) {
     	//TODO
     }
-    
+
     @FXML
     void showHelp(ActionEvent event) {
     	//TODO
     }
-    
+
     @FXML
     void openNewGameWindow(ActionEvent event) {
         Parent newGameParent;
         NewGameController controller;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/GameWindow.fxml"));
-            controller = (NewGameController) loader.getController();
             newGameParent = loader.load();
+            controller = (NewGameController) loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -240,7 +240,7 @@ public class HeadController {
         newStrategyWindow.setScene(newStrategyScene);
 
         // Specifies the modality for new window.
-        newStrategyWindow.initModality(Modality.WINDOW_MODAL);      
+        newStrategyWindow.initModality(Modality.WINDOW_MODAL);
         newStrategyWindow.show();
         */
     }
@@ -251,8 +251,8 @@ public class HeadController {
         GroupController controller;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/GroupWindow.fxml"));
-            controller = (GroupController) loader.getController();
             newGroupParent = loader.load();
+            controller = (GroupController) loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -262,6 +262,7 @@ public class HeadController {
         newGroupWindow.setTitle("Create a new Group");
         newGroupWindow.setScene(newGroupScene);
 
+        controller.setStage(newGroupWindow);
         controller.registerElementCreated(g -> newGroupCreated(g));
 
         // Specifies the modality for new window.
@@ -275,8 +276,8 @@ public class HeadController {
         PopulationController controller;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/PopulationWindow.fxml"));
-            controller = (PopulationController) loader.getController();
             newPopulationParent = loader.load();
+            controller = (PopulationController) loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -286,6 +287,7 @@ public class HeadController {
         newPopulationWindow.setTitle("Create a new Population");
         newPopulationWindow.setScene(newPopulationScene);
 
+        controller.setStage(newPopulationWindow);
         controller.registerElementCreated(pop -> newPopulationCreated(pop));
 
         // Specifies the modality for new window.

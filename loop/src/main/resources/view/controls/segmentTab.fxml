@@ -15,11 +15,21 @@
 <?import javafx.scene.layout.Pane?>
 <VBox prefWidth="780.0" spacing="10" styleClass="card" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:id = "content">
     <Label styleClass="card-subtitle" text="Initiales Kapital" />
-    <HBox spacing="10">
+    <HBox spacing="10" alignment="CENTER_LEFT">
         <Label styleClass="control-label" text="Verteilungsfunktion"/>
         <ChoiceBox fx:id="distributionChoice"/>
     </HBox>
-    <Pane fx:id="distributionPluginPane"/>
+    <GridPane alignment="CENTER" hgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="95.0" />
+        </columnConstraints>
+        <Separator orientation="VERTICAL" GridPane.columnIndex="0" />
+        <Pane fx:id="distributionPluginPane" GridPane.columnIndex="1"/>
+        <rowConstraints>
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
     <Label styleClass="card-subtitle" text="Initiale Strategien" />
     <GridPane alignment="CENTER" hgap="10">
         <columnConstraints>
@@ -34,14 +44,6 @@
             <targetHeader>
                 <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="ausgewählte Strategien" />
             </targetHeader>
-            <sourceItems>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Tit for Tat" />
-                    <String fx:value="Grim" />
-                    <String fx:value="Immer kooperieren" />
-                    <String fx:value="..." />
-                </FXCollections>
-            </sourceItems>
         </ListSelectionView>
         <rowConstraints>
             <RowConstraints />

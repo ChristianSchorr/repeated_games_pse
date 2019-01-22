@@ -132,6 +132,7 @@ public class UserConfiguration implements Serializable {
                 PureStrategy.titForTat().getName(), PureStrategy.grim().getName());
         Segment segment = new Segment(capitalDistributionName, distParameters, strategyNames);
         Group group = new Group("DEFAULT_GROUP", "", toList(segment), toList(1.0), false);
+        CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
         Population population = new Population("DEFAULT_POPULATION", "", toList(group), toList(agentCount));
         CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
         
