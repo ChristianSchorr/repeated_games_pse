@@ -211,10 +211,10 @@ public class AbstractedOutputController {
 
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-            hist.keySet().stream().map(s -> Integer.valueOf(s)).sorted().map(i -> String.valueOf(i)).forEach(
-                    binLabel -> series.getData().add(new XYChart.Data<String, Number>(binLabel, hist.get(binLabel))));
+            hist.keySet().stream().sorted((s1, s2) -> Double.compare(Double.valueOf(s1.replace(',', '.')), Double.valueOf(s2.replace(',', '.')))).forEach(
+                    label -> series.getData().add(new XYChart.Data<String, Number>(label, hist.get(label))));
             setEfficiencyChartData(series);
-
+            
             //update mean efficiency
             double mean = efficiencies.stream().mapToDouble(val -> val.doubleValue()).sum() / efficiencies.size();
             setMeanEfficiencyLabelData(mean);
@@ -229,7 +229,10 @@ public class AbstractedOutputController {
 
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-            hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
+            hist.keySet().stream().sorted((s1, s2) -> 
+                Integer.compare(Integer.valueOf(s1.substring(0, s1.indexOf('-'))), Integer.valueOf(s2.substring(0, s2.indexOf('-'))))).forEach(
+                        label -> series.getData().add(new XYChart.Data<String, Number>(label, hist.get(label))));
+            //hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
             setAdaptsChartData(series);
 
             //update mean efficiency

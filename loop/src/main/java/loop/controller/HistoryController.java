@@ -50,8 +50,8 @@ public class HistoryController {
         });
         historyList.setCellFactory(param -> new HistoryListCell());
 
-        listViewSkin = new RefreshSkin<>(historyList);
-        historyList.setSkin(listViewSkin);
+        //listViewSkin = new RefreshSkin<>(historyList);
+        //historyList.setSkin(listViewSkin);
     }
 
     /**

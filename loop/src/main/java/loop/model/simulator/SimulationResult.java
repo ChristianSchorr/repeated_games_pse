@@ -125,7 +125,7 @@ public class SimulationResult {
 	public List<IterationResult> getIterationResults(int i) {
 		if (i < 0 || i > iterationResults.size() - 1)
 			return null;
-		iterationResults.get(i).sort((it1, it2) -> it1.getEfficiency() < it2.getEfficiency() ? -1 : (it1.getEfficiency() > it2.getEfficiency() ? 1 : 0));
+		iterationResults.get(i).sort((it1, it2) -> Double.compare(it1.getEfficiency(), it2.getEfficiency()));
 		return iterationResults.get(i);
 	}
 
