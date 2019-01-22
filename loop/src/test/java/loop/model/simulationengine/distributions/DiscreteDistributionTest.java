@@ -37,7 +37,7 @@ public class DiscreteDistributionTest {
         double maxLambda = 1000;
         double stepSize = 1;
         for (double lambda = minLambda; lambda <= maxLambda; lambda += stepSize) {
-            DiscreteDistribution poissonDistribution = new PoissonDistribution(lambda);
+            poissonDistribution = new PoissonDistribution(lambda);
             
             //test support
             testSupport(poissonDistribution);
@@ -51,6 +51,32 @@ public class DiscreteDistributionTest {
     }
     
     /**
+     * Tests the {@link BinomialDistribution} class
+     */
+    @Test
+    public void testBinomial() {
+    	//test different values of the probability parameter p
+    	int lowerBound = 0; 
+    	int upperBound = 100;
+    	double minp = 0.0;
+    	double maxp = 1.0;
+    	double stepSize = 0.01;
+    	for (double p = minp; p <= maxp; p += stepSize) {
+    		binomialDistribution = new BinomialDistribution(lowerBound, upperBound, p);
+
+    		//test support   		
+            testSupport(binomialDistribution);
+            
+            //test picker
+            Picker<Integer> binomialPicker = binomialDistribution.getPicker();
+            assertTrue(binomialPicker.pickOne() >= 0);
+            int size = 10;
+            assertTrue(binomialPicker.pickMany(size).size() == size);
+    	}
+    }
+    
+    
+    /**
      * Tests whether the support bounds returned by a given discrete distribution
      * are consistent with the returned probabilities.
      * 
@@ -59,6 +85,7 @@ public class DiscreteDistributionTest {
     private void testSupport(DiscreteDistribution distribution) {
         //test different values of q
         double stepSize = 0.01;
+        
         for (double q = 0.0; q < 1; q += stepSize) {
             int min = distribution.getSupportMin(q);
             int max = distribution.getSupportMax(q);
