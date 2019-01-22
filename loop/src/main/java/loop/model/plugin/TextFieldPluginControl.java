@@ -61,11 +61,9 @@ public class TextFieldPluginControl extends PluginControl {
 
     @Override
     public void setParameters(List<Double> parameters) {
-        int i = 0;
-        for (Node n: this.getChildren()) {
-            if (!(n instanceof TextField)) continue;
-            ((TextField) n).setText(parameters.get(i++).toString());
-        }
+        for (int i = 0; i < properties.size(); i++) {
+        	properties.get(i).setValue(parameters.get(i));
+		}
     }
     
     private void configureBinding(Parameter p) {

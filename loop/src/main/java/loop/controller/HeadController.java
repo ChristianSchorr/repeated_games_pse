@@ -142,9 +142,8 @@ public class HeadController {
     void editConfiguraiton() {
         Parent configParent = null;
         try {
-            ConfigController controller = new ConfigController();
+            ConfigController controller = new ConfigController(activeConfiguration);
             controller.registerElementCreated((config) -> updateConfiguration(config));
-            controller.setConfiguration(activeConfiguration);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/ConfigurationWindow.fxml"));
             loader.setController(controller);
             configParent = loader.load();

@@ -185,6 +185,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         pairBuilderBox.valueProperty().addListener((ChangeListener<String>)
                         (observable, oldValue, newValue) -> pairBuilderChanged(oldValue, newValue));
         pairBuilderBox.valueProperty().bindBidirectional(pairBuilderProperty);
+        pairBuilderControl.setParameters(config.getPairBuilderParameters());
 
         // initialize succesQuantifier
         List<String> successQuantifierNames = repository.getSuccessQuantifiernRepository().getAllEntityNames();
@@ -194,6 +195,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         successQuantifierBox.valueProperty().addListener((ChangeListener<String>)
                 (observable, oldValue, newValue) -> successQuantifierChanged(oldValue, newValue));
         successQuantifierBox.valueProperty().bindBidirectional(successQuantifierProperty);
+        successQuantifierControl.setParameters(config.getSuccessQuantifierParameters());
 
         // initialize strategyAdjuster
         List<String> strategyAdjusterNames = repository.getStrategyAdjusterRepository().getAllEntityNames();
@@ -203,6 +205,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         strategyAdjusterBox.valueProperty().addListener((ChangeListener<String>)
                 (observable, oldValue, newValue) -> strategyAdjusterChanged(oldValue, newValue));
         strategyAdjusterBox.valueProperty().bindBidirectional(strategyAdjusterProperty);
+        strategyAdjusterControl.setParameters(config.getStrategyAdjusterParameters());
 
         // initialize equilibriumCriterion
         List<String> equilibriumCriterionNames = repository.getEquilibriumCriterionRepository().getAllEntityNames();
@@ -212,6 +215,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         equilibriumCriterionBox.valueProperty().addListener((ChangeListener<String>)
                 (observable, oldValue, newValue) -> equilibriumCriterionChanged(oldValue, newValue));
         equilibriumCriterionBox.valueProperty().bindBidirectional(equilibriumCriterionProperty);
+        equilibriumCriterionControl.setParameters(config.getEquilibriumCriterionParameters());
 
         // initialize maxAdaptsLabel
         maxAdaptsProperty.setValue(config.getMaxAdapts());
