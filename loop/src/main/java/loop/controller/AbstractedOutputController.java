@@ -211,7 +211,8 @@ public class AbstractedOutputController {
 
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-            hist.forEach((label, value) -> series.getData().add(new XYChart.Data<String, Number>(label, value)));
+            hist.keySet().stream().map(s -> Integer.valueOf(s)).sorted().map(i -> String.valueOf(i)).forEach(
+                    binLabel -> series.getData().add(new XYChart.Data<String, Number>(binLabel, hist.get(binLabel))));
             setEfficiencyChartData(series);
 
             //update mean efficiency
