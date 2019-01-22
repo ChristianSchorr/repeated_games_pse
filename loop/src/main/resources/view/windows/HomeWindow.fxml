@@ -69,7 +69,7 @@
                             <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Neue Gruppe erstellen" >
+                    <MenuItem text="Neue Gruppe erstellen" onAction="#openNewGroupWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
                         </graphic>

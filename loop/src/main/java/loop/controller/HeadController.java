@@ -230,9 +230,9 @@ public class HeadController {
         Parent newGroupParent;
         GroupController controller;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewGroupWindow.fxml"));
-            controller = (GroupController) loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/GroupWindow.fxml"));
             newGroupParent = loader.load();
+            controller = (GroupController) loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -254,9 +254,9 @@ public class HeadController {
         Parent newPopulationParent;
         PopulationController controller;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewPopulationWindow.fxml"));
-            controller = (PopulationController) loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/PopulationWindow.fxml"));
             newPopulationParent = loader.load();
+            controller = (PopulationController) loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
             return;

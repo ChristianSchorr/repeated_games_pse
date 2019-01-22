@@ -69,16 +69,16 @@
                     <RowConstraints minHeight="10.0" />
                     <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
                 </rowConstraints>
-                <Slider fx:id="segmentProportionsSlider"/>
+                <!-- <Slider fx:id="segmentProportionsSlider"/> -->
                 <HBox alignment="CENTER_LEFT" spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <Button onAction="#handleAddSegment" styleClass="rounded-button" text="+" />
                     <Label styleClass="control-label" text="Segment hinzufügen" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="20" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                    <CheckBox fx:id="allAgentsGrouplessCheckBox" mnemonicParsing="false" text="alle Agenten gruppenlos" />
+                    <CheckBox fx:id="isCohesiveCheckBox" mnemonicParsing="false" text="Group is cohesive" />
                 </HBox>
             </GridPane>
-            <TabPane fx:id="tabs"/>
+            <TabPane fx:id="segmentTabs"/>
         </VBox>
 
     </VBox>

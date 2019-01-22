@@ -83,7 +83,6 @@ public class NewGameController implements CreationController<Game> {
         try {
             game = createGame();
         } catch (IllegalArgumentException e) {
-            System.out.println("exc");
             Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
             alert.showAndWait();
             return;
