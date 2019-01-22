@@ -13,10 +13,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.function.BiPredicate;
 
+import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.SimulationResult;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 
 /**
@@ -125,7 +128,11 @@ public class FileIO {
 	 * @param file the file to which the SimulationResult shall be saved
 	 */
 	public static void saveResult(SimulationResult result, File file) {
-		Gson gson = new Gson();
+		//Create our gson instance
+		GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Strategy.class, new InterfaceAdapter());
+		builder.registerTypeAdapter(BiPredicate.class, new InterfaceAdapter());
+		Gson gson = builder.create();
 		String save = gson.toJson(result);
 		try (FileWriter filewriter = new FileWriter(file)) {
 			filewriter.write(save);
@@ -142,7 +149,10 @@ public class FileIO {
 	public static SimulationResult loadResult(File file) {
 		String load = "";
 		String zeile;
-		Gson gson = new Gson();
+		GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Strategy.class, new InterfaceAdapter());
+		builder.registerTypeAdapter(BiPredicate.class, new InterfaceAdapter());
+		Gson gson = builder.create();
 		try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
 			while( (zeile = bf.readLine()) != null )
 		    {
