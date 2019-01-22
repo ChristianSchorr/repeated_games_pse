@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,12 +81,16 @@ public class FileIOTest {
 			e.printStackTrace();
 		}
 		assertTrue(list.size() == 5);		//All files found
-		//The following order is exemplary and depends on the directory structure
-		assertTrue(((PureStrategy) list.get(0)).getName().equals(p1.getName()));
-		assertTrue(((PureStrategy) list.get(1)).getName().equals(p4.getName()));
-		assertTrue(((PureStrategy) list.get(2)).getName().equals(p3.getName()));
-		assertTrue(((PureStrategy) list.get(3)).getName().equals(p2.getName()));
-		assertTrue(((PureStrategy) list.get(4)).getName().equals(p5.getName()));
+				
+		ArrayList<String> nameList = new ArrayList<String>();
+		for (int k = 0; k < 5; k++) {
+			nameList.add(((PureStrategy) list.get(k)).getName());
+		}
+		assertTrue(nameList.contains(p1.getName()));
+		assertTrue(nameList.contains(p2.getName()));
+		assertTrue(nameList.contains(p3.getName()));
+		assertTrue(nameList.contains(p4.getName()));
+		assertTrue(nameList.contains(p5.getName()));
 	}
 	
 	@Test
