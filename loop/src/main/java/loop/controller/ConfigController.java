@@ -1,5 +1,6 @@
 package loop.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mult;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -94,7 +95,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     // MultiConfig
     @FXML
-    private ChoiceBox multiParamBox;
+    private ChoiceBox<MultiParamItem> multiParamBox;
 
     @FXML
     private TextField startValue;
@@ -117,7 +118,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private StringProperty strategyAdjusterProperty = new SimpleStringProperty();
     private StringProperty equilibriumCriterionProperty = new SimpleStringProperty();
 
-    private StringProperty multiParamProperty = new SimpleStringProperty();
+    private ObjectProperty<MultiParamItem> multiParamProperty = new SimpleObjectProperty<>();
     private DoubleProperty startValueProperty = new SimpleDoubleProperty();
     private DoubleProperty endValueProperty = new SimpleDoubleProperty();
     private DoubleProperty stepSizeProperty = new SimpleDoubleProperty();
@@ -126,8 +127,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private PluginControl successQuantifierControl;
     private PluginControl strategyAdjusterControl;
     private PluginControl equilibriumCriterionControl;
-
-    private MulticonfigurationParameterType multiParamType;
 
     private CentralRepository repository;
     private UserConfiguration config;
@@ -149,6 +148,20 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     public void initialize() {
+
+        // initialize multi Param
+        List<MultiParamItem> multiConfigParamNames = new ArrayList<>();
+        multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ITERATION_COUNT,
+                MulticonfigurationParameterType.ITERATION_COUNT.getDescriptionFormat()));
+        multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ROUND_COUNT,
+                MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat()));
+        multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.MAX_ADAPTS,
+                MulticonfigurationParameterType.MAX_ADAPTS.getDescriptionFormat()));
+
+        ObservableList<MultiParamItem> observableMultiConfigParamNames = FXCollections.observableArrayList(multiConfigParamNames);
+        multiParamBox.setItems(observableMultiConfigParamNames);
+        multiParamBox.valueProperty().bindBidirectional(multiParamProperty);
+
         // inititalize gameNames
         List<String> gameNames = repository.getGameRepository().getAllEntityNames();
         ObservableList<String> observableGameNames = FXCollections.observableArrayList(gameNames);
@@ -182,7 +195,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         pairBuilderProperty.setValue(config.getPairBuilderName());
         pairBuilderBox.setItems(observablePairBuilderNames);
         pairBuilderBox.valueProperty().addListener((ChangeListener<String>)
-                        (observable, oldValue, newValue) -> pairBuilderChanged(oldValue, newValue));
+                (observable, oldValue, newValue) -> pairBuilderChanged(oldValue, newValue));
         pairBuilderBox.valueProperty().bindBidirectional(pairBuilderProperty);
         pairBuilderControl.setParameters(config.getPairBuilderParameters());
 
@@ -220,14 +233,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
         maxAdaptsProperty.setValue(config.getMaxAdapts());
         maxAdapts.textProperty().bindBidirectional(maxAdaptsProperty, new NumberStringConverter());
 
-        // initialize multi Param
-        List<String> multiConfigParamNames = Arrays.stream(MulticonfigurationParameterType.values())
-                .map(MulticonfigurationParameterType::getDescriptionFormat)
-                .collect(Collectors.toList());
-        ObservableList<String> observableMultiConfigParamNames = FXCollections.observableArrayList(multiConfigParamNames);
-        multiParamBox.setItems(observableMultiConfigParamNames);
-        multiParamBox.valueProperty().bindBidirectional(multiParamProperty);
-
         startValue.textProperty().bindBidirectional(startValueProperty, new NumberStringConverter());
         endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter());
         stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter());
@@ -245,11 +250,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     @FXML
     private void loadConfig(ActionEvent actionEvent) {
-        Window stage = ((Node)actionEvent.getTarget()).getScene().getWindow();
+        Window stage = ((Node) actionEvent.getTarget()).getScene().getWindow();
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
         File file = fileChooser.showOpenDialog(stage);
         UserConfiguration config = null;
-        if (file != null){
+        if (file != null) {
             try {
                 config = FileIO.loadEntity(file);
             } catch (IOException e) {
@@ -262,7 +267,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     @FXML
     private void saveConfig(ActionEvent actionEvent) {
-        Window stage = ((Node)actionEvent.getTarget()).getScene().getWindow();
+        Window stage = ((Node) actionEvent.getTarget()).getScene().getWindow();
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
@@ -276,35 +281,32 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     private void pairBuilderChanged(String oldValue, String newValue) {
-        String pairBuilderName = pairBuilderProperty.getValue();
         Repository<Plugin<PairBuilder>> repo = repository.getPairBuilderRepository();
-        Plugin<PairBuilder> pairBuilderPlugin = repo.getEntityByName(pairBuilderName);
+        Plugin<PairBuilder> pairBuilderPlugin = repo.getEntityByName(newValue);
 
         pairBuilderControl = pairBuilderPlugin.getRenderer().renderPlugin();
         pairBuilderContainer.getChildren().clear();
         pairBuilderContainer.getChildren().add(pairBuilderControl);
 
         Plugin<PairBuilder> oldPlugin = repo.getEntityByName(oldValue);
-        updateMultiParamBox(oldPlugin, pairBuilderPlugin);
+        updateMultiParamBox(oldPlugin, pairBuilderPlugin, MulticonfigurationParameterType.PB_PARAM);
     }
 
     private void successQuantifierChanged(String oldValue, String newValue) {
-        String successQuantifierName = successQuantifierProperty.getValue();
         Repository<Plugin<SuccessQuantifier>> repo = repository.getSuccessQuantifiernRepository();
-        Plugin<SuccessQuantifier> successQuantifierPlugin = repo.getEntityByName(successQuantifierName);
+        Plugin<SuccessQuantifier> successQuantifierPlugin = repo.getEntityByName(newValue);
 
         successQuantifierControl = successQuantifierPlugin.getRenderer().renderPlugin();
         successQuantifierContainer.getChildren().clear();
         successQuantifierContainer.getChildren().add(successQuantifierControl);
 
         Plugin<SuccessQuantifier> oldPlugin = repo.getEntityByName(oldValue);
-        updateMultiParamBox(oldPlugin, successQuantifierPlugin);
+        updateMultiParamBox(oldPlugin, successQuantifierPlugin, MulticonfigurationParameterType.SQ_PARAM);
     }
 
     private void strategyAdjusterChanged(String oldValue, String newValue) {
-        String strategyAdjusterName = strategyAdjusterProperty.getValue();
         Repository<Plugin<StrategyAdjuster>> repo = repository.getStrategyAdjusterRepository();
-        Plugin<StrategyAdjuster> strategyAdjusterPlugin = repo.getEntityByName(strategyAdjusterName);
+        Plugin<StrategyAdjuster> strategyAdjusterPlugin = repo.getEntityByName(newValue);
 
         strategyAdjusterControl = strategyAdjusterPlugin.getRenderer().renderPlugin();
         strategyAdjusterContainer.getChildren().clear();
@@ -312,49 +314,30 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
 
         Plugin<StrategyAdjuster> oldPlugin = repo.getEntityByName(oldValue);
-        updateMultiParamBox(oldPlugin, strategyAdjusterPlugin);
+        updateMultiParamBox(oldPlugin, strategyAdjusterPlugin, MulticonfigurationParameterType.SA_PARAM);
     }
 
     private void equilibriumCriterionChanged(String oldValue, String newValue) {
-        String equilibriumCriterionName = equilibriumCriterionProperty.getValue();
         Repository<Plugin<EquilibriumCriterion>> repo = repository.getEquilibriumCriterionRepository();
-        Plugin<EquilibriumCriterion> equilibriumCriterionPlugin = repo.getEntityByName(equilibriumCriterionName);
+        Plugin<EquilibriumCriterion> equilibriumCriterionPlugin = repo.getEntityByName(newValue);
 
         equilibriumCriterionControl = equilibriumCriterionPlugin.getRenderer().renderPlugin();
         equilibriumCriterionContainer.getChildren().clear();
         equilibriumCriterionContainer.getChildren().add(equilibriumCriterionControl);
 
         Plugin<EquilibriumCriterion> oldPlugin = repo.getEntityByName(oldValue);
-        updateMultiParamBox(oldPlugin, equilibriumCriterionPlugin);
+        updateMultiParamBox(oldPlugin, equilibriumCriterionPlugin, MulticonfigurationParameterType.EC_PARAM);
     }
 
-    private <T> void updateMultiParamBox(Plugin<T> oldPlugin, Plugin<T> newPlugin) {
-        ObservableList<String> items = multiParamBox.getItems();
+    private <T> void updateMultiParamBox(Plugin<T> oldPlugin, Plugin<T> newPlugin, MulticonfigurationParameterType type) {
+        ObservableList<MultiParamItem> items = multiParamBox.getItems();
         if (oldPlugin != null)
-            items.removeIf((str) -> str.substring(str.indexOf(':') + 1).equals(oldPlugin.getName()));
+            items.removeIf((item) -> item.toString().substring(item.toString().indexOf(':') + 1).equals(oldPlugin.getName()));
 
-        for (Parameter param: newPlugin.getParameters()) {
-            items.add(param.getName() + ":" + newPlugin.getName());
+        for (Parameter param : newPlugin.getParameters()) {
+            items.add(new MultiParamItem(type, param.getName() + ":" + newPlugin.getName()));
         }
-    }
-
-    private void updateMultiParamType() {
-        String paramName = multiParamProperty.getValue();
-        if (paramName.contains(":")) {
-            String pluginName = paramName.split(":")[1];
-            if (repository.getPairBuilderRepository().containsEntityName(pluginName)) {
-                multiParamType = MulticonfigurationParameterType.PB_PARAM;
-            } else if (repository.getSuccessQuantifiernRepository().containsEntityName(pluginName)) {
-                multiParamType = MulticonfigurationParameterType.SQ_PARAM;
-            } else if (repository.getStrategyAdjusterRepository().containsEntityName(pluginName)) {
-                multiParamType = MulticonfigurationParameterType.SA_PARAM;
-            } else if (repository.getEquilibriumCriterionRepository().containsEntityName(pluginName)) {
-                multiParamType = MulticonfigurationParameterType.EC_PARAM;
-            }
-
-        } else {
-            multiParamType = MulticonfigurationParameterType.valueOf(paramName);
-        }
+        multiParamBox.requestLayout();
     }
 
     @Override
@@ -363,13 +346,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     public void setConfiguration(UserConfiguration config) {
-        /*private StringProperty gameNameProperty = new SimpleStringProperty();
-        private IntegerProperty iterationCountProperty = new SimpleIntegerProperty();
-        private IntegerProperty roundCountProperty = new SimpleIntegerProperty();
-        private BooleanProperty mixedStrategyProperty = new SimpleBooleanProperty();
-        private StringProperty populationProperty = new SimpleStringProperty();
-        private IntegerProperty maxAdaptsProperty = new SimpleIntegerProperty();*/
-
         gameNameProperty.setValue(config.getGameName());
         iterationCountProperty.setValue(config.getIterationCount());
         roundCountProperty.setValue(config.getRoundCount());
@@ -409,7 +385,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             cnt++;
         }
 
-        if(config.isMulticonfiguration()) {
+        if (config.isMulticonfiguration()) {
             setMultiParam(config.getMulticonfigurationParameter());
             setMultiParamValues(config.getParameterValues());
         } else {
@@ -421,44 +397,46 @@ public class ConfigController implements CreationController<UserConfiguration> {
         }
     }
 
-    private void setMultiParam (MulticonfigurationParameter param) {
+    private void setMultiParam(MulticonfigurationParameter param) {
         String paramName = param.getParameterName();
         switch (param.getType()) {
             case SQ_PARAM:
-                setMultiParamName(repository.getSuccessQuantifiernRepository(), successQuantifierProperty.getValue(), paramName);
+                setMultiParamName(repository.getSuccessQuantifiernRepository(), successQuantifierProperty.getValue(), paramName, param.getType());
                 break;
             case EC_PARAM:
-                setMultiParamName(repository.getEquilibriumCriterionRepository(), equilibriumCriterionProperty.getValue(), paramName);
+                setMultiParamName(repository.getEquilibriumCriterionRepository(), equilibriumCriterionProperty.getValue(), paramName, param.getType());
                 break;
             case PB_PARAM:
-                setMultiParamName(repository.getPairBuilderRepository(), pairBuilderProperty.getValue(), paramName);
+                setMultiParamName(repository.getPairBuilderRepository(), pairBuilderProperty.getValue(), paramName, param.getType());
                 break;
             case SA_PARAM:
-                setMultiParamName(repository.getStrategyAdjusterRepository(), strategyAdjusterProperty.getValue(), paramName);
+                setMultiParamName(repository.getStrategyAdjusterRepository(), strategyAdjusterProperty.getValue(), paramName, param.getType());
                 break;
             case MAX_ADAPTS:
             case ROUND_COUNT:
             case ITERATION_COUNT:
-                multiParamProperty.setValue(param.getType().getDescriptionFormat());
+                multiParamProperty.setValue(multiParamBox.getItems().filtered((item) -> item.type.equals(param.getType())).get(0));
                 break;
             default:
                 // TODO CapitalDistribution, Segment size, Group Size
-                multiParamProperty.setValue("");
+                multiParamProperty.setValue(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, ""));
                 break;
         }
     }
 
-    private <T> void setMultiParamName(Repository<Plugin<T>> repo, String entityName, String parameterName) {
+    private <T> void setMultiParamName(Repository<Plugin<T>> repo, String entityName,
+                                       String parameterName, MulticonfigurationParameterType type) {
         Plugin<T> plugin = repo.getEntityByName(entityName);
         boolean hasParameter = plugin.getParameters().stream().anyMatch(p -> p.getName().equals(parameterName));
-        if (hasParameter) multiParamProperty.setValue(parameterName + ":" + plugin.getName());
+        if (hasParameter)
+            multiParamProperty.setValue(multiParamBox.getItems().filtered((item) -> item.displayString.equals(parameterName + ":" + plugin.getName())).get(0));
         else multiParamProperty.setValue(null);
     }
 
     private void setMultiParamValues(List<Double> values) {
         double startValue = values.get(0);
         double endValue = values.get(values.size() - 1);
-        double stepSize = (endValue - startValue) / values.size();
+        double stepSize = (endValue - startValue) / (values.size() - 1);
         startValueProperty.setValue(startValue);
         endValueProperty.setValue(endValue);
         stepSizeProperty.setValue(stepSize);
@@ -480,9 +458,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
             double startValue = startValueProperty.getValue();
             double endValue = endValueProperty.getValue();
             double stepSize = stepSizeProperty.getValue();
-            String paramName = multiParamProperty.getValue().split(":")[0];
+            String paramName = multiParamProperty.getValue().toString().split(":")[0];
+            MulticonfigurationParameterType multiParamType = multiParamProperty.getValue().type;
 
-               switch (multiParamType) {
+            System.out.println(paramName);
+            switch (multiParamType) {
                 case SQ_PARAM:
                 case EC_PARAM:
                 case PB_PARAM:
@@ -500,7 +480,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     break;
             }
         }
-        
+
         config = new UserConfiguration(gameNameProperty.getValue(), roundCountProperty.getValue(),
                 iterationCountProperty.getValue(), mixedStrategyProperty.getValue(), populationProperty.getValue(),
                 pairBuilderProperty.getValue(), pairBuilderControl.getParameters(), successQuantifierProperty.getValue(),
@@ -508,8 +488,23 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 strategyAdjusterControl.getParameters(), equilibriumCriterionProperty.getValue(),
                 equilibriumCriterionControl.getParameters(), maxAdaptsProperty.getValue(), isMulti, param);
 
-        for (Consumer<UserConfiguration> creationHandler: creationListener) {
+        for (Consumer<UserConfiguration> creationHandler : creationListener) {
             creationHandler.accept(config);
+        }
+    }
+
+    private class MultiParamItem {
+        private MulticonfigurationParameterType type;
+        private String displayString;
+
+        private MultiParamItem(MulticonfigurationParameterType type, String displayString) {
+            this.type = type;
+            this.displayString = displayString;
+        }
+
+        @Override
+        public String toString() {
+            return displayString;
         }
     }
 }
