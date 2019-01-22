@@ -40,17 +40,14 @@ public class FileIO {
 	 * Creates the directories necessary to save and load objects in loop.
 	 * @return true if successful
 	 */
-	public static boolean initializeDirectories() {
-		Boolean succes = true;
+	public static void initializeDirectories() {
 		String[] directories = {"/configurations" , "/games" , "/strategies" ,
 				"/populations" , "/simulationresults" , "/group"
 		};
 		File file;
 		for(String s: directories) {
 			file = new File(currentUsersDir + s);
-			succes = succes && file.mkdirs();
 		}
-		return succes;
 	}
 	
 
