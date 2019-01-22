@@ -22,12 +22,18 @@
     </HBox>
     <Label fx:id="exitDescriptionLabel" />
     <Label fx:id="efficiencyLabel" />
-    <CheckBox fx:id="meanOverAllIterationsCheckbox" />
+    <HBox alignment="CENTER_LEFT" spacing = "10">
+        <Label text="Calculate mean over all iterations? "/>
+        <CheckBox fx:id="meanOverAllIterationsCheckbox" />
+    </HBox>
     <GridPane hgap="10">
         <VBox>
             <Label styleClass="card-subtitle" text="Strategieverteilung:" wrapText="true"/>
-            <PieChart fx:id="strategyChart" labelLineLength="1.0" labelsVisible="false" prefHeight="300"
+            <StackPane alignment="CENTER">
+            	<PieChart fx:id="strategyChart" labelLineLength="1.0" labelsVisible="false" prefHeight="300"
                       prefWidth="300"/>
+                <Rectangle fx:id="strategyBufferRectangle" width="200" height="200" />
+            </StackPane>
             <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1"/>
         </VBox>
         <VBox GridPane.columnIndex="1">
@@ -50,7 +56,6 @@
         </rowConstraints>
     </GridPane>
     <ImageView fx:id="strategyBufferGifView" />
-    <Rectangle fx:id="strategyBufferRectangle" />
     <ImageView fx:id="capitalBufferGifView" />
     <Rectangle fx:id="capitalBufferRectangle" />
 </VBox>

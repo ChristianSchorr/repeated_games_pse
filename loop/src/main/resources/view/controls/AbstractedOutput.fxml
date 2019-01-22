@@ -18,6 +18,7 @@
         <Label fx:id="equilibriumFrequencyLabel" />
         <Label fx:id="configSliderLabel"/>
         <Slider fx:id="configSlider"/>
+        <Label fx:id="configSliderParameterLabel" />
     </HBox>
     <GridPane hgap="10">
         <VBox alignment="CENTER">
@@ -58,8 +59,10 @@
             <RowConstraints />
         </rowConstraints>
     </GridPane>
-    <Label fx:id="configSliderParameterLabel" />
-    <ComboBox fx:id="consideredIterationsComboBox" />
+    <HBox alignment="CENTER_LEFT" spacing="10">
+    	<Label text="Considered iterations: "/>
+    	<ComboBox fx:id="consideredIterationsComboBox" />
+    </HBox>
     <ImageView fx:id="efficiencyBufferGifView" />
     <Rectangle fx:id="efficiencyBufferRectangle" />
     <ImageView fx:id="adaptsBufferGifView" />

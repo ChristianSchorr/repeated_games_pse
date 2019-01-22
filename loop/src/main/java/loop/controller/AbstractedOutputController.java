@@ -126,7 +126,16 @@ public class AbstractedOutputController {
         this.configSlider.setShowTickLabels(false);
         this.configSlider.setShowTickMarks(true);
         this.configSlider.setMin(1);
-        this.consideredIterationsComboBox.getItems().addAll(ALL, ONLY_EQUI, ONLY_NO_EQUI);
+        this.configSlider.valueProperty().addListener((obs, o, n) -> handleConfigurationSlider());
+        this.consideredIterationsComboBox.getItems().add(ALL);
+        if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> it.equilibriumReached())) {
+            this.consideredIterationsComboBox.getItems().add(ONLY_EQUI);
+        }
+        if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> !it.equilibriumReached())) {
+            this.consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
+        }
+        this.consideredIterationsComboBox.setValue(ALL);
+        this.consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> updateCharts());
         this.selectedConfigurationNumber = 0;
         setDisplayedResult(displayedResult);
     }
@@ -263,9 +272,7 @@ public class AbstractedOutputController {
     }
 
     private synchronized String getConsideredIterationsValue() {
-        //TODO vorläufig
-        return ALL;
-        //return consideredIterationsComboBox.getValue(); das sollte es eigentlich sein
+        return consideredIterationsComboBox.getValue();
     }
 
     private synchronized void setEfficiencyChartData(XYChart.Series<String, Number> data) {
@@ -288,16 +295,21 @@ public class AbstractedOutputController {
 
     /*-----------------------------------------------event handlers-----------------------------------------------*/
 
-    @FXML
-    private void handleConfigurationSlider(ActionEvent event) {
+    private void handleConfigurationSlider() {
         this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() : 0;
-
+        
+        String prevSelected = this.consideredIterationsComboBox.getValue();
+        this.consideredIterationsComboBox.getItems().clear();
+        this.consideredIterationsComboBox.getItems().add(ALL);
+        if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> it.equilibriumReached())) {
+            this.consideredIterationsComboBox.getItems().add(ONLY_EQUI);
+        }
+        if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> !it.equilibriumReached())) {
+            this.consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
+        }
+        this.consideredIterationsComboBox.setValue(this.consideredIterationsComboBox.getItems().contains(prevSelected) ? prevSelected : ALL);
+        
         updateSliders();
-        updateCharts();
-    }
-
-    @FXML
-    private void handleChartComboBox(ActionEvent event) {
         updateCharts();
     }
 }

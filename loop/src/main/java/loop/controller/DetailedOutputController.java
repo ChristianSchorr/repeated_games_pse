@@ -217,7 +217,8 @@ public class DetailedOutputController {
     }
 
     private void updateSliders() {
-        this.iterationSlider.setVisible(!meanOverAllIterations);
+        this.iterationSlider.setDisable(meanOverAllIterations);
+        //this.iterationSlider.setVisible(!meanOverAllIterations);
         this.iterationSliderLabel.setVisible(!meanOverAllIterations);
         this.iterationSliderLabel.setText(String.format("%s/%s", this.selectedIterationNumber + 1, (int) this.iterationSlider.getMax()));
 
@@ -239,7 +240,7 @@ public class DetailedOutputController {
             for (IterationResult it : this.displayedResult.getIterationResults(selectedConfigurationNumber)) {
                 meanAdapts += it.getAdapts();
                 equilibriumPortion += it.equilibriumReached() ? 1.0 : 0.0;
-                meanEfficiency = it.getEfficiency();
+                meanEfficiency += it.getEfficiency();
             }
             meanAdapts /= config.getIterationCount();
             equilibriumPortion /= config.getIterationCount();
@@ -418,7 +419,6 @@ public class DetailedOutputController {
     }
 
     private synchronized void setCapitalChartData(Collection<? extends XYChart.Series<String, Number>> data) {
-        capitalDiagram.setTitle("Capital Distribution");
         capitalDiagram.getData().clear();
         capitalDiagram.getData().addAll(data);
     }
@@ -432,7 +432,8 @@ public class DetailedOutputController {
         
         updateSliders();
         updateDescription();
-        updateCharts();
+        //updateCharts();
+        this.strategyChart.setDisable(true);
     }
 
     private void handleConfigurationSlider() {
