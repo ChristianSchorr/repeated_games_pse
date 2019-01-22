@@ -243,6 +243,8 @@ public class OutputController {
     	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Results");
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", ".sim");
+        fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
         FileIO.saveResult(displayedResult, saveFile);
     }

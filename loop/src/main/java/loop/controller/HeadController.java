@@ -105,7 +105,7 @@ public class HeadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".cnfg");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
         try {
