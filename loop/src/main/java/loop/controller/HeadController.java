@@ -37,8 +37,6 @@ import loop.model.simulator.exception.ConfigurationException;
  */
 public class HeadController {
 
-    private static final String INITIAL_DIRECTORY = "./bin/main/personallib/Configurations";
-
     private UserConfiguration activeConfiguration;
 
     private Simulator simulator;
@@ -105,7 +103,7 @@ public class HeadController {
     void saveConfiguration() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration");
-        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
@@ -123,7 +121,7 @@ public class HeadController {
     void loadConfiguration() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Configuration");
-        fileChooser.setInitialDirectory(new File(INITIAL_DIRECTORY));
+        fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".config");
         fileChooser.getExtensionFilters().add(extFilter);
         File openFile = fileChooser.showOpenDialog(new Stage());

@@ -198,46 +198,54 @@ public class CentralRepository {
 	    //games
 	    this.gameRepo.addEntity(ConcreteGame.prisonersDilemma().getName(), ConcreteGame.prisonersDilemma());
 	    
-	    //load from files
-		/*
+	    
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Strategies"))) {
-				if(p.getClass().equals(PureStrategy.class)) {
+			for(Object p: FileIO.loadAllEntities(FileIO.STRATEGY_DIR)) {
+				if(p instanceof Strategy) {
 					stratRepo.addEntity(((PureStrategy) p).getName(), (PureStrategy) p);
 				}
 			};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (NullPointerException n) {
+			//Empty File    
 		}
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Games"))) {
-				if(p.getClass().equals(Game.class)) {
+			for(Object p: FileIO.loadAllEntities(FileIO.GAME_DIR)) {
+				if(p instanceof Game) {
 					gameRepo.addEntity(((Game) p).getName(), (Game) p);
 				}
 			};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (NullPointerException n) {
+			//Empty File    
 		}
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Groups"))) {
-				if(p.getClass().equals(Group.class)) {
+			for(Object p: FileIO.loadAllEntities(FileIO.GROUP_DIR)) {
+				if(p instanceof Group) {
 					groupRepo.addEntity(((Group) p).getName(), (Group) p);
 				}
 			};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (NullPointerException n) {
+			//Empty File    
 		}
 	    try {
-			for(Object p: FileIO.loadAllEntities(new File("./bin/main/personallib/Populations"))) {
-				if(p.getClass().equals(Population.class)) {
+			for(Object p: FileIO.loadAllEntities(FileIO.POPULATION_DIR)) {
+				if(p instanceof Population) {
 					populationRepo.addEntity(((Population) p).getName(), (Population) p);
 				}
 			};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}*/
+		} catch (NullPointerException n) {
+			//Empty File    
+		}
+	    
+	}
 	    
 	    //load plugins
 	    //TODO
-	}
 }
