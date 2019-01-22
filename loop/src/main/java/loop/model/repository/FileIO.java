@@ -27,13 +27,33 @@ import com.google.gson.JsonParser;
  */
 public class FileIO {
 
-	// TODO Pfade angeben
-	public final static File USER_CONFIG_DIR = new File("");
-	public final static File GAME_DIR = new File("");
-	public final static File STRATEGY_DIR = new File("");
-	public final static File GROUP_DIR = new File("");
-	public final static File POPULATION_DIR = new File("");
+	private final static String currentUsersDir = System.getProperty("user.home") + "/loop/personallib";
+	
+	public final static File USER_CONFIG_DIR = new File(currentUsersDir + "/configurations");
+	public final static File GAME_DIR = new File(currentUsersDir + "/games");
+	public final static File STRATEGY_DIR = new File(currentUsersDir + "/strategies");
+	public final static File GROUP_DIR = new File(currentUsersDir + "/groups");
+	public final static File POPULATION_DIR = new File(currentUsersDir + "/populations");
+	public final static File SIMULATIONRESULTS_DIR = new File(currentUsersDir + "/simulationresults");
 
+	/**
+	 * Creates the directories necessary to save and load objects in loop.
+	 */
+	public static void initializeDirectories() {
+		File file = new File(currentUsersDir + "/configurations");
+		file.mkdirs();
+		file = new File(currentUsersDir + "/games");
+		file.mkdir();
+		file = new File(currentUsersDir + "/strategies");
+		file.mkdir();
+		file = new File(currentUsersDir + "/groups");
+		file.mkdir();
+		file = new File(currentUsersDir + "/populations");
+		file.mkdir();
+		file = new File(currentUsersDir + "/simulationsresults");
+		file.mkdir();
+	}
+	
 
 	/**
 	 * Loads an entity of type T out of the given file
