@@ -1,7 +1,6 @@
 package loop.model.plugin;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,17 +27,11 @@ public class TextFieldPluginControl extends PluginControl {
 	 * Creates a new TextFieldPluginControl.
 	 * @param params a list of the configurable Parameters
 	 */
-	TextFieldPluginControl(List<Parameter> params) {
+	public TextFieldPluginControl(List<Parameter> params) {
 		this.params = params;
-		properties = new ArrayList<>();
+		properties = new ArrayList<DoubleProperty>();
 		for(Parameter p : params) {
-			Label label = new Label();
-			TextField field = new TextField();
-			label.setText(p.getName() + " :");
-			DoubleProperty prop = new SimpleDoubleProperty();
-			field.textProperty().bindBidirectional(prop, new NumberStringConverter());
-			properties.add(prop);
-			this.getChildren().addAll(label, field);
+			this.configureBinding(p);
 		}
 	}
 	
@@ -47,12 +40,8 @@ public class TextFieldPluginControl extends PluginControl {
 	 * @param param the Parameter that shall be added
 	 */
 	public void addParameter(Parameter param) {
-		params.add(param);
-		Label label = new Label();
-		TextField field = new TextField();
-		label.setText(param.getName() + " :");
-		field.setId(param.getName());
-		this.getChildren().addAll(label, field);
+		this.params.add(param);
+		this.configureBinding(param);
 	}
 	
 	/**
@@ -77,6 +66,16 @@ public class TextFieldPluginControl extends PluginControl {
             if (!(n instanceof TextField)) continue;
             ((TextField) n).setText(parameters.get(i++).toString());
         }
+    }
+    
+    private void configureBinding(Parameter p) {
+    	Label label = new Label();
+		TextField field = new TextField();
+		label.setText(p.getName() + " :");
+		DoubleProperty prop = new SimpleDoubleProperty();
+		field.textProperty().bindBidirectional(prop, new NumberStringConverter());
+		properties.add(prop);
+		this.getChildren().addAll(label, field);
     }
 
 }
