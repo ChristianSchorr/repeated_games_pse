@@ -31,15 +31,7 @@ public class TextFieldPluginControl extends PluginControl {
 	TextFieldPluginControl(List<Parameter> params) {
 		this.params = params;
 		properties = new ArrayList<>();
-		for(Parameter p : params) {
-			Label label = new Label();
-			TextField field = new TextField();
-			label.setText(p.getName() + " :");
-			DoubleProperty prop = new SimpleDoubleProperty();
-			field.textProperty().bindBidirectional(prop, new NumberStringConverter());
-			properties.add(prop);
-			this.getChildren().addAll(label, field);
-		}
+		this.addParameters(params);
 	}
 	
 	/**
@@ -51,7 +43,9 @@ public class TextFieldPluginControl extends PluginControl {
 		Label label = new Label();
 		TextField field = new TextField();
 		label.setText(param.getName() + " :");
-		field.setId(param.getName());
+		DoubleProperty prop = new SimpleDoubleProperty();
+		field.textProperty().bindBidirectional(prop, new NumberStringConverter());
+		properties.add(prop);
 		this.getChildren().addAll(label, field);
 	}
 	
