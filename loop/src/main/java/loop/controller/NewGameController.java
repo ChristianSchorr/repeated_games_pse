@@ -74,11 +74,28 @@ public class NewGameController implements CreationController<Game> {
     
     @FXML
     private void handleReset() {
-        //TODO
+    	 //confirm
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.NO) {
+            return;
+        }
+      
+        gameNameTextField.setText("");
+        gameDescriptionTextField.setText("");
+        
+        cc1TextField.setText("");
+        cn1TextField.setText("");
+        nc1TextField.setText("");
+        nn1TextField.setText("");
+        cc2TextField.setText("");
+        cn2TextField.setText("");
+        nc2TextField.setText("");
+        nn2TextField.setText("");
     }
     
     @FXML
-    private void handleSave() {
+    private void handleSaveGame() {
         Game game;
         try {
             game = createGame();
@@ -87,7 +104,7 @@ public class NewGameController implements CreationController<Game> {
             alert.showAndWait();
             return;
         }
-        /*
+        
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Game");
@@ -108,7 +125,7 @@ public class NewGameController implements CreationController<Game> {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
-        }*/
+        };
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(game));
         stage.close();
