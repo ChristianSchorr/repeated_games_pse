@@ -1,15 +1,23 @@
 package loop.model.repository;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+import loop.model.simulator.SimulationResult;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 /**
  * This class provides static functionality for loading and storing entities in files.
@@ -92,6 +100,41 @@ public class FileIO {
 		@SuppressWarnings("resource")
 		ObjectOutputStream oos = new ObjectOutputStream (fos);
 		oos.writeObject(entity);		
+	}
+	
+	/**
+	 * Saves a {@link SimulationResult} object in Json format
+	 * @param result the SimulationResult which shall be saved
+	 * @param file the file to which the SimulationResult shall be saved
+	 */
+	public static void saveResult(SimulationResult result, File file) {
+		Gson gson = new Gson();
+		String save = gson.toJson(result);
+		try (FileWriter filewriter = new FileWriter(file)) {
+			filewriter.write(save);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	/**
+	 * Loads a {@link SimulationResult} object (in Json format) out of a text file
+	 * @param file the file from which the SimulationResult shall be loaded
+	 * @return the loaded SimulationResult
+	 */
+	public static SimulationResult loadResult(File file) {
+		String load = "";
+		String zeile;
+		Gson gson = new Gson();
+		try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
+			while( (zeile = bf.readLine()) != null )
+		    {
+		      load += zeile;
+		    }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		return gson.fromJson(load, SimulationResult.class);
 	}
 	
 	/**

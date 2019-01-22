@@ -8,7 +8,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import loop.model.UserConfiguration;
 import loop.model.simulationengine.strategies.PureStrategy;
+import loop.model.simulator.SimulationResult;
 
 /**
  * This class tests the functionality of the FileIO.
@@ -19,6 +21,7 @@ import loop.model.simulationengine.strategies.PureStrategy;
 public class FileIOTest {
 	private PureStrategy p1, p2, p3, p4, p5, test;
 	private File file1, file2, file3, file4, file5;
+	private SimulationResult result;
 	
 	/**
 	 * Set up some PureStrategys (which are serializable)
@@ -36,6 +39,7 @@ public class FileIOTest {
 		file3 = new File("./src/test/resources/JavaIOTest/test1/teststrategy3");
 		file4 = new File("./src/test/resources/JavaIOTest/test2/teststrategy4");
 		file5 = new File("./src/test/resources/JavaIOTest/test1/test/teststrategy");
+		result = new SimulationResult(UserConfiguration.getDefaultConfiguration(), 17);
 	}
 
 	/**
@@ -82,5 +86,14 @@ public class FileIOTest {
 		assertTrue(((PureStrategy) list.get(2)).getName().equals(p3.getName()));
 		assertTrue(((PureStrategy) list.get(3)).getName().equals(p2.getName()));
 		assertTrue(((PureStrategy) list.get(4)).getName().equals(p5.getName()));
+	}
+	
+	@Test
+	public void testSavingResults() {
+		FileIO.saveResult(result, new File("./src/test/resources/JavaIOResult"));
+		SimulationResult test = FileIO.loadResult(new File("./src/test/resources/JavaIOResult"));
+		assert(result.getId() == test.getId());
+		assert(result.getFinishedIterations() == test.getFinishedIterations());
+		assert(result.getTotalIterations() == test.getTotalIterations());
 	}
 }
