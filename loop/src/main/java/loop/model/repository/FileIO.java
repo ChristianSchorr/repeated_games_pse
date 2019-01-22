@@ -47,6 +47,7 @@ public class FileIO {
 		File file;
 		for(String s: directories) {
 			file = new File(currentUsersDir + s);
+			file.mkdirs();
 		}
 	}
 	
