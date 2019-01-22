@@ -11,7 +11,7 @@
 <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card" xmlns:fx="http://javafx.com/fxml" fx:id="container">
     <Label fx:id="groupNameLabel"/>
     <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 10pt" fx:id="groupCountLabel"/>
-    <Button maxWidth="20" prefHeight="20">
+    <Button maxWidth="20" prefHeight="20" onAction="#handleClosed">
         <graphic>
             <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500" fontSize="10"/>
         </graphic>

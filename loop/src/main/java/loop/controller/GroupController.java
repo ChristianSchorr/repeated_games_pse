@@ -119,7 +119,7 @@ public class GroupController implements CreationController<Group> {
 	void handleSave(ActionEvent event) {
 	    Group group = createGroup();
 	    
-	    if (group.getName().trim() == "" || group.getDescription().trim() == "") {
+	    if (group.getName().trim().equals("") || group.getDescription().trim().equals("")) {
             Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
             alert.showAndWait();
             return;

@@ -242,6 +242,7 @@ public class HeadController {
         newGroupWindow.setTitle("Create a new Group");
         newGroupWindow.setScene(newGroupScene);
 
+        controller.setStage(newGroupWindow);
         controller.registerElementCreated(g -> newGroupCreated(g));
 
         // Specifies the modality for new window.
@@ -266,6 +267,7 @@ public class HeadController {
         newPopulationWindow.setTitle("Create a new Population");
         newPopulationWindow.setScene(newPopulationScene);
 
+        controller.setStage(newPopulationWindow);
         controller.registerElementCreated(pop -> newPopulationCreated(pop));
 
         // Specifies the modality for new window.

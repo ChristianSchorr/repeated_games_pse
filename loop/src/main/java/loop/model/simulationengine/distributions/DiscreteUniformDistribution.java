@@ -74,8 +74,8 @@ public class DiscreteUniformDistribution implements DiscreteDistribution {
         private List<Parameter> parameters = new ArrayList<Parameter>();
         
         public DiscreteUniformDistributionPlugin() {
-            Parameter minParameter = new Parameter(0.0, 500.0, 1.0, "lower bound", "The lower bound of this distribution.");
-            Parameter maxParameter = new Parameter(0.0, 500.0, 1.0, "upper bound", "The upper bound of this distribution.");
+            Parameter minParameter = new Parameter(0.0, 20000.0, 1.0, "lower bound", "The lower bound of this distribution.");
+            Parameter maxParameter = new Parameter(0.0, 20000.0, 1.0, "upper bound", "The upper bound of this distribution.");
             parameters.add(minParameter);
             parameters.add(maxParameter);
         }

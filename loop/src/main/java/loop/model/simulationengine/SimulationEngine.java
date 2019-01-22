@@ -66,10 +66,7 @@ public class SimulationEngine {
     }
     
     private void initialiseAgents() {
-        agents = new ArrayList<Agent>();
-        for (EngineSegment segment: configuration.getSegments()) {
-            agents.addAll(new AgentInitialiser().initialiseAgents(segment, configuration.allowsMixedStrategies()));
-        }
+        agents = new AgentInitialiser().initialiseAgents(configuration.getSegments(), configuration.allowsMixedStrategies());
     }
     
     private void executeAdaptionStep() {
