@@ -2,6 +2,7 @@ package loop.view.historylistview;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
+import javafx.scene.layout.HBox;
 import loop.controller.ResultHistoryItem;
 import loop.model.simulator.SimulationStatus;
 import loop.view.historylistview.templates.CanceledSimulationResultCellTemplate;
@@ -19,7 +20,8 @@ public class HistoryListCell extends ListCell<ResultHistoryItem> {
 
         if(item != null && !empty) {
             SimulationResultCellTemplate template = getTemplate(item);
-            setGraphic(template.getContainer());
+            HBox container = template.getContainer();
+            setGraphic(container);
         }
     }
 
@@ -30,7 +32,7 @@ public class HistoryListCell extends ListCell<ResultHistoryItem> {
             return new FinishedSimulationResultCellTemplate(item);
         else if (item.getResult().getStatus() == SimulationStatus.RUNNING)
             return new RunningSimulationResultCellTemplate(item);
-        else return null;
+        else return new RunningSimulationResultCellTemplate(item);
     }
 }
 
