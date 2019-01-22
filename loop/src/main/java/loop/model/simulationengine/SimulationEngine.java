@@ -29,7 +29,7 @@ public class SimulationEngine {
     private boolean equilibriumReached;
     private Configuration configuration;
     
-    private boolean printInfo = true;
+    private boolean printInfo = false;
     private int printPeriod = 5;
     private int printCounter;
     
