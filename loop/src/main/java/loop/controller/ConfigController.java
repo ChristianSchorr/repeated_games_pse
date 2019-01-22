@@ -110,13 +110,12 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private IntegerProperty roundCountProperty = new SimpleIntegerProperty();
     private BooleanProperty mixedStrategyProperty = new SimpleBooleanProperty();
     private StringProperty populationProperty = new SimpleStringProperty();
+    private IntegerProperty maxAdaptsProperty = new SimpleIntegerProperty();
 
     private StringProperty pairBuilderProperty = new SimpleStringProperty();
     private StringProperty successQuantifierProperty = new SimpleStringProperty();
     private StringProperty strategyAdjusterProperty = new SimpleStringProperty();
     private StringProperty equilibriumCriterionProperty = new SimpleStringProperty();
-
-    private IntegerProperty maxAdaptsProperty = new SimpleIntegerProperty();
 
     private StringProperty multiParamProperty = new SimpleStringProperty();
     private DoubleProperty startValueProperty = new SimpleDoubleProperty();
@@ -364,8 +363,21 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     public void setConfiguration(UserConfiguration config) {
-        int cnt = 0;
+        /*private StringProperty gameNameProperty = new SimpleStringProperty();
+        private IntegerProperty iterationCountProperty = new SimpleIntegerProperty();
+        private IntegerProperty roundCountProperty = new SimpleIntegerProperty();
+        private BooleanProperty mixedStrategyProperty = new SimpleBooleanProperty();
+        private StringProperty populationProperty = new SimpleStringProperty();
+        private IntegerProperty maxAdaptsProperty = new SimpleIntegerProperty();*/
 
+        gameNameProperty.setValue(config.getGameName());
+        iterationCountProperty.setValue(config.getIterationCount());
+        roundCountProperty.setValue(config.getRoundCount());
+        mixedStrategyProperty.setValue(config.getMixedAllowed());
+        populationProperty.setValue(config.getPopulationName());
+        maxAdaptsProperty.setValue(config.getMaxAdapts());
+
+        int cnt = 0;
         if (repository.getGameRepository().containsEntityName(config.getGameName())) {
             gameNameProperty.setValue(config.getGameName());
             cnt++;
@@ -378,18 +390,22 @@ public class ConfigController implements CreationController<UserConfiguration> {
         }
         if (repository.getPairBuilderRepository().containsEntityName(config.getPairBuilderName())) {
             pairBuilderProperty.setValue(config.getPairBuilderName());
+            pairBuilderControl.setParameters(config.getPairBuilderParameters());
             cnt++;
         }
         if (repository.getSuccessQuantifiernRepository().containsEntityName(config.getSuccessQuantifierName())) {
             successQuantifierProperty.setValue(config.getSuccessQuantifierName());
+            successQuantifierControl.setParameters(config.getSuccessQuantifierParameters());
             cnt++;
         }
         if (repository.getStrategyAdjusterRepository().containsEntityName(config.getStrategyAdjusterName())) {
             strategyAdjusterProperty.setValue(config.getStrategyAdjusterName());
+            strategyAdjusterControl.setParameters(config.getStrategyAdjusterParameters());
             cnt++;
         }
         if (repository.getEquilibriumCriterionRepository().containsEntityName(config.getEquilibriumCriterionName())) {
             equilibriumCriterionProperty.setValue(config.getEquilibriumCriterionName());
+            equilibriumCriterionControl.setParameters(config.getEquilibriumCriterionParameters());
             cnt++;
         }
 
@@ -484,9 +500,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     break;
             }
         }
-
-        System.out.println(strategyAdjusterControl.getParameters());
-
+        
         config = new UserConfiguration(gameNameProperty.getValue(), roundCountProperty.getValue(),
                 iterationCountProperty.getValue(), mixedStrategyProperty.getValue(), populationProperty.getValue(),
                 pairBuilderProperty.getValue(), pairBuilderControl.getParameters(), successQuantifierProperty.getValue(),
