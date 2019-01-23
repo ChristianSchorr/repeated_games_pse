@@ -10,7 +10,6 @@ import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import loop.model.repository.FileIO;
-import sun.awt.X11.InfoWindow;
 
 import java.lang.reflect.Field;
 import java.net.URL;
