@@ -276,9 +276,14 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     }
 
+    private boolean isPluginConfigurationInvalid() {
+        return pairBuilderControl.hasConfigurationErrors() || successQuantifierControl.hasConfigurationErrors() ||
+                strategyAdjusterControl.hasConfigurationErrors() || equilibriumCriterionControl.hasConfigurationErrors();
+    }
+
     @FXML
     private void applyConfig(ActionEvent actionEvent) {
-        if (support.isInvalid()) {
+        if (support.isInvalid() || isPluginConfigurationInvalid()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("The configuration is faulty");
             alert.setContentText("There are some errors in this configuration!\nPlease make sure all parameters are set properly");

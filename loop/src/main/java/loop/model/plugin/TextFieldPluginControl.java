@@ -69,6 +69,11 @@ public class TextFieldPluginControl extends PluginControl {
         	properties.get(i).setValue(parameters.get(i));
 		}
     }
+
+    @Override
+	public boolean hasConfigurationErrors() {
+		return support.isInvalid();
+	}
     
     private void configureBinding(Parameter p) {
     	Label label = new Label();
