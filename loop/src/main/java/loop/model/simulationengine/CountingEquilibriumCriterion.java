@@ -28,7 +28,7 @@ public abstract class CountingEquilibriumCriterion implements EquilibriumCriteri
 
         //check for equilibrium
         boolean isEquilibrium = false;
-        if (this.lastRoundAgentsFlatCopy != null && this.lastRoundAgentsFlatCopy != null
+        if (this.lastRoundAgentsFlatCopy != null && this.lastRoundAgentsDeepCopy != null
                 && this.hasEquilibriumCondition(lastRoundAgentsFlatCopy, lastRoundAgentsDeepCopy, agents)) {
             isEquilibrium = this.longEnough(++this.consecutiveRounds);
         } else {
