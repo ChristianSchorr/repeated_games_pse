@@ -46,7 +46,7 @@ public class FileIO {
 	 */
 	public static void initializeDirectories() {
 		String[] directories = {"/configurations" , "/games" , "/strategies" ,
-				"/populations" , "/simulationresults" , "/group"
+				"/populations" , "/simulationresults" , "/groups"
 		};
 		File file;
 		for(String s: directories) {
@@ -120,7 +120,7 @@ public class FileIO {
 		FileOutputStream fos = new FileOutputStream (file);
 		@SuppressWarnings("resource")
 		ObjectOutputStream oos = new ObjectOutputStream (fos);
-		oos.writeObject(entity);		
+		oos.writeObject(entity);
 	}
 	
 	/**

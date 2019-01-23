@@ -13,7 +13,12 @@ import java.util.List;
 
 public class Segment implements Serializable {
 	
-	private String capitalDistributionName;
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    private String capitalDistributionName;
 	private List<Double> capitalDistributionParameters;
 	private List<String> strategyNames;
 	

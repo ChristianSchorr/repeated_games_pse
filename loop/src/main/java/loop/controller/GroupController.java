@@ -142,7 +142,7 @@ public class GroupController implements CreationController<Group> {
             FileIO.saveEntity(saveFile, group);
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved:\n" + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
             return;
         }
