@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of the {@link Repository<T>}-interface that stores entities
@@ -28,6 +29,11 @@ public class HashMapRepository<T> implements Repository<T> {
 	    names.forEach(name -> entities.add(getEntityByName(name)));
 	    return entities;
     }
+
+    @Override
+	public List<T> getAllEntities() {
+		return repo.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
+	}
 	
 	@Override
 	public boolean addEntity(String name, T entity) {
