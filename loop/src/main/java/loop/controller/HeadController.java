@@ -8,12 +8,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
@@ -80,6 +84,11 @@ public class HeadController {
 
     @FXML
     private Button startSimulationButton;
+    
+    @FXML
+    private Pane mainPane;
+    
+    private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
 
     @FXML
     void initialize() {
@@ -161,15 +170,43 @@ public class HeadController {
 
     @FXML
     void loadResults(ActionEvent event) {
-    	SimulationResult loadedResult;
     	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Simulation Results");
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
         File openFile = fileChooser.showOpenDialog(new Stage());
-        loadedResult = FileIO.loadResult(openFile);
-        historyViewController.addSimulation(loadedResult);
+        new Thread(new ResultLoader(openFile)).start();
     }
+    
+    private class ResultLoader implements Runnable {
+        
+        File openFile;
+        
+        private ResultLoader(File openFile) {
+            this.openFile = openFile;
+        }
 
+        @Override
+        public void run() {
+            setBufferingCursor();
+            SimulationResult loadedResult = FileIO.loadResult(openFile);
+            addSimulationToHistoryController(loadedResult);
+            setDefaultCursor();
+        }
+    }
+    
+    private synchronized void addSimulationToHistoryController(SimulationResult result) {
+        historyViewController.addSimulation(result);
+    }
+    
+    private synchronized void setDefaultCursor() {
+        mainPane.setCursor(Cursor.DEFAULT);
+    }
+    
+    private synchronized void setBufferingCursor() {
+        Image image = new Image(LOOP_BUFFER_PATH);
+        mainPane.setCursor(new ImageCursor(image));
+    }
+    
     @FXML
     void startSimulation(ActionEvent event) {
         SimulationResult result;

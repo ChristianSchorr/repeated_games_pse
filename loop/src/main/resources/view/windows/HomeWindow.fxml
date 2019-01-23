@@ -23,7 +23,7 @@
 <?import javafx.scene.chart.LineChart?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2500.0"
       prefWidth="1167.0" style="-fx-background-color: #EAEAeA;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.HeadController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.HeadController" fx:id="mainPane">
     <MenuBar style="-fx-padding: 0; -fx-background-color: white">
         <menus>
             <Menu text="Datei">
