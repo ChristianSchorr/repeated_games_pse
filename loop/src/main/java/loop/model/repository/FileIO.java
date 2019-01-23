@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.function.BiPredicate;
 
+import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.SimulationResult;
 
@@ -130,8 +131,8 @@ public class FileIO {
 	public static void saveResult(SimulationResult result, File file) {
 		//Create our gson instance
 		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Strategy.class, new InterfaceAdapter());
-		builder.registerTypeAdapter(BiPredicate.class, new InterfaceAdapter());
+		builder.registerTypeAdapter(Strategy.class, new StrategySerializer());
+		builder.registerTypeAdapter(SimulationHistory.class, new HistorySerializer());
 		Gson gson = builder.create();
 		String save = gson.toJson(result);
 		try (FileWriter filewriter = new FileWriter(file)) {
@@ -150,8 +151,8 @@ public class FileIO {
 		String load = "";
 		String zeile;
 		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Strategy.class, new InterfaceAdapter());
-		builder.registerTypeAdapter(BiPredicate.class, new InterfaceAdapter());
+		builder.registerTypeAdapter(Strategy.class, new StrategySerializer());
+        builder.registerTypeAdapter(SimulationHistory.class, new HistorySerializer());
 		Gson gson = builder.create();
 		try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
 			while( (zeile = bf.readLine()) != null )

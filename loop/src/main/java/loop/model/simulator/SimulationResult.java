@@ -190,6 +190,10 @@ public class SimulationResult {
 		for(BiConsumer<SimulationResult, SimulationStatus> handler : statusChangedHandler) {
 			handler.accept(this, status);
 		}
+		
+		if (status.equals(SimulationStatus.FINISHED)) {
+		    clearHandlers();
+		}
 	}
 
 	protected void setTotalIterations(int totalIterations) {
@@ -210,5 +214,11 @@ public class SimulationResult {
 	 */
 	public int getFinishedIterations() {
 		return finishedIterations;
+	}
+	
+	private void clearHandlers() {
+	    exceptionHandlers.clear();
+	    resultHandlers.clear();
+	    statusChangedHandler.clear();
 	}
 }
