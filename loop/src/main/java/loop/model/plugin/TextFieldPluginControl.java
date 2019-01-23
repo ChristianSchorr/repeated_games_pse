@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
+import loop.controller.validation.DoubleValidator;
+import org.controlsfx.validation.ValidationSupport;
 
 /**
  * This class is an implementation of the PluginControl class that displays a text field for
@@ -21,8 +23,9 @@ import javafx.util.converter.NumberStringConverter;
 public class TextFieldPluginControl extends PluginControl {
 	private List<Parameter> params;
 
-	List<DoubleProperty> properties;
-	
+	private List<DoubleProperty> properties;
+	private ValidationSupport support;
+
 	/**
 	 * Creates a new TextFieldPluginControl.
 	 * @param params a list of the configurable Parameters
@@ -30,6 +33,7 @@ public class TextFieldPluginControl extends PluginControl {
 	public TextFieldPluginControl(List<Parameter> params) {
 		this.params = params;
 		properties = new ArrayList<DoubleProperty>();
+		support = new ValidationSupport();
 		for(Parameter p : params) {
 			this.configureBinding(p);
 		}
@@ -72,8 +76,14 @@ public class TextFieldPluginControl extends PluginControl {
 		label.setText(p.getName() + " :");
 		DoubleProperty prop = new SimpleDoubleProperty();
 		field.textProperty().bindBidirectional(prop, new NumberStringConverter());
+		registerValidation(field, p);
 		properties.add(prop);
 		this.getChildren().addAll(label, field);
     }
+
+    private void registerValidation(TextField field, Parameter p) {
+		String errorMsg = "Not a valid value for the " + p.getName() + " parameter";
+		support.registerValidator(field, false, new DoubleValidator(errorMsg, d ->ParameterValidator.isValueValid(d, p)));
+	}
 
 }

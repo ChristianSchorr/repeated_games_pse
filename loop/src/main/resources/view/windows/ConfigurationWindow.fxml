@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,9 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.glyphfont.Glyph?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2500.0" prefWidth="1167.0"
-      style="-fx-background-color: #EAEAeA;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-      xmlns:fx="http://javafx.com/fxml/1" >
+<VBox style="-fx-background-color: #EAEAeA;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
 
     <!--TOOLBAR-->
     <HBox spacing="10" style="-fx-padding: 10; -fx-background-color: white">
@@ -130,8 +127,8 @@
                                 <TableView fx:id="gameTable" maxWidth="290" prefHeight="149.0">
                                     <columns>
                                         <TableColumn fx:id="firstCol" prefWidth="80" style="-fx-alignment: CENTER; -fx-font-weight: bold " text="" />
-                                        <TableColumn fx:id="secondCol" prefWidth="100" style="-fx-alignment: CENTER;" text="   SP 2 koop."/>
-                                        <TableColumn fx:id="thirdCol" prefWidth="100" style="-fx-alignment: CENTER;" text="    SP 2 def."/>
+                                        <TableColumn fx:id="secondCol" prefWidth="100" style="-fx-alignment: CENTER;" text="   SP 2 koop." />
+                                        <TableColumn fx:id="thirdCol" prefWidth="100" style="-fx-alignment: CENTER;" text="    SP 2 def." />
                                     </columns>
                                 </TableView>
                                 <Label fx:id="descriptionLabel" wrapText="true" />

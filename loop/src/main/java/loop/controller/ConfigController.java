@@ -14,10 +14,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
+import loop.controller.validation.DoubleValidator;
+import loop.controller.validation.IntegerValidator;
 import loop.model.MulticonfigurationParameter;
 import loop.model.MulticonfigurationParameterType;
 import loop.model.UserConfiguration;
 import loop.model.plugin.Parameter;
+import loop.model.plugin.ParameterValidator;
 import loop.model.plugin.Plugin;
 import loop.model.plugin.PluginControl;
 import loop.model.repository.CentralRepository;
@@ -27,12 +30,21 @@ import loop.model.simulationengine.EquilibriumCriterion;
 import loop.model.simulationengine.PairBuilder;
 import loop.model.simulationengine.StrategyAdjuster;
 import loop.model.simulationengine.SuccessQuantifier;
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
+import org.controlsfx.validation.decoration.CompoundValidationDecoration;
+import org.controlsfx.validation.decoration.GraphicValidationDecoration;
+import org.controlsfx.validation.decoration.StyleClassValidationDecoration;
+import org.controlsfx.validation.decoration.ValidationDecoration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -130,6 +142,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private CentralRepository repository;
     private UserConfiguration config;
 
+    private final ValidationSupport support = new ValidationSupport();
     private final FileChooser fileChooser = new FileChooser();
 
 
@@ -148,18 +161,40 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     public void initialize() {
 
+        String errorMsg = "not a positive integer";
         // initialize multi Param
         List<MultiParamItem> multiConfigParamNames = new ArrayList<>();
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ITERATION_COUNT,
-                MulticonfigurationParameterType.ITERATION_COUNT.getDescriptionFormat()));
+                MulticonfigurationParameterType.ITERATION_COUNT.getDescriptionFormat(), new IntegerValidator(errorMsg, (i) -> i > 0)));
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ROUND_COUNT,
-                MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat()));
+                MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat(), new IntegerValidator(errorMsg, (i) -> i > 0)));
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.MAX_ADAPTS,
-                MulticonfigurationParameterType.MAX_ADAPTS.getDescriptionFormat()));
+                MulticonfigurationParameterType.MAX_ADAPTS.getDescriptionFormat(), new IntegerValidator(errorMsg, (i) -> i > 0)));
 
         ObservableList<MultiParamItem> observableMultiConfigParamNames = FXCollections.observableArrayList(multiConfigParamNames);
         multiParamBox.setItems(observableMultiConfigParamNames);
         multiParamBox.valueProperty().bindBidirectional(multiParamProperty);
+
+
+        support.registerValidator(startValue, false, (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
+                        new DoubleValidator("start value greater than end value!",
+                                d-> d < endValueProperty.getValue()).apply(c, v));
+            }
+        });
+
+        support.registerValidator(endValue, false, (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
+                        new DoubleValidator("end value lower than start value!",
+                                d-> d > startValueProperty.getValue()).apply(c, v));
+            }
+        });
 
         // inititalize gameNames
         List<String> gameNames = repository.getGameRepository().getAllEntityNames();
@@ -235,10 +270,21 @@ public class ConfigController implements CreationController<UserConfiguration> {
         startValue.textProperty().bindBidirectional(startValueProperty, new NumberStringConverter());
         endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter());
         stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter());
+
+        support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+        support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+
     }
 
     @FXML
     private void applyConfig(ActionEvent actionEvent) {
+        if (support.isInvalid()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("The configuration is faulty");
+            alert.setContentText("There are some errors in this configuration!\nPlease make sure all parameters are set properly");
+            alert.showAndWait();
+            return;
+        }
         createConfig();
     }
 
@@ -323,7 +369,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
         equilibriumCriterionControl = equilibriumCriterionPlugin.getRenderer().renderPlugin();
         equilibriumCriterionContainer.getChildren().clear();
         equilibriumCriterionContainer.getChildren().add(equilibriumCriterionControl);
-
         Plugin<EquilibriumCriterion> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, equilibriumCriterionPlugin, MulticonfigurationParameterType.EC_PARAM);
     }
@@ -334,7 +379,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
             items.removeIf((item) -> item.toString().substring(item.toString().indexOf(':') + 1).equals(oldPlugin.getName()));
 
         for (Parameter param : newPlugin.getParameters()) {
-            items.add(new MultiParamItem(type, param.getName() + ":" + newPlugin.getName()));
+            String errorMsg = "Not a valid value for the " + param.getName() + " parameter";
+            items.add(new MultiParamItem(type, param.getName() + ":" + newPlugin.getName(),
+                    new DoubleValidator(errorMsg, d -> ParameterValidator.isValueValid(d, param))));
         }
         multiParamBox.requestLayout();
     }
@@ -495,10 +542,16 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private class MultiParamItem {
         private MulticonfigurationParameterType type;
         private String displayString;
+        private Validator<String> validator;
 
         private MultiParamItem(MulticonfigurationParameterType type, String displayString) {
+            this(type, displayString, new DoubleValidator(""));
+        }
+
+        private MultiParamItem(MulticonfigurationParameterType type, String displayString, Validator<String> validator) {
             this.type = type;
             this.displayString = displayString;
+            this.validator = validator;
         }
 
         @Override
