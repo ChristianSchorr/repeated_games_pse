@@ -315,7 +315,7 @@ public class GroupController implements CreationController<Group> {
 		public Segment returnSegment() {
 			String capitalDistributionName = distributionChoice.getValue();
 			List<Double> capitalDistributionParameters = ((PluginControl) distributionPluginPane.getChildren().get(0)).getParameters();
-			List<String> strategyNames = strategyChoice.getTargetItems();		
+			List<String> strategyNames = new ArrayList<String>(strategyChoice.getTargetItems());		
 			return new Segment(capitalDistributionName, capitalDistributionParameters, strategyNames);
 		}
 		
