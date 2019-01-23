@@ -116,7 +116,6 @@ public class ThreadPoolSimulator implements Simulator {
 
         // handle iteration finished
         future.thenAccept((res) -> {
-            System.out.println("HIER!!!");
             task.simResult.addIterationResult(res, index);
             task.runningIterations.remove(future);
             task.buffer.addConfiguration(config, index);
@@ -260,7 +259,7 @@ public class ThreadPoolSimulator implements Simulator {
             }
 
             // fill the buffer with some copies
-            for (int i = 0; i <= threads; i++) {
+            for (int i = 0; i <= 2 * threads; i++) {
                 configs = ConfigurationCreator.generateConfigurations(config);
                 for (int j = 0; j < configs.size(); j++) {
                     buffer.get(j).add(configs.get(j));
