@@ -486,7 +486,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 successQuantifierControl.getParameters(), strategyAdjusterProperty.getValue(),
                 strategyAdjusterControl.getParameters(), equilibriumCriterionProperty.getValue(),
                 equilibriumCriterionControl.getParameters(), maxAdaptsProperty.getValue(), isMulti, param);
-
+        
         for (Consumer<UserConfiguration> creationHandler : creationListener) {
             creationHandler.accept(config);
         }

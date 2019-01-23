@@ -206,7 +206,7 @@ public class ChartUtils {
             hist.put(binLabels[i], 0);
         }
         values.stream().filter(val -> minValue <= val && val <= maxValue).forEach(val -> {
-            String binLabel = binLabels[Math.min(binIndex(binWidth, val, minValue), binLabels.length)];
+            String binLabel = binLabels[Math.min(binIndex(binWidth, val, minValue), binLabels.length - 1)];
             hist.put(binLabel, hist.get(binLabel) + 1);
         });
         
