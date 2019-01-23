@@ -42,7 +42,6 @@ public class FileIO {
 
 	/**
 	 * Creates the directories necessary to save and load objects in loop.
-	 * @return true if successful
 	 */
 	public static void initializeDirectories() {
 		String[] directories = {"/configurations" , "/games" , "/strategies" ,
