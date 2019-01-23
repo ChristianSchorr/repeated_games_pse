@@ -20,24 +20,14 @@ public class ParameterValidator {
 	 * @return true if the given value lies in the value range of the given parameter, false
 	 * otherwise
 	 */
-	static boolean isValueValid(double val, Parameter param) {
+	public static boolean isValueValid(double val, Parameter param) {
 		double min = param.getMinValue();
 		double max = param.getMaxValue();
 		double step = param.getStepSize();
 		
-		if ((val >= min) && (val <= max)) {		//checks if valid for given bounds
-			if (step == 0) {					//no constraint for granularity
-				return true;
-			}
-			else {								//checks if valid for given granularity
-				for(double i = min; i <= max; i = Double.sum(i, step)) {
-					if (Math.abs(i - val) < tolerance) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;							//default
+		if ((val >= min) && (val <= max))
+			return (step != 0) ? (Math.abs((Math.round(val / step) * step) - val) < tolerance) : true;
+		return false;
 	}
 	
 	/**
@@ -60,7 +50,7 @@ public class ParameterValidator {
 	 * @return the value in the value range of the given parameter that is closest to the
 	 * given value
 	 */
-	static double getClosestValid(double val, Parameter param) {
+	public static double getClosestValid(double val, Parameter param) {
 		double min = param.getMinValue();
 		double max = param.getMaxValue();
 		double step = param.getStepSize();
