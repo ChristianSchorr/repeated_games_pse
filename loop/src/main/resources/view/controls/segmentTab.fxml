@@ -10,10 +10,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.ListSelectionView?>
+<?import javafx.scene.control.ScrollPane?>
 
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.Pane?>
-<VBox prefWidth="780.0" spacing="10" styleClass="card" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:id = "content">
+<ScrollPane styleClass="card" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:id = "content" fitToWidth="true">
+<VBox prefWidth="780.0" spacing="10" >
     <Label styleClass="card-subtitle" text="Initiales Kapital" />
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label styleClass="control-label" text="Verteilungsfunktion"/>
@@ -50,3 +52,4 @@
         </rowConstraints>
     </GridPane>
 </VBox>
+</ScrollPane>

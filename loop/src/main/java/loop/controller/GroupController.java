@@ -11,11 +11,14 @@ import java.util.stream.Collectors;
 
 import org.controlsfx.control.ListSelectionView;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -90,6 +93,16 @@ public class GroupController implements CreationController<Group> {
                 tab.setText("Segment " + (i++));
             }
         });
+	    /*ChangeListener<Number> listener = new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+                segmentTabs.setPrefHeight(((VBox) segmentTabs.getSelectionModel().getSelectedItem().getContent()).getPrefHeight());
+            }
+	    };
+	    segmentTabs.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+	       if (oldTab == null) ((VBox) oldTab.getContent()).prefHeightProperty().removeListener(listener);
+	       if (newTab == null) ((VBox) newTab.getContent()).prefHeightProperty().addListener(listener);
+	    });*/
 	    isCohesiveCheckBox.setSelected(true);
 	    addSegmentTab();
 	}
@@ -258,7 +271,7 @@ public class GroupController implements CreationController<Group> {
 		private GroupController parent;
 		
 		@FXML
-		private VBox content;
+		private Node content;
 		
 		public TabController(GroupController parent) {
 		    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_NAME));
@@ -319,7 +332,7 @@ public class GroupController implements CreationController<Group> {
 			return new Segment(capitalDistributionName, capitalDistributionParameters, strategyNames);
 		}
 		
-		public VBox getContent() {
+		public Node getContent() {
 		    return content;
 		}
 	}
