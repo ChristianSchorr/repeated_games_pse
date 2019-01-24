@@ -1,5 +1,6 @@
 package loop.model.simulationengine.strategy.strategybuilder;
 
+import loop.model.Nameable;
 import loop.model.simulationengine.strategies.Strategy;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * This interface represents a unary or binary logical operator for combining strategies.
  */
-public interface Operator {
+public interface Operator extends Nameable {
 
     /**
      * This method creates a new strategy by logically connecting the given ones
