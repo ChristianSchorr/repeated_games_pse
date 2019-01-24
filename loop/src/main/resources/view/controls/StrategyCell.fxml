@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.controlsfx.glyphfont.Glyph?>
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="container"
+      alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+    <Label fx:id="strategyLabel"/>
+    <Button onAction="#handleDelete" maxWidth="20" prefHeight="20">
+        <graphic>
+            <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
+                   fontSize="10"/>
+        </graphic>
+    </Button>
+</HBox>

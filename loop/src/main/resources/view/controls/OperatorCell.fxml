@@ -9,11 +9,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import org.controlsfx.glyphfont.Glyph?>
 <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card" xmlns:fx="http://javafx.com/fxml"
-      fx:id="container">
-    <Label fx:id="operatorName" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt"/>
-    <Button>
+      fx:id="container" >
+    <Label fx:id="operatorName" styleClass="key-word"/>
+    <Button onAction="#handleDelete">
         <graphic>
-            <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+            <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"/>
         </graphic>
     </Button>
 </HBox>

@@ -906,3 +906,36 @@
 .table-column-cell:empty .table-cell {
     -fx-border-width: 0px;
 }
+
+.empty-card {
+	-fx-background-color: rgb(255.0, 255.0, 255.0);
+	-fx-background-radius: 4.0;
+	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
+		1.5);
+	-fx-padding: 16 16 16 16;
+}
+
+
+.empty-card-selected {
+    -fx-border-color: -swatch-400;
+    -fx-border-radius: 4.0;
+    -fx-background-color: rgb(255.0, 255.0, 255.0);
+	-fx-background-radius: 4.0;
+	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
+		1.5);
+	-fx-padding: 16 16 16 16;
+}
+
+.key-word {
+    -fx-text-fill: -swatch-500;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt
+}
+
+.brace-card {
+    -fx-background-color: rgb(255.0, 255.0, 255.0);
+	-fx-background-radius: 4.0;
+	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
+		1.5);
+	-fx-padding: 5 5 5 5;
+}

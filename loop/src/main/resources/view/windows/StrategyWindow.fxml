@@ -46,7 +46,7 @@
         </GridPane>
         <Separator style="-fx-padding: 10 0;"/>
         <FlowPane fx:id="strategyContainer" hgap="10" vgap="10">
-            <!--<HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label text="Der"/>
                 <ChoiceBox prefHeight="42.0" prefWidth="106.0" value="Gegenspieler">
                     <items>
@@ -118,20 +118,12 @@
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
                 </Button>
-            </HBox>-->
+            </HBox>
         </FlowPane>
         <FlowPane fx:id="operatorContainer" hgap="10" vgap="10">
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="(  )"/>
-                <Button>
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
-                    </graphic>
-                </Button>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="NOT"/>
-                <Button>
+                <Button onAction="#addNot">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -139,7 +131,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="AND"/>
-                <Button>
+                <Button onAction="#addAnd">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -147,7 +139,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="OR"/>
-                <Button>
+                <Button onAction="#addOr">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
