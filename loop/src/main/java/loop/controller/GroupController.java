@@ -130,7 +130,7 @@ public class GroupController implements CreationController<Group> {
         fileChooser.setTitle("Save Group");
         fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
         fileChooser.setInitialFileName(group.getName().toLowerCase());
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", ".grp");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", "*.grp");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);
         
@@ -142,7 +142,7 @@ public class GroupController implements CreationController<Group> {
             FileIO.saveEntity(saveFile, group);
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR, "File could not be saved:\n" + e.getMessage(), ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
             return;
         }
@@ -156,7 +156,7 @@ public class GroupController implements CreationController<Group> {
 	    FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load Group");
         fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", ".grp");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", "*.grp");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(stage);
         

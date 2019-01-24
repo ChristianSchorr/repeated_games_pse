@@ -114,16 +114,16 @@ public class HeadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".cnfg");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
+        if (saveFile == null) return;
         try {
             FileIO.saveEntity(saveFile, activeConfiguration);
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
-            return;
         }
     }
 
@@ -132,7 +132,10 @@ public class HeadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
+        fileChooser.getExtensionFilters().add(extFilter);
         File openFile = fileChooser.showOpenDialog(new Stage());
+        if (openFile == null) return;
         try {
             updateConfiguration(FileIO.loadEntity(openFile));
         } catch (FileNotFoundException e) {

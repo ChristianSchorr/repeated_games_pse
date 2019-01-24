@@ -24,6 +24,7 @@ public abstract class CountingEquilibriumCriterion implements EquilibriumCriteri
         if (lastRoundAgentsFlatCopy != null && !lastRoundAgentsFlatCopy.contains(agents.get(0))) {
             lastRoundAgentsFlatCopy = null;
             lastRoundAgentsDeepCopy = null;
+            consecutiveRounds = 0;
         }
 
         //check for equilibrium
