@@ -310,8 +310,39 @@ public class ConfigController implements CreationController<UserConfiguration> {
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
             alert.showAndWait();
-            config = this.config;
+            return;
         }
+        //check if all populations etc. in the configuration are known
+        boolean error = false;
+        String errorMsg = "The opened configuration contains unknown entities:";
+        if (!repository.getGameRepository().containsEntityName(config.getGameName())) {
+            errorMsg += "\n - the game '" + config.getGameName() + "'";
+        }
+        if (!repository.getPopulationRepository().containsEntityName(config.getPopulationName())) {
+            errorMsg += "\n - the population '" + config.getPopulationName() + "'";
+            error = true;
+        }
+        if (!repository.getPairBuilderRepository().containsEntityName(config.getPairBuilderName())) {
+            errorMsg += "\n - the pair builder '" + config.getPairBuilderName() + "'";
+            error = true;
+        }
+        if (!repository.getSuccessQuantifiernRepository().containsEntityName(config.getSuccessQuantifierName())) {
+            errorMsg += "\n - the success quantification '" + config.getSuccessQuantifierName() + "'";
+            error = true;
+        }
+        if (!repository.getStrategyAdjusterRepository().containsEntityName(config.getStrategyAdjusterName())) {
+            errorMsg += "\n - the strategy adjuster '" + config.getStrategyAdjusterName() + "'";
+            error = true;
+        }
+        if (!repository.getEquilibriumCriterionRepository().containsEntityName(config.getEquilibriumCriterionName())) {
+            errorMsg += "\n - the equilibrium criterion '" + config.getEquilibriumCriterionName() + "'";
+        }
+        if (error) {
+            Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        
         setConfiguration(config);
     }
 

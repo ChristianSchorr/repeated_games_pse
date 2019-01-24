@@ -182,7 +182,7 @@ public class PopulationController implements CreationController<Population> {
     @FXML
     private void handleLoadPopulation(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Load Populaiton");
+        fileChooser.setTitle("Load Population");
         fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", "*.pop");
         fileChooser.getExtensionFilters().add(extFilter);

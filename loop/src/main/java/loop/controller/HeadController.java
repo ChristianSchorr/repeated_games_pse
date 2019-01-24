@@ -89,7 +89,9 @@ public class HeadController {
     private Pane mainPane;
     
     private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
-
+    
+    private CentralRepository repository = CentralRepository.getInstance();
+    
     @FXML
     void initialize() {
         //setup history
@@ -136,15 +138,51 @@ public class HeadController {
         fileChooser.getExtensionFilters().add(extFilter);
         File openFile = fileChooser.showOpenDialog(new Stage());
         if (openFile == null) return;
+        UserConfiguration config = null;
         try {
-            updateConfiguration(FileIO.loadEntity(openFile));
+            config = FileIO.loadEntity(openFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return;
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
             alert.showAndWait();
+            return;
         }
+        
+        //check if all populations etc. in the configuration are known
+        boolean error = false;
+        String errorMsg = "The opened configuration contains unknown entities:";
+        if (!repository.getGameRepository().containsEntityName(config.getGameName())) {
+            errorMsg += "\n - the game '" + config.getGameName() + "'";
+        }
+        if (!repository.getPopulationRepository().containsEntityName(config.getPopulationName())) {
+            errorMsg += "\n - the population '" + config.getPopulationName() + "'";
+            error = true;
+        }
+        if (!repository.getPairBuilderRepository().containsEntityName(config.getPairBuilderName())) {
+            errorMsg += "\n - the pair builder '" + config.getPairBuilderName() + "'";
+            error = true;
+        }
+        if (!repository.getSuccessQuantifiernRepository().containsEntityName(config.getSuccessQuantifierName())) {
+            errorMsg += "\n - the success quantification '" + config.getSuccessQuantifierName() + "'";
+            error = true;
+        }
+        if (!repository.getStrategyAdjusterRepository().containsEntityName(config.getStrategyAdjusterName())) {
+            errorMsg += "\n - the strategy adjuster '" + config.getStrategyAdjusterName() + "'";
+            error = true;
+        }
+        if (!repository.getEquilibriumCriterionRepository().containsEntityName(config.getEquilibriumCriterionName())) {
+            errorMsg += "\n - the equilibrium criterion '" + config.getEquilibriumCriterionName() + "'";
+        }
+        if (error) {
+            Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        
+        updateConfiguration(config);
     }
 
     @FXML
