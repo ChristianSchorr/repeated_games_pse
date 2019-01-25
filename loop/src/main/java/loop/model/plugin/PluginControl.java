@@ -32,4 +32,11 @@ public abstract class PluginControl extends javafx.scene.layout.VBox {
 	 * @return {@code true} when there are configuration errors {@code false} otherwise
 	 */
 	public abstract boolean hasConfigurationErrors();
+
+	/**
+	 * Enables/disables the parameter with the given name
+	 * @param parameterName the name of the parameter to enable/disable
+	 * @param enable {@code true} disables the parameter, {@code false} enables the parameter
+	 */
+	public abstract void disableParamert(String parameterName, boolean enable);
 }
