@@ -6,9 +6,14 @@ import java.util.stream.Collectors;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import loop.controller.validation.DoubleValidator;
 import org.controlsfx.validation.ValidationSupport;
@@ -26,11 +31,22 @@ public class TextFieldPluginControl extends PluginControl {
 	private List<DoubleProperty> properties;
 	private ValidationSupport support;
 
+	private HBox container;
+	private VBox itemBox;
+
 	/**
 	 * Creates a new TextFieldPluginControl.
 	 * @param params a list of the configurable Parameters
 	 */
 	public TextFieldPluginControl(List<Parameter> params) {
+		itemBox = new VBox();
+		itemBox.setSpacing(10);
+		container = new HBox();
+		container.setSpacing(20);
+		container.setStyle("-fx-padding: 10");
+		container.setAlignment(Pos.CENTER_LEFT);
+		container.getChildren().addAll(new Separator(Orientation.VERTICAL), itemBox);
+		if(params.size() > 0) this.getChildren().add(container);
 		this.params = params;
 		properties = new ArrayList<DoubleProperty>();
 		support = new ValidationSupport();
@@ -83,7 +99,14 @@ public class TextFieldPluginControl extends PluginControl {
 		field.textProperty().bindBidirectional(prop, new NumberStringConverter());
 		registerValidation(field, p);
 		properties.add(prop);
-		this.getChildren().addAll(label, field);
+		HBox box = new HBox();
+		box.setSpacing(10);
+		box.setAlignment(Pos.CENTER_LEFT);
+		label.setAlignment(Pos.CENTER);
+		field.setMaxWidth(50);
+		field.setAlignment(Pos.CENTER);
+		box.getChildren().addAll(label, field);
+		itemBox.getChildren().add(box);
     }
 
     private void registerValidation(TextField field, Parameter p) {
