@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulationengine.strategy.strategybuilder.Operator;
 
 import java.io.IOException;
@@ -21,13 +22,13 @@ public class StrategyCellController {
     private HBox container;
 
     Consumer<StrategyCellController> closeNotifier;
-    private String strategyText;
+    private Strategy strategy;
 
-    public StrategyCellController(String strategyText, Consumer<StrategyCellController> closeNotifier) {
+    public StrategyCellController(Strategy strategy, Consumer<StrategyCellController> closeNotifier) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
         fxmlLoader.setController(this);
         this.closeNotifier = closeNotifier;
-        this.strategyText = strategyText;
+        this.strategy = strategy;
         try {
             fxmlLoader.load();
         } catch (IOException e) {
@@ -37,7 +38,7 @@ public class StrategyCellController {
 
     @FXML
     private void initialize() {
-        strategyLabel.textProperty().setValue(strategyText);
+        strategyLabel.textProperty().setValue(strategy.getName());
     }
 
 
