@@ -120,7 +120,7 @@ public class NewGameController implements CreationController<Game> {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Game");
         fileChooser.setInitialDirectory(FileIO.GAME_DIR);
-        fileChooser.setInitialFileName(game.getName().toLowerCase());
+        fileChooser.setInitialFileName(game.getName().toLowerCase().replace(' ', '_'));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Game File", "*.gam");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);

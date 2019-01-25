@@ -163,7 +163,7 @@ public class GroupController implements CreationController<Group> {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Group");
         fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
-        fileChooser.setInitialFileName(group.getName().toLowerCase());
+        fileChooser.setInitialFileName(group.getName().toLowerCase().replace(' ', '_'));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", "*.grp");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);

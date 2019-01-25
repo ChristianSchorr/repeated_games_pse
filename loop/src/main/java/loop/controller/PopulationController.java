@@ -174,7 +174,7 @@ public class PopulationController implements CreationController<Population> {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
         fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
-        fileChooser.setInitialFileName(population.getName().toLowerCase());
+        fileChooser.setInitialFileName(population.getName().toLowerCase().replace(' ', '_'));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", "*.pop");
         fileChooser.getExtensionFilters().add(extFilter);
         Window stage = ((Node) event.getTarget()).getScene().getWindow();
