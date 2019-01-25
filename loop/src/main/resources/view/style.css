@@ -890,3 +890,19 @@
 .list-cell {
     -fx-padding: 0px;
 }
+
+.table-row-cell:empty {
+    -fx-background-color: white;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+.table-column-cell:empty {
+    -fx-background-color: white;
+}
+
+.table-column-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
