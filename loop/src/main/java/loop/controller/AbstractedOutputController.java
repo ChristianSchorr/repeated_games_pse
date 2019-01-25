@@ -225,7 +225,7 @@ public class AbstractedOutputController {
             displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
                     it -> filterIteration(it)).forEach(it -> efficiencies.add(it.getEfficiency()));
             Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 2);
-
+            
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             hist.keySet().stream().sorted((s1, s2) -> Double.compare(Double.valueOf(s1.replace(',', '.')), Double.valueOf(s2.replace(',', '.')))).forEach(

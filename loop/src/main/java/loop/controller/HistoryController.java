@@ -7,11 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
+import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
 import loop.view.historylistview.HistoryListCell;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +36,8 @@ public class HistoryController {
 
     private ResultHistoryItem selectedItem;
     private ObservableList<ResultHistoryItem> history;
+    
+    private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
 
     /**
      * Initializes the history controller
@@ -46,6 +51,7 @@ public class HistoryController {
             outputViewController.setDisplayedResult(selectedItem.getResult());
         });
         historyList.setCellFactory(param -> new HistoryListCell());
+        outputViewController.registerImportUserConfiguration(config -> configImportHandlers.forEach(c -> c.accept(config)));
     }
 
     /**
@@ -74,5 +80,15 @@ public class HistoryController {
      */
     public List<SimulationResult> getAllSimulations() {
         return history.stream().map(ResultHistoryItem::getResult).collect(Collectors.toList());
+    }
+    
+    /**
+     * Register an action that will be executed whenever a user configuration shall be imported
+     * from a simulation result.
+     * 
+     * @param action the action
+     */
+    public void registerImportUserConfiguration(Consumer<UserConfiguration> action) {
+        configImportHandlers.add(action);
     }
 }

@@ -25,10 +25,13 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                 <Separator orientation="VERTICAL" style="-fx-padding: 10 0" />
-                <Button styleClass="setting-button">
+                <Button styleClass="setting-button" onAction="#importConfig">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="ROTATE_RIGHT" style="-fx-text-fill: grey" />
                     </graphic>
+                    <tooltip>
+                    	<Tooltip text="Import the configuration of the displayed simulation"/>
+                    </tooltip>
                 </Button>
                 <Button fx:id="saveButton"  onAction="#saveResult">
                     <graphic>

@@ -3,7 +3,10 @@ package loop.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,7 +96,10 @@ public class OutputController {
 
     @FXML
     private Pane container;
-
+    
+    
+    private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
+    
     /*------------------------------------------------------------------*/
 
     /**
@@ -164,6 +170,16 @@ public class OutputController {
         tabPane.getSelectionModel().select(detailedOutputTab);
 
         update();
+    }
+    
+    /**
+     * Register an action that will be executed whenever a user configuration shall be imported
+     * from a simulation result.
+     * 
+     * @param action the action
+     */
+    public void registerImportUserConfiguration(Consumer<UserConfiguration> action) {
+        configImportHandlers.add(action);
     }
 
     /*-----------------------------------update methods-----------------------------------*/
@@ -262,6 +278,12 @@ public class OutputController {
         public void run() {
             FileIO.saveResult(result, saveFile);
         }
+    }
+    
+    @FXML
+    void importConfig() {
+        if (config != null)
+            this.configImportHandlers.forEach(c -> c.accept(config));
     }
 
     /*-----------------------------------private helpers-----------------------------------*/

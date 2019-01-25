@@ -94,23 +94,20 @@ public class HeadController {
     
     @FXML
     void initialize() {
-        //setup history
-	   /* FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/controls/historyView.fxml"));
-	    try {
-            historyView = loader.load();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-	    historyController = loader.getController();*/
         //load default configuration
         updateConfiguration(UserConfiguration.getDefaultConfiguration(), false);
 
         //create simulator
         simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors());
+        
+        //register callback for the import of configurations from simulation results
+        historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
     }
-
+    
+    public void importConfiguration(UserConfiguration config) {
+        updateConfiguration(config, true);
+    }
+    
     @FXML
     void saveConfiguration() {
         FileChooser fileChooser = new FileChooser();
@@ -151,7 +148,7 @@ public class HeadController {
             return;
         }
         
-        updateConfiguration(config, true);
+        importConfiguration(config);
     }
 
     @FXML
