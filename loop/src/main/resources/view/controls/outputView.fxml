@@ -19,13 +19,13 @@
                 <ColumnConstraints percentWidth="20" />
             </columnConstraints>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00" />
+                <Glyph fx:id="checkGlyph" fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00" />
                 <Label fx:id="gameNameLabel" style="-fx-text-fill: #008A00" styleClass="card-title" />
                 <Label fx:id="gameIdLabel" style="-fx-text-fill: #008A00" styleClass="card-title" />
             </HBox>
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
-                <Separator orientation="VERTICAL" style="-fx-padding: 10 0" />
-                <Button styleClass="setting-button" onAction="#importConfig">
+                <Separator fx:id="sep1" orientation="VERTICAL" style="-fx-padding: 10 0" />
+                <Button fx:id="importButton" styleClass="setting-button" onAction="#importConfig">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="ROTATE_RIGHT" style="-fx-text-fill: grey" />
                     </graphic>
@@ -38,30 +38,44 @@
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="DOWNLOAD" style="-fx-text-fill: grey" />
                     </graphic>
                 </Button>
-                <Button fx:id="toAbstractedOutput"/>
-                <Button fx:id="toDetailedOutput" />
-                <Button fx:id="toMultiOutput" />
             </HBox>
             <rowConstraints>
                 <RowConstraints />
             </rowConstraints>
         </GridPane>
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label styleClass="control-label" text="Abbruchbedingung: " />
-            <Label fx:id="exitConditionLabel" />
-            <Label styleClass="control-label" text="Multikonfiguration: " />
-            <Label fx:id="multiconfigurationLabel" />
-            <Label styleClass="control-label" text="Multikonfig. Parameter: " />
-            <Label fx:id="multiconfigurationParameterNameLabel" />
+            <Label styleClass="control-label" fx:id="exitConditionLabel" />
+            <Label styleClass="control-label" fx:id="multiconfigurationLabel" />
+            <Label styleClass="control-label" fx:id="multiconfigurationParameterNameLabel" />
         </HBox>
-        <Separator style="-fx-padding: 10 0" />
-        <TabPane fx:id="tabPane">
-            <Tab fx:id="noOutputTab" />
-            <Tab fx:id="notFinishedTab" />
+        <Separator fx:id="sep2" style="-fx-padding: 10 0" />
+        <TabPane fx:id="tabPane" styleClass="hiding-tab-pane">
+            <Tab fx:id="noOutputTab">
+            	<Label text="No simulation result to display!"/>
+            </Tab>
+            <Tab fx:id="notFinishedTab">
+            	<Label text="The selected simulation hasn't finished yet!"/>
+            </Tab>
             <Tab fx:id="detailedOutputTab"/>
             <Tab fx:id="abstractedOutputTab"/>
             <Tab fx:id="multiConfigOutputTab"/>
         </TabPane>
+        <HBox alignment="CENTER">
+        	<Button fx:id="toLeft" onAction="#handleToLeft">
+		        <graphic>
+	                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_LEFT" style="-fx-text-fill: grey" />
+	            </graphic>
+        	</Button>
+            <Label fx:id="pageTitle"/>
+            <Button fx:id="toRight" onAction="#handleToRight">
+		        <graphic>
+	                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_RIGHT" style="-fx-text-fill: grey" />
+	            </graphic>
+            </Button>
+            <Button fx:id="toAbstractedOutput"/>
+            <Button fx:id="toDetailedOutput" />
+            <Button fx:id="toMultiOutput" />
+        </HBox>
     </VBox>
     <columnConstraints>
         <ColumnConstraints />

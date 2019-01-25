@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import org.controlsfx.glyphfont.Glyph;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Alert.AlertType;
@@ -32,7 +36,11 @@ import loop.model.simulator.SimulationStatus;
  * @author Peter Koepernik
  */
 public class OutputController {
-
+    
+    private static final String ABSTRACTED_OUTPUT_TITLE = "Abstracted output";
+    private static final String DETAILED_OUTPUT_TITLE = "Detailed output";
+    private static final String MULTICONFIGURATION_OUTPUT_TITLE = "Multiconfiguration output";
+    
     private SimulationResult displayedResult;
     private UserConfiguration config;
     private DetailedOutputController detailedOutputController;
@@ -46,12 +54,26 @@ public class OutputController {
     private URL location;
 
     /*-----------------title-----------------*/
-
+    
+    @FXML
+    private Glyph checkGlyph;
+    
     @FXML
     private Label gameNameLabel;
 
     @FXML
     private Label gameIdLabel;
+    
+    @FXML
+    private Button importButton;
+    
+    @FXML
+    private Button saveButton;
+    
+    @FXML
+    private Separator sep1;
+    @FXML
+    private Separator sep2;
 
     /*-----------------header line-----------------*/
 
@@ -82,8 +104,14 @@ public class OutputController {
     /*-----------------navigation between result pages-----------------*/
 
     @FXML
-    private Button saveButton;
-
+    private Button toLeft;
+    
+    @FXML
+    private Label pageTitle;
+    
+    @FXML
+    private Button toRight;
+    
     @FXML
     private Button toDetailedOutput;
 
@@ -108,7 +136,8 @@ public class OutputController {
     @FXML
     // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-
+        pageTitle.setText(DETAILED_OUTPUT_TITLE);
+        deactivateAll();
     }
 
     public Pane getContainer() {
@@ -195,9 +224,9 @@ public class OutputController {
     }
 
     private void updateHeaderLine() {
-        this.exitConditionLabel.setText(config.getEquilibriumCriterionName());
+        this.exitConditionLabel.setText("Equilibrium criterion: " + config.getEquilibriumCriterionName());
 
-        this.multiconfigurationLabel.setText(config.isMulticonfiguration() ? "Yes" : "No");
+        this.multiconfigurationLabel.setText("Multiconfiguration: " + (config.isMulticonfiguration() ? "Yes" : "No"));
 
         this.multiconfigurationParameterNameLabel.setVisible(config.isMulticonfiguration());
         if (config.isMulticonfiguration())
@@ -211,12 +240,20 @@ public class OutputController {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab == detailedOutputTab) {
             tabPane.getSelectionModel().select(abstractedOutputTab);
+            pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
         }
         if (selectedTab == multiConfigOutputTab) {
             tabPane.getSelectionModel().select(detailedOutputTab);
+            pageTitle.setText(DETAILED_OUTPUT_TITLE);
         }
         if (selectedTab == abstractedOutputTab) {
-            tabPane.getSelectionModel().select(config.isMulticonfiguration() ? multiConfigOutputTab : detailedOutputTab);
+            if (config.isMulticonfiguration()) {
+                tabPane.getSelectionModel().select(multiConfigOutputTab);
+                pageTitle.setText(MULTICONFIGURATION_OUTPUT_TITLE);
+            } else {
+                tabPane.getSelectionModel().select(detailedOutputTab);
+                pageTitle.setText(DETAILED_OUTPUT_TITLE);
+            }
         }
     }
 
@@ -225,30 +262,41 @@ public class OutputController {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab == multiConfigOutputTab) {
             tabPane.getSelectionModel().select(abstractedOutputTab);
+            pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
         }
         if (selectedTab == abstractedOutputTab) {
             tabPane.getSelectionModel().select(detailedOutputTab);
+            pageTitle.setText(DETAILED_OUTPUT_TITLE);
         }
         if (selectedTab == detailedOutputTab) {
-            tabPane.getSelectionModel().select(config.isMulticonfiguration() ? multiConfigOutputTab : abstractedOutputTab);
+            if (config.isMulticonfiguration()) {
+                tabPane.getSelectionModel().select(multiConfigOutputTab);
+                pageTitle.setText(MULTICONFIGURATION_OUTPUT_TITLE);
+            } else {
+                tabPane.getSelectionModel().select(abstractedOutputTab);
+                pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
+            }
         }
     }
 
     @FXML
     private void handleToDetailedOutput(ActionEvent event) {
         tabPane.getSelectionModel().select(detailedOutputTab);
+        pageTitle.setText(DETAILED_OUTPUT_TITLE);
         ;
     }
 
     @FXML
     private void handleToAbstractedOutput(ActionEvent event) {
         tabPane.getSelectionModel().select(abstractedOutputTab);
+        pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
     }
 
     @FXML
     private void handleToMultiOutput(ActionEvent event) {
         if (config.isMulticonfiguration()) {
             tabPane.getSelectionModel().select(multiConfigOutputTab);
+            pageTitle.setText(MULTICONFIGURATION_OUTPUT_TITLE);
         }
     }
     
@@ -289,27 +337,51 @@ public class OutputController {
     /*-----------------------------------private helpers-----------------------------------*/
 
     private void deactivateAll() {
-        this.gameNameLabel.setVisible(false);
-        this.gameIdLabel.setVisible(false);
-        this.exitConditionLabel.setVisible(false);
-        this.multiconfigurationLabel.setVisible(false);
-        this.multiconfigurationParameterNameLabel.setVisible(false);
-        this.saveButton.setDisable(true);
-        this.toDetailedOutput.setDisable(true);
-        this.toAbstractedOutput.setDisable(true);
-        this.toMultiOutput.setDisable(true);
+        hide(this.checkGlyph);
+        hide(this.gameNameLabel);
+        hide(this.gameIdLabel);
+        hide(this.sep1);
+        hide(this.sep2);
+        hide(this.exitConditionLabel);
+        hide(this.multiconfigurationLabel);
+        hide(this.multiconfigurationParameterNameLabel);
+        hide(this.saveButton);
+        hide(this.importButton);
+        hide(this.toLeft);
+        hide(this.toRight);
+        hide(this.pageTitle);
+        //this.toDetailedOutput.setDisable(true);
+        //this.toAbstractedOutput.setDisable(true);
+        //this.toMultiOutput.setDisable(true);
     }
 
     private void activateAll() {
-        this.gameNameLabel.setVisible(true);
-        this.gameIdLabel.setVisible(true);
-        this.exitConditionLabel.setVisible(true);
-        this.multiconfigurationLabel.setVisible(true);
-        this.multiconfigurationParameterNameLabel.setVisible(true);
-        this.saveButton.setDisable(false);
-        this.toDetailedOutput.setDisable(false);
-        this.toAbstractedOutput.setDisable(false);
-        this.toMultiOutput.setDisable(false);
+        unHide(this.checkGlyph);
+        unHide(this.gameNameLabel);
+        unHide(this.gameIdLabel);
+        unHide(this.sep1);
+        unHide(this.sep2);
+        unHide(this.exitConditionLabel);
+        unHide(this.multiconfigurationLabel);
+        unHide(this.multiconfigurationParameterNameLabel);
+        unHide(this.saveButton);
+        unHide(this.importButton);
+        unHide(this.toLeft);
+        unHide(this.toRight);
+        unHide(this.pageTitle);
+        //this.toDetailedOutput.setDisable(false);
+        //this.toAbstractedOutput.setDisable(false);
+        //this.toMultiOutput.setDisable(false);
+    }
+    
+    private void hide(Node node) {
+        node.setDisable(true);
+        node.setVisible(false);
+    }
+    
+    private void unHide(Node node) {
+        node.setDisable(false);
+        node.setVisible(true);
     }
 
     //highlight buttons?

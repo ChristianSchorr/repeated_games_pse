@@ -14,8 +14,7 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625" prefWidth="800"
-      style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+<VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.NewGameController">
     <VBox prefWidth="780.0" spacing="10" styleClass="card">
 
