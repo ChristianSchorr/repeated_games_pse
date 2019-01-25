@@ -1,6 +1,7 @@
 package loop.model.simulationengine;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * In an instance of this class, the results of a nished iteration are stored:
@@ -20,6 +21,7 @@ public class IterationResult {
     private boolean equilibriumReached;
     private double efficiency;
     private int adapts;
+    private List<Map<String, Double>> strategyDistributions;
     
     /**
      * Creates a new iteration result.
@@ -31,12 +33,13 @@ public class IterationResult {
      * @param adapts the number of performed adaption steps
      */
     public IterationResult(List<Agent> agents, SimulationHistory history, boolean equilibriumReached,
-            double efficiency, int adapts) {
+            double efficiency, int adapts, List<Map<String, Double>> strategyDistributions) {
         this.agents = agents;
         this.history = history;
         this.equilibriumReached = equilibriumReached;
         this.efficiency = efficiency;
         this.adapts = adapts;
+        this.strategyDistributions = strategyDistributions;
     }
     
     /**
@@ -82,5 +85,14 @@ public class IterationResult {
      */
     public int getAdapts() {
         return this.adapts;
+    }
+    
+    /**
+     * Return the strategy distributions of all adaption steps.
+     * 
+     * @return the strategy distributions of all adaption steps
+     */
+    public List<Map<String, Double>> getStrategyDistributions() {
+        return this.strategyDistributions;
     }
 }

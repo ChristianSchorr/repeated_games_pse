@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.scene.chart.PieChart;
 import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.RealVector;
 import loop.model.simulationengine.strategies.Strategy;
@@ -29,6 +32,8 @@ public class SimulationEngine {
     private boolean equilibriumReached;
     private Configuration configuration;
     
+    private List<Map<String, Double>> strategyDistributions;
+    
     private boolean printInfo = false;
     private int printPeriod = 5;
     private int printCounter;
@@ -50,6 +55,7 @@ public class SimulationEngine {
         successQuantifier = configuration.getSuccessQuantifier();
         strategyAdjuster = configuration.getStrategyAdjuster();
         equilibriumCriterion = configuration.getEquilibriumCriterion();
+        strategyDistributions = new ArrayList<Map<String, Double>>();
         
         adaptionsteps = 0;
         equilibriumReached = false;
@@ -58,6 +64,7 @@ public class SimulationEngine {
         
         while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
+            calculateStrategyDistribution();
             printStepInfo();
         }
         
@@ -93,9 +100,43 @@ public class SimulationEngine {
         adaptionsteps++;
     }
     
+    private void calculateStrategyDistribution() {
+        //initialise map
+        Map<String, Double> portions = new HashMap<String, Double>();
+        
+        if (configuration.allowsMixedStrategies()) {
+            //cast to mixed strategies
+            List<MixedStrategy> mixedStrategies = agents.stream().map(a -> (MixedStrategy) a.getStrategy()).collect(Collectors.toList());
+
+            List<Strategy> pureStrategies = mixedStrategies.get(0).getComponentStrategies();
+            for (Strategy s : pureStrategies) {
+                portions.put(s.getName(), 0.0);
+            }
+
+            //calculate portions
+            for (MixedStrategy s : mixedStrategies) {
+                for (int i = 0; i < s.getSize(); i++) {
+                    portions.put(s.getComponentStrategies().get(i).getName(),
+                            portions.get(s.getComponentStrategies().get(i).getName()) + s.getComponent(i));
+                }
+            }
+        } else { //only pure strategies
+            List<Strategy> strategies = agents.stream().map(a -> a.getStrategy()).collect(Collectors.toList());
+            //calculate strategy counts
+            for (Strategy s : strategies) {
+                if (!portions.containsKey(s.getName()))
+                    portions.put(s.getName(), 0.0);
+                portions.put(s.getName(), portions.get(s.getName()) + 1.0);
+            }
+        }
+        double n = (double) agents.size();
+        portions.forEach((s, d) -> d /= n);
+        strategyDistributions.add(portions);
+    }
+    
     private IterationResult createResult() {
         double efficiency = calculateEfficiency();
-        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps);
+        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps, strategyDistributions);
     }
     
     private void playGame(AgentPair pair) {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 import javafx.event.ActionEvent;
@@ -153,7 +154,7 @@ public class AbstractedOutputController {
      * @param result the result that shall be displayed
      */
     public void setDisplayedResult(SimulationResult result) {
-        if (chartUpdater != null) {
+        if (chartUpdater != null && !chartUpdater.isDone()) {
             chartUpdater.cancel(true);
         }
 
@@ -195,10 +196,10 @@ public class AbstractedOutputController {
     }
 
     private void updateCharts() {
-        if (chartUpdater != null) {
+        if (chartUpdater != null && !chartUpdater.isDone()) {
             chartUpdater.cancel(true);
-        }/*
-        chartUpdater = CompletableFuture.supplyAsync(() -> {
+        }
+        /*chartUpdater = CompletableFuture.supplyAsync(() -> {
             ChartUpdater updater = new ChartUpdater();
             updater.run();
             return null;
