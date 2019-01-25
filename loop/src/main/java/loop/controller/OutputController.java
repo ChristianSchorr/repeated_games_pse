@@ -245,7 +245,23 @@ public class OutputController {
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
         if (saveFile == null) return;
-        FileIO.saveResult(displayedResult, saveFile);
+        new Thread(new ResultSaver(saveFile, displayedResult)).run();
+    }
+    
+    private class ResultSaver implements Runnable {
+        
+        File saveFile;
+        SimulationResult result;
+        
+        private ResultSaver(File saveFile, SimulationResult result) {
+            this.saveFile = saveFile;
+            this.result = result;
+        }
+
+        @Override
+        public void run() {
+            FileIO.saveResult(result, saveFile);
+        }
     }
 
     /*-----------------------------------private helpers-----------------------------------*/
