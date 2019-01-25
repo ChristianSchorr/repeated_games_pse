@@ -971,3 +971,12 @@
 		1.5);
 	-fx-padding: 5 5 5 5;
 }
+
+
+/*---tab-pane---*/
+.hiding-tab-pane {
+    -fx-tab-max-height: 0 ;
+}
+.hiding-tab-pane .tab-header-area {
+    visibility: hidden ;
+}
