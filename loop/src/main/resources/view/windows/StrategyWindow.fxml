@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.glyphfont.Glyph?>
+<?import javafx.scene.control.TextField?>
+
+<?import javafx.scene.control.ComboBox?>
+<VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
+      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="loop.controller.StrategyControler">
+    <VBox spacing="10" styleClass="card">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="80"/>
+                <ColumnConstraints percentWidth="20"/>
+            </columnConstraints>
+            <VBox spacing="10">
+                <Label styleClass="card-title" text="Strategie erstellen"/>
+                <Label styleClass="card-subtitle" text="Hier können neue und eigene Strategien erstellt werden"/>
+                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name der Strategie" maxWidth="350" />
+                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Beschreibung der Strategie"/>
+            </VBox>
+            <HBox GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <Button styleClass="setting-button" onAction="#reset">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
+                <Button>
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
+                <Button onAction="#applyStrategy">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
+            </HBox>
+        </GridPane>
+        <Separator style="-fx-padding: 10 0;"/>
+        <FlowPane fx:id="strategyContainer" hgap="10" vgap="10">
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="Der"/>
+                <ChoiceBox fx:id="cooperationParticipants" prefHeight="42.0" prefWidth="106.0"/>
+                <Label text="hat"/>
+                <ChoiceBox fx:id="cooperationQuantors" prefHeight="42.0" prefWidth="83.0" />
+                <Label text="kooperiert"/>
+                <Button onAction="#handleAddCooperation">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="Der Gegenspieler hat ein"/>
+                <ChoiceBox fx:id="capitalBox" prefHeight="42.0" prefWidth="77.0" />
+                <Label text="Absolutkapital"/>
+                <Button onAction="#handleAddCapital">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="Der Gegenspieler hat eine"/>
+                <ChoiceBox fx:id="rankBox" prefHeight="42.0" prefWidth="76.0" />
+                <Label text="Rang"/>
+                <Button disable="true">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label text="Der Gegenspieler ist in der selben Gruppe"/>
+                <Button onAction="#handleAddGroup">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+        </FlowPane>
+        <FlowPane fx:id="operatorContainer" hgap="10" vgap="10">
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="NOT"/>
+                <Button onAction="#addNot">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="AND"/>
+                <Button onAction="#addAnd">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="OR"/>
+                <Button onAction="#addOr">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+        </FlowPane>
+        <Separator style="-fx-padding: 10 0;"/>
+        <Label text="Wenn:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+        <FlowPane fx:id="expressionContainer" hgap="10" vgap="10"/>
+        <FlowPane hgap="10" vgap="10">
+            <Label text="Dann:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <ChoiceBox fx:id="thenBox"/>
+            </HBox>
+            <Label text="Sonst:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
+                <ChoiceBox fx:id="elseBox"/>
+            </HBox>
+        </FlowPane>
+    </VBox>
+</VBox>

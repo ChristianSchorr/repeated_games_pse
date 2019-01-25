@@ -29,6 +29,13 @@ public interface Repository<T> {
 	 * @return the entities with the given names
 	 */
 	public List<T> getEntitiesByNames(List<String> names);
+
+	/**
+	 * Returns all entities in this repository
+	 *
+	 * @return all entities in this repository
+	 */
+	public List<T> getAllEntities();
 	
 	/**
 	 * Adds a new entity with the given name to the repository, if no entity with
