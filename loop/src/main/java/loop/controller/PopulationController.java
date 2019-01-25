@@ -144,7 +144,9 @@ public class PopulationController implements CreationController<Population> {
         }
         
         //reset
-        agentCountProperty.setValue(0);
+        this.groupSelectionBox.getSelectionModel().select(0);
+        agentCountProperty.setValue(20);
+        totalAgentCountProperty.setValue(0);
         this.populationDescriptionTextField.setText("");
         this.populationNameTextField.setText("");
         groupPane.getChildren().clear();
@@ -154,16 +156,8 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void handleSavePopulationButton(ActionEvent event) {        
-        if (populationNameTextField.getText().trim().equals("") || populationDescriptionTextField.getText().trim().equals("")) {
-            Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        } else if (this.selectedGroups.isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR, "A population must consist of at least one group.", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
+    void exportPopulation(ActionEvent event) {        
+        if (!validateSettings(true)) return;
         
         Population population = createPopulation();
         
@@ -189,9 +183,33 @@ public class PopulationController implements CreationController<Population> {
             alert.showAndWait();
             return;
         }
+    }
+    
+    @FXML
+    void savePopulation() {
+        if (!validateSettings(true)) return;
+        
+        Population population = createPopulation();
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(population));
         this.stage.close();
+    }
+    
+    private boolean validateSettings(boolean alertIfFaulty) {
+        if (populationNameTextField.getText().trim().equals("") || populationDescriptionTextField.getText().trim().equals("")) {
+            if (alertIfFaulty) {
+                Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return false;
+        } else if (this.selectedGroups.isEmpty()) {
+            if (alertIfFaulty) {
+                Alert alert = new Alert(AlertType.ERROR, "A population must consist of at least one group.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return false;
+        }
+        return true;
     }
     
     @FXML
