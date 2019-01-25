@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
@@ -113,7 +114,6 @@ public class TextFieldPluginControl extends PluginControl {
         DoubleProperty prop = new SimpleDoubleProperty();
         field.textProperty().bindBidirectional(prop, new NumberStringConverter());
         registerValidation(field, p);
-        properties.add(prop);
         HBox box = new HBox();
         box.setSpacing(10);
         box.setAlignment(Pos.CENTER_LEFT);
@@ -121,7 +121,17 @@ public class TextFieldPluginControl extends PluginControl {
         field.setMaxWidth(50);
         field.setAlignment(Pos.CENTER);
         box.getChildren().addAll(label, field);
+        label.setTooltip(createTooltip(p.getDescription()));
         itemBox.getChildren().add(box);
+        properties.add(prop);
+    }
+
+    private Tooltip createTooltip(String desc) {
+        Tooltip tooltip = new Tooltip(desc);
+        tooltip.getStyleClass().add("ttip");
+        tooltip.setWrapText(true);
+        tooltip.setPrefWidth(600);
+        return tooltip;
     }
 
     private void registerValidation(TextField field, Parameter p) {

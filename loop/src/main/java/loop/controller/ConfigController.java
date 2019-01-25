@@ -204,12 +204,12 @@ public class ConfigController implements CreationController<UserConfiguration> {
         });
 
         startValueProperty.addListener((c, oldV, newV) -> {
-            String endVal =  endValue.getText();
+            String endVal = endValue.getText();
             endValue.setText(endVal + "#");
             endValue.setText(endVal);
         });
-        endValueProperty.addListener((c, oldV, newV) ->  {
-            String startVal =  startValue.getText();
+        endValueProperty.addListener((c, oldV, newV) -> {
+            String startVal = startValue.getText();
             startValue.setText(startVal + "#");
             startValue.setText(startVal);
         });
@@ -352,6 +352,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         pairBuilderControl = pairBuilderPlugin.getRenderer().renderPlugin();
         pairBuilderContainer.getChildren().clear();
         pairBuilderContainer.getChildren().add(pairBuilderControl);
+        pairBuilderBox.setTooltip(createTooltip(pairBuilderPlugin.getDescription()));
 
         Plugin<PairBuilder> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, pairBuilderPlugin, MulticonfigurationParameterType.PB_PARAM);
@@ -364,6 +365,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         successQuantifierControl = successQuantifierPlugin.getRenderer().renderPlugin();
         successQuantifierContainer.getChildren().clear();
         successQuantifierContainer.getChildren().add(successQuantifierControl);
+        successQuantifierBox.setTooltip(createTooltip(successQuantifierPlugin.getDescription()));
 
         Plugin<SuccessQuantifier> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, successQuantifierPlugin, MulticonfigurationParameterType.SQ_PARAM);
@@ -376,7 +378,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         strategyAdjusterControl = strategyAdjusterPlugin.getRenderer().renderPlugin();
         strategyAdjusterContainer.getChildren().clear();
         strategyAdjusterContainer.getChildren().add(strategyAdjusterControl);
-
+        strategyAdjusterBox.setTooltip(createTooltip(strategyAdjusterPlugin.getDescription()));
 
         Plugin<StrategyAdjuster> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, strategyAdjusterPlugin, MulticonfigurationParameterType.SA_PARAM);
@@ -389,8 +391,18 @@ public class ConfigController implements CreationController<UserConfiguration> {
         equilibriumCriterionControl = equilibriumCriterionPlugin.getRenderer().renderPlugin();
         equilibriumCriterionContainer.getChildren().clear();
         equilibriumCriterionContainer.getChildren().add(equilibriumCriterionControl);
+        equilibriumCriterionBox.setTooltip(createTooltip(equilibriumCriterionPlugin.getDescription()));
+
         Plugin<EquilibriumCriterion> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, equilibriumCriterionPlugin, MulticonfigurationParameterType.EC_PARAM);
+    }
+
+    private Tooltip createTooltip(String desc) {
+        Tooltip tooltip = new Tooltip(desc);
+        tooltip.getStyleClass().add("ttip");
+        tooltip.setWrapText(true);
+        tooltip.setPrefWidth(600);
+        return tooltip;
     }
 
     private <T> void updateMultiParamBox(Plugin<T> oldPlugin, Plugin<T> newPlugin, MulticonfigurationParameterType type) {

@@ -971,3 +971,7 @@
 		1.5);
 	-fx-padding: 5 5 5 5;
 }
+
+.ttip {
+    -fx-background-color: -swatch-400;
+}

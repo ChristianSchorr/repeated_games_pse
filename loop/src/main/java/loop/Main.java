@@ -53,7 +53,7 @@ public class Main extends Application {
             Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
 
             objTimer.getKeyFrames().clear();
-            objTimer.getKeyFrames().add(new KeyFrame(new Duration(100)));
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(500)));
 
             Field hideTimer = objBehavior.getClass().getDeclaredField("hideTimer");
             hideTimer.setAccessible(true);
