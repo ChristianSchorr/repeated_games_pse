@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.layout.HBox;
 import org.controlsfx.control.ListSelectionView;
 
 import javafx.beans.value.ChangeListener;
@@ -186,7 +189,7 @@ public class GroupController implements CreationController<Group> {
 	void saveGroup() {
 	    if (!validateSettings(true)) return;
 	    
-	    //TODO unschön, aber wie sonst?
+	    //TODO unschï¿½n, aber wie sonst?
         if (CentralRepository.getInstance().getGroupRepository().containsEntityName(groupNameTextField.getText())) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "A group with this name already exists. Do you want to overwrite it? Note that"
                     + " in that case all populations currently containing the overwritten group would from now on contain this one instead.",
@@ -311,7 +314,7 @@ public class GroupController implements CreationController<Group> {
 		private ChoiceBox<String> distributionChoice;
 		
 		@FXML
-		private Pane distributionPluginPane;
+		private HBox distributionPluginPane;
 		
 		@FXML
 		private ListSelectionView<String> strategyChoice;

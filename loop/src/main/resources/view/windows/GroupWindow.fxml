@@ -15,90 +15,73 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<ScrollPane fitToWidth="true" style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-	      xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.GroupController">
-	<VBox>
-	    <VBox prefWidth="780.0" spacing="10" styleClass="card">
-	
-	        <GridPane>
-	            <columnConstraints>
-	                <ColumnConstraints percentWidth="80" />
-	                <ColumnConstraints percentWidth="20" />
-	            </columnConstraints>
-	            <VBox spacing="10">
-	                <Label styleClass="card-title" text="Create a new group" />
-	                <Label styleClass="card-subtitle" text="Here you can create new and own groups" />
-	                <TextField fx:id="groupNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name of the group" />
-	                <TextField fx:id="descriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
-	            </VBox>
-		            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
-		            	<MenuButton>
-		            		<items>
-		            			<MenuItem text="Import from file" onAction="#importGroup"/>
-		            			<Menu text="Locally stored" fx:id="loadMenu"/>
-		            		</items>
-		            		<graphic>
-		                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
-		                    </graphic>
-		                    <tooltip>
-		                    	<Tooltip text="Load existing group"/>
-		                    </tooltip>
-		            	</MenuButton>
-		                <Button onAction="#resetGroup" styleClass="setting-button">
-	                    <graphic>
-	                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
-	                    </graphic>
-	                    <tooltip>
-	                    	<Tooltip text="Reset all settings"/>
-	                    </tooltip>
-	                </Button>
-	                <Button onAction="#exportGroup">
-	                    <graphic>
-	                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
-	                    </graphic>
-	                    <tooltip>
-	                    	<Tooltip text="Export the created group as a file"/>
-	                    </tooltip>
-	                </Button>
-	                <Button onAction="#saveGroup">
-	                	<graphic>
-	                		<Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00" />
-	            		</graphic>
-	            		<tooltip>
-	            			<Tooltip text="Save the created group and close this window"/>
-	            		</tooltip>
-	                </Button>
-	            </HBox>
-	            <rowConstraints>
-	                <RowConstraints />
-	            </rowConstraints>
-	        </GridPane>
-	
-	        <Separator style="-fx-padding: 10 0;" />
-	
-	        <VBox spacing="10">
-	            <Label styleClass="card-subtitle" text="Segment configurations" />
-	            <GridPane hgap="50">
-	                <columnConstraints>
-	                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" />
-	                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-	                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-	                </columnConstraints>
-	                <rowConstraints>
-	                    <RowConstraints minHeight="10.0" />
-	                    <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-	                </rowConstraints>
-	                <!-- <Slider fx:id="segmentProportionsSlider"/> -->
-	                <HBox alignment="CENTER_LEFT" spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
-	                    <Button onAction="#handleAddSegment" styleClass="rounded-button" text="+" />
-	                    <Label styleClass="control-label" text="Add segment" />
-	                </HBox>
-	                <HBox alignment="CENTER_LEFT" spacing="20" GridPane.columnIndex="2" GridPane.rowIndex="0">
-	                    <CheckBox fx:id="isCohesiveCheckBox" mnemonicParsing="false" text="Group is cohesive" />
-	                </HBox>
-	            </GridPane>
-	            <TabPane fx:id="segmentTabs"/>
-	        </VBox>
-	    </VBox>
-	</VBox>
+<ScrollPane fitToWidth="true" style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
+            xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.GroupController">
+    <VBox spacing="10" styleClass="card">
+        <HBox spacing="50" alignment="TOP_LEFT">
+            <VBox spacing="10">
+                <Label styleClass="card-title" text="Create a new group"/>
+                <Label styleClass="card-subtitle" text="Here you can create new and own groups"/>
+                <TextField fx:id="groupNameTextField" alignment="CENTER_LEFT" maxWidth="350"
+                           promptText="Name of the group"/>
+                <TextField fx:id="descriptionTextField" alignment="CENTER_LEFT" promptText="Description"/>
+            </VBox>
+            <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 40">
+                <MenuButton style="-fx-padding : 5">
+                    <items>
+                        <MenuItem text="Import from file" onAction="#importGroup"/>
+                        <Menu text="Locally stored" fx:id="loadMenu"/>
+                    </items>
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Load existing group"/>
+                    </tooltip>
+                </MenuButton>
+                <Button onAction="#resetGroup" styleClass="setting-button">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT"
+                               style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Reset all settings"/>
+                    </tooltip>
+                </Button>
+                <Button onAction="#exportGroup">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Export the created group as a file"/>
+                    </tooltip>
+                </Button>
+                <Button onAction="#saveGroup">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Save the created group and close this window"/>
+                    </tooltip>
+                </Button>
+            </HBox>
+        </HBox>
+
+        <Separator style="-fx-padding: 10 0;"/>
+
+        <VBox spacing="10">
+            <HBox spacing="50" alignment="CENTER_LEFT">
+                <Label styleClass="card-subtitle" text="Segment configurations"/>
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <Button onAction="#handleAddSegment" styleClass="rounded-button" text="+"/>
+                    <Label styleClass="control-label" text="Add segment"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <CheckBox fx:id="isCohesiveCheckBox" mnemonicParsing="false" text="Group is cohesive"/>
+                </HBox>
+            </HBox>
+            <TabPane fx:id="segmentTabs"/>
+        </VBox>
+    </VBox>
 </ScrollPane>

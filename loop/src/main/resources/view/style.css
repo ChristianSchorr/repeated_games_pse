@@ -984,3 +984,7 @@
 .hiding-tab-pane .tab-header-area {
     visibility: hidden ;
 }
+
+.hiding-tab-pane .tab-content-area {
+    -fx-border-width: 0;
+}
