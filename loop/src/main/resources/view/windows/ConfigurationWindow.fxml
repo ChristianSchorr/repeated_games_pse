@@ -188,7 +188,7 @@
                         </VBox>
                         <Separator orientation="VERTICAL" style="-fx-padding: 10 0" GridPane.columnIndex="1" />
                         <VBox GridPane.columnIndex="2">
-                            <Label alignment="TOP_CENTER" prefHeight="73.0" prefWidth="411.0" text="Einstellung des variablen Konfigurationsparameter für Multikonfigurationen" wrapText="true" />
+                            <Label alignment="TOP_CENTER" prefHeight="73.0" prefWidth="411.0" text="Settings for the selected multiconfiguration parameter" wrapText="true" />
                             <GridPane hgap="30" vgap="10">
                                 <ChoiceBox fx:id="multiParamBox" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                                 <Label styleClass="control-label" text="Start value:" GridPane.columnIndex="0" GridPane.rowIndex="1" />

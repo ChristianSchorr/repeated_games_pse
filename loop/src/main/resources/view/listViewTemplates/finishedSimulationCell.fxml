@@ -19,12 +19,12 @@
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Glyph fontFamily="FontAwesome" fontSize="20" icon="CLOCK_ALT"/>
-            <Label text="Laufzeit: "/>
+            <Label text="Duration: "/>
             <Label fx:id="totalDurationLabel"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Glyph fontFamily="FontAwesome" fontSize="20" icon="CALENDAR"/>
-            <Label text="Beendet:"/>
+            <Label text="Finished:"/>
             <Label fx:id="finishedTimeLabel"/>
         </HBox>
     </VBox>

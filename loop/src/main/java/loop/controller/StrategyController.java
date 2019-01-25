@@ -112,20 +112,20 @@ public class StrategyController implements CreationController<Strategy> {
         elseProperty.setValue(stratNames.get(0));
 
         participants = new ArrayList<>();
-        participants.add("Der Gegenspieler");
-        participants.add("Der aktuelle Agent");
-        participants.add("Ein Agent aus der Gruppe");
+        participants.add("The opponent");
+        participants.add("The agent himself");
+        participants.add("An agent of the same group");
 
         quantors = new ArrayList<>();
-        quantors.add("jedes Mal");
-        quantors.add("einmal");
-        quantors.add("letztes Mal");
-        quantors.add("niemals");
+        quantors.add("every time");
+        quantors.add("once");
+        quantors.add("last time");
+        quantors.add("never");
 
         assesment = new ArrayList<>();
-        assesment.add("höheres");
-        assesment.add("niedrigeres");
-        assesment.add("ähnliches");
+        assesment.add("higher");
+        assesment.add("lower");
+        assesment.add("similar");
 
         cooperationParticipants.setItems(FXCollections.observableArrayList(participants));
         cooperationParticipants.valueProperty().bindBidirectional(coopParticipantProperty);

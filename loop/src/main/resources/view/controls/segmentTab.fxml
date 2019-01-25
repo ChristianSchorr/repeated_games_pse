@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.Pane?>
 <ScrollPane styleClass="card" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:id = "content" fitToWidth="true">
 <VBox prefWidth="780.0" spacing="10" >
-    <Label styleClass="card-subtitle" text="Initiales Kapital" />
+    <Label styleClass="card-subtitle" text="Initial capital" />
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label styleClass="control-label" text="Verteilungsfunktion"/>
+        <Label styleClass="control-label" text="Distribution function"/>
         <ChoiceBox fx:id="distributionChoice"/>
     </HBox>
     <GridPane alignment="CENTER" hgap="10">
@@ -32,7 +32,7 @@
             <RowConstraints />
         </rowConstraints>
     </GridPane>
-    <Label styleClass="card-subtitle" text="Initiale Strategien" />
+    <Label styleClass="card-subtitle" text="Initial strategies" />
     <GridPane alignment="CENTER" hgap="10">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" />
@@ -41,10 +41,10 @@
         <Separator orientation="VERTICAL" GridPane.columnIndex="0" />
         <ListSelectionView fx:id = "strategyChoice" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
             <sourceHeader>
-                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="verfügbare Strategien" />
+                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Available strategies" />
             </sourceHeader>
             <targetHeader>
-                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="ausgewählte Strategien" />
+                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Selected strategies" />
             </targetHeader>
         </ListSelectionView>
         <rowConstraints>

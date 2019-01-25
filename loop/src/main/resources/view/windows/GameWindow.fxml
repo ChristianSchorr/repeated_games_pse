@@ -26,7 +26,7 @@
             </columnConstraints>
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new game" />
-                <Label styleClass="card-subtitle" text="Here you can create your own games" />
+                <Label styleClass="card-subtitle" text="Here you can create new and own games" />
                 <TextField fx:id="gameNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name of the game" />
                 <TextField fx:id="gameDescriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
             </VBox>

@@ -12,10 +12,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
 <VBox xmlns:fx="http://javafx.com/fxml" style="@../style.css" fx:id="container">
-    <Label styleClass="card-title" text="Auftragungen über den Multikonfigurationsparameter" wrapText="true" />
+    <Label styleClass="card-title" text="Applications over the multiconfiguration parameter" wrapText="true" />
     <GridPane hgap="10">
         <VBox>
-            <!-- <Label styleClass="card-subtitle" text="Effizienz und Häufigkeit der Gleichgewichte" wrapText="true" /> -->
+            <!-- <Label styleClass="card-subtitle" text="Efficiency and frequency of the equilibriums" wrapText="true" /> -->
             <LineChart fx:id="efficiencyAndFrequencyChart" createSymbols="false">
                 <xAxis>
                     <NumberAxis autoRanging="false" side="BOTTOM"/>
@@ -26,7 +26,7 @@
             </LineChart>
         </VBox>
         <VBox GridPane.columnIndex="1">
-            <!-- <Label styleClass="card-subtitle" text="Einstellungsdauer bis zu den Gleichgewichten" /> -->
+            <!-- <Label styleClass="card-subtitle" text="Duration until an equilibrium was found" /> -->
             <LineChart fx:id="executedAdaptsChart" createSymbols="false">
                 <xAxis>
                     <NumberAxis autoRanging="false" side="BOTTOM"/>

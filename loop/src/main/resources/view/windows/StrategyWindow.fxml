@@ -26,10 +26,10 @@
                 <ColumnConstraints percentWidth="20"/>
             </columnConstraints>
             <VBox spacing="10">
-                <Label styleClass="card-title" text="Strategie erstellen"/>
-                <Label styleClass="card-subtitle" text="Hier können neue und eigene Strategien erstellt werden"/>
-                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name der Strategie" maxWidth="350" />
-                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Beschreibung der Strategie"/>
+                <Label styleClass="card-title" text="Create a new strategy"/>
+                <Label styleClass="card-subtitle" text="Here you can create new and own strategies"/>
+                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name of the strategy" maxWidth="350" />
+                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Description"/>
             </VBox>
             <HBox GridPane.columnIndex="1" alignment="CENTER" spacing="10">
                 <Button styleClass="setting-button" onAction="#reset">
@@ -52,11 +52,11 @@
         <Separator style="-fx-padding: 10 0;"/>
         <FlowPane fx:id="strategyContainer" hgap="10" vgap="10">
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der"/>
+                <Label text="The"/>
                 <ChoiceBox fx:id="cooperationParticipants" prefHeight="42.0" prefWidth="106.0"/>
-                <Label text="hat"/>
+                <Label text="has"/>
                 <ChoiceBox fx:id="cooperationQuantors" prefHeight="42.0" prefWidth="83.0" />
-                <Label text="kooperiert"/>
+                <Label text="cooperated"/>
                 <Button onAction="#handleAddCooperation">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
@@ -64,9 +64,9 @@
                 </Button>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der Gegenspieler hat ein"/>
+                <Label text="The opponent has a"/>
                 <ChoiceBox fx:id="capitalBox" prefHeight="42.0" prefWidth="77.0" />
-                <Label text="Absolutkapital"/>
+                <Label text="total capital"/>
                 <Button onAction="#handleAddCapital">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
@@ -74,9 +74,9 @@
                 </Button>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der Gegenspieler hat eine"/>
+                <Label text="The opponent has a"/>
                 <ChoiceBox fx:id="rankBox" prefHeight="42.0" prefWidth="76.0" />
-                <Label text="Rang"/>
+                <Label text="rank"/>
                 <Button disable="true">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
@@ -84,7 +84,7 @@
                 </Button>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der Gegenspieler ist in der selben Gruppe"/>
+                <Label text="The opponent is in the same group"/>
                 <Button onAction="#handleAddGroup">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
@@ -119,14 +119,14 @@
             </HBox>
         </FlowPane>
         <Separator style="-fx-padding: 10 0;"/>
-        <Label text="Wenn:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+        <Label text="If:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
         <FlowPane fx:id="expressionContainer" hgap="10" vgap="10"/>
         <FlowPane hgap="10" vgap="10">
-            <Label text="Dann:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <Label text="Then:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <ChoiceBox fx:id="thenBox"/>
             </HBox>
-            <Label text="Sonst:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <Label text="Else:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <ChoiceBox fx:id="elseBox"/>
             </HBox>

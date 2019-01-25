@@ -47,11 +47,11 @@
             </rowConstraints>
         </GridPane>
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label styleClass="control-label" text="Abbruchbedingung: " />
+            <Label styleClass="control-label" text="Exit condition: " />
             <Label fx:id="exitConditionLabel" />
-            <Label styleClass="control-label" text="Multikonfiguration: " />
+            <Label styleClass="control-label" text="Multiconfiguration: " />
             <Label fx:id="multiconfigurationLabel" />
-            <Label styleClass="control-label" text="Multikonfig. Parameter: " />
+            <Label styleClass="control-label" text="Multiconfig. parameter: " />
             <Label fx:id="multiconfigurationParameterNameLabel" />
         </HBox>
         <Separator style="-fx-padding: 10 0" />
