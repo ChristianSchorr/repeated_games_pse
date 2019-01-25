@@ -279,7 +279,6 @@ public class HeadController {
 
     @FXML
     void openNewStrategyWindow(ActionEvent event) {
-	    /*
 		Parent newStrategyParent = null;
 		try {
 			newStrategyParent = FXMLLoader.load(getClass().getResource("/view/windows/StrategyWindow.fxml"));
@@ -294,7 +293,6 @@ public class HeadController {
         // Specifies the modality for new window.
         newStrategyWindow.initModality(Modality.WINDOW_MODAL);
         newStrategyWindow.show();
-        */
     }
 
     @FXML

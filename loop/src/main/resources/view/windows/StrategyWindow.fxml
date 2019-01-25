@@ -18,7 +18,7 @@
 <?import javafx.scene.control.ComboBox?>
 <VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
       xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="loop.controller.StrategyControler">
+      fx:controller="loop.controller.StrategyController">
     <VBox spacing="10" styleClass="card">
         <GridPane>
             <columnConstraints>
