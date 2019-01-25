@@ -96,21 +96,16 @@ public class NewGameController implements CreationController<Game> {
     
     @FXML
     void exportGame() {
-        Game game;
-        try {
-            game = createGame();
-        } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
+        if (!validateSettings(true)) return;
+        
+        Game game = createGame();
         
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Game");
         fileChooser.setInitialDirectory(FileIO.GAME_DIR);
         fileChooser.setInitialFileName(game.getName().toLowerCase());
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Game File", ".gam");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Game File", "*.gam");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);
         
@@ -126,19 +121,48 @@ public class NewGameController implements CreationController<Game> {
             alert.showAndWait();
             return;
         };
+    }
+    
+    @FXML
+    void saveGame() {
+        if (!validateSettings(true)) return;
+        
+        Game game = createGame();
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(game));
         stage.close();
     }
     
-    @FXML
-    void saveGame() {
-        
+    private boolean validateSettings(boolean alertIfFaulty) {
+        if (gameNameTextField.getText().trim().equals("") || gameDescriptionTextField.getText().trim().equals("")) {
+            if (alertIfFaulty) {
+                Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return false;
+        }
+        try {
+            Integer.parseInt(cc1TextField.getText());
+            Integer.parseInt(cn1TextField.getText());
+            Integer.parseInt(nc1TextField.getText());
+            Integer.parseInt(nn1TextField.getText());
+            Integer.parseInt(cc2TextField.getText());
+            Integer.parseInt(cn2TextField.getText());
+            Integer.parseInt(nc2TextField.getText());
+            Integer.parseInt(nn2TextField.getText());
+        } catch (NumberFormatException e) {
+            if (alertIfFaulty) {
+                Alert alert = new Alert(AlertType.ERROR, "Payoffs must be integers.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return false;
+        }
+        return true;
     }
     
     /*---------------------------------private helper methods---------------------------------*/
     
-    private Game createGame() throws IllegalArgumentException {
+    private Game createGame() {
         //check payoffs
         int cc1, cn1, nc1, nn1, cc2, cn2, nc2, nn2;
         try {
@@ -157,10 +181,6 @@ public class NewGameController implements CreationController<Game> {
         //check name and description
         String name = gameNameTextField.getText();
         String description = gameDescriptionTextField.getText();
-
-        if (name.trim().equals("") || description.trim().equals("")) {
-            throw new IllegalArgumentException("Name and description must not be empty.");
-        }
         
         //create and return game
         return new ConcreteGame(name, description, cc1, cn1, nc1, nn1, cc2, cn2, nc2, nn2);
