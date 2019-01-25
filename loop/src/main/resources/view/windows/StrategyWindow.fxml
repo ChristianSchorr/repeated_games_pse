@@ -32,7 +32,7 @@
                 <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Beschreibung der Strategie"/>
             </VBox>
             <HBox GridPane.columnIndex="1" alignment="CENTER" spacing="10">
-                <Button styleClass="setting-button">
+                <Button styleClass="setting-button" onAction="#reset">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
                     </graphic>
@@ -42,34 +42,22 @@
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
                     </graphic>
                 </Button>
+                <Button onAction="#applyStrategy">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
             </HBox>
         </GridPane>
         <Separator style="-fx-padding: 10 0;"/>
         <FlowPane fx:id="strategyContainer" hgap="10" vgap="10">
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label text="Der"/>
-                <ChoiceBox prefHeight="42.0" prefWidth="106.0" value="Gegenspieler">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Gegenspieler"/>
-                            <String fx:value="aktuelle Agent"/>
-                            <String fx:value="ranghöchste Agent"/>
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
+                <ChoiceBox fx:id="cooperationParticipants" prefHeight="42.0" prefWidth="106.0"/>
                 <Label text="hat"/>
-                <ChoiceBox prefHeight="42.0" prefWidth="83.0" value="jedes Mal">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="jedes Mal"/>
-                            <String fx:value="einmal"/>
-                            <String fx:value="letztes Mal"/>
-                            <String fx:value="niemals"/>
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
+                <ChoiceBox fx:id="cooperationQuantors" prefHeight="42.0" prefWidth="83.0" />
                 <Label text="kooperiert"/>
-                <Button>
+                <Button onAction="#handleAddCooperation">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -77,17 +65,9 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label text="Der Gegenspieler hat ein"/>
-                <ChoiceBox prefHeight="42.0" prefWidth="77.0" value="höheres">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="höheres"/>
-                            <String fx:value="niedrigeres"/>
-                            <String fx:value="ähnliches"/>
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
+                <ChoiceBox fx:id="capitalBox" prefHeight="42.0" prefWidth="77.0" />
                 <Label text="Absolutkapital"/>
-                <Button>
+                <Button onAction="#handleAddCapital">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -95,17 +75,9 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label text="Der Gegenspieler hat eine"/>
-                <ChoiceBox prefHeight="42.0" prefWidth="76.0" value="höheren">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="höheren"/>
-                            <String fx:value="niedrigeren"/>
-                            <String fx:value="ähnlichen"/>
-                        </FXCollections>
-                    </items>
-                </ChoiceBox>
+                <ChoiceBox fx:id="rankBox" prefHeight="42.0" prefWidth="76.0" />
                 <Label text="Rang"/>
-                <Button>
+                <Button disable="true">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -113,7 +85,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label text="Der Gegenspieler ist in der selben Gruppe"/>
-                <Button>
+                <Button onAction="#handleAddGroup">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -148,59 +120,7 @@
         </FlowPane>
         <Separator style="-fx-padding: 10 0;"/>
         <Label text="Wenn:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
-        <FlowPane fx:id="expressionContainer" hgap="10" vgap="10">
-            <!--<HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="("/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der Gegenspieler hat letztes Mal kooperiert"/>
-                <Button maxWidth="20" prefHeight="20">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
-                               fontSize="10"/>
-                    </graphic>
-                </Button>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="AND"/>
-                <Button maxWidth="20" prefHeight="20">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
-                               fontSize="10"/>
-                    </graphic>
-                </Button>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der Gegenspieler hat ein höheres Absolutkapital"/>
-                <Button maxWidth="20" prefHeight="20">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
-                               fontSize="10"/>
-                    </graphic>
-                </Button>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text=")"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 14pt" text="OR"/>
-                <Button maxWidth="20" prefHeight="20">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
-                               fontSize="10"/>
-                    </graphic>
-                </Button>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="Der Gegenspieler ist in der selben Gruppe"/>
-                <Button maxWidth="20" prefHeight="20">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"
-                               fontSize="10"/>
-                    </graphic>
-                </Button>
-            </HBox>-->
-        </FlowPane>
+        <FlowPane fx:id="expressionContainer" hgap="10" vgap="10"/>
         <FlowPane hgap="10" vgap="10">
             <Label text="Dann:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">

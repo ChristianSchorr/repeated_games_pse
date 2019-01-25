@@ -11,7 +11,7 @@
 <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card" xmlns:fx="http://javafx.com/fxml"
       fx:id="container" >
     <Label fx:id="operatorName" styleClass="key-word"/>
-    <Button onAction="#handleDelete">
+    <Button onAction="#handleDelete" style="-fx-background-color: transparent">
         <graphic>
             <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: -swatch-500"/>
         </graphic>
