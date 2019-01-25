@@ -177,25 +177,6 @@ public class StrategyController implements CreationController<Strategy> {
         descriptionProperty.setValue("");
     }
 
-    private Strategy getStrategy() {
-    	Strategy strat = null;
-        if (expressionRoot == null) {
-            // TODO error
-        } else {
-            SyntaxTree tree = new SyntaxTree(expressionRoot.syntaxNode);
-            boolean error = !tree.checkSyntax();
-            if (error) {
-                // TODO error
-            }
-            if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
-                // TODO error
-            }
-            strat = StrategyBuilder.creatNewStrategy(tree.getRoot(),
-                    nameProperty.getValue(), descriptionProperty.getValue());
-        }
-        return strat;
-    }
-
     @FXML
     private void handleAddCooperation(ActionEvent e) {
         Map<String, Strategy> map = coopMap.get(cooperationParticipants.getValue());
@@ -440,6 +421,25 @@ public class StrategyController implements CreationController<Strategy> {
                 if (this != expressionRoot)
                     container.getChildren().add(getBrace(false, isHovered, selectedOperand == this));
             }
+        }
+        
+        private Strategy getStrategy() {
+        	Strategy strat = null;
+            if (expressionRoot == null) {
+                // TODO error
+            } else {
+                SyntaxTree tree = new SyntaxTree(expressionRoot.syntaxNode);
+                boolean error = !tree.checkSyntax();
+                if (error) {
+                    // TODO error
+                }
+                if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
+                    // TODO error
+                }
+                strat = StrategyBuilder.creatNewStrategy(tree.getRoot(),
+                        nameProperty.getValue(), descriptionProperty.getValue());
+            }
+            return strat;
         }
 
         private HBox getBrace(boolean open, boolean isHovered, boolean selected) {
