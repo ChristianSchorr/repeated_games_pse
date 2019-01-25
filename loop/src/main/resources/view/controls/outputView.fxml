@@ -66,15 +66,12 @@
 	                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_LEFT" style="-fx-text-fill: grey" />
 	            </graphic>
         	</Button>
-            <Label fx:id="pageTitle"/>
+        	<ChoiceBox fx:id="pageChoiceBox"/>
             <Button fx:id="toRight" onAction="#handleToRight">
 		        <graphic>
 	                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_RIGHT" style="-fx-text-fill: grey" />
 	            </graphic>
             </Button>
-            <Button fx:id="toAbstractedOutput"/>
-            <Button fx:id="toDetailedOutput" />
-            <Button fx:id="toMultiOutput" />
         </HBox>
     </VBox>
     <columnConstraints>
