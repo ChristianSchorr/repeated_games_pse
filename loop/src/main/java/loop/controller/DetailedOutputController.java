@@ -307,7 +307,7 @@ public class DetailedOutputController {
                 XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
                 series.setName(strategyNames.get(i));
                 for (int adapt = 0; adapt < selectedIteration.getAdapts(); adapt++) {
-                    series.getData().add(new XYChart.Data<Number, Number>(adapt, strategyDistributions.get(adapt)[i]));
+                    series.getData().add(new XYChart.Data<Number, Number>(adapt + 1, strategyDistributions.get(adapt)[i]));
                 }
                 allSeries.add(series);
             }
@@ -382,6 +382,7 @@ public class DetailedOutputController {
         strategyChart.setDisable(false);
         strategyChart.getData().clear();
         strategyChart.getData().addAll(data);
+        ((NumberAxis) strategyChart.getXAxis()).setLowerBound(1);
         ((NumberAxis) strategyChart.getXAxis()).setUpperBound(selectedIteration.getAdapts());
     }
 
