@@ -5,15 +5,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
 import loop.controller.validation.DoubleValidator;
@@ -31,19 +28,11 @@ import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
-import org.controlsfx.validation.decoration.CompoundValidationDecoration;
-import org.controlsfx.validation.decoration.GraphicValidationDecoration;
-import org.controlsfx.validation.decoration.StyleClassValidationDecoration;
-import org.controlsfx.validation.decoration.ValidationDecoration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 
 public class ConfigController implements CreationController<UserConfiguration> {
@@ -54,9 +43,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     @FXML
     private ChoiceBox gameBox;
-
-    @FXML
-    private Slider roundSlider;
 
     @FXML
     private TextField roundField;
@@ -99,7 +85,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private HBox equilibriumCriterionContainer;
 
     @FXML
-    private TextField maxAdapts;
+    private TextField maxAdaptsField;
 
     // MultiConfig
     @FXML
@@ -144,7 +130,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     private ObjectProperty<MultiParamItem> multiParamProperty = new SimpleObjectProperty<>();
     private DoubleProperty startValueProperty = new SimpleDoubleProperty();
-    private DoubleProperty endValueProperty = new SimpleDoubleProperty();
+    private DoubleProperty endValueProperty = new SimpleDoubleProperty(1);
     private DoubleProperty stepSizeProperty = new SimpleDoubleProperty();
 
     private PluginControl pairBuilderControl;
@@ -173,40 +159,27 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     public void initialize() {
-
         String errorMsg = "not a positive integer";
         // initialize multi Param
         List<MultiParamItem> multiConfigParamNames = new ArrayList<>();
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ITERATION_COUNT,
-                MulticonfigurationParameterType.ITERATION_COUNT.getDescriptionFormat(), new IntegerValidator(errorMsg, (i) -> i > 0)));
+                MulticonfigurationParameterType.ITERATION_COUNT.getDescriptionFormat(),
+                new IntegerValidator(errorMsg, (i) -> i > 0), iterationField));
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ROUND_COUNT,
-                MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat(), new IntegerValidator(errorMsg, (i) -> i > 0)));
+                MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat(),
+                new IntegerValidator(errorMsg, (i) -> i > 0), roundField));
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.MAX_ADAPTS,
-                MulticonfigurationParameterType.MAX_ADAPTS.getDescriptionFormat(), new IntegerValidator(errorMsg, (i) -> i > 0)));
+                MulticonfigurationParameterType.MAX_ADAPTS.getDescriptionFormat(),
+                new IntegerValidator(errorMsg, (i) -> i > 0), maxAdaptsField));
 
-        ObservableList<MultiParamItem> observableMultiConfigParamNames = FXCollections.observableArrayList(multiConfigParamNames);
+        ObservableList<MultiParamItem> observableMultiConfigParamNames = FXCollections.observableArrayList();
+        observableMultiConfigParamNames.add(new MultiParamItem(null, "No multiconfig. parameter", null, null));
+        observableMultiConfigParamNames.addAll(multiConfigParamNames);
         multiParamBox.setItems(observableMultiConfigParamNames);
         multiParamBox.valueProperty().bindBidirectional(multiParamProperty);
-
-
-        support.registerValidator(startValue, false, (Control c, String v) -> {
-            if (multiParamProperty.getValue() == null)
-                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
-            else {
-                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
-                        new DoubleValidator("start value greater than end value!",
-                                d -> d < endValueProperty.getValue()).apply(c, v));
-            }
-        });
-
-        support.registerValidator(endValue, false, (Control c, String v) -> {
-            if (multiParamProperty.getValue() == null)
-                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
-            else {
-                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
-                        new DoubleValidator("end value lower than start value!",
-                                d -> d > startValueProperty.getValue()).apply(c, v));
-            }
+        multiParamBox.valueProperty().addListener((c, oldValue, newValue) -> {
+            setDisableMultiParam(true, newValue);
+            if (oldValue != null) setDisableMultiParam(false, oldValue);
         });
 
         // inititalize gameNames
@@ -221,12 +194,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
         // initialize rounds
         roundCountProperty.setValue(config.getRoundCount());
-        roundSlider.valueProperty().bindBidirectional(roundCountProperty);
-        roundField.textProperty().bindBidirectional(roundCountProperty, new NumberStringConverter());
+        roundField.textProperty().bindBidirectional(roundCountProperty, new NumberStringConverter(Locale.ENGLISH));
 
         // initialize iterationCount
         iterationCountProperty.setValue(config.getIterationCount());
-        iterationField.textProperty().bindBidirectional(iterationCountProperty, new NumberStringConverter());
+        iterationField.textProperty().bindBidirectional(iterationCountProperty, new NumberStringConverter(Locale.ENGLISH));
 
         // initialize mixedStrategies
         mixedStrategyProperty.setValue(config.getMixedAllowed());
@@ -283,14 +255,13 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
         // initialize maxAdaptsLabel
         maxAdaptsProperty.setValue(config.getMaxAdapts());
-        maxAdapts.textProperty().bindBidirectional(maxAdaptsProperty, new NumberStringConverter());
+        maxAdaptsField.textProperty().bindBidirectional(maxAdaptsProperty, new NumberStringConverter(Locale.ENGLISH));
 
-        startValue.textProperty().bindBidirectional(startValueProperty, new NumberStringConverter());
-        endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter());
-        stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter());
+        startValue.textProperty().bindBidirectional(startValueProperty, new NumberStringConverter(Locale.ENGLISH));
+        endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter(Locale.ENGLISH));
+        stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter(Locale.ENGLISH));
 
-        support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
-        support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+
 
         // initialize game table
         firstCol.setCellValueFactory(cellData -> cellData.getValue().firstColumnContent);
@@ -302,6 +273,44 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 new GameTableEntry(game, false));
         gameTable.setItems(items);
         gameTable.setSelectionModel(null);
+    }
+
+    private void initializeValidation() {
+        String errorMsg = "not a positive integer";
+        support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+        support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+
+
+        support.registerValidator(startValue, false, (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
+                        new DoubleValidator("start value greater than end value!",
+                                d -> d < endValueProperty.getValue()).apply(c, v));
+            }
+        });
+
+        support.registerValidator(endValue, false, (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
+                        new DoubleValidator("end value lower than start value!",
+                                d -> d > startValueProperty.getValue()).apply(c, v));
+            }
+        });
+
+        startValueProperty.addListener((c, oldV, newV) -> {
+            String endVal = endValue.getText();
+            endValue.setText(endVal + "#");
+            endValue.setText(endVal);
+        });
+        endValueProperty.addListener((c, oldV, newV) -> {
+            String startVal = startValue.getText();
+            startValue.setText(startVal + "#");
+            startValue.setText(startVal);
+        });
     }
 
     private boolean isPluginConfigurationInvalid() {
@@ -326,80 +335,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
         setConfiguration(UserConfiguration.getDefaultConfiguration());
     }
 
-    @FXML
-    private void loadConfig(ActionEvent actionEvent) {
-        Window stage = ((Node) actionEvent.getTarget()).getScene().getWindow();
-        fileChooser.setTitle("Open Configuration");
-        fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(stage);
-        if (file == null) return;
-        UserConfiguration config = null;
-        try {
-            config = FileIO.loadEntity(file);
-        } catch (IOException e) {
-            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
-        //check if all populations etc. in the configuration are known
-        boolean error = false;
-        String errorMsg = "The opened configuration contains unknown entities:";
-        if (!repository.getGameRepository().containsEntityName(config.getGameName())) {
-            errorMsg += "\n - the game '" + config.getGameName() + "'";
-        }
-        if (!repository.getPopulationRepository().containsEntityName(config.getPopulationName())) {
-            errorMsg += "\n - the population '" + config.getPopulationName() + "'";
-            error = true;
-        }
-        if (!repository.getPairBuilderRepository().containsEntityName(config.getPairBuilderName())) {
-            errorMsg += "\n - the pair builder '" + config.getPairBuilderName() + "'";
-            error = true;
-        }
-        if (!repository.getSuccessQuantifiernRepository().containsEntityName(config.getSuccessQuantifierName())) {
-            errorMsg += "\n - the success quantification '" + config.getSuccessQuantifierName() + "'";
-            error = true;
-        }
-        if (!repository.getStrategyAdjusterRepository().containsEntityName(config.getStrategyAdjusterName())) {
-            errorMsg += "\n - the strategy adjuster '" + config.getStrategyAdjusterName() + "'";
-            error = true;
-        }
-        if (!repository.getEquilibriumCriterionRepository().containsEntityName(config.getEquilibriumCriterionName())) {
-            errorMsg += "\n - the equilibrium criterion '" + config.getEquilibriumCriterionName() + "'";
-        }
-        if (error) {
-            Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
-        
-        setConfiguration(config);
-    }
-
-    @FXML
-    private void saveConfig(ActionEvent actionEvent) {
-        Window stage = ((Node) actionEvent.getTarget()).getScene().getWindow();
-        fileChooser.setTitle("Save Configuration");
-        fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showSaveDialog(stage);
-        if (file == null) return;
-        createConfig();
-        try {
-            FileIO.saveEntity(file, config);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
-            alert.showAndWait();
-        }
-    }
 
     private void gameChanged(String newValue) {
         Repository<Game> repo = repository.getGameRepository();
         Game game = repo.getEntityByName(newValue);
-        for (GameTableEntry entry: gameTable.getItems())
+        for (GameTableEntry entry : gameTable.getItems())
             entry.update(game);
         gameDescriptionProperty.setValue(game.getDescription());
     }
@@ -417,6 +357,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         pairBuilderControl = pairBuilderPlugin.getRenderer().renderPlugin();
         pairBuilderContainer.getChildren().clear();
         pairBuilderContainer.getChildren().add(pairBuilderControl);
+        pairBuilderBox.setTooltip(createTooltip(pairBuilderPlugin.getDescription()));
 
         Plugin<PairBuilder> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, pairBuilderPlugin, MulticonfigurationParameterType.PB_PARAM);
@@ -429,6 +370,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         successQuantifierControl = successQuantifierPlugin.getRenderer().renderPlugin();
         successQuantifierContainer.getChildren().clear();
         successQuantifierContainer.getChildren().add(successQuantifierControl);
+        successQuantifierBox.setTooltip(createTooltip(successQuantifierPlugin.getDescription()));
 
         Plugin<SuccessQuantifier> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, successQuantifierPlugin, MulticonfigurationParameterType.SQ_PARAM);
@@ -441,7 +383,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         strategyAdjusterControl = strategyAdjusterPlugin.getRenderer().renderPlugin();
         strategyAdjusterContainer.getChildren().clear();
         strategyAdjusterContainer.getChildren().add(strategyAdjusterControl);
-
+        strategyAdjusterBox.setTooltip(createTooltip(strategyAdjusterPlugin.getDescription()));
 
         Plugin<StrategyAdjuster> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, strategyAdjusterPlugin, MulticonfigurationParameterType.SA_PARAM);
@@ -454,8 +396,18 @@ public class ConfigController implements CreationController<UserConfiguration> {
         equilibriumCriterionControl = equilibriumCriterionPlugin.getRenderer().renderPlugin();
         equilibriumCriterionContainer.getChildren().clear();
         equilibriumCriterionContainer.getChildren().add(equilibriumCriterionControl);
+        equilibriumCriterionBox.setTooltip(createTooltip(equilibriumCriterionPlugin.getDescription()));
+
         Plugin<EquilibriumCriterion> oldPlugin = repo.getEntityByName(oldValue);
         updateMultiParamBox(oldPlugin, equilibriumCriterionPlugin, MulticonfigurationParameterType.EC_PARAM);
+    }
+
+    private Tooltip createTooltip(String desc) {
+        Tooltip tooltip = new Tooltip(desc);
+        tooltip.getStyleClass().add("ttip");
+        tooltip.setWrapText(true);
+        tooltip.setPrefWidth(600);
+        return tooltip;
     }
 
     private <T> void updateMultiParamBox(Plugin<T> oldPlugin, Plugin<T> newPlugin, MulticonfigurationParameterType type) {
@@ -466,20 +418,20 @@ public class ConfigController implements CreationController<UserConfiguration> {
         for (Parameter param : newPlugin.getParameters()) {
             String errorMsg = "Not a valid value for the " + param.getName() + " parameter";
             items.add(new MultiParamItem(type, param.getName() + ":" + newPlugin.getName(),
-                    new DoubleValidator(errorMsg, d -> ParameterValidator.isValueValid(d, param))));
+                    new DoubleValidator(errorMsg, d -> ParameterValidator.isValueValid(d, param)), null));
         }
         multiParamBox.requestLayout();
     }
 
     private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
-        items.removeIf((item) -> item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
+        items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
 
         for (Group grp : newPopulation.getGroups()) {
             if (grp.getSegmentCount() == 2) {
                 String str = "segment size:" + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,
-                        new DoubleValidator("segment size has to be between 0 and 1", (d) -> d >= 0 && d <= 1)));
+                        new DoubleValidator("segment size has to be between 0 and 1", (d) -> d >= 0 && d <= 1), null));
             }
         }
     }
@@ -536,12 +488,41 @@ public class ConfigController implements CreationController<UserConfiguration> {
         if (config.isMulticonfiguration()) {
             setMultiParam(config.getMulticonfigurationParameter());
             setMultiParamValues(config.getParameterValues());
-        } else {
-            multiParamProperty.setValue(null);
-        }
+        } else
+            multiParamProperty.setValue(multiParamBox.getItems().get(0));
 
         if (cnt != VARIABLE_PARAM_CNT) {
             showWarningAlert();
+        }
+    }
+
+    private void setDisableMultiParam(boolean enable, MultiParamItem newItem) {
+        if (newItem.type == null) {
+            startValue.setDisable(enable);
+            endValue.setDisable(enable);
+            stepSize.setDisable(enable);
+        } else {
+            switch (newItem.type) {
+                case ITERATION_COUNT:
+                case ROUND_COUNT:
+                case MAX_ADAPTS:
+                    newItem.parameterField.setDisable(enable);
+                    break;
+                case SA_PARAM:
+                    strategyAdjusterControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    break;
+                case PB_PARAM:
+                    pairBuilderControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    break;
+                case EC_PARAM:
+                    equilibriumCriterionControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    break;
+                case SQ_PARAM:
+                    successQuantifierControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -564,7 +545,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             case ROUND_COUNT:
             case ITERATION_COUNT:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.type.equals(param.getType())).get(0));
+                        .filtered((item) -> item.type != null && item.type.equals(param.getType())).get(0));
                 break;
             case SEGMENT_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
@@ -572,7 +553,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 break;
             default:
                 // TODO CapitalDistribution, Segment size, Group Size
-                multiParamProperty.setValue(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, ""));
                 break;
         }
     }
@@ -603,7 +583,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     private void createConfig() {
-        boolean isMulti = multiParamProperty.getValue() != null;
+        boolean isMulti = multiParamProperty.getValue().type != null;
 
         MulticonfigurationParameter param = null;
 
@@ -678,15 +658,18 @@ public class ConfigController implements CreationController<UserConfiguration> {
         private MulticonfigurationParameterType type;
         private String displayString;
         private Validator<String> validator;
+        private TextField parameterField;
 
-        private MultiParamItem(MulticonfigurationParameterType type, String displayString) {
+        /*private MultiParamItem(MulticonfigurationParameterType type, String displayString) {
             this(type, displayString, new DoubleValidator(""));
-        }
+        }*/
 
-        private MultiParamItem(MulticonfigurationParameterType type, String displayString, Validator<String> validator) {
+        private MultiParamItem(MulticonfigurationParameterType type, String displayString,
+                               Validator<String> validator, TextField field) {
             this.type = type;
             this.displayString = displayString;
             this.validator = validator;
+            this.parameterField = field;
         }
 
         @Override
