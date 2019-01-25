@@ -9,10 +9,13 @@ import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import loop.model.Population;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.ConcreteGame;
@@ -55,6 +58,9 @@ public class NewGameController implements CreationController<Game> {
     @FXML
     private TextField nn2TextField;
     
+    @FXML
+    private Menu loadMenu;
+    
     private Stage stage;
     
     /**
@@ -69,6 +75,15 @@ public class NewGameController implements CreationController<Game> {
     @Override
     public void registerElementCreated(Consumer<Game> action) {
         elementCreatedHandlers.add(action);
+    }
+    
+    @FXML
+    void initialize() {
+        CentralRepository.getInstance().getGameRepository().getAllEntityNames().forEach(gameName -> {
+            MenuItem gameItem = new MenuItem(gameName);
+            loadMenu.getItems().add(gameItem);
+            gameItem.setOnAction(event -> setGame(CentralRepository.getInstance().getGameRepository().getEntityByName(gameName), true));
+        });
     }
     
     /*------------------------------button handlers------------------------------*/
@@ -170,6 +185,57 @@ public class NewGameController implements CreationController<Game> {
             return false;
         }
         return true;
+    }
+    
+    @FXML
+    void importGame() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Game");
+        fileChooser.setInitialDirectory(FileIO.GAME_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Game File", "*.gam");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if (file == null) {
+            return;
+        }
+        
+        Game game;
+        try {
+            game = (Game) FileIO.loadEntity(file);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
+        }
+        
+        setGame(game, true);
+    }
+    
+    private void setGame(Game game, boolean showErrorDialog) {
+        ConcreteGame cGame = null;
+        try {
+            cGame = (ConcreteGame) game;
+        } catch(ClassCastException e) {
+            if (showErrorDialog) {
+                Alert alert = new Alert(AlertType.ERROR, "Failed to load game.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return;
+        }
+        
+        gameNameTextField.setText(game.getName());
+        gameDescriptionTextField.setText(game.getDescription());
+        
+        cc1TextField.setText(String.valueOf(cGame.getCC1()));
+        cn1TextField.setText(String.valueOf(cGame.getCN1()));
+        nc1TextField.setText(String.valueOf(cGame.getNC1()));
+        nn1TextField.setText(String.valueOf(cGame.getNN1()));
+        cc2TextField.setText(String.valueOf(cGame.getCC2()));
+        cn2TextField.setText(String.valueOf(cGame.getCN2()));
+        nc2TextField.setText(String.valueOf(cGame.getNC2()));
+        nn2TextField.setText(String.valueOf(cGame.getNN2()));
     }
     
     /*---------------------------------private helper methods---------------------------------*/

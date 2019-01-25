@@ -249,7 +249,7 @@ public class PopulationController implements CreationController<Population> {
         try {
             population = (Population) FileIO.loadEntity(file);
         } catch (IOException e) {
-            Alert alert = new Alert(AlertType.ERROR, "File could not be loaded.", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
             alert.showAndWait();
             e.printStackTrace();
             return;

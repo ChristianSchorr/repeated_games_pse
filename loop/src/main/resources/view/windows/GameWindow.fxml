@@ -31,6 +31,18 @@
                 <TextField fx:id="gameDescriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
             </VBox>
             <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
+            	<MenuButton>
+            		<items>
+            			<MenuItem text="Import from file" onAction="#importGame"/>
+            			<Menu text="Locally stored" fx:id="loadMenu"/>
+            		</items>
+            		<graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                    	<Tooltip text="Load existing game"/>
+                    </tooltip>
+            	</MenuButton>
 	            <Button onAction="#resetGame" styleClass="setting-button">
 	               <graphic>
 	                   <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
