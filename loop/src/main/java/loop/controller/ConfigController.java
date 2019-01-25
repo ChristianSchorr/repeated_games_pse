@@ -38,10 +38,7 @@ import org.controlsfx.validation.decoration.ValidationDecoration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -218,11 +215,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
         // initialize rounds
         roundCountProperty.setValue(config.getRoundCount());
-        roundField.textProperty().bindBidirectional(roundCountProperty, new NumberStringConverter());
+        roundField.textProperty().bindBidirectional(roundCountProperty, new NumberStringConverter(Locale.ENGLISH));
 
         // initialize iterationCount
         iterationCountProperty.setValue(config.getIterationCount());
-        iterationField.textProperty().bindBidirectional(iterationCountProperty, new NumberStringConverter());
+        iterationField.textProperty().bindBidirectional(iterationCountProperty, new NumberStringConverter(Locale.ENGLISH));
 
         // initialize mixedStrategies
         mixedStrategyProperty.setValue(config.getMixedAllowed());
@@ -279,11 +276,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
         // initialize maxAdaptsLabel
         maxAdaptsProperty.setValue(config.getMaxAdapts());
-        maxAdapts.textProperty().bindBidirectional(maxAdaptsProperty, new NumberStringConverter());
+        maxAdapts.textProperty().bindBidirectional(maxAdaptsProperty, new NumberStringConverter(Locale.ENGLISH));
 
-        startValue.textProperty().bindBidirectional(startValueProperty, new NumberStringConverter());
-        endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter());
-        stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter());
+        startValue.textProperty().bindBidirectional(startValueProperty, new NumberStringConverter(Locale.ENGLISH));
+        endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter(Locale.ENGLISH));
+        stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter(Locale.ENGLISH));
 
         support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
         support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
