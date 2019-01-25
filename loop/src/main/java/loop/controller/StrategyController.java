@@ -12,26 +12,35 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import loop.model.repository.CentralRepository;
+import loop.model.repository.FileIO;
+import loop.model.simulationengine.Game;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulationengine.strategy.strategybuilder.*;
 import org.checkerframework.dataflow.qual.Pure;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class StrategyControler implements CreationController<Strategy> {
+public class StrategyController implements CreationController<Strategy> {
 
     private static final double PERCENTAGE = 0.1;
 
@@ -84,7 +93,7 @@ public class StrategyControler implements CreationController<Strategy> {
     private ContainerNode expressionRoot;
     private ContainerNode selectedOperand;
 
-    public StrategyControler() {
+    public StrategyController() {
         creationListener = new ArrayList<>();
         repository = CentralRepository.getInstance();
     }
@@ -169,24 +178,6 @@ public class StrategyControler implements CreationController<Strategy> {
     }
 
     @FXML
-    private void applyStrategy() {
-        if (expressionRoot == null) {
-            // TODO error
-        } else {
-            SyntaxTree tree = new SyntaxTree(expressionRoot.syntaxNode);
-            boolean error = !tree.checkSyntax();
-            if (error) {
-                // TODO error
-            }
-            if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
-                // TODO error
-            }
-            Strategy strat = StrategyBuilder.creatNewStrategy(tree.getRoot(),
-                    nameProperty.getValue(), descriptionProperty.getValue());
-        }
-    }
-
-    @FXML
     private void handleAddCooperation(ActionEvent e) {
         Map<String, Strategy> map = coopMap.get(cooperationParticipants.getValue());
         if (map != null) {
@@ -223,6 +214,57 @@ public class StrategyControler implements CreationController<Strategy> {
         addOperator(ConcreteOperator.OR());
     }
 
+    @FXML
+    private void saveStrategy() {
+    	 Strategy strat;
+         try {
+             strat = getStrategy();
+         } catch (IllegalArgumentException e) {
+             Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+             alert.showAndWait();
+             return;
+         }
+         
+         //save dialog
+         FileChooser fileChooser = new FileChooser();
+         fileChooser.setTitle("Save Strategy");
+         fileChooser.setInitialDirectory(FileIO.GAME_DIR);
+         fileChooser.setInitialFileName(strat.getName().toLowerCase());
+         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Strategy File", ".strat");
+         fileChooser.getExtensionFilters().add(extFilter);
+         File saveFile = fileChooser.showSaveDialog(new Stage());
+         
+         if (saveFile == null) {
+             return;
+         }
+         
+         try {
+             FileIO.saveEntity(saveFile, strat);
+         } catch (IOException e) {
+             e.printStackTrace();
+             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+             alert.showAndWait();
+             return;
+         };
+         
+         this.creationListener.forEach(handler -> handler.accept(strat));
+    }
+    
+    @FXML
+    private void applyStrategy() {
+    	Strategy strat;
+    	try {
+            strat = getStrategy();
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+    	this.repository.getStrategyRepository().addEntity(strat.getName(), strat);
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Strategy added to repository", ButtonType.OK);
+    	alert.showAndWait();
+    }
+    
     private void insertContainerNode(ContainerNode child, ContainerNode parent) {
         int index = parent.children.indexOf(selectedOperand);
         parent.removeNode(selectedOperand);
@@ -379,6 +421,25 @@ public class StrategyControler implements CreationController<Strategy> {
                 if (this != expressionRoot)
                     container.getChildren().add(getBrace(false, isHovered, selectedOperand == this));
             }
+        }
+        
+        private Strategy getStrategy() {
+        	Strategy strat = null;
+            if (expressionRoot == null) {
+                // TODO error
+            } else {
+                SyntaxTree tree = new SyntaxTree(expressionRoot.syntaxNode);
+                boolean error = !tree.checkSyntax();
+                if (error) {
+                    // TODO error
+                }
+                if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
+                    // TODO error
+                }
+                strat = StrategyBuilder.creatNewStrategy(tree.getRoot(),
+                        nameProperty.getValue(), descriptionProperty.getValue());
+            }
+            return strat;
         }
 
         private HBox getBrace(boolean open, boolean isHovered, boolean selected) {
