@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.ConcreteGame;
 import loop.model.simulationengine.Game;
@@ -126,6 +127,17 @@ public class NewGameController implements CreationController<Game> {
     @FXML
     void saveGame() {
         if (!validateSettings(true)) return;
+        
+        //TODO unschön, aber wie sonst?
+        if (CentralRepository.getInstance().getGameRepository().containsEntityName(gameNameTextField.getText())) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "A game with this name already exists. Do you want to overwrite it? Note that"
+                    + " in that case all configurations that currently use the overwritten game would from now on use this one instead.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            boolean override = (alert.getResult() == ButtonType.YES);
+            if (!override) return;
+            CentralRepository.getInstance().getPopulationRepository().removeEntity(gameNameTextField.getText());
+        }
         
         Game game = createGame();
         

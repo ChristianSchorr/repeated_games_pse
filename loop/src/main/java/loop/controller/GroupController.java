@@ -174,6 +174,17 @@ public class GroupController implements CreationController<Group> {
 	void saveGroup() {
 	    if (!validateSettings(true)) return;
 	    
+	    //TODO unschön, aber wie sonst?
+        if (CentralRepository.getInstance().getGroupRepository().containsEntityName(groupNameTextField.getText())) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "A group with this name already exists. Do you want to overwrite it? Note that"
+                    + " in that case all populations currently containing the overwritten group would from now on contain this one instead.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            boolean override = (alert.getResult() == ButtonType.YES);
+            if (!override) return;
+            CentralRepository.getInstance().getGroupRepository().removeEntity(groupNameTextField.getText());
+        }
+	    
 	    Group group = createGroup();
 	    
 	    this.elementCreatedHandlers.forEach(handler -> handler.accept(group));

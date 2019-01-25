@@ -29,7 +29,14 @@ public interface Repository<T> {
 	 * @return the entities with the given names
 	 */
 	public List<T> getEntitiesByNames(List<String> names);
-
+	
+	/**
+	 * Removes the entity with the given name, if currently stored.
+	 * 
+	 * @param name the name of the entity that shall be removed
+	 */
+	public void removeEntity(String name);
+	
 	/**
 	 * Returns all entities in this repository
 	 *

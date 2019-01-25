@@ -189,6 +189,17 @@ public class PopulationController implements CreationController<Population> {
     void savePopulation() {
         if (!validateSettings(true)) return;
         
+        //TODO unschön, aber wie sonst?
+        if (CentralRepository.getInstance().getPopulationRepository().containsEntityName(populationNameTextField.getText())) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "A population with this name already exists. Do you want to overwrite it? Note that"
+                    + " in that case all configurations that currently use the overwritten population would from now on use this one instead.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            boolean override = (alert.getResult() == ButtonType.YES);
+            if (!override) return;
+            CentralRepository.getInstance().getPopulationRepository().removeEntity(populationNameTextField.getText());
+        }
+        
         Population population = createPopulation();
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(population));
