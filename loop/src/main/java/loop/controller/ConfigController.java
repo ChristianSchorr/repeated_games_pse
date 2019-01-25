@@ -183,7 +183,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
             setDisableMultiParam(false, oldValue);
         });
 
-
         support.registerValidator(startValue, false, (Control c, String v) -> {
             if (multiParamProperty.getValue() == null)
                 return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
@@ -202,6 +201,17 @@ public class ConfigController implements CreationController<UserConfiguration> {
                         new DoubleValidator("end value lower than start value!",
                                 d -> d > startValueProperty.getValue()).apply(c, v));
             }
+        });
+
+        startValueProperty.addListener((c, oldV, newV) -> {
+            String endVal =  endValue.getText();
+            endValue.setText(endVal + "#");
+            endValue.setText(endVal);
+        });
+        endValueProperty.addListener((c, oldV, newV) ->  {
+            String startVal =  startValue.getText();
+            startValue.setText(startVal + "#");
+            startValue.setText(startVal);
         });
 
         // inititalize gameNames
@@ -543,9 +553,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         double endValue = values.get(values.size() - 1);
         double stepSize = (endValue - startValue) / (values.size() - 1);
         startValueProperty.setValue(startValue);
-        startValueProperty.addListener((c, oldV, newV) -> endValueProperty.setValue(endValueProperty.getValue()));
         endValueProperty.setValue(endValue);
-        endValueProperty.addListener((c, oldV, newV) -> startValueProperty.setValue(startValueProperty.getValue()));
         stepSizeProperty.setValue(stepSize);
     }
 
