@@ -53,7 +53,7 @@ public class SyntaxTree implements Tree<SyntaxNode> {
     }
 
     private boolean check(SyntaxNode node) {
-        if (node.isInnerNode() && node.getContent() != null) return true;
+        if (!node.isInnerNode() && node.getContent() != null) return true;
         else {
             List<TreeNode<Strategy>> children = node.getChildren();
             if (children.size() != node.getOperator().getOperandCount()) return false;

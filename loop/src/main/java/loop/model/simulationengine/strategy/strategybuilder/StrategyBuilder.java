@@ -35,7 +35,7 @@ public class StrategyBuilder {
     }
 
     private static Strategy buildStrategy(SyntaxNode root) {
-        if (root.isInnerNode()) root.getContent();
+        if (!root.isInnerNode()) root.getContent();
         else {
             List<TreeNode<Strategy>> children = root.getChildren();
             Operator op = root.getOperator();
