@@ -26,4 +26,10 @@ public abstract class PluginControl extends javafx.scene.layout.VBox {
 	 * @param parameters the given parameters
 	 */
 	public abstract void setParameters(List<Double> parameters);
+
+	/**
+	 * Returns whether the configuration of the plugin is faulty
+	 * @return {@code true} when there are configuration errors {@code false} otherwise
+	 */
+	public abstract boolean hasConfigurationErrors();
 }

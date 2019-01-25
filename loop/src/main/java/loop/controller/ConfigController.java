@@ -26,10 +26,7 @@ import loop.model.plugin.PluginControl;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.repository.Repository;
-import loop.model.simulationengine.EquilibriumCriterion;
-import loop.model.simulationengine.PairBuilder;
-import loop.model.simulationengine.StrategyAdjuster;
-import loop.model.simulationengine.SuccessQuantifier;
+import loop.model.simulationengine.*;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -51,7 +48,7 @@ import java.util.stream.Collectors;
 
 public class ConfigController implements CreationController<UserConfiguration> {
 
-    private static final int VARIABLE_PARAM_CNT = 6;
+    private static final int VARIABLE_PARAM_CNT = 8;
     private static final String CONFIG_ERR_MSG = "";
     private static final String ALERT_TITLE = "";
 
@@ -117,12 +114,28 @@ public class ConfigController implements CreationController<UserConfiguration> {
     @FXML
     private TextField stepSize;
 
+    @FXML
+    private TableView<GameTableEntry> gameTable;
+
+    @FXML
+    private TableColumn<GameTableEntry, String> firstCol;
+
+    @FXML
+    private TableColumn<GameTableEntry, String> secondCol;
+
+    @FXML
+    private TableColumn<GameTableEntry, String> thirdCol;
+
+    @FXML
+    private Label descriptionLabel;
+
     private StringProperty gameNameProperty = new SimpleStringProperty();
     private IntegerProperty iterationCountProperty = new SimpleIntegerProperty();
     private IntegerProperty roundCountProperty = new SimpleIntegerProperty();
     private BooleanProperty mixedStrategyProperty = new SimpleBooleanProperty();
     private StringProperty populationProperty = new SimpleStringProperty();
     private IntegerProperty maxAdaptsProperty = new SimpleIntegerProperty();
+    private StringProperty gameDescriptionProperty = new SimpleStringProperty();
 
     private StringProperty pairBuilderProperty = new SimpleStringProperty();
     private StringProperty successQuantifierProperty = new SimpleStringProperty();
@@ -182,7 +195,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             else {
                 return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
                         new DoubleValidator("start value greater than end value!",
-                                d-> d < endValueProperty.getValue()).apply(c, v));
+                                d -> d < endValueProperty.getValue()).apply(c, v));
             }
         });
 
@@ -192,7 +205,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             else {
                 return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
                         new DoubleValidator("end value lower than start value!",
-                                d-> d > startValueProperty.getValue()).apply(c, v));
+                                d -> d > startValueProperty.getValue()).apply(c, v));
             }
         });
 
@@ -201,7 +214,10 @@ public class ConfigController implements CreationController<UserConfiguration> {
         ObservableList<String> observableGameNames = FXCollections.observableArrayList(gameNames);
         gameNameProperty.setValue(config.getGameName());
         gameBox.setItems(observableGameNames);
+        gameBox.valueProperty().addListener((ChangeListener<String>)
+                (observable, oldValue, newValue) -> gameChanged(newValue));
         gameBox.valueProperty().bindBidirectional(gameNameProperty);
+        descriptionLabel.textProperty().bindBidirectional(gameDescriptionProperty);
 
         // initialize rounds
         roundCountProperty.setValue(config.getRoundCount());
@@ -276,11 +292,26 @@ public class ConfigController implements CreationController<UserConfiguration> {
         support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
         support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
 
+        // initialize game table
+        firstCol.setCellValueFactory(cellData -> cellData.getValue().firstColumnContent);
+        secondCol.setCellValueFactory(cellData -> cellData.getValue().secondColumnContent);
+        thirdCol.setCellValueFactory(cellData -> cellData.getValue().thirdColumnContent);
+
+        Game game = repository.getGameRepository().getEntityByName(gameNameProperty.getValue());
+        ObservableList<GameTableEntry> items = FXCollections.observableArrayList(new GameTableEntry(game, true),
+                new GameTableEntry(game, false));
+        gameTable.setItems(items);
+        gameTable.setSelectionModel(null);
+    }
+
+    private boolean isPluginConfigurationInvalid() {
+        return pairBuilderControl.hasConfigurationErrors() || successQuantifierControl.hasConfigurationErrors() ||
+                strategyAdjusterControl.hasConfigurationErrors() || equilibriumCriterionControl.hasConfigurationErrors();
     }
 
     @FXML
     private void applyConfig(ActionEvent actionEvent) {
-        if (support.isInvalid()) {
+        if (support.isInvalid() || isPluginConfigurationInvalid()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("The configuration is faulty");
             alert.setContentText("There are some errors in this configuration!\nPlease make sure all parameters are set properly");
@@ -365,6 +396,14 @@ public class ConfigController implements CreationController<UserConfiguration> {
         }
     }
 
+    private void gameChanged(String newValue) {
+        Repository<Game> repo = repository.getGameRepository();
+        Game game = repo.getEntityByName(newValue);
+        for (GameTableEntry entry: gameTable.getItems())
+            entry.update(game);
+        gameDescriptionProperty.setValue(game.getDescription());
+    }
+
     private void populationChanged(String newValue) {
         Repository<Population> repo = repository.getPopulationRepository();
         Population population = repo.getEntityByName(newValue);
@@ -432,11 +471,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
         multiParamBox.requestLayout();
     }
 
-    private void updateMultiParamBox (Population newPopulation) {
+    private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
         items.removeIf((item) -> item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
 
-        for (Group grp: newPopulation.getGroups()) {
+        for (Group grp : newPopulation.getGroups()) {
             if (grp.getSegmentCount() == 2) {
                 String str = "segment size:" + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,
@@ -451,11 +490,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     public void setConfiguration(UserConfiguration config) {
-        gameNameProperty.setValue(config.getGameName());
         iterationCountProperty.setValue(config.getIterationCount());
         roundCountProperty.setValue(config.getRoundCount());
         mixedStrategyProperty.setValue(config.getMixedAllowed());
-        populationProperty.setValue(config.getPopulationName());
         maxAdaptsProperty.setValue(config.getMaxAdapts());
 
         int cnt = 0;
@@ -463,8 +500,14 @@ public class ConfigController implements CreationController<UserConfiguration> {
             gameNameProperty.setValue(config.getGameName());
             cnt++;
         }
-        roundCountProperty.setValue(config.getRoundCount());
-        mixedStrategyProperty.setValue(config.getMixedAllowed());
+        if (repository.getPopulationRepository().containsEntityName(config.getPopulationName())) {
+            populationProperty.setValue(config.getPopulationName());
+            cnt++;
+        }
+        if (repository.getGameRepository().containsEntityName(config.getGameName())) {
+            gameNameProperty.setValue(config.getGameName());
+            cnt++;
+        }
         if (repository.getPopulationRepository().containsEntityName(config.getPopulationName())) {
             populationProperty.setValue(config.getPopulationName());
             cnt++;
@@ -599,10 +642,36 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 successQuantifierControl.getParameters(), strategyAdjusterProperty.getValue(),
                 strategyAdjusterControl.getParameters(), equilibriumCriterionProperty.getValue(),
                 equilibriumCriterionControl.getParameters(), maxAdaptsProperty.getValue(), isMulti, param);
-        
+
         for (Consumer<UserConfiguration> creationHandler : creationListener) {
             creationHandler.accept(config);
         }
+    }
+
+    private class GameTableEntry {
+        private StringProperty firstColumnContent = new SimpleStringProperty();
+        private StringProperty secondColumnContent = new SimpleStringProperty();
+        private StringProperty thirdColumnContent = new SimpleStringProperty();
+        private boolean isFirst;
+
+        private GameTableEntry(Game game, boolean isFirst) {
+            firstColumnContent.setValue(isFirst ? "SP 1 koop." : "SP 1 def.");
+            this.isFirst = isFirst;
+            update(game);
+        }
+
+        private void update(Game newGame) {
+            secondColumnContent.setValue(getColumnContent(newGame, isFirst, true));
+            thirdColumnContent.setValue(getColumnContent(newGame, isFirst, false));
+        }
+
+        private String getColumnContent(Game game, boolean p1Cooperates, boolean p2Cooperates) {
+            Agent p1 = new Agent(0, null, 0);
+            Agent p2 = new Agent(0, null, 0);
+            GameResult res = game.play(p1, p2, p1Cooperates, p2Cooperates);
+            return res.getPayoff(p1) + "/" + res.getPayoff(p2);
+        }
+
     }
 
     private class MultiParamItem {

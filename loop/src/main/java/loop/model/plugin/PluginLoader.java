@@ -19,7 +19,7 @@ public class PluginLoader {
 	 * @return a list of the loaded plugins
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	static <T> List<T> loadPlugins() {
+	public static <T> List<T> loadPlugins() {
 		ServiceLoader<Plugin> loader = ServiceLoader.load(Plugin.class);
 		ArrayList<T> plugins = new ArrayList<T>();
 		
@@ -35,7 +35,7 @@ public class PluginLoader {
 	 * @return  a list of the loaded plugins
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	static <T> List<T> loadPlugins(T t) {
+	public static <T> List<T> loadPlugins(T t) {
 		ServiceLoader<Plugin> loader = ServiceLoader.load(Plugin.class);
 		ArrayList<T> plugins = new ArrayList<T>();
 		
