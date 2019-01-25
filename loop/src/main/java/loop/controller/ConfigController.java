@@ -159,7 +159,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
     }
 
     public void initialize() {
-
         String errorMsg = "not a positive integer";
         // initialize multi Param
         List<MultiParamItem> multiConfigParamNames = new ArrayList<>();
@@ -180,38 +179,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         multiParamBox.valueProperty().bindBidirectional(multiParamProperty);
         multiParamBox.valueProperty().addListener((c, oldValue, newValue) -> {
             setDisableMultiParam(true, newValue);
-            setDisableMultiParam(false, oldValue);
-        });
-
-        support.registerValidator(startValue, false, (Control c, String v) -> {
-            if (multiParamProperty.getValue() == null)
-                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
-            else {
-                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
-                        new DoubleValidator("start value greater than end value!",
-                                d -> d < endValueProperty.getValue()).apply(c, v));
-            }
-        });
-
-        support.registerValidator(endValue, false, (Control c, String v) -> {
-            if (multiParamProperty.getValue() == null)
-                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
-            else {
-                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
-                        new DoubleValidator("end value lower than start value!",
-                                d -> d > startValueProperty.getValue()).apply(c, v));
-            }
-        });
-
-        startValueProperty.addListener((c, oldV, newV) -> {
-            String endVal = endValue.getText();
-            endValue.setText(endVal + "#");
-            endValue.setText(endVal);
-        });
-        endValueProperty.addListener((c, oldV, newV) -> {
-            String startVal = startValue.getText();
-            startValue.setText(startVal + "#");
-            startValue.setText(startVal);
+            if (oldValue != null) setDisableMultiParam(false, oldValue);
         });
 
         // inititalize gameNames
@@ -293,8 +261,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         endValue.textProperty().bindBidirectional(endValueProperty, new NumberStringConverter(Locale.ENGLISH));
         stepSize.textProperty().bindBidirectional(stepSizeProperty, new NumberStringConverter(Locale.ENGLISH));
 
-        support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
-        support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+
 
         // initialize game table
         firstCol.setCellValueFactory(cellData -> cellData.getValue().firstColumnContent);
@@ -306,6 +273,44 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 new GameTableEntry(game, false));
         gameTable.setItems(items);
         gameTable.setSelectionModel(null);
+    }
+
+    private void initializeValidation() {
+        String errorMsg = "not a positive integer";
+        support.registerValidator(roundField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+        support.registerValidator(iterationField, false, new IntegerValidator(errorMsg, (i) -> i > 0));
+
+
+        support.registerValidator(startValue, false, (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
+                        new DoubleValidator("start value greater than end value!",
+                                d -> d < endValueProperty.getValue()).apply(c, v));
+            }
+        });
+
+        support.registerValidator(endValue, false, (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v),
+                        new DoubleValidator("end value lower than start value!",
+                                d -> d > startValueProperty.getValue()).apply(c, v));
+            }
+        });
+
+        startValueProperty.addListener((c, oldV, newV) -> {
+            String endVal = endValue.getText();
+            endValue.setText(endVal + "#");
+            endValue.setText(endVal);
+        });
+        endValueProperty.addListener((c, oldV, newV) -> {
+            String startVal = startValue.getText();
+            startValue.setText(startVal + "#");
+            startValue.setText(startVal);
+        });
     }
 
     private boolean isPluginConfigurationInvalid() {
@@ -420,7 +425,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
-        items.removeIf((item) -> item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
+        items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
 
         for (Group grp : newPopulation.getGroups()) {
             if (grp.getSegmentCount() == 2) {
@@ -483,7 +488,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
         if (config.isMulticonfiguration()) {
             setMultiParam(config.getMulticonfigurationParameter());
             setMultiParamValues(config.getParameterValues());
-        } else multiParamProperty.setValue(multiParamBox.getItems().get(0));
+        } else
+            multiParamProperty.setValue(multiParamBox.getItems().get(0));
 
         if (cnt != VARIABLE_PARAM_CNT) {
             showWarningAlert();
