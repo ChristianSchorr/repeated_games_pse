@@ -274,10 +274,9 @@ public class OutputController {
     private void handleToLeft(ActionEvent event) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab == multiConfigOutputTab) {
-            toMultiOutput();
+            toAbstractedOutput();
         }
         if (selectedTab == abstractedOutputTab) {
-            tabPane.getSelectionModel().select(detailedOutputTab);
             toDetailedOutput();
         }
         if (selectedTab == detailedOutputTab) {

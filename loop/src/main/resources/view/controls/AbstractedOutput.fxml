@@ -61,7 +61,7 @@
     </GridPane>
     <HBox alignment="CENTER_LEFT" spacing="10">
     	<Label text="Considered iterations: "/>
-    	<ComboBox fx:id="consideredIterationsComboBox" />
+    	<ChoiceBox fx:id="consideredIterationsComboBox" />
     </HBox>
     <ImageView fx:id="efficiencyBufferGifView" />
     <Rectangle fx:id="efficiencyBufferRectangle" />
