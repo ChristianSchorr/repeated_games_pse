@@ -32,7 +32,9 @@ public class SimulationEngine {
     private boolean equilibriumReached;
     private Configuration configuration;
     
-    private List<Map<String, Double>> strategyDistributions;
+    //for the strategy distributions over time
+    private List<double[]> strategyPortions;
+    private List<String> strategyNames;
     
     private boolean printInfo = false;
     private int printPeriod = 5;
@@ -55,7 +57,16 @@ public class SimulationEngine {
         successQuantifier = configuration.getSuccessQuantifier();
         strategyAdjuster = configuration.getStrategyAdjuster();
         equilibriumCriterion = configuration.getEquilibriumCriterion();
-        strategyDistributions = new ArrayList<Map<String, Double>>();
+        strategyPortions = new ArrayList<double[]>();
+        strategyNames = new ArrayList<String>();
+        if (configuration.allowsMixedStrategies()) {
+            strategyNames = ((MixedStrategy) agents.get(0).getStrategy()).getComponentStrategies().stream().map(
+                    s -> s.getName()).collect(Collectors.toList());
+        } else {
+            configuration.getSegments().stream().forEach(seg -> 
+            seg.getStrategyDistribution().getSupport().stream().filter(
+                    s -> !strategyNames.contains(s.getName())).forEach(s -> strategyNames.add(s.getName())));
+        }
         
         adaptionsteps = 0;
         equilibriumReached = false;
@@ -64,7 +75,7 @@ public class SimulationEngine {
         
         while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
-            calculateStrategyDistribution();
+            calculateStrategyPortions();
             printStepInfo();
         }
         
@@ -100,43 +111,40 @@ public class SimulationEngine {
         adaptionsteps++;
     }
     
-    private void calculateStrategyDistribution() {
-        //initialise map
-        Map<String, Double> portions = new HashMap<String, Double>();
+    private void calculateStrategyPortions() {
+        double[] portions = new double[strategyNames.size()];
         
         if (configuration.allowsMixedStrategies()) {
             //cast to mixed strategies
             List<MixedStrategy> mixedStrategies = agents.stream().map(a -> (MixedStrategy) a.getStrategy()).collect(Collectors.toList());
-
-            List<Strategy> pureStrategies = mixedStrategies.get(0).getComponentStrategies();
-            for (Strategy s : pureStrategies) {
-                portions.put(s.getName(), 0.0);
+            
+            for (int i = 0; i < strategyNames.size(); i++) {
+                portions[i] = 0.0;
             }
-
+            
             //calculate portions
             for (MixedStrategy s : mixedStrategies) {
                 for (int i = 0; i < s.getSize(); i++) {
-                    portions.put(s.getComponentStrategies().get(i).getName(),
-                            portions.get(s.getComponentStrategies().get(i).getName()) + s.getComponent(i));
+                    portions[i] += s.getComponent(i);
                 }
             }
         } else { //only pure strategies
             List<Strategy> strategies = agents.stream().map(a -> a.getStrategy()).collect(Collectors.toList());
             //calculate strategy counts
             for (Strategy s : strategies) {
-                if (!portions.containsKey(s.getName()))
-                    portions.put(s.getName(), 0.0);
-                portions.put(s.getName(), portions.get(s.getName()) + 1.0);
+                portions[strategyNames.indexOf(s.getName())] += 1.0;
             }
         }
         double n = (double) agents.size();
-        portions.forEach((s, d) -> d /= n);
-        strategyDistributions.add(portions);
+        for (int i = 0; i < portions.length; i++) {
+            portions[i] /= n;
+        }
+        strategyPortions.add(portions);
     }
     
     private IterationResult createResult() {
         double efficiency = calculateEfficiency();
-        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps, strategyDistributions);
+        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps, strategyPortions, strategyNames);
     }
     
     private void playGame(AgentPair pair) {
