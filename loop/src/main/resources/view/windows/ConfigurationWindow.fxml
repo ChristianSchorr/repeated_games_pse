@@ -87,7 +87,6 @@
                                 <Label styleClass="control-label" text="Auswahl des Stufenspiels" GridPane.columnIndex="1" />
                                 <Label styleClass="control-label" text="Anzahl der Runden pro Wiederholung" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <HBox spacing="20" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                                    <Slider fx:id="roundSlider" prefWidth="200" />
                                     <TextField fx:id="roundField" alignment="TOP_CENTER" maxWidth="50" />
                                 </HBox>
                                 <HBox spacing="10" GridPane.columnSpan="2" GridPane.rowIndex="4">

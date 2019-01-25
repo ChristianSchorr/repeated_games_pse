@@ -56,9 +56,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private ChoiceBox gameBox;
 
     @FXML
-    private Slider roundSlider;
-
-    @FXML
     private TextField roundField;
 
     @FXML
@@ -221,7 +218,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
         // initialize rounds
         roundCountProperty.setValue(config.getRoundCount());
-        roundSlider.valueProperty().bindBidirectional(roundCountProperty);
         roundField.textProperty().bindBidirectional(roundCountProperty, new NumberStringConverter());
 
         // initialize iterationCount
