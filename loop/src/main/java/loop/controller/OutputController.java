@@ -329,6 +329,7 @@ public class OutputController {
 
         @Override
         public void run() {
+            result.clearHandlers();
             FileIO.saveResult(result, saveFile);
         }
     }

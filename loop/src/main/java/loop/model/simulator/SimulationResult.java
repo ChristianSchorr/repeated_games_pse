@@ -216,7 +216,11 @@ public class SimulationResult {
 		return finishedIterations;
 	}
 	
-	private void clearHandlers() {
+	//TODO find better solution for this problem
+	/**
+	 * Only use when iteration is finished and shall be saved as JSON!
+	 */
+	public void clearHandlers() {
 	    exceptionHandlers.clear();
 	    resultHandlers.clear();
 	    statusChangedHandler.clear();
