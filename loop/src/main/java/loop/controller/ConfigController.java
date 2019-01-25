@@ -8,7 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -296,32 +298,70 @@ public class ConfigController implements CreationController<UserConfiguration> {
     @FXML
     private void loadConfig(ActionEvent actionEvent) {
         Window stage = ((Node) actionEvent.getTarget()).getScene().getWindow();
+        fileChooser.setTitle("Open Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
+        fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(stage);
+        if (file == null) return;
         UserConfiguration config = null;
-        if (file != null) {
-            try {
-                config = FileIO.loadEntity(file);
-            } catch (IOException e) {
-                // TODO Show Error Dialog
-                config = this.config;
-            }
+        try {
+            config = FileIO.loadEntity(file);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
+            alert.showAndWait();
+            return;
         }
+        //check if all populations etc. in the configuration are known
+        boolean error = false;
+        String errorMsg = "The opened configuration contains unknown entities:";
+        if (!repository.getGameRepository().containsEntityName(config.getGameName())) {
+            errorMsg += "\n - the game '" + config.getGameName() + "'";
+        }
+        if (!repository.getPopulationRepository().containsEntityName(config.getPopulationName())) {
+            errorMsg += "\n - the population '" + config.getPopulationName() + "'";
+            error = true;
+        }
+        if (!repository.getPairBuilderRepository().containsEntityName(config.getPairBuilderName())) {
+            errorMsg += "\n - the pair builder '" + config.getPairBuilderName() + "'";
+            error = true;
+        }
+        if (!repository.getSuccessQuantifiernRepository().containsEntityName(config.getSuccessQuantifierName())) {
+            errorMsg += "\n - the success quantification '" + config.getSuccessQuantifierName() + "'";
+            error = true;
+        }
+        if (!repository.getStrategyAdjusterRepository().containsEntityName(config.getStrategyAdjusterName())) {
+            errorMsg += "\n - the strategy adjuster '" + config.getStrategyAdjusterName() + "'";
+            error = true;
+        }
+        if (!repository.getEquilibriumCriterionRepository().containsEntityName(config.getEquilibriumCriterionName())) {
+            errorMsg += "\n - the equilibrium criterion '" + config.getEquilibriumCriterionName() + "'";
+        }
+        if (error) {
+            Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        
         setConfiguration(config);
     }
 
     @FXML
     private void saveConfig(ActionEvent actionEvent) {
         Window stage = ((Node) actionEvent.getTarget()).getScene().getWindow();
+        fileChooser.setTitle("Save Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
+        fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(stage);
-        if (file != null) {
-            createConfig();
-            try {
-                FileIO.saveEntity(file, config);
-            } catch (IOException e) {
-                // TODO Show Error Dialog
-            }
+        if (file == null) return;
+        createConfig();
+        try {
+            FileIO.saveEntity(file, config);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.showAndWait();
         }
     }
 

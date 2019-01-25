@@ -89,7 +89,9 @@ public class HeadController {
     private Pane mainPane;
     
     private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
-
+    
+    private CentralRepository repository = CentralRepository.getInstance();
+    
     @FXML
     void initialize() {
         //setup history
@@ -103,7 +105,7 @@ public class HeadController {
 
 	    historyController = loader.getController();*/
         //load default configuration
-        updateConfiguration(UserConfiguration.getDefaultConfiguration());
+        updateConfiguration(UserConfiguration.getDefaultConfiguration(), false);
 
         //create simulator
         simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors());
@@ -114,16 +116,16 @@ public class HeadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", ".cnfg");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
+        if (saveFile == null) return;
         try {
             FileIO.saveEntity(saveFile, activeConfiguration);
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
-            return;
         }
     }
 
@@ -132,16 +134,24 @@ public class HeadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Configuration");
         fileChooser.setInitialDirectory(FileIO.USER_CONFIG_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Configuration File", "*.cnfg");
+        fileChooser.getExtensionFilters().add(extFilter);
         File openFile = fileChooser.showOpenDialog(new Stage());
+        if (openFile == null) return;
+        UserConfiguration config = null;
         try {
-            updateConfiguration(FileIO.loadEntity(openFile));
+            config = FileIO.loadEntity(openFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return;
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
             alert.showAndWait();
+            return;
         }
+        
+        updateConfiguration(config, true);
     }
 
     @FXML
@@ -149,7 +159,7 @@ public class HeadController {
         Parent configParent = null;
         try {
             ConfigController controller = new ConfigController();
-            controller.registerElementCreated((config) -> updateConfiguration(config));
+            controller.registerElementCreated((config) -> updateConfiguration(config, false));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/ConfigurationWindow.fxml"));
             loader.setController(controller);
             configParent = loader.load();
@@ -174,7 +184,10 @@ public class HeadController {
     	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Simulation Results");
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
+        fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", "*.sim");
         File openFile = fileChooser.showOpenDialog(new Stage());
+        if (openFile == null) return;
         new Thread(new ResultLoader(openFile)).start();
     }
     
@@ -354,7 +367,39 @@ public class HeadController {
         }
     }
 
-    private void updateConfiguration(UserConfiguration configuration) {
+    private void updateConfiguration(UserConfiguration configuration, boolean checkForUnknownEntities) {
+        if (checkForUnknownEntities) {
+            boolean error = false;
+            String errorMsg = "The opened configuration contains unknown entities:";
+            if (!repository.getGameRepository().containsEntityName(configuration.getGameName())) {
+                errorMsg += "\n - the game '" + configuration.getGameName() + "'";
+            }
+            if (!repository.getPopulationRepository().containsEntityName(configuration.getPopulationName())) {
+                errorMsg += "\n - the population '" + configuration.getPopulationName() + "'";
+                error = true;
+            }
+            if (!repository.getPairBuilderRepository().containsEntityName(configuration.getPairBuilderName())) {
+                errorMsg += "\n - the pair builder '" + configuration.getPairBuilderName() + "'";
+                error = true;
+            }
+            if (!repository.getSuccessQuantifiernRepository().containsEntityName(configuration.getSuccessQuantifierName())) {
+                errorMsg += "\n - the success quantification '" + configuration.getSuccessQuantifierName() + "'";
+                error = true;
+            }
+            if (!repository.getStrategyAdjusterRepository().containsEntityName(configuration.getStrategyAdjusterName())) {
+                errorMsg += "\n - the strategy adjuster '" + configuration.getStrategyAdjusterName() + "'";
+                error = true;
+            }
+            if (!repository.getEquilibriumCriterionRepository().containsEntityName(configuration.getEquilibriumCriterionName())) {
+                errorMsg += "\n - the equilibrium criterion '" + configuration.getEquilibriumCriterionName() + "'";
+            }
+            if (error) {
+                Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+        }
+        
         activeConfiguration = configuration;
         updateConfigurationPreview();
     }

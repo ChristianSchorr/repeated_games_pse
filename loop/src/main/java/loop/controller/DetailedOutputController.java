@@ -97,7 +97,7 @@ public class DetailedOutputController {
     @FXML
     private BarChart<String, Number> capitalDiagram;
     private static final int NUMBER_OF_BINS = 15;
-    private static final double CUTOFF = 0.05; //cuts off x% to the right and left of the distribution
+    private static final double CUTOFF = 0.00; //cuts off x% to the right and left of the distribution
 
     @FXML
     private ImageView capitalBufferGifView;
