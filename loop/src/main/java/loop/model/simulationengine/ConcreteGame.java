@@ -29,10 +29,10 @@ public class ConcreteGame implements Game {
      * @param cn1 payoff of player 1 when player 1 cooperates and player 2 doesn't
      * @param nc1 payoff of player 1 when player 1 doesn't cooperate and player 2 does
      * @param nn1 payoff of player 1 when both do not cooperate
-     * @param cc1 payoff of player 2 when both cooperate
-     * @param cn1 payoff of player 2 when player 1 cooperates and player 2 doesn't
-     * @param nc1 payoff of player 2 when player 1 doesn't cooperate and player 2 does
-     * @param nn1 payoff of player 2 when both do not cooperate
+     * @param cc2 payoff of player 2 when both cooperate
+     * @param cn2 payoff of player 2 when player 1 cooperates and player 2 doesn't
+     * @param nc2 payoff of player 2 when player 1 doesn't cooperate and player 2 does
+     * @param nn2 payoff of player 2 when both do not cooperate
      */
     public ConcreteGame(final String name, final String description, final int cc1, final int cn1, final int nc1, final int nn1,
             final int cc2, final int cn2, final int nc2, final int nn2) {
@@ -93,5 +93,24 @@ public class ConcreteGame implements Game {
                 + " theory that shows why two completely rational individuals might not cooperate, even if it appears that it is"
                 + " in their best interests to do so.", -1, -3, 0, -2, -1, 0, -3, -2);
     }
+    
+    public static Game stagHunt() {
+    	return new ConcreteGame("Stag hunt", "-", 4, 0, 3, 3, 4, 3, 0, 3);
+    }
+    
+    public static Game ChickenGame() {
+    	return new ConcreteGame("Chicken game", "-", 4, 2, 6, 0, 4, 6, 2, 0);
+    }
 
+    public static Game BattleOfTheSexes() {
+    	return new ConcreteGame("Battle of the sexes", "-", 3, 0, 0, 1, 1, 0, 0, 3);
+    }
+    
+    public static Game DictatorGame() {
+    	return new ConcreteGame("Dictator game", "-", 1, -1, 0, 0, 1, 2, 0, 0);
+    }
+    
+    public static Game PenaltyShootout() {
+    	return new ConcreteGame("Penalty shootout", "-", 0, 1, 1, 0, 1, 0, 0, 1);
+    }
 }
