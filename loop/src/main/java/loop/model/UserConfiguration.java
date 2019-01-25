@@ -110,8 +110,8 @@ public class UserConfiguration implements Serializable {
 	public static UserConfiguration getDefaultConfiguration() {
 	    int agentCount = 50;
         int roundCount  = 200;
-        int iterationCount = 10;
-        int maxAdapts = 10000;
+        int iterationCount = 8;
+        int maxAdapts = 500;
         String pairBuilderName = RandomPairBuilder.NAME;
         List<Double> pairBuilderParameters = new ArrayList<Double>();
         String successQuantifierName = PayoffInLastAdapt.NAME;

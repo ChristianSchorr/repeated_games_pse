@@ -77,8 +77,6 @@ public class OutputController {
     private Tab multiConfigOutputTab; //im fxml dokument leer
 
     /*-----------------navigation between result pages-----------------*/
-    @FXML
-    private Button toLeft;
 
     @FXML
     private Button saveButton;
@@ -243,9 +241,10 @@ public class OutputController {
     	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Results");
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", ".sim");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", "*.sim");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
+        if (saveFile == null) return;
         FileIO.saveResult(displayedResult, saveFile);
     }
 
@@ -257,7 +256,6 @@ public class OutputController {
         this.exitConditionLabel.setVisible(false);
         this.multiconfigurationLabel.setVisible(false);
         this.multiconfigurationParameterNameLabel.setVisible(false);
-        this.toLeft.setDisable(true);
         this.saveButton.setDisable(true);
         this.toDetailedOutput.setDisable(true);
         this.toAbstractedOutput.setDisable(true);
@@ -270,7 +268,6 @@ public class OutputController {
         this.exitConditionLabel.setVisible(true);
         this.multiconfigurationLabel.setVisible(true);
         this.multiconfigurationParameterNameLabel.setVisible(true);
-        this.toLeft.setDisable(false);
         this.saveButton.setDisable(false);
         this.toDetailedOutput.setDisable(false);
         this.toAbstractedOutput.setDisable(false);
@@ -286,5 +283,5 @@ public class OutputController {
     }*/
 
     //TODO:
-    //set config, save result buttons
+    //set config
 }

@@ -61,7 +61,7 @@ public class AbstractedOutputController {
 
     //used for both bar charts
     private final static int NUMBER_OF_BINS = 15;
-    private final static double CUTOFF = 0.05;
+    private final static double CUTOFF = 0.00;
 
     @FXML
     private ComboBox<String> consideredIterationsComboBox;
