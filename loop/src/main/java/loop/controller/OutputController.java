@@ -16,7 +16,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -107,21 +110,12 @@ public class OutputController {
     private Button toLeft;
     
     @FXML
-    private Label pageTitle;
+    private ChoiceBox<String> pageChoiceBox;
     
     @FXML
     private Button toRight;
     
-    @FXML
-    private Button toDetailedOutput;
-
-    @FXML
-    private Button toAbstractedOutput;
-
-    @FXML
-    private Button toMultiOutput;
-
-
+    
     @FXML
     private Pane container;
     
@@ -136,7 +130,25 @@ public class OutputController {
     @FXML
     // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        pageTitle.setText(DETAILED_OUTPUT_TITLE);
+        //TODO tooltips
+        
+        pageChoiceBox.getItems().addAll(DETAILED_OUTPUT_TITLE, ABSTRACTED_OUTPUT_TITLE);
+        pageChoiceBox.getSelectionModel().select(DETAILED_OUTPUT_TITLE);
+        pageChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldPage, newPage) -> {
+            switch (newPage) {
+                case DETAILED_OUTPUT_TITLE:
+                    toDetailedOutput();
+                    break;
+                case ABSTRACTED_OUTPUT_TITLE:
+                    toAbstractedOutput();
+                    break;
+                case MULTICONFIGURATION_OUTPUT_TITLE:
+                    toMultiOutput();
+                    break;
+                default: assert false;
+            }
+        });
+        
         deactivateAll();
     }
 
@@ -190,13 +202,18 @@ public class OutputController {
             } else {
                 this.multiConfigOutputController.setDisplayedResult(result);
             }
-
-            toMultiOutput.setDisable(false);
-        } else {
-            toMultiOutput.setDisable(true);
         }
 
-        tabPane.getSelectionModel().select(detailedOutputTab);
+        toDetailedOutput();
+        
+        //update navigation menubutton
+        if (!config.isMulticonfiguration()) {
+            pageChoiceBox.getItems().remove(MULTICONFIGURATION_OUTPUT_TITLE);
+        } else {
+            if (!pageChoiceBox.getItems().contains(MULTICONFIGURATION_OUTPUT_TITLE)) {
+                pageChoiceBox.getItems().add(MULTICONFIGURATION_OUTPUT_TITLE);
+            }
+        }
 
         update();
     }
@@ -239,20 +256,16 @@ public class OutputController {
     private void handleToRight(ActionEvent event) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab == detailedOutputTab) {
-            tabPane.getSelectionModel().select(abstractedOutputTab);
-            pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
+            toAbstractedOutput();
         }
         if (selectedTab == multiConfigOutputTab) {
-            tabPane.getSelectionModel().select(detailedOutputTab);
-            pageTitle.setText(DETAILED_OUTPUT_TITLE);
+            toDetailedOutput();
         }
         if (selectedTab == abstractedOutputTab) {
             if (config.isMulticonfiguration()) {
-                tabPane.getSelectionModel().select(multiConfigOutputTab);
-                pageTitle.setText(MULTICONFIGURATION_OUTPUT_TITLE);
+                toMultiOutput();
             } else {
-                tabPane.getSelectionModel().select(detailedOutputTab);
-                pageTitle.setText(DETAILED_OUTPUT_TITLE);
+                toDetailedOutput();
             }
         }
     }
@@ -261,42 +274,35 @@ public class OutputController {
     private void handleToLeft(ActionEvent event) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab == multiConfigOutputTab) {
-            tabPane.getSelectionModel().select(abstractedOutputTab);
-            pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
+            toMultiOutput();
         }
         if (selectedTab == abstractedOutputTab) {
             tabPane.getSelectionModel().select(detailedOutputTab);
-            pageTitle.setText(DETAILED_OUTPUT_TITLE);
+            toDetailedOutput();
         }
         if (selectedTab == detailedOutputTab) {
             if (config.isMulticonfiguration()) {
-                tabPane.getSelectionModel().select(multiConfigOutputTab);
-                pageTitle.setText(MULTICONFIGURATION_OUTPUT_TITLE);
+                toMultiOutput();
             } else {
-                tabPane.getSelectionModel().select(abstractedOutputTab);
-                pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
+                toAbstractedOutput();
             }
         }
     }
 
-    @FXML
-    private void handleToDetailedOutput(ActionEvent event) {
+    private void toDetailedOutput() {
         tabPane.getSelectionModel().select(detailedOutputTab);
-        pageTitle.setText(DETAILED_OUTPUT_TITLE);
-        ;
+        pageChoiceBox.getSelectionModel().select(DETAILED_OUTPUT_TITLE);
     }
 
-    @FXML
-    private void handleToAbstractedOutput(ActionEvent event) {
+    private void toAbstractedOutput() {
         tabPane.getSelectionModel().select(abstractedOutputTab);
-        pageTitle.setText(ABSTRACTED_OUTPUT_TITLE);
+        pageChoiceBox.getSelectionModel().select(ABSTRACTED_OUTPUT_TITLE);
     }
 
-    @FXML
-    private void handleToMultiOutput(ActionEvent event) {
+    private void toMultiOutput() {
         if (config.isMulticonfiguration()) {
             tabPane.getSelectionModel().select(multiConfigOutputTab);
-            pageTitle.setText(MULTICONFIGURATION_OUTPUT_TITLE);
+            pageChoiceBox.getSelectionModel().select(MULTICONFIGURATION_OUTPUT_TITLE);
         }
     }
     
@@ -349,10 +355,7 @@ public class OutputController {
         hide(this.importButton);
         hide(this.toLeft);
         hide(this.toRight);
-        hide(this.pageTitle);
-        //this.toDetailedOutput.setDisable(true);
-        //this.toAbstractedOutput.setDisable(true);
-        //this.toMultiOutput.setDisable(true);
+        hide(this.pageChoiceBox);
     }
 
     private void activateAll() {
@@ -368,10 +371,7 @@ public class OutputController {
         unHide(this.importButton);
         unHide(this.toLeft);
         unHide(this.toRight);
-        unHide(this.pageTitle);
-        //this.toDetailedOutput.setDisable(false);
-        //this.toAbstractedOutput.setDisable(false);
-        //this.toMultiOutput.setDisable(false);
+        unHide(this.pageChoiceBox);
     }
     
     private void hide(Node node) {
