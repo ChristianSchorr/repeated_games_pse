@@ -28,11 +28,11 @@
                     <CategoryAxis side="BOTTOM" label="Efficiency"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" label="Agent Count"/>
+                    <NumberAxis side="LEFT" label="Iteration Count"/>
                 </yAxis>
             </BarChart>
             <HBox>
-                <Label styleClass="control-label" text="Mittelwert: " />
+                <Label styleClass="control-label" text="mean efficiency: " />
                 <Label fx:id="meanEfficiencyLabel" />
             </HBox>
         </VBox>
@@ -43,11 +43,11 @@
                     <CategoryAxis side="BOTTOM" label="Executed Adaption Steps"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" label="Agent Count"/>
+                    <NumberAxis side="LEFT" label="Iteration Count"/>
                 </yAxis>
             </BarChart>
             <HBox>
-                <Label styleClass="control-label" text="Mittelwert: " />
+                <Label styleClass="control-label" text="mean executed adaption steps: " />
                 <Label fx:id="meanExecutedAdaptsLabel" />
             </HBox>
         </VBox>

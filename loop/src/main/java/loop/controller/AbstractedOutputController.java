@@ -166,6 +166,8 @@ public class AbstractedOutputController {
     /*-----------------------------------------------update methods-----------------------------------------------*/
 
     private void update() {
+        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() - 1 : 0;
+        
         //slider line
         updateSliders();
 
