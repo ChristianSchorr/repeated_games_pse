@@ -62,6 +62,9 @@ public class PopulationController implements CreationController<Population> {
     
     @FXML
     private Label totalAgentCountLabel;
+    
+    @FXML
+    private Menu loadMenu;
 
     private IntegerProperty totalAgentCountProperty = new SimpleIntegerProperty();
     private IntegerProperty agentCountProperty = new SimpleIntegerProperty();
@@ -78,7 +81,7 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void initialize() {
+    private void initialize() {        
         totalAgentCountLabel.textProperty().bindBidirectional(totalAgentCountProperty, new NumberStringConverter());
         totalAgentCountProperty.setValue(0);
         agentCountTextField.textProperty().bindBidirectional(agentCountProperty, new NumberStringConverter());
@@ -86,6 +89,12 @@ public class PopulationController implements CreationController<Population> {
         
         groupSelectionBox.getItems().addAll(CentralRepository.getInstance().getGroupRepository().getAllEntityNames());
         groupSelectionBox.getSelectionModel().select(0);
+        
+        CentralRepository.getInstance().getPopulationRepository().getAllEntityNames().forEach(popName -> {
+            MenuItem popItem = new MenuItem(popName);
+            loadMenu.getItems().add(popItem);
+            popItem.setOnAction(event -> setPopulation(CentralRepository.getInstance().getPopulationRepository().getEntityByName(popName)));
+        });
     }
 
     @Override
@@ -165,7 +174,7 @@ public class PopulationController implements CreationController<Population> {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Population");
         fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
-        fileChooser.setInitialFileName(population.getName().toLowerCase());
+        fileChooser.setInitialFileName(population.getName().toLowerCase().replace(' ', '_'));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", "*.pop");
         fileChooser.getExtensionFilters().add(extFilter);
         Window stage = ((Node) event.getTarget()).getScene().getWindow();
@@ -188,6 +197,17 @@ public class PopulationController implements CreationController<Population> {
     @FXML
     void savePopulation() {
         if (!validateSettings(true)) return;
+        
+        //TODO unschön, aber wie sonst?
+        if (CentralRepository.getInstance().getPopulationRepository().containsEntityName(populationNameTextField.getText())) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "A population with this name already exists. Do you want to overwrite it? Note that"
+                    + " in that case all configurations that currently use the overwritten population would from now on use this one instead.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            boolean override = (alert.getResult() == ButtonType.YES);
+            if (!override) return;
+            CentralRepository.getInstance().getPopulationRepository().removeEntity(populationNameTextField.getText());
+        }
         
         Population population = createPopulation();
         
@@ -213,13 +233,12 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void handleLoadPopulation(ActionEvent event) {
+    void importPopulation() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load Population");
         fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", "*.pop");
         fileChooser.getExtensionFilters().add(extFilter);
-        Window stage = ((Node) event.getTarget()).getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         
         if (file == null) {
@@ -230,12 +249,16 @@ public class PopulationController implements CreationController<Population> {
         try {
             population = (Population) FileIO.loadEntity(file);
         } catch (IOException e) {
-            Alert alert = new Alert(AlertType.ERROR, "File could not be loaded.", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
             alert.showAndWait();
             e.printStackTrace();
             return;
         }
         
+        setPopulation(population);
+    }
+    
+    private void setPopulation(Population population) {
         populationNameTextField.setText(population.getName());
         populationDescriptionTextField.setText(population.getDescription());
         

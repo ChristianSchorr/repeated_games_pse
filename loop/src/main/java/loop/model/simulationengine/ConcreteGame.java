@@ -59,7 +59,7 @@ public class ConcreteGame implements Game {
     }
 
     @Override
-    public GameResult play(Agent player1, Agent player2, boolean p1Cooperates, boolean p2Cooperates) {
+    public GameResult play(Agent player1, Agent player2, boolean p1Cooperates, boolean p2Cooperates) {      
         int payoff1 = 0;
         int payoff2 = 0;
         
@@ -112,5 +112,77 @@ public class ConcreteGame implements Game {
     
     public static Game PenaltyShootout() {
     	return new ConcreteGame("Penalty shootout", "-", 0, 1, 1, 0, 1, 0, 0, 1);
+    }
+    
+    /**
+     * Returns the value of the local variable cc1.
+     * 
+     * @return the value of cc1
+     */
+    public int getCC1() {
+        return cc1;
+    }
+    
+    /**
+     * Returns the value of the local variable cn1.
+     * 
+     * @return the value of cn1
+     */
+    public int getCN1() {
+        return cn1;
+    }
+    
+    /**
+     * Returns the value of the local variable nc1.
+     * 
+     * @return the value of nc1
+     */
+    public int getNC1() {
+        return nc1;
+    }
+    
+    /**
+     * Returns the value of the local variable nn1.
+     * 
+     * @return the value of nn1
+     */
+    public int getNN1() {
+        return nn1;
+    }
+    
+    /**
+     * Returns the value of the local variable cc2.
+     * 
+     * @return the value of cc2
+     */
+    public int getCC2() {
+        return cc2;
+    }
+    
+    /**
+     * Returns the value of the local variable cn2.
+     * 
+     * @return the value of cn2
+     */
+    public int getCN2() {
+        return cn2;
+    }
+    
+    /**
+     * Returns the value of the local variable nc2.
+     * 
+     * @return the value of nc2
+     */
+    public int getNC2() {
+        return nc2;
+    }
+    
+    /**
+     * Returns the value of the local variable nn2.
+     * 
+     * @return the value of nn2
+     */
+    public int getNN2() {
+        return nn2;
     }
 }

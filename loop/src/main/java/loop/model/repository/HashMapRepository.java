@@ -52,4 +52,9 @@ public class HashMapRepository<T> implements Repository<T> {
 		return new ArrayList<String>(repo.keySet());
 	}
 
+    @Override
+    public void removeEntity(String name) {
+        repo.remove(name);
+    }
+
 }

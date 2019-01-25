@@ -24,6 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -66,6 +68,9 @@ public class GroupController implements CreationController<Group> {
 	private TextField descriptionTextField;
 	
 	@FXML
+    private Menu loadMenu;
+	
+	@FXML
 	private Button saveGroupButton;
 	
 	@FXML
@@ -104,6 +109,13 @@ public class GroupController implements CreationController<Group> {
 	       if (newTab == null) ((VBox) newTab.getContent()).prefHeightProperty().addListener(listener);
 	    });*/
 	    isCohesiveCheckBox.setSelected(true);
+	    
+	    CentralRepository.getInstance().getGroupRepository().getAllEntityNames().forEach(grpName -> {
+            MenuItem grpItem = new MenuItem(grpName);
+            loadMenu.getItems().add(grpItem);
+            grpItem.setOnAction(event -> setGroup(CentralRepository.getInstance().getGroupRepository().getEntityByName(grpName)));
+        });
+	    
 	    addSegmentTab();
 	}
 	
@@ -151,7 +163,7 @@ public class GroupController implements CreationController<Group> {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Group");
         fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
-        fileChooser.setInitialFileName(group.getName().toLowerCase());
+        fileChooser.setInitialFileName(group.getName().toLowerCase().replace(' ', '_'));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Group File", "*.grp");
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(stage);
@@ -173,6 +185,17 @@ public class GroupController implements CreationController<Group> {
 	@FXML
 	void saveGroup() {
 	    if (!validateSettings(true)) return;
+	    
+	    //TODO unschön, aber wie sonst?
+        if (CentralRepository.getInstance().getGroupRepository().containsEntityName(groupNameTextField.getText())) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "A group with this name already exists. Do you want to overwrite it? Note that"
+                    + " in that case all populations currently containing the overwritten group would from now on contain this one instead.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            boolean override = (alert.getResult() == ButtonType.YES);
+            if (!override) return;
+            CentralRepository.getInstance().getGroupRepository().removeEntity(groupNameTextField.getText());
+        }
 	    
 	    Group group = createGroup();
 	    
@@ -199,7 +222,7 @@ public class GroupController implements CreationController<Group> {
     }
 	
 	@FXML
-	void handleLoadGroup(ActionEvent event) {
+	void importGroup(ActionEvent event) {
 	    FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load Group");
         fileChooser.setInitialDirectory(FileIO.GROUP_DIR);
@@ -215,13 +238,17 @@ public class GroupController implements CreationController<Group> {
         try {
             group = (Group) FileIO.loadEntity(file);
         } catch (IOException e) {
-            Alert alert = new Alert(AlertType.ERROR, "File could not be loaded.", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
             alert.showAndWait();
             e.printStackTrace();
             return;
         }
         
-        groupNameTextField.setText(group.getName());
+        setGroup(group);
+	}
+	
+	private void setGroup(Group group) {
+	    groupNameTextField.setText(group.getName());
         descriptionTextField.setText(group.getDescription());
         isCohesiveCheckBox.setSelected(group.isCohesive());
         
