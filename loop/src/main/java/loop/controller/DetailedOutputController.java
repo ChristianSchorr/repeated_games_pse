@@ -293,6 +293,11 @@ public class DetailedOutputController {
         }
 
         private void updateStrategyChart() {
+            if (meanOverAllIterations) {//deactivate chart
+                setStrategyChartData(null);
+                return;
+            }
+            
             List<XYChart.Series<Number, Number>> allSeries = new ArrayList<XYChart.Series<Number, Number>>();
             
             List<double[]> strategyDistributions = selectedIteration.getStrategyPortions();
@@ -369,8 +374,15 @@ public class DetailedOutputController {
     }
 
     private synchronized void setStrategyChartData(Collection<? extends XYChart.Series<Number, Number>> data) {
+        if (data == null) {
+            strategyChart.setDisable(true);
+            strategyChart.getData().clear();
+            return;
+        }
+        strategyChart.setDisable(false);
         strategyChart.getData().clear();
         strategyChart.getData().addAll(data);
+        ((NumberAxis) strategyChart.getXAxis()).setUpperBound(selectedIteration.getAdapts());
     }
 
     private synchronized void setCapitalChartData(Collection<? extends XYChart.Series<String, Number>> data) {
