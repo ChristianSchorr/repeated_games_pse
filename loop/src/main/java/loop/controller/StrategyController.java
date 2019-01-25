@@ -218,7 +218,7 @@ public class StrategyController implements CreationController<Strategy> {
     private void saveStrategy() {
     	 Strategy strat;
          try {
-             strat = getStrategy();
+             strat = expressionRoot.getStrategy();
          } catch (IllegalArgumentException e) {
              Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
              alert.showAndWait();
@@ -254,7 +254,7 @@ public class StrategyController implements CreationController<Strategy> {
     private void applyStrategy() {
     	Strategy strat;
     	try {
-            strat = getStrategy();
+            strat = expressionRoot.getStrategy();
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
             alert.showAndWait();
