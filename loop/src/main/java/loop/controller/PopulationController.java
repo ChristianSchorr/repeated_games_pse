@@ -62,6 +62,9 @@ public class PopulationController implements CreationController<Population> {
     
     @FXML
     private Label totalAgentCountLabel;
+    
+    @FXML
+    private Menu loadMenu;
 
     private IntegerProperty totalAgentCountProperty = new SimpleIntegerProperty();
     private IntegerProperty agentCountProperty = new SimpleIntegerProperty();
@@ -78,7 +81,7 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void initialize() {
+    private void initialize() {        
         totalAgentCountLabel.textProperty().bindBidirectional(totalAgentCountProperty, new NumberStringConverter());
         totalAgentCountProperty.setValue(0);
         agentCountTextField.textProperty().bindBidirectional(agentCountProperty, new NumberStringConverter());
@@ -86,6 +89,12 @@ public class PopulationController implements CreationController<Population> {
         
         groupSelectionBox.getItems().addAll(CentralRepository.getInstance().getGroupRepository().getAllEntityNames());
         groupSelectionBox.getSelectionModel().select(0);
+        
+        CentralRepository.getInstance().getPopulationRepository().getAllEntityNames().forEach(popName -> {
+            MenuItem popItem = new MenuItem(popName);
+            loadMenu.getItems().add(popItem);
+            popItem.setOnAction(event -> setPopulation(CentralRepository.getInstance().getPopulationRepository().getEntityByName(popName)));
+        });
     }
 
     @Override
@@ -224,13 +233,12 @@ public class PopulationController implements CreationController<Population> {
     }
     
     @FXML
-    private void handleLoadPopulation(ActionEvent event) {
+    void importPopulation() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load Population");
         fileChooser.setInitialDirectory(FileIO.POPULATION_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Population File", "*.pop");
         fileChooser.getExtensionFilters().add(extFilter);
-        Window stage = ((Node) event.getTarget()).getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         
         if (file == null) {
@@ -247,6 +255,10 @@ public class PopulationController implements CreationController<Population> {
             return;
         }
         
+        setPopulation(population);
+    }
+    
+    private void setPopulation(Population population) {
         populationNameTextField.setText(population.getName());
         populationDescriptionTextField.setText(population.getDescription());
         
