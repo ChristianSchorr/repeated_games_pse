@@ -170,6 +170,7 @@ public class HeadController {
 
         configWindow.setTitle("Edit configuration");
         configWindow.setScene(configScene);
+        configWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
 
         // Specifies the modality for new window.
         configWindow.initModality(Modality.WINDOW_MODAL);
@@ -271,6 +272,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newGameWindow.initModality(Modality.WINDOW_MODAL);
+        newGameWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
         newGameWindow.show();
     }
 
@@ -289,6 +291,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newStrategyWindow.initModality(Modality.WINDOW_MODAL);
+        newStrategyWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
         newStrategyWindow.show();
     }
 
@@ -314,6 +317,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newGroupWindow.initModality(Modality.WINDOW_MODAL);
+        newGroupWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
         newGroupWindow.show();
     }
 
@@ -339,6 +343,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newPopulationWindow.initModality(Modality.WINDOW_MODAL);
+        newPopulationWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
         newPopulationWindow.show();
     }
 

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import loop.model.repository.FileIO;
@@ -28,6 +29,7 @@ public class Main extends Application {
 
         stage.setTitle("loop");
         stage.setScene(scene);
+        stage.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
         stage.show();
     }
 
