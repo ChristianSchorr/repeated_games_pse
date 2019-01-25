@@ -37,7 +37,7 @@
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#saveStrategy">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
                     </graphic>
