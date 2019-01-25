@@ -66,8 +66,8 @@
         <VBox style="-fx-padding: 24;">
             <VBox styleClass="card">
                 <children>
-                    <Label styleClass="card-title" text="Simulationseinstellungen" />
-                    <Label alignment="TOP_CENTER" prefWidth="314.0" text="Simulationsparameter, die für jede Simulation konfiguriert werden können" wrapText="true" />
+                    <Label styleClass="card-title" text="Simulation settings" />
+                    <Label alignment="TOP_CENTER" prefWidth="314.0" text="Simulation parameters, that can be configured for every simulation" wrapText="true" />
                     <GridPane>
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="62.50" prefWidth="100.0" />
@@ -84,18 +84,18 @@
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <ChoiceBox fx:id="gameBox" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                <Label styleClass="control-label" text="Auswahl des Stufenspiels" GridPane.columnIndex="1" />
-                                <Label styleClass="control-label" text="Anzahl der Runden pro Wiederholung" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label styleClass="control-label" text="Selected game" GridPane.columnIndex="1" />
+                                <Label styleClass="control-label" text="Number of rounds per adaption step" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <HBox spacing="20" GridPane.columnIndex="0" GridPane.rowIndex="2">
                                     <Slider fx:id="roundSlider" prefWidth="200" />
                                     <TextField fx:id="roundField" alignment="TOP_CENTER" maxWidth="50" />
                                 </HBox>
                                 <HBox spacing="10" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                                    <Label style="-fx-padding: 10 0 0 0" styleClass="control-label" text="Anzahl der Wiederholungen" />
+                                    <Label style="-fx-padding: 10 0 0 0" styleClass="control-label" text="Number of repetitions" />
                                     <TextField fx:id="iterationField" alignment="TOP_CENTER" maxWidth="50" />
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="0" GridPane.rowIndex="5">
-                                    <Label alignment="TOP_LEFT" styleClass="control-label" text="Gemischte Strategien zulassen" />
+                                    <Label alignment="TOP_LEFT" styleClass="control-label" text="Allow mixed strategies" />
                                     <CheckBox fx:id="mixedStrategyCheckBox" />
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="25" GridPane.rowIndex="6">
@@ -108,7 +108,7 @@
                                         </Button>
                                     </HBox>
                                 </HBox>
-                                <Label styleClass="control-label" text="Wahl der Agentenpopulationen" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <Label styleClass="control-label" text="Selected population" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                 <rowConstraints>
                                     <RowConstraints />
                                     <RowConstraints />
@@ -172,11 +172,11 @@
                                 </VBox>
                                 <TextField fx:id="maxAdapts" alignment="CENTER" maxWidth="50" GridPane.columnIndex="0" GridPane.rowIndex="4" />
 
-                                <Label styleClass="control-label" text="Agentenpaarung" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <Label styleClass="control-label" text="Art der Erfolgsquantifizierung" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label styleClass="control-label" text="Auswahl des Adaptionsmechanismus" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label styleClass="control-label" text="Auswahl des Gleichgewichtskriterium" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <Label styleClass="control-label" text="Maximale Zahl der Adaptionsschritte" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <Label styleClass="control-label" text="Pairing algorithm" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label styleClass="control-label" text="Success quantification" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label styleClass="control-label" text="Strategy adjuster" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label styleClass="control-label" text="Equilibrium criterion" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label styleClass="control-label" text="Maximum number of adaption steps" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <rowConstraints>
                            <RowConstraints />
                            <RowConstraints />
@@ -191,9 +191,9 @@
                             <Label alignment="TOP_CENTER" prefHeight="73.0" prefWidth="411.0" text="Einstellung des variablen Konfigurationsparameter für Multikonfigurationen" wrapText="true" />
                             <GridPane hgap="30" vgap="10">
                                 <ChoiceBox fx:id="multiParamBox" GridPane.columnSpan="2" GridPane.rowIndex="0" />
-                                <Label styleClass="control-label" text="Startwert:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <Label styleClass="control-label" text="Endwert:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                <Label styleClass="control-label" text="Schrittweite:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                <Label styleClass="control-label" text="Start value:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Label styleClass="control-label" text="End value:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label styleClass="control-label" text="Step size:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                                 <TextField fx:id="startValue" alignment="TOP_CENTER" maxWidth="50" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <TextField fx:id="endValue" alignment="TOP_CENTER" maxWidth="50" promptText="100" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <TextField fx:id="stepSize" alignment="TOP_CENTER" maxWidth="50" promptText="10" GridPane.columnIndex="1" GridPane.rowIndex="3" />

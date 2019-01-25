@@ -26,75 +26,75 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.HeadController" fx:id="mainPane">
     <MenuBar style="-fx-padding: 0; -fx-background-color: white">
         <menus>
-            <Menu text="Datei">
+            <Menu text="File">
                 <items>
-                    <MenuItem text="Konfiguration bearbeiten" onAction="#editConfiguration">
+                    <MenuItem text="Edit configuration" onAction="#editConfiguration">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Konfiguration laden" onAction="#loadConfiguration">
+                    <MenuItem text="Load configuration" onAction="#loadConfiguration">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="UPLOAD" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Konfiguration speichern" onAction="#saveConfiguration">
+                    <MenuItem text="Save configuration" onAction="#saveConfiguration">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="DOWNLOAD" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem />
-                    <MenuItem text="Resultate laden" onAction="#loadResults">
+                    <MenuItem text="Load results" onAction="#loadResults">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="UPLOAD" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem />
-                    <MenuItem text="Simulation starten" onAction="#startSimulation">
+                    <MenuItem text="Start simulation" onAction="#startSimulation">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="PLAY" style="-fx-text-fill: #008A00" />
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem />
-                    <MenuItem text="Simulator verlassen" onAction="#closeSimulator">
+                    <MenuItem text="Close Simulator" onAction="#closeSimulator">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
                 </items>
             </Menu>
-            <Menu text="Erweiterungen">
+            <Menu text="Extensions">
                 <items>
-                    <MenuItem text="Neues Stufenspiel erstellen" onAction="#openNewGameWindow">
+                    <MenuItem text="Create new game" onAction="#openNewGameWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CUBES" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Neue Strategie erstellen" onAction="#openNewStrategyWindow">
+                    <MenuItem text="Create new strategy" onAction="#openNewStrategyWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Neue Gruppe erstellen" onAction="#openNewGroupWindow">
+                    <MenuItem text="Create new group" onAction="#openNewGroupWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CUBES" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Neue Population erstellen" onAction="#openNewPopulationWindow">
+                    <MenuItem text="Create new population" onAction="#openNewPopulationWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
                 </items>
             </Menu>
-            <Menu text="Hilfe">
+            <Menu text="Help">
                 <items>
-                    <MenuItem text="Hilfe" onAction="#showHelp">
+                    <MenuItem text="Help" onAction="#showHelp">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="QUESTION" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Über den Simulator" onAction="#showInfo">
+                    <MenuItem text="About" onAction="#showInfo">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="INFO" style="-fx-text-fill: grey" />
                         </graphic>
@@ -116,8 +116,8 @@
                     <ColumnConstraints percentWidth="20" />
                 </columnConstraints>
                 <VBox>
-                    <Label styleClass="card-title" text="Grundeinstellungen" />
-                    <Label prefWidth="400.0" text="Eine Zusammenfassung der Konfigurationsparameter" wrapText="true" />
+                    <Label styleClass="card-title" text="Basic settings" />
+                    <Label prefWidth="400.0" text="A summary of the configuration parameters" wrapText="true" />
                     <GridPane hgap="20" style="-fx-padding: 20, 0, 20, 0" vgap="5">
                         <columnConstraints>
                             <ColumnConstraints />
@@ -127,17 +127,17 @@
                             <ColumnConstraints />
                         </columnConstraints>
                         <Separator orientation="VERTICAL" style="-fx-padding: -4, 16, -4, 16" GridPane.rowSpan="4" />
-                        <Label styleClass="control-label" text="Stufenspiel:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label styleClass="control-label" text="Game:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <Label fx:id="gameNameLabel" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Label styleClass="control-label" text="Agentenzahl:" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label styleClass="control-label" text="Number of agents:" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <Label fx:id="agentCountLabel" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                        <Label styleClass="control-label" text="Wiederholungen:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label styleClass="control-label" text="Repetitions:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="iterationCountLabel" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label styleClass="control-label" text="Runden pro Wdh.:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label styleClass="control-label" text="Rounds per adaption step:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Label fx:id="roundCountLabel" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                         <Label styleClass="control-label" text="Population:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="populationNameLabel" text="Tit for Tat, Grim, Immer kooperieren" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label styleClass="control-label" text="Gemischte Strategien:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="populationNameLabel" text="" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label styleClass="control-label" text="Mixed strategies:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <Label fx:id="mixedStrategiesLabel" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                         <rowConstraints>
                             <RowConstraints />
