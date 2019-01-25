@@ -21,7 +21,9 @@ import java.net.URL;
  * @author Peter Koepernik
  */
 public class Main extends Application {
-
+    
+    public static final String RING_LOGO_PATH = "file:src/main/resources/loop_ring.png";
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/windows/HomeWindow.fxml"));
@@ -29,7 +31,7 @@ public class Main extends Application {
 
         stage.setTitle("loop");
         stage.setScene(scene);
-        stage.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
+        stage.getIcons().add(new Image(RING_LOGO_PATH));
         stage.show();
     }
 

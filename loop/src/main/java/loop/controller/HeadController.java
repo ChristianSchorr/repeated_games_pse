@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import loop.Main;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.UserConfiguration;
@@ -41,7 +42,7 @@ import loop.model.simulator.exception.ConfigurationException;
  * @author Pierre Toussing
  */
 public class HeadController {
-
+    
     private UserConfiguration activeConfiguration;
 
     private Simulator simulator;
@@ -170,7 +171,7 @@ public class HeadController {
 
         configWindow.setTitle("Edit configuration");
         configWindow.setScene(configScene);
-        configWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
+        configWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
 
         // Specifies the modality for new window.
         configWindow.initModality(Modality.WINDOW_MODAL);
@@ -272,7 +273,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newGameWindow.initModality(Modality.WINDOW_MODAL);
-        newGameWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
+        newGameWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newGameWindow.show();
     }
 
@@ -291,7 +292,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newStrategyWindow.initModality(Modality.WINDOW_MODAL);
-        newStrategyWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
+        newStrategyWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newStrategyWindow.show();
     }
 
@@ -317,7 +318,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newGroupWindow.initModality(Modality.WINDOW_MODAL);
-        newGroupWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
+        newGroupWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newGroupWindow.show();
     }
 
@@ -343,7 +344,7 @@ public class HeadController {
 
         // Specifies the modality for new window.
         newPopulationWindow.initModality(Modality.WINDOW_MODAL);
-        newPopulationWindow.getIcons().add(new Image("file:src/main/resources/loop_logo.jpg"));
+        newPopulationWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newPopulationWindow.show();
     }
 
