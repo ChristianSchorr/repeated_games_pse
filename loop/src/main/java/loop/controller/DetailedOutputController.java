@@ -199,7 +199,7 @@ public class DetailedOutputController {
             }
             updateCharts();
         });*/
-
+        
         update();
     }
 
@@ -209,6 +209,12 @@ public class DetailedOutputController {
      * Updates the whole output window.
      */
     public void update() {
+        this.meanOverAllIterations = this.meanOverAllIterationsCheckbox.isSelected();
+        this.selectedIterationNumber = this.iterationSlider.valueProperty().intValue() - 1;
+        this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() - 1: 0;
+        this.selectedIteration = this.meanOverAllIterations ? null
+                : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
+        
         //slider line
         updateSliders();
 
@@ -305,7 +311,7 @@ public class DetailedOutputController {
                         strategies.add(a.getStrategy());
                 }
             }
-
+            
             if (config.getMixedAllowed()) { //mixed strategies
                 //cast to mixed strategies
                 List<MixedStrategy> mixedStrategies = new ArrayList<MixedStrategy>();
