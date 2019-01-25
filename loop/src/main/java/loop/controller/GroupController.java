@@ -124,19 +124,28 @@ public class GroupController implements CreationController<Group> {
 	/*------------------------------button handlers------------------------------*/
 	
 	@FXML
-	void handleAddSegment(ActionEvent event) {
-	    addSegmentTab();
-	}
+    void resetGroup(ActionEvent event) {
+        //confirm
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.NO) {
+            return;
+        }
+        
+        //reset
+        groupNameTextField.setText("");
+        descriptionTextField.setText("");
+        tabControllers.clear();
+        segmentTabs.getTabs().clear();
+        isCohesiveCheckBox.setSelected(true);
+        addSegmentTab();
+    }
 	
 	@FXML
-	void handleSave(ActionEvent event) {
-	    Group group = createGroup();
+	void exportGroup(ActionEvent event) {
+	    if (!validateSettings(true)) return;
 	    
-	    if (group.getName().trim().equals("") || group.getDescription().trim().equals("")) {
-            Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
-            alert.showAndWait();
-            return;
-	    }
+	    Group group = createGroup();
 	    
 	    //save dialog
         FileChooser fileChooser = new FileChooser();
@@ -159,10 +168,35 @@ public class GroupController implements CreationController<Group> {
             alert.showAndWait();
             return;
         }
-        
-        this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
+	}
+	
+	@FXML
+	void saveGroup() {
+	    if (!validateSettings(true)) return;
+	    
+	    Group group = createGroup();
+	    
+	    this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
         stage.close();
 	}
+	
+	private boolean validateSettings(boolean alertIfFaulty) {
+        if (groupNameTextField.getText().trim().equals("") || descriptionTextField.getText().trim().equals("")) {
+            if (alertIfFaulty) {
+                Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return false;
+        }
+        if (tabControllers.keySet().stream().map(c -> c.returnSegment()).anyMatch(seg -> seg.getStrategyNames().isEmpty())) {
+            if (alertIfFaulty) {
+                Alert alert = new Alert(AlertType.ERROR, "All segments must have at least one chosen strategy.", ButtonType.OK);
+                alert.showAndWait();
+            }
+            return false;
+        }
+        return true;
+    }
 	
 	@FXML
 	void handleLoadGroup(ActionEvent event) {
@@ -211,22 +245,9 @@ public class GroupController implements CreationController<Group> {
 	}
 	
 	@FXML
-	void handleReset(ActionEvent event) {
-	    //confirm
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-        if (alert.getResult() == ButtonType.NO) {
-            return;
-        }
-        
-        //reset
-	    groupNameTextField.setText("");
-	    descriptionTextField.setText("");
-	    tabControllers.clear();
-	    segmentTabs.getTabs().clear();
-	    isCohesiveCheckBox.setSelected(true);
-	    addSegmentTab();
-	}
+    void handleAddSegment(ActionEvent event) {
+        addSegmentTab();
+    }
 	
 	/*---------------------------------private helper methods---------------------------------*/
 	

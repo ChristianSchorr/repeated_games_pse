@@ -73,7 +73,7 @@ public class NewGameController implements CreationController<Game> {
     /*------------------------------button handlers------------------------------*/
     
     @FXML
-    private void handleReset() {
+    void resetGame() {
     	 //confirm
         Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
@@ -95,7 +95,7 @@ public class NewGameController implements CreationController<Game> {
     }
     
     @FXML
-    private void handleSaveGame() {
+    void exportGame() {
         Game game;
         try {
             game = createGame();
@@ -129,6 +129,11 @@ public class NewGameController implements CreationController<Game> {
         
         this.elementCreatedHandlers.forEach(handler -> handler.accept(game));
         stage.close();
+    }
+    
+    @FXML
+    void saveGame() {
+        
     }
     
     /*---------------------------------private helper methods---------------------------------*/

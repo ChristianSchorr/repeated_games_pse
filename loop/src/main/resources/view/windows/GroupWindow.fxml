@@ -3,15 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -39,16 +31,30 @@
 	                <TextField fx:id="groupNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name of the group" />
 	                <TextField fx:id="descriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
 	            </VBox>
-	            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
-	                <Button onAction="#handleReset" styleClass="setting-button">
+		            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
+		                <Button onAction="#resetGroup" styleClass="setting-button">
 	                    <graphic>
-	                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey" />
+	                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
 	                    </graphic>
+	                    <tooltip>
+	                    	<Tooltip text="Reset all settings"/>
+	                    </tooltip>
 	                </Button>
-	                <Button onAction="#handleSave">
+	                <Button onAction="#exportGroup">
 	                    <graphic>
-	                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey" />
+	                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
 	                    </graphic>
+	                    <tooltip>
+	                    	<Tooltip text="Export the created group as a file"/>
+	                    </tooltip>
+	                </Button>
+	                <Button onAction="#saveGroup">
+	                	<graphic>
+	                		<Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00" />
+	            		</graphic>
+	            		<tooltip>
+	            			<Tooltip text="Save the created group and close this window"/>
+	            		</tooltip>
 	                </Button>
 	            </HBox>
 	            <rowConstraints>
