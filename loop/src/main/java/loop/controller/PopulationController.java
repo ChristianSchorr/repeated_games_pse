@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -105,6 +106,20 @@ public class PopulationController implements CreationController<Population> {
         //get name and agent count
         String groupName = groupSelectionBox.getValue();
         int agentCount = agentCountProperty.getValue();
+        
+        //check if group is already there
+        Optional<GroupCellController> opt = cellControllers.stream().filter(c -> c.getGroupName().equals(groupName)).findAny();
+        if (opt.isPresent()) {
+            GroupCellController groupCell = opt.get();
+            groupCell.increaseAgentCount(agentCount);
+            totalAgentCountProperty.setValue(totalAgentCountProperty.getValue() + agentCount);
+            
+            int index = cellControllers.indexOf(groupCell);
+            groupSizes.remove(index);
+            groupSizes.add(index, groupCell.getAgentCount());
+            
+            return;
+        }
         
         //update flow pane
         GroupCellController cellController = new GroupCellController(groupName, agentCount, this);
@@ -298,8 +313,32 @@ public class PopulationController implements CreationController<Population> {
             return container;
         }
         
+        /**
+         * Return the amount of agents.
+         * 
+         * @return the amount of agents
+         */
         public int getAgentCount() {
             return agentCount;
+        }
+        
+        /**
+         * Return the name of the group.
+         * 
+         * @return the name of the group
+         */
+        public String getGroupName() {
+            return groupName;
+        }
+        
+        /**
+         * Increase the agent count by the given amount.
+         * 
+         * @param count the number tha agent count shall be increased by
+         */
+        public void increaseAgentCount(int count) {
+            agentCount += count;
+            groupCountLabel.setText(agentCount + " agents.");
         }
     }
     
