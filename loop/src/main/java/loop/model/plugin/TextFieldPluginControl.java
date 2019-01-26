@@ -2,6 +2,7 @@ package loop.model.plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javafx.beans.property.DoubleProperty;
@@ -112,7 +113,7 @@ public class TextFieldPluginControl extends PluginControl {
         TextField field = new TextField();
         label.setText(p.getName() + " :");
         DoubleProperty prop = new SimpleDoubleProperty();
-        field.textProperty().bindBidirectional(prop, new NumberStringConverter());
+        field.textProperty().bindBidirectional(prop, new NumberStringConverter(Locale.ENGLISH));
         registerValidation(field, p);
         HBox box = new HBox();
         box.setSpacing(10);
