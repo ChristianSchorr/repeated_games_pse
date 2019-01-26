@@ -11,16 +11,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.HistoryController">
-    <columnConstraints>
-        <ColumnConstraints percentWidth="27" />
-        <ColumnConstraints percentWidth="73" />
-    </columnConstraints>
-    <VBox spacing="1" style="-fx-padding: -16 3 0 -16" >
-        <ListView fx:id="historyList" fixedCellSize="100"/>
-    </VBox>
-    <fx:include fx:id="outputView" source="outputView.fxml" />
-    <rowConstraints>
-        <RowConstraints />
-    </rowConstraints>
-</GridPane>
+<HBox xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.HistoryController" >
+    <ListView fx:id="historyList" minWidth="320"/>
+    <fx:include fx:id="outputView" source="outputView.fxml" GridPane.columnIndex="1" prefWidth="10000"/>
+</HBox>

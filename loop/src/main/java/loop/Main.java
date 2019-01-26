@@ -27,7 +27,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/windows/HomeWindow.fxml"));
-        Scene scene = new Scene(root, 1024, 720);
+        Scene scene = new Scene(root, 1920, 1080);
 
         stage.setTitle("loop");
         stage.setScene(scene);

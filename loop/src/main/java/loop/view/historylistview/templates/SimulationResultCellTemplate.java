@@ -1,10 +1,14 @@
 package loop.view.historylistview.templates;
 
+import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import loop.model.simulator.SimulationResult;
 import loop.controller.ResultHistoryItem;
+
 
 /**
  * This class manges how simulations are displayed in the history list view
@@ -30,6 +34,7 @@ public abstract class SimulationResultCellTemplate {
         gameNameLabel.setText(gameName);
         simulationIdLabel.setText(String.format("#%03d", simulationId));
     }
+
 
     public HBox getContainer() {
         return container;

@@ -14,42 +14,24 @@
 
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.Pane?>
-<ScrollPane styleClass="card" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:id = "content" fitToWidth="true">
-<VBox prefWidth="780.0" spacing="10" >
-    <Label styleClass="card-subtitle" text="Initial capital" />
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:id="content"
+      style="../style.css" spacing="12">
+    <Label styleClass="card-subtitle" text="Initial capital"/>
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label styleClass="control-label" text="Distribution function"/>
         <ChoiceBox fx:id="distributionChoice"/>
     </HBox>
-    <GridPane alignment="CENTER" hgap="10">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="95.0" />
-        </columnConstraints>
-        <Separator orientation="VERTICAL" GridPane.columnIndex="0" />
-        <Pane fx:id="distributionPluginPane" GridPane.columnIndex="1"/>
-        <rowConstraints>
-            <RowConstraints />
-        </rowConstraints>
-    </GridPane>
-    <Label styleClass="card-subtitle" text="Initial strategies" />
-    <GridPane alignment="CENTER" hgap="10">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="95.0" />
-        </columnConstraints>
-        <Separator orientation="VERTICAL" GridPane.columnIndex="0" />
-        <ListSelectionView fx:id = "strategyChoice" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+    <HBox fx:id="distributionPluginPane" />
+    <Label styleClass="card-subtitle" text="Initial strategies"/>
+    <HBox spacing="20" style="-fx-padding: 10" alignment="CENTER_LEFT">
+        <Separator orientation="VERTICAL"/>
+        <ListSelectionView fx:id="strategyChoice" prefWidth="800">
             <sourceHeader>
-                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Available strategies" />
+                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Available strategies"/>
             </sourceHeader>
             <targetHeader>
-                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Selected strategies" />
+                <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Selected strategies"/>
             </targetHeader>
         </ListSelectionView>
-        <rowConstraints>
-            <RowConstraints />
-        </rowConstraints>
-    </GridPane>
+    </HBox>
 </VBox>
-</ScrollPane>

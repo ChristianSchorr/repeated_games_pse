@@ -448,20 +448,7 @@
 	-fx-stroke: -fx-text-base-color;
 }
 
-/*******************************************************************************
- *                                                                             *
- * List, Tree, Table COMMON                                                    *
- *                                                                             *
- ******************************************************************************/
-.list-view:focused .list-cell:filled:focused:selected {
-	-fx-background-color: -swatch-light-grey;
-	-fx-text-fill: -swatch-500;
-}
 
-.list-view:hover .list-cell:hover {
-	-fx-background-color: -swatch-light-grey;
-	-fx-text-fill: -fx-text-base-color;
-}
 
 
 /*******************************************************************************
@@ -867,13 +854,14 @@
 
 .task-card-green {
     -fx-border-color: #008A00;
-    -fx-border-width: 0;
+    -fx-border-width: 1;
 }
 
 .task-card-yellow {
     -fx-border-color: #FEDE06;
     -fx-border-width: 1;
 }
+
 
 .default-color0.chart-series-line { -fx-stroke: -swatch-500; }
 .default-color1.chart-series-line { -fx-stroke: #E51400; }
@@ -887,8 +875,49 @@
     -fx-background-insets: 0, 2 2 0 0 ;
 }
 
-.list-cell {
-    -fx-padding: 0px;
+
+/*******************************************************************************
+ *                                                                             *
+ * List, Tree, Table COMMON                                                    *
+ *                                                                             *
+ ******************************************************************************/
+/*.list-view:focused .list-cell:filled:focused {
+    -fx-background-color: transparent;
+	-fx-text-fill: -swatch-500;
+}
+
+.list-view:hover .list-cell:hover {
+	-fx-background-color: transparent;
+	-fx-text-fill: transparent;
+}*/
+
+/* LISTCELL SPACING */
+.list-cell:filled {
+    -fx-background-color: transparent;
+    -fx-padding: 1px 0px;
+}
+
+.list-cell:selected {
+    -fx-background: transparent;
+    -fx-padding: 1px 1px 1px 15px;
+}
+
+/* EMPTY LIST CELLS WHITE */
+.list-cell:empty {
+    -fx-background-color: white;
+    -fx-border-width: 0px;
+}
+
+/* NO FOCUS GLOW */
+.list-view:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* NO BORDER */
+.list-view {
+  -fx-background-insets: 0;
+  -fx-padding: 0;
 }
 
 .table-row-cell:empty {
@@ -983,4 +1012,8 @@
 }
 .hiding-tab-pane .tab-header-area {
     visibility: hidden ;
+}
+
+.hiding-tab-pane .tab-content-area {
+    -fx-border-width: 0;
 }
