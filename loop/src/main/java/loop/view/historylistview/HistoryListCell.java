@@ -19,8 +19,8 @@ public class HistoryListCell extends ListCell<ResultHistoryItem> {
         setGraphic(null);
 
         if(item != null && !empty) {
-            SimulationResultCellTemplate template = getTemplate(item);
-            HBox container = template.getContainer();
+            item.getResult().registerSimulationStatusChangedHandler((i, s) -> getListView().refresh());
+            HBox container = getTemplate(item).getContainer();
             setGraphic(container);
         }
     }
@@ -31,8 +31,8 @@ public class HistoryListCell extends ListCell<ResultHistoryItem> {
         else if (item.getResult().getStatus() == SimulationStatus.FINISHED)
             return new FinishedSimulationResultCellTemplate(item);
         else if (item.getResult().getStatus() == SimulationStatus.RUNNING)
-            return new RunningSimulationResultCellTemplate(item);
-        else return new RunningSimulationResultCellTemplate(item);
+            return new RunningSimulationResultCellTemplate(item, getListView());
+        else return new RunningSimulationResultCellTemplate(item, getListView());
     }
 }
 

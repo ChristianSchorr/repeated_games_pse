@@ -1,5 +1,7 @@
 package loop.view.historylistview.templates;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import loop.controller.ResultHistoryItem;
@@ -16,6 +18,7 @@ public class CanceledSimulationResultCellTemplate extends SimulationResultCellTe
 
     private static final String FXML_NAME = "/view/listViewTemplates/canceledSimulationCell.fxml";
     private ResultHistoryItem item;
+
 
     public CanceledSimulationResultCellTemplate(ResultHistoryItem item) {
         this.item = item;

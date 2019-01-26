@@ -9,8 +9,7 @@
 <?import org.controlsfx.glyphfont.Glyph?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<GridPane style="-fx-padding: -16 -16 -16 0" GridPane.columnIndex="1" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="loop.controller.OutputController">
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.OutputController">
     <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0" />
     <VBox style="-fx-padding: 16" styleClass="task-card-green" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
         <GridPane>
