@@ -46,10 +46,12 @@ public class HistoryController {
     public void initialize() {
         history = FXCollections.observableArrayList();
         historyList.setItems(history);
+
         historyList.getSelectionModel().selectedItemProperty().addListener((ChangeListener<ResultHistoryItem>)
                 (observable, oldValue, newValue) -> {
                     selectedItem = newValue;
-                    Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem.getResult()));
+                    if (selectedItem != null)
+                        Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem.getResult()));
                 });
         historyList.setCellFactory(param -> new HistoryListCell());
         outputViewController.registerImportUserConfiguration(config -> configImportHandlers.forEach(c -> c.accept(config)));
@@ -65,11 +67,10 @@ public class HistoryController {
         history.add(item);
         item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
             historyList.refresh();
-            if (res == selectedItem.getResult()) {
-                int index = historyList.getSelectionModel().getSelectedIndex();
-                historyList.getSelectionModel().clearSelection();
-                historyList.getSelectionModel().select(index);
-            }
+            if (selectedItem == null || res != selectedItem.getResult()) return;
+            int index = historyList.getSelectionModel().getSelectedIndex();
+            historyList.getSelectionModel().clearSelection();
+            historyList.getSelectionModel().select(index);
         });
         item.getResult().registerIterationFinished((res, stat) -> historyList.refresh());
     }

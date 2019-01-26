@@ -11,7 +11,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.OutputController">
     <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0" />
-    <VBox style="-fx-padding: 16" styleClass="task-card-green" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+    <VBox fx:id="box" style="-fx-padding: 16" styleClass="task-card-green" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
         <GridPane>
             <columnConstraints>
                 <ColumnConstraints percentWidth="70" />

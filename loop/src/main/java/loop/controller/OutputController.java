@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import javafx.scene.layout.VBox;
 import org.controlsfx.glyphfont.Glyph;
 
 import javafx.event.ActionEvent;
@@ -114,10 +115,12 @@ public class OutputController {
     
     @FXML
     private Button toRight;
-    
-    
+
     @FXML
     private Pane container;
+
+    @FXML
+    private VBox box;
     
     
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
@@ -171,11 +174,13 @@ public class OutputController {
             return;
         }
 
-        if (result.getStatus() != SimulationStatus.FINISHED) {
+        if (result.getStatus() == SimulationStatus.RUNNING || result.getStatus() == SimulationStatus.QUEUED) {
             tabPane.getSelectionModel().select(notFinishedTab);
+            box.setStyle("-fx-border-color: #FEDE06; -fx-padding: 16;");
             deactivateAll();
             return;
         }
+        box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");
 
         activateAll();
 
