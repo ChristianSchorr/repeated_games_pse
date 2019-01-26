@@ -53,7 +53,7 @@ public class IterationResultTest {
         history.addResult(result1);       
         history.addResult(result2);
         history.addResult(result3);
-		iterationResult = new IterationResult(agents, history, equilibriumReached, efficiency, adapts);
+		iterationResult = new IterationResult(agents, history, equilibriumReached, efficiency, adapts, null, null); //TODO null vorläufig
 	}
 
 	@After
@@ -86,7 +86,7 @@ public class IterationResultTest {
         simulationhistory.addResult(result2);
         simulationhistory.addResult(result3);
 		IterationResult testIterationResult = new IterationResult(testAgents, simulationhistory,
-												testEquilibriumReached, testEfficiency, testAdapts);
+												testEquilibriumReached, testEfficiency, testAdapts, null, null); //TODO s.o.
 		
 		List<Agent> verifyAgents = testIterationResult.getAgents();
 		assertEquals(6, verifyAgents.size());

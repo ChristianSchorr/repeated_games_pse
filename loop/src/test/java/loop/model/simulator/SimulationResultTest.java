@@ -49,7 +49,7 @@ public class SimulationResultTest {
 	@Test
 	public void testGetConfigurationCount() {
 		testSimResult = new SimulationResult(null, -1);
-		testIterationResult = new IterationResult(null, null, false, 0, 0);
+		testIterationResult = new IterationResult(null, null, false, 0, 0, null, null);
 		
 		testSimResult.addIterationResult(testIterationResult, 0);
 		testSimResult.addIterationResult(testIterationResult, 1);
@@ -63,7 +63,7 @@ public class SimulationResultTest {
 	@Test
 	public void testGetIterationResults() {
 		testSimResult = new SimulationResult(null, -1);
-		testIterationResult = new IterationResult(null, null, false, 0, 0);
+		testIterationResult = new IterationResult(null, null, false, 0, 0, null, null);
 		
 		testSimResult.addIterationResult(testIterationResult, 0);
 		testSimResult.addIterationResult(testIterationResult, 1);
@@ -102,7 +102,7 @@ public class SimulationResultTest {
 	public void testRegisterIterationFinished() {
 		testCount = 0;
 		testSimResult = new SimulationResult(null, -1);
-		testIterationResult = new IterationResult(null, null, false, 0, 0);
+		testIterationResult = new IterationResult(null, null, false, 0, 0, null, null);
 		
 		testSimResult.registerIterationFinished((res, iterRes) -> testFinishedHandler(res, iterRes));
 		testSimResult.addIterationResult(testIterationResult, 0);

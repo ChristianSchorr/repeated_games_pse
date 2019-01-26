@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.scene.chart.PieChart;
 import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.RealVector;
 import loop.model.simulationengine.strategies.Strategy;
@@ -29,6 +32,10 @@ public class SimulationEngine {
     private boolean equilibriumReached;
     private Configuration configuration;
     
+    //for the strategy distributions over time
+    private List<double[]> strategyPortions;
+    private List<String> strategyNames;
+    
     private boolean printInfo = false;
     private int printPeriod = 5;
     private int printCounter;
@@ -50,6 +57,16 @@ public class SimulationEngine {
         successQuantifier = configuration.getSuccessQuantifier();
         strategyAdjuster = configuration.getStrategyAdjuster();
         equilibriumCriterion = configuration.getEquilibriumCriterion();
+        strategyPortions = new ArrayList<double[]>();
+        strategyNames = new ArrayList<String>();
+        if (configuration.allowsMixedStrategies()) {
+            strategyNames = ((MixedStrategy) agents.get(0).getStrategy()).getComponentStrategies().stream().map(
+                    s -> s.getName()).collect(Collectors.toList());
+        } else {
+            configuration.getSegments().stream().forEach(seg -> 
+            seg.getStrategyDistribution().getSupport().stream().filter(
+                    s -> !strategyNames.contains(s.getName())).forEach(s -> strategyNames.add(s.getName())));
+        }
         
         adaptionsteps = 0;
         equilibriumReached = false;
@@ -58,6 +75,7 @@ public class SimulationEngine {
         
         while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
+            calculateStrategyPortions();
             printStepInfo();
         }
         
@@ -93,9 +111,40 @@ public class SimulationEngine {
         adaptionsteps++;
     }
     
+    private void calculateStrategyPortions() {
+        double[] portions = new double[strategyNames.size()];
+        
+        if (configuration.allowsMixedStrategies()) {
+            //cast to mixed strategies
+            List<MixedStrategy> mixedStrategies = agents.stream().map(a -> (MixedStrategy) a.getStrategy()).collect(Collectors.toList());
+            
+            for (int i = 0; i < strategyNames.size(); i++) {
+                portions[i] = 0.0;
+            }
+            
+            //calculate portions
+            for (MixedStrategy s : mixedStrategies) {
+                for (int i = 0; i < s.getSize(); i++) {
+                    portions[i] += s.getComponent(i);
+                }
+            }
+        } else { //only pure strategies
+            List<Strategy> strategies = agents.stream().map(a -> a.getStrategy()).collect(Collectors.toList());
+            //calculate strategy counts
+            for (Strategy s : strategies) {
+                portions[strategyNames.indexOf(s.getName())] += 1.0;
+            }
+        }
+        double n = (double) agents.size();
+        for (int i = 0; i < portions.length; i++) {
+            portions[i] /= n;
+        }
+        strategyPortions.add(portions);
+    }
+    
     private IterationResult createResult() {
         double efficiency = calculateEfficiency();
-        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps);
+        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps, strategyPortions, strategyNames);
     }
     
     private void playGame(AgentPair pair) {

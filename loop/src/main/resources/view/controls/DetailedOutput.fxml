@@ -9,6 +9,7 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.LineChart?>
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
@@ -28,11 +29,14 @@
     </HBox>
     <GridPane hgap="10">
         <VBox>
-            <StackPane alignment="CENTER">
-            	<PieChart fx:id="strategyChart" labelLineLength="1.0" labelsVisible="false" prefHeight="300"
-                      prefWidth="300"/>
-                <Rectangle fx:id="strategyBufferRectangle" width="200" height="200" />
-            </StackPane>
+            <LineChart fx:id="strategyChart" createSymbols="false">
+                <xAxis>
+                    <NumberAxis autoRanging="false" side="BOTTOM" label="Adaption step"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" label="Portion"/>
+                </yAxis>
+            </LineChart>
             <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1"/>
         </VBox>
         <VBox GridPane.columnIndex="1">

@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -43,7 +44,7 @@ public class MultiConfigOutputController {
     /*-----------------charts-----------------*/
     
     @FXML
-    private ComboBox<String> consideredIterationsComboBox;
+    private ChoiceBox<String> consideredIterationsComboBox;
     private final static String ALL = "all iterations";
     private final static String ONLY_EQUI = "only iterations where an equilibrium was reached";
     private final static String ONLY_NO_EQUI = "only iterations where no equilibrium was reached";
@@ -172,8 +173,13 @@ public class MultiConfigOutputController {
             XYChart.Series<Number, Number> frequencySeries = new XYChart.Series<Number, Number>();
             frequencySeries.setName("Equilibrium Frequency");
             for (int i = 0; i < displayedResult.getConfigurationCount(); i++) {
-                double equilibriumFrequency = ((double) displayedResult.getIterationResults(i).stream().filter(
-                        it -> it.equilibriumReached()).count()) / (double) config.getIterationCount();
+                double equilibriumFrequency;
+                if (getConsideredIterationsValue() == ONLY_EQUI) equilibriumFrequency = 1.0;
+                else if (getConsideredIterationsValue() == ONLY_NO_EQUI) equilibriumFrequency = 0.0;
+                else {
+                    equilibriumFrequency = ((double) displayedResult.getIterationResults(i).stream().filter(
+                            it -> it.equilibriumReached()).count()) / (double) config.getIterationCount();
+                }
                 frequencySeries.getData().add(new XYChart.Data<Number, Number>(config.getParameterValues().get(i), equilibriumFrequency));
             }
             

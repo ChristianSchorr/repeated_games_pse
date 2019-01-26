@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -86,7 +87,7 @@ public class DetailedOutputController {
     /*-----------------charts and diagrams-----------------*/
 
     @FXML
-    private PieChart strategyChart;
+    private LineChart<Number, Number> strategyChart;
 
     @FXML
     private ImageView strategyBufferGifView;
@@ -292,74 +293,25 @@ public class DetailedOutputController {
         }
 
         private void updateStrategyChart() {
-            ObservableList<PieChart.Data> pieChartData = null;
-
-            List<Strategy> strategies = new ArrayList<Strategy>();
-
-            if (meanOverAllIterations) {
-                List<IterationResult> iterations = displayedResult.getIterationResults(selectedConfigurationNumber);
-
-                for (IterationResult it : iterations) {
-                    for (Agent a : it.getAgents()) {
-                        if (minRankIndex <= it.getAgents().indexOf(a) && it.getAgents().indexOf(a) <= maxRankIndex)
-                            strategies.add(a.getStrategy());
-                    }
-                }
-            } else {
-                for (Agent a : selectedIteration.getAgents()) {
-                    if (minRankIndex <= selectedIteration.getAgents().indexOf(a) && selectedIteration.getAgents().indexOf(a) <= maxRankIndex)
-                        strategies.add(a.getStrategy());
-                }
+            if (meanOverAllIterations) {//deactivate chart
+                setStrategyChartData(null);
+                return;
             }
             
-            if (config.getMixedAllowed()) { //mixed strategies
-                //cast to mixed strategies
-                List<MixedStrategy> mixedStrategies = new ArrayList<MixedStrategy>();
-                for (Strategy s : strategies) {
-                    mixedStrategies.add((MixedStrategy) s);
+            List<XYChart.Series<Number, Number>> allSeries = new ArrayList<XYChart.Series<Number, Number>>();
+            
+            List<double[]> strategyDistributions = selectedIteration.getStrategyPortions();
+            List<String> strategyNames = selectedIteration.getStrategyNames();
+            
+            for (int i = 0; i < strategyNames.size(); i++) {
+                XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+                series.setName(strategyNames.get(i));
+                for (int adapt = 0; adapt < selectedIteration.getAdapts(); adapt++) {
+                    series.getData().add(new XYChart.Data<Number, Number>(adapt + 1, strategyDistributions.get(adapt)[i]));
                 }
-
-                //initialise map
-                Map<String, Double> portions = new HashMap<String, Double>();
-                List<Strategy> pureStrategies = mixedStrategies.get(0).getComponentStrategies();
-                for (Strategy s : pureStrategies) {
-                    portions.put(s.getName(), 0.0);
-                }
-
-                //calculate portions
-                for (MixedStrategy s : mixedStrategies) {
-                    for (int i = 0; i < s.getSize(); i++) {
-                        portions.put(s.getComponentStrategies().get(i).getName(),
-                                portions.get(s.getComponentStrategies().get(i).getName()) + s.getComponent(i));
-                    }
-                }
-
-                //create pie chart data
-                List<PieChart.Data> dataList = new ArrayList<PieChart.Data>();
-                for (String strategyName : portions.keySet()) {
-                    dataList.add(new PieChart.Data(strategyName, portions.get(strategyName)));
-                }
-
-                pieChartData = FXCollections.observableArrayList(dataList);
-            } else { //only pure strategies
-                //calculate strategy counts
-                Map<String, Integer> portions = new HashMap<String, Integer>();
-                for (Strategy s : strategies) {
-                    if (!portions.containsKey(s.getName()))
-                        portions.put(s.getName(), 0);
-                    portions.put(s.getName(), portions.get(s.getName()) + 1);
-                }
-
-                //create pie chart data
-                List<PieChart.Data> dataList = new ArrayList<PieChart.Data>();
-                for (String strategyName : portions.keySet()) {
-                    dataList.add(new PieChart.Data(strategyName, portions.get(strategyName)));
-                }
-
-                pieChartData = FXCollections.observableArrayList(dataList);
+                allSeries.add(series);
             }
-
-            setStrategyChartData(pieChartData);
+            setStrategyChartData(allSeries);
         }
 
         private void updateCapitalChart() {
@@ -413,16 +365,25 @@ public class DetailedOutputController {
 
     private synchronized void setBufferingAnimationStrategy(boolean enabled) {
         strategyBufferGifView.setVisible(enabled);
-        strategyBufferRectangle.setVisible(enabled);
+        //strategyBufferRectangle.setVisible(enabled);
     }
 
     private synchronized void setBufferingAnimationCapital(boolean enabled) {
         capitalBufferGifView.setVisible(enabled);
-        capitalBufferRectangle.setVisible(enabled);
+        //capitalBufferRectangle.setVisible(enabled);
     }
 
-    private synchronized void setStrategyChartData(ObservableList<PieChart.Data> data) {
-        strategyChart.setData(data);
+    private synchronized void setStrategyChartData(Collection<? extends XYChart.Series<Number, Number>> data) {
+        if (data == null) {
+            strategyChart.setDisable(true);
+            strategyChart.getData().clear();
+            return;
+        }
+        strategyChart.setDisable(false);
+        strategyChart.getData().clear();
+        strategyChart.getData().addAll(data);
+        ((NumberAxis) strategyChart.getXAxis()).setLowerBound(1);
+        ((NumberAxis) strategyChart.getXAxis()).setUpperBound(selectedIteration.getAdapts());
     }
 
     private synchronized void setCapitalChartData(Collection<? extends XYChart.Series<String, Number>> data) {

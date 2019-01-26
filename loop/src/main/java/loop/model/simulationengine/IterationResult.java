@@ -1,6 +1,7 @@
 package loop.model.simulationengine;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * In an instance of this class, the results of a nished iteration are stored:
@@ -20,6 +21,8 @@ public class IterationResult {
     private boolean equilibriumReached;
     private double efficiency;
     private int adapts;
+    private List<double[]> strategyPortions;
+    private List<String> strategyNames;
     
     /**
      * Creates a new iteration result.
@@ -31,12 +34,14 @@ public class IterationResult {
      * @param adapts the number of performed adaption steps
      */
     public IterationResult(List<Agent> agents, SimulationHistory history, boolean equilibriumReached,
-            double efficiency, int adapts) {
+            double efficiency, int adapts, List<double[]> strategyPortions, List<String> strategyNames) {
         this.agents = agents;
         this.history = history;
         this.equilibriumReached = equilibriumReached;
         this.efficiency = efficiency;
         this.adapts = adapts;
+        this.strategyPortions = strategyPortions;
+        this.strategyNames = strategyNames;
     }
     
     /**
@@ -82,5 +87,24 @@ public class IterationResult {
      */
     public int getAdapts() {
         return this.adapts;
+    }
+    
+    /**
+     * Return the portions of all strategies throughout all adaption steps.
+     * 
+     * @return the portions of all strategies throughout all adaption steps
+     */
+    public List<double[]> getStrategyPortions() {
+        return this.strategyPortions;
+    }
+    
+    /**
+     * Returns the names of all pure strategies that were available in this iteration, in the same
+     * order as their portions are stored in the arrays returned by {@link #getStrategyPortions()}.
+     * 
+     * @return the names of all strategies
+     */
+    public List<String> getStrategyNames() {
+        return this.strategyNames;
     }
 }
