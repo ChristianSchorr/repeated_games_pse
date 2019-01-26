@@ -65,7 +65,11 @@ public class HistoryController {
         history.add(item);
         item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
             historyList.refresh();
-            outputViewController.setDisplayedResult(selectedItem.getResult());
+            if (res == selectedItem.getResult()) {
+                int index = historyList.getSelectionModel().getSelectedIndex();
+                historyList.getSelectionModel().clearSelection();
+                historyList.getSelectionModel().select(index);
+            }
         });
         item.getResult().registerIterationFinished((res, stat) -> historyList.refresh());
     }
