@@ -96,6 +96,7 @@ Im Laufe der Implemetierung sind viele verschiedene Bibliotheken und Programme z
 \item[] \textbf{Erläuterung:} Bei der Kapitalinitialisierung von Agenten können diskrete Wahrscheinlichkeitsverteilungen wie die Binomial- oder Poissonverteilung verwendet werden. Für die Generierung von entsprechend verteilten Pseudo-Zufallszahlen haben wir auf diese Bibliothek zurückgegriffen.
 \end{enumerate}
 
+\newpage
 \section{Änderungen am Entwurf}
 
 \subsection{Hinzufügen des Pakets \texttt{edu.kit.loop.view.historylistview}}
@@ -141,7 +142,7 @@ Die folgende Tabelle liefert einen Überblick über die im Pflichtenheft beschri
 \end{table}
 Wie in der Tabelle zu sehen, konnten alle Kriterien erfolgreich umgesetzt werden, dazu jedoch noch folgende Anmerkungen:
 \begin{enumerate}
-\item[] 1) Die Form der Ausgabe für die Strategie- und Kapitalverteilungen der Agenten wurde angepasst (siehe \ref{outputmod}).
+\item[] 1) Die Form der Ausgabe der Strategieverteilung der Agenten wurde angepasst (siehe Abschnitt \ref{outputmod}).
 \item[] 2) Neben Konfigurationen und Simulationsergebnissen können auch Gruppen, Populationen, Strategien und Stufenspiele als Dateien exportiert und importiert werden.
 \item[] 3) Die Struktur von Gruppen und Segmenten hat sich in der Entwurfsphase durch die Einführung von Populationen geändert (siehe Entwurfsdokument).
 \end{enumerate}
@@ -155,10 +156,11 @@ Neben den in der Tabelle erwähnten Funktionen konnten wir auch erfolgreich die 
 \subsection{Das Plugin-System}
 wegen gradle
 
-\subsection{Speichern von Simulationsergebnissen}
--> gson
-
 \section{Implementierungsplan}
-zeitmanagement etc.
+Zu Beginn der Implementierungsphase wurde vereinbart, die Aufteilung anhand der Paketstruktur vorzunehmen. Weiterhin erachteten es die Entwickler als sinnvoll, zunächst das Model zu implementieren und zu testen, und erst danach mit Controller und View zu beginnen. Grund ist eine Vereinfachung der Fehlersuche bei der Implementierung des Controllers. Ist dann nämlich das Model bereits fertig implementiert und getestet und es entsteht ein Fehler in einem Ablauf, in dem sowohl Controller als auch Model beteiligt sind, so liegt der Fehler höchstwahrscheinlich im Controller. Diese Vorgehensweise hat sich bewährt.
+
+Bei der Implementierung des Models sind wir so vorgegangen, dass wir das aus fünf Entwicklern bestehende Team aufgeteilt haben in drei, die mit der Implementierung der Model-Pakete beginnen und zwei, die parallel Komponententests dazu schreiben. Die Implementierung des Models verlief reibungslos und war bereits nach etwa eineinhalb Woche abgeschlossen.
+
+Während die zwei Tester noch weiter an Komponententests für das Model arbeiteten, begonnen die anderen drei Entwickler mit der Implementierung des Controllers und dem Anfertigen der fxml-Dateien für die View. Da die meisten Entwickler keine Erfahrung im Umgang mit JavaFX hatten, stellte sich diese Phase als etwas zeitaufwendiger heraus, verlief aber auch ohne Probleme.
 
 \end{document}
