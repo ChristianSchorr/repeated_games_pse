@@ -9,6 +9,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import loop.model.simulator.SimulationResult;
 
+import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,14 +40,19 @@ public class RunningOutputController {
     @FXML
     private Label progressLabel;
 
+    @FXML
+    private Label durationLeft;
+
+    private ResultHistoryItem item;
     private SimulationResult result;
 
     /**
      * Creates a new output controller for a running simulation
-     * @param result the running simulation to display
+     * @param resultItem the running simulation to display
      */
-    public RunningOutputController(SimulationResult result) {
-        this.result = result;
+    public RunningOutputController(ResultHistoryItem resultItem) {
+        this.result = resultItem.getResult();
+        this.item = resultItem;
     }
 
     @FXML
@@ -67,8 +73,9 @@ public class RunningOutputController {
                     text += ".";
                 final String lableText = text;
                 Platform.runLater(() -> dotLabel.setText(lableText));
+                Platform.runLater(() -> updateDuration());
             }
-        }, 500, 1000);
+        }, 1000, 1000);
 
         updateProgress();
         result.registerIterationFinished((res, iter) ->  Platform.runLater(() -> updateProgress()));
@@ -78,6 +85,16 @@ public class RunningOutputController {
         double progress = (double) result.getFinishedIterations() / (double) result.getTotalIterations();
         progressBar.setProgress(progress);
         progressLabel.setText(result.getFinishedIterations() + "/" + result.getTotalIterations());
+    }
+
+    private void updateDuration() {
+        if (item.getLastTimeUpdated() > 0) {
+            double progress = (double) result.getFinishedIterations() / (double) result.getTotalIterations();
+            double timeRun = (item.getLastTimeUpdated() - item.getStartTime());
+            double timeLeft = (timeRun / progress) -timeRun;
+            final Duration duration = Duration.ofMillis((long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated()));
+            durationLeft.setText(formatDuration(duration));
+        }
     }
 
     @FXML
@@ -91,5 +108,16 @@ public class RunningOutputController {
      */
     public Node getContainer() {
         return container;
+    }
+
+    private static String formatDuration(Duration duration) {
+        long seconds = duration.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600,
+                (absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 }

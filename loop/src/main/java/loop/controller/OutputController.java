@@ -164,12 +164,12 @@ public class OutputController {
     private static final String RUNNING_VIEW = "/view/controls/RunningOutput.fxml";
     private static final String RUNNING_STYLE = "-fx-border-color: #FEDE06; -fx-padding: 16;";
 
-    private void setRunning() {
+    private void setRunning(ResultHistoryItem resultItem) {
         box.setStyle(RUNNING_STYLE);
         boxContent = new ArrayList<>(box.getChildren());
         box.getChildren().clear();
 
-        RunningOutputController controller = new RunningOutputController(displayedResult);
+        RunningOutputController controller = new RunningOutputController(resultItem);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RUNNING_VIEW));
         fxmlLoader.setController(controller);
         try {
@@ -185,9 +185,10 @@ public class OutputController {
      * Sets the result that shall be displayed. If {@code null} is given as an argument, no result will
      * be shown.
      *
-     * @param result the result that shall be displayed
+     * @param resultItem the result that shall be displayed
      */
-    public void setDisplayedResult(SimulationResult result) {
+    public void setDisplayedResult(ResultHistoryItem resultItem) {
+        SimulationResult result = resultItem.getResult();
         this.displayedResult = result;
 
         if (result == null) {
@@ -197,7 +198,7 @@ public class OutputController {
         }
 
         if (result.getStatus() == SimulationStatus.RUNNING || result.getStatus() == SimulationStatus.QUEUED) {
-            setRunning();
+            setRunning(resultItem);
             return;
         }
         box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");

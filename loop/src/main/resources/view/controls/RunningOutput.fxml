@@ -27,7 +27,11 @@
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10">
             <ProgressBar prefWidth="400" fx:id="progressBar"/>
-            <Label style="-fx-padding: 0 0 0 10" styleClass="control-label" fx:id="progressLabel"/>
+            <Label style="-fx-padding: 0 0 0 10; -fx-font-size: 16" styleClass="control-label" fx:id="progressLabel"/>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT">
+            <Label text="estimated time left: " styleClass="control-label" style="-fx-font-size: 16"/>
+            <Label text="..." fx:id="durationLeft" styleClass="control-label" style="-fx-font-size: 16"/>
         </HBox>
         <HBox alignment="CENTER_RIGHT">
             <Separator orientation="VERTICAL" style="-fx-padding: 10 0"/>
@@ -39,13 +43,14 @@
                     <Tooltip text="Cancle this Simulation"/>
                 </tooltip>
             </Button>
+            <Label text="Cancle" style="-fx-text-fill: #E51400; -fx-font-size: 20" />
         </HBox>
     </HBox>
     <VBox spacing="100">
         <Separator style="-fx-padding: 10 0"/>
         <GridPane alignment="CENTER">
             <HBox alignment="CENTER">
-                <Label text="Die Simulation läuft noch" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
+                <Label text="Simulation not finished" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
                 <Label fx:id="dotLabel" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
             </HBox>
         </GridPane>

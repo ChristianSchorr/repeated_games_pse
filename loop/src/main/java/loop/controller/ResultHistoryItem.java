@@ -10,6 +10,8 @@ public class ResultHistoryItem {
     private long startTime = -1;
     private long finishTime = -1;
 
+    private long lastTimeUpdated = -1;
+
     /**
      * Creates a new Instance of this class with a given {@link SimulationResult}
      * @param result the {@link SimulationResult} to store in the history
@@ -18,6 +20,7 @@ public class ResultHistoryItem {
         this.result = result;
         statusChanged(result.getStatus());
         result.registerSimulationStatusChangedHandler((res, stat) -> statusChanged(stat));
+        result.registerIterationFinished((res, iter) -> lastTimeUpdated = System.currentTimeMillis());
     }
 
     /**
@@ -42,6 +45,14 @@ public class ResultHistoryItem {
      */
     public long getFinishTime() {
         return finishTime;
+    }
+
+    /**
+     * Returns the last time an iteration result has been added to this Simulation Result
+     * @return the last update time
+     */
+    public long getLastTimeUpdated() {
+        return lastTimeUpdated;
     }
 
     private void statusChanged(SimulationStatus newStatus) {

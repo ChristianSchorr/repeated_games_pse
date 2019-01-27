@@ -54,10 +54,17 @@ public class HistoryController {
                 (observable, oldValue, newValue) -> {
                     selectedItem = newValue;
                     if (selectedItem != null)
-                        Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem.getResult()));
+                        Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem));
                 });
         historyList.setCellFactory(param -> new HistoryListCell());
         outputViewController.registerImportUserConfiguration(config -> configImportHandlers.forEach(c -> c.accept(config)));
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> historyList.refresh());
+            }
+        }, 1000, 1000);
     }
 
     /**
