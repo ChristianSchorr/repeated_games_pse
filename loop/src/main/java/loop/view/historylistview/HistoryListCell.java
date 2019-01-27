@@ -17,7 +17,6 @@ public class HistoryListCell extends ListCell<ResultHistoryItem> {
         super.updateItem(item, empty);
         setText(null);
         setGraphic(null);
-
         if(item != null && !empty) {
             item.getResult().registerSimulationStatusChangedHandler((i, s) -> getListView().refresh());
             HBox container = getTemplate(item).getContainer();

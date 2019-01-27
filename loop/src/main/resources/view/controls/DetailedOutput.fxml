@@ -13,19 +13,26 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox xmlns:fx="http://javafx.com/fxml"  fx:id="container" style="@../style.css">
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <Label fx:id="iterationSliderLabel"/>
-        <Slider fx:id="iterationSlider"/>
-        <Label fx:id="configSliderLabel"/>
-        <Slider fx:id="configSlider"/>
-        <Label fx:id="configSliderParameterLabel"/>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="container" style="@../style.css" spacing="20">
+    <HBox alignment="CENTER_LEFT" spacing="50">
+        <HBox alignment="CENTER" spacing="10">
+            <Label fx:id="iterationLabel" style="-fx-font-size: 16"/>
+            <Label fx:id="iterationSliderLabel" style="-fx-font-size: 16"/>
+            <Slider fx:id="iterationSlider"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="10">
+            <Label fx:id="configSliderLabel" style="-fx-font-size: 16"/>
+            <Slider fx:id="configSlider"/>
+            <Label fx:id="configSliderParameterLabel" style="-fx-font-size: 16"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="Calculate mean over all iterations? " style="-fx-font-size: 16"/>
+            <CheckBox fx:id="meanOverAllIterationsCheckbox"/>
+        </HBox>
     </HBox>
-    <Label fx:id="exitDescriptionLabel" />
-    <Label fx:id="efficiencyLabel" />
-    <HBox alignment="CENTER_LEFT" spacing = "10">
-        <Label text="Calculate mean over all iterations? "/>
-        <CheckBox fx:id="meanOverAllIterationsCheckbox" />
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label fx:id="exitDescriptionLabel" style="-fx-font-size: 16"/>
+        <Label fx:id="efficiencyLabel" style="-fx-font-size: 16"/>
     </HBox>
     <GridPane hgap="10">
         <VBox>
@@ -37,7 +44,7 @@
                     <NumberAxis side="LEFT" label="Portion"/>
                 </yAxis>
             </LineChart>
-            <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1"/>
+            <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1" visible="false"/>
         </VBox>
         <VBox GridPane.columnIndex="1">
             <BarChart fx:id="capitalDiagram">
@@ -57,9 +64,9 @@
             <RowConstraints/>
         </rowConstraints>
     </GridPane>
-    <ImageView fx:id="strategyBufferGifView" />
-    <ImageView fx:id="capitalBufferGifView" />
-    <Rectangle fx:id="capitalBufferRectangle" />
+    <ImageView fx:id="strategyBufferGifView"/>
+    <ImageView fx:id="capitalBufferGifView"/>
+    <Rectangle fx:id="capitalBufferRectangle"/>
 </VBox>
 
 

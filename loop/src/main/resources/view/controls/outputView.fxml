@@ -1,83 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import org.controlsfx.glyphfont.Glyph?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.OutputController">
-    <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0" />
-    <VBox style="-fx-padding: 16" styleClass="task-card-green" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints percentWidth="70" />
-                <ColumnConstraints percentWidth="20" />
-            </columnConstraints>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea"
+          fx:controller="loop.controller.OutputController">
+    <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0"/>
+    <VBox fx:id="box" style="-fx-padding: 16" styleClass="task-card-blue" GridPane.columnIndex="1"
+          GridPane.hgrow="ALWAYS">
+        <HBox alignment="CENTER_LEFT" spacing="100">
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Glyph fx:id="checkGlyph" fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00" />
-                <Label fx:id="gameNameLabel" style="-fx-text-fill: #008A00" styleClass="card-title" />
-                <Label fx:id="gameIdLabel" style="-fx-text-fill: #008A00" styleClass="card-title" />
+                <Glyph fx:id="checkGlyph" fontFamily="FontAwesome" fontSize="50" icon="CHECK"
+                       style="-fx-text-fill: #008A00"/>
+                <Label fx:id="gameNameLabel" style="-fx-text-fill: #008A00; -fx-font-size: 20" styleClass="card-title"/>
+                <Label fx:id="gameIdLabel" style="-fx-text-fill: #008A00; -fx-font-size: 20" styleClass="card-title"/>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
-                <Separator fx:id="sep1" orientation="VERTICAL" style="-fx-padding: 10 0" />
-                <Button fx:id="importButton" styleClass="setting-button" onAction="#importConfig">
+            <HBox alignment="CENTER" spacing="10">
+                <Label fx:id="exitConditionLabel" styleClass="control-label" style="-fx-font-size: 15"/>
+                <Label fx:id="multiconfigurationLabel" styleClass="control-label" style="-fx-font-size: 15"/>
+                <Label fx:id="multiconfigurationParameterNameLabel" styleClass="control-label"
+                       style="-fx-font-size: 15"/>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+                <Separator fx:id="sep1" orientation="VERTICAL" style="-fx-padding: 10 0"/>
+                <Button fx:id="importButton" onAction="#importConfig" styleClass="setting-button">
                     <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="20" icon="ROTATE_RIGHT" style="-fx-text-fill: grey" />
+                        <Glyph fontFamily="FontAwesome" fontSize="40" icon="ROTATE_RIGHT" style="-fx-text-fill: grey"/>
                     </graphic>
                     <tooltip>
-                    	<Tooltip text="Import the configuration of the displayed simulation"/>
+                        <Tooltip text="Import the configuration of the displayed simulation"/>
                     </tooltip>
                 </Button>
-                <Button fx:id="saveButton"  onAction="#saveResult">
+                <Button fx:id="saveButton" onAction="#saveResult">
                     <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="20" icon="DOWNLOAD" style="-fx-text-fill: grey" />
+                        <Glyph fontFamily="FontAwesome" fontSize="40" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
                     </graphic>
                 </Button>
             </HBox>
-            <rowConstraints>
-                <RowConstraints />
-            </rowConstraints>
-        </GridPane>
-        <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label styleClass="control-label" fx:id="exitConditionLabel" />
-            <Label styleClass="control-label" fx:id="multiconfigurationLabel" />
-            <Label styleClass="control-label" fx:id="multiconfigurationParameterNameLabel" />
         </HBox>
-        <Separator fx:id="sep2" style="-fx-padding: 10 0" />
+        <Separator fx:id="sep2" style="-fx-padding: 10 0"/>
         <TabPane fx:id="tabPane" styleClass="hiding-tab-pane">
             <Tab fx:id="noOutputTab">
-            	<Label text="No simulation result to display!"/>
+                <GridPane alignment="CENTER">
+                    <VBox alignment="CENTER" spacing="10">
+                        <Label text="No simulation result to display!"
+                               style="-fx-font-size: 40; -fx-text-fill: -swatch-500"/>
+                        <Label text="Run a simulation to generate results" style="-fx-font-size: 30;"/>
+                    </VBox>
+                </GridPane>
             </Tab>
             <Tab fx:id="notFinishedTab">
-            	<Label text="The selected simulation hasn't finished yet!"/>
+                <fx:include source="RunningOutput.fxml" />
+                <!--<Label text="The selected simulation hasn't finished yet!"/>-->
             </Tab>
             <Tab fx:id="detailedOutputTab"/>
             <Tab fx:id="abstractedOutputTab"/>
             <Tab fx:id="multiConfigOutputTab"/>
         </TabPane>
         <HBox alignment="CENTER">
-        	<Button fx:id="toLeft" onAction="#handleToLeft">
-		        <graphic>
-	                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_LEFT" style="-fx-text-fill: grey" />
-	            </graphic>
-        	</Button>
-        	<ChoiceBox fx:id="pageChoiceBox"/>
+            <Button fx:id="toLeft" onAction="#handleToLeft">
+                <graphic>
+                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_LEFT" style="-fx-text-fill: grey"/>
+                </graphic>
+            </Button>
+            <ChoiceBox fx:id="pageChoiceBox"/>
             <Button fx:id="toRight" onAction="#handleToRight">
-		        <graphic>
-	                <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_RIGHT" style="-fx-text-fill: grey" />
-	            </graphic>
+                <graphic>
+                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_RIGHT" style="-fx-text-fill: grey"/>
+                </graphic>
             </Button>
         </HBox>
     </VBox>
     <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
+        <ColumnConstraints/>
+        <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints />
+        <RowConstraints/>
     </rowConstraints>
 </GridPane>

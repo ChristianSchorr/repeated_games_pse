@@ -14,64 +14,65 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+<VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
+      xmlns="http://javafx.com/javafx/8.0.172-ea"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.NewGameController">
-    <VBox prefWidth="780.0" spacing="10" styleClass="card">
+    <VBox spacing="10" styleClass="card">
 
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints percentWidth="80" />
-                <ColumnConstraints percentWidth="20" />
-            </columnConstraints>
+        <HBox spacing="75" alignment="CENTER_LEFT">
             <VBox spacing="10">
-                <Label styleClass="card-title" text="Create a new game" />
-                <Label styleClass="card-subtitle" text="Here you can create new and own games" />
-                <TextField fx:id="gameNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name of the game" />
-                <TextField fx:id="gameDescriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
+                <Label styleClass="card-title" text="Create a new game"/>
+                <Label styleClass="card-subtitle" text="Here you can create new and own games"/>
+                <TextField fx:id="gameNameTextField" alignment="CENTER_LEFT" promptText="Name of the game"/>
+                <TextField fx:id="gameDescriptionTextField" alignment="CENTER_LEFT" promptText="Description"/>
             </VBox>
-            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
-            	<MenuButton>
-            		<items>
-            			<MenuItem text="Import from file" onAction="#importGame"/>
-            			<Menu text="Locally stored" fx:id="loadMenu"/>
-            		</items>
-            		<graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
-                    </graphic>
-                    <tooltip>
-                    	<Tooltip text="Load existing game"/>
-                    </tooltip>
-            	</MenuButton>
-	            <Button onAction="#resetGame" styleClass="setting-button">
-	               <graphic>
-	                   <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
-	               </graphic>
-	               <tooltip>
-	               	<Tooltip text="Reset all settings"/>
-	               </tooltip>
-	           </Button>
-	           <Button onAction="#exportGame">
-	               <graphic>
-	                   <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
-	               </graphic>
-	               <tooltip>
-	               	<Tooltip text="Export the created game as a file"/>
-	               </tooltip>
-	           </Button>
-	           <Button onAction="#saveGame">
-	           	<graphic>
-	           		<Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00" />
-	       		</graphic>
-	       		<tooltip>
-	       			<Tooltip text="Save the created game and close this window"/>
-	       		</tooltip>
-	           </Button>
-            </HBox>
-            <rowConstraints>
-                <RowConstraints />
-            </rowConstraints>
-        </GridPane>
-        <Separator style="-fx-padding: 10 0;" />
+            <VBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER" spacing="10">
+
+                    <MenuButton>
+                        <items>
+                            <MenuItem text="Import from file" onAction="#importGame"/>
+                            <Menu text="Locally stored" fx:id="loadMenu"/>
+                        </items>
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Load existing game"/>
+                        </tooltip>
+                    </MenuButton>
+
+                    <Button onAction="#resetGame" styleClass="setting-button">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT"
+                                   style="-fx-text-fill: grey"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Reset all settings"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10">
+                    <Button onAction="#exportGame">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Export the created game as a file"/>
+                        </tooltip>
+                    </Button>
+                    <Button onAction="#saveGame">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Save the created game and close this window"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+            </VBox>
+        </HBox>
+        <Separator style="-fx-padding: 10 0;"/>
         <VBox alignment="TOP_CENTER">
             <GridPane gridLinesVisible="true" alignment="CENTER">
                 <columnConstraints>
@@ -85,22 +86,22 @@
                 <Label text="Player 2 doesn't cooperate" GridPane.columnIndex="2" style="-fx-padding: 10;"/>
                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER" style="-fx-padding: 10">
                     <TextField fx:id="cc1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
-                    <Label style="control-label" text="/" />
+                    <Label style="control-label" text="/"/>
                     <TextField fx:id="cc2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
                 <HBox GridPane.columnIndex="2" GridPane.rowIndex="2" alignment="CENTER" style="-fx-padding: 10">
                     <TextField fx:id="nn1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
-                    <Label style="control-label" text="/" />
+                    <Label style="control-label" text="/"/>
                     <TextField fx:id="nn2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER" style="-fx-padding: 10">
                     <TextField fx:id="nc1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
-                    <Label style="control-label" text="/" />
+                    <Label style="control-label" text="/"/>
                     <TextField fx:id="nc2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
                 <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" alignment="CENTER" style="-fx-padding: 10">
                     <TextField fx:id="cn1TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
-                    <Label style="control-label" text="/" />
+                    <Label style="control-label" text="/"/>
                     <TextField fx:id="cn2TextField" maxWidth="50" promptText="-" alignment="TOP_CENTER"/>
                 </HBox>
             </GridPane>

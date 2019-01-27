@@ -273,6 +273,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 new GameTableEntry(game, false));
         gameTable.setItems(items);
         gameTable.setSelectionModel(null);
+
+        initializeValidation();
     }
 
     private void initializeValidation() {
@@ -300,6 +302,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
                                 d -> d > startValueProperty.getValue()).apply(c, v));
             }
         });
+
+        support.registerValidator(stepSize,false , new DoubleValidator("step size has to be a number"));
 
         startValueProperty.addListener((c, oldV, newV) -> {
             String endVal = endValue.getText();

@@ -9,7 +9,11 @@ package loop.model.simulationengine;
  */
 public class ConcreteGame implements Game {
     
-    private String name;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1076584176070345040L;
+	private String name;
     private String description;
     private int cc1;
     private int cn1;
