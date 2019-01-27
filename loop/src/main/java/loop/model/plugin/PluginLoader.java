@@ -24,8 +24,8 @@ public class PluginLoader {
 		ServiceLoader<T> loader = ServiceLoader.load(type);
 		ArrayList<T> plugins = new ArrayList<T>();
 
-		while (loader.iterator().hasNext()) {
-			plugins.add((T) loader.iterator().next());
+		for (T plugin : loader) {
+			plugins.add(plugin);
 		}
 		return plugins;
 	}
