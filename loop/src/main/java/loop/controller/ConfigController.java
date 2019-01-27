@@ -173,7 +173,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 new IntegerValidator(errorMsg, (i) -> i > 0), maxAdaptsField));
 
         ObservableList<MultiParamItem> observableMultiConfigParamNames = FXCollections.observableArrayList();
-        observableMultiConfigParamNames.add(new MultiParamItem(null, "No multiconfig. parameter", null, null));
+        observableMultiConfigParamNames.add(new MultiParamItem(null, "No multiconfig. parameter", new DoubleValidator(""), null));
         observableMultiConfigParamNames.addAll(multiConfigParamNames);
         multiParamBox.setItems(observableMultiConfigParamNames);
         multiParamBox.valueProperty().bindBidirectional(multiParamProperty);
