@@ -25,6 +25,7 @@ public abstract class CountingEquilibriumCriterion implements EquilibriumCriteri
             lastRoundAgentsFlatCopy = null;
             lastRoundAgentsDeepCopy = null;
             consecutiveRounds = 0;
+            System.out.println("reset");
         }
 
         //check for equilibrium
