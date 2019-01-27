@@ -118,7 +118,7 @@ public class OutputController {
     @FXML
     private VBox box;
 
-    private List<Node> boxContent;
+    private List<Node> boxContent = new ArrayList<>();
     
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
     
