@@ -174,7 +174,7 @@ public class HeadController {
         configWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
 
         // Specifies the modality for new window.
-        configWindow.initModality(Modality.WINDOW_MODAL);
+        configWindow.initModality(Modality.APPLICATION_MODAL);
         configWindow.show();
     }
 
@@ -182,7 +182,6 @@ public class HeadController {
     void loadResults(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Simulation Results");
-        fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", "*.sim");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -272,7 +271,7 @@ public class HeadController {
         controller.registerElementCreated(game -> newGameCreated(game));
 
         // Specifies the modality for new window.
-        newGameWindow.initModality(Modality.WINDOW_MODAL);
+        newGameWindow.initModality(Modality.APPLICATION_MODAL);
         newGameWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newGameWindow.show();
     }
@@ -291,7 +290,7 @@ public class HeadController {
         newStrategyWindow.setScene(newStrategyScene);
 
         // Specifies the modality for new window.
-        newStrategyWindow.initModality(Modality.WINDOW_MODAL);
+        newStrategyWindow.initModality(Modality.APPLICATION_MODAL);
         newStrategyWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newStrategyWindow.show();
     }
@@ -317,7 +316,7 @@ public class HeadController {
         controller.registerElementCreated(g -> newGroupCreated(g));
 
         // Specifies the modality for new window.
-        newGroupWindow.initModality(Modality.WINDOW_MODAL);
+        newGroupWindow.initModality(Modality.APPLICATION_MODAL);
         newGroupWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newGroupWindow.show();
     }
@@ -343,7 +342,7 @@ public class HeadController {
         controller.registerElementCreated(pop -> newPopulationCreated(pop));
 
         // Specifies the modality for new window.
-        newPopulationWindow.initModality(Modality.WINDOW_MODAL);
+        newPopulationWindow.initModality(Modality.APPLICATION_MODAL);
         newPopulationWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
         newPopulationWindow.show();
     }
