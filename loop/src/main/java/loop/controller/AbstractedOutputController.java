@@ -138,7 +138,10 @@ public class AbstractedOutputController {
             this.consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
         }
         this.consideredIterationsComboBox.setValue(ALL);
-        this.consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> updateCharts());
+        this.consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> {
+            if (n == null) return;
+            updateCharts();
+        });
         
         this.selectedConfigurationNumber = 0;
         
@@ -169,6 +172,8 @@ public class AbstractedOutputController {
 
     private void update() {
         this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() - 1 : 0;
+        
+        updateConsideredIterationsComboBox();
         
         //slider line
         updateSliders();
@@ -308,6 +313,13 @@ public class AbstractedOutputController {
     private void handleConfigurationSlider() {
         this.selectedConfigurationNumber = this.config.isMulticonfiguration() ? this.configSlider.valueProperty().intValue() - 1 : 0;
         
+        updateConsideredIterationsComboBox();
+        
+        updateSliders();
+        updateCharts();
+    }
+    
+    private void updateConsideredIterationsComboBox() {
         String prevSelected = this.consideredIterationsComboBox.getValue();
         this.consideredIterationsComboBox.getItems().clear();
         this.consideredIterationsComboBox.getItems().add(ALL);
@@ -318,8 +330,5 @@ public class AbstractedOutputController {
             this.consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
         }
         this.consideredIterationsComboBox.setValue(this.consideredIterationsComboBox.getItems().contains(prevSelected) ? prevSelected : ALL);
-        
-        updateSliders();
-        updateCharts();
     }
 }

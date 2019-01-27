@@ -100,7 +100,10 @@ public class MultiConfigOutputController {
             consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
         }
         consideredIterationsComboBox.setValue(ALL);
-        consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> updateCharts());
+        consideredIterationsComboBox.valueProperty().addListener((obs, o, n) -> {
+            if (n == null) return;
+            updateCharts();
+        });
         setDisplayedResult(displayedResult);
         
         efficiencyAndFrequencyChart.setTitle("Mean Efficiency and Equilibrium Frequency");
@@ -129,6 +132,8 @@ public class MultiConfigOutputController {
     /*-----------------------------------------------update methods-----------------------------------------------*/
     
     private void update() {
+        updateConsideredIterationsComboBox();
+        
         //efficiency and adapt chart
         updateCharts();
     }
@@ -245,4 +250,17 @@ public class MultiConfigOutputController {
         updateCharts();
     }
     
+    
+    private void updateConsideredIterationsComboBox() {
+        String prevSelected = this.consideredIterationsComboBox.getValue();
+        this.consideredIterationsComboBox.getItems().clear();
+        this.consideredIterationsComboBox.getItems().add(ALL);
+        if (displayedResult.getAllIterationResults().stream().allMatch(itList -> itList.stream().anyMatch(it -> it.equilibriumReached()))) {
+            this.consideredIterationsComboBox.getItems().add(ONLY_EQUI);
+        }
+        if (displayedResult.getAllIterationResults().stream().allMatch(itList -> itList.stream().anyMatch(it -> !it.equilibriumReached()))) {
+            this.consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
+        }
+        this.consideredIterationsComboBox.setValue(this.consideredIterationsComboBox.getItems().contains(prevSelected) ? prevSelected : ALL);
+    }
 }
