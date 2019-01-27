@@ -8,22 +8,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
 import org.controlsfx.glyphfont.Glyph;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -114,11 +111,14 @@ public class OutputController {
     
     @FXML
     private Button toRight;
-    
-    
+
     @FXML
     private Pane container;
-    
+
+    @FXML
+    private VBox box;
+
+    private List<Node> boxContent;
     
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
     
@@ -156,13 +156,42 @@ public class OutputController {
         return container;
     }
 
+    private static final String RUNNING_VIEW = "/view/controls/RunningOutput.fxml";
+    private static final String CANCELED_VIEW = "/view/controls/CanceledOutput.fxml";
+    private static final String RUNNING_STYLE = "-fx-border-color: #FEDE06; -fx-padding: 16;";
+    private static final String CANCELED_STYLE = "-fx-border-color: #E51400; -fx-padding: 16;";
+
+    private void setNotFinished(ResultHistoryItem resultItem) {
+        String style = RUNNING_STYLE;
+        String view = RUNNING_VIEW;
+        if (resultItem.getResult().getStatus() == SimulationStatus.CANCELED) {
+            style = CANCELED_STYLE;
+            view = CANCELED_VIEW;
+        }
+        box.setStyle(style);
+        boxContent = new ArrayList<>(box.getChildren());
+        box.getChildren().clear();
+
+        RunningOutputController controller = new RunningOutputController(resultItem);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
+        fxmlLoader.setController(controller);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        box.getChildren().add(controller.getContainer());
+    }
+
+
     /**
      * Sets the result that shall be displayed. If {@code null} is given as an argument, no result will
      * be shown.
      *
-     * @param result the result that shall be displayed
+     * @param resultItem the result that shall be displayed
      */
-    public void setDisplayedResult(SimulationResult result) {
+    public void setDisplayedResult(ResultHistoryItem resultItem) {
+        SimulationResult result = resultItem.getResult();
         this.displayedResult = result;
 
         if (result == null) {
@@ -172,11 +201,14 @@ public class OutputController {
         }
 
         if (result.getStatus() != SimulationStatus.FINISHED) {
-            tabPane.getSelectionModel().select(notFinishedTab);
-            deactivateAll();
+            setNotFinished(resultItem);
             return;
         }
-
+        box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");
+        if (boxContent.size() != 0) {
+            box.getChildren().clear();
+            box.getChildren().addAll(boxContent);
+        }
         activateAll();
 
         this.config = result.getUserConfiguration();

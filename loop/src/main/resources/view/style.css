@@ -553,32 +553,81 @@
  * Scroll Bar			                                                       *
  *                                                                             *
  ******************************************************************************/
-.scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background
-	{
-	-fx-background-color: -swatch-light-grey;
-	-fx-background-insets: 0.0;
+
+
+.scroll-bar{
+ -fx-background-color: transparent;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+ -fx-background-color: transparent;
+ -fx-border-color:transparent;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+ -fx-background-color: transparent;
+ -fx-background-insets: 0;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .thumb {
+ -fx-background-color: -swatch-300;
+ -fx-background-insets: 4 0 4 0;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:vertical .thumb {
+ -fx-background-color: -swatch-300;
+ -fx-background-insets: 0 4 0 4;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+ -fx-background-color: -swatch-300;
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+ -fx-background-color: -swatch-300;
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+ -fx-background-color:transparent;
+ -fx-background-radius: 2em;
+ -fx-padding: 5;
+}
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+ -fx-background-color:transparent;
+ -fx-background-radius: 2em;
+ -fx-padding: 5;
+}
+.scroll-bar:horizontal .increment-arrow {
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-background-color: transparent;
+ -fx-padding: 0.25em;
+ -fx-rotate: -90;
+}
+.scroll-bar:vertical .increment-arrow {
+ -fx-background-color: transparent;
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 0;
+}
+.scroll-bar:horizontal .decrement-arrow {
+ -fx-background-color: transparent;
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 90;
+}
+.scroll-bar:vertical .decrement-arrow {
+ -fx-background-color: transparent;
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: -180;
+}
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+ -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
 }
 
-.scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
-	-fx-background-color: -swatch-grey;
-	-fx-background-insets: 0.0;
-	-fx-background-radius: 4.0;
-}
-
-.scroll-bar>.increment-button, .scroll-bar>.decrement-button,
-	.scroll-bar:hover>.increment-button, .scroll-bar:hover>.decrement-button
-	{
-	-fx-background-color: transparent;
-}
-
-.scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow
-	{
-	-fx-background-color: -swatch-dark-grey;
-}
-
-.scroll-bar>.track-background {
-	-fx-background-color: transparent;
-}
 
 /*******************************************************************************
  *                                                                             *
@@ -862,6 +911,11 @@
     -fx-border-width: 1;
 }
 
+.task-card-blue {
+    -fx-border-color: -swatch-500;
+    -fx-border-width: 1;
+}
+
 
 .default-color0.chart-series-line { -fx-stroke: -swatch-500; }
 .default-color1.chart-series-line { -fx-stroke: #E51400; }
@@ -881,15 +935,8 @@
  * List, Tree, Table COMMON                                                    *
  *                                                                             *
  ******************************************************************************/
-/*.list-view:focused .list-cell:filled:focused {
-    -fx-background-color: transparent;
-	-fx-text-fill: -swatch-500;
-}
 
-.list-view:hover .list-cell:hover {
-	-fx-background-color: transparent;
-	-fx-text-fill: transparent;
-}*/
+
 
 /* LISTCELL SPACING */
 .list-cell:filled {
@@ -919,6 +966,8 @@
   -fx-background-insets: 0;
   -fx-padding: 0;
 }
+
+
 
 .table-row-cell:empty {
     -fx-background-color: white;
@@ -1017,3 +1066,4 @@
 .hiding-tab-pane .tab-content-area {
     -fx-border-width: 0;
 }
+

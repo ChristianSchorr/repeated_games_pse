@@ -19,14 +19,12 @@
             <Label style="-fx-text-fill: #FEDE06" styleClass="card-subtitle" fx:id="simulationIdLabel"/>
         </HBox>
         <ProgressBar maxHeight="10" maxWidth="Infinity" GridPane.hgrow="ALWAYS" fx:id="progressBar"/>
+        <HBox spacing="20" alignment="CENTER_LEFT">
             <Label style="-fx-padding: 0 0 0 10" styleClass="control-label" fx:id="progressLabel"/>
-        <!--<HBox alignment="CENTER_LEFT" spacing="50">
-            <Button prefHeight="10" prefWidth="10" style="-fx-padding: 0" alignment="CENTER">
-                <graphic>
-                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="CLOSE"
-                           style="-fx-text-fill: #E51400"/>
-                </graphic>
-            </Button>
-        </HBox>-->
+            <HBox>
+                <Label text="est. time left: " styleClass="control-label"/>
+                <Label text="..." fx:id="durationLeft" styleClass="control-label"/>
+            </HBox>
+        </HBox>
     </VBox>
 </HBox>

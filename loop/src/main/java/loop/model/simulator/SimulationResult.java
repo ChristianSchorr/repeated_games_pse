@@ -62,12 +62,15 @@ public class SimulationResult {
 	 * @param i      the elementary configuration to which the given result shall be
 	 *               added
 	 */
-	public void addIterationResult(IterationResult result, int i) {
+	public synchronized void addIterationResult(IterationResult result, int i) {
 		while ((i + 1) > iterationResults.size()) {
 			iterationResults.add(new ArrayList<IterationResult>());
 		}
 		iterationResults.get(i).add(result);
 		finishedIterations++;
+
+		if (finishedIterations == totalIterations)
+			setStatus(SimulationStatus.FINISHED);
 
 		// notify listeners
 		for (BiConsumer<SimulationResult, IterationResult> handler : resultHandlers) {
@@ -81,7 +84,7 @@ public class SimulationResult {
 	 * 
 	 * @param ex the exception that shall be added
 	 */
-	public void addSimulationEngineException(SimulationEngineException ex) {
+	public synchronized void addSimulationEngineException(SimulationEngineException ex) {
 		exceptions.add(ex);
 
 		// notify listeners
@@ -185,14 +188,10 @@ public class SimulationResult {
 		statusChangedHandler.add(handler);
 	}
 
-	protected void setStatus(SimulationStatus status) {
+	protected synchronized void setStatus(SimulationStatus status) {
 		this.status = status;
 		for(BiConsumer<SimulationResult, SimulationStatus> handler : statusChangedHandler) {
 			handler.accept(this, status);
-		}
-		
-		if (status.equals(SimulationStatus.FINISHED)) {
-		    clearHandlers();
 		}
 	}
 

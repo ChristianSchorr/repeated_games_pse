@@ -12,6 +12,7 @@ import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 
 import java.io.IOException;
+import java.time.Duration;
 
 /**
  * This class manges the SimulationResultCellTemplate for running Simulations
@@ -30,6 +31,9 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
     @FXML
     private ProgressBar progressBar;
+
+    @FXML
+    private Label durationLeft;
 
     private ListView listView;
 
@@ -54,9 +58,24 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
         String progressText = QUEUED_LABEL;
         if (result.getStatus() == SimulationStatus.RUNNING)
             progressText = result.getFinishedIterations() + "/" + result.getTotalIterations();
-        else if(result.getStatus() != SimulationStatus.QUEUED) {
-            listView.refresh();
-        }
         progressLabel.setText(progressText);
+
+        if (item.getLastTimeUpdated() > 0) {
+            double timeRun = (item.getLastTimeUpdated() - item.getStartTime());
+            double timeLeft = (timeRun / progress) -timeRun;
+            final Duration duration = Duration.ofMillis((long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated()));
+            durationLeft.setText(formatDuration(duration));
+        }
+    }
+
+    private static String formatDuration(Duration duration) {
+        long seconds = duration.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600,
+                (absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 }

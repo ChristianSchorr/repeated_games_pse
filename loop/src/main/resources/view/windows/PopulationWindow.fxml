@@ -12,61 +12,61 @@
 <?import org.controlsfx.glyphfont.Glyph?>
 
 <VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
-      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loop.controller.PopulationController">
+      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="loop.controller.PopulationController">
     <VBox prefWidth="780.0" spacing="10" styleClass="card">
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints percentWidth="80"/>
-                <ColumnConstraints percentWidth="20"/>
-            </columnConstraints>
+        <HBox spacing="50" alignment="CENTER_LEFT">
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new population"/>
-                <Label wrapText="true" styleClass="card-subtitle" text="Here you can create new and own populations from existing groups"/>
-                <TextField fx:id="populationNameTextField" alignment="CENTER_LEFT" maxWidth="350" promptText="Name of the population"/>
-                <TextField fx:id="populationDescriptionTextField" alignment="CENTER_LEFT"  promptText="Description"/>
+                <Label wrapText="true" styleClass="card-subtitle"
+                       text="Here you can create new and own populations from existing groups"/>
+                <TextField fx:id="populationNameTextField" alignment="CENTER_LEFT" promptText="Name of the population"/>
+                <TextField fx:id="populationDescriptionTextField" alignment="CENTER_LEFT" promptText="Description"/>
             </VBox>
-            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1">
-            	<MenuButton>
-            		<items>
-            			<MenuItem text="Import from file" onAction="#importPopulation"/>
-            			<Menu text="Locally stored" fx:id="loadMenu"/>
-            		</items>
-            		<graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
-                    </graphic>
-                    <tooltip>
-                    	<Tooltip text="Load existing population"/>
-                    </tooltip>
-            	</MenuButton>
-                <Button onAction="#resetPopulation" styleClass="setting-button">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
-                    </graphic>
-                    <tooltip>
-                    	<Tooltip text="Reset all settings"/>
-                    </tooltip>
-                </Button>
-                <Button onAction="#exportPopulation">
-                    <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
-                    </graphic>
-                    <tooltip>
-                    	<Tooltip text="Export the created population as a file"/>
-                    </tooltip>
-                </Button>
-                <Button onAction="#savePopulation">
-                	<graphic>
-                		<Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00" />
-            		</graphic>
-            		<tooltip>
-            			<Tooltip text="Save the created population and close this window"/>
-            		</tooltip>
-                </Button>
-            </HBox>
-            <rowConstraints>
-                <RowConstraints/>
-            </rowConstraints>
-        </GridPane>
+            <VBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER" spacing="10">
+                    <MenuButton>
+                        <items>
+                            <MenuItem text="Import from file" onAction="#importPopulation"/>
+                            <Menu text="Locally stored" fx:id="loadMenu"/>
+                        </items>
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Load existing population"/>
+                        </tooltip>
+                    </MenuButton>
+                    <Button onAction="#resetPopulation" styleClass="setting-button">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT"
+                                   style="-fx-text-fill: grey"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Reset all settings"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10">
+                    <Button onAction="#exportPopulation">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Export the created population as a file"/>
+                        </tooltip>
+                    </Button>
+                    <Button onAction="#savePopulation">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Save the created population and close this window"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+            </VBox>
+        </HBox>
 
         <Separator style="-fx-padding: 10 0;"/>
         <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 10">
@@ -81,11 +81,12 @@
             </Button>
         </HBox>
         <Separator style="-fx-padding: 10 0;"/>
-        <FlowPane fx:id="groupPane" GridPane.columnIndex="1" hgap="10" vgap="10" />
+        <FlowPane prefHeight="100" fx:id="groupPane" GridPane.columnIndex="1" hgap="10" vgap="10"/>
         <Separator style="-fx-padding: 10 0;"/>
         <HBox spacing="10">
             <Label text="Total number of agents" style="-fx-font-weight: bold; -fx-font-size: 15pt"/>
-            <Label fx:id="totalAgentCountLabel" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
+            <Label fx:id="totalAgentCountLabel"
+                   style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
         </HBox>
     </VBox>
 </VBox>

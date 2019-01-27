@@ -103,6 +103,7 @@ public class HeadController {
         
         //register callback for the import of configurations from simulation results
         historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
+        historyViewController.registerCancleRequestHandler(sim -> simulator.stopSimulation(sim));
     }
     
     public void importConfiguration(UserConfiguration config) {
@@ -166,7 +167,7 @@ public class HeadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene configScene = new Scene(configParent, 1920, 1080);
+        Scene configScene = new Scene(configParent);
         Stage configWindow = new Stage();
 
         configWindow.setTitle("Edit configuration");
