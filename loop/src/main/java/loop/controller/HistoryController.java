@@ -10,11 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
+import loop.model.simulator.SimulationStatus;
 import loop.view.historylistview.HistoryListCell;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -64,15 +67,15 @@ public class HistoryController {
      */
     public void addSimulation(SimulationResult simulationResult) {
         ResultHistoryItem item = new ResultHistoryItem(simulationResult);
-        history.add(item);
         item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
-            historyList.refresh();
-            if (selectedItem == null || res != selectedItem.getResult()) return;
+            Platform.runLater(() -> historyList.refresh());
+            if (stat != SimulationStatus.FINISHED || selectedItem == null || res != selectedItem.getResult()) return;
             int index = historyList.getSelectionModel().getSelectedIndex();
             historyList.getSelectionModel().clearSelection();
             historyList.getSelectionModel().select(index);
         });
-        item.getResult().registerIterationFinished((res, stat) -> historyList.refresh());
+        item.getResult().registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));
+        history.add(item);
     }
 
     /**

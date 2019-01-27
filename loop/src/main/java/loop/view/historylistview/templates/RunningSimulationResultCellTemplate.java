@@ -54,9 +54,6 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
         String progressText = QUEUED_LABEL;
         if (result.getStatus() == SimulationStatus.RUNNING)
             progressText = result.getFinishedIterations() + "/" + result.getTotalIterations();
-        else if(result.getStatus() != SimulationStatus.QUEUED) {
-            listView.refresh();
-        }
         progressLabel.setText(progressText);
     }
 }
