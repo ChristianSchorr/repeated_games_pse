@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -84,31 +82,25 @@ public class ThreadPoolSimulator implements Simulator {
             } catch (ConfigurationException ex) {
             }
             return null;
-        }, threadPool);
+        });
         return simResult;
     }
 
-    private CompletableFuture<IterationResult> runIteration(SimulatorTask task, boolean last) throws ConfigurationException {
+    private Future<IterationResult> runIteration(SimulatorTask task, boolean last) throws ConfigurationException {
         ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
 
-        CompletableFuture<IterationResult> future = CompletableFuture.supplyAsync(() -> {
-            SimulationEngine engine = new SimulationEngine();
-            IterationResult result = engine.executeIteration(configNum.config);
-            task.simResult.addIterationResult(result, configNum.index);
-            task.buffer.addConfiguration(configNum.config, configNum.index);
-            return result;
-        }, threadPool).exceptionally((ex) -> {
-            ex.printStackTrace(System.out);
-            task.simResult.addSimulationEngineException(new SimulationEngineException());
-            return null;
-        });
+        Future<IterationResult> future = threadPool.submit(() -> {
+                SimulationEngine engine = new SimulationEngine();
+                IterationResult result = engine.executeIteration(configNum.config);
+                task.simResult.addIterationResult(result, configNum.index);
+                task.buffer.addConfiguration(configNum.config, configNum.index);
 
-        if (last) {
-            future.thenAccept((res) -> {
-                finishedSimulations.add(task.simResult);
-                runningSimulations.remove(task);
-            });
-        }
+                if (last) {
+                    finishedSimulations.add(task.simResult);
+                    runningSimulations.remove(task);
+                }
+                return result;
+        });
         return future;
     }
 
@@ -118,7 +110,7 @@ public class ThreadPoolSimulator implements Simulator {
                 .orElse(null);
         if (task == null)
             return false;
-        for (CompletableFuture<IterationResult> future : task.runningIterations)
+        for (Future<IterationResult> future : task.runningIterations)
             future.cancel(true);
         runningSimulations.remove(task);
         task.simResult.setStatus(SimulationStatus.CANCELED);
@@ -181,14 +173,14 @@ public class ThreadPoolSimulator implements Simulator {
 
         private int totalIterationsLeft;
         private ArrayList<Integer> iterationsLeft;
-        private ArrayList<CompletableFuture<IterationResult>> runningIterations;
+        private ArrayList<Future<IterationResult>> runningIterations;
 
         public SimulatorTask(SimulationResult result, ConfigurationBuffer buffer,
                              Consumer<SimulationResult> finishedHandler) {
             simResult = result;
             this.buffer = buffer;
             this.finishedHandler = finishedHandler;
-            runningIterations = new ArrayList<CompletableFuture<IterationResult>>();
+            runningIterations = new ArrayList<>();
             iterationsLeft = new ArrayList<Integer>();
 
             List<Configuration> configs = buffer.peekAllConfigurations();

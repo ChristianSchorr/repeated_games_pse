@@ -103,6 +103,7 @@ public class HeadController {
         
         //register callback for the import of configurations from simulation results
         historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
+        historyViewController.registerCancleRequestHandler(sim -> simulator.stopSimulation(sim));
     }
     
     public void importConfiguration(UserConfiguration config) {

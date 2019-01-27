@@ -99,7 +99,7 @@ public class RunningOutputController {
 
     @FXML
     private void cancleSimulation() {
-        System.out.println("CANCELED");
+        item.cancleSimulation();
     }
 
     /**

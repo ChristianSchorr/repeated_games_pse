@@ -4,23 +4,33 @@ package loop.controller;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 
+import java.util.function.Consumer;
+
 public class ResultHistoryItem {
 
     private SimulationResult result;
+
     private long startTime = -1;
     private long finishTime = -1;
-
     private long lastTimeUpdated = -1;
+
+    private Consumer<ResultHistoryItem> cancleHandler;
 
     /**
      * Creates a new Instance of this class with a given {@link SimulationResult}
      * @param result the {@link SimulationResult} to store in the history
      */
-    public ResultHistoryItem(SimulationResult result) {
+    public ResultHistoryItem(SimulationResult result, Consumer<ResultHistoryItem> handler) {
         this.result = result;
         statusChanged(result.getStatus());
         result.registerSimulationStatusChangedHandler((res, stat) -> statusChanged(stat));
         result.registerIterationFinished((res, iter) -> lastTimeUpdated = System.currentTimeMillis());
+        this.cancleHandler = handler;
+    }
+
+    public void cancleSimulation() {
+        if (result.getStatus().equals(SimulationStatus.RUNNING) || result.getStatus().equals(SimulationStatus.QUEUED))
+           cancleHandler.accept(this);
     }
 
     /**

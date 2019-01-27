@@ -42,6 +42,7 @@ public class HistoryController {
     private ObservableList<ResultHistoryItem> history;
 
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
+    private List<Consumer<SimulationResult>> cancleHandlers = new ArrayList<>();
 
     /**
      * Initializes the history controller
@@ -73,7 +74,9 @@ public class HistoryController {
      * @param simulationResult the {@link SimulationResult} object of the simulation that shall be added
      */
     public void addSimulation(SimulationResult simulationResult) {
-        ResultHistoryItem item = new ResultHistoryItem(simulationResult);
+        ResultHistoryItem item = new ResultHistoryItem(simulationResult, (i) -> {
+            for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i.getResult());
+        });
         item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
             Platform.runLater(() -> historyList.refresh());
             if (stat != SimulationStatus.FINISHED || selectedItem == null || res != selectedItem.getResult()) return;
@@ -112,5 +115,9 @@ public class HistoryController {
      */
     public void registerImportUserConfiguration(Consumer<UserConfiguration> action) {
         configImportHandlers.add(action);
+    }
+
+    public void registerCancleRequestHandler(Consumer<SimulationResult> handler) {
+        cancleHandlers.add(handler);
     }
 }
