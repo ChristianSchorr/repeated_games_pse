@@ -303,7 +303,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             }
         });
 
-        support.registerValidator(stepSize, new DoubleValidator("step size has to be a number"));
+        support.registerValidator(stepSize,false , new DoubleValidator("step size has to be a number"));
 
         startValueProperty.addListener((c, oldV, newV) -> {
             String endVal = endValue.getText();

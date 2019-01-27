@@ -167,7 +167,7 @@ public class HeadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene configScene = new Scene(configParent, 1920, 1080);
+        Scene configScene = new Scene(configParent);
         Stage configWindow = new Stage();
 
         configWindow.setTitle("Edit configuration");
