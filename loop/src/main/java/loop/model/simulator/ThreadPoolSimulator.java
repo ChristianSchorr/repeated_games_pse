@@ -87,9 +87,9 @@ public class ThreadPoolSimulator implements Simulator {
     }
 
     private Future<IterationResult> runIteration(SimulatorTask task, boolean last) throws ConfigurationException {
-        ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
 
         Future<IterationResult> future = threadPool.submit(() -> {
+            ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
             SimulationEngine engine = new SimulationEngine();
             IterationResult result = engine.executeIteration(configNum.config);
             task.simResult.addIterationResult(result, configNum.index);
