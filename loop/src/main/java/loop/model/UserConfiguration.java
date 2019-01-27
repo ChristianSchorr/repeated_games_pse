@@ -278,6 +278,9 @@ public class UserConfiguration implements Serializable {
 	 * @return the multiconfiguration parameter, if this is a multiconfiguration, {@code null} otherwise
 	 */
 	public MulticonfigurationParameter getMulticonfigurationParameter() {
+		if(!isMulticonfiguration) {
+			return null;
+		}
 	    return this.multiconfigurationParameter;
 	}
 	
@@ -288,6 +291,9 @@ public class UserConfiguration implements Serializable {
 	 * is a multiconfiguration, "" otherwise.
 	 */
 	public String getVariableParameterName() {
+		if(!isMulticonfiguration) {
+			return "";
+		}
 		return this.multiconfigurationParameter.getParameterName();
 	}
 	
@@ -298,6 +304,9 @@ public class UserConfiguration implements Serializable {
      *         {@code null} otherwise
 	 */
 	public List<Double> getParameterValues() {
+		if(!isMulticonfiguration) {
+			return null;
+		}
 	    return this.multiconfigurationParameter.getParameterValues();
 	}
 }
