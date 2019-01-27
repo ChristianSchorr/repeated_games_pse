@@ -56,44 +56,44 @@ Im Laufe der Implemetierung sind zahlreiche verschiedene Bibliotheken und Progra
 \subsection{Eclipse und IntelliJ}
 \begin{enumerate}
 \item[] \textbf{Ziel:} Bereitstellung eines Editors.
-\item[] \textbf{Beschreibung:} Eclipse sowie IntelliJ sind quelloffene Code-Editoren.
+\item[] \textbf{Beschreibung:} Eclipse sowie IntelliJ sind Open-Source-Code-Editoren.
 \item[] \textbf{Erläuterung:} Ein Editor ist für das Erstellen eines Programms unerlässlich, da er die Organisation des Projekts, das Erstellen von Klassen und Schnittstellen, das Finden von Fehlern und automatische Ausführen von Tests sowie das Kompilieren erleichtert. Je nach bisherigen Erfahrungen entschieden sich die Mitglieder unseres Teams dabei für Eclipse oder IntelliJ.
 \end{enumerate}
 \subsection{JUnit}
 \begin{enumerate}
-\item[] \textbf{Ziel:}
-\item[] \textbf{Beschreibung:}
-\item[] \textbf{Erläuterung:}
+\item[] \textbf{Ziel:} Testen von Komponenten
+\item[] \textbf{Beschreibung:} JUnit ist ein Test-Framework für Java.
+\item[] \textbf{Erläuterung:} Für das Testen einzelner Klassen und Interfaces, besonders zur Vermeidung von Regressionen, ist ein Framework nützlich, dass das automatische Ausführen von Komponententests erlaubt.
 \end{enumerate}
 \subsection{JavaFX}
 \begin{enumerate}
-\item[] \textbf{Ziel:}
-\item[] \textbf{Beschreibung:}
-\item[] \textbf{Erläuterung:}
-\end{enumerate}
-\subsection{JGraphT}
-\begin{enumerate}
-\item[] \textbf{Ziel:}
-\item[] \textbf{Beschreibung:}
-\item[] \textbf{Erläuterung:}
+\item[] \textbf{Ziel:} Erstellen einer ansprechenden Benutzeroberfläche.
+\item[] \textbf{Beschreibung:} JavaFX ist Framework zur Erstellung von Benutzeroberflächen für Java-Applikationen.
+\item[] \textbf{Erläuterung:} Als GUI-Frameworks kamen zu Beginn Swing und JavaFX in Frage. Da einer der Entwickler bereits in früheren Projekten Erfahrung mit JavaFX gesammelt hat, haben wir uns für dieses Framework entschieden.
 \end{enumerate}
 \subsection{ControlsFX}
 \begin{enumerate}
-\item[] \textbf{Ziel:}
-\item[] \textbf{Beschreibung:}
-\item[] \textbf{Erläuterung:}
+\item[] \textbf{Ziel:} Bereitstellung weiterer GUI-Elemente
+\item[] \textbf{Beschreibung:} ControlsFX ist eine GUI-Bibliothek, die JavaFX ergänzt.
+\item[] \textbf{Erläuterung:} Einige der verwendeten GUI-Elemente sind in JavaFX nicht enthalten und werden von ControlsFX bereitgestellt.
+\end{enumerate}
+\subsection{JGraphT}
+\begin{enumerate}
+\item[] \textbf{Ziel:} Bereitstellung eines effizienten Matching-Algorithmus für Graphen
+\item[] \textbf{Beschreibung:} JGraphT ist eine Open-Source-Graphbibliothek für Java.
+\item[] \textbf{Erläuterung:} In einem der verwendeten Paarbildungsalgorithmen (der \enquote{Paarbildung nach Wunsch}) muss ein Matching auf einem Graphen mit gewichteten Kanten berechnet werden. Da das Entwerfen und Implementieren von Graphenalgorithmen nicht Teil dieses Projekts ist, haben wir dazu auf eine Bibliothek zurückgegriffen.
 \end{enumerate}
 \subsection{Gson}
 \begin{enumerate}
-\item[] \textbf{Ziel:}
-\item[] \textbf{Beschreibung:}
-\item[] \textbf{Erläuterung:}
+\item[] \textbf{Ziel:} (De-)Serialisierung von Java-Objekten
+\item[] \textbf{Beschreibung:} Gson ist eine Open-Source-Java-Bibliothek zum Serialisieren und Deserialisieren von Java-Objekten.
+\item[] \textbf{Erläuterung:} Beim Speichern von Simulationsergebnissen wollten wir nicht auf die Java-eigene Serialisierungs-Bibliothek zurückgreifen, da das erzwungen hätte, viele der Klassen im Model serialisierbar zu machen. Das wäre entwurfstechnisch nicht schön, weshalb wir uns entschieden haben, hier auf eine andere Bibliothek zurückzugreifen.
 \end{enumerate}
 \subsection{Apache Commons Math}
 \begin{enumerate}
-\item[] \textbf{Ziel:}
-\item[] \textbf{Beschreibung:}
-\item[] \textbf{Erläuterung:}
+\item[] \textbf{Ziel:} 
+\item[] \textbf{Beschreibung:} Apache Commons Math ist eine Open-Source-Java-Bibliothek, die grundlegende mathematische und statistische Werkzeuge anbietet.
+\item[] \textbf{Erläuterung:} Bei der Kapitalinitialisierung von Agenten können diskrete Wahrscheinlichkeitsverteilungen wie die Binomial- oder Poissonverteilung verwendet werden. Für die Generierung von entsprechend verteilten Pseudo-Zufallszahlen haben wir auf diese Bibliothek zurückgegriffen.
 \end{enumerate}
 
 \section{Änderungen am Entwurf}
