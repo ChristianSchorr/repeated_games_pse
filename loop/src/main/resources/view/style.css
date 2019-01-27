@@ -911,6 +911,11 @@
     -fx-border-width: 1;
 }
 
+.task-card-blue {
+    -fx-border-color: -swatch-500;
+    -fx-border-width: 1;
+}
+
 
 .default-color0.chart-series-line { -fx-stroke: -swatch-500; }
 .default-color1.chart-series-line { -fx-stroke: #E51400; }

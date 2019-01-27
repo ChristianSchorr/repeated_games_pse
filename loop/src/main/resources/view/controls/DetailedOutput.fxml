@@ -13,7 +13,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:id="container" style="@../style.css">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="container" style="@../style.css" spacing="20">
     <HBox alignment="CENTER_LEFT" spacing="50">
         <HBox alignment="CENTER" spacing="10">
             <Label fx:id="iterationLabel" style="-fx-font-size: 16"/>
@@ -22,7 +22,7 @@
         </HBox>
         <HBox alignment="CENTER" spacing="10">
             <Label fx:id="configSliderLabel" style="-fx-font-size: 16"/>
-            <Slider fx:id="configSlider" />
+            <Slider fx:id="configSlider"/>
             <Label fx:id="configSliderParameterLabel" style="-fx-font-size: 16"/>
         </HBox>
         <HBox alignment="CENTER" spacing="10">
@@ -30,8 +30,10 @@
             <CheckBox fx:id="meanOverAllIterationsCheckbox"/>
         </HBox>
     </HBox>
-    <Label fx:id="exitDescriptionLabel"/>
-    <Label fx:id="efficiencyLabel"/>
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label fx:id="exitDescriptionLabel" style="-fx-font-size: 16"/>
+        <Label fx:id="efficiencyLabel" style="-fx-font-size: 16"/>
+    </HBox>
     <GridPane hgap="10">
         <VBox>
             <LineChart fx:id="strategyChart" createSymbols="false">
