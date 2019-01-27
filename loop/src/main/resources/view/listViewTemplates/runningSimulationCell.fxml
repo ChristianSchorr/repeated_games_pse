@@ -20,13 +20,5 @@
         </HBox>
         <ProgressBar maxHeight="10" maxWidth="Infinity" GridPane.hgrow="ALWAYS" fx:id="progressBar"/>
             <Label style="-fx-padding: 0 0 0 10" styleClass="control-label" fx:id="progressLabel"/>
-        <!--<HBox alignment="CENTER_LEFT" spacing="50">
-            <Button prefHeight="10" prefWidth="10" style="-fx-padding: 0" alignment="CENTER">
-                <graphic>
-                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="CLOSE"
-                           style="-fx-text-fill: #E51400"/>
-                </graphic>
-            </Button>
-        </HBox>-->
     </VBox>
 </HBox>

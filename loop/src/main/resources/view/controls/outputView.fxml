@@ -62,7 +62,8 @@
                 </GridPane>
             </Tab>
             <Tab fx:id="notFinishedTab">
-                <Label text="The selected simulation hasn't finished yet!"/>
+                <fx:include source="RunningOutput.fxml" />
+                <!--<Label text="The selected simulation hasn't finished yet!"/>-->
             </Tab>
             <Tab fx:id="detailedOutputTab"/>
             <Tab fx:id="abstractedOutputTab"/>

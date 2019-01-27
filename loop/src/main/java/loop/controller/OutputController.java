@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import org.controlsfx.glyphfont.Glyph;
 
@@ -121,7 +122,8 @@ public class OutputController {
 
     @FXML
     private VBox box;
-    
+
+    private List<Node> boxContent;
     
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
     
@@ -159,6 +161,26 @@ public class OutputController {
         return container;
     }
 
+    private static final String RUNNING_VIEW = "/view/controls/RunningOutput.fxml";
+    private static final String RUNNING_STYLE = "-fx-border-color: #FEDE06; -fx-padding: 16;";
+
+    private void setRunning() {
+        box.setStyle(RUNNING_STYLE);
+        boxContent = new ArrayList<>(box.getChildren());
+        box.getChildren().clear();
+
+        RunningOutputController controller = new RunningOutputController(displayedResult);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RUNNING_VIEW));
+        fxmlLoader.setController(controller);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        box.getChildren().add(controller.getContainer());
+    }
+
+
     /**
      * Sets the result that shall be displayed. If {@code null} is given as an argument, no result will
      * be shown.
@@ -175,13 +197,14 @@ public class OutputController {
         }
 
         if (result.getStatus() == SimulationStatus.RUNNING || result.getStatus() == SimulationStatus.QUEUED) {
-            tabPane.getSelectionModel().select(notFinishedTab);
-            box.setStyle("-fx-border-color: #FEDE06; -fx-padding: 16;");
-            deactivateAll();
+            setRunning();
             return;
         }
         box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");
-
+        if (boxContent.size() != 0) {
+            box.getChildren().clear();
+            box.getChildren().addAll(boxContent);
+        }
         activateAll();
 
         this.config = result.getUserConfiguration();
