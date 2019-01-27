@@ -3,6 +3,11 @@ package loop.model.plugin;
 import java.util.List;
 
 import loop.model.Nameable;
+import loop.model.simulationengine.EquilibriumCriterion;
+import loop.model.simulationengine.PairBuilder;
+import loop.model.simulationengine.StrategyAdjuster;
+import loop.model.simulationengine.SuccessQuantifier;
+import loop.model.simulationengine.distributions.DiscreteDistribution;
 
 /**
  * This class represents a dynamically loadable plugin. It is a generic container for another
@@ -37,4 +42,10 @@ public abstract class Plugin<T> implements Nameable {
 	 * class
 	 */
 	public abstract T getNewInstance(List<Double> params);
+
+	public abstract class PairBuilderPlugin extends Plugin<PairBuilder> {}
+	public abstract class EquilibriumCriterionPlugin extends Plugin<EquilibriumCriterion> {}
+	public abstract class StrategyAdjusterPlugin extends Plugin<StrategyAdjuster> {}
+	public abstract class SuccessQuantifierPlugin extends Plugin<SuccessQuantifier> {}
+	public abstract class DiscreteDistributionPlugin extends Plugin<DiscreteDistribution> {}
 }

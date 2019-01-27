@@ -1,7 +1,5 @@
 package loop.model.plugin;
 
-import sun.plugin.navig.motif.Plugin;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -22,7 +20,7 @@ public class PluginLoader {
 	 * @param <T> the type of the Plugin that shall be loaded
 	 * @return a list of the loaded plugins
 	 */
-	public static <T extends Plugin> List<T> loadPlugins(Class<T> type) {
+	public static <T> List<T> loadPlugins(Class<T> type) {
 		ServiceLoader<T> loader = ServiceLoader.load(type);
 		ArrayList<T> plugins = new ArrayList<T>();
 
