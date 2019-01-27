@@ -2,10 +2,12 @@ package loop.model.repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.plugin.Plugin;
+import loop.model.plugin.PluginLoader;
 import loop.model.simulationengine.ConcreteGame;
 import loop.model.simulationengine.CooperationConsideringPairBuilder;
 import loop.model.simulationengine.EquilibriumCriterion;
@@ -246,9 +248,29 @@ public class CentralRepository {
 		} catch (NullPointerException n) {
 			//Empty File    
 		}
-	    
+
+		loadPlugins();
 	}
 	    
-	    //load plugins
-	    //TODO
+	private void loadPlugins() {
+		List<Plugin.PairBuilderPlugin> pairBuilderPlugins = PluginLoader.loadPlugins(Plugin.PairBuilderPlugin.class);
+		for (Plugin.PairBuilderPlugin plugin : pairBuilderPlugins)
+			pairBuilderRepo.addEntity(plugin.getName(), plugin);
+
+		List<Plugin.SuccessQuantifierPlugin> successQuantifierPlugins = PluginLoader.loadPlugins(Plugin.SuccessQuantifierPlugin.class);
+		for (Plugin.SuccessQuantifierPlugin plugin : successQuantifierPlugins)
+			successQuantifierRepo.addEntity(plugin.getName(), plugin);
+
+		List<Plugin.StrategyAdjusterPlugin> strategyAdjusterPlugins = PluginLoader.loadPlugins(Plugin.StrategyAdjusterPlugin.class);
+		for (Plugin.StrategyAdjusterPlugin plugin : strategyAdjusterPlugins)
+			strategyAdjusterRepo.addEntity(plugin.getName(), plugin);
+
+		List<Plugin.EquilibriumCriterionPlugin> equilibriumCriterionPlugins = PluginLoader.loadPlugins(Plugin.EquilibriumCriterionPlugin.class);
+		for (Plugin.EquilibriumCriterionPlugin plugin : equilibriumCriterionPlugins)
+			equilibriumCriterionRepo.addEntity(plugin.getName(), plugin);
+
+		List<Plugin.DiscreteDistributionPlugin> discreteDistributionPlugins = PluginLoader.loadPlugins(Plugin.DiscreteDistributionPlugin.class);
+		for (Plugin.DiscreteDistributionPlugin plugin : discreteDistributionPlugins)
+			discreteDistributionRepo.addEntity(plugin.getName(), plugin);
+	}
 }
