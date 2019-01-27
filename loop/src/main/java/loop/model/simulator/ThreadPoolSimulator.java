@@ -31,8 +31,7 @@ public class ThreadPoolSimulator implements Simulator {
     private ThreadPoolExecutor threadPool;
     private int threadCount;
 
-    private Queue<SimulatorTask> runningSimulations;
-    private ArrayList<SimulatorTask> finishingSimulations;
+    private LinkedList<SimulatorTask> runningSimulations;
     private ArrayList<SimulationResult> finishedSimulations;
 
     private static int nextSimulationId = 1;
@@ -52,11 +51,9 @@ public class ThreadPoolSimulator implements Simulator {
      */
     public ThreadPoolSimulator(int maxThreads) {
         threadCount = maxThreads;
-        threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        runningSimulations = new LinkedList<ThreadPoolSimulator.SimulatorTask>();
-
-        finishedSimulations = new ArrayList<SimulationResult>();
-        finishingSimulations = new ArrayList<SimulatorTask>();
+        threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads);
+        runningSimulations = new LinkedList<>();
+        finishedSimulations = new ArrayList<>();
     }
 
     @Override
@@ -73,64 +70,46 @@ public class ThreadPoolSimulator implements Simulator {
 
         SimulatorTask task = new SimulatorTask(simResult, configBuffer, action);
         runningSimulations.add(task);
-        if (runningSimulations.peek() == task) {
-            for (int i = 0; i < threadCount; i++) {
-                scheduleNextIteration();
+        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+            task.runningIterations.add(CompletableFuture.supplyAsync(() -> {
+                simResult.setStatus(SimulationStatus.RUNNING);
+                return null;
+            }, threadPool));
+            final int iterationCount = simResult.getTotalIterations();
+            try {
+                for (int i = 0; i < iterationCount - 1; i++) {
+                    task.runningIterations.add(runIteration(task, false));
+                }
+                task.runningIterations.add(runIteration(task, true));
+            } catch (ConfigurationException ex) {
             }
-        }
+            return null;
+        }, threadPool);
         return simResult;
     }
 
-    private void scheduleNextIteration() throws ConfigurationException {
-        // update finishing tasks
-        SimulatorTask finishedSimulation = finishingSimulations.stream()
-                .filter(tsk -> tsk.runningIterations.size() == 0).findFirst().orElse(null);
-        if (finishedSimulation != null) {
-            finishingSimulations.remove(finishedSimulation);
-            finishedSimulations.add(finishedSimulation.simResult);
-            finishedSimulation.finishedHandler.accept(finishedSimulation.simResult);
-            finishedSimulation.simResult.setStatus(SimulationStatus.FINISHED);
-        }
+    private CompletableFuture<IterationResult> runIteration(SimulatorTask task, boolean last) throws ConfigurationException {
+        ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
 
-        // update running tasks
-        SimulatorTask runningTask = runningSimulations.peek();
-        while (runningTask != null && runningTask.totalIterationsLeft == 0) {
-            finishingSimulations.add(runningTask);
-            runningSimulations.remove();
-            runningTask = runningSimulations.peek();
-        }
-        if (runningTask == null)
-            return;
-
-        SimulatorTask task = runningSimulations.peek();
-        Configuration config = task.getNextConfiguration();
-        int index = task.buffer.getLastIndex();
-        if (task.simResult.getStatus() != SimulationStatus.RUNNING)
-            task.simResult.setStatus(SimulationStatus.RUNNING);
-
-        // start iteration execution
         CompletableFuture<IterationResult> future = CompletableFuture.supplyAsync(() -> {
             SimulationEngine engine = new SimulationEngine();
-            return engine.executeIteration(config);
-        }, threadPool);
-
-        // handle iteration finished
-        future.thenAccept((res) -> {
-            task.simResult.addIterationResult(res, index);
-            task.runningIterations.remove(future);
-            task.buffer.addConfiguration(config, index);
-            try {
-                scheduleNextIteration();
-            } catch (ConfigurationException e) {
-                e.printStackTrace();
-            }
-        }).exceptionally((ex) -> {
+            IterationResult result = engine.executeIteration(configNum.config);
+            task.simResult.addIterationResult(result, configNum.index);
+            task.buffer.addConfiguration(configNum.config, configNum.index);
+            return result;
+        }, threadPool).exceptionally((ex) -> {
             ex.printStackTrace(System.out);
             task.simResult.addSimulationEngineException(new SimulationEngineException());
             return null;
         });
 
-        task.runningIterations.add(future);
+        if (last) {
+            future.thenAccept((res) -> {
+                finishedSimulations.add(task.simResult);
+                runningSimulations.remove(task);
+            });
+        }
+        return future;
     }
 
     @Override
@@ -220,16 +199,10 @@ public class ThreadPoolSimulator implements Simulator {
             simResult.setTotalIterations(totalIterationsLeft);
         }
 
-        private Configuration getNextConfiguration() throws ConfigurationException {
+        private ConfigurationBuffer.ConfigNumber getNextConfiguration() throws ConfigurationException {
             if (totalIterationsLeft <= 0)
                 return null;
             totalIterationsLeft--;
-            for (int i = 0; i < iterationsLeft.size(); i++) {
-                if (iterationsLeft.get(i) > 0 && buffer.hasConfiguration(i)) {
-                    iterationsLeft.set(i, iterationsLeft.get(i) - 1);
-                    return buffer.getConfiguration(i);
-                }
-            }
             for (int i = 0; i < iterationsLeft.size(); i++) {
                 if (iterationsLeft.get(i) > 0) {
                     iterationsLeft.set(i, iterationsLeft.get(i) - 1);
@@ -244,7 +217,6 @@ public class ThreadPoolSimulator implements Simulator {
 
         private UserConfiguration config;
         private ArrayList<Queue<Configuration>> buffer;
-        private int lastIndex;
 
         public ConfigurationBuffer(UserConfiguration config, int threads) throws ConfigurationException {
             this.config = config;
@@ -267,15 +239,15 @@ public class ThreadPoolSimulator implements Simulator {
             }
         }
 
-        private void addConfiguration(Configuration engineConfig, int index) {
+        private synchronized void addConfiguration(Configuration engineConfig, int index) {
             buffer.get(index).add(engineConfig);
         }
 
-        private boolean hasConfiguration(int index) {
+        private synchronized boolean hasConfiguration(int index) {
             return !buffer.get(index).isEmpty();
         }
 
-        private Configuration getConfiguration(int index) throws ConfigurationException {
+        private synchronized ConfigNumber getConfiguration(int index) throws ConfigurationException {
             // generate new configuration if buffer is empty
             if (buffer.get(index).isEmpty()) {
                 List<Configuration> configs = ConfigurationCreator.generateConfigurations(config);
@@ -283,16 +255,21 @@ public class ThreadPoolSimulator implements Simulator {
                     buffer.get(j).add(configs.get(j));
                 }
             }
-            lastIndex = index;
-            return buffer.get(index).remove();
-        }
-
-        private int getLastIndex() {
-            return lastIndex;
+            return new ConfigNumber(index, buffer.get(index).remove());
         }
 
         private List<Configuration> peekAllConfigurations() {
             return buffer.stream().map((q) -> q.peek()).collect(Collectors.toList());
+        }
+
+        private class ConfigNumber {
+            private int index;
+            private Configuration config;
+
+            private ConfigNumber(int index, Configuration config) {
+                this.index = index;
+                this.config = config;
+            }
         }
     }
 }
