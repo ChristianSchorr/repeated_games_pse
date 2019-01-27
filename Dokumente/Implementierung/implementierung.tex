@@ -1,0 +1,151 @@
+\documentclass[parskip=full,11pt]{scrartcl}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage{inconsolata}
+\usepackage[ngerman]{babel}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage[section]{placeins}
+
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.85]{beramono}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{5cm}
+	\includegraphics[width = 0.7\linewidth]{img/logo.png}\par
+	{\huge\bfseries Ein Simulator für wiederholte Spiele\par}
+	%\vspace{1cm}
+	{\Large Implementierungsbericht\par}
+	\vspace{2cm}
+	{\Large\itshape Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing\par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\pagebreak
+
+\section{Einleitung}
+Nach der Spezifikation des Programms in der ersten und dem Entwurf einer Programmarchitekur in der zweiten wurde das Programm in dieser Phase nun implementiert. Der Ablauf und die Ergebnisse der Implementierungsphase sollen hier kurz vorgestellt werden.
+
+Innerhalb der letzten vier Wochen wurden durch insgesamt über X Commits im Versionierungssystem git X Klassen und Schnittstellen in X Paketen implementiert, welche  insgesamt X Java-Quellcode-Zeilen umfassen. Des Weiteren wurden zahlreiche Komponententests erstellt.
+
+Im Laufe der Implemetierung sind zahlreiche verschiedene Bibliotheken und Programme zum Einsatz gekommen, die hier kurz vorgestellt werden sollen.
+
+\subsection{Gradle}
+\begin{enumerate}
+\item[] \textbf{Ziel:} Automatisierung des Build-Prozesses
+\item[] \textbf{Beschreibung:} Gradle ist ein auf Java aufbauendes Build-Management-Automatisierungs-Tool zum automatischen Erstellen eines ausführbaren Anwendungsprogramm aus Java-Quellcode.
+\item[] \textbf{Erläuterung:} Zur Automatisierung des Build-Prozesses und zum vereinfachten Dependency-Management bei Verwendung externer Bibliotheken bietet sich der Einsatz eines Build-Tools an. Auf Empfehlung unseres Betreuers hin entschieden wir uns dabei für Gradle.
+\end{enumerate}
+\subsection{Eclipse und IntelliJ}
+\begin{enumerate}
+\item[] \textbf{Ziel:} Bereitstellung eines Editors.
+\item[] \textbf{Beschreibung:} Eclipse sowie IntelliJ sind quelloffene Code-Editoren.
+\item[] \textbf{Erläuterung:} Ein Editor ist für das Erstellen eines Programms unerlässlich, da er die Organisation des Projekts, das Erstellen von Klassen und Schnittstellen, das Finden von Fehlern und automatische Ausführen von Tests sowie das Kompilieren erleichtert. Je nach bisherigen Erfahrungen entschieden sich die Mitglieder unseres Teams dabei für Eclipse oder IntelliJ.
+\end{enumerate}
+\subsection{JUnit}
+\begin{enumerate}
+\item[] \textbf{Ziel:}
+\item[] \textbf{Beschreibung:}
+\item[] \textbf{Erläuterung:}
+\end{enumerate}
+\subsection{JavaFX}
+\begin{enumerate}
+\item[] \textbf{Ziel:}
+\item[] \textbf{Beschreibung:}
+\item[] \textbf{Erläuterung:}
+\end{enumerate}
+\subsection{JGraphT}
+\begin{enumerate}
+\item[] \textbf{Ziel:}
+\item[] \textbf{Beschreibung:}
+\item[] \textbf{Erläuterung:}
+\end{enumerate}
+\subsection{ControlsFX}
+\begin{enumerate}
+\item[] \textbf{Ziel:}
+\item[] \textbf{Beschreibung:}
+\item[] \textbf{Erläuterung:}
+\end{enumerate}
+\subsection{Gson}
+\begin{enumerate}
+\item[] \textbf{Ziel:}
+\item[] \textbf{Beschreibung:}
+\item[] \textbf{Erläuterung:}
+\end{enumerate}
+\subsection{Apache Commons Math}
+\begin{enumerate}
+\item[] \textbf{Ziel:}
+\item[] \textbf{Beschreibung:}
+\item[] \textbf{Erläuterung:}
+\end{enumerate}
+
+\section{Änderungen am Entwurf}
+Pakete X und Y hinzugefügt/entfernt
+\subsection{Anpassung der Ausgabe}\label{outputmod}
+
+\newpage
+\section{Implementierte Funktionalitäten}
+Die folgende Tabelle liefert einen Überblick über die im Pflichtenheft beschriebenen Funktionalitäten und deren Umsetzung.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l | l | l | l}
+\textbf{Nummer} & \textbf{Beschreibung} & \textbf{implementiert?} & \textbf{Bemerkung} \\
+\hline
+\textbf{M1} & Starten einer Simulation  & \checkmark \\
+\textbf{M2} & Ausgabe der Simulationsergebnisse & \checkmark & 1)\\
+\textbf{M3} & Abbrechen einer Simulation & \checkmark \\
+\textbf{M4} & Festlegung von Simulationsparametern & \checkmark \\
+\textbf{K1} & Multikonfiguration &  \checkmark \\
+\textbf{K2} & Erstellen eigener Strategien & \checkmark \\
+\textbf{K3} & Erstellen eigener Stufenspiele & \checkmark\\
+\textbf{K4} & Speichern und Laden von Konfigurationen & \checkmark & 2)\\
+\textbf{K5} & Speichern und Laden von Simulationsergebnissen & \checkmark & 2) \\
+\textbf{K6} & Starten mehrerer Simulationen & \checkmark \\
+\textbf{K7} & Anpassen der Gleichgewichtsbedingung & \checkmark \\
+\textbf{K8} & Erweiterte Gruppenfunktionalität & \checkmark & 3) \\
+\hline
+\textbf{Gesamt} &\textbf{12} & \textbf{12}
+\end{tabular}
+\caption{Übersicht der implementierten Muss- und Kann-Kriterien}
+\end{table}
+Wie in der Tabelle zu sehen konnten alle Kriterien erfolgreich umgesetzt werden, dazu jedoch noch folgende Anmerkungen:
+\begin{enumerate}
+\item[] 1) Die Form der Ausgabe für die Strategie- und Kapitalverteilungen der Agenten wurde angepasst (siehe \ref{outputmod}).
+\item[] 2) Neben Konfigurationen und Simulationsergebnissen können auch Gruppen, Populationen, Strategien und Stufenspiele als Dateien exportiert und importiert werden. Zur Erläuterung dieser Begriffe sei auf Pflichtenheft und Entwurfsdokument verwiesen.
+\item[] 3) Die Struktur von Gruppen und Segmenten hat sich in der Entwurfsphase durch die Einführung von Populationen geändert (siehe Entwurfsdokument).
+\end{enumerate}
+
+Neben den in der Tabelle erwähnten Funktionen konnten wir auch erfolgreich die Funktionalitäten implementieren, die wir in der Entwurfsphase noch zur Spezifikation hinzugefügt haben, also das Konzept von Populationen, erweiterte Möglichkeiten zur Erstellung von Strategien und das Plugin-System.
+
+\section{Schwierigkeiten bei der Implementierung}
+
+\subsection{Erstellung des Multisliders}
+
+\subsection{Das Plugin-System}
+wegen gradle
+
+\subsection{Speichern von Simulationsergebnissen}
+-> gson
+
+\section{Implementierungsplan}
+zeitmanagement etc.
+
+\end{document}
