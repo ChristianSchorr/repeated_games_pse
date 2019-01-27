@@ -48,7 +48,9 @@ public class PureStrategyTest {
 		testPureStrategy = PureStrategy.grim();
 		player.setStrategy(PureStrategy.grim());
 		assertTrue(testPureStrategy.getName().equals("grim"));
-		assertTrue(testPureStrategy.getDescription().equals("-"));
+		assertTrue(testPureStrategy.getDescription().equals("A player using grim will first cooperate, afterwards he refer to the previous actions of the opponent."
+        		+ " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
+        		+ " not cooperative, the agent is from now on not cooperative to that opponent."));
 		
 		assertTrue("The first time player with Strategy grim plays against opponent should cooperate be true",
 				testPureStrategy.isCooperative(player, opponentOtherGroup, history));
@@ -113,7 +115,9 @@ public class PureStrategyTest {
 	*/
 	@Test
 	public void testGetDescription() {
-		assertTrue(testPureStrategy.getDescription().equals("-"));
+		assertTrue(testPureStrategy.getDescription().equals("A player using tit-for-tat will first cooperate, afterwards he replicate the opponent's previous action."
+        		+ " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
+        		+ " the player is not cooperative."));
 	}
 
 	/**
@@ -200,7 +204,10 @@ public class PureStrategyTest {
 		testPureStrategy = PureStrategy.groupTitForTat();
 		player.setStrategy(PureStrategy.groupTitForTat());
 		assertTrue(testPureStrategy.getName().equals("group tit-for-tat"));
-		assertTrue(testPureStrategy.getDescription().equals("-"));
+		assertTrue(testPureStrategy.getDescription().equals("A player using group tit-for-tat use the tit-for-tat strategy, where instead of looking"
+        		+ "at the last game between the player and the opponent the last game between the opponent and an agent"
+        		+ "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group,"
+        		+ "this strategy leads to the same results as the common tit-for-tat strategy."));
 		
 		assertTrue("The first time player with Strategy group-tit-for-tat plays against opponent-group should cooperate be true",
 				testPureStrategy.isCooperative(player, opponentOtherGroup, history));
@@ -257,7 +264,10 @@ public class PureStrategyTest {
 		testPureStrategy = PureStrategy.groupGrim();
 		player.setStrategy(PureStrategy.groupGrim());
 		assertTrue(testPureStrategy.getName().equals("group grim"));
-		assertTrue(testPureStrategy.getDescription().equals("-"));
+		assertTrue(testPureStrategy.getDescription().equals("A player using group grim use the grim strategy, where instead of looking at the last game between"
+        		+ " the player and the opponent the last game between the opponent and an agent of the same (cohesive) group"
+        		+ " as the player is considered. If the player is part of a non-cohesive group, this strategy leads to the same results"
+        		+ " as the common grim strategy."));
 		
 		assertTrue("The first time player with Strategy group-grim plays against opponent-group should cooperate be true",
 				testPureStrategy.isCooperative(player, opponentOtherGroup, history));
@@ -326,7 +336,7 @@ public class PureStrategyTest {
 		testPureStrategy = PureStrategy.alwaysCooperate();
 		player.setStrategy(PureStrategy.alwaysCooperate());
 		assertTrue(testPureStrategy.getName().equals("always cooperate"));
-		assertTrue(testPureStrategy.getDescription().equals("-"));
+		assertTrue(testPureStrategy.getDescription().equals("A player using always cooperate will be cooperative against all opponents"));
 		
 		assertTrue("The player should be always cooperative",testPureStrategy.isCooperative(player, opponentOtherGroup, history));
 		assertEquals(1, testPureStrategy.getCooperationProbability(player, opponentOtherGroup, history), 0);
@@ -362,7 +372,7 @@ public class PureStrategyTest {
 		testPureStrategy = PureStrategy.neverCooperate();
 		player.setStrategy(PureStrategy.neverCooperate());
 		assertTrue(testPureStrategy.getName().equals("never cooperate"));
-		assertTrue(testPureStrategy.getDescription().equals("-"));
+		assertTrue(testPureStrategy.getDescription().equals("A player using never cooperate won't be cooperative against any opponent."));
 		
 		assertFalse("The player should be never cooperative",testPureStrategy.isCooperative(player, opponentOtherGroup, history));
 		assertEquals(0, testPureStrategy.getCooperationProbability(player, opponentOtherGroup, history), 0);
