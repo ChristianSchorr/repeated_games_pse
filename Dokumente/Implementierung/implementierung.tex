@@ -97,14 +97,21 @@ Im Laufe der Implemetierung sind viele verschiedene Bibliotheken und Programme z
 \end{enumerate}
 
 \section{Änderungen am Entwurf}
-Pakete X und Y hinzugefügt/entfernt
 
 \subsection{Hinzufügen des Pakets \texttt{edu.kit.loop.view.historylistview}}
 Im ursprünglichen Entwurf gab es zunächst kein View-Paket, was daran liegt, dass das Verhalten der GUI in fxml-Dateien beschrieben ist und die View-Klassen daraus zur Laufzeit erzeugt werden. Es ist daher zunächst nicht notwendig, eigene Klassen für die View zu schreiben.
 
-Wie bereits im Pflichtenheft beschrieben, befindet sich im Hauptfenster eine Liste mit Einträgen für alle gestarteten und geladenen Simulationen, die deren Ausführungsstatus anzeigen. Klickt man auf einen Eintrag, werden rechts der Liste die Ergebnisse der Simulation angezeigt. Zur Umsetzung haben wir das in JavaFX vorhandene Konzept der \texttt{ListView} verwendet. Eine \texttt{ListView} zeigt eine Liste von Elementen (Instanzen des Typs \texttt{ListCell}) an, mit denen der Nutzer durch Auswahl einzelner Einträge interagieren kann. Um die Einträge unseren sehr speziellen Anforderungen anzupassen, war es notwendig, eigene Unterklassen der \texttt{ListCell}-Klasse zu schreiben. Diese befinden sich im Paket \texttt{edu.kit.loop.view.historylistview}.
+Wie bereits im Pflichtenheft beschrieben, befindet sich im Hauptfenster eine Liste mit Einträgen für alle gestarteten und geladenen Simulationen, die deren Ausführungsstatus anzeigen. Klickt man auf den Eintrag einer abgeschlossenen Simulation, werden rechts der Liste deren Ergebnisse angezeigt. Zur Umsetzung haben wir das in JavaFX vorhandene Konzept der \texttt{ListView} verwendet. Eine \texttt{ListView} zeigt eine Liste von Elementen (Instanzen des Typs \texttt{ListCell}) an, mit denen der Nutzer durch Auswahl einzelner Einträge interagieren kann. Um die Einträge unseren sehr speziellen Anforderungen anzupassen, war es notwendig, eigene Unterklassen der \texttt{ListCell}-Klasse zu schreiben. Diese befinden sich im Paket \texttt{edu.kit.loop.view.historylistview}.
 
 \subsection{Anpassung der Ausgabe}\label{outputmod}
+Die Ausgabe der Strategieverteilung der Agenten sollte im ursprünglichen Entwurf durch ein Kuchendiagramm erfolgen, dass für jede Strategie angibt, wie häufig diese von Agenten im finalen Zustand der Simulation verwendet wird. Statt des Kuchendiagramms gibt es nun ein Diagramm, dass die Entwicklung der Strategieverteilung über den Lauf der Simulation anzeigt. Genauer gesagt bilden die Adaptionsschritte von \(1\) bis zum letzten durchgeführten Adaptionsschritt die x-Achse und es gibt für jede Strategie eine Linie im Diagramm, die für jeden Adaptionsschritt als Wert die relative Verwendungshäufigkeit dieser Strategies in diesem Adaptionsschritt annimmt (siehe Abb. \ref{fig:newoutput}). Die Informationen aus dem ursprünglich geplanten Kuchendiagramm sind in diesem enthalten, die Strategieverteilung nach dem letzten Adaptionsschritt kann im Liniendiagramm ganz rechts abgelesen werden.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/newoutput.png}
+	\caption{Bild des neuen Diagramms im Ausgabefenster.}
+	\label{fig:newoutput}
+\end{figure}
 
 \newpage
 \section{Implementierte Funktionalitäten}
