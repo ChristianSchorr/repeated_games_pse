@@ -120,7 +120,7 @@
         </FlowPane>
         <Separator style="-fx-padding: 10 0;"/>
         <Label text="If:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
-        <FlowPane fx:id="expressionContainer" hgap="10" vgap="10"/>
+        <FlowPane fx:id="expressionContainer" hgap="10" vgap="10" prefHeight="100"/>
         <FlowPane hgap="10" vgap="10">
             <Label text="Then:" style="-fx-text-fill: -swatch-500; -fx-font-weight: bold; -fx-font-size: 15pt"/>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
