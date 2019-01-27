@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import loop.model.simulator.SimulationResult;
+import loop.model.simulator.SimulationStatus;
 
 import java.time.Duration;
 import java.util.Timer;
@@ -58,9 +59,10 @@ public class RunningOutputController {
     @FXML
     private void initialize() {
         gameNameLabel.setText(result.getUserConfiguration().getGameName());
-        gameIdLabel.setText(String.format("%d", result.getId()));
+        gameIdLabel.setText(String.format("#%03d", result.getId()));
         cancleButton.setOnAction((e) -> cancleSimulation());
 
+        if (result.getStatus() == SimulationStatus.CANCELED) return;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             int dots = 0;

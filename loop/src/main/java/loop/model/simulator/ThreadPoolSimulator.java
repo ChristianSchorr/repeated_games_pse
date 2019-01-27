@@ -90,16 +90,16 @@ public class ThreadPoolSimulator implements Simulator {
         ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
 
         Future<IterationResult> future = threadPool.submit(() -> {
-                SimulationEngine engine = new SimulationEngine();
-                IterationResult result = engine.executeIteration(configNum.config);
-                task.simResult.addIterationResult(result, configNum.index);
-                task.buffer.addConfiguration(configNum.config, configNum.index);
+            SimulationEngine engine = new SimulationEngine();
+            IterationResult result = engine.executeIteration(configNum.config);
+            task.simResult.addIterationResult(result, configNum.index);
+            task.buffer.addConfiguration(configNum.config, configNum.index);
 
-                if (last) {
-                    finishedSimulations.add(task.simResult);
-                    runningSimulations.remove(task);
-                }
-                return result;
+            if (last) {
+                finishedSimulations.add(task.simResult);
+                runningSimulations.remove(task);
+            }
+            return result;
         });
         return future;
     }

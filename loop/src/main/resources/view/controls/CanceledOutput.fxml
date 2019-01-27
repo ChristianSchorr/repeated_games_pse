@@ -20,22 +20,22 @@
       prefWidth="10000">
     <HBox alignment="CENTER_LEFT" spacing="100">
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Glyph fontFamily="FontAwesome" fontSize="50" icon="AREA_CHART"
-                   style="-fx-text-fill: #FEDE06"/>
-            <Label fx:id="gameNameLabel" style="-fx-text-fill: #FEDE06; -fx-font-size: 20" styleClass="card-title"/>
+            <Glyph fontFamily="FontAwesome" fontSize="50" icon="CLOSE"
+                   style="-fx-text-fill: #E51400"/>
+            <Label fx:id="gameNameLabel" style="-fx-text-fill: #E51400; -fx-font-size: 20" styleClass="card-title"/>
             <Label fx:id="gameIdLabel" style="-fx-text-fill: -swatch-dark-grey; -fx-font-size: 20" styleClass="card-title"/>
         </HBox>
-        <HBox alignment="CENTER_LEFT" spacing="10">
+        <HBox alignment="CENTER_LEFT" spacing="10" visible="false">
             <ProgressBar prefWidth="400" fx:id="progressBar"/>
             <Label style="-fx-padding: 0 0 0 10; -fx-font-size: 16" styleClass="control-label" fx:id="progressLabel"/>
         </HBox>
-        <HBox alignment="CENTER_RIGHT">
+        <HBox alignment="CENTER_RIGHT" visible="false">
             <Label text="estimated time left: " styleClass="control-label" style="-fx-font-size: 16"/>
             <Label text="..." fx:id="durationLeft" styleClass="control-label" style="-fx-font-size: 16"/>
         </HBox>
         <HBox alignment="CENTER_RIGHT">
             <Separator orientation="VERTICAL" style="-fx-padding: 10 0"/>
-            <Button styleClass="setting-button" fx:id="cancleButton">
+            <Button styleClass="setting-button" fx:id="cancleButton" disable="true">
                 <graphic>
                     <Glyph fontFamily="FontAwesome" fontSize="40" icon="CLOSE" style="-fx-text-fill: #E51400"/>
                 </graphic>
@@ -43,15 +43,15 @@
                     <Tooltip text="Cancle this Simulation"/>
                 </tooltip>
             </Button>
-            <Label text="Cancle" style="-fx-text-fill: #E51400; -fx-font-size: 20" />
+            <Label text="Cancle" style="-fx-text-fill: #E51400; -fx-font-size: 20" disable="true"/>
         </HBox>
     </HBox>
     <VBox spacing="100">
         <Separator style="-fx-padding: 10 0"/>
         <GridPane alignment="CENTER">
             <HBox alignment="CENTER">
-                <Label text="Simulation not finished" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
-                <Label fx:id="dotLabel" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
+                <Label text="Simulation has been canceled" style="-fx-text-fill: #E51400; -fx-font-size: 30"/>
+                <Label visible="false" disable="true" fx:id="dotLabel" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
             </HBox>
         </GridPane>
     </VBox>

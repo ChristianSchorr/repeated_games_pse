@@ -15,17 +15,12 @@ import org.controlsfx.glyphfont.Glyph;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -162,15 +157,23 @@ public class OutputController {
     }
 
     private static final String RUNNING_VIEW = "/view/controls/RunningOutput.fxml";
+    private static final String CANCELED_VIEW = "/view/controls/CanceledOutput.fxml";
     private static final String RUNNING_STYLE = "-fx-border-color: #FEDE06; -fx-padding: 16;";
+    private static final String CANCELED_STYLE = "-fx-border-color: #E51400; -fx-padding: 16;";
 
-    private void setRunning(ResultHistoryItem resultItem) {
-        box.setStyle(RUNNING_STYLE);
+    private void setNotFinished(ResultHistoryItem resultItem) {
+        String style = RUNNING_STYLE;
+        String view = RUNNING_VIEW;
+        if (resultItem.getResult().getStatus() == SimulationStatus.CANCELED) {
+            style = CANCELED_STYLE;
+            view = CANCELED_VIEW;
+        }
+        box.setStyle(style);
         boxContent = new ArrayList<>(box.getChildren());
         box.getChildren().clear();
 
         RunningOutputController controller = new RunningOutputController(resultItem);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RUNNING_VIEW));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
         fxmlLoader.setController(controller);
         try {
             fxmlLoader.load();
@@ -197,8 +200,8 @@ public class OutputController {
             return;
         }
 
-        if (result.getStatus() == SimulationStatus.RUNNING || result.getStatus() == SimulationStatus.QUEUED) {
-            setRunning(resultItem);
+        if (result.getStatus() != SimulationStatus.FINISHED) {
+            setNotFinished(resultItem);
             return;
         }
         box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");

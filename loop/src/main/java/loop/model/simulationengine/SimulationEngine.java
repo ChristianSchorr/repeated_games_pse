@@ -39,6 +39,8 @@ public class SimulationEngine {
     private boolean printInfo = false;
     private int printPeriod = 5;
     private int printCounter;
+
+    private boolean interrupted = false;
     
     /**
      * Executes an iteration to the given elementary configuration and returns the result
@@ -73,10 +75,11 @@ public class SimulationEngine {
         
         printCounter = 1;
         
-        while (equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
+        while (!interrupted && equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
             calculateStrategyPortions();
             printStepInfo();
+            interrupted = Thread.currentThread().isInterrupted();
         }
         
         IterationResult result = createResult();

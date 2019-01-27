@@ -79,7 +79,7 @@ public class HistoryController {
         });
         item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
             Platform.runLater(() -> historyList.refresh());
-            if (stat != SimulationStatus.FINISHED || selectedItem == null || res != selectedItem.getResult()) return;
+            if (selectedItem == null || res != selectedItem.getResult()) return;
             int index = historyList.getSelectionModel().getSelectedIndex();
             historyList.getSelectionModel().clearSelection();
             historyList.getSelectionModel().select(index);
