@@ -36,11 +36,11 @@ import loop.model.simulator.SimulationStatus;
  * @author Peter Koepernik
  */
 public class OutputController {
-    
+
     private static final String ABSTRACTED_OUTPUT_TITLE = "Abstracted output";
     private static final String DETAILED_OUTPUT_TITLE = "Detailed output";
     private static final String MULTICONFIGURATION_OUTPUT_TITLE = "Multiconfiguration output";
-    
+
     private SimulationResult displayedResult;
     private UserConfiguration config;
     private DetailedOutputController detailedOutputController;
@@ -54,22 +54,22 @@ public class OutputController {
     private URL location;
 
     /*-----------------title-----------------*/
-    
+
     @FXML
     private Glyph checkGlyph;
-    
+
     @FXML
     private Label gameNameLabel;
 
     @FXML
     private Label gameIdLabel;
-    
+
     @FXML
     private Button importButton;
-    
+
     @FXML
     private Button saveButton;
-    
+
     @FXML
     private Separator sep1;
     @FXML
@@ -105,10 +105,10 @@ public class OutputController {
 
     @FXML
     private Button toLeft;
-    
+
     @FXML
     private ChoiceBox<String> pageChoiceBox;
-    
+
     @FXML
     private Button toRight;
 
@@ -119,9 +119,9 @@ public class OutputController {
     private VBox box;
 
     private List<Node> boxContent = new ArrayList<>();
-    
+
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
-    
+
     /*------------------------------------------------------------------*/
 
     /**
@@ -131,7 +131,7 @@ public class OutputController {
     // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         //TODO tooltips
-        
+
         pageChoiceBox.getItems().addAll(DETAILED_OUTPUT_TITLE, ABSTRACTED_OUTPUT_TITLE);
         pageChoiceBox.getSelectionModel().select(DETAILED_OUTPUT_TITLE);
         pageChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldPage, newPage) -> {
@@ -145,10 +145,11 @@ public class OutputController {
                 case MULTICONFIGURATION_OUTPUT_TITLE:
                     toMultiOutput();
                     break;
-                default: assert false;
+                default:
+                    assert false;
             }
         });
-        
+        boxContent = new ArrayList<>(box.getChildren());
         deactivateAll();
     }
 
@@ -169,7 +170,6 @@ public class OutputController {
             view = CANCELED_VIEW;
         }
         box.setStyle(style);
-        boxContent = new ArrayList<>(box.getChildren());
         box.getChildren().clear();
 
         RunningOutputController controller = new RunningOutputController(resultItem);
@@ -205,10 +205,8 @@ public class OutputController {
             return;
         }
         box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");
-        if (boxContent.size() != 0) {
-            box.getChildren().clear();
-            box.getChildren().addAll(boxContent);
-        }
+        box.getChildren().clear();
+        box.getChildren().addAll(boxContent);
         activateAll();
 
         this.config = result.getUserConfiguration();
@@ -237,7 +235,7 @@ public class OutputController {
         }
 
         toDetailedOutput();
-        
+
         //update navigation menubutton
         if (!config.isMulticonfiguration()) {
             pageChoiceBox.getItems().remove(MULTICONFIGURATION_OUTPUT_TITLE);
@@ -249,11 +247,11 @@ public class OutputController {
 
         update();
     }
-    
+
     /**
      * Register an action that will be executed whenever a user configuration shall be imported
      * from a simulation result.
-     * 
+     *
      * @param action the action
      */
     public void registerImportUserConfiguration(Consumer<UserConfiguration> action) {
@@ -336,10 +334,10 @@ public class OutputController {
             pageChoiceBox.getSelectionModel().select(MULTICONFIGURATION_OUTPUT_TITLE);
         }
     }
-    
+
     @FXML
     void saveResult(ActionEvent event) {
-    	FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Results");
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", "*.sim");
@@ -348,12 +346,12 @@ public class OutputController {
         if (saveFile == null) return;
         new Thread(new ResultSaver(saveFile, displayedResult)).run();
     }
-    
+
     private class ResultSaver implements Runnable {
-        
+
         File saveFile;
         SimulationResult result;
-        
+
         private ResultSaver(File saveFile, SimulationResult result) {
             this.saveFile = saveFile;
             this.result = result;
@@ -365,7 +363,7 @@ public class OutputController {
             FileIO.saveResult(result, saveFile);
         }
     }
-    
+
     @FXML
     void importConfig() {
         if (config != null)
@@ -405,12 +403,12 @@ public class OutputController {
         unHide(this.toRight);
         unHide(this.pageChoiceBox);
     }
-    
+
     private void hide(Node node) {
         node.setDisable(true);
         node.setVisible(false);
     }
-    
+
     private void unHide(Node node) {
         node.setDisable(false);
         node.setVisible(true);
