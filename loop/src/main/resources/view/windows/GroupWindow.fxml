@@ -81,6 +81,7 @@
                     <CheckBox fx:id="isCohesiveCheckBox" mnemonicParsing="false" text="Group is cohesive"/>
                 </HBox>
             </HBox>
+            <VBox fx:id="multiSliderBox"/>
             <TabPane fx:id="segmentTabs"/>
         </VBox>
     </VBox>
