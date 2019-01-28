@@ -38,6 +38,22 @@
     -fx-color: -fx-hover-base;
 }
 
+.text0 {
+    -fx-text-fill: #2196F3;
+}
+
+.text1 {
+    -fx-text-fill: #E51400;
+}
+
+.text2 {
+    -fx-text-fill: #FEDE06;
+}
+
+.text3 {
+    -fx-text-fill: #008A00;
+}
+
 .multi-slider .range-bar0 {
     -fx-background-color: #2196F3;
     -fx-background-radius: 1.0em 0em 0em 1.0em;

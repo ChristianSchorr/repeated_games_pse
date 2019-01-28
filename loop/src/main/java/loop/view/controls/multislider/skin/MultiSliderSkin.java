@@ -28,18 +28,30 @@ package loop.view.controls.multislider.skin;
  */
 
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import javafx.util.converter.FormatStringConverter;
+import javafx.util.converter.NumberStringConverter;
 import loop.view.controls.multislider.MultiSlider;
 import loop.view.controls.multislider.Range;
 import loop.view.controls.multislider.behavior.MultiSliderBehavior;
 
+import java.text.Format;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 /**
@@ -109,7 +121,7 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         Range range = getSkinnable().getRange(id);
         getSkinnable().updateRange(range);
         getSkinnable().createNewRange(min, max);
-        initThumbs(new ThumbRange(i, isRanged.get()));
+        initThumbs(new ThumbRange(i, isRanged.get(), getSkinnable().getRange(i)));
     }
 
     public void deleteRange() {
@@ -133,7 +145,7 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
      */
     private void initInitialThumbs() {
         thumbs = new ArrayList<>();
-        ThumbRange initialThumbs = new ThumbRange(getNextId(), isRanged.get());
+        ThumbRange initialThumbs = new ThumbRange(getNextId(), isRanged.get(), getSkinnable().getRange(0));
         initThumbs(initialThumbs);
         setShowTickMarks(getSkinnable().isShowTickMarks(), getSkinnable().isShowTickLabels());
     }
@@ -216,7 +228,7 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
                     }
 
                     if (created) {
-                        initThumbs(new ThumbRange(i, isRanged.get()));
+                        initThumbs(new ThumbRange(i, isRanged.get(), getSkinnable().getRange(i)));
                     }
                 } else {
                     currentId.setValue(t.id);
@@ -262,7 +274,7 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
                 }
 
                 if (isCrated) {
-                    initThumbs(new ThumbRange(index, isRanged.get()));
+                    initThumbs(new ThumbRange(index, isRanged.get(), getSkinnable().getRange(index)));
                 }
             });
         }
@@ -545,7 +557,10 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
 
         static int styleId = 0;
 
-        ThumbRange(int id, boolean isRanged) {
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(750));
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(750));
+
+        ThumbRange(int id, boolean isRanged, Range range) {
             this.id = id;
             low = new ThumbPane();
             low.getStyleClass().setAll("low-thumb");
@@ -558,6 +573,44 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             high = new ThumbPane();
             high.getStyleClass().setAll("high-thumb");
             high.setFocusTraversable(false);
+
+            Label label = new Label();
+
+            fadeIn.setNode(label);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeOut.setNode(label);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+
+            DoubleProperty prop = new SimpleDoubleProperty();
+            //prop.bind(range.highProperty().subtract(range.lowProperty()));
+            range.highProperty().addListener((n) -> {
+                label.setOpacity(1);
+                fadeOut.playFromStart();
+            });
+
+            label.setOpacity(0);
+            label.textProperty().bindBidirectional(range.highProperty(), new NumberStringConverter(NumberFormat.getIntegerInstance()));
+            label.getStyleClass().setAll(String.format("text%d", (styleId % 4)));
+
+            VBox box = new VBox();
+            box.setStyle("-fx-padding: 40 0 0 0");
+            box.getChildren().add(label);
+            box.setAlignment(Pos.CENTER);
+            box.setMinWidth(50);
+            box.setMinHeight(50);
+
+            high.getChildren().add(box);
+            high.setOnMouseEntered((e) -> {
+                fadeOut.stop();
+                fadeIn.play();
+            });
+            high.setOnMouseExited((e) -> {
+                fadeIn.stop();
+                fadeOut.play();
+            });
 
             rangeBar = new StackPane();
             rangeBar.getStyleClass().setAll(String.format("range-bar%d", (styleId % 4)));

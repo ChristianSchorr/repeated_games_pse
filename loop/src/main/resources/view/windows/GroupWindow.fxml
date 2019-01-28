@@ -70,7 +70,7 @@
 
         <Separator style="-fx-padding: 10 0;"/>
 
-        <VBox spacing="10">
+        <VBox spacing="20">
             <HBox spacing="50" alignment="CENTER_LEFT">
                 <Label styleClass="card-subtitle" text="Segment configurations"/>
                 <HBox alignment="CENTER_LEFT" spacing="20">
@@ -81,8 +81,10 @@
                     <CheckBox fx:id="isCohesiveCheckBox" mnemonicParsing="false" text="Group is cohesive"/>
                 </HBox>
             </HBox>
-            <VBox fx:id="multiSliderBox"/>
-            <TabPane fx:id="segmentTabs"/>
+            <VBox spacing="30">
+                <VBox fx:id="multiSliderBox"/>
+                <TabPane fx:id="segmentTabs"/>
+            </VBox>
         </VBox>
     </VBox>
 </ScrollPane>
