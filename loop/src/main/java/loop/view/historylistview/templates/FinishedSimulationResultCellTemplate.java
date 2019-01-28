@@ -42,7 +42,7 @@ public class FinishedSimulationResultCellTemplate extends SimulationResultCellTe
     public void initialize() {
         super.initialize(item);
 
-        final Duration duration = Duration.ofMillis(item.getFinishTime() - item.getStartTime());
+        final Duration duration = Duration.ofMillis(item.getDuration());
         totalDurationLabel.setText(formatDuration(duration));
         finishedTimeLabel.setText(timeFormat.format(item.getFinishTime()));
     }

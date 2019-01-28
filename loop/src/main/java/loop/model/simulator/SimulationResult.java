@@ -26,6 +26,7 @@ public class SimulationResult {
 	private SimulationStatus status;
 	private int totalIterations;
 	private int finishedIterations = 0;
+	private long duration;
 
 	private List<List<IterationResult>> iterationResults;
 	private List<SimulationEngineException> exceptions;
@@ -34,7 +35,22 @@ public class SimulationResult {
 	private List<BiConsumer<SimulationResult, SimulationEngineException>> exceptionHandlers;
 	private List<BiConsumer<SimulationResult, SimulationStatus>> statusChangedHandler;
 
-
+	/**
+	 * Sets the duration of this Simulation
+	 * @param duration duration of the Simulation
+	 */
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+	
+	/**
+	 * Returns the duration of this Simulation
+	 * @return the duration of this Simulation
+	 */
+	public long getDuration() {
+		return duration;
+	}
+	
 	/**
 	 * Creates a new simulation result to a simulation with given configuration and
 	 * id.

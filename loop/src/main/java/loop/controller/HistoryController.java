@@ -76,7 +76,7 @@ public class HistoryController {
     public void addSimulation(SimulationResult simulationResult) {
         ResultHistoryItem item = new ResultHistoryItem(simulationResult, (i) -> {
             for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i.getResult());
-        });
+        }, simulationResult.getDuration());
         item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
             Platform.runLater(() -> historyList.refresh());
             if (selectedItem == null || res != selectedItem.getResult()) return;

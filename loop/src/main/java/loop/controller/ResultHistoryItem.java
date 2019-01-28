@@ -13,6 +13,7 @@ public class ResultHistoryItem {
     private long startTime = -1;
     private long finishTime = -1;
     private long lastTimeUpdated = -1;
+    private long duration;
 
     private Consumer<ResultHistoryItem> cancleHandler;
 
@@ -20,12 +21,13 @@ public class ResultHistoryItem {
      * Creates a new Instance of this class with a given {@link SimulationResult}
      * @param result the {@link SimulationResult} to store in the history
      */
-    public ResultHistoryItem(SimulationResult result, Consumer<ResultHistoryItem> handler) {
+    public ResultHistoryItem(SimulationResult result, Consumer<ResultHistoryItem> handler, long duration) {
         this.result = result;
         statusChanged(result.getStatus());
         result.registerSimulationStatusChangedHandler((res, stat) -> statusChanged(stat));
         result.registerIterationFinished((res, iter) -> lastTimeUpdated = System.currentTimeMillis());
         this.cancleHandler = handler;
+        this.duration = duration;
     }
 
     public void cancleSimulation() {
@@ -56,6 +58,14 @@ public class ResultHistoryItem {
     public long getFinishTime() {
         return finishTime;
     }
+    
+    /**
+     * Returns the duration of this Simulation
+     * @return the duration of this Simulation
+     */
+    public long getDuration() {
+    	return duration;
+    }
 
     /**
      * Returns the last time an iteration result has been added to this Simulation Result
@@ -71,6 +81,8 @@ public class ResultHistoryItem {
         }
         else if (newStatus == SimulationStatus.FINISHED) {
             finishTime = System.currentTimeMillis();
+            duration = finishTime - startTime;
+            result.setDuration(duration);
         }
     }
 }
