@@ -44,7 +44,7 @@
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem />
-                    <MenuItem text="Load results" onAction="#loadResults">
+                    <MenuItem text="Load simulation result" onAction="#loadResults">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="UPLOAD" style="-fx-text-fill: grey" />
                         </graphic>
@@ -56,7 +56,7 @@
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem />
-                    <MenuItem text="Close Simulator" onAction="#closeSimulator">
+                    <MenuItem text="Close simulator" onAction="#closeSimulator">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: grey" />
                         </graphic>
@@ -70,17 +70,17 @@
                             <Glyph fontFamily="FontAwesome" icon="CUBES" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Create new strategy" onAction="#openNewStrategyWindow">
-                        <graphic>
-                            <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
-                        </graphic>
-                    </MenuItem>
                     <MenuItem text="Create new group" onAction="#openNewGroupWindow">
                         <graphic>
-                            <Glyph fontFamily="FontAwesome" icon="CUBES" style="-fx-text-fill: grey" />
+                            <Glyph fontFamily="FontAwesome" icon="USER" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
                     <MenuItem text="Create new population" onAction="#openNewPopulationWindow">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="USERS" style="-fx-text-fill: grey" />
+                        </graphic>
+                    </MenuItem>
+                    <MenuItem text="Create new strategy" onAction="#openNewStrategyWindow">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CODE" style="-fx-text-fill: grey" />
                         </graphic>
@@ -131,7 +131,7 @@
                         <Label fx:id="gameNameLabel" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                         <Label styleClass="control-label" text="Number of agents:" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <Label fx:id="agentCountLabel" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                        <Label styleClass="control-label" text="Repetitions:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label styleClass="control-label" text="Number of iterations" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="iterationCountLabel" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label styleClass="control-label" text="Rounds per adaption step:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Label fx:id="roundCountLabel" GridPane.columnIndex="4" GridPane.rowIndex="1" />
