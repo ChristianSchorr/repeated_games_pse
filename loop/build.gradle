@@ -9,6 +9,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'application'
 }
 
 repositories {
@@ -38,4 +39,10 @@ dependencies {
     //implementation 'com.google.guava:guava:21.0'
 
 	implementation 'com.google.code.gson:gson:2.8.5'
+}
+
+
+application {
+    mainClassName = "loop.Main"
+    applicationDefaultJvmArgs = ["-Dgreeting.language=en"]
 }
