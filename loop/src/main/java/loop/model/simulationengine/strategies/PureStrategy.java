@@ -192,7 +192,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         (result) -> result.hasCooperated(pair.getSecondAgent()));
                 break;
             case LASTTIME:
-                condition = (pair, history) -> history.getLatestWhere((result) -> relevantResult.test(pair, result)).hasCooperated(pair.getSecondAgent());
+                condition = (pair, history) -> toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result))).allMatch(
+                        (result) -> result == null || result.hasCooperated(pair.getSecondAgent()));
                 break;
             default: condition = null;
         }
