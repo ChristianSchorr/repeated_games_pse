@@ -5,6 +5,7 @@ import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -35,13 +36,15 @@ public class StrategyBuilder {
     }
 
     private static Strategy buildStrategy(SyntaxNode root) {
-        if (!root.isInnerNode()) root.getContent();
+        if (!root.isInnerNode()) return root.getContent();
         else {
             List<TreeNode<Strategy>> children = root.getChildren();
             Operator op = root.getOperator();
-            List<Strategy> operands = children.stream().map(node -> buildStrategy((SyntaxNode)node)).collect(Collectors.toList());
+            List<Strategy> operands = new ArrayList<>();
+            for (TreeNode<Strategy> node : children) {
+                operands.add(buildStrategy((SyntaxNode)node));
+            }
             return op.combineStrategies(operands);
         }
-        return null;
     }
 }
