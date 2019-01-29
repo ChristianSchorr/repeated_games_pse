@@ -22,7 +22,6 @@
         <HBox spacing="50" alignment="TOP_LEFT">
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new group"/>
-                <Label styleClass="card-subtitle" text="Here you can create new and own groups"/>
                 <TextField fx:id="groupNameTextField" alignment="CENTER_LEFT" maxWidth="350"
                            promptText="Name of the group"/>
                 <TextField fx:id="descriptionTextField" alignment="CENTER_LEFT" promptText="Description"/>

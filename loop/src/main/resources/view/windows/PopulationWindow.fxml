@@ -18,8 +18,6 @@
         <HBox spacing="50" alignment="CENTER_LEFT">
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new population"/>
-                <Label wrapText="true" styleClass="card-subtitle"
-                       text="Here you can create new and own populations from existing groups"/>
                 <TextField fx:id="populationNameTextField" alignment="CENTER_LEFT" promptText="Name of the population"/>
                 <TextField fx:id="populationDescriptionTextField" alignment="CENTER_LEFT" promptText="Description"/>
             </VBox>

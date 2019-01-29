@@ -27,7 +27,6 @@
             </columnConstraints>
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new strategy"/>
-                <Label styleClass="card-subtitle" text="Here you can create new and own strategies"/>
                 <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name of the strategy" maxWidth="350" />
                 <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Description"/>
             </VBox>

@@ -26,7 +26,7 @@
                 <children>
                     <Label styleClass="card-title" text="Simulation settings"/>
                     <Label alignment="TOP_CENTER" prefWidth="314.0"
-                           text="Simulation parameters, that can be configured for every simulation"
+                           text="Configurable simulation parameters"
                            wrapText="true"/>
                     <GridPane hgap="50">
                         <columnConstraints>
@@ -50,7 +50,7 @@
                                 </HBox>
                                 <HBox spacing="10" GridPane.columnSpan="2" GridPane.rowIndex="4">
                                     <Label style="-fx-padding: 10 0 0 0" styleClass="control-label"
-                                           text="Number of repetitions"/>
+                                           text="Number of iterations"/>
                                     <TextField fx:id="iterationField" alignment="TOP_CENTER" maxWidth="50"/>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="0" GridPane.rowIndex="5">
@@ -94,7 +94,7 @@
                                        GridPane.rowIndex="7"/>
                                 <Label styleClass="control-label" text="Success quantification"
                                        GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                                <Label styleClass="control-label" text="Strategy adjuster"
+                                <Label styleClass="control-label" text="Strategy adaption mechanism"
                                        GridPane.columnIndex="1" GridPane.rowIndex="9"/>
                                 <Label styleClass="control-label" text="Equilibrium criterion"
                                        GridPane.columnIndex="1" GridPane.rowIndex="10"/>
