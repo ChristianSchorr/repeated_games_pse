@@ -17,7 +17,7 @@
             <Label style="-fx-text-fill: #E51400" styleClass="card-subtitle" fx:id="simulationIdLabel"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label style="-fx-text-fill: #E51400" styleClass="card-subtitle" text="Abgebrochen!"/>
+            <Label style="-fx-text-fill: #E51400" styleClass="card-subtitle" text="Cancelled!"/>
         </HBox>
     </VBox>
 </HBox>
