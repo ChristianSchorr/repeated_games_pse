@@ -12,6 +12,11 @@ import loop.view.historylistview.templates.SimulationResultCellTemplate;
 
 public class HistoryListCell extends ListCell<ResultHistoryItem> {
 
+    public HistoryListCell () {
+        super();
+        this.getStyleClass().add("list-cell-history");
+    }
+
     @Override
     protected void updateItem(ResultHistoryItem item, boolean empty) {
         super.updateItem(item, empty);

@@ -910,18 +910,18 @@
 
 
 /* LISTCELL SPACING */
-.list-cell:filled {
+.list-cell-history:filled {
     -fx-background-color: transparent;
     -fx-padding: 1px 0px;
 }
 
-.list-cell:selected {
+.list-cell-history:selected {
     -fx-background: transparent;
     -fx-padding: 1px 1px 1px 15px;
 }
 
 /* EMPTY LIST CELLS WHITE */
-.list-cell:empty {
+.list-cell-history:empty {
     -fx-background-color: white;
     -fx-border-width: 0px;
 }
@@ -933,9 +933,11 @@
 }
 
 /* NO BORDER */
-.list-view {
+.list-view-history {
   -fx-background-insets: 0;
   -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 
