@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import loop.model.simulator.SimulationResult;
-import loop.controller.ResultHistoryItem;
 
 
 /**

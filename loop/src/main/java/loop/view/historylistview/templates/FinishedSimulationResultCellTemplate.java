@@ -3,7 +3,6 @@ package loop.view.historylistview.templates;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import loop.controller.ResultHistoryItem;
 import loop.model.simulator.SimulationResult;
 
 import java.io.IOException;

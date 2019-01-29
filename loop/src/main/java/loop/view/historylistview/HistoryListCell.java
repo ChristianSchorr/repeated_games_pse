@@ -3,7 +3,6 @@ package loop.view.historylistview;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
-import loop.controller.ResultHistoryItem;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 import loop.view.historylistview.templates.CanceledSimulationResultCellTemplate;

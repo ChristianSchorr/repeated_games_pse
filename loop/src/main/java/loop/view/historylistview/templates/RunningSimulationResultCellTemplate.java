@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.shape.Rectangle;
-import loop.controller.ResultHistoryItem;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 
@@ -62,7 +61,9 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
         if (item.getLastTimeUpdated() > 0) {
             double timeRun = (item.getLastTimeUpdated() - item.getStartTime());
             double timeLeft = (timeRun / progress) -timeRun;
-            final Duration duration = Duration.ofMillis((long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated()));
+            long updatedTimeLeft = (long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated());
+            if (updatedTimeLeft < 0) updatedTimeLeft = (long)timeLeft;
+            final Duration duration = Duration.ofMillis(updatedTimeLeft);
             durationLeft.setText(formatDuration(duration));
         }
     }

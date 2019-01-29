@@ -4,7 +4,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import loop.controller.ResultHistoryItem;
 import loop.model.simulator.SimulationResult;
 
 import java.io.IOException;

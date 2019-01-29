@@ -95,7 +95,9 @@ public class RunningOutputController {
             double progress = (double) result.getFinishedIterations() / (double) result.getTotalIterations();
             double timeRun = (result.getLastTimeUpdated() - result.getStartTime());
             double timeLeft = (timeRun / progress) -timeRun;
-            final Duration duration = Duration.ofMillis((long)timeLeft - (System.currentTimeMillis() - result.getLastTimeUpdated()));
+            long updatedTimeLeft = (long)timeLeft - (System.currentTimeMillis() - result.getLastTimeUpdated());
+            if (updatedTimeLeft < 0) updatedTimeLeft = (long)timeLeft;
+            final Duration duration = Duration.ofMillis(updatedTimeLeft);
             durationLeft.setText(formatDuration(duration));
         }
     }
