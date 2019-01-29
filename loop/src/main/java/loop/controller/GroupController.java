@@ -1,5 +1,6 @@
 package loop.controller;
 
+import com.sun.webkit.dom.DocumentImpl;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -83,6 +84,8 @@ public class GroupController implements CreationController<Group> {
 
     private List<DoubleProperty> sliderValues = new ArrayList<>();
 
+    private int id = 0;
+
     @FXML
     void initialize() {
         segmentTabs.getTabs().addListener((ListChangeListener.Change<? extends Tab> c) -> {
@@ -161,6 +164,7 @@ public class GroupController implements CreationController<Group> {
         tabControllers.clear();
         segmentTabs.getTabs().clear();
         isCohesiveCheckBox.setSelected(true);
+        id = 0;
 
         addSegmentTab();
 
@@ -266,6 +270,7 @@ public class GroupController implements CreationController<Group> {
         groupNameTextField.setText(group.getName());
         descriptionTextField.setText(group.getDescription());
         isCohesiveCheckBox.setSelected(group.isCohesive());
+        id = 0;
 
         tabControllers.clear();
         segmentTabs.getTabs().clear();
@@ -325,7 +330,7 @@ public class GroupController implements CreationController<Group> {
     /*---------------------------------private helper methods---------------------------------*/
 
     private TabController addSegmentTab() {
-        TabController tabController = new TabController(this, sliderValues.size());
+        TabController tabController = new TabController(this, id++);
         Tab newTab = new Tab();
         newTab.setOnCloseRequest((e) -> {
             if (tabController.index == 0) {
@@ -334,8 +339,10 @@ public class GroupController implements CreationController<Group> {
             }
             tabController.handleClosed(null);
         });
-        newTab.setContent(tabController.getContent());
-        //newTab.getStyleClass().add("tab0");
+        Node content = tabController.getContent();
+        content.getStyleClass().add(String.format("tab-area%d", tabController.index % 4));
+        newTab.setContent(content);
+        newTab.getStyleClass().add(String.format("tab%d", tabController.index % 4));
         tabControllers.put(tabController, newTab);
         segmentTabs.getTabs().add(newTab);
         segmentTabs.getSelectionModel().select(newTab);
@@ -381,8 +388,16 @@ public class GroupController implements CreationController<Group> {
         sliderValues.remove(sliderValues.size() - 1);
         multiSlider.removeLast();
         for (TabController tabController : tabControllers.keySet()) {
-            if (tabController.getIndex() > index)
+            if (tabController.getIndex() > index) {
+                int lastIndex = tabController.index;
                 tabController.index--;
+                tabController.getContent().getStyleClass().removeIf(str -> str.contains(String.format("tab-area%d", lastIndex % 4)));
+                tabController.getContent().getStyleClass().add(String.format("tab-area%d", tabController.index % 4));
+                tabControllers.get(tabController).getStyleClass()
+                        .removeIf(str -> str.contains(String.format("tab%d", lastIndex % 4)));
+                tabControllers.get(tabController).getStyleClass()
+                        .add(String.format("tab%d", tabController.index % 4));
+            }
         }
         sliderValues.get(sliderValues.size() - 1).setValue(100d);
 
