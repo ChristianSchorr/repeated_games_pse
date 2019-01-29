@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
 import loop.controller.validation.DoubleValidator;
@@ -332,6 +333,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
             return;
         }
         createConfig();
+        Stage s = (Stage) this.maxAdaptsField.getScene().getWindow();
+        s.close();
+        
     }
 
     @FXML

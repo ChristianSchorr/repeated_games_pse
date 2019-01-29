@@ -261,8 +261,8 @@ public class StrategyController implements CreationController<Strategy> {
             return;
         }
     	this.repository.getStrategyRepository().addEntity(strat.getName(), strat);
-    	Alert alert = new Alert(AlertType.CONFIRMATION, "Strategy added to repository", ButtonType.OK);
-    	alert.showAndWait();
+    	Stage s = (Stage) this.descriptionField.getScene().getWindow();
+        s.close();
     }
     
     private void insertContainerNode(ContainerNode child, ContainerNode parent) {
