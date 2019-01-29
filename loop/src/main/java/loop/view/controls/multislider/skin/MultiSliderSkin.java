@@ -27,7 +27,6 @@ package loop.view.controls.multislider.skin;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
@@ -39,6 +38,8 @@ import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
+import javafx.scene.control.Skin;
+import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -46,7 +47,7 @@ import javafx.util.converter.FormatStringConverter;
 import javafx.util.converter.NumberStringConverter;
 import loop.view.controls.multislider.MultiSlider;
 import loop.view.controls.multislider.Range;
-import loop.view.controls.multislider.behavior.MultiSliderBehavior;
+import loop.view.controls.multislider.Utils;
 
 import java.text.Format;
 import java.text.NumberFormat;
@@ -60,7 +61,7 @@ import java.util.stream.Collectors;
 /**
  * Created by alberto on 09/01/2017.
  */
-public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBehavior> {
+public class MultiSliderSkin extends SkinBase<MultiSlider> {
 
     /**
      * Track if slider is vertical/horizontal and cause re layout
@@ -89,15 +90,18 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
     private int id = 0;
 
     private BooleanProperty isRanged = new SimpleBooleanProperty(false);
+    private MultiSlider control;
+
 
     /**
      * Constructor for all BehaviorSkinBase instances.
      *
      * @param control  The control for which this Skin should attach to.
-     * @param behavior The behavior for which this Skin should defer to.
      */
-    public MultiSliderSkin(final MultiSlider control, final MultiSliderBehavior behavior) {
-        super(control, behavior);
+    public MultiSliderSkin(final MultiSlider control) {
+        super(control);
+        this.control = control;
+
         ThumbRange.styleId = 0;
 
         orientation = getSkinnable().getOrientation();
@@ -106,18 +110,11 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         initTrack();
         initInitialThumbs();
 
-        registerChangeListener(control.orientationProperty(), "ORIENTATION");
-        registerChangeListener(control.showTickMarksProperty(), "SHOW_TICK_MARKS");
-        registerChangeListener(control.showTickLabelsProperty(), "SHOW_TICK_LABELS");
-        registerChangeListener(control.majorTickUnitProperty(), "MAJOR_TICK_UNIT");
-        registerChangeListener(control.minorTickCountProperty(), "MINOR_TICK_COUNT");
-        registerChangeListener(control.minProperty(), "MIN");
-        registerChangeListener(control.maxProperty(), "MAX");
-
         getSkinnable().currentRangeIdProperty().bindBidirectional(currentId);
 
         ThumbRange.pause.setOnFinished(e -> ThumbRange.fadeOutAll.playFromStart());
     }
+
 
     public void addRange(Double min, Double max, Consumer<Integer> handler) {
         ThumbPane high = thumbs.get(thumbs.size() - 1).high;
@@ -207,7 +204,7 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             t.low.setOnMouseDragged(me -> {
                 Point2D cur = t.low.localToParent(me.getX(), me.getY());
                 double dragPos = (isHorizontal()) ? cur.getX() - preDragThumbPoint.getX() : -(cur.getY() - preDragThumbPoint.getY());
-                getBehavior().lowThumbDragged(preDragPos + dragPos / trackLength);
+                lowThumbDragged(preDragPos + dragPos / trackLength);
             });
         }
 
@@ -223,60 +220,25 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             double trackLength = orientation ? track.getWidth() : track.getHeight();
             Point2D cur = t.high.localToParent(me.getX(), me.getY());
             double dragPos = getSkinnable().getOrientation() != Orientation.HORIZONTAL ? -(cur.getY() - preDragThumbPoint.getY()) : cur.getX() - preDragThumbPoint.getX();
-            getBehavior().highThumbDragged(preDragPos + dragPos / trackLength);
+            highThumbDragged(preDragPos + dragPos / trackLength);
 
         });
 
-        /*
-         * On primary button click add a new range to the slider.
-         * On secondary button click delete the range.
-         */
-        if (isRanged.get()) {
-            t.rangeBar.setOnMousePressed(me -> {
-                if (me.isPrimaryButtonDown()) {
-                    int i = getNextId();
-                    currentId.setValue(i);
 
-                    boolean created;
+        t.rangeBar.setOnMouseClicked((e) -> {
+            t.handler.accept(t.id);
+        });
 
-                    if (isHorizontal()) {
-                        created = getBehavior().rangeBarPressed((me.getX() / trackLength), t.id);
-                    } else {
-                        created = getBehavior().rangeBarPressed((me.getY() / trackLength), t.id);
-                    }
+        t.rangeBar.setOnMouseEntered((e) -> {
+            ThumbRange.fadeOutAll.stop();
+            if (t.label.getOpacity() < 0.5)
+                ThumbRange.fadeInAll.playFromStart();
+        });
 
-                    if (created) {
-                        initThumbs(new ThumbRange(i, isRanged.get(), getSkinnable().getRange(i)));
-                    }
-                } else {
-                    currentId.setValue(t.id);
-                    boolean isDeleted = getBehavior().rangeBarPressedSecondary();
-                    if (isDeleted) {
-                        ThumbRange currentTr = getCurrentThumb();
-                        if (currentTr != null) {
-                            getChildren().remove(currentTr.high);
-                            getChildren().remove(currentTr.low);
-                            getChildren().remove(currentTr.rangeBar);
-                            thumbs.remove(currentTr);
-                        }
-                    }
-                }
-            });
-        } else {
-            t.rangeBar.setOnMouseClicked((e) -> {
-                t.handler.accept(t.id);
-            });
+        t.rangeBar.setOnMouseExited((e) -> {
+            ThumbRange.pause.playFromStart();
+        });
 
-            t.rangeBar.setOnMouseEntered((e) -> {
-                ThumbRange.fadeOutAll.stop();
-                if (t.label.getOpacity() < 0.5)
-                    ThumbRange.fadeInAll.playFromStart();
-            });
-
-            t.rangeBar.setOnMouseExited((e) -> {
-                ThumbRange.pause.playFromStart();
-            });
-        }
     }
 
     /**
@@ -289,27 +251,6 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
 
         getChildren().clear();
         getChildren().add(track);
-
-        /*
-         * Try to add a new range on mouse click
-         */
-        if (isRanged.get()) {
-            track.setOnMousePressed(me -> {
-                int index = getNextId();
-                currentId.setValue(index);
-
-                boolean isCrated;
-                if (isHorizontal()) {
-                    isCrated = getBehavior().trackPress((me.getX() / trackLength));
-                } else {
-                    isCrated = getBehavior().trackPress((me.getY() / trackLength));
-                }
-
-                if (isCrated) {
-                    initThumbs(new ThumbRange(index, isRanged.get(), getSkinnable().getRange(index)));
-                }
-            });
-        }
     }
 
     /**
@@ -397,41 +338,6 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             }
             tickLine = null;
         }
-    }
-
-    @Override
-    protected void handleControlPropertyChanged(String p) {
-        super.handleControlPropertyChanged(p);
-        if ("ORIENTATION".equals(p)) { //$NON-NLS-1$
-            orientation = getSkinnable().getOrientation();
-            if (showTickMarks && tickLine != null) {
-                tickLine.setSide(isHorizontal() ? Side.BOTTOM : Side.RIGHT);
-            }
-            getSkinnable().requestLayout();
-        } else if ("MIN".equals(p)) { //$NON-NLS-1$
-            if (showTickMarks && tickLine != null) {
-                tickLine.setLowerBound(getSkinnable().getMin());
-            }
-            getSkinnable().requestLayout();
-        } else if ("MAX".equals(p)) { //$NON-NLS-1$
-            if (showTickMarks && tickLine != null) {
-                tickLine.setUpperBound(getSkinnable().getMax());
-            }
-            getSkinnable().requestLayout();
-        } else if ("SHOW_TICK_MARKS".equals(p) || "SHOW_TICK_LABELS".equals(p)) { //$NON-NLS-1$ //$NON-NLS-2$
-            setShowTickMarks(getSkinnable().isShowTickMarks(), getSkinnable().isShowTickLabels());
-        } else if ("MAJOR_TICK_UNIT".equals(p)) { //$NON-NLS-1$
-            if (tickLine != null) {
-                tickLine.setTickUnit(getSkinnable().getMajorTickUnit());
-                getSkinnable().requestLayout();
-            }
-        } else if ("MINOR_TICK_COUNT".equals(p)) { //$NON-NLS-1$
-            if (tickLine != null) {
-                tickLine.setMinorTickCount(Math.max(getSkinnable().getMinorTickCount(), 0) + 1);
-                getSkinnable().requestLayout();
-            }
-        }
-        super.handleControlPropertyChanged(p);
     }
 
     /**
@@ -575,6 +481,30 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         }
 
         getSkinnable().requestLayout();
+    }
+
+
+    public void lowThumbDragged(double position) {
+        control.setLowRangeValue(getNewPosition(position));
+    }
+
+    /**
+     * @param position The mouse position on track with 0.0 being beginning of
+     *                 track and 1.0 being the end
+     */
+    public void highThumbDragged(double position) {
+        control.setHighRangeValue(getNewPosition(position));
+    }
+
+    /**
+     * Calculate the new position of the thumb given the clicked/dragged position
+     *
+     * @param position clicked position
+     * @return new position
+     */
+    private double getNewPosition(double position) {
+
+        return Utils.clamp(control.getMin(), (position * (control.getMax() - control.getMin())) + control.getMin(), control.getMax());
     }
 
     private static class ThumbPane extends StackPane {
