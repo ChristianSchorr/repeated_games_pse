@@ -1,5 +1,6 @@
 package loop.controller;
 
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
@@ -27,10 +28,7 @@ import org.controlsfx.control.ListSelectionView;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -138,6 +136,16 @@ public class GroupController implements CreationController<Group> {
 
     /*------------------------------button handlers------------------------------*/
 
+
+    private void resetMultiSlider() {
+        for (int i = 0; i < sliderValues.size() - 1; i++)
+            multiSlider.removeLast();
+        DoubleProperty prop = sliderValues.get(0);
+        sliderValues.clear();
+        prop.setValue(100);
+        sliderValues.add(prop);
+    }
+
     @FXML
     void resetGroup(ActionEvent event) {
         //confirm
@@ -153,7 +161,10 @@ public class GroupController implements CreationController<Group> {
         tabControllers.clear();
         segmentTabs.getTabs().clear();
         isCohesiveCheckBox.setSelected(true);
+
         addSegmentTab();
+
+        resetMultiSlider();
     }
 
     @FXML
@@ -257,20 +268,51 @@ public class GroupController implements CreationController<Group> {
 
         tabControllers.clear();
         segmentTabs.getTabs().clear();
-        for (Segment segment : group.getSegments()) {
-            TabController tabController = new TabController(this, sliderValues.size());
-            Tab tab = new Tab();
-            tab.setContent(tabController.getContent());
-            tabControllers.put(tabController, tab);
-            segmentTabs.getTabs().add(tab);
 
-            tabController.distributionChoice.getSelectionModel().select(segment.getCapitalDistributionName());
-            ((PluginControl) tabController.distributionPluginPane.getChildren().get(0)).setParameters(segment.getCapitalDistributionParameters());
-            segment.getStrategyNames().forEach(s -> {
-                tabController.strategyChoice.getSourceItems().remove(s);
-                tabController.strategyChoice.getTargetItems().add(s);
-            });
-        }
+        // Initialize the first tab
+        // required for proper work of multislider
+        Segment segment = group.getSegments().get(0);
+        TabController controller = addSegmentTab();
+        controller.distributionChoice.getSelectionModel().select(segment.getCapitalDistributionName());
+        ((PluginControl) controller.distributionPluginPane.getChildren().get(0)).setParameters(segment.getCapitalDistributionParameters());
+        segment.getStrategyNames().forEach(s -> {
+            controller.strategyChoice.getSourceItems().remove(s);
+            controller.strategyChoice.getTargetItems().add(s);
+        });
+
+        resetMultiSlider();
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            int i = 1;
+
+            @Override
+            public void run() {
+                if (i < group.getSegmentCount()) {
+                    int j = i;
+                    Platform.runLater(() -> {
+                        TabController tabController = addSegmentTab();
+                        Segment segment = group.getSegments().get(j);
+
+                        tabController.distributionChoice.getSelectionModel().select(segment.getCapitalDistributionName());
+                        ((PluginControl) tabController.distributionPluginPane.getChildren().get(0)).setParameters(segment.getCapitalDistributionParameters());
+                        segment.getStrategyNames().forEach(s -> {
+                            tabController.strategyChoice.getSourceItems().remove(s);
+                            tabController.strategyChoice.getTargetItems().add(s);
+                        });
+
+                    });
+                } else if (i < 2 * group.getSegmentCount() - 1) {
+                    int j = i - group.getSegmentCount() + 1;
+                    Platform.runLater(() -> {
+                        double val = group.getSegmentSizes().get(j - 1) * 100d;
+                        if (j > 1) val += group.getSegmentSizes().get(j - 2) * 100d;
+                        sliderValues.get(j - 1).setValue(val);
+                    });
+                } else this.cancel();
+                i++;
+            }
+        }, 0, 10);
         segmentTabs.getSelectionModel().select(0);
     }
 
@@ -281,7 +323,7 @@ public class GroupController implements CreationController<Group> {
 
     /*---------------------------------private helper methods---------------------------------*/
 
-    private void addSegmentTab() {
+    private TabController addSegmentTab() {
         TabController tabController = new TabController(this, sliderValues.size());
         Tab newTab = new Tab();
         newTab.setOnCloseRequest((e) -> {
@@ -301,7 +343,7 @@ public class GroupController implements CreationController<Group> {
         if (sliderValues.size() > 0) {
             DoubleProperty lastProp = sliderValues.get(sliderValues.size() - 1);
             if (sliderValues.size() == 1) lastProp.setValue(50);
-            else  {
+            else {
                 DoubleProperty lastLastProp = sliderValues.get(sliderValues.size() - 2);
                 lastProp.setValue(lastLastProp.getValue() + (lastProp.getValue() - lastLastProp.getValue()) / 2);
             }
@@ -319,6 +361,7 @@ public class GroupController implements CreationController<Group> {
             sliderProp.bindBidirectional(sliderRange.highProperty());
             sliderValues.add(sliderProp);
         }
+        return tabController;
     }
 
     private void removeTab(TabController controller) {
@@ -331,12 +374,12 @@ public class GroupController implements CreationController<Group> {
             double x = sliderValues.get(i - 1).get();
             double x_a = sliderValues.get(i).get();
             double x_b = sliderValues.get(i + 1).get();
-            double c = x +  (x_b - x_a);
+            double c = x + (x_b - x_a);
             sliderValues.get(i).setValue(c);
         }
-        sliderValues.remove(sliderValues.size() -1);
+        sliderValues.remove(sliderValues.size() - 1);
         multiSlider.removeLast();
-        for (TabController tabController: tabControllers.keySet()) {
+        for (TabController tabController : tabControllers.keySet()) {
             if (tabController.getIndex() > index)
                 tabController.index--;
         }
@@ -351,7 +394,7 @@ public class GroupController implements CreationController<Group> {
         List<Double> segmentSizes = new ArrayList<Double>();
         double lastVal = 0;
         for (DoubleProperty sliderValue : sliderValues) {
-            segmentSizes.add(sliderValue.getValue() - lastVal);
+            segmentSizes.add((sliderValue.getValue() - lastVal) / 100d);
             lastVal = sliderValue.getValue();
         }
         Group group = new Group(groupNameTextField.getText(), descriptionTextField.getText(), segments, segmentSizes, isCohesiveCheckBox.isSelected());
