@@ -116,12 +116,17 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
     }
 
     public void addRange(Double min, Double max, Consumer<Integer> handler) {
+        ThumbPane high = thumbs.get(thumbs.size() - 1).high;
+        high.setDisable(false);
+        high.setVisible(true);
+
         int i = getNextId();
         currentId.setValue(i);
 
         Range range = getSkinnable().getRange(id);
         getSkinnable().updateRange(range);
         getSkinnable().createNewRange(min, max);
+
         initThumbs(new ThumbRange(i, isRanged.get(), getSkinnable().getRange(i), handler));
         thumbs.get(0).rangeBar.setOnMouseClicked((e) -> {
             handler.accept(0);
@@ -144,16 +149,6 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         initInitialThumbs();
     }
 
-    /**
-     * Set up the initial thumbs. There has to be always at least two thumbs on the slider.
-     */
-    private void initInitialThumbs() {
-        thumbs = new ArrayList<>();
-        ThumbRange initialThumbs = new ThumbRange(getNextId(), isRanged.get(), getSkinnable().getRange(0));
-        initThumbs(initialThumbs);
-        setShowTickMarks(getSkinnable().isShowTickMarks(), getSkinnable().isShowTickLabels());
-    }
-
     public void removeLast() {
         ThumbRange thumb = thumbs.get(thumbs.size() - 1);
         ThumbRange.styleId--;
@@ -164,6 +159,10 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         thumbs.remove(thumb);
         id--;
 
+        ThumbPane high = thumbs.get(thumbs.size() - 1).high;
+        high.setDisable(true);
+        high.setVisible(false);
+
         for (Range r : getSkinnable().getRanges()) {
             if (r.getId() == thumb.id) {
                 getSkinnable().getRanges().remove(r);
@@ -171,6 +170,17 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             }
         }
     }
+
+    /**
+     * Set up the initial thumbs. There has to be always at least two thumbs on the slider.
+     */
+    private void initInitialThumbs() {
+        thumbs = new ArrayList<>();
+        ThumbRange initialThumbs = new ThumbRange(getNextId(), isRanged.get(), getSkinnable().getRange(0));
+        initThumbs(initialThumbs);
+        setShowTickMarks(getSkinnable().isShowTickMarks(), getSkinnable().isShowTickLabels());
+    }
+
 
     /**
      * Init the given thumbs and add them to the view.
@@ -311,10 +321,12 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
                 thumbRange.high.setLayoutX(lxh);
                 thumbRange.high.setLayoutY(ly);
 
+                double lengthOffset = thumbRange.high.isVisible() ? thumbWidth / 2 : thumbWidth;
                 double lowOffset = thumbRange.low.getWidth() / 2;
                 if (thumbRange.id == 0) lowOffset = 0;
                 thumbRange.rangeBar.resizeRelocate(thumbRange.low.getLayoutX() + lowOffset, track.getLayoutY(),
-                        thumbRange.high.getLayoutX() - thumbRange.low.getLayoutX() - lowOffset, track.getHeight());
+                        thumbRange.high.getLayoutX() - thumbRange.low.getLayoutX() - lowOffset + lengthOffset,
+                        track.getHeight());
             }
         }
 
@@ -622,6 +634,9 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
                 fadeOut.play();
             });
 
+            high.setDisable(true);
+            high.setVisible(false);
+
             rangeBar = new StackPane();
             rangeBar.getStyleClass().setAll(String.format("range-bar%d", (styleId % 4)));
             rangeBar.setFocusTraversable(false);
@@ -632,7 +647,8 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         }
 
         ThumbRange(int id, boolean isRanged, Range range) {
-            this (id, isRanged, range, (i) -> {});
+            this(id, isRanged, range, (i) -> {
+            });
         }
     }
 

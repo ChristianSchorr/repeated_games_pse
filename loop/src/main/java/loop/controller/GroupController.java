@@ -117,7 +117,6 @@ public class GroupController implements CreationController<Group> {
 
         DoubleProperty sliderProp = new SimpleDoubleProperty();
         sliderProp.bindBidirectional(multiSlider.getRange(0).highProperty());
-        sliderProp.setValue(20);
         sliderValues.add(sliderProp);
 
         multiSliderBox.getChildren().add(multiSlider);
@@ -301,17 +300,22 @@ public class GroupController implements CreationController<Group> {
         // Update MultiSlider
         if (sliderValues.size() > 0) {
             DoubleProperty lastProp = sliderValues.get(sliderValues.size() - 1);
-            multiSlider.addRange(lastProp.get(), lastProp.get() + (100 - lastProp.get()) / 2,
+            if (sliderValues.size() == 1) lastProp.setValue(50);
+            else  {
+                DoubleProperty lastLastProp = sliderValues.get(sliderValues.size() - 2);
+                lastProp.setValue(lastLastProp.getValue() + (lastProp.getValue() - lastLastProp.getValue()) / 2);
+            }
+            multiSlider.addRange(lastProp.get(), 100d,
                     (i) -> segmentTabs.getSelectionModel().select(i));
             Range sliderRange = multiSlider.getRange(sliderValues.size());
 
             sliderRange.lowProperty().bindBidirectional(lastProp);
-            DoubleProperty sliderProp = new SimpleDoubleProperty(100 - lastProp.getValue());
-            lastProp.addListener((c, n, o) -> {
+            DoubleProperty sliderProp = new SimpleDoubleProperty();
+            /*lastProp.addListener((c, n, o) -> {
                 Double newVal = sliderProp.getValue() + ((double) o - (double) n);
                 if (newVal > 100) newVal = 100d;
                 sliderProp.setValue(newVal);
-            });
+            });*/
             sliderProp.bindBidirectional(sliderRange.highProperty());
             sliderValues.add(sliderProp);
         }
@@ -336,6 +340,7 @@ public class GroupController implements CreationController<Group> {
             if (tabController.getIndex() > index)
                 tabController.index--;
         }
+        sliderValues.get(sliderValues.size() - 1).setValue(100d);
 
         segmentTabs.getTabs().remove(tabControllers.get(controller));
         tabControllers.remove(controller);

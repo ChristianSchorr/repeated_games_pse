@@ -56,19 +56,22 @@
 
 .multi-slider .range-bar0 {
     -fx-background-color: #2196F3;
-    -fx-background-radius: 1.0em 0em 0em 1.0em;
+    -fx-background-radius: 1.0em;
 }
 
 .multi-slider .range-bar1 {
     -fx-background-color: #E51400;
+    -fx-background-radius: 1.0em;
 }
 
 .multi-slider .range-bar2 {
     -fx-background-color: #FEDE06;
+    -fx-background-radius: 1.0em;
 }
 
 .multi-slider .range-bar3 {
     -fx-background-color: #008A00;
+    -fx-background-radius: 1.0em;
 }
 
 .multi-slider .low-thumb:pressed,
