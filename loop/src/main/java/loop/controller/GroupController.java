@@ -293,6 +293,7 @@ public class GroupController implements CreationController<Group> {
             tabController.handleClosed(null);
         });
         newTab.setContent(tabController.getContent());
+        //newTab.getStyleClass().add("tab0");
         tabControllers.put(tabController, newTab);
         segmentTabs.getTabs().add(newTab);
         segmentTabs.getSelectionModel().select(newTab);

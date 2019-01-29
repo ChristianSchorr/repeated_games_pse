@@ -1067,3 +1067,8 @@
     -fx-border-width: 0;
 }
 
+
+.tab0
+{
+    -fx-background-color: red;
+}
