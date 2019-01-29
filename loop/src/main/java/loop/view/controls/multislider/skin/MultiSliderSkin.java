@@ -29,6 +29,8 @@ package loop.view.controls.multislider.skin;
 
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.geometry.Orientation;
@@ -113,6 +115,8 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         registerChangeListener(control.maxProperty(), "MAX");
 
         getSkinnable().currentRangeIdProperty().bindBidirectional(currentId);
+
+        ThumbRange.pause.setOnFinished(e -> ThumbRange.fadeOutAll.playFromStart());
     }
 
     public void addRange(Double min, Double max, Consumer<Integer> handler) {
@@ -261,6 +265,16 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         } else {
             t.rangeBar.setOnMouseClicked((e) -> {
                 t.handler.accept(t.id);
+            });
+
+            t.rangeBar.setOnMouseEntered((e) -> {
+                ThumbRange.fadeOutAll.stop();
+                if (t.label.getOpacity() < 0.5)
+                    ThumbRange.fadeInAll.playFromStart();
+            });
+
+            t.rangeBar.setOnMouseExited((e) -> {
+                ThumbRange.pause.playFromStart();
             });
         }
     }
@@ -576,9 +590,17 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         StackPane rangeBar;
 
         static int styleId = 0;
+        static ParallelTransition fadeOutAll = new ParallelTransition();
+        static ParallelTransition fadeInAll = new ParallelTransition();
+        static ParallelTransition showAll = new ParallelTransition();
+
+        static PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
         FadeTransition fadeIn = new FadeTransition(Duration.millis(750));
         FadeTransition fadeOut = new FadeTransition(Duration.millis(750));
+        FadeTransition show = new FadeTransition(Duration.millis(100));
+
+        Label label;
 
         Consumer<Integer> handler;
 
@@ -596,7 +618,10 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             high.getStyleClass().setAll("high-thumb");
             high.setFocusTraversable(false);
 
-            Label label = new Label();
+            label = new Label();
+            label.setText(String.format("%d %%", (int) Math.round(range.getHigh() - range.getLow())));
+            label.getStyleClass().setAll(String.format("text%d", (styleId % 4)));
+            label.setOpacity(0);
 
             fadeIn.setNode(label);
             fadeIn.setFromValue(0.0);
@@ -604,35 +629,49 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             fadeOut.setNode(label);
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
+            show.setNode(label);
+            show.setFromValue(1.0);
+            show.setToValue(1.0);
 
+            fadeOutAll.getChildren().add(fadeOut);
+            fadeInAll.getChildren().add(fadeIn);
+            showAll.getChildren().add(show);
+
+            showAll.playFromStart();
+            pause.playFromStart();
 
             DoubleProperty prop = new SimpleDoubleProperty();
             prop.bind(range.highProperty().subtract(range.lowProperty()));
             range.highProperty().addListener((n) -> {
-                label.setOpacity(1);
-                fadeOut.playFromStart();
+                showAll.playFromStart();
+                pause.playFromStart();
+            });
+            range.highProperty().addListener((c) -> {
+                double val = range.getHigh() - range.getLow();
+                label.setText(String.format("%d %%", (int) Math.round(val)));
             });
 
-            label.setOpacity(0);
-            label.textProperty().bindBidirectional(range.highProperty(), new NumberStringConverter(NumberFormat.getIntegerInstance()));
-            label.getStyleClass().setAll(String.format("text%d", (styleId % 4)));
+            range.lowProperty().addListener((c) -> {
+                double val = range.getHigh() - range.getLow();
+                label.setText(String.format("%d %%", (int) Math.round(val)));
+            });
+
 
             VBox box = new VBox();
-            box.setStyle("-fx-padding: 40 0 0 0");
+            box.setStyle("-fx-padding: 10 0 0 0");
             box.getChildren().add(label);
             box.setAlignment(Pos.CENTER);
-            box.setMinWidth(50);
-            box.setMinHeight(50);
 
-            high.getChildren().add(box);
-            high.setOnMouseEntered((e) -> {
-                fadeOut.stop();
-                fadeIn.play();
+
+            //high.getChildren().add(box);
+           /* high.setOnMouseEntered((e) -> {
+                fadeOutAll.stop();
+                fadeInAll.play();
             });
             high.setOnMouseExited((e) -> {
-                fadeIn.stop();
-                fadeOut.play();
-            });
+                fadeOutAll.play();
+                fadeInAll.stop();
+            });*/
 
             high.setDisable(true);
             high.setVisible(false);
@@ -640,6 +679,8 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             rangeBar = new StackPane();
             rangeBar.getStyleClass().setAll(String.format("range-bar%d", (styleId % 4)));
             rangeBar.setFocusTraversable(false);
+            rangeBar.setAlignment(Pos.TOP_CENTER);
+            rangeBar.getChildren().add(box);
 
             this.handler = handler;
 
