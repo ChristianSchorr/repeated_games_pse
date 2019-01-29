@@ -68,38 +68,47 @@ public class ThreadPoolSimulator implements Simulator {
 
         SimulatorTask task = new SimulatorTask(simResult, configBuffer, action);
         runningSimulations.add(task);
-        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
-            task.runningIterations.add(CompletableFuture.supplyAsync(() -> {
-                simResult.setStatus(SimulationStatus.RUNNING);
-                return null;
-            }, threadPool));
-            final int iterationCount = simResult.getTotalIterations();
-            try {
-                for (int i = 0; i < iterationCount - 1; i++) {
-                    task.runningIterations.add(runIteration(task, false));
-                }
-                task.runningIterations.add(runIteration(task, true));
-            } catch (ConfigurationException ex) {
-            }
+        task.runningIterations.add(CompletableFuture.supplyAsync(() -> {
+            simResult.setStatus(SimulationStatus.RUNNING);
             return null;
-        });
+        }, threadPool));
+        final int iterationCount = simResult.getTotalIterations();
+        try {
+            for (int i = 0; i < iterationCount - 1; i++) {
+                task.runningIterations.add(runIteration(task, false));
+            }
+            task.runningIterations.add(runIteration(task, true));
+        } catch (ConfigurationException ex) {
+        }
         return simResult;
     }
 
     private Future<IterationResult> runIteration(SimulatorTask task, boolean last) throws ConfigurationException {
 
         Future<IterationResult> future = threadPool.submit(() -> {
-            ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
-            SimulationEngine engine = new SimulationEngine();
-            IterationResult result = engine.executeIteration(configNum.config);
-            task.simResult.addIterationResult(result, configNum.index);
-            task.buffer.addConfiguration(configNum.config, configNum.index);
+                ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
+            try {
+                SimulationEngine engine = new SimulationEngine();
+                IterationResult result = engine.executeIteration(configNum.config);
+                task.simResult.addIterationResult(result, configNum.index);
+                task.buffer.addConfiguration(configNum.config, configNum.index);
 
-            if (last) {
-                finishedSimulations.add(task.simResult);
-                runningSimulations.remove(task);
+                if (last) {
+                    finishedSimulations.add(task.simResult);
+                    runningSimulations.remove(task);
+                }
+                return result;
+            } catch (Exception ex) {
+                ex.printStackTrace(System.out);
+                task.simResult.addIterationResult(null, configNum.index);
+                task.simResult.addSimulationEngineException(new SimulationEngineException());
+                task.buffer.addConfiguration(configNum.config, configNum.index);
+                if (last) {
+                    finishedSimulations.add(task.simResult);
+                    runningSimulations.remove(task);
+                }
+                return null;
             }
-            return result;
         });
         return future;
     }
