@@ -12,11 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -32,6 +28,7 @@ import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulationengine.strategy.strategybuilder.*;
 import org.checkerframework.dataflow.qual.Pure;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -273,6 +270,7 @@ public class StrategyController implements CreationController<Strategy> {
     }
 
     private void addStrategy(Strategy strategy) {
+        System.out.println(strategy == null);
         if (selectedOperand == null && expressionRoot == null) {
             expressionRoot = new ContainerNode(strategy, null);
             expressionRoot.syntaxNode = new SyntaxNode(strategy, null);
@@ -436,10 +434,32 @@ public class StrategyController implements CreationController<Strategy> {
                 if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
                     // TODO error
                 }
-                strat = StrategyBuilder.creatNewStrategy(tree.getRoot(),
+                strat = StrategyBuilder.creatNewStrategy(createAdvTree(tree).getRoot(),
                         nameProperty.getValue(), descriptionProperty.getValue());
             }
             return strat;
+        }
+
+        private SyntaxTree createAdvTree(SyntaxTree subTree) {
+            Strategy thenStrat = repository.getStrategyRepository().getEntityByName(thenProperty.get());
+            Strategy elseStrat = repository.getStrategyRepository().getEntityByName(elseProperty.get());
+
+            Strategy strat = StrategyBuilder.creatNewStrategy(subTree.getRoot(), "", "");
+            SyntaxNode rootNode = new SyntaxNode(null, ConcreteOperator.AND());
+
+            SyntaxNode firstNode = new SyntaxNode(null, ConcreteOperator.IMPLIES());
+            firstNode.insertNode(new SyntaxNode(strat, null));
+            firstNode.insertNode(new SyntaxNode(thenStrat, null));
+
+            SyntaxNode secondNode = new SyntaxNode(null, ConcreteOperator.IMPLIES());
+            SyntaxNode notNode = new SyntaxNode(null, ConcreteOperator.NOT());
+            notNode.insertNode(new SyntaxNode(strat, null));
+            secondNode.insertNode(notNode);
+            secondNode.insertNode(new SyntaxNode(elseStrat, null));
+            rootNode.insertNode(firstNode);
+            rootNode.insertNode(secondNode);
+
+            return new SyntaxTree(rootNode);
         }
 
         private HBox getBrace(boolean open, boolean isHovered, boolean selected) {
