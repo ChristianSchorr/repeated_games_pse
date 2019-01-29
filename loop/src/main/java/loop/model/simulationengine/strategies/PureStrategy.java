@@ -148,7 +148,65 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy neverCooperate() {
         return new PureStrategy("never cooperate", "A player using never cooperate won't be cooperative against any opponent.", (pair, history) -> false);
     }
-
+    
+    enum TimeAdverb {
+        ALWAYS, NEVER, ATLEASTONCE, LASTTIME;
+    }
+    
+    enum AgentEntity {
+        AGENT, SAME_GROUP, SIM_CAPITAL;
+    }
+    
+    //percentage ignored if coopWithWhom != SIM_CAPITAL
+    public static PureStrategy stratBuilderStrategy(AgentEntity cooperatedWithWhom, TimeAdverb when, double percentage) {
+        BiPredicate<AgentPair, GameResult> relevantResult;
+        switch (cooperatedWithWhom) {
+            case AGENT:
+                relevantResult = (pair, result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent());
+                break;
+            case SAME_GROUP:
+                relevantResult = (pair, result) ->
+                    result.hasAgent(pair.getSecondAgent())
+                        && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
+                break;
+            case SIM_CAPITAL:
+                relevantResult = (pair, result) -> result.hasAgent(pair.getSecondAgent())
+                    && hasSimilarCapital(pair.getFirstAgent(), result.getOtherAgent(pair.getSecondAgent()), percentage);
+                break;
+            default: relevantResult = null;
+        }
+        
+        BiPredicate<AgentPair, SimulationHistory> condition;
+        
+        switch (when) {
+            case ALWAYS:
+                condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
+                        (result) -> result.hasCooperated(pair.getSecondAgent()));
+                break;
+            case NEVER:
+                condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
+                        (result) -> !result.hasCooperated(pair.getSecondAgent()));
+                break;
+            case ATLEASTONCE:
+                condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().anyMatch(
+                        (result) -> result.hasCooperated(pair.getSecondAgent()));
+                break;
+            case LASTTIME:
+                condition = (pair, history) -> history.getLatestWhere((result) -> relevantResult.test(pair, result)).hasCooperated(pair.getSecondAgent());
+                break;
+            default: condition = null;
+        }
+        
+        return new PureStrategy("stratbuilder strategy", cooperatedWithWhom.toString() + ", " + when.toString(), condition);
+    }
+    
+    private static boolean hasSimilarCapital(Agent a1, Agent a2, double percentage) {
+        if (a1.getCapital() > a2.getCapital())
+            return ((double) a2.getCapital() / (double) a1.getCapital()) >= 1 - percentage;
+        else
+            return ((double) a1.getCapital() / (double) a2.getCapital()) >= 1 - percentage;
+    }
+    
     /**
      * Returns an instance of the {@link PureStrategy} class representing the "The opponent always cooperated" strategy.
      *
