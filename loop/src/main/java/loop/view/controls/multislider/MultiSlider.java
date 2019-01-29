@@ -106,7 +106,11 @@ public class MultiSlider extends Control {
 
 
     public void addRange(Double min, Double max) {
-        ((MultiSliderSkin)getSkin()).addRange(min, max);
+        ((MultiSliderSkin)getSkin()).addRange(min, max, (i) -> {});
+    }
+
+    public void addRange(Double min, Double max, Consumer<Integer> handler) {
+        ((MultiSliderSkin)getSkin()).addRange(min, max, handler);
     }
 
     public void deleteRange(int id) {

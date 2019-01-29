@@ -300,7 +300,8 @@ public class GroupController implements CreationController<Group> {
         // Update MultiSlider
         if (sliderValues.size() > 0) {
             DoubleProperty lastProp = sliderValues.get(sliderValues.size() - 1);
-            multiSlider.addRange(lastProp.get(), lastProp.get() + (100 - lastProp.get()) / 2);
+            multiSlider.addRange(lastProp.get(), lastProp.get() + (100 - lastProp.get()) / 2,
+                    (i) -> segmentTabs.getSelectionModel().select(i));
             Range sliderRange = multiSlider.getRange(sliderValues.size());
 
             sliderRange.lowProperty().bindBidirectional(lastProp);

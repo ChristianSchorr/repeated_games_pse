@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -114,14 +115,17 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         getSkinnable().currentRangeIdProperty().bindBidirectional(currentId);
     }
 
-    public void addRange(Double min, Double max) {
+    public void addRange(Double min, Double max, Consumer<Integer> handler) {
         int i = getNextId();
         currentId.setValue(i);
 
         Range range = getSkinnable().getRange(id);
         getSkinnable().updateRange(range);
         getSkinnable().createNewRange(min, max);
-        initThumbs(new ThumbRange(i, isRanged.get(), getSkinnable().getRange(i)));
+        initThumbs(new ThumbRange(i, isRanged.get(), getSkinnable().getRange(i), handler));
+        thumbs.get(0).rangeBar.setOnMouseClicked((e) -> {
+            handler.accept(0);
+        });
     }
 
     public void deleteRange() {
@@ -243,6 +247,10 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
                         }
                     }
                 }
+            });
+        } else {
+            t.rangeBar.setOnMouseClicked((e) -> {
+                t.handler.accept(t.id);
             });
         }
     }
@@ -560,7 +568,9 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
         FadeTransition fadeIn = new FadeTransition(Duration.millis(750));
         FadeTransition fadeOut = new FadeTransition(Duration.millis(750));
 
-        ThumbRange(int id, boolean isRanged, Range range) {
+        Consumer<Integer> handler;
+
+        ThumbRange(int id, boolean isRanged, Range range, Consumer<Integer> handler) {
             this.id = id;
             low = new ThumbPane();
             low.getStyleClass().setAll("low-thumb");
@@ -585,7 +595,7 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
 
 
             DoubleProperty prop = new SimpleDoubleProperty();
-            //prop.bind(range.highProperty().subtract(range.lowProperty()));
+            prop.bind(range.highProperty().subtract(range.lowProperty()));
             range.highProperty().addListener((n) -> {
                 label.setOpacity(1);
                 fadeOut.playFromStart();
@@ -615,7 +625,14 @@ public class MultiSliderSkin extends BehaviorSkinBase<MultiSlider, MultiSliderBe
             rangeBar = new StackPane();
             rangeBar.getStyleClass().setAll(String.format("range-bar%d", (styleId % 4)));
             rangeBar.setFocusTraversable(false);
+
+            this.handler = handler;
+
             styleId++;
+        }
+
+        ThumbRange(int id, boolean isRanged, Range range) {
+            this (id, isRanged, range, (i) -> {});
         }
     }
 
