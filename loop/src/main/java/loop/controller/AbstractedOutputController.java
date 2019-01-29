@@ -231,7 +231,17 @@ public class AbstractedOutputController {
             List<Double> efficiencies = new ArrayList<Double>();
             displayedResult.getIterationResults(selectedConfigurationNumber).stream().filter(
                     it -> filterIteration(it)).forEach(it -> efficiencies.add(it.getEfficiency()));
-            Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, 2);
+            
+            //determine necessary decimal precision
+            efficiencies.sort(null);
+            double diff = efficiencies.get(efficiencies.size() - 1) - efficiencies.get(0); 
+            int prec = 1;
+            while (diff < 1) {
+                diff *= 10;
+                prec++;
+            }
+            
+            Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, prec);
             
             //update chart
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
