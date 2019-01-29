@@ -72,13 +72,13 @@
         <HBox alignment="CENTER">
             <Button fx:id="toLeft" onAction="#handleToLeft">
                 <graphic>
-                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_LEFT" style="-fx-text-fill: grey"/>
+                    <Glyph fontFamily="FontAwesome" fontSize="30" icon="ANGLE_LEFT" style="-fx-text-fill: grey"/>
                 </graphic>
             </Button>
             <ChoiceBox fx:id="pageChoiceBox"/>
             <Button fx:id="toRight" onAction="#handleToRight">
                 <graphic>
-                    <Glyph fontFamily="FontAwesome" fontSize="20" icon="ARROW_RIGHT" style="-fx-text-fill: grey"/>
+                    <Glyph fontFamily="FontAwesome" fontSize="30" icon="ANGLE_RIGHT" style="-fx-text-fill: grey"/>
                 </graphic>
             </Button>
         </HBox>

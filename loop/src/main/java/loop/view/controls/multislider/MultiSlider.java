@@ -3,6 +3,7 @@ package loop.view.controls.multislider;
 import com.sun.javafx.css.converters.BooleanConverter;
 import com.sun.javafx.css.converters.EnumConverter;
 import com.sun.javafx.css.converters.SizeConverter;
+//import javafx.css.converter.*;
 import javafx.beans.property.*;
 import javafx.css.*;
 import javafx.geometry.Orientation;
@@ -117,14 +118,6 @@ public class MultiSlider extends Control {
         setCurrentRangeId(id);
         removeSelectedRange();
         ((MultiSliderSkin)getSkin()).deleteRange();
-    }
-
-    public void clear() {
-        currentRangeId.setValue(0);
-        ranges.clear();
-        ranges.add(new Range(currentRangeId.get(), getMin(), getMax()));
-        this.setSkin(new MultiSliderSkin(this, new MultiSliderBehavior(this)));
-        this.requestLayout();
     }
 
     public void removeLast() {
