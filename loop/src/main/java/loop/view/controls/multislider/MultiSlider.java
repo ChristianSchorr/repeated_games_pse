@@ -1,16 +1,11 @@
 package loop.view.controls.multislider;
 
-import com.sun.javafx.css.converters.BooleanConverter;
-import com.sun.javafx.css.converters.EnumConverter;
-import com.sun.javafx.css.converters.SizeConverter;
-//import javafx.css.converter.*;
 import javafx.beans.property.*;
 import javafx.css.*;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.util.StringConverter;
-import loop.view.controls.multislider.behavior.MultiSliderBehavior;
 import loop.view.controls.multislider.skin.MultiSliderSkin;
 
 import javax.xml.crypto.dom.DOMCryptoContext;
@@ -1089,13 +1084,14 @@ public class MultiSlider extends Control {
      */
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new MultiSliderSkin(this, new MultiSliderBehavior(this));
+        return new MultiSliderSkin(this);
     }
 
     private static class StyleableProperties {
 
         private static final CssMetaData<MultiSlider, Boolean> SHOW_TICK_LABELS =
-                new CssMetaData<MultiSlider, Boolean>("-fx-show-tick-labels", BooleanConverter.getInstance(), Boolean.FALSE) {
+                new CssMetaData<MultiSlider, Boolean>("-fx-show-tick-labels", StyleConverter.getBooleanConverter()
+                        , Boolean.FALSE) {
 
                     @Override
                     public boolean isSettable(MultiSlider n) {
@@ -1110,8 +1106,8 @@ public class MultiSlider extends Control {
                 };
 
         private static final CssMetaData<MultiSlider, Boolean> SHOW_TICK_MARKS =
-                new CssMetaData<MultiSlider, Boolean>("-fx-show-tick-marks",
-                        BooleanConverter.getInstance(), Boolean.FALSE) {
+                new CssMetaData<MultiSlider, Boolean>("-fx-show-tick-marks", StyleConverter.getBooleanConverter(),
+                        Boolean.FALSE) {
 
                     @Override
                     public boolean isSettable(MultiSlider n) {
@@ -1127,7 +1123,7 @@ public class MultiSlider extends Control {
 
         private static final CssMetaData<MultiSlider, Boolean> SNAP_TO_TICKS =
                 new CssMetaData<MultiSlider, Boolean>("-fx-snap-to-ticks",
-                        BooleanConverter.getInstance(), Boolean.FALSE) {
+                        StyleConverter.getBooleanConverter(), Boolean.FALSE) {
 
                     @Override
                     public boolean isSettable(MultiSlider n) {
@@ -1143,7 +1139,7 @@ public class MultiSlider extends Control {
 
         private static final CssMetaData<MultiSlider, Number> MAJOR_TICK_UNIT =
                 new CssMetaData<MultiSlider, Number>("-fx-major-tick-unit",
-                        SizeConverter.getInstance(), 25.0) {
+                        StyleConverter.getSizeConverter(), 25.0) {
 
                     @Override
                     public boolean isSettable(MultiSlider n) {
@@ -1159,7 +1155,7 @@ public class MultiSlider extends Control {
 
         private static final CssMetaData<MultiSlider, Number> MINOR_TICK_COUNT =
                 new CssMetaData<MultiSlider, Number>("-fx-minor-tick-count",
-                        SizeConverter.getInstance(), 3.0) {
+                        StyleConverter.getSizeConverter(), 3.0) {
 
                     @SuppressWarnings("deprecation")
                     @Override
@@ -1181,7 +1177,7 @@ public class MultiSlider extends Control {
 
         private static final CssMetaData<MultiSlider, Orientation> ORIENTATION =
                 new CssMetaData<MultiSlider, Orientation>("-fx-orientation",
-                        new EnumConverter<>(Orientation.class),
+                        (StyleConverter<?, Orientation>) StyleConverter.getEnumConverter(Orientation.class),
                         Orientation.HORIZONTAL) {
 
                     @Override
