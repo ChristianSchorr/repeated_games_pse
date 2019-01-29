@@ -15,6 +15,17 @@ import loop.model.simulator.exception.ConfigurationException;
  *
  */
 public interface Simulator {
+	
+	/**
+	 * Returns the Id of the next Simulation
+	 * @return Id of the next Simulation
+	 */
+	public int getSimulationId();
+	
+	/**
+     * Increments the SimulationId by 1
+     */
+    public void incrementSimulationId();
 
 	/**
 	 * Starts a new simulation with the given configuration and returns a handle to

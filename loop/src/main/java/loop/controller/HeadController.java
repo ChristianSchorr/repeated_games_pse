@@ -203,6 +203,8 @@ public class HeadController {
         public void run() {
             setBufferingCursor();
             SimulationResult loadedResult = FileIO.loadResult(openFile);
+            loadedResult.setId(simulator.getSimulationId());
+            simulator.incrementSimulationId();
             addSimulationToHistoryController(loadedResult);
             setDefaultCursor();
         }

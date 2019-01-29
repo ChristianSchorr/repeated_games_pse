@@ -52,6 +52,14 @@ public class SimulationResult {
 	}
 	
 	/**
+	 * Sets the Id of the SimulationResult
+	 * @param i the Id of the SimulationResult
+	 */
+	public void setId(int i) {
+		this.id = i;
+	}
+	
+	/**
 	 * Creates a new simulation result to a simulation with given configuration and
 	 * id.
 	 * 

@@ -53,7 +53,22 @@ public class ThreadPoolSimulator implements Simulator {
         runningSimulations = new LinkedList<>();
         finishedSimulations = new ArrayList<>();
     }
-
+    
+    /**
+     * Increments the SimulationId by 1
+     */
+    public void incrementSimulationId() {
+    	nextSimulationId++;
+    }
+    
+    /**
+     * Returns the Id of the next Simulation
+     * @return Id of the next Simulation
+     */
+    public int getSimulationId() {
+    	return nextSimulationId;
+    }
+    
     @Override
     public SimulationResult startSimulation(UserConfiguration config) throws ConfigurationException {
         return startSimulation(config, (res) -> {
