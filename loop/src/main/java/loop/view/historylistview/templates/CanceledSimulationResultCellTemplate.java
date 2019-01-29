@@ -17,10 +17,10 @@ import java.io.IOException;
 public class CanceledSimulationResultCellTemplate extends SimulationResultCellTemplate  {
 
     private static final String FXML_NAME = "/view/listViewTemplates/canceledSimulationCell.fxml";
-    private ResultHistoryItem item;
+    private SimulationResult item;
 
 
-    public CanceledSimulationResultCellTemplate(ResultHistoryItem item) {
+    public CanceledSimulationResultCellTemplate(SimulationResult item) {
         this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
         fxmlLoader.setController(this);

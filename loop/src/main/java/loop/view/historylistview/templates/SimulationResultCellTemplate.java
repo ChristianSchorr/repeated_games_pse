@@ -26,10 +26,9 @@ public abstract class SimulationResultCellTemplate {
     @FXML
     private Label simulationIdLabel;
 
-    protected void initialize(ResultHistoryItem item) {
-        SimulationResult res = item.getResult();
-        String gameName = res.getUserConfiguration().getGameName();
-        int simulationId = res.getId();
+    protected void initialize(SimulationResult item) {
+        String gameName = item.getUserConfiguration().getGameName();
+        int simulationId = item.getId();
 
         gameNameLabel.setText(gameName);
         simulationIdLabel.setText(String.format("#%03d", simulationId));

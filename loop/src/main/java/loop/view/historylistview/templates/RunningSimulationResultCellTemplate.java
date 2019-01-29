@@ -23,7 +23,7 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
     private static final String FXML_NAME = "/view/listViewTemplates/runningSimulationCell.fxml";
     private static final String QUEUED_LABEL = "eingereiht";
-    private ResultHistoryItem item;
+    private SimulationResult item;
 
 
     @FXML
@@ -37,7 +37,7 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
     private ListView listView;
 
-    public RunningSimulationResultCellTemplate(ResultHistoryItem item, ListView listView) {
+    public RunningSimulationResultCellTemplate(SimulationResult item, ListView listView) {
         this.item = item;
         this.listView = listView;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
@@ -51,13 +51,12 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
     public void initialize() {
         super.initialize(item);
-        SimulationResult result = item.getResult();
-        double progress = (double) result.getFinishedIterations() / (double) result.getTotalIterations();
+        double progress = (double) item.getFinishedIterations() / (double) item.getTotalIterations();
         progressBar.setProgress(progress);
 
         String progressText = QUEUED_LABEL;
-        if (result.getStatus() == SimulationStatus.RUNNING)
-            progressText = result.getFinishedIterations() + "/" + result.getTotalIterations();
+        if (item.getStatus() == SimulationStatus.RUNNING)
+            progressText = item.getFinishedIterations() + "/" + item.getTotalIterations();
         progressLabel.setText(progressText);
 
         if (item.getLastTimeUpdated() > 0) {

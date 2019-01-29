@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import loop.controller.ResultHistoryItem;
+import loop.model.simulator.SimulationResult;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -18,7 +19,7 @@ import java.time.Duration;
 public class FinishedSimulationResultCellTemplate extends SimulationResultCellTemplate {
 
     private static final String FXML_NAME = "/view/listViewTemplates/finishedSimulationCell.fxml";
-    private ResultHistoryItem item;
+    private SimulationResult item;
 
     private DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -28,7 +29,7 @@ public class FinishedSimulationResultCellTemplate extends SimulationResultCellTe
     @FXML
     private Label finishedTimeLabel;
 
-    public FinishedSimulationResultCellTemplate(ResultHistoryItem item) {
+    public FinishedSimulationResultCellTemplate(SimulationResult item) {
         this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
         fxmlLoader.setController(this);
@@ -42,7 +43,7 @@ public class FinishedSimulationResultCellTemplate extends SimulationResultCellTe
     public void initialize() {
         super.initialize(item);
 
-        final Duration duration = Duration.ofMillis(item.getDuration());
+        final Duration duration = Duration.ofMillis(item.getFinishTime() - item.getStartTime());
         totalDurationLabel.setText(formatDuration(duration));
         finishedTimeLabel.setText(timeFormat.format(item.getFinishTime()));
     }

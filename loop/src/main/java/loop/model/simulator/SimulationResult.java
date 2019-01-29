@@ -26,7 +26,6 @@ public class SimulationResult {
 	private SimulationStatus status;
 	private int totalIterations;
 	private int finishedIterations = 0;
-	private long duration;
 
 	private List<List<IterationResult>> iterationResults;
 	private List<SimulationEngineException> exceptions;
@@ -35,22 +34,10 @@ public class SimulationResult {
 	private List<BiConsumer<SimulationResult, SimulationEngineException>> exceptionHandlers;
 	private List<BiConsumer<SimulationResult, SimulationStatus>> statusChangedHandler;
 
-	/**
-	 * Sets the duration of this Simulation
-	 * @param duration duration of the Simulation
-	 */
-	public void setDuration(long duration) {
-		this.duration = duration;
-	}
-	
-	/**
-	 * Returns the duration of this Simulation
-	 * @return the duration of this Simulation
-	 */
-	public long getDuration() {
-		return duration;
-	}
-	
+	private long startTime = -1;
+	private long finishTime = -1;
+	private long lastTimeUpdated = -1;
+
 	/**
 	 * Creates a new simulation result to a simulation with given configuration and
 	 * id.
@@ -85,8 +72,12 @@ public class SimulationResult {
 		iterationResults.get(i).add(result);
 		finishedIterations++;
 
-		if (finishedIterations == totalIterations)
+		lastTimeUpdated = System.currentTimeMillis();
+
+		if (finishedIterations == totalIterations) {
 			setStatus(SimulationStatus.FINISHED);
+			finishTime = lastTimeUpdated;
+		}
 
 		// notify listeners
 		for (BiConsumer<SimulationResult, IterationResult> handler : resultHandlers) {
@@ -206,6 +197,7 @@ public class SimulationResult {
 
 	protected synchronized void setStatus(SimulationStatus status) {
 		this.status = status;
+		if (status == SimulationStatus.RUNNING) startTime = System.currentTimeMillis();
 		for(BiConsumer<SimulationResult, SimulationStatus> handler : statusChangedHandler) {
 			handler.accept(this, status);
 		}
@@ -230,6 +222,32 @@ public class SimulationResult {
 	public int getFinishedIterations() {
 		return finishedIterations;
 	}
+
+
+	/**
+	 * Returns the last time this result has been updated
+	 * @return the last updated time
+	 */
+	public long getLastTimeUpdated() {
+		return lastTimeUpdated;
+	}
+
+	/**
+	 * Returns the start time of this simulation
+	 * @return the start time of this simulation
+	 */
+	public long getStartTime() {
+		return startTime;
+	}
+
+	/**
+	 * Returns the finish time of this simulation
+	 * @return the finish time of this simulation;
+	 */
+	public long getFinishTime() {
+		return finishTime;
+	}
+
 	
 	//TODO find better solution for this problem
 	/**
