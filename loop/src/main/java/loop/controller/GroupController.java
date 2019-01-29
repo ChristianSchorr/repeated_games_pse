@@ -400,6 +400,7 @@ public class GroupController implements CreationController<Group> {
             }
         }
         sliderValues.get(sliderValues.size() - 1).setValue(100d);
+        id--;
 
         segmentTabs.getTabs().remove(tabControllers.get(controller));
         tabControllers.remove(controller);
