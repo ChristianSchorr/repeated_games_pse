@@ -149,11 +149,11 @@ public class PureStrategy implements Strategy, java.io.Serializable {
         return new PureStrategy("never cooperate", "A player using never cooperate won't be cooperative against any opponent.", (pair, history) -> false);
     }
     
-    enum TimeAdverb {
+    public enum TimeAdverb {
         ALWAYS, NEVER, ATLEASTONCE, LASTTIME;
     }
     
-    enum AgentEntity {
+    public enum AgentEntity {
         AGENT, SAME_GROUP, SIM_CAPITAL;
     }
     
