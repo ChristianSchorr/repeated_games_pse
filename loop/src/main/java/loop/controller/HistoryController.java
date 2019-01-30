@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class HistoryController {
 
     @FXML
-    ListView<ResultHistoryItem> historyList;
+    ListView<SimulationResult> historyList;
 
     @FXML
     Parent outputView;
@@ -38,8 +38,8 @@ public class HistoryController {
     @FXML
     OutputController outputViewController;
 
-    private ResultHistoryItem selectedItem;
-    private ObservableList<ResultHistoryItem> history;
+    private SimulationResult selectedItem;
+    private ObservableList<SimulationResult> history;
 
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
     private List<Consumer<SimulationResult>> cancleHandlers = new ArrayList<>();
@@ -51,12 +51,13 @@ public class HistoryController {
         history = FXCollections.observableArrayList();
         historyList.setItems(history);
 
-        historyList.getSelectionModel().selectedItemProperty().addListener((ChangeListener<ResultHistoryItem>)
-                (observable, oldValue, newValue) -> {
-                    selectedItem = newValue;
-                    if (selectedItem != null)
-                        Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem));
-                });
+        historyList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            selectedItem = newValue;
+            if (selectedItem != null)
+                Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem,(i) -> {
+                for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i);
+            } ));
+        });
         historyList.setCellFactory(param -> new HistoryListCell());
         outputViewController.registerImportUserConfiguration(config -> configImportHandlers.forEach(c -> c.accept(config)));
         Timer timer = new Timer();
@@ -74,18 +75,15 @@ public class HistoryController {
      * @param simulationResult the {@link SimulationResult} object of the simulation that shall be added
      */
     public void addSimulation(SimulationResult simulationResult) {
-        ResultHistoryItem item = new ResultHistoryItem(simulationResult, (i) -> {
-            for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i.getResult());
-        }, simulationResult.getDuration());
-        item.getResult().registerSimulationStatusChangedHandler((res, stat) -> {
+        simulationResult.registerSimulationStatusChangedHandler((res, stat) -> {
             Platform.runLater(() -> historyList.refresh());
-            if (selectedItem == null || res != selectedItem.getResult()) return;
+            if (selectedItem == null || res != selectedItem) return;
             int index = historyList.getSelectionModel().getSelectedIndex();
             historyList.getSelectionModel().clearSelection();
             historyList.getSelectionModel().select(index);
         });
-        item.getResult().registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));
-        history.add(item);
+        simulationResult.registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));
+        history.add(simulationResult);
     }
 
     /**
@@ -95,7 +93,7 @@ public class HistoryController {
      */
     public SimulationResult getSelectedSimulation() {
         if (selectedItem == null) return null;
-        return selectedItem.getResult();
+        return selectedItem;
     }
 
     /**
@@ -104,7 +102,7 @@ public class HistoryController {
      * @return a list of all simulations in the list
      */
     public List<SimulationResult> getAllSimulations() {
-        return history.stream().map(ResultHistoryItem::getResult).collect(Collectors.toList());
+        return history;
     }
 
     /**

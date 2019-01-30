@@ -13,6 +13,7 @@ import loop.model.simulator.SimulationStatus;
 import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 
 /**
@@ -44,16 +45,16 @@ public class RunningOutputController {
     @FXML
     private Label durationLeft;
 
-    private ResultHistoryItem item;
     private SimulationResult result;
+    private Consumer<SimulationResult> cancleHandler;
 
     /**
      * Creates a new output controller for a running simulation
      * @param resultItem the running simulation to display
      */
-    public RunningOutputController(ResultHistoryItem resultItem) {
-        this.result = resultItem.getResult();
-        this.item = resultItem;
+    public RunningOutputController(SimulationResult resultItem,  Consumer<SimulationResult> cancleHandler) {
+        this.result = resultItem;
+        this.cancleHandler = cancleHandler;
     }
 
     @FXML
@@ -90,18 +91,20 @@ public class RunningOutputController {
     }
 
     private void updateDuration() {
-        if (item.getLastTimeUpdated() > 0) {
+        if (result.getLastTimeUpdated() > 0) {
             double progress = (double) result.getFinishedIterations() / (double) result.getTotalIterations();
-            double timeRun = (item.getLastTimeUpdated() - item.getStartTime());
+            double timeRun = (result.getLastTimeUpdated() - result.getStartTime());
             double timeLeft = (timeRun / progress) -timeRun;
-            final Duration duration = Duration.ofMillis((long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated()));
+            long updatedTimeLeft = (long)timeLeft - (System.currentTimeMillis() - result.getLastTimeUpdated());
+            if (updatedTimeLeft < 0) updatedTimeLeft = (long)timeLeft;
+            final Duration duration = Duration.ofMillis(updatedTimeLeft);
             durationLeft.setText(formatDuration(duration));
         }
     }
 
     @FXML
     private void cancleSimulation() {
-        item.cancleSimulation();
+        cancleHandler.accept(result);
     }
 
     /**

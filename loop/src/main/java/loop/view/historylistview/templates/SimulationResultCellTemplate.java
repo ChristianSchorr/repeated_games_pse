@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import loop.model.simulator.SimulationResult;
-import loop.controller.ResultHistoryItem;
 
 
 /**
@@ -26,10 +25,9 @@ public abstract class SimulationResultCellTemplate {
     @FXML
     private Label simulationIdLabel;
 
-    protected void initialize(ResultHistoryItem item) {
-        SimulationResult res = item.getResult();
-        String gameName = res.getUserConfiguration().getGameName();
-        int simulationId = res.getId();
+    protected void initialize(SimulationResult item) {
+        String gameName = item.getUserConfiguration().getGameName();
+        int simulationId = item.getId();
 
         gameNameLabel.setText(gameName);
         simulationIdLabel.setText(String.format("#%03d", simulationId));
