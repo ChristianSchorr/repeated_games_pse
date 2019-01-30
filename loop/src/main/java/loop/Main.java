@@ -3,6 +3,7 @@ package loop;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import loop.model.repository.FileIO;
+import loop.preloader.SplashScreenLoader;
 
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -24,11 +26,20 @@ public class Main extends Application {
     
     public static final String RING_LOGO_PATH = "file:src/main/resources/loop_ring.png";
     
+    @FXML
+    public void init() {
+        try {
+            Thread.sleep(SplashScreenLoader.animationMillis + 500); //let splash animation play
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/windows/HomeWindow.fxml"));
         Scene scene = new Scene(root, 1920, 1080);
-
+        
         stage.setTitle("loop");
         stage.setScene(scene);
         stage.getIcons().add(new Image(RING_LOGO_PATH));
