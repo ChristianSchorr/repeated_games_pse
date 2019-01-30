@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import org.controlsfx.glyphfont.Glyph?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="container" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" style="-fx-background-color: #EAEAeA; -fx-padding: 10;">
+    <VBox prefWidth="600.0" prefHeight="400.0" styleClass="card">
+        <Label styleClass="card-title" text="How can I create a new group?"/>
+    </VBox>
+</VBox>
+
