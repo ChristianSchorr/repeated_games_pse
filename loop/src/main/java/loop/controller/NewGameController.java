@@ -131,7 +131,6 @@ public class NewGameController implements CreationController<Game> {
         
         try {
             FileIO.saveEntity(saveFile, game);
-            CentralRepository.getInstance().getGameRepository().addEntity(game.getName(), game);
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);

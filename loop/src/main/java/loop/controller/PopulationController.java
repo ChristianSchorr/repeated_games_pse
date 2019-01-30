@@ -186,7 +186,6 @@ public class PopulationController implements CreationController<Population> {
         
         try {
             FileIO.saveEntity(saveFile, population);
-            CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);

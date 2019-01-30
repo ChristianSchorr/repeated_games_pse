@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import loop.model.Group;
+import loop.model.Population;
 import loop.model.Segment;
 import loop.model.plugin.Plugin;
 import loop.model.plugin.PluginControl;
@@ -192,7 +193,6 @@ public class GroupController implements CreationController<Group> {
 
         try {
             FileIO.saveEntity(saveFile, group);
-            CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
@@ -205,6 +205,8 @@ public class GroupController implements CreationController<Group> {
     void saveGroup() {
         if (!validateSettings(true)) return;
 
+        Group group = createGroup();
+        
         //TODO unsch�n, aber wie sonst?
         if (CentralRepository.getInstance().getGroupRepository().containsEntityName(groupNameTextField.getText())) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "A group with this name already exists. Do you want to overwrite it? Note that"
@@ -213,10 +215,18 @@ public class GroupController implements CreationController<Group> {
             alert.showAndWait();
             boolean override = (alert.getResult() == ButtonType.YES);
             if (!override) return;
-            CentralRepository.getInstance().getGroupRepository().removeEntity(groupNameTextField.getText());
+            
+            //overwrite group in repository and populations
+            String groupName = groupNameTextField.getText();
+            CentralRepository.getInstance().getGroupRepository().removeEntity(groupName);
+            CentralRepository.getInstance().getPopulationRepository().getAllEntities().stream()
+                .filter(pop -> pop.getGroups().stream().anyMatch(g -> g.getName().equals(groupName))).forEach(pop -> {
+                    List<Group> groups = pop.getGroups();
+                    int index = groups.indexOf(groups.stream().filter(g -> g.getName().equals(groupName)).findAny().get());
+                    groups.remove(index);
+                    groups.add(index, group);
+                });
         }
-
-        Group group = createGroup();
 
         this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
         stage.close();

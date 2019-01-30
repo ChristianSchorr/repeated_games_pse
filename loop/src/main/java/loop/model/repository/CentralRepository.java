@@ -2,6 +2,7 @@ package loop.model.repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import loop.model.Group;
@@ -248,10 +249,24 @@ public class CentralRepository {
 		} catch (NullPointerException n) {
 			//Empty File    
 		}
-
+	    
+	    //refresh groups in populations; if one of the contained groups was changed, change it in the population
+	    populationRepo.getAllEntities().forEach((pop) -> refreshPopulation(pop));
+	    
+	    
 		loadPlugins();
 	}
 	    
+	public void refreshPopulation(Population population) {
+	    List<Group> groups = population.getGroups();
+	    for (Group g: groups) {
+	        if (!groupRepo.containsEntityName(g.getName())) continue;
+	        int index = groups.indexOf(g);
+	        groups.remove(index);
+	        groups.add(index, groupRepo.getEntityByName(g.getName()));
+	    }
+	}
+	
 	private void loadPlugins() {
 		List<Plugin.PairBuilderPlugin> pairBuilderPlugins = PluginLoader.loadPlugins(Plugin.PairBuilderPlugin.class);
 		for (Plugin.PairBuilderPlugin plugin : pairBuilderPlugins)
