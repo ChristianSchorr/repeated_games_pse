@@ -18,7 +18,7 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT 	SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * OUT OF OR IN CONNECTION WITH THE SOFThttps://gist.github.com/maxd/63691840fc372f22f470  WARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
  */
@@ -28,7 +28,7 @@
  */
 
 
-/*     https://gist.github.com/maxd/63691840fc372f22f470    */
+/*       */
 
 /*******************************************************************************
  *                                                                             *
@@ -131,6 +131,20 @@
  * Button & ToggleButton                                                       *
  *                                                                             *
  ******************************************************************************/
+
+ .list-view-box:focused .list-cell:filled:focused:selected {
+ 	-fx-background-color: -swatch-light-grey;
+ 	-fx-text-fill: -swatch-500;
+ }
+
+ .list-view-box:hover .list-cell:hover {
+ 	-fx-background-color: -swatch-light-grey;
+ 	-fx-text-fill: -fx-text-base-color;
+ }
+
+
+
+
 .button-raised {
 	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,
 		1);
@@ -910,32 +924,29 @@
 
 
 /* LISTCELL SPACING */
-.list-cell:filled {
+.list-cell-history:filled {
     -fx-background-color: transparent;
     -fx-padding: 1px 0px;
 }
 
-.list-cell:selected {
+.list-cell-history:selected {
     -fx-background: transparent;
     -fx-padding: 1px 1px 1px 15px;
 }
 
 /* EMPTY LIST CELLS WHITE */
-.list-cell:empty {
+.list-cell-history:empty {
     -fx-background-color: white;
     -fx-border-width: 0px;
 }
 
-/* NO FOCUS GLOW */
-.list-view:focused {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-}
 
 /* NO BORDER */
-.list-view {
+.list-view-history {
   -fx-background-insets: 0;
   -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 
@@ -1171,6 +1182,14 @@
 }
 
 
+.default-color0.chart-series-line { -fx-stroke: #2196F3 }
+.default-color1.chart-series-line { -fx-stroke: #E51400; }
+.default-color2.chart-series-line { -fx-stroke: #FEDE06; }
+.default-color3.chart-series-line { -fx-stroke: #008A00; }
 
+.default-color0.chart-bar { -fx-bar-fill: -swatch-500; }
 
-
+.default-color0.chart-line-symbol { -fx-background-color: #2196F3; }
+.default-color1.chart-line-symbol { -fx-background-color: #E51400; }
+.default-color2.chart-line-symbol { -fx-background-color: #FEDE06; }
+.default-color3.chart-line-symbol { -fx-background-color: #008A00; }

@@ -49,10 +49,10 @@
         <VBox GridPane.columnIndex="1">
             <BarChart fx:id="capitalDiagram">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" label="Capital"/>
+                    <CategoryAxis side="BOTTOM" label="Capital" animated="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" label="Agent Count"/>
+                    <NumberAxis side="LEFT" label="Agent Count" animated="false"/>
                 </yAxis>
             </BarChart>
         </VBox>

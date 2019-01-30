@@ -259,11 +259,10 @@ public class CentralRepository {
 	    
 	public void refreshPopulation(Population population) {
 	    List<Group> groups = population.getGroups();
-	    for (Group g: groups) {
+	    for (int i = 0; i < groups.size(); i++) {
+	        Group g = groups.get(i);
 	        if (!groupRepo.containsEntityName(g.getName())) continue;
-	        int index = groups.indexOf(g);
-	        groups.remove(index);
-	        groups.add(index, groupRepo.getEntityByName(g.getName()));
+	        groups.set(i, groupRepo.getEntityByName(g.getName()));
 	    }
 	}
 	

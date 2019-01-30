@@ -1,10 +1,5 @@
 package loop.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -14,21 +9,16 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
-import loop.model.simulationengine.Game;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulationengine.strategy.strategybuilder.*;
-import org.checkerframework.dataflow.qual.Pure;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,7 +56,11 @@ public class StrategyController implements CreationController<Strategy> {
     private ChoiceBox capitalBox;
 
     @FXML
-    private ChoiceBox rankBox;
+    private ChoiceBox<String> timeAdvBox;
+
+    @FXML
+    private ChoiceBox<String> predBox;
+
 
     private StringProperty nameProperty = new SimpleStringProperty();
     private StringProperty descriptionProperty = new SimpleStringProperty();
@@ -76,13 +70,14 @@ public class StrategyController implements CreationController<Strategy> {
     private StringProperty coopParticipantProperty = new SimpleStringProperty();
     private StringProperty coopQuantorProperty = new SimpleStringProperty();
     private StringProperty capitalProperty = new SimpleStringProperty();
-    private StringProperty rankProperty = new SimpleStringProperty();
 
     private Map<String, Map<String, Strategy>> coopMap;
     private Map<String, Strategy> capitalMap;
+    private Map<String, PureStrategy.TimeAdverb> timeAdverbMap;
+    private Map<String, PureStrategy.AgentEntity> agentEntityMap;
     private List<String> participants;
     private List<String> quantors;
-    private List<String> assesment;
+    private List<String> assessment;
 
     private List<Consumer<Strategy>> creationListener;
     CentralRepository repository;
@@ -119,10 +114,10 @@ public class StrategyController implements CreationController<Strategy> {
         quantors.add("last time");
         quantors.add("never");
 
-        assesment = new ArrayList<>();
-        assesment.add("higher");
-        assesment.add("lower");
-        assesment.add("similar");
+        assessment = new ArrayList<>();
+        assessment.add("higher");
+        assessment.add("lower");
+        assessment.add("similar");
 
         cooperationParticipants.setItems(FXCollections.observableArrayList(participants));
         cooperationParticipants.valueProperty().bindBidirectional(coopParticipantProperty);
@@ -132,15 +127,16 @@ public class StrategyController implements CreationController<Strategy> {
         cooperationQuantors.valueProperty().bindBidirectional(coopQuantorProperty);
         cooperationQuantors.setValue(quantors.get(0));
 
-        capitalBox.setItems(FXCollections.observableArrayList(assesment));
+        capitalBox.setItems(FXCollections.observableArrayList(assessment));
         capitalBox.valueProperty().bindBidirectional(capitalProperty);
-        capitalBox.setValue(assesment.get(0));
-
-        rankBox.setItems(FXCollections.observableArrayList(assesment));
-        rankBox.valueProperty().bindBidirectional(rankProperty);
-        rankBox.setValue(assesment.get(0));
+        capitalBox.setValue(assessment.get(0));
 
         setupStrategyMaps();
+
+        timeAdvBox.setItems(FXCollections.observableArrayList(timeAdverbMap.keySet()));
+        timeAdvBox.getSelectionModel().select(0);
+        predBox.setItems(FXCollections.observableArrayList(agentEntityMap.keySet()));
+        predBox.getSelectionModel().select(0);
     }
 
     private void setupStrategyMaps() {
@@ -161,9 +157,19 @@ public class StrategyController implements CreationController<Strategy> {
         coopMap.put(participants.get(1), currentMap);
 
         capitalMap = new HashMap<>();
-        capitalMap.put(assesment.get(0), PureStrategy.opponentHasHigherCapital());
-        capitalMap.put(assesment.get(1), PureStrategy.opponentHasLowerCapital());
-        capitalMap.put(assesment.get(2), PureStrategy.opponentHasSimilarCapital(PERCENTAGE));
+        capitalMap.put(assessment.get(0), PureStrategy.opponentHasHigherCapital());
+        capitalMap.put(assessment.get(1), PureStrategy.opponentHasLowerCapital());
+        capitalMap.put(assessment.get(2), PureStrategy.opponentHasSimilarCapital(PERCENTAGE));
+
+        timeAdverbMap = new HashMap<>();
+        timeAdverbMap.put("always", PureStrategy.TimeAdverb.ALWAYS);
+        timeAdverbMap.put("never", PureStrategy.TimeAdverb.NEVER);
+        timeAdverbMap.put("at least once", PureStrategy.TimeAdverb.ATLEASTONCE);
+        timeAdverbMap.put("last time", PureStrategy.TimeAdverb.LASTTIME);
+
+        agentEntityMap = new HashMap<>();
+        agentEntityMap.put("is in the same group", PureStrategy.AgentEntity.SAME_GROUP);
+        agentEntityMap.put("has a similar capital", PureStrategy.AgentEntity.SIM_CAPITAL);
     }
 
     @FXML
@@ -172,6 +178,17 @@ public class StrategyController implements CreationController<Strategy> {
         selectedOperand = null;
         nameProperty.setValue("");
         descriptionProperty.setValue("");
+    }
+
+    @FXML
+    private void handleAddInd() {
+        String agentEntity = predBox.getSelectionModel().getSelectedItem();
+        String timeAdv = timeAdvBox.getSelectionModel().getSelectedItem();
+        if (agentEntity == null || timeAdv == null) return;
+        Strategy strat = PureStrategy.stratBuilderStrategy(agentEntityMap.get(agentEntity), timeAdverbMap.get(timeAdv), PERCENTAGE);
+        addStrategy(new PureStrategy("The opp. has " + timeAdv + " coop. with an agent that "
+                + agentEntity + " as the agent himself", "",
+                (pair, hist) -> strat.isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
     }
 
     @FXML
@@ -213,55 +230,56 @@ public class StrategyController implements CreationController<Strategy> {
 
     @FXML
     private void saveStrategy() {
-    	 Strategy strat;
-         try {
-             strat = expressionRoot.getStrategy();
-         } catch (IllegalArgumentException e) {
-             Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
-             alert.showAndWait();
-             return;
-         }
-         
-         //save dialog
-         FileChooser fileChooser = new FileChooser();
-         fileChooser.setTitle("Save Strategy");
-         fileChooser.setInitialDirectory(FileIO.GAME_DIR);
-         fileChooser.setInitialFileName(strat.getName().toLowerCase().replace(' ', '_'));
-         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Strategy File", ".strat");
-         fileChooser.getExtensionFilters().add(extFilter);
-         File saveFile = fileChooser.showSaveDialog(new Stage());
-         
-         if (saveFile == null) {
-             return;
-         }
-         
-         try {
-             FileIO.saveEntity(saveFile, strat);
-         } catch (IOException e) {
-             e.printStackTrace();
-             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
-             alert.showAndWait();
-             return;
-         };
-         
-         this.creationListener.forEach(handler -> handler.accept(strat));
-    }
-    
-    @FXML
-    private void applyStrategy() {
-    	Strategy strat;
-    	try {
+        Strategy strat;
+        try {
             strat = expressionRoot.getStrategy();
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
             alert.showAndWait();
             return;
         }
-    	this.repository.getStrategyRepository().addEntity(strat.getName(), strat);
-    	Stage s = (Stage) this.descriptionField.getScene().getWindow();
+
+        //save dialog
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Strategy");
+        fileChooser.setInitialDirectory(FileIO.GAME_DIR);
+        fileChooser.setInitialFileName(strat.getName().toLowerCase().replace(' ', '_'));
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Strategy File", ".strat");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File saveFile = fileChooser.showSaveDialog(new Stage());
+
+        if (saveFile == null) {
+            return;
+        }
+
+        try {
+            FileIO.saveEntity(saveFile, strat);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        ;
+
+        this.creationListener.forEach(handler -> handler.accept(strat));
+    }
+
+    @FXML
+    private void applyStrategy() {
+        Strategy strat;
+        try {
+            strat = expressionRoot.getStrategy();
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        this.repository.getStrategyRepository().addEntity(strat.getName(), strat);
+        Stage s = (Stage) this.descriptionField.getScene().getWindow();
         s.close();
     }
-    
+
     private void insertContainerNode(ContainerNode child, ContainerNode parent) {
         int index = parent.children.indexOf(selectedOperand);
         parent.removeNode(selectedOperand);
@@ -270,7 +288,6 @@ public class StrategyController implements CreationController<Strategy> {
     }
 
     private void addStrategy(Strategy strategy) {
-        System.out.println(strategy == null);
         if (selectedOperand == null && expressionRoot == null) {
             expressionRoot = new ContainerNode(strategy, null);
             expressionRoot.syntaxNode = new SyntaxNode(strategy, null);
@@ -420,9 +437,9 @@ public class StrategyController implements CreationController<Strategy> {
                     container.getChildren().add(getBrace(false, isHovered, selectedOperand == this));
             }
         }
-        
+
         private Strategy getStrategy() {
-        	Strategy strat = null;
+            Strategy strat = null;
             if (expressionRoot == null) {
                 // TODO error
             } else {

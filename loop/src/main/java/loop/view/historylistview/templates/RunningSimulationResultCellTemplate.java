@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.shape.Rectangle;
-import loop.controller.ResultHistoryItem;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 
@@ -22,8 +21,8 @@ import java.time.Duration;
 public class RunningSimulationResultCellTemplate extends SimulationResultCellTemplate {
 
     private static final String FXML_NAME = "/view/listViewTemplates/runningSimulationCell.fxml";
-    private static final String QUEUED_LABEL = "Queued";
-    private ResultHistoryItem item;
+    private static final String QUEUED_LABEL = "eingereiht";
+    private SimulationResult item;
 
 
     @FXML
@@ -37,7 +36,7 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
     private ListView listView;
 
-    public RunningSimulationResultCellTemplate(ResultHistoryItem item, ListView listView) {
+    public RunningSimulationResultCellTemplate(SimulationResult item, ListView listView) {
         this.item = item;
         this.listView = listView;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_NAME));
@@ -51,19 +50,20 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
 
     public void initialize() {
         super.initialize(item);
-        SimulationResult result = item.getResult();
-        double progress = (double) result.getFinishedIterations() / (double) result.getTotalIterations();
+        double progress = (double) item.getFinishedIterations() / (double) item.getTotalIterations();
         progressBar.setProgress(progress);
 
         String progressText = QUEUED_LABEL;
-        if (result.getStatus() == SimulationStatus.RUNNING)
-            progressText = result.getFinishedIterations() + "/" + result.getTotalIterations();
+        if (item.getStatus() == SimulationStatus.RUNNING)
+            progressText = item.getFinishedIterations() + "/" + item.getTotalIterations();
         progressLabel.setText(progressText);
 
         if (item.getLastTimeUpdated() > 0) {
             double timeRun = (item.getLastTimeUpdated() - item.getStartTime());
             double timeLeft = (timeRun / progress) -timeRun;
-            final Duration duration = Duration.ofMillis((long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated()));
+            long updatedTimeLeft = (long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated());
+            if (updatedTimeLeft < 0) updatedTimeLeft = (long)timeLeft;
+            final Duration duration = Duration.ofMillis(updatedTimeLeft);
             durationLeft.setText(formatDuration(duration));
         }
     }

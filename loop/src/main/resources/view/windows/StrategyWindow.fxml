@@ -16,9 +16,10 @@
 <?import javafx.scene.control.TextField?>
 
 <?import javafx.scene.control.ComboBox?>
-<VBox style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
-      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="loop.controller.StrategyController">
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="loop.controller.StrategyController" prefWidth="1000">
     <VBox spacing="10" styleClass="card">
         <GridPane>
             <columnConstraints>
@@ -51,9 +52,9 @@
         <Separator style="-fx-padding: 10 0;"/>
         <FlowPane fx:id="strategyContainer" hgap="10" vgap="10">
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <ChoiceBox fx:id="cooperationParticipants" prefHeight="42.0" prefWidth="106.0"/>
+                <ChoiceBox fx:id="cooperationParticipants"/>
                 <Label text="has cooperated"/>
-                <ChoiceBox fx:id="cooperationQuantors" prefHeight="42.0" prefWidth="83.0" />
+                <ChoiceBox fx:id="cooperationQuantors"/>
                 <Button onAction="#handleAddCooperation">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
@@ -62,7 +63,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
                 <Label text="The opponent has a"/>
-                <ChoiceBox fx:id="capitalBox" prefHeight="42.0" prefWidth="77.0" />
+                <ChoiceBox fx:id="capitalBox"/>
                 <Label text="total capital"/>
                 <Button onAction="#handleAddCapital">
                     <graphic>
@@ -71,10 +72,12 @@
                 </Button>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 5" styleClass="card">
-                <Label text="The opponent has a"/>
-                <ChoiceBox fx:id="rankBox" prefHeight="42.0" prefWidth="76.0" />
-                <Label text="rank"/>
-                <Button disable="true">
+                <Label text="The opponent has"/>
+                <ChoiceBox fx:id="timeAdvBox"/>
+                <Label text="cooperated with an agent that"/>
+                <ChoiceBox fx:id="predBox" />
+                <Label text="as the agent himself"/>
+                <Button onAction="#handleAddInd">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
@@ -129,4 +132,4 @@
             </HBox>
         </FlowPane>
     </VBox>
-</VBox>
+</ScrollPane>

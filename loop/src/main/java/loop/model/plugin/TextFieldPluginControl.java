@@ -42,6 +42,7 @@ public class TextFieldPluginControl extends PluginControl {
      */
     public TextFieldPluginControl(List<Parameter> params) {
         itemBox = new VBox();
+        itemBox.setAlignment(Pos.CENTER);
         itemBox.setSpacing(10);
         container = new HBox();
         container.setSpacing(20);
@@ -140,4 +141,7 @@ public class TextFieldPluginControl extends PluginControl {
         support.registerValidator(field, false, new DoubleValidator(errorMsg, d -> ParameterValidator.isValueValid(d, p)));
     }
 
+    protected List<DoubleProperty> getBoundProperties() {
+        return properties;
+    }
 }

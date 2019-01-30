@@ -25,7 +25,7 @@
     <Label styleClass="card-subtitle" text="Initial strategies"/>
     <HBox spacing="20" style="-fx-padding: 10" alignment="CENTER_LEFT">
         <Separator orientation="VERTICAL"/>
-        <ListSelectionView fx:id="strategyChoice" prefWidth="800">
+        <ListSelectionView fx:id="strategyChoice" prefWidth="800" styleClass="list-view-box">
             <sourceHeader>
                 <Label style="-fx-font-size: 12px;" styleClass="card-subtitle" text="Available strategies"/>
             </sourceHeader>
