@@ -49,7 +49,11 @@ public class ThreadPoolSimulator implements Simulator {
      */
     public ThreadPoolSimulator(int maxThreads) {
         threadCount = maxThreads;
-        threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads);
+        threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads, r -> {
+            Thread t = Executors.defaultThreadFactory().newThread(r);
+            t.setDaemon(true);
+            return t;
+        });
         runningSimulations = new LinkedList<>();
         finishedSimulations = new ArrayList<>();
     }
@@ -67,6 +71,16 @@ public class ThreadPoolSimulator implements Simulator {
      */
     public int getSimulationId() {
     	return nextSimulationId;
+    }
+
+    /**
+     * Stops all Simulations and shuts down the thread pool
+     */
+    public void stopSimulator() throws InterruptedException {
+        threadPool.shutdown();
+        threadPool.awaitTermination(100000, TimeUnit.MILLISECONDS); // wait for 10s in this case
+        threadPool.shutdownNow();
+        threadPool = null;
     }
     
     @Override

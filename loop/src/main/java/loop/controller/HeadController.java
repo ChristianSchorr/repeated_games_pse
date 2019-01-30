@@ -27,6 +27,7 @@ import loop.Main;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.UserConfiguration;
+import loop.model.plugin.Plugin;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.Game;
@@ -42,10 +43,10 @@ import loop.model.simulator.exception.ConfigurationException;
  * @author Pierre Toussing
  */
 public class HeadController {
-    
+
     private UserConfiguration activeConfiguration;
 
-    private Simulator simulator;
+    private ThreadPoolSimulator simulator;
 
     @FXML
     private HistoryController historyViewController;
@@ -85,14 +86,14 @@ public class HeadController {
 
     @FXML
     private Button startSimulationButton;
-    
+
     @FXML
     private Pane mainPane;
-    
+
     private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
-    
+
     private CentralRepository repository = CentralRepository.getInstance();
-    
+
     @FXML
     void initialize() {
         //load default configuration
@@ -100,16 +101,16 @@ public class HeadController {
 
         //create simulator
         simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors());
-        
+
         //register callback for the import of configurations from simulation results
         historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
         historyViewController.registerCancleRequestHandler(sim -> simulator.stopSimulation(sim));
     }
-    
-    public void importConfiguration(UserConfiguration config) {
+
+    private void importConfiguration(UserConfiguration config) {
         updateConfiguration(config, true);
     }
-    
+
     @FXML
     void saveConfiguration() {
         FileChooser fileChooser = new FileChooser();
@@ -149,7 +150,7 @@ public class HeadController {
             alert.showAndWait();
             return;
         }
-        
+
         importConfiguration(config);
     }
 
@@ -181,7 +182,7 @@ public class HeadController {
 
     @FXML
     void loadResults(ActionEvent event) {
-    	FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Simulation Results");
         fileChooser.setInitialDirectory(FileIO.SIMULATIONRESULTS_DIR);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Simulation Result File", "*.sim");
@@ -190,11 +191,11 @@ public class HeadController {
         if (openFile == null) return;
         new Thread(new ResultLoader(openFile)).start();
     }
-    
+
     private class ResultLoader implements Runnable {
-        
+
         File openFile;
-        
+
         private ResultLoader(File openFile) {
             this.openFile = openFile;
         }
@@ -209,20 +210,20 @@ public class HeadController {
             setDefaultCursor();
         }
     }
-    
+
     private synchronized void addSimulationToHistoryController(SimulationResult result) {
         historyViewController.addSimulation(result);
     }
-    
+
     private synchronized void setDefaultCursor() {
         mainPane.setCursor(Cursor.DEFAULT);
     }
-    
+
     private synchronized void setBufferingCursor() {
         Image image = new Image(LOOP_BUFFER_PATH);
         mainPane.setCursor(new ImageCursor(image));
     }
-    
+
     @FXML
     void startSimulation(ActionEvent event) {
         SimulationResult result;
@@ -238,19 +239,21 @@ public class HeadController {
     }
 
     @FXML
-    void closeSimulator(ActionEvent event) {
-        Platform.exit();
+    public void closeSimulator(ActionEvent event) throws InterruptedException {
         simulator.stopAllSimulations();
+        simulator.stopSimulator();
+        simulator = null;
+        Platform.exit();
     }
 
     @FXML
     void showInfo(ActionEvent event) {
-    	//TODO
+        //TODO
     }
 
     @FXML
     void showHelp(ActionEvent event) {
-    	//TODO
+        //TODO
     }
 
     @FXML
@@ -281,14 +284,14 @@ public class HeadController {
 
     @FXML
     void openNewStrategyWindow(ActionEvent event) {
-		Parent newStrategyParent = null;
-		try {
-			newStrategyParent = FXMLLoader.load(getClass().getResource("/view/windows/StrategyWindow.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Scene newStrategyScene = new Scene(newStrategyParent);
-		Stage newStrategyWindow = new Stage();
+        Parent newStrategyParent = null;
+        try {
+            newStrategyParent = FXMLLoader.load(getClass().getResource("/view/windows/StrategyWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newStrategyScene = new Scene(newStrategyParent);
+        Stage newStrategyWindow = new Stage();
         newStrategyWindow.setTitle("Create a new Strategy");
         newStrategyWindow.setScene(newStrategyScene);
 
@@ -403,7 +406,7 @@ public class HeadController {
                 return;
             }
         }
-        
+
         activeConfiguration = configuration;
         updateConfigurationPreview();
     }
