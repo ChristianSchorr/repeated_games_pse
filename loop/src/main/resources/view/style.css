@@ -910,18 +910,18 @@
 
 
 /* LISTCELL SPACING */
-.list-cell-history:filled {
+.list-cell:filled {
     -fx-background-color: transparent;
     -fx-padding: 1px 0px;
 }
 
-.list-cell-history:selected {
+.list-cell:selected {
     -fx-background: transparent;
     -fx-padding: 1px 1px 1px 15px;
 }
 
 /* EMPTY LIST CELLS WHITE */
-.list-cell-history:empty {
+.list-cell:empty {
     -fx-background-color: white;
     -fx-border-width: 0px;
 }
@@ -933,11 +933,9 @@
 }
 
 /* NO BORDER */
-.list-view-history {
+.list-view {
   -fx-background-insets: 0;
   -fx-padding: 0;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
 }
 
 
@@ -1173,6 +1171,14 @@
 }
 
 
+.default-color0.chart-series-line { -fx-stroke: #2196F3 }
+.default-color1.chart-series-line { -fx-stroke: #E51400; }
+.default-color2.chart-series-line { -fx-stroke: #FEDE06; }
+.default-color3.chart-series-line { -fx-stroke: #008A00; }
 
+.default-color0.chart-bar { -fx-bar-fill: -swatch-500; }
 
-
+.default-color0.chart-line-symbol { -fx-background-color: #2196F3; }
+.default-color1.chart-line-symbol { -fx-background-color: #E51400; }
+.default-color2.chart-line-symbol { -fx-background-color: #FEDE06; }
+.default-color3.chart-line-symbol { -fx-background-color: #008A00; }
