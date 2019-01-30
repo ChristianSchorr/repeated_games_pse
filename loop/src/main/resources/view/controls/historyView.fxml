@@ -12,6 +12,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 
 <HBox xmlns:fx="http://javafx.com/fxml" fx:controller="loop.controller.HistoryController" >
-    <ListView fx:id="historyList" minWidth="340" style="list-view-history"/>
+    <ListView fx:id="historyList" minWidth="340" styleClass="list-view-history"/>
     <fx:include fx:id="outputView" source="outputView.fxml" GridPane.columnIndex="1" prefWidth="10000"/>
 </HBox>
