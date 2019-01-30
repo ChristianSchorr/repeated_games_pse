@@ -147,7 +147,6 @@ public class AbstractedOutputController {
         
         this.efficiencyChart.setTitle("Efficiency Distribution");
         this.executedAdaptsChart.setTitle("Distribution of Executed Adaption Steps");
-        
         setDisplayedResult(displayedResult);
     }
 
@@ -165,6 +164,7 @@ public class AbstractedOutputController {
         this.config = result.getUserConfiguration();
 
         this.configSlider.setMax(displayedResult.getConfigurationCount());
+        
         update();
     }
 
@@ -177,7 +177,7 @@ public class AbstractedOutputController {
         
         //slider line
         updateSliders();
-
+        
         //efficiency and adapt chart
         updateCharts();
     }
@@ -235,10 +235,15 @@ public class AbstractedOutputController {
             //determine necessary decimal precision
             efficiencies.sort(null);
             double diff = efficiencies.get(efficiencies.size() - 1) - efficiencies.get(0); 
-            int prec = 1;
-            while (diff < 1) {
-                diff *= 10;
-                prec++;
+            int prec;
+            if (Double.compare(diff, 0.0) == 0) {
+                prec = 2;
+            } else {
+                prec = 1;
+                while (diff < 1) {
+                    diff *= 10;
+                    prec++;
+                }
             }
             
             Map<String, Integer> hist = ChartUtils.createHistogram(efficiencies, NUMBER_OF_BINS, CUTOFF, true, prec);
@@ -330,15 +335,19 @@ public class AbstractedOutputController {
     }
     
     private void updateConsideredIterationsComboBox() {
+        
         String prevSelected = this.consideredIterationsComboBox.getValue();
+        
         this.consideredIterationsComboBox.getItems().clear();
         this.consideredIterationsComboBox.getItems().add(ALL);
+        
         if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> it.equilibriumReached())) {
             this.consideredIterationsComboBox.getItems().add(ONLY_EQUI);
         }
         if (displayedResult.getIterationResults(selectedConfigurationNumber).stream().anyMatch(it -> !it.equilibriumReached())) {
             this.consideredIterationsComboBox.getItems().add(ONLY_NO_EQUI);
         }
+        
         this.consideredIterationsComboBox.setValue(this.consideredIterationsComboBox.getItems().contains(prevSelected) ? prevSelected : ALL);
     }
 }

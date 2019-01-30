@@ -1,6 +1,6 @@
 package loop.controller;
 
-import com.sun.webkit.dom.DocumentImpl;
+//import com.sun.webkit.dom.DocumentImpl;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
