@@ -10,6 +10,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import loop.controller.HeadController;
 import loop.model.repository.FileIO;
 
 import java.lang.reflect.Field;
@@ -26,11 +27,20 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/windows/HomeWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/HomeWindow.fxml"));
+        Parent root = loader.load();
+        HeadController controller = loader.getController();
         Scene scene = new Scene(root, 1920, 1080);
 
         stage.setTitle("loop");
         stage.setScene(scene);
+        stage.setOnHidden(e -> {
+            try {
+                controller.closeSimulator(null);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        });
         stage.getIcons().add(new Image(RING_LOGO_PATH));
         stage.show();
     }

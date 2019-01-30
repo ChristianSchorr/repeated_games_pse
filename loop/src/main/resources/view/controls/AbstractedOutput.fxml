@@ -25,10 +25,10 @@
             <!-- <Label styleClass="card-subtitle" text="Efficiency distribution" wrapText="true" /> -->
             <BarChart fx:id="efficiencyChart" legendVisible="false">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" label="Efficiency"/>
+                    <CategoryAxis side="BOTTOM" label="Efficiency" animated="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" label="Iteration Count"/>
+                    <NumberAxis side="LEFT" label="Iteration Count" animated="false"/>
                 </yAxis>
             </BarChart>
             <HBox>
@@ -40,10 +40,10 @@
             <!-- <Label styleClass="card-subtitle" text="Duration until an equilibrium was found" /> -->
             <BarChart fx:id="executedAdaptsChart" legendVisible="false">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" label="Executed Adaption Steps"/>
+                    <CategoryAxis side="BOTTOM" label="Executed Adaption Steps" animated="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" label="Iteration Count"/>
+                    <NumberAxis side="LEFT" label="Iteration Count" animated="false"/>
                 </yAxis>
             </BarChart>
             <HBox>

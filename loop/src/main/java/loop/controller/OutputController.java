@@ -162,17 +162,17 @@ public class OutputController {
     private static final String RUNNING_STYLE = "-fx-border-color: #FEDE06; -fx-padding: 16;";
     private static final String CANCELED_STYLE = "-fx-border-color: #E51400; -fx-padding: 16;";
 
-    private void setNotFinished(ResultHistoryItem resultItem) {
+    private void setNotFinished(SimulationResult resultItem,  Consumer<SimulationResult> cancleHandler) {
         String style = RUNNING_STYLE;
         String view = RUNNING_VIEW;
-        if (resultItem.getResult().getStatus() == SimulationStatus.CANCELED) {
+        if (resultItem.getStatus() == SimulationStatus.CANCELED) {
             style = CANCELED_STYLE;
             view = CANCELED_VIEW;
         }
         box.setStyle(style);
         box.getChildren().clear();
 
-        RunningOutputController controller = new RunningOutputController(resultItem);
+        RunningOutputController controller = new RunningOutputController(resultItem, cancleHandler);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
         fxmlLoader.setController(controller);
         try {
@@ -190,8 +190,7 @@ public class OutputController {
      *
      * @param resultItem the result that shall be displayed
      */
-    public void setDisplayedResult(ResultHistoryItem resultItem) {
-        SimulationResult result = resultItem.getResult();
+    public void setDisplayedResult(SimulationResult result, Consumer<SimulationResult> cancleHandler) {
         this.displayedResult = result;
 
         if (result == null) {
@@ -201,7 +200,7 @@ public class OutputController {
         }
 
         if (result.getStatus() != SimulationStatus.FINISHED) {
-            setNotFinished(resultItem);
+            setNotFinished(result, cancleHandler);
             return;
         }
         box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");
