@@ -127,13 +127,13 @@ public class UserConfiguration implements Serializable {
         boolean mixedStrategies = true;
         
         String capitalDistributionName = DiscreteUniformDistribution.NAME;
-        List<Double> distParameters = toList(0.0, 0.0);
+        List<Double> distParameters = toList(0.0, 10.0);
         List<String> strategyNames = toList(PureStrategy.alwaysCooperate().getName(), PureStrategy.neverCooperate().getName(),
                 PureStrategy.titForTat().getName(), PureStrategy.grim().getName());
         Segment segment = new Segment(capitalDistributionName, distParameters, strategyNames);
-        Group group = new Group("DEFAULT_GROUP", "", toList(segment), toList(1.0), false);
+        Group group = new Group("Die Manfreds", "Manfreds sind sehr launisch. Mal sind sie ganz lieb und mal auch eben nicht.", toList(segment), toList(1.0), true);
         CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
-        Population population = new Population("DEFAULT_POPULATION", "", toList(group.getName()), toList(agentCount));
+        Population population = new Population("Manfreds unter sich", "Fünfzig Manfred ungestört unter sich.", toList(group.getName()), toList(agentCount));
         CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
         
         UserConfiguration defaultConfiguration = new UserConfiguration(gameName, roundCount, iterationCount, mixedStrategies, population.getName(),
