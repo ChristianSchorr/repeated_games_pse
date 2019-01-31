@@ -253,7 +253,21 @@ public class HeadController {
 
     @FXML
     void showHelp(ActionEvent event) {
-        //TODO
+    	Parent newHelpParent = null;
+        try {
+            newHelpParent = FXMLLoader.load(getClass().getResource("/view/windows/HelpWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newHelpScene = new Scene(newHelpParent);
+        Stage newHelpWindow = new Stage();
+        newHelpWindow.setTitle("Help");
+        newHelpWindow.setScene(newHelpScene);
+
+        // Specifies the modality for new window.
+        newHelpWindow.initModality(Modality.APPLICATION_MODAL);
+        newHelpWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
+        newHelpWindow.show();
     }
 
     @FXML
