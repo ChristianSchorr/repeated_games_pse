@@ -17,6 +17,7 @@
 
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
             xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="loop.controller.StrategyController" prefWidth="1000">
@@ -28,8 +29,8 @@
             </columnConstraints>
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new strategy"/>
-                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name of the strategy" maxWidth="350" />
-                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Description"/>
+                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name of the strategy" maxWidth="350"/>
+                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Description" maxWidth="350"/>
             </VBox>
             <HBox GridPane.columnIndex="1" alignment="CENTER" spacing="10">
                 <Button styleClass="setting-button" onAction="#reset">
@@ -44,7 +45,7 @@
                 </Button>
                 <Button onAction="#applyStrategy">
                     <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: grey"/>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00"/>
                     </graphic>
                 </Button>
             </HBox>
