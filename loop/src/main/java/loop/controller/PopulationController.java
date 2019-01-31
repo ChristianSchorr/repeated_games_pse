@@ -255,7 +255,18 @@ public class PopulationController implements CreationController<Population> {
             return;
         }
         
-        setPopulation(population);
+        List<String> unknownGroups = population.getGroupNames().stream().filter(
+                name -> !CentralRepository.getInstance().getGroupRepository().containsEntityName(name)).collect(Collectors.toList());
+        
+        if (unknownGroups.isEmpty()) {
+            setPopulation(population);
+            return;
+        }
+        
+        String errorMsg = "The chosen population contains unknow groups:";
+        for (String name: unknownGroups) errorMsg += "\n - " + name;
+        Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+        alert.showAndWait();
     }
     
     private void setPopulation(Population population) {
@@ -269,9 +280,8 @@ public class PopulationController implements CreationController<Population> {
         this.totalAgentCountProperty.setValue(population.getSize());
         totalAgentCountLabel.setText(String.format("%d", totalAgentCountProperty.getValue()));
         
-        for (Group group: population.getGroups()) {
-            String groupName = group.getName();
-            int agentCount = population.getGroupSize(group);
+        for (String groupName: population.getGroupNames()) {
+            int agentCount = population.getGroupSize(groupName);
             
             //update flow pane
             GroupCellController cellController = new GroupCellController(groupName, agentCount, this);
@@ -297,10 +307,9 @@ public class PopulationController implements CreationController<Population> {
     }
     
     private Population createPopulation() {
-        List<Group> groups = selectedGroups.stream().map(
-                g -> CentralRepository.getInstance().getGroupRepository().getEntityByName(g)).collect(Collectors.toList());
+        List<String> groupNames = selectedGroups;
         Population population = new Population(this.populationNameTextField.getText(), this.populationDescriptionTextField.getText(),
-                groups, groupSizes);
+                groupNames, groupSizes);
         return population;
     }
     

@@ -29,11 +29,11 @@ public class Main extends Application {
     
     @FXML
     public void init() {
-        try {
+        /*try {
             Thread.sleep(SplashScreenLoader.animationMillis + 500); //let splash animation play
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
     
     @Override

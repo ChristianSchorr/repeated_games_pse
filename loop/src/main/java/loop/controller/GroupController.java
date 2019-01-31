@@ -24,6 +24,7 @@ import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
 import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
+import loop.model.simulationengine.strategies.Strategy;
 import loop.view.controls.multislider.MultiSlider;
 import loop.view.controls.multislider.Range;
 import org.controlsfx.control.ListSelectionView;
@@ -219,13 +220,6 @@ public class GroupController implements CreationController<Group> {
             //overwrite group in repository and populations
             String groupName = groupNameTextField.getText();
             CentralRepository.getInstance().getGroupRepository().removeEntity(groupName);
-            CentralRepository.getInstance().getPopulationRepository().getAllEntities().stream()
-                .filter(pop -> pop.getGroups().stream().anyMatch(g -> g.getName().equals(groupName))).forEach(pop -> {
-                    List<Group> groups = pop.getGroups();
-                    int index = groups.indexOf(groups.stream().filter(g -> g.getName().equals(groupName)).findAny().get());
-                    groups.remove(index);
-                    groups.add(index, group);
-                });
         }
 
         this.elementCreatedHandlers.forEach(handler -> handler.accept(group));
@@ -272,8 +266,41 @@ public class GroupController implements CreationController<Group> {
             e.printStackTrace();
             return;
         }
-
-        setGroup(group);
+        
+        List<String> unknownStrategies = new ArrayList<String>();
+        List<String> unknownCapitalDistributionNames = new ArrayList<String>();
+        group.getSegments().forEach(seg -> {
+            seg.getStrategyNames().forEach(stratName -> {
+                if (!CentralRepository.getInstance().getStrategyRepository().containsEntityName(stratName))
+                    if (!unknownStrategies.contains(stratName)) unknownStrategies.add(stratName);
+                });
+            String distName = seg.getCapitalDistributionName();
+            if (!CentralRepository.getInstance().getDiscreteDistributionRepository().containsEntityName(distName)) {
+                if (!unknownCapitalDistributionNames.contains(distName)) {
+                    unknownCapitalDistributionNames.add(distName);
+                }
+            }
+        });
+        
+        if (unknownStrategies.isEmpty() && unknownCapitalDistributionNames.isEmpty()) {
+            setGroup(group);
+            return;
+        }
+        
+        String errorMsg = "";
+        if (!unknownStrategies.isEmpty()) {
+            errorMsg += "The selected group contains the following unknown stratgies:";
+            for (String strat: unknownStrategies) errorMsg += "\n - " + strat;
+            errorMsg += "\n";
+        }
+        
+        if (!unknownCapitalDistributionNames.isEmpty()) {
+            errorMsg += "\nThe selected group contains the following unknown capital distributions:";
+            for (String dist: unknownCapitalDistributionNames) errorMsg += "\n - " + dist;
+        }
+        
+        Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+        alert.showAndWait();
     }
 
     private void setGroup(Group group) {
