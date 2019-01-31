@@ -48,7 +48,7 @@ public enum MulticonfigurationParameterType {
     /**
      * The maximum of executed adaption steps per iteration.
      */
-    MAX_ADAPTS("maximum of executed adaption steps per iteration"),
+    MAX_ADAPTS("max. adaption steps"),
     
     /**
      * The amount of agents in a group.
@@ -58,7 +58,7 @@ public enum MulticonfigurationParameterType {
     /**
      * The relative size of a segment in a group.
      */
-    SEGMENT_SIZE("relative size of the first segment in group %s");
+    SEGMENT_SIZE("segment size (group: %s)");
     
     private String descriptionFormat;
     

@@ -131,7 +131,7 @@
                         <Label fx:id="gameNameLabel" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                         <Label styleClass="control-label" text="Number of agents:" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <Label fx:id="agentCountLabel" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                        <Label styleClass="control-label" text="Number of iterations" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label styleClass="control-label" text="Number of iterations:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="iterationCountLabel" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label styleClass="control-label" text="Rounds per adaption step:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Label fx:id="roundCountLabel" GridPane.columnIndex="4" GridPane.rowIndex="1" />
