@@ -41,8 +41,7 @@ public class MulticonfigurationParameter implements Serializable {
      * @param stepSize the step size of the parameter
      */
     public MulticonfigurationParameter(MulticonfigurationParameterType type, int startValue, int endValue, int stepSize) {
-        if (!(type.equals(MulticonfigurationParameterType.ROUND_COUNT) || type.equals(MulticonfigurationParameterType.MAX_ADAPTS)
-              || type.equals(MulticonfigurationParameterType.ITERATION_COUNT))) {
+        if (!(type.equals(MulticonfigurationParameterType.ROUND_COUNT) || type.equals(MulticonfigurationParameterType.MAX_ADAPTS))) {
             throw new IllegalArgumentException("Wrong constructor used.");
         }
         this.type = type;

@@ -9,11 +9,6 @@ package loop.model;
 public enum MulticonfigurationParameterType {
 
     /**
-     * The amount of iterations in this simulation
-     */
-    ITERATION_COUNT("iteration count"),
-
-    /**
      * The amount of rounds per adaption step.
      */
     ROUND_COUNT("round count"),
