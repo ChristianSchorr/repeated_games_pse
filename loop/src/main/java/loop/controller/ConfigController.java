@@ -131,8 +131,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     private ObjectProperty<MultiParamItem> multiParamProperty = new SimpleObjectProperty<>();
     private DoubleProperty startValueProperty = new SimpleDoubleProperty();
-    private DoubleProperty endValueProperty = new SimpleDoubleProperty(1);
-    private DoubleProperty stepSizeProperty = new SimpleDoubleProperty();
+    private DoubleProperty endValueProperty = new SimpleDoubleProperty(0);
+    private DoubleProperty stepSizeProperty = new SimpleDoubleProperty(1);
 
     private PluginControl pairBuilderControl;
     private PluginControl successQuantifierControl;
@@ -304,7 +304,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             }
         });
 
-        support.registerValidator(stepSize,false , new DoubleValidator("step size has to be a number"));
+        support.registerValidator(stepSize,false , new DoubleValidator("step size has to be a positve number", d -> d > 0));
 
         startValueProperty.addListener((c, oldV, newV) -> {
             String endVal = endValue.getText();
@@ -436,8 +436,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
         items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
 
         for (Group grp : newPopulation.getGroups()) {
+            String grpSize = "group size: " + grp.getName();
+            items.add(new MultiParamItem(MulticonfigurationParameterType.GROUP_SIZE, grpSize,
+                    new DoubleValidator("group size has to be greater than 0", d -> d >= 0), null));
             if (grp.getSegmentCount() == 2) {
-                String str = "segment size:" + grp.getName();
+                String str = "segment size: " + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,
                         new DoubleValidator("segment size has to be between 0 and 1", (d) -> d >= 0 && d <= 1), null));
             }
@@ -559,6 +562,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 multiParamProperty.setValue(multiParamBox.getItems()
                         .filtered((item) -> item.displayString.endsWith(param.getGroupName())).get(0));
                 break;
+            case GROUP_SIZE:
+                multiParamProperty.setValue(multiParamBox.getItems()
+                        .filtered((item) -> item.displayString.endsWith(param.getGroupName())).get(0));
             default:
                 // TODO CapitalDistribution, Segment size, Group Size
                 break;
@@ -616,6 +622,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     break;
                 case SEGMENT_SIZE:
                     param = new MulticonfigurationParameter(startValue, endValue, stepSize, parts[1]);
+                    break;
+                case GROUP_SIZE:
+                    param = new MulticonfigurationParameter((int)startValue, (int)endValue, (int)stepSize, parts[1]);
                     break;
                 default:
                     // TODO CapitalDistribution,Group Size
