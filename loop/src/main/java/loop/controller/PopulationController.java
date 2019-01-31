@@ -255,7 +255,18 @@ public class PopulationController implements CreationController<Population> {
             return;
         }
         
-        setPopulation(population);
+        List<String> unknownGroups = population.getGroupNames().stream().filter(
+                name -> !CentralRepository.getInstance().getGroupRepository().containsEntityName(name)).collect(Collectors.toList());
+        
+        if (unknownGroups.isEmpty()) {
+            setPopulation(population);
+            return;
+        }
+        
+        String errorMsg = "The chosen population contains unknow groups:";
+        for (String name: unknownGroups) errorMsg += "\n - " + name;
+        Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+        alert.showAndWait();
     }
     
     private void setPopulation(Population population) {
