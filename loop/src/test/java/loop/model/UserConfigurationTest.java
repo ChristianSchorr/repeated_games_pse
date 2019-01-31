@@ -42,7 +42,7 @@ public class UserConfigurationTest {
 		equilibriumCriterionParameters = new ArrayList<Double>();
 		equilibriumCriterionParameters.add(0.1);
 		equilibriumCriterionParameters.add(100.0);
-		multiconfigurationParameter = new MulticonfigurationParameter(MulticonfigurationParameterType.ITERATION_COUNT, 10, 30, 5);
+		multiconfigurationParameter = new MulticonfigurationParameter(MulticonfigurationParameterType.ROUND_COUNT, 10, 30, 5);
 		testUserConfiguration = new UserConfiguration("testUserConfiguration", 200, 16, true, "testPopulation",
 				"Random Pair Builder", pairBuilderParameters, "Total Capital", successQuantifierParameters, "Replicator Dynamic",
 				strategyAdjusterParameters, "Ranking Equilibrium", equilibriumCriterionParameters, 500, true, multiconfigurationParameter);
@@ -103,7 +103,7 @@ public class UserConfigurationTest {
 		assertEquals(200, testUserConfiguration.getRoundCount());
 		assertEquals(8, testUserConfiguration.getIterationCount());
 		assertTrue(testUserConfiguration.getMixedAllowed());
-		assertTrue(testUserConfiguration.getPopulationName().equals("DEFAULT_POPULATION"));
+		assertTrue(testUserConfiguration.getPopulationName().equals("Manfreds unter sich"));
 		assertTrue(testUserConfiguration.getPairBuilderName().equals(RandomPairBuilder.NAME));
 		List<Double> testPairBuilderParameters = testUserConfiguration.getPairBuilderParameters();
 		assertEquals(0, testPairBuilderParameters.size());

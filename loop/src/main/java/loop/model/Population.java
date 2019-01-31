@@ -15,13 +15,10 @@ import loop.model.Nameable;
  */
 
 public class Population implements Nameable, Serializable {
+	   
+	private static final long serialVersionUID = 1L;
 	
-	/**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-    
-    private String name;
+	private String name;
 	private String description;
 	private List<String> groupNames;
 	private List<Integer> groupSizes;

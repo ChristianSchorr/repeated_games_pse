@@ -32,7 +32,6 @@ public class MulticonfigurationParameterTest {
 		parameterValues.add(25.0);
 		parameterValues.add(30.0);	
 		
-		counters.add(MulticonfigurationParameterType.ITERATION_COUNT);
 		counters.add(MulticonfigurationParameterType.ROUND_COUNT);
 		counters.add(MulticonfigurationParameterType.MAX_ADAPTS);
 		
@@ -75,9 +74,7 @@ public class MulticonfigurationParameterTest {
 	@Test
 	public void testValidConstrucors() {
 		for (MulticonfigurationParameterType t: counters) {
-			if (!t.equals(MulticonfigurationParameterType.ITERATION_COUNT)) {
-				testCountConstructor(t);
-			}			
+			testCountConstructor(t);			
 		}
 		
 		for (MulticonfigurationParameterType t: others) {
@@ -96,14 +93,12 @@ public class MulticonfigurationParameterTest {
 	@Test
 	public void testGetGroupName() {
 		for (MulticonfigurationParameterType t: counters) {
-			if (!t.equals(MulticonfigurationParameterType.ITERATION_COUNT)) {
-				testCountConstructor(t);
-				try {
-					multiconfigurationParameter.getGroupName();
-				} catch (NullPointerException e){					
-					assertEquals(e.getMessage(), "group name not defined for multiconfiguration parameter '" + 
-						multiconfigurationParameter.getParameterName() + "'.");
-				}
+			testCountConstructor(t);
+			try {
+				multiconfigurationParameter.getGroupName();
+			} catch (NullPointerException e){					
+				assertEquals(e.getMessage(), "group name not defined for multiconfiguration parameter '" + 
+					multiconfigurationParameter.getParameterName() + "'.");
 			}
 		}
 		
@@ -116,9 +111,7 @@ public class MulticonfigurationParameterTest {
 					multiconfigurationParameter.getParameterName() + "'.");
 			}
 		}
-		
-		assertTrue(multiconfigurationParameter.getGroupName() == "group name");
-		
+				
 		type = MulticonfigurationParameterType.GROUP_SIZE;
 		testGroupSizeConstructor();
 		assertTrue(multiconfigurationParameter.getGroupName() == "group name");
