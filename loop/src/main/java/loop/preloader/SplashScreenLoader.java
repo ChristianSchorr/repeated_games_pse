@@ -25,8 +25,8 @@ import javafx.util.Duration;
 
 public class SplashScreenLoader extends Preloader {
     
-    private static final String GIFPath = "/Splash.gif";
-    public static final int animationMillis = 3500;
+    private static final String GIFPath = "/SplashVersion2.gif";
+    public static final int animationMillis = 4500;
     private Stage splashScreen;
 
     @Override
@@ -45,12 +45,12 @@ public class SplashScreenLoader extends Preloader {
         splashScreen.show();
     }
 
-    @Override
+    /*@Override
     public void handleApplicationNotification(PreloaderNotification notification) {
         if (notification instanceof StateChangeNotification) {
             splashScreen.hide();
         }
-    }
+    }*/
     
     @Override
     public void handleStateChangeNotification(StateChangeNotification stateChangeNotification) {
