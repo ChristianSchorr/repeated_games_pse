@@ -17,7 +17,9 @@
 
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
-<ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: #EAEAeA; -fx-padding: 10;" stylesheets="@../style.css"
+<?import javafx.scene.image.ImageView?>
+<ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: #EAEAeA; -fx-padding: 10;"
+            stylesheets="@../style.css"
             xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="loop.controller.StrategyController" prefWidth="1000">
     <VBox spacing="10" styleClass="card">
@@ -28,8 +30,8 @@
             </columnConstraints>
             <VBox spacing="10">
                 <Label styleClass="card-title" text="Create a new strategy"/>
-                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name of the strategy" maxWidth="350" />
-                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Description"/>
+                <TextField fx:id="nameField" alignment="CENTER_LEFT" promptText="Name of the strategy" maxWidth="350"/>
+                <TextField fx:id="descriptionField" alignment="CENTER_LEFT" promptText="Description" maxWidth="350"/>
             </VBox>
             <HBox GridPane.columnIndex="1" alignment="CENTER" spacing="10">
                 <Button styleClass="setting-button" onAction="#reset">
@@ -44,7 +46,7 @@
                 </Button>
                 <Button onAction="#applyStrategy">
                     <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: grey"/>
+                        <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00"/>
                     </graphic>
                 </Button>
             </HBox>
@@ -75,7 +77,7 @@
                 <Label text="The opponent has"/>
                 <ChoiceBox fx:id="timeAdvBox"/>
                 <Label text="cooperated with an agent that"/>
-                <ChoiceBox fx:id="predBox" />
+                <ChoiceBox fx:id="predBox"/>
                 <Label text="as the agent himself"/>
                 <Button onAction="#handleAddInd">
                     <graphic>
@@ -90,6 +92,11 @@
                         <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
                 </Button>
+            </HBox>
+            <Separator orientation="VERTICAL" style="-fx-padding: 0"/>
+            <HBox spacing="5" style="-fx-padding: 5" styleClass="card" alignment="center">
+                <Label text="max. deviation between values that are considered as similar"/>
+                <TextField fx:id="percentageBox" maxWidth="50" alignment="CENTER"/>
             </HBox>
         </FlowPane>
         <FlowPane fx:id="operatorContainer" hgap="10" vgap="10">
