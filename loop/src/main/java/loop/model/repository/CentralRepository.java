@@ -251,20 +251,22 @@ public class CentralRepository {
 		}
 	    
 	    //refresh groups in populations; if one of the contained groups was changed, change it in the population
-	    populationRepo.getAllEntities().forEach((pop) -> refreshPopulation(pop));
+	    //populationRepo.getAllEntities().forEach((pop) -> refreshPopulation(pop));
 	    
 	    
 		loadPlugins();
 	}
-	    
-	public void refreshPopulation(Population population) {
+	   
+	
+	//TODO
+	/*public void refreshPopulation(Population population) {
 	    List<Group> groups = population.getGroups();
 	    for (int i = 0; i < groups.size(); i++) {
 	        Group g = groups.get(i);
 	        if (!groupRepo.containsEntityName(g.getName())) continue;
 	        groups.set(i, groupRepo.getEntityByName(g.getName()));
 	    }
-	}
+	}*/
 	
 	private void loadPlugins() {
 		List<Plugin.PairBuilderPlugin> pairBuilderPlugins = PluginLoader.loadPlugins(Plugin.PairBuilderPlugin.class);

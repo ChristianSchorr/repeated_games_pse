@@ -133,7 +133,7 @@ public class UserConfiguration implements Serializable {
         Segment segment = new Segment(capitalDistributionName, distParameters, strategyNames);
         Group group = new Group("DEFAULT_GROUP", "", toList(segment), toList(1.0), false);
         CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
-        Population population = new Population("DEFAULT_POPULATION", "", toList(group), toList(agentCount));
+        Population population = new Population("DEFAULT_POPULATION", "", toList(group.getName()), toList(agentCount));
         CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
         
         UserConfiguration defaultConfiguration = new UserConfiguration(gameName, roundCount, iterationCount, mixedStrategies, population.getName(),

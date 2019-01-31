@@ -1,7 +1,9 @@
 package loop.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import loop.model.Nameable;
 
@@ -14,15 +16,33 @@ import loop.model.Nameable;
 
 public class Population implements Nameable, Serializable {
 	
-	private String name;
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    private String name;
 	private String description;
-	private List<Group> groups;
+	private List<String> groupNames;
 	private List<Integer> groupSizes;
 	
-	public Population(String name, String description, List<Group> groups, List<Integer> groupSizes) {
-	    if (groups.size() != groupSizes.size()) {
+	public Population(String name, String description, List<String> groupNames, List<Integer> groupSizes) {
+	    if (groupNames.size() != groupSizes.size()) {
             throw new IllegalArgumentException("Invalid parameters in creation of new population: more or less groups given then group sizes.");
         }
+	    
+	    //check for duplicates
+	    Map<String, Boolean> hashMap = new HashMap<String, Boolean>();
+	    boolean duplicate = false;
+	    for (String s: groupNames) {
+	        if (hashMap.putIfAbsent(s, true) == true) {
+	            duplicate = true;
+	        }
+	    }
+	    if (duplicate) {
+	        throw new IllegalArgumentException("A group cannot be contained more than once in a population.");
+	    }
+	    
 	    int sizeSum = 0;
         for (Integer a: groupSizes) {
             if (a < 1)
@@ -36,7 +56,7 @@ public class Population implements Nameable, Serializable {
 	    
 	    this.name = name;
 		this.description = description;
-		this.groups = groups;
+		this.groupNames = groupNames;
 		this.groupSizes = groupSizes;
 	}
 	
@@ -54,8 +74,8 @@ public class Population implements Nameable, Serializable {
 	 * 
 	 * @return the groups this population is composed of
 	 */
-	public List<Group> getGroups() {
-		return this.groups;
+	public List<String> getGroupNames() {
+		return this.groupNames;
 	}
 	
 	/**
@@ -64,9 +84,9 @@ public class Population implements Nameable, Serializable {
 	 * @param group the group whose size shall be returned
 	 * @return the size of the given group if it is part of this population, 0 otherwise
 	 */
-	public int getGroupSize(Group group) {
-		if (this.getGroups().contains(group)) {
-			int groupIndex = this.getGroups().indexOf(group);
+	public int getGroupSize(String groupName) {
+		if (this.getGroupNames().contains(groupName)) {
+			int groupIndex = this.getGroupNames().indexOf(groupName);
 			return this.groupSizes.get(groupIndex);
 		} else return 0;
 	}
@@ -86,7 +106,7 @@ public class Population implements Nameable, Serializable {
 	 * @return the amount of groups in this population
 	 */
 	public int getGroupCount() {
-		return this.groups.size();
+		return this.groupNames.size();
 	}
 	
 	/**
