@@ -64,12 +64,14 @@ public class ConfigurationCreatorTest {
         Segment g1seg1 = new Segment(PoissonDistribution.NAME, toList(10.0), toList(PureStrategy.alwaysCooperate().getName()));
         Segment g1seg2 = new Segment(PoissonDistribution.NAME, toList(10.0), toList(PureStrategy.neverCooperate().getName()));
         group1 = new Group("Group 1", "This is Group 1", toList(g1seg1, g1seg2), toList(0.5, 0.5), false);
+        CentralRepository.getInstance().getGroupRepository().addEntity(group1.getName(), group1);
         
         Segment g2seg1 = new Segment(BinomialDistribution.NAME, toList(0.0, 20.0, 0.5),
                 toList(PureStrategy.groupGrim().getName(), PureStrategy.groupTitForTat().getName()));
         group2 = new Group("Group 2", "This is Group 2", toList(g2seg1), toList(1.0), true);
+        CentralRepository.getInstance().getGroupRepository().addEntity(group2.getName(), group2);
         
-        population = new Population("Population", "This is a population", toList(group1, group2), toList(100, 100));
+        population = new Population("Population", "This is a population", toList(group1.getName(), group2.getName()), toList(100, 100));
         populationName = population.getName();
         CentralRepository.getInstance().getPopulationRepository().addEntity(populationName, population);
     }
@@ -224,61 +226,6 @@ public class ConfigurationCreatorTest {
     }
     
     @Test
-    public void testMultiCDParams() {
-        double start = 1.0;
-        double end = 100.0;
-        double step = 5.0;
-        int configCount = 20;
-        //lambda
-        MulticonfigurationParameter multiParam = 
-            new MulticonfigurationParameter(start, end, step,
-                CentralRepository.getInstance().getDiscreteDistributionRepository().getEntityByName(PoissonDistribution.NAME).getParameters().get(0).getName(),
-                group1.getName(), 1);
-        
-        UserConfiguration userConfig = new UserConfiguration(gameName, roundCount, iterationCount, mixedAllowed, populationName, pairBuilderName,
-                pairBuilderParameters, successQuantifierName, successQuantifierParameters, strategyAdjusterName, strategyAdjusterParameters,
-                equilibriumCriterionName, equilibriumCriterionParameters, maxAdapts, true, multiParam);
-        
-        List<Configuration> configs = null;
-        try {
-            configs = ConfigurationCreator.generateConfigurations(userConfig);
-        } catch (ConfigurationException e) {
-            e.printStackTrace();
-            fail("ConfigurationException occured.");
-        }
-        assertNotNull(configs);
-        assertEquals(configCount, configs.size());
-        
-        for (int i = 0; i < configCount ; i++) {
-            Configuration config = configs.get(i);
-            assertEquals(gameName, config.getGame().getName());
-            assertEquals(roundCount, config.getRoundCount());
-            assertEquals(mixedAllowed, config.allowsMixedStrategies());
-            assertEquals(maxAdapts, config.getMaxAdapts());
-            testAlgorithmClasses(config);
-            testSegments(config);
-            
-            EngineSegment g1seg2 = config.getSegments().get(1);
-            DiscreteDistribution dist = g1seg2.getCapitalDistribution();
-            Class<?> distClass = dist.getClass();
-            Field field = null;
-            try {
-                field = distClass.getDeclaredField("lambda");
-            } catch (NoSuchFieldException | SecurityException e) {
-                e.printStackTrace();
-            }
-            field.setAccessible(true);
-            double lambda = -1.0;
-            try {
-                lambda = field.getDouble(dist);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            assertEquals(start + i * step, lambda, Math.pow(10, -7));
-        }
-    }
-    
-    @Test
     public void testMultiGroupSizes() {
         int start = 50;
         int end = 150;
@@ -368,14 +315,14 @@ public class ConfigurationCreatorTest {
             EngineSegment g1seg2 = segments.get(1);
             double segmentSize = start + i * step;
             //g1seg1
-            assertEquals((int) (segmentSize * population.getGroupSize(group1)), g1seg1.getAgentCount(), 2); //allow some rounding errors
+            assertEquals((int) (segmentSize * population.getGroupSize(group1.getName())), g1seg1.getAgentCount(), 2); //allow some rounding errors
             assertTrue(g1seg1.getCapitalDistribution() instanceof PoissonDistribution);
             assertEquals(1, g1seg1.getStrategyDistribution().getSupport().size());
             assertEquals(PureStrategy.alwaysCooperate().getName(), g1seg1.getStrategyDistribution().getPicker().pickOne().getName());
             assertEquals(-1, g1seg1.getGroupId());
             
             //g1seg2
-            assertEquals((int) ((1.0 - segmentSize) * population.getGroupSize(group1)), g1seg2.getAgentCount(), 2); //allow some rounding errors
+            assertEquals((int) ((1.0 - segmentSize) * population.getGroupSize(group1.getName())), g1seg2.getAgentCount(), 2); //allow some rounding errors
             assertTrue(g1seg2.getCapitalDistribution() instanceof PoissonDistribution);
             assertEquals(1, g1seg2.getStrategyDistribution().getSupport().size());
             assertEquals(PureStrategy.neverCooperate().getName(), g1seg2.getStrategyDistribution().getPicker().pickOne().getName());

@@ -35,7 +35,7 @@ public class Population implements Nameable, Serializable {
 	    Map<String, Boolean> hashMap = new HashMap<String, Boolean>();
 	    boolean duplicate = false;
 	    for (String s: groupNames) {
-	        if (hashMap.putIfAbsent(s, true) == true) {
+	        if (hashMap.putIfAbsent(s, true) != null) {
 	            duplicate = true;
 	        }
 	    }

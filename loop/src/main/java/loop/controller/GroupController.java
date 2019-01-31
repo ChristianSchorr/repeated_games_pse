@@ -219,13 +219,6 @@ public class GroupController implements CreationController<Group> {
             //overwrite group in repository and populations
             String groupName = groupNameTextField.getText();
             CentralRepository.getInstance().getGroupRepository().removeEntity(groupName);
-            CentralRepository.getInstance().getPopulationRepository().getAllEntities().stream()
-                .filter(pop -> pop.getGroups().stream().anyMatch(g -> g.getName().equals(groupName))).forEach(pop -> {
-                    List<Group> groups = pop.getGroups();
-                    int index = groups.indexOf(groups.stream().filter(g -> g.getName().equals(groupName)).findAny().get());
-                    groups.remove(index);
-                    groups.add(index, group);
-                });
         }
 
         this.elementCreatedHandlers.forEach(handler -> handler.accept(group));

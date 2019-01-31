@@ -269,9 +269,8 @@ public class PopulationController implements CreationController<Population> {
         this.totalAgentCountProperty.setValue(population.getSize());
         totalAgentCountLabel.setText(String.format("%d", totalAgentCountProperty.getValue()));
         
-        for (Group group: population.getGroups()) {
-            String groupName = group.getName();
-            int agentCount = population.getGroupSize(group);
+        for (String groupName: population.getGroupNames()) {
+            int agentCount = population.getGroupSize(groupName);
             
             //update flow pane
             GroupCellController cellController = new GroupCellController(groupName, agentCount, this);
@@ -297,10 +296,9 @@ public class PopulationController implements CreationController<Population> {
     }
     
     private Population createPopulation() {
-        List<Group> groups = selectedGroups.stream().map(
-                g -> CentralRepository.getInstance().getGroupRepository().getEntityByName(g)).collect(Collectors.toList());
+        List<String> groupNames = selectedGroups;
         Population population = new Population(this.populationNameTextField.getText(), this.populationDescriptionTextField.getText(),
-                groups, groupSizes);
+                groupNames, groupSizes);
         return population;
     }
     

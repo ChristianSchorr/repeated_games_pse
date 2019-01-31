@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 
 public class ConfigController implements CreationController<UserConfiguration> {
@@ -431,8 +432,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
         items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
-
-        for (Group grp : newPopulation.getGroups()) {
+        
+        List<Group> groups = newPopulation.getGroupNames().stream().map(
+                name -> repository.getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
+        
+        for (Group grp : groups) {
             String grpSize = "group size: " + grp.getName();
             items.add(new MultiParamItem(MulticonfigurationParameterType.GROUP_SIZE, grpSize,
                     new DoubleValidator("group size has to be greater than 0", d -> d >= 0), null));
