@@ -40,17 +40,17 @@
                     <Glyph fontFamily="FontAwesome" fontSize="40" icon="CLOSE" style="-fx-text-fill: #E51400"/>
                 </graphic>
                 <tooltip>
-                    <Tooltip text="Cancle this Simulation"/>
+                    <Tooltip text="Cancel this Simulation"/>
                 </tooltip>
             </Button>
-            <Label text="Cancle" style="-fx-text-fill: #E51400; -fx-font-size: 20" disable="true"/>
+            <Label text="Cancel" style="-fx-text-fill: #E51400; -fx-font-size: 20" disable="true"/>
         </HBox>
     </HBox>
     <VBox spacing="100">
         <Separator style="-fx-padding: 10 0"/>
         <GridPane alignment="CENTER">
             <HBox alignment="CENTER">
-                <Label text="Simulation has been canceled" style="-fx-text-fill: #E51400; -fx-font-size: 30"/>
+                <Label text="Simulation has been cancelled" style="-fx-text-fill: #E51400; -fx-font-size: 30"/>
                 <Label visible="false" disable="true" fx:id="dotLabel" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
             </HBox>
         </GridPane>
