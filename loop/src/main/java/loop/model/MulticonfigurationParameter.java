@@ -117,29 +117,6 @@ public class MulticonfigurationParameter implements Serializable {
         createParameterValueList();
     }
     
-    /**
-     * Constructor for CD_PARAM
-     * 
-     * @param startValue the start value of the parameter
-     * @param endValue the end value of the parameter
-     * @param stepSize the step size of the parameter
-     * @param parameterName the name of the parameter
-     * @param groupName the name of the group that contains the segment whose capital distribution is multiconfigured
-     * @param segmentIndex the index of the segment whose capital distribution is multiconfigured within its group
-     */
-    public MulticonfigurationParameter(double startValue, double endValue, double stepSize, String parameterName, String groupName, int segmentIndex) {
-        this.type = MulticonfigurationParameterType.CD_PARAM;
-        this.parameterName = parameterName;
-        this.startValue = startValue;
-        this.endValue = endValue;
-        this.stepSize = stepSize;
-        
-        this.groupName = groupName;
-        this.segmentIndex = segmentIndex;
-        
-        createParameterValueList();
-    }
-    
     private void createParameterValueList() {
         this.parameterValues = new ArrayList<Double>();
         double param = startValue;
@@ -174,29 +151,15 @@ public class MulticonfigurationParameter implements Serializable {
     }
     
     /**
-     * Returns the group name of the multiconfigured group if this parameter is of type GROUP_SIZE, SEGMENT_SIZE or CD_PARAM,
+     * Returns the group name of the multiconfigured group if this parameter is of type GROUP_SIZE, SEGMENT_SIZE,
      * otherwise throws an exception.
      * 
-     * @return the group name of the multiconfigured group if this parameter is of type GROUP_SIZE, SEGMENT_SIZE or CD_PARAM
+     * @return the group name of the multiconfigured group if this parameter is of type GROUP_SIZE, SEGMENT_SIZE
      */
     public String getGroupName() {
-        if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
-                || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
+        if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE))) {
             throw new NullPointerException("group name not defined for multiconfiguration parameter '" + this.parameterName + "'.");
         }
         return this.groupName;
-    }
-    
-    /**
-     * Returns the index of the multiconfigured segment in the multiconfigured group if this is of type CD_PARAM, otherwise throws
-     * an exception.
-     * 
-     * @return the index of the multiconfigured segment in the multiconfigured group if this is of type CD_PARAM
-     */
-    public int getSegmentIndex() {
-        if (!type.equals(MulticonfigurationParameterType.CD_PARAM)) {
-            throw new NullPointerException("segment index not defined for multiconfiguration parameter '" + this.parameterName + "'.");
-        }
-        return this.segmentIndex;
     }
 }

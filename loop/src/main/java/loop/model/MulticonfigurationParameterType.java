@@ -41,11 +41,6 @@ public enum MulticonfigurationParameterType {
     EC_PARAM("%s"),
     
     /**
-     * A parameter of the selected capital distribution.
-     */
-    CD_PARAM("%s"),
-    
-    /**
      * The maximum of executed adaption steps per iteration.
      */
     MAX_ADAPTS("max. adaption steps"),
