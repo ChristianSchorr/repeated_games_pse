@@ -131,7 +131,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     private ObjectProperty<MultiParamItem> multiParamProperty = new SimpleObjectProperty<>();
     private DoubleProperty startValueProperty = new SimpleDoubleProperty();
-    private DoubleProperty endValueProperty = new SimpleDoubleProperty(0);
+    private DoubleProperty endValueProperty = new SimpleDoubleProperty(1);
     private DoubleProperty stepSizeProperty = new SimpleDoubleProperty(1);
 
     private PluginControl pairBuilderControl;
