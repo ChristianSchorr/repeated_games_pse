@@ -430,12 +430,14 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
-        items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
+        items.removeIf((item) -> item.type != null && (item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) ||
+                                                       item.type.equals(MulticonfigurationParameterType.GROUP_SIZE)));
 
         for (Group grp : newPopulation.getGroups()) {
             String grpSize = "group size: " + grp.getName();
             items.add(new MultiParamItem(MulticonfigurationParameterType.GROUP_SIZE, grpSize,
-                    new DoubleValidator("group size has to be greater than 0", d -> d >= 0), null));
+                    new DoubleValidator("group size has to be an integer greater than 0",
+                            d -> d >= 0 && Math.abs(d - d.intValue()) < 0.00000001), null));
             if (grp.getSegmentCount() == 2) {
                 String str = "segment size: " + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,
@@ -557,11 +559,14 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 break;
             case SEGMENT_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.displayString.endsWith(param.getGroupName())).get(0));
+                        .filtered((item) -> item.displayString.endsWith(param.getGroupName()) &&
+                                item.displayString.startsWith("segment size: ")).get(0));
                 break;
             case GROUP_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.displayString.endsWith(param.getGroupName())).get(0));
+                        .filtered((item) -> item.displayString.endsWith(param.getGroupName()) &&
+                                item.displayString.startsWith("group size: ")).get(0));
+                break;
             default:
                 // TODO CapitalDistribution, Segment size, Group Size
                 break;
