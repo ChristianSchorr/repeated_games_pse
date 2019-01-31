@@ -433,6 +433,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
         items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
+        items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.GROUP_SIZE));
         
         List<Group> groups = newPopulation.getGroupNames().stream().map(
                 name -> repository.getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
