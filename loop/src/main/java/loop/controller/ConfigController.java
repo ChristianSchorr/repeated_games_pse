@@ -163,9 +163,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
         String errorMsg = "not a positive integer";
         // initialize multi Param
         List<MultiParamItem> multiConfigParamNames = new ArrayList<>();
-        multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ITERATION_COUNT,
-                MulticonfigurationParameterType.ITERATION_COUNT.getDescriptionFormat(),
-                new IntegerValidator(errorMsg, (i) -> i > 0), iterationField));
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ROUND_COUNT,
                 MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat(),
                 new IntegerValidator(errorMsg, (i) -> i > 0), roundField));
