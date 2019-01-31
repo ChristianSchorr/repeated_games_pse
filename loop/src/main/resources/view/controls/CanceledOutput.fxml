@@ -50,7 +50,7 @@
         <Separator style="-fx-padding: 10 0"/>
         <GridPane alignment="CENTER">
             <HBox alignment="CENTER">
-                <Label text="Simulation has been canceled" style="-fx-text-fill: #E51400; -fx-font-size: 30"/>
+                <Label text="Simulation has been cancelled" style="-fx-text-fill: #E51400; -fx-font-size: 30"/>
                 <Label visible="false" disable="true" fx:id="dotLabel" style="-fx-text-fill: #FEDE06; -fx-font-size: 30"/>
             </HBox>
         </GridPane>

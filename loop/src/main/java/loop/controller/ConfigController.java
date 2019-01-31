@@ -354,6 +354,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private void populationChanged(String newValue) {
         Repository<Population> repo = repository.getPopulationRepository();
         Population population = repo.getEntityByName(newValue);
+        
+        this.populationBox.setTooltip(createTooltip(population.getDescription()));
+        
         updateMultiParamBox(population);
     }
 

@@ -43,7 +43,7 @@
                     <Tooltip text="Cancel this Simulation"/>
                 </tooltip>
             </Button>
-            <Label text="Cancle" style="-fx-text-fill: #E51400; -fx-font-size: 20" />
+            <Label text="Cancel" style="-fx-text-fill: #E51400; -fx-font-size: 20" />
         </HBox>
     </HBox>
     <VBox spacing="100">
