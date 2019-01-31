@@ -25,9 +25,6 @@
             <VBox styleClass="card">
                 <children>
                     <Label styleClass="card-title" text="Simulation settings"/>
-                    <Label alignment="TOP_CENTER" prefWidth="314.0"
-                           text="Configurable simulation parameters"
-                           wrapText="true"/>
                     <GridPane hgap="50">
                         <columnConstraints>
                             <ColumnConstraints />

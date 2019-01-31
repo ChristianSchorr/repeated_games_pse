@@ -133,7 +133,7 @@ public class UserConfiguration implements Serializable {
         Segment segment = new Segment(capitalDistributionName, distParameters, strategyNames);
         Group group = new Group("Die Manfreds", "Manfreds sind sehr launisch. Mal sind sie ganz lieb und mal auch eben nicht.", toList(segment), toList(1.0), true);
         CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
-        Population population = new Population("Manfreds unter sich", "Fünfzig Manfred ungestört unter sich.", toList(group.getName()), toList(agentCount));
+        Population population = new Population("Manfreds unter sich", "Fünfzig Manfreds ungestört unter sich.", toList(group.getName()), toList(agentCount));
         CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
         
         UserConfiguration defaultConfiguration = new UserConfiguration(gameName, roundCount, iterationCount, mixedStrategies, population.getName(),

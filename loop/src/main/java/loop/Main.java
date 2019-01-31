@@ -27,13 +27,17 @@ public class Main extends Application {
     
     public static final String RING_LOGO_PATH = "file:src/main/resources/loop_ring.png";
     
+    private static final boolean doWaitForSplash = true;
+    
     @FXML
     public void init() {
-        /*try {
-            Thread.sleep(SplashScreenLoader.animationMillis + 500); //let splash animation play
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
+        if (doWaitForSplash) {
+            try {
+                Thread.sleep(SplashScreenLoader.animationMillis + 500); //let splash animation play
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     @Override

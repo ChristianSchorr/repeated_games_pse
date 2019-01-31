@@ -25,8 +25,8 @@ import javafx.util.Duration;
 
 public class SplashScreenLoader extends Preloader {
     
-    private static final String GIFPath = "/SplashVersion2.gif";
-    public static final int animationMillis = 4500;
+    private static final String GIFPath = "/UltimateSplash.gif";
+    public static final int animationMillis = 7200;
     private Stage splashScreen;
 
     @Override
@@ -114,7 +114,7 @@ public class SplashScreenLoader extends Preloader {
             
             final int index = Math.min((int) Math.floor(k * count), count - 1);
             
-            if (index >= count - 10) {
+            if (index >= count - 5) {
                 stop = true;
                 imageView.setImage(sequence[count - 1]);
             }
