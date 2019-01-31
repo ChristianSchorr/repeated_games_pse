@@ -1,5 +1,7 @@
 package loop.controller;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -13,6 +15,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.strategies.PureStrategy;
@@ -28,8 +31,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class StrategyController implements CreationController<Strategy> {
-
-    private static final double PERCENTAGE = 0.1;
 
     @FXML
     private TextField nameField;
@@ -61,6 +62,8 @@ public class StrategyController implements CreationController<Strategy> {
     @FXML
     private ChoiceBox<String> predBox;
 
+    @FXML
+    private TextField percentageBox;
 
     private StringProperty nameProperty = new SimpleStringProperty();
     private StringProperty descriptionProperty = new SimpleStringProperty();
@@ -70,6 +73,8 @@ public class StrategyController implements CreationController<Strategy> {
     private StringProperty coopParticipantProperty = new SimpleStringProperty();
     private StringProperty coopQuantorProperty = new SimpleStringProperty();
     private StringProperty capitalProperty = new SimpleStringProperty();
+
+    private DoubleProperty percentageProperty = new SimpleDoubleProperty(0.1);
 
     private Map<String, Map<String, Strategy>> coopMap;
     private Map<String, Strategy> capitalMap;
@@ -93,6 +98,7 @@ public class StrategyController implements CreationController<Strategy> {
     public void initialize() {
         nameField.textProperty().bindBidirectional(nameProperty);
         descriptionField.textProperty().bindBidirectional(descriptionProperty);
+        percentageBox.textProperty().bindBidirectional(percentageProperty, new NumberStringConverter());
 
         List<String> stratNames = repository.getStrategyRepository().getAllEntityNames();
         ObservableList<String> obsStratNames = FXCollections.observableArrayList(stratNames);
@@ -159,7 +165,7 @@ public class StrategyController implements CreationController<Strategy> {
         capitalMap = new HashMap<>();
         capitalMap.put(assessment.get(0), PureStrategy.opponentHasHigherCapital());
         capitalMap.put(assessment.get(1), PureStrategy.opponentHasLowerCapital());
-        capitalMap.put(assessment.get(2), PureStrategy.opponentHasSimilarCapital(PERCENTAGE));
+        capitalMap.put(assessment.get(2), PureStrategy.opponentHasSimilarCapital(percentageProperty.getValue()));
 
         timeAdverbMap = new HashMap<>();
         timeAdverbMap.put("always", PureStrategy.TimeAdverb.ALWAYS);
@@ -185,7 +191,8 @@ public class StrategyController implements CreationController<Strategy> {
         String agentEntity = predBox.getSelectionModel().getSelectedItem();
         String timeAdv = timeAdvBox.getSelectionModel().getSelectedItem();
         if (agentEntity == null || timeAdv == null) return;
-        Strategy strat = PureStrategy.stratBuilderStrategy(agentEntityMap.get(agentEntity), timeAdverbMap.get(timeAdv), PERCENTAGE);
+        Strategy strat = PureStrategy.stratBuilderStrategy(agentEntityMap.get(agentEntity), timeAdverbMap.get(timeAdv)
+                , percentageProperty.getValue());
         addStrategy(new PureStrategy("The opp. has " + timeAdv + " coop. with an agent that "
                 + agentEntity + " as the agent himself", "",
                 (pair, hist) -> strat.isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
