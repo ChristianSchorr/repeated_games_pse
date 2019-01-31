@@ -254,10 +254,10 @@ public class CentralRepository {
 			//Empty File    
 		}
 	    
+	    loadPlugins();
+	    
 	    validateGroups();
 	    validatePopulations();
-	    
-		loadPlugins();
 	}
 	
 	private void validateGroups() {
