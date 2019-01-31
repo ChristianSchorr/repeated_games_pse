@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 
 public class ConfigController implements CreationController<UserConfiguration> {
@@ -329,6 +330,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             alert.showAndWait();
             return;
         }
+        
         createConfig();
         Stage s = (Stage) this.maxAdaptsField.getScene().getWindow();
         s.close();
@@ -431,11 +433,16 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private void updateMultiParamBox(Population newPopulation) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
         items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.SEGMENT_SIZE));
-
-        for (Group grp : newPopulation.getGroups()) {
+        items.removeIf((item) -> item.type != null && item.type.equals(MulticonfigurationParameterType.GROUP_SIZE));
+        
+        List<Group> groups = newPopulation.getGroupNames().stream().map(
+                name -> repository.getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
+        
+        for (Group grp : groups) {
             String grpSize = "group size: " + grp.getName();
             items.add(new MultiParamItem(MulticonfigurationParameterType.GROUP_SIZE, grpSize,
-                    new DoubleValidator("group size has to be greater than 0", d -> d >= 0), null));
+                    new DoubleValidator("group size has to be an integer greater than 0",
+                            d -> d >= 0 && Math.abs(d - d.intValue()) < 0.00000001), null));
             if (grp.getSegmentCount() == 2) {
                 String str = "segment size: " + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,
@@ -511,7 +518,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
             stepSize.setDisable(enable);
         } else {
             switch (newItem.type) {
-                case ITERATION_COUNT:
                 case ROUND_COUNT:
                 case MAX_ADAPTS:
                     newItem.parameterField.setDisable(enable);
@@ -551,17 +557,16 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 break;
             case MAX_ADAPTS:
             case ROUND_COUNT:
-            case ITERATION_COUNT:
                 multiParamProperty.setValue(multiParamBox.getItems()
                         .filtered((item) -> item.type != null && item.type.equals(param.getType())).get(0));
                 break;
             case SEGMENT_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.displayString.endsWith(param.getGroupName())).get(0));
+                        .filtered((item) -> item.displayString.endsWith("segment size: " + param.getGroupName())).get(0));
                 break;
             case GROUP_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.displayString.endsWith(param.getGroupName())).get(0));
+                        .filtered((item) -> item.displayString.endsWith("group size: " + param.getGroupName())).get(0));
             default:
                 // TODO CapitalDistribution, Segment size, Group Size
                 break;
@@ -604,7 +609,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
             double stepSize = stepSizeProperty.getValue();
             String[] parts = multiParamProperty.getValue().toString().split(":");
             MulticonfigurationParameterType multiParamType = multiParamProperty.getValue().type;
-
             switch (multiParamType) {
                 case SQ_PARAM:
                 case EC_PARAM:
@@ -614,7 +618,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     break;
                 case MAX_ADAPTS:
                 case ROUND_COUNT:
-                case ITERATION_COUNT:
                     param = new MulticonfigurationParameter(multiParamType, (int) startValue, (int) endValue, (int) stepSize);
                     break;
                 case SEGMENT_SIZE:
@@ -629,7 +632,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     break;
             }
         }
-
+        
         config = new UserConfiguration(gameNameProperty.getValue(), roundCountProperty.getValue(),
                 iterationCountProperty.getValue(), mixedStrategyProperty.getValue(), populationProperty.getValue(),
                 pairBuilderProperty.getValue(), pairBuilderControl.getParameters(), successQuantifierProperty.getValue(),

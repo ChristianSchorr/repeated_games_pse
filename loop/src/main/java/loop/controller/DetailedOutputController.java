@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -318,7 +319,11 @@ public class DetailedOutputController {
         private void updateCapitalChart() {
             //collect capital values of all relevant agents, sorted after their groups
             Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
-            List<Group> groups = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroups();
+            
+            List<String> groupNames = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroupNames();
+            List<Group> groups = groupNames.stream().map(
+                    name -> CentralRepository.getInstance().getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
+            
             groups.stream().filter(group -> group.isCohesive()).forEach((group) -> groupCapitals.put(group.getName(), new ArrayList<Integer>()));
             if (groups.stream().anyMatch(group -> !group.isCohesive()))
                 groupCapitals.put("Groupless Agents", new ArrayList<Integer>());

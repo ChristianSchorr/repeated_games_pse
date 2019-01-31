@@ -3,6 +3,7 @@ package loop.model.simulator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import loop.model.Group;
 import loop.model.MulticonfigurationParameter;
@@ -151,16 +152,15 @@ public class ConfigurationCreator {
 	    if (type == null || !type.equals(MulticonfigurationParameterType.MAX_ADAPTS))
     	    maxAdapts = config.getMaxAdapts();
 	    
-	    if (type == null || !(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
-                || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
+	    if (type == null || !(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE))) {
 	        //initialise segments
 	        Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName());
-	        initialiseEngineSegments(population);
+	        initialiseEngineSegments(convertPopulation(population));
 	    }
 	    
 	}
 	
-	private static void initialiseEngineSegments(Population population) {
+	private static void initialiseEngineSegments(EnginePopulation population) {
         List<Group> groups = population.getGroups();
         engineSegments = new ArrayList<EngineSegment>();
         groups.forEach(group -> group.getSegments().forEach(
@@ -191,29 +191,27 @@ public class ConfigurationCreator {
 	    return parameters;
 	}
 	
-	private static List<Population> multiconfiguredPopulations(MulticonfigurationParameterType type, UserConfiguration config)
+	private static List<EnginePopulation> multiconfiguredPopulations(MulticonfigurationParameterType type, UserConfiguration config)
 	        throws ConfigurationException {
-	    if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE)
-	            || type.equals(MulticonfigurationParameterType.CD_PARAM))) {
+	    if (!(type.equals(MulticonfigurationParameterType.SEGMENT_SIZE) || type.equals(MulticonfigurationParameterType.GROUP_SIZE))) {
 	        return null;
 	    }
 	    
         if (!CentralRepository.getInstance().getPopulationRepository().containsEntityName(config.getPopulationName())) {
             throw new PluginNotFoundException(config.getPopulationName());
         }
-        Population population = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName());
+        EnginePopulation population = convertPopulation(CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()));
 	    
 	    switch (type) {
 	        case GROUP_SIZE: return multiconfiguredPopulationsGroupSize(population, config);
 	        case SEGMENT_SIZE: return multiconfiguredPopulationsSegmentSize(population, config);
-	        case CD_PARAM: return multiconfiguredPopulationsCD(population, config);
 	        default: return null;
 	    }
 	}
 	
-	private static List<Population> multiconfiguredPopulationsGroupSize(Population population, UserConfiguration config)
+	private static List<EnginePopulation> multiconfiguredPopulationsGroupSize(EnginePopulation population, UserConfiguration config)
 	        throws PluginNotFoundException {
-	    List<Population> populations = new ArrayList<Population>(config.getParameterValues().size());
+	    List<EnginePopulation> populations = new ArrayList<EnginePopulation>(config.getParameterValues().size());
 	    while (populations.size() < config.getParameterValues().size()) {
             populations.add(copyPopulation(population));
         }
@@ -222,12 +220,12 @@ public class ConfigurationCreator {
 	    
 	    //determine the index of the group whose size is variable
 	    int groupIndex;
-	    try {
-	        groupIndex = population.getGroups().indexOf(
-	                population.getGroups().stream().filter(group -> group.getName().equals(param.getGroupName())).findAny().get());
-	    } catch(NoSuchElementException e) {
-	        throw new PluginNotFoundException(param.getGroupName());
-	    }
+        try {
+            groupIndex = population.getGroups().indexOf(
+                    population.getGroups().stream().filter(group -> group.getName().equals(param.getGroupName())).findAny().get());
+        } catch(NoSuchElementException e) {
+            throw new PluginNotFoundException(param.getGroupName());
+        }
 	    
 	    //replace group sizes in the copies of the population accordingly
 	    for (int i = 0; i < param.getParameterValues().size(); i++) {
@@ -237,9 +235,9 @@ public class ConfigurationCreator {
 	    return populations;
 	}
 	
-	private static List<Population> multiconfiguredPopulationsSegmentSize(Population population, UserConfiguration config)
+	private static List<EnginePopulation> multiconfiguredPopulationsSegmentSize(EnginePopulation population, UserConfiguration config)
 	        throws PluginNotFoundException { 
-	    List<Population> populations = new ArrayList<Population>(config.getParameterValues().size());
+	    List<EnginePopulation> populations = new ArrayList<EnginePopulation>(config.getParameterValues().size());
         while (populations.size() < config.getParameterValues().size()) {
             populations.add(copyPopulation(population));
         }
@@ -265,47 +263,18 @@ public class ConfigurationCreator {
         return populations;
 	}
 	
-	private static List<Population> multiconfiguredPopulationsCD(Population population, UserConfiguration config)
-            throws PluginNotFoundException {
-	    List<Population> populations = new ArrayList<Population>(config.getParameterValues().size());
-        while (populations.size() < config.getParameterValues().size()) {
-            populations.add(copyPopulation(population));
-        }
-        
-        MulticonfigurationParameter param = config.getMulticonfigurationParameter();
-        
-        //determine the index of the group whose size is variable
-        int groupIndex;
-        try {
-            groupIndex = population.getGroups().indexOf(
-                    population.getGroups().stream().filter(group -> group.getName().equals(param.getGroupName())).findAny().get());
-        } catch(NoSuchElementException e) {
-            throw new PluginNotFoundException(param.getGroupName());
-        }
-        int segmentIndex = param.getSegmentIndex();
-        
-        //load capital distribution from the central repository
-        String distName = population.getGroups().get(groupIndex).getSegments().get(segmentIndex).getCapitalDistributionName();
-        Plugin<DiscreteDistribution> distPlugin = CentralRepository.getInstance().getDiscreteDistributionRepository().getEntityByName(distName);
-        
-        //determine the index of the variable parameter
-        int paramIndex = distPlugin.getParameters().indexOf(
-                distPlugin.getParameters().stream().filter(p -> p.getName().equals(param.getParameterName())).findAny().get());
-        
-        //replace group sizes in the copies of the population accordingly
-        for (int i = 0; i < param.getParameterValues().size(); i++) {
-            populations.get(i).getGroups().get(groupIndex).getSegments().get(segmentIndex)
-                .getCapitalDistributionParameters().set(paramIndex, param.getParameterValues().get(i));
-        }
-        
-        return populations;
-    }
-	
-	private static Population copyPopulation(Population population) {
+	private static EnginePopulation convertPopulation(Population population) {
 	    List<Integer> groupSizes = new ArrayList<Integer>(population.getGroupSizes());
-	    List<Group> groups = new ArrayList<Group>(population.getGroupCount());
-	    population.getGroups().stream().forEach(group -> groups.add(copyGroup(group)));
-	    return new Population(population.getName(), population.getDescription(), groups, groupSizes);
+	    List<Group> groups = new ArrayList<Group>(population.getGroupNames().size());
+	    population.getGroupNames().forEach(s -> groups.add(CentralRepository.getInstance().getGroupRepository().getEntityByName(s)));
+	    return new EnginePopulation(groups, groupSizes);
+	}
+	
+	private static EnginePopulation copyPopulation(EnginePopulation population) {
+	    List<Integer> groupSizes = new ArrayList<Integer>(population.getGroupSizes());
+	    List<Group> groups = new ArrayList<Group>(population.getGroups().size());
+	    population.getGroups().forEach(g -> groups.add(copyGroup(g)));
+	    return new EnginePopulation(groups, groupSizes);
 	}
 	
 	private static Group copyGroup(Group group) {
@@ -325,4 +294,25 @@ public class ConfigurationCreator {
                 successQuantifier, strategyAdjuster, equilibriumCriterion, maxAdapts, iterationCount);
 	}
 	
+	private static class EnginePopulation {
+	    List<Group> groups;
+	    List<Integer> groupSizes;
+	    
+	    public EnginePopulation(List<Group> groups, List<Integer> groupSizes) {
+	        this.groups = groups;
+	        this.groupSizes = groupSizes;
+	    }
+	    
+	    public List<Group> getGroups() {
+	        return groups;
+	    }
+	    
+	    public List<Integer> getGroupSizes() {
+	        return groupSizes;
+	    }
+	    
+	    public int getGroupSize(Group group) {
+	        return groupSizes.get(groups.indexOf(group));
+	    }
+	}
 }

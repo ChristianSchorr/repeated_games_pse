@@ -9,11 +9,6 @@ package loop.model;
 public enum MulticonfigurationParameterType {
 
     /**
-     * The amount of iterations in this simulation
-     */
-    ITERATION_COUNT("iteration count"),
-
-    /**
      * The amount of rounds per adaption step.
      */
     ROUND_COUNT("round count"),
@@ -39,11 +34,6 @@ public enum MulticonfigurationParameterType {
      * A parameter of the selected equilibrium criterion.
      */
     EC_PARAM("%s"),
-    
-    /**
-     * A parameter of the selected capital distribution.
-     */
-    CD_PARAM("%s"),
     
     /**
      * The maximum of executed adaption steps per iteration.

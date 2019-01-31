@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -128,18 +129,18 @@ public class PopulationTest {
 	public void getGroupSize() {
 		groupSizes.add(50);
 		groupSizes.add(100);	
-		population = new Population("population", "population description", groups, groupSizes);
-		assertTrue(population.getGroupSize(group1) == 50);
-		assertTrue(population.getGroupSize(group2) == 100);
-		population.getGroups().remove(1);
-		assertTrue(population.getGroupSize(group2) == 0);
+		population = new Population("population", "population description", groups.stream().map(g -> g.getName()).collect(Collectors.toList()), groupSizes);
+		assertTrue(population.getGroupSize(group1.getName()) == 50);
+		assertTrue(population.getGroupSize(group2.getName()) == 100);
+		population.getGroupNames().remove(1);
+		assertTrue(population.getGroupSize(group2.getName()) == 0);
 	}
 	
 	private void testPopulation(Population population) {
-		population = new Population("population", "population description", groups, groupSizes);
+		population = new Population("population", "population description", groups.stream().map(g -> g.getName()).collect(Collectors.toList()), groupSizes);
 		assertEquals("population", population.getName());
 		assertEquals("population description", population.getDescription());
-		assertEquals(groups, population.getGroups());
+		assertEquals(groups.stream().map(g -> g.getName()).collect(Collectors.toList()), population.getGroupNames());
 		assertEquals(groupSizes, population.getGroupSizes());	
 	}
 

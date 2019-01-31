@@ -21,49 +21,45 @@
                 <TextField fx:id="populationNameTextField" alignment="CENTER_LEFT" promptText="Name of the population"/>
                 <TextField fx:id="populationDescriptionTextField" alignment="CENTER_LEFT" promptText="Description"/>
             </VBox>
-            <VBox alignment="CENTER" spacing="10">
-                <HBox alignment="CENTER" spacing="10">
-                    <MenuButton>
-                        <items>
-                            <MenuItem text="Import from file" onAction="#importPopulation"/>
-                            <Menu text="Locally stored" fx:id="loadMenu"/>
-                        </items>
-                        <graphic>
-                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
-                        </graphic>
-                        <tooltip>
-                            <Tooltip text="Load existing population"/>
-                        </tooltip>
-                    </MenuButton>
-                    <Button onAction="#resetPopulation" styleClass="setting-button">
-                        <graphic>
-                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT"
-                                   style="-fx-text-fill: grey"/>
-                        </graphic>
-                        <tooltip>
-                            <Tooltip text="Reset all settings"/>
-                        </tooltip>
-                    </Button>
-                </HBox>
-                <HBox alignment="CENTER" spacing="10">
-                    <Button onAction="#exportPopulation">
-                        <graphic>
-                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
-                        </graphic>
-                        <tooltip>
-                            <Tooltip text="Export the created population as a file"/>
-                        </tooltip>
-                    </Button>
-                    <Button onAction="#savePopulation">
-                        <graphic>
-                            <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
-                        </graphic>
-                        <tooltip>
-                            <Tooltip text="Save the created population and close this window"/>
-                        </tooltip>
-                    </Button>
-                </HBox>
-            </VBox>
+            <HBox alignment="CENTER" spacing="10">
+                <MenuButton>
+                    <items>
+                        <MenuItem text="Import from file" onAction="#importPopulation"/>
+                        <Menu text="Locally stored" fx:id="loadMenu"/>
+                    </items>
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="UPLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Load existing population"/>
+                    </tooltip>
+                </MenuButton>
+                <Button onAction="#resetPopulation" styleClass="setting-button">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="ROTATE_LEFT"
+                               style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Reset all settings"/>
+                    </tooltip>
+                </Button>
+                <Button onAction="#exportPopulation">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Export the created population as a file"/>
+                    </tooltip>
+                </Button>
+                <Button onAction="#savePopulation">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Save the created population and close this window"/>
+                    </tooltip>
+                </Button>
+            </HBox>
         </HBox>
 
         <Separator style="-fx-padding: 10 0;"/>
