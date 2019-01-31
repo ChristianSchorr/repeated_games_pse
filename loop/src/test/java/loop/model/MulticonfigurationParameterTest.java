@@ -84,7 +84,6 @@ public class MulticonfigurationParameterTest {
 			testConstructor(t);
 		}
 		
-		testCapitalDistributionConstructor();
 		type = MulticonfigurationParameterType.GROUP_SIZE;
 		testGroupSizeConstructor();
 		type = MulticonfigurationParameterType.SEGMENT_SIZE;
@@ -118,8 +117,6 @@ public class MulticonfigurationParameterTest {
 			}
 		}
 		
-		testCapitalDistributionConstructor();
-		testCapitalDistributionConstructor();
 		assertTrue(multiconfigurationParameter.getGroupName() == "group name");
 		
 		type = MulticonfigurationParameterType.GROUP_SIZE;
@@ -129,38 +126,6 @@ public class MulticonfigurationParameterTest {
 		type = MulticonfigurationParameterType.SEGMENT_SIZE;
 		testSegmentSizeConstructor();
 		assertTrue(multiconfigurationParameter.getGroupName() == "group name");		
-	}
-	
-	
-	/**
-	 * Tests the getSegmentIndex method
-	 */
-	@Test
-	public void testGetSegmentIndex() {
-		for (MulticonfigurationParameterType t: MulticonfigurationParameterType.values()) {
-			if (t.equals(MulticonfigurationParameterType.CD_PARAM)) {
-				type = MulticonfigurationParameterType.CD_PARAM;
-				testCapitalDistributionConstructor();
-				assertTrue(multiconfigurationParameter.getSegmentIndex() == 2);
-			} else if (counters.contains(t)) {
-				if (!t.equals(MulticonfigurationParameterType.ITERATION_COUNT)) {
-					testCountConstructor(t);
-					try {
-						multiconfigurationParameter.getSegmentIndex();
-					} catch (NullPointerException e){					
-						assertEquals(e.getMessage(), "segment index not defined for multiconfiguration parameter '" + 
-							multiconfigurationParameter.getParameterName() + "'.");
-					}
-				}
-			} else {
-				try {
-					multiconfigurationParameter.getSegmentIndex();
-				} catch (NullPointerException e){					
-					assertEquals(e.getMessage(), "segment index not defined for multiconfiguration parameter '" + 
-						multiconfigurationParameter.getParameterName() + "'.");
-				}
-			}
-		}		
 	}
 	
 	/**
@@ -203,18 +168,6 @@ public class MulticonfigurationParameterTest {
 		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
 		assertEquals("group name", multiconfigurationParameter.getGroupName());
 		assertEquals(String.format(type.getDescriptionFormat(), "group name"), multiconfigurationParameter.getParameterName());
-	}
-	
-	/**
-	 * Tests a constructor for the type CD_PARAM
-	 */
-	private void testCapitalDistributionConstructor() {
-		multiconfigurationParameter = new MulticonfigurationParameter(10.0, 30.0, 5.0, "parameter name", "group name", 2);
-		assertEquals(MulticonfigurationParameterType.CD_PARAM, multiconfigurationParameter.getType());
-		assertEquals(parameterValues, multiconfigurationParameter.getParameterValues());
-		assertEquals("group name", multiconfigurationParameter.getGroupName());
-		assertEquals("parameter name", multiconfigurationParameter.getParameterName());
-		assertTrue(multiconfigurationParameter.getSegmentIndex() == 2);
 	}
 
 }
