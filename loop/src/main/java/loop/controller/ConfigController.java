@@ -444,7 +444,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
         for (Group grp : groups) {
             String grpSize = "group size: " + grp.getName();
             items.add(new MultiParamItem(MulticonfigurationParameterType.GROUP_SIZE, grpSize,
-                    new DoubleValidator("group size has to be greater than 0", d -> d >= 0), null));
+                    new DoubleValidator("group size has to be an integer greater than 0",
+                            d -> d >= 0 && Math.abs(d - d.intValue()) < 0.00000001), null));
             if (grp.getSegmentCount() == 2) {
                 String str = "segment size: " + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,

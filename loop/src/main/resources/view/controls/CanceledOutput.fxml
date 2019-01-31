@@ -40,10 +40,10 @@
                     <Glyph fontFamily="FontAwesome" fontSize="40" icon="CLOSE" style="-fx-text-fill: #E51400"/>
                 </graphic>
                 <tooltip>
-                    <Tooltip text="Cancle this Simulation"/>
+                    <Tooltip text="Cancel this Simulation"/>
                 </tooltip>
             </Button>
-            <Label text="Cancle" style="-fx-text-fill: #E51400; -fx-font-size: 20" disable="true"/>
+            <Label text="Cancel" style="-fx-text-fill: #E51400; -fx-font-size: 20" disable="true"/>
         </HBox>
     </HBox>
     <VBox spacing="100">

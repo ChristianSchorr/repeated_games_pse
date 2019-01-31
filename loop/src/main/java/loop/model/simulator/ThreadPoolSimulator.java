@@ -120,7 +120,7 @@ public class ThreadPoolSimulator implements Simulator {
                 SimulationEngine engine = new SimulationEngine();
                 IterationResult result = engine.executeIteration(configNum.config);
                 task.simResult.addIterationResult(result, configNum.index);
-                task.buffer.addConfiguration(configNum.config, configNum.index);
+                //task.buffer.addConfiguration(configNum.config, configNum.index);
 
                 if (last) {
                     finishedSimulations.add(task.simResult);
@@ -131,7 +131,7 @@ public class ThreadPoolSimulator implements Simulator {
                 ex.printStackTrace(System.out);
                 task.simResult.addIterationResult(null, configNum.index);
                 task.simResult.addSimulationEngineException(new SimulationEngineException());
-                task.buffer.addConfiguration(configNum.config, configNum.index);
+                //task.buffer.addConfiguration(configNum.config, configNum.index);
                 if (last) {
                     finishedSimulations.add(task.simResult);
                     runningSimulations.remove(task);
@@ -229,7 +229,7 @@ public class ThreadPoolSimulator implements Simulator {
             simResult.setTotalIterations(totalIterationsLeft);
         }
 
-        private ConfigurationBuffer.ConfigNumber getNextConfiguration() throws ConfigurationException {
+        private synchronized ConfigurationBuffer.ConfigNumber getNextConfiguration() throws ConfigurationException {
             if (totalIterationsLeft <= 0)
                 return null;
             totalIterationsLeft--;
@@ -261,7 +261,7 @@ public class ThreadPoolSimulator implements Simulator {
             }
 
             // fill the buffer with some copies
-            for (int i = 0; i <= 2 * threads; i++) {
+            for (int i = 0; i <= buffer.get(0).peek().getTotalIterations(); i++) {
                 configs = ConfigurationCreator.generateConfigurations(config);
                 for (int j = 0; j < configs.size(); j++) {
                     buffer.get(j).add(configs.get(j));
