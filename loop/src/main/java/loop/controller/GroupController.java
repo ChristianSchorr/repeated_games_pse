@@ -289,7 +289,7 @@ public class GroupController implements CreationController<Group> {
         
         String errorMsg = "";
         if (!unknownStrategies.isEmpty()) {
-            errorMsg += "The selected group contains the following unknown stratgies:";
+            errorMsg += "The selected group contains the following unknown strategies:";
             for (String strat: unknownStrategies) errorMsg += "\n - " + strat;
             errorMsg += "\n";
         }

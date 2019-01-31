@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.plugin.Plugin;
@@ -250,23 +254,65 @@ public class CentralRepository {
 			//Empty File    
 		}
 	    
-	    //refresh groups in populations; if one of the contained groups was changed, change it in the population
-	    //populationRepo.getAllEntities().forEach((pop) -> refreshPopulation(pop));
-	    
+	    validateGroups();
+	    validatePopulations();
 	    
 		loadPlugins();
 	}
-	   
 	
-	//TODO
-	/*public void refreshPopulation(Population population) {
-	    List<Group> groups = population.getGroups();
-	    for (int i = 0; i < groups.size(); i++) {
-	        Group g = groups.get(i);
-	        if (!groupRepo.containsEntityName(g.getName())) continue;
-	        groups.set(i, groupRepo.getEntityByName(g.getName()));
+	private void validateGroups() {
+	    List<Group> invalidGroups = new ArrayList<Group>();
+	    
+	    for (Group group: groupRepo.getAllEntities()) {
+	        List<String> unknownStrategies = new ArrayList<String>();
+	        List<String> unknownCapitalDistributionNames = new ArrayList<String>();
+	        group.getSegments().forEach(seg -> {
+	            seg.getStrategyNames().forEach(stratName -> {
+	                if (!CentralRepository.getInstance().getStrategyRepository().containsEntityName(stratName))
+	                    if (!unknownStrategies.contains(stratName)) unknownStrategies.add(stratName);
+	                });
+	            String distName = seg.getCapitalDistributionName();
+	            if (!CentralRepository.getInstance().getDiscreteDistributionRepository().containsEntityName(distName)) {
+	                if (!unknownCapitalDistributionNames.contains(distName)) {
+	                    unknownCapitalDistributionNames.add(distName);
+	                }
+	            }
+	        });
+	        
+	        if (unknownStrategies.isEmpty() && unknownCapitalDistributionNames.isEmpty()) {
+	            continue;
+	        }
+	        
+	        invalidGroups.add(group);
+	        
+	        String errorMsg = "The group '" + group.getName() + "' could not be imported because it contains the following unknown entities:";
+	        for (String strat: unknownStrategies) errorMsg += "\n - the strategy '" + strat + "'";
+	        for (String dist: unknownCapitalDistributionNames) errorMsg += "\n - the discrete distribution '" + dist + "'";
+	        
+	        Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+	        alert.showAndWait();
 	    }
-	}*/
+	    
+	    invalidGroups.forEach(group -> groupRepo.removeEntity(group.getName()));
+	}
+	
+	private void validatePopulations() {
+	    List<Population> invalidPopulations = new ArrayList<Population>();
+	    
+	    for (Population population: populationRepo.getAllEntities()) {
+	        List<String> unknownGroups = population.getGroupNames().stream().filter(
+	                name -> !CentralRepository.getInstance().getGroupRepository().containsEntityName(name)).collect(Collectors.toList());
+	        
+	        if (unknownGroups.isEmpty()) continue;
+	        
+	        String errorMsg = "The population '" + population.getName() + "' could not be imported because it contains the following unknown groups:";
+	        for (String name: unknownGroups) errorMsg += "\n - " + name;
+	        Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+	        alert.showAndWait();
+	    }
+	    
+	    invalidPopulations.forEach(pop -> populationRepo.removeEntity(pop.getName()));
+	}
 	
 	private void loadPlugins() {
 		List<Plugin.PairBuilderPlugin> pairBuilderPlugins = PluginLoader.loadPlugins(Plugin.PairBuilderPlugin.class);
