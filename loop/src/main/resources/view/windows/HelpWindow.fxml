@@ -9,8 +9,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import org.controlsfx.glyphfont.Glyph?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="container" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" style="-fx-background-color: #EAEAeA; -fx-padding: 10;">
-    <VBox prefWidth="600.0" prefHeight="400.0" styleClass="card">
-        <Label styleClass="card-title" text="How can I create a new group?"/>
+    <VBox prefWidth="600.0" prefHeight="800.0" styleClass="card">
+        <Label styleClass="card-title" text="What is the difference between saving and exporting extensions?" wrapText="true"/>
+        <Label text="When creating a new group, population, or game, the user can either save or export this. Extensions which are saved can only be used as long as the program is running. Once the user has closed the simulator, they are no longer available. However, when the user exports his created extension, a new file is created for this in the choosen directory and can be uploaded whenever again. A file that has been stored in the default directory, is uploaded automatically when restarting the program. Exported files for populations etc. are intended for extensions the user wants to access regulary. Notice, all groups of an exported population must be exported as well, otherwise the population can't be uploaded later." wrapText="true"/>
     </VBox>
 </VBox>
 
