@@ -166,10 +166,10 @@ public class ConfigController implements CreationController<UserConfiguration> {
         List<MultiParamItem> multiConfigParamNames = new ArrayList<>();
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.ROUND_COUNT,
                 MulticonfigurationParameterType.ROUND_COUNT.getDescriptionFormat(),
-                new IntegerValidator(errorMsg, (i) -> i > 0), roundField));
+                new IntegerValidator(errorMsg, (i) -> i >= 0), roundField));
         multiConfigParamNames.add(new MultiParamItem(MulticonfigurationParameterType.MAX_ADAPTS,
                 MulticonfigurationParameterType.MAX_ADAPTS.getDescriptionFormat(),
-                new IntegerValidator(errorMsg, (i) -> i > 0), maxAdaptsField));
+                new IntegerValidator(errorMsg, (i) -> i >= 0), maxAdaptsField));
 
         ObservableList<MultiParamItem> observableMultiConfigParamNames = FXCollections.observableArrayList();
         observableMultiConfigParamNames.add(new MultiParamItem(null, "No multiconfig. parameter", new DoubleValidator(""), null));
@@ -179,6 +179,18 @@ public class ConfigController implements CreationController<UserConfiguration> {
         multiParamBox.valueProperty().addListener((c, oldValue, newValue) -> {
             setDisableMultiParam(true, newValue);
             if (oldValue != null) setDisableMultiParam(false, oldValue);
+
+            String endVal = endValue.getText();
+            endValue.setText(endVal + "#");
+            endValue.setText(endVal);
+
+            String startVal = startValue.getText();
+            startValue.setText(startVal + "#");
+            startValue.setText(startVal);
+
+            String stepSizeVal = stepSize.getText();
+            stepSize.setText(stepSizeVal + "#");
+            stepSize.setText(stepSizeVal);
         });
 
         // inititalize gameNames
@@ -302,7 +314,13 @@ public class ConfigController implements CreationController<UserConfiguration> {
             }
         });
 
-        support.registerValidator(stepSize,false , new DoubleValidator("step size has to be a positve number", d -> d > 0));
+        support.registerValidator(stepSize,false,  (Control c, String v) -> {
+            if (multiParamProperty.getValue() == null)
+                return ValidationResult.fromMessageIf(c, "", Severity.ERROR, false);
+            else {
+                return ValidationResult.fromResults(multiParamProperty.getValue().validator.apply(c, v));
+            }
+        });
 
         startValueProperty.addListener((c, oldV, newV) -> {
             String endVal = endValue.getText();
