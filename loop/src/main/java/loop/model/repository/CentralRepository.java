@@ -206,8 +206,6 @@ public class CentralRepository {
 	    this.gameRepo.addEntity(ConcreteGame.prisonersDilemma().getName(), ConcreteGame.prisonersDilemma());
 	    this.gameRepo.addEntity(ConcreteGame.stagHunt().getName(), ConcreteGame.stagHunt());
 	    this.gameRepo.addEntity(ConcreteGame.ChickenGame().getName(), ConcreteGame.ChickenGame());
-	    this.gameRepo.addEntity(ConcreteGame.BattleOfTheSexes().getName(), ConcreteGame.BattleOfTheSexes());
-	    this.gameRepo.addEntity(ConcreteGame.PenaltyShootout().getName(), ConcreteGame.PenaltyShootout());
 	    
 	    try {
 			for(Object p: FileIO.loadAllEntities(FileIO.STRATEGY_DIR)) {

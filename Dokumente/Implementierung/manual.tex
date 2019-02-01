@@ -163,13 +163,40 @@ You can also set the configuration that was used for a selected simulation as th
 
 \section{Extensions}
 
+To further customise configurations, the user can create own strategies, games, groups and populations and use them in simulations. The corresponding creation editors can all be reached via the \enquote{Extensions} entry in the menu bar of the home window:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\linewidth]{img_manual/menubar_extensions.png}
+\end{figure}
+
 \subsection{Create own games}
+When the \enquote{Create new game} entry in the \enquote{Extensions} menu is pressed, the game creation window opens (see Fig.\ref{fig:game_window}). Here, a new game can be created. To do so, a name, a description and the players payoffs must be entered in the corresponding text fields. For example, an entry of the form \enquote{\(1 / 2\)} in the botom left part of the payoff table means: \enquote{If player 1 doensn't but player 2 does cooperate, player 1 will receive the payoff \(1\) and player 2 will receive the payoff \(2\)}.
+
+To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
+
+To export the created game as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the game to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
+
+To load an existing game press the  \inlinegraphics{img_manual/import_button.png} button. The following dropdown menu will pop up:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\linewidth]{img_manual/import_game.png}
+\end{figure}\\
+You can either import a game from a previously exported game file or open one of the locally stored games, i.e. the preconfigured games and the ones added to the repository by the user.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{img_manual/game_window.png}
+	\caption{The game creation window.}
+	\label{fig:game_window}
+\end{figure}
 
 \subsection{Create own strategies}
 
 \subsection{Create own groups}
 
 \subsection{Create own populations}
+
+\subsection{Important Information on Saving and Exporting Extensions}\label{sec:export_extensions}
 
 \section{Advanced}
 
