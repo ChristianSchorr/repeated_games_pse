@@ -179,48 +179,6 @@ To further customise configurations, the user can create own strategies, games, 
 When the \enquote{Create new game} entry in the \enquote{Extensions} menu is pressed, the game creation window opens (see Fig.\ref{fig:game_window}). Here, a new game can be created. To do so, a name, a description and the players payoffs must be entered in the corresponding text fields. For example, an entry of the form \enquote{\(1 / 2\)} in the botom left part of the payoff table means: \enquote{If player 1 doensn't but player 2 does cooperate, player 1 will receive the payoff \(1\) and player 2 will receive the payoff \(2\)}.
 
 To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
-The program enables you to create new and own strategies. A strategy is created by combining existing predicates with logical operators to a conditional expression. You can then specify how an agent behaves (resp. if he cooperates or defects) depending on whether the condition matches or not.
-
-To create your own strategy first navigate to the extension menu inside the menu bar in the home window. The \enquote{Extensions} menu contains an item which is labelled with \enquote{Create new strategy} (see \ref{fig:strategy_menu}).
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.2\linewidth]{img_manual/strategy_menu.png}
-	\caption{Open the Strategy creation window via the menu.}
-	\label{fig:strategy_menu}
-\end{figure}
-
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/strategy_window.png}
-	\caption{The strategy creation window.}
-	\label{fig:strategy_window}
-\end{figure}
-
-
-When you click it a new window opens. The strategy creation window is divided into three vertical aligned sections. In the topmost section (\circled{1}) you will find two text fields where you have to enter a name and a description for the new strategy. Right next to it there are three buttons.
-The  \inlinegraphics{img_manual/rotate_left_button.png} - button will reset the window to it's original state. Pressing the  \inlinegraphics{img_manual/check_button.png} - button will insert the newly created strategy into the programs repository without saving it permanently to a file. If you want to save the created strategy so it will still be accessible after a restart of the program you will have to press the \inlinegraphics{img_manual/export_button.png} - button. This opens the file dialog and you can save the strategy as a file. (more in \ref{sec:export_extensions})
-\\\\
-In the section below (\circled{2}) you fill find boxes with predicates and operators. Some of these boxes contain drop down menus which allow you to further parameterize the predicates. By clicking the \inlinegraphics{img_manual/add_button.png}- button you can add an operator or a predicate to the expression.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\linewidth]{img_manual/strategy_expression.png}
-	\caption{The generated expression.}
-	\label{fig:strategy_expression}
-\end{figure}
-
-
-
-The created expression will be displayed in the bottom section of the window (\circled{3}). When you add an operator to the expression an empty box for every required operand will be generated. By clicking on such a box the corresponding operand gets selected (\circled{4}) and the next addition will be inserted as this operand. 
-\\
-You can also remove a predicate as well as an operator from the expression by clicking the \inlinegraphics{img_manual/close_button.png}-button next to it. The removed part will be replaced by an empty box which can be select to add another predicate or operator. When you remove an operator its operands will also be removed.
-\\
-Below the displayed expression are two drop down menus which contain all available strategies. By choosing a strategy in the left drop down (\circled{5}) this strategy gets applied when the expression matches in a round otherwise the strategy in the right menu (\circled{6}) will be applied.
-
-
-\subsection{Create own groups}
 
 To export the created game as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the game to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
 
