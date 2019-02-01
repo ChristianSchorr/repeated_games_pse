@@ -9,7 +9,12 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import loop.Main;
 import org.controlsfx.glyphfont.Glyph;
 
 import javafx.event.ActionEvent;
@@ -114,6 +119,9 @@ public class OutputController {
 
     @FXML
     private Pane container;
+
+    @FXML
+    private Button openWindow;
 
     @FXML
     private VBox box;
@@ -317,6 +325,28 @@ public class OutputController {
         }
     }
 
+    @FXML
+    private void openWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/controls/outputView.fxml"));
+        try {
+            Parent parent = loader.load();
+            OutputController controller = loader.getController();
+            controller.setDisplayedResult(displayedResult, (res) -> {});
+            Scene outputScene = new Scene(parent);
+            Stage outputWindow = new Stage();
+
+            outputWindow.setTitle("Simulation Result output");
+            outputWindow.setScene(outputScene);
+            outputWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
+
+            // Specifies the modality for new window.
+            outputWindow.initModality(Modality.APPLICATION_MODAL);
+            outputWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void toDetailedOutput() {
         tabPane.getSelectionModel().select(detailedOutputTab);
         pageChoiceBox.getSelectionModel().select(DETAILED_OUTPUT_TITLE);
@@ -372,6 +402,7 @@ public class OutputController {
     /*-----------------------------------private helpers-----------------------------------*/
 
     private void deactivateAll() {
+        hide(this.openWindow);
         hide(this.checkGlyph);
         hide(this.gameNameLabel);
         hide(this.gameIdLabel);
@@ -388,6 +419,7 @@ public class OutputController {
     }
 
     private void activateAll() {
+        unHide(this.openWindow);
         unHide(this.checkGlyph);
         unHide(this.gameNameLabel);
         unHide(this.gameIdLabel);
