@@ -232,6 +232,15 @@ To load an existing population press the  \inlinegraphics{img_manual/import_butt
 
 \subsection{Important Information on Saving and Exporting Extensions}\label{sec:export_extensions}
 
+There is an important difference between saving an extension (adding it to the local repository by pressing \inlinegraphics{img_manual/check_button.png}) and exporting it as a file (by pressing \inlinegraphics{img_manual/export_button.png}). If it is just saved, it will only be available until the program is closed, i.e. it is not stored persistently. If an extension shall be available persistently, it must be exported as a file and saved \textit{inside the preconfigured folder}, which is \texttt{C:/Users/<Username>/loop/personallib/\(X\)}, where \(X \in \{\)\texttt{strategies, groups, populations, games}\(\}\). All extensions that reside in those folders will be automatically loaded at program start.
+
+There is another important note to make regarding the export of extensions. If an extension makes use of another extension (a population containing a group, a group containing certain strategies), then it will only store that extensions \textit{name}. This means that when, for example, a previously exported population is loaded and it contains a group of name \(X\), the local repository will be searched for a group of name \(X\), and if none is found, the import will fail and an error message will be displayed. This also applies to configurations, i.e. an exported configuration only stores the \textit{names} of the used game, population, etc. This has mutliple consequences:
+\begin{enumerate}
+\item Whenever you export an extension (or configuration) in order to store it persistently, make sure you also persistently store all referenced extensions (groups, strategies,...).
+\item When you export a configuration or an extension in order to send it to a colleague who also uses this program, make sure you send him all the referenced extensions as well.
+\item Since, for example, a population only stores the name of its contained groups, it can be modified by overwriting those groups. If a certain population contains a group with name \(X\), and you were to delete that group and create a new one with the same name \(X\), then the population would now contain that new group. This works in the same way for configurations with contained populations and games, and for groups with contained strategies.
+\end{enumerate}
+
 \section{Advanced}
 
 \subsection{Multiconfigurations}
