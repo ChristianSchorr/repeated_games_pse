@@ -38,10 +38,10 @@
         <VBox>
             <LineChart fx:id="strategyChart" createSymbols="false">
                 <xAxis>
-                    <NumberAxis autoRanging="false" side="BOTTOM" label="Adaption step"/>
+                    <NumberAxis autoRanging="false" side="BOTTOM" label="Adaption step" animated="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" label="Portion"/>
+                    <NumberAxis side="LEFT" label="Portion" animated="false"/>
                 </yAxis>
             </LineChart>
             <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1" visible="false"/>

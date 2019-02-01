@@ -16,7 +16,9 @@
 <?import org.controlsfx.glyphfont.Glyph?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea"
-          fx:controller="loop.controller.OutputController">
+          fx:controller="loop.controller.OutputController" stylesheets="@../style.css"
+          style="-fx-background-color: white">
+
     <Separator orientation="VERTICAL" prefHeight="800" style="-fx-padding: 0" GridPane.columnIndex="0"/>
     <VBox fx:id="box" style="-fx-padding: 16" styleClass="task-card-blue" GridPane.columnIndex="1"
           GridPane.hgrow="ALWAYS">
@@ -46,6 +48,11 @@
                 <Button fx:id="saveButton" onAction="#saveResult">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="40" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="openWindow" onAction="#openWindow">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="40" icon="EXTERNAL_LINK" style="-fx-text-fill: grey"/>
                     </graphic>
                 </Button>
             </HBox>
