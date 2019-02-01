@@ -3,3 +3,7 @@
 \contentsline {section}{\numberline {2}Getting started}{3}{section.2}
 \contentsline {subsection}{\numberline {2.1}Edit the configuration}{3}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Start a simulation}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}View the simulation results}{5}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Detailed Output}{6}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Abstracted Output}{7}{subsubsection.2.3.2}
+\contentsline {subsection}{\numberline {2.4}Save the result}{9}{subsection.2.4}
