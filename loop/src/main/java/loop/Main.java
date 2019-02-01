@@ -27,7 +27,7 @@ public class Main extends Application {
     
     public static final String RING_LOGO_PATH = "file:src/main/resources/loop_ring.png";
     
-    private static final boolean doWaitForSplash = true;
+    private static final boolean doWaitForSplash = false;
     
     @FXML
     public void init() {
