@@ -18,10 +18,10 @@
             <!-- <Label styleClass="card-subtitle" text="Efficiency and frequency of the equilibriums" wrapText="true" /> -->
             <LineChart fx:id="efficiencyAndFrequencyChart" createSymbols="false">
                 <xAxis>
-                    <NumberAxis autoRanging="false" side="BOTTOM"/>
+                    <NumberAxis autoRanging="false" side="BOTTOM" animated="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT"/>
+                    <NumberAxis side="LEFT" animated="false"/>
                 </yAxis>
             </LineChart>
         </VBox>
@@ -29,10 +29,10 @@
             <!-- <Label styleClass="card-subtitle" text="Duration until an equilibrium was found" /> -->
             <LineChart fx:id="executedAdaptsChart" createSymbols="false">
                 <xAxis>
-                    <NumberAxis autoRanging="false" side="BOTTOM"/>
+                    <NumberAxis autoRanging="false" side="BOTTOM" animated="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT"/>
+                    <NumberAxis side="LEFT" animated="false"/>
                 </yAxis>
             </LineChart>
         </VBox>
