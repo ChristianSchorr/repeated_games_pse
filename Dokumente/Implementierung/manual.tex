@@ -170,6 +170,12 @@ To further customise configurations, the user can create own strategies, games, 
 \end{figure}
 
 \subsection{Create new games}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{img_manual/game_window.png}
+	\caption{The game creation window.}
+	\label{fig:game_window}
+\end{figure}
 When the \enquote{Create new game} entry in the \enquote{Extensions} menu is pressed, the game creation window opens (see Fig.\ref{fig:game_window}). Here, a new game can be created. To do so, a name, a description and the players payoffs must be entered in the corresponding text fields. For example, an entry of the form \enquote{\(1 / 2\)} in the botom left part of the payoff table means: \enquote{If player 1 doensn't but player 2 does cooperate, player 1 will receive the payoff \(1\) and player 2 will receive the payoff \(2\)}.
 
 To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
@@ -183,36 +189,46 @@ To load an existing game press the  \inlinegraphics{img_manual/import_button.png
 \end{figure}\\
 You can either import a game from a previously exported game file or open one of the locally stored games, i.e. the preconfigured games and the ones added to the repository by the user.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/game_window.png}
-	\caption{The game creation window.}
-	\label{fig:game_window}
-\end{figure}
-
 \subsection{Create new strategies}
 
 \subsection{Create new groups}
-When the \enquote{Create new group} entry in the \enquote{Extensions} menu is pressed, the group creation window opens (see Fig.\ref{fig:group_window}). To create a new group, name and description must be entered in the corresponding text fields and at least one segment must be configured. Segments can be added by pressing the \enquote{Add segment} button and removed by pressing the \enquote{X} button at the head of the corresponding tab.
-
-For each segment, a capital distribution must be chosen and parametrised; it will be used to initialise agents of that segment with capital at the beginning of simulations. Secondly, a set of strategies must be selected out of all locally stored strategies. Those include the preconfigured ones as well as strategies created by the user (if existent).
-
-The multislider can be used to configure the relative sizes of the segments. For example, if \(100\) agents of the group in Fig.\ref{fig:group_window} were to be initialised, \(25\) of them would belong to segment 2, thus receiving an initial capital drawn out of a poisson distribution with mean \(15\) as well as \enquote{always cooperate} or \enquote{tit for tat} as initial strategy.
-
-To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
-
-To export the created group as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the game to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
-
-To load an existing group press the  \inlinegraphics{img_manual/import_button.png} button. You can either import a group from a previously exported game file or open one of the locally stored groups, i.e. the preconfigured groups and the ones added to the repository by the user.
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{img_manual/group_window.png}
 	\caption{The group creation window.}
 	\label{fig:group_window}
 \end{figure}
+When the \enquote{Create new group} entry in the \enquote{Extensions} menu is pressed, the group creation window opens (see Fig.\ref{fig:group_window}). To create a new group, name and description must be entered in the corresponding text fields and at least one segment must be configured. Segments can be added by pressing the \enquote{Add segment} button and removed by pressing the \enquote{X} button at the head of the corresponding tab.
+
+For each segment, a capital distribution must be chosen and parametrised; it will be used to initialise agents of that segment with capital at the beginning of simulations. Secondly, a set of strategies must be selected out of all locally stored strategies. Those include the preconfigured ones as well as strategies created by the user (if existent).
+
+The multislider can be used to configure the relative sizes of the segments. For example, if \(100\) agents of the group in Fig.\ref{fig:group_window} were to be initialised, \(25\) of them would belong to segment 2, thus receiving an initial capital drawn out of a poisson distribution with mean \(15\) as well as \enquote{always cooperate} or \enquote{tit for tat} as initial strategy.
+
+By deselecting the checkbox labeled \enquote{Group is cohesive}, the group becomes \enquote{uncohesive}, i.e. agents of this group do not consider each other as members of the same group anymore. This becomes relevant when strategies are used that refer to other agents' group affiliation. This can be used to model agents that \enquote{aren't part of any group}, which is equivalent to being part of an uncohesive group.
+
+To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
+
+To export the created group as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the group to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
+
+To load an existing group press the  \inlinegraphics{img_manual/import_button.png} button. You can either import a group from a previously exported group file or open one of the locally stored groups, i.e. the preconfigured groups and the ones added to the repository by the user.
 
 \subsection{Create new populations}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{img_manual/population_window.png}
+	\caption{The population creation window.}
+	\label{fig:population_window}
+\end{figure}
+When the \enquote{Create new population} entry in the \enquote{Extensions} menu is pressed, the population creation window opens (see Fig.\ref{fig:population_window}). To create a new population, name and description must be entered in the corresponding text fields and at least one group must be added.
+
+In order to add a group, choose the group in the dropdownmenu \circled{1} and enter the amount of agents of that group that shall be added in the textfield \circled{2}. Then press the  \inlinegraphics{img_manual/plus_button.png} button. To remove a group, press the corresponding \inlinegraphics{img_manual/blue_x_button.png} button.
+
+To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
+
+To export the created population as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the population to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
+
+To load an existing population press the  \inlinegraphics{img_manual/import_button.png} button. You can either import a population from a previously exported population file or open one of the locally stored populations, i.e. the preconfigured populations and the ones added to the repository by the user.
+
 
 \subsection{Important Information on Saving and Exporting Extensions}\label{sec:export_extensions}
 
