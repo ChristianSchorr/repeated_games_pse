@@ -241,7 +241,7 @@ public class DetailedOutputController {
 
         if (config.isMulticonfiguration())
             this.configSliderParameterLabel.setText(String.format("%s: %s", this.config.getVariableParameterName(),
-                    this.config.getParameterValues().get(this.selectedConfigurationNumber)));
+                    (double) Math.round(this.config.getParameterValues().get(this.selectedConfigurationNumber) * 100) / 100));
     }
 
     private void updateDescription() {
