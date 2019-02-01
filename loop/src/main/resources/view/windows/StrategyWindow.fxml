@@ -4,7 +4,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -38,16 +38,25 @@
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="ROTATE_LEFT" style="-fx-text-fill: grey"/>
                     </graphic>
+                    <tooltip>
+                        <Tooltip text="Reset all settings"/>
+                    </tooltip>
                 </Button>
                 <Button onAction="#saveStrategy">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
                     </graphic>
+                    <tooltip>
+                        <Tooltip text="Export the created strategy as a file"/>
+                    </tooltip>
                 </Button>
                 <Button onAction="#applyStrategy">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="30" icon="CHECK" style="-fx-text-fill: #008A00"/>
                     </graphic>
+                    <tooltip>
+                        <Tooltip text="Save the created group and close this window"/>
+                    </tooltip>
                 </Button>
             </HBox>
         </GridPane>

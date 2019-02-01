@@ -49,11 +49,17 @@
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="40" icon="DOWNLOAD" style="-fx-text-fill: grey"/>
                     </graphic>
+                    <tooltip>
+                        <Tooltip text="Export the result as a file"/>
+                    </tooltip>
                 </Button>
                 <Button fx:id="openWindow" onAction="#openWindow">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="40" icon="EXTERNAL_LINK" style="-fx-text-fill: grey"/>
                     </graphic>
+                    <tooltip>
+                        <Tooltip text="Open the output in a new window"/>
+                    </tooltip>
                 </Button>
             </HBox>
         </HBox>

@@ -497,10 +497,14 @@ public class GroupController implements CreationController<Group> {
             distributionChoice.getItems().addAll(CentralRepository.getInstance()
                     .getDiscreteDistributionRepository().getAllEntityNames());
             distributionChoice.getSelectionModel().select(defaultDistributionName);
+            distributionChoice.setTooltip(createTooltip(CentralRepository.getInstance()
+                    .getDiscreteDistributionRepository().getEntityByName(defaultDistributionName).getDescription()));
             distributionChoice.valueProperty().addListener((obs, oldDistName, newDistName) -> {
+                Plugin<DiscreteDistribution> plugin = CentralRepository.getInstance()
+                        .getDiscreteDistributionRepository().getEntityByName(newDistName);
                 distributionPluginPane.getChildren().clear();
-                distributionPluginPane.getChildren().add(CentralRepository.getInstance().getDiscreteDistributionRepository()
-                        .getEntityByName(newDistName).getRenderer().renderPlugin());
+                distributionPluginPane.getChildren().add(plugin.getRenderer().renderPlugin());
+                distributionChoice.setTooltip(createTooltip(plugin.getDescription()));
             });
 
             PluginControl p = CentralRepository.getInstance().getDiscreteDistributionRepository()
@@ -508,15 +512,6 @@ public class GroupController implements CreationController<Group> {
             distributionPluginPane.getChildren().add(p);
         }
 
-        @FXML
-        void capitalDistributionSelected() {
-            String selected = distributionChoice.getValue();
-            Plugin<DiscreteDistribution> plugin = CentralRepository.getInstance()
-                    .getDiscreteDistributionRepository().getEntityByName(selected);
-            PluginControl newpane = plugin.getRenderer().renderPlugin();
-            distributionPluginPane.getChildren().clear();
-            distributionPluginPane.getChildren().add(newpane);
-        }
 
         @FXML
         void handleClosed(ActionEvent event) {
@@ -541,6 +536,14 @@ public class GroupController implements CreationController<Group> {
 
         public Node getContent() {
             return content;
+        }
+        
+        private Tooltip createTooltip(String desc) {
+            Tooltip tooltip = new Tooltip(desc);
+            tooltip.getStyleClass().add("ttip");
+            tooltip.setWrapText(true);
+            tooltip.setPrefWidth(600);
+            return tooltip;
         }
     }
 }

@@ -42,10 +42,10 @@ public class StrategyController implements CreationController<Strategy> {
     private FlowPane expressionContainer;
 
     @FXML
-    private ChoiceBox thenBox;
+    private ChoiceBox<String> thenBox;
 
     @FXML
-    private ChoiceBox elseBox;
+    private ChoiceBox<String> elseBox;
 
     @FXML
     private ChoiceBox cooperationParticipants;
@@ -104,9 +104,17 @@ public class StrategyController implements CreationController<Strategy> {
         ObservableList<String> obsStratNames = FXCollections.observableArrayList(stratNames);
         thenBox.setItems(obsStratNames);
         thenBox.valueProperty().bindBidirectional(thenProperty);
+        thenBox.getSelectionModel().selectedItemProperty().addListener((obs, oldStrat, newStrat) -> {
+            String desc = CentralRepository.getInstance().getStrategyRepository().getEntityByName(newStrat).getDescription();
+            thenBox.setTooltip(createTooltip(desc));
+        });
         thenProperty.setValue(stratNames.get(0));
         elseBox.setItems(obsStratNames);
         elseBox.valueProperty().bindBidirectional(elseProperty);
+        elseBox.getSelectionModel().selectedItemProperty().addListener((obs, oldStrat, newStrat) -> {
+            String desc = CentralRepository.getInstance().getStrategyRepository().getEntityByName(newStrat).getDescription();
+            elseBox.setTooltip(createTooltip(desc));
+        });
         elseProperty.setValue(stratNames.get(0));
 
         participants = new ArrayList<>();
@@ -144,7 +152,15 @@ public class StrategyController implements CreationController<Strategy> {
         predBox.setItems(FXCollections.observableArrayList(agentEntityMap.keySet()));
         predBox.getSelectionModel().select(0);
     }
-
+    
+    private Tooltip createTooltip(String desc) {
+        Tooltip tooltip = new Tooltip(desc);
+        tooltip.getStyleClass().add("ttip");
+        tooltip.setWrapText(true);
+        tooltip.setPrefWidth(600);
+        return tooltip;
+    }
+    
     private void setupStrategyMaps() {
         coopMap = new HashMap<>();
 

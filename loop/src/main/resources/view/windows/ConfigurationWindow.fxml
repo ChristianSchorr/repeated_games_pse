@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -166,11 +167,17 @@
                                     <graphic>
                                         <Glyph fontFamily="FontAwesome" fontSize="50" icon="ROTATE_LEFT" style="-fx-text-fill: grey" />
                                     </graphic>
+		                            <tooltip>
+		                        		<Tooltip text="Reset all settings"/>
+		                    		</tooltip>
                                 </Button>
                                 <Button onAction="#applyConfig">
                                     <graphic>
                                         <Glyph fontFamily="FontAwesome" fontSize="50" icon="CHECK" style="-fx-text-fill: #008A00" />
                                     </graphic>
+		                            <tooltip>
+		                        		<Tooltip text="Save the created configuration and close this wondow"/>
+		                    		</tooltip>
                                 </Button>
                             </HBox>
                         </VBox>

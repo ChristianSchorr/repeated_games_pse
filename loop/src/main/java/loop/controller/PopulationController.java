@@ -88,6 +88,9 @@ public class PopulationController implements CreationController<Population> {
         agentCountProperty.setValue(20);
         
         groupSelectionBox.getItems().addAll(CentralRepository.getInstance().getGroupRepository().getAllEntityNames());
+        groupSelectionBox.getSelectionModel().selectedItemProperty().addListener((o, oldGroup, newGroup) -> {
+            groupSelectionBox.setTooltip(createTooltip(CentralRepository.getInstance().getGroupRepository().getEntityByName(newGroup).getDescription()));
+        });
         groupSelectionBox.getSelectionModel().select(0);
         
         CentralRepository.getInstance().getPopulationRepository().getAllEntityNames().forEach(popName -> {
@@ -95,6 +98,14 @@ public class PopulationController implements CreationController<Population> {
             loadMenu.getItems().add(popItem);
             popItem.setOnAction(event -> setPopulation(CentralRepository.getInstance().getPopulationRepository().getEntityByName(popName)));
         });
+    }
+    
+    private Tooltip createTooltip(String desc) {
+        Tooltip tooltip = new Tooltip(desc);
+        tooltip.getStyleClass().add("ttip");
+        tooltip.setWrapText(true);
+        tooltip.setPrefWidth(600);
+        return tooltip;
     }
 
     @Override
@@ -133,7 +144,9 @@ public class PopulationController implements CreationController<Population> {
         //update flow pane
         GroupCellController cellController = new GroupCellController(groupName, agentCount, this);
         groupPane.getChildren().add(cellController.getContainer());
-        
+        Tooltip.install(cellController.getContainer(),
+                createTooltip(CentralRepository.getInstance().getGroupRepository().getEntityByName(groupName).getDescription()));
+                
         //update agent count
         totalAgentCountProperty.setValue(totalAgentCountProperty.getValue() + agentCount);
         

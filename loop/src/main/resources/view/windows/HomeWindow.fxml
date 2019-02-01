@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import org.controlsfx.glyphfont.Glyph?>
+<?import javafx.scene.control.*?>
 
 <?import javafx.scene.chart.LineChart?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2500.0"
@@ -155,11 +156,17 @@
                             <graphic>
                                 <Glyph fontFamily="FontAwesome" fontSize="50" icon="GEAR" style="-fx-text-fill: grey" />
                             </graphic>
+                            <tooltip>
+                        		<Tooltip text="Edit configuration"/>
+                    		</tooltip>
                         </Button>
                         <Button onAction="#startSimulation">
                             <graphic>
                                 <Glyph fontFamily="FontAwesome" fontSize="70" icon="PLAY" style="-fx-text-fill: #008A00" />
                             </graphic>
+                            <tooltip>
+                        		<Tooltip text="Start simulation"/>
+                    		</tooltip>
                         </Button>
                     </HBox>
                     <columnConstraints>
