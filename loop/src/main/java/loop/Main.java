@@ -33,7 +33,7 @@ public class Main extends Application {
     public void init() {
         if (doWaitForSplash) {
             try {
-                Thread.sleep(SplashScreenLoader.animationMillis + 500); //let splash animation play
+                Thread.sleep(SplashScreenLoader.animationMillis + 200); //let splash animation play
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

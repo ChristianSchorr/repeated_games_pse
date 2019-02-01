@@ -71,9 +71,11 @@ The home window is roughly divided into three areas. In the top area, a short su
 \end{figure}
 
 \subsection{Edit the configuration}\label{sec:edit_config}
-To edit the active configuration, press the cog-labeled button in the home window. This will open up the configuration window (see Fig.\ref{fig:config_window}). On the left-hand side, all configurable parameters of a simulation can be modified. If the selected pairing algorithm, success quantification, strategy adaption mechanism or equilibrium criterion has configurable parameters, they can be entered below the corresponding dropdown menu (see \circled{1} in Fig.\ref{fig:config_window}). On the right-hand side, a short description and a table containing the payoffs of the selected game are displayed (see \circled{2} in Fig.\ref{fig:config_window}). Below (\circled{3} in Fig.\ref{fig:config_window}), a multiconfiguration can be activated, see section \ref{?}.
+To edit the active configuration, press the cog-labeled button in the home window. This will open up the configuration window (see Fig.\ref{fig:config_window}). On the left-hand side, all configurable parameters of a simulation can be modified. If the selected pairing algorithm, success quantification, strategy adaption mechanism or equilibrium criterion has configurable parameters, they can be entered below the corresponding dropdown menu (see \circled{1} in Fig.\ref{fig:config_window}). On the right-hand side, a short description and a table containing the payoffs of the selected game are displayed (see \circled{2} in Fig.\ref{fig:config_window}). Below (\circled{3} in Fig.\ref{fig:config_window}), a multiconfiguration can be activated, see section \ref{sec:multi_config}.
 
 The  \inlinegraphics{img_manual/rotate_left_button.png} - button will reset all settings to the default configuration. Pressing the  \inlinegraphics{img_manual/check_button.png} - button will close the configuration window and apply the made changes to the active configuration.
+
+It is possible to export the configuration to an external file by navigating to \enquote{File \(\rightarrow\) Save configuration} in the menu bar of the home window. Such a configuration file can be loaded and set as the active configuration via \enquote{File \(\rightarrow\) Load configuration}. For important information on saving and exporting files see section \ref{sec:export_extensions}.
 
 \begin{figure}
 	\centering
@@ -140,7 +142,7 @@ The abstracted output (see Fig.\ref{fig:abstracted_output}) contains information
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/efficiency_distribution.png}
+	\includegraphics[width=0.7\linewidth]{img_manual/efficiency_distribution.png}
 	\caption{An exemplary efficiency distribution.}
 	\label{fig:efficiency_distribution}
 \end{figure}
@@ -149,25 +151,64 @@ The abstracted output (see Fig.\ref{fig:abstracted_output}) contains information
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/adapts_distribution.png}
+	\includegraphics[width=0.7\linewidth]{img_manual/adapts_distribution.png}
 	\caption{An exemplary distribution of executed adaption steps.}
 	\label{fig:adapts_distribution}
 \end{figure}
 
-Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be included in the calculation of the histograms above.
+Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be considered in the histograms above.
 
 \subsection{Save the result}
-If you whish to save the result of a simulation so you can take a look at it again later, you may do so by clicking the  \inlinegraphics{img_manual/export_button.png} button (Fig.\ref{fig:detailed_output} \circled{4}). This will open a file dialog where you can choose a place to save your result. To load a result that has been exported in this way, press \enquote{File} and then \enquote{Load simulation result} in the toolbar of the home window.
+If you whish to save the result of a simulation so you can take a look at it again later, you may do so by clicking the  \inlinegraphics{img_manual/export_button.png} button (Fig.\ref{fig:detailed_output} \circled{4}). This will open a file dialog where you can choose a place to save your result. To load a result that has been exported in this way, press \enquote{File} and then \enquote{Load simulation result} in the menu of the home window.
 
 You can also set the configuration that was used for a selected simulation as the active configuration by pressing the  \inlinegraphics{img_manual/rotate_right_button.png} button (Fig.\ref{fig:detailed_output} \circled{5}).
 
+\pagebreak
 \section{Extensions}
 
-To further customise configurations, the user can create own strategies, games, groups and populations and use them in simulations. The corresponding creation editors can all be reached via the \enquote{Extensions} entry in the menu bar of the home window:
+To further customise configurations, the user can create own strategies, games, groups and populations and use them in simulations.
+
+\subsection{Create new strategies}
+The strategy creation lets you build strategies of the form
+\begin{equation}
+\textit{If } X \textit{ then } A, \textit{ otherwise } B,
+\end{equation}\label{eq:strategy}
+where \(A\) and \(B\) are already existing strategies and \(X\) is a configurable expression, such as \enquote{The opponent is in the same group as me} or \enquote{The opponent cooperated in his last game against me}.
+
+The strategy creation window can be opened by clicking the \enquote{Create new strategy} entry in the \enquote{Extensions} menu in the home window:
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.4\linewidth]{img_manual/menubar_extensions.png}
+	\includegraphics[width=0.2\linewidth]{img_manual/strategy_menu.png}
 \end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{img_manual/strategy_window.png}
+	\caption{The strategy creation window.}
+	\label{fig:strategy_window}
+\end{figure}
+
+It is divided into three vertically aligned sections. The topmost section \circled{1} contains two text fields in which name and description of the new strategy must be entered.
+
+Section \circled{2} contains a set of predicates and operators, where most of the predicates can be configured using dropdown menus. They can be used to compound the expression \(X\) in (\ref{eq:strategy}). Clicking the \inlinegraphics{img_manual/plus_button.png} button adds the corresponding operator or predicate to the expression, which will be displayed in section \circled{3}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{img_manual/strategy_expression.png}
+	\caption{The generated expression.}
+	\label{fig:strategy_expression}
+\end{figure}
+
+When you add an operator to the expression, an empty box will be generated for every required operand (see Fig.\ref{fig:strategy_expression}). To insert a predicate or operator as one of the operands, select the correspondig box (as in \circled{4}) and then add the desired predicate by clicking the \inlinegraphics{img_manual/plus_button.png} button.
+
+To remove a predicate or an operator from the expression, click the \inlinegraphics{img_manual/blue_x_button.png} button next to it. A removed predicate will be replaced by an empty box. When you remove an operator, its operands will be removed as well.
+
+Below the displayed expression reside two drop down menus \circled{5} and \circled{6}, in which the strategies \(A\) and \(B\) from (\ref{eq:strategy}) can be selected.
+
+To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button in section \circled{1}.
+
+To export the created strategy as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the strategy to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
 
 \subsection{Create new games}
 \begin{figure}
@@ -188,46 +229,6 @@ To load an existing game press the  \inlinegraphics{img_manual/import_button.png
 	\includegraphics[width=0.4\linewidth]{img_manual/import_game.png}
 \end{figure}\\
 You can either import a game from a previously exported game file or open one of the locally stored games, i.e. the preconfigured games and the ones added to the repository by the user.
-
-\subsection{Create new strategies}
-
-To create your own strategy first navigate to the extension menu inside the menu bar in the home window. The \enquote{Extensions} menu contains an item which is labelled with \enquote{Create new strategy} (see \ref{fig:strategy_menu}).
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.2\linewidth]{img_manual/strategy_menu.png}
-	\caption{Open the Strategy creation window via the menu.}
-	\label{fig:strategy_menu}
-\end{figure}
-
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/strategy_window.png}
-	\caption{The strategy creation window.}
-	\label{fig:strategy_window}
-\end{figure}
-
-
-When you click it a new window opens. The strategy creation window is divided into three vertical aligned sections. In the topmost section (\circled{1}) you will find two text fields where you have to enter a name and a description for the new strategy. Right next to it there are three buttons.
-The  \inlinegraphics{img_manual/rotate_left_button.png} - button will reset the window to it's original state. Pressing the  \inlinegraphics{img_manual/check_button.png} - button will insert the newly created strategy into the programs repository without saving it permanently to a file. If you want to save the created strategy so it will still be accessible after a restart of the program you will have to press the \inlinegraphics{img_manual/export_button.png} - button. This opens the file dialog and you can save the strategy as a file. (more in \ref{sec:export_extensions})
-\\\\
-In the section below (\circled{2}) you fill find boxes with predicates and operators. Some of these boxes contain drop down menus which allow you to further parameterize the predicates. By clicking the \inlinegraphics{img_manual/add_button.png}- button you can add an operator or a predicate to the expression.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\linewidth]{img_manual/strategy_expression.png}
-	\caption{The generated expression.}
-	\label{fig:strategy_expression}
-\end{figure}
-
-
-
-The created expression will be displayed in the bottom section of the window (\circled{3}). When you add an operator to the expression an empty box for every required operand will be generated. By clicking on such a box the corresponding operand gets selected (\circled{4}) and the next addition will be inserted as this operand. 
-\\
-You can also remove a predicate as well as an operator from the expression by clicking the \inlinegraphics{img_manual/close_button.png}-button next to it. The removed part will be replaced by an empty box which can be select to add another predicate or operator. When you remove an operator its operands will also be removed.
-\\
-Below the displayed expression are two drop down menus which contain all available strategies. By choosing a strategy in the left drop down (\circled{5}) this strategy gets applied when the expression matches in a round otherwise the strategy in the right menu (\circled{6}) will be applied.
 
 \subsection{Create new groups}
 \begin{figure}
@@ -273,15 +274,35 @@ To load an existing population press the  \inlinegraphics{img_manual/import_butt
 There is an important difference between saving an extension (adding it to the local repository by pressing \inlinegraphics{img_manual/check_button.png}) and exporting it as a file (by pressing \inlinegraphics{img_manual/export_button.png}). If it is just saved, it will only be available until the program is closed, i.e. it is not stored persistently. If an extension shall be available persistently, it must be exported as a file and saved \textit{inside the preconfigured folder}, which is \texttt{C:/Users/<Username>/loop/personallib/\(X\)}, where \(X \in \{\)\texttt{strategies, groups, populations, games}\(\}\). All extensions that reside in those folders will be automatically loaded at program start.
 
 There is another important note to make regarding the export of extensions. If an extension makes use of another extension (a population containing a group, a group containing certain strategies), then it will only store that extensions \textit{name}. This means that when, for example, a previously exported population is loaded and it contains a group of name \(X\), the local repository will be searched for a group of name \(X\), and if none is found, the import will fail and an error message will be displayed. This also applies to configurations, i.e. an exported configuration only stores the \textit{names} of the used game, population, etc. This has mutliple consequences:
-\begin{enumerate}
+\begin{itemize}
 \item Whenever you export an extension (or configuration) in order to store it persistently, make sure you also persistently store all referenced extensions (groups, strategies,...).
 \item When you export a configuration or an extension in order to send it to a colleague who also uses this program, make sure you send him all the referenced extensions as well.
 \item Since, for example, a population only stores the name of its contained groups, it can be modified by overwriting those groups. If a certain population contains a group with name \(X\), and you were to delete that group and create a new one with the same name \(X\), then the population would now contain that new group. This works in the same way for configurations with contained populations and games, and for groups with contained strategies.
-\end{enumerate}
+\end{itemize}
 
 \section{Advanced}
 
-\subsection{Multiconfigurations}
+\subsection{Multiconfigurations}\label{sec:multi_config}
+A multiconfiguration can be regarded as a set of (normal) configurations (the \enquote{elementary configurations}), where all parameters but one (the \enquote{multiconfiguration parameter}, short: multi-parameter) are fix and the multi-parameter varies through a certain set of values. For example, one could specify a multiconfiguration in which all parameters are as in the preconfigured configuration but the round count (the amount of rounds per adaption steps) varies from \(100\) to \(200\) in steps of \(10\) (see Fig.\ref{?}).
+
+To create a multiconfiguration, open the configuration window and choose the desired multi-parameter in the dropdown menu at the bottom right. Possible multi-parameters are:
+\begin{itemize}
+\item round count
+\item maximum number of adaption steps
+\item configurable numerical parameters in the success quantification, the pair building algorithm, the strategy adaption mechanism and the equilibrium criterion
+\item the size of a group in the selected population
+\item the size of the segments in one of the groups of the selected population\footnote{Works only for groups that consist of exactly two segments. If \(X \in [0,1]\) is the value of the mult-parameter, then the first segment has relative size \(X\) and the second segment has relative size \(1 - X\).}
+\end{itemize}
+
+Below the dropdown menu, start value, end value and step size of the multi-parameter can be entered.
+
+The output changes slightly for multiconfigurations. In the output pages \enquote{Detailed output} and \enquote{Abstracted output}, a new slider labeled \enquote{Configuration} appears, with which the considered (elementary) configuration may be selected. Next to the slider, the name of the mutli-parameter and its value in the currently selected configuration are displayed. On top of that, a third output page is available, the \enquote{Multiconfiguration output} (see ?). It contains two line graphs:
+
+\textbf{Efficiency and equilibrium frequency:} The first chart plots equilibrium frequency\footnote{The portion of iterations in which an equilibrium was reached} and mean final efficiency against the value of the multi-parameter.
+
+\textbf{Mean amount of executed adaption steps:} The second chart plots the mean amount of executed adaption steps against the value of the multi-parameter.
+
+Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be considered in the plots above.
 
 \subsection{The Plugin-System}
 
