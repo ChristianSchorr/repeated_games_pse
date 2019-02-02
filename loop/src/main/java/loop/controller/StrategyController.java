@@ -16,11 +16,13 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import loop.controller.validation.DoubleValidator;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulationengine.strategy.strategybuilder.*;
+import org.controlsfx.validation.ValidationSupport;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,6 +89,8 @@ public class StrategyController implements CreationController<Strategy> {
     private List<Consumer<Strategy>> creationListener;
     CentralRepository repository;
 
+    private final ValidationSupport support = new ValidationSupport();;
+
     private ContainerNode expressionRoot;
     private ContainerNode selectedOperand;
 
@@ -151,8 +155,11 @@ public class StrategyController implements CreationController<Strategy> {
         timeAdvBox.getSelectionModel().select(0);
         predBox.setItems(FXCollections.observableArrayList(agentEntityMap.keySet()));
         predBox.getSelectionModel().select(0);
+
+        support.registerValidator(percentageBox, false, new DoubleValidator("Deviation has to be a value between 0 and 1",
+                d -> d > 0 && d <= 1));
     }
-    
+
     private Tooltip createTooltip(String desc) {
         Tooltip tooltip = new Tooltip(desc);
         tooltip.getStyleClass().add("ttip");
@@ -160,7 +167,7 @@ public class StrategyController implements CreationController<Strategy> {
         tooltip.setPrefWidth(600);
         return tooltip;
     }
-    
+
     private void setupStrategyMaps() {
         coopMap = new HashMap<>();
 
@@ -204,6 +211,11 @@ public class StrategyController implements CreationController<Strategy> {
 
     @FXML
     private void handleAddInd() {
+        if (support.isInvalid()) {
+            Alert alert = new Alert(AlertType.ERROR, "Invalid value for deviation!", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
         String agentEntity = predBox.getSelectionModel().getSelectedItem();
         String timeAdv = timeAdvBox.getSelectionModel().getSelectedItem();
         if (agentEntity == null || timeAdv == null) return;
@@ -253,11 +265,14 @@ public class StrategyController implements CreationController<Strategy> {
 
     @FXML
     private void saveStrategy() {
-        Strategy strat;
-        try {
-            strat = expressionRoot.getStrategy();
-        } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        Strategy strat = getStrategy();
+        if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
+            Alert alert = new Alert(AlertType.ERROR, "Name and description have to be filled out", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        if (strat == null) {
+            Alert alert = new Alert(AlertType.ERROR, "Strategy expression is faulty", ButtonType.OK);
             alert.showAndWait();
             return;
         }
@@ -290,17 +305,58 @@ public class StrategyController implements CreationController<Strategy> {
 
     @FXML
     private void applyStrategy() {
-        Strategy strat;
-        try {
-            strat = expressionRoot.getStrategy();
-        } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        Strategy strat = getStrategy();
+        if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
+            Alert alert = new Alert(AlertType.ERROR, "Name and description have to be filled out", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        if (strat == null) {
+            Alert alert = new Alert(AlertType.ERROR, "Strategy expression is faulty", ButtonType.OK);
             alert.showAndWait();
             return;
         }
         this.repository.getStrategyRepository().addEntity(strat.getName(), strat);
         Stage s = (Stage) this.descriptionField.getScene().getWindow();
         s.close();
+    }
+
+    private Strategy getStrategy() {
+        Strategy strat = null;
+        if (expressionRoot == null) {
+            return null;
+        } else {
+            SyntaxTree tree = new SyntaxTree(expressionRoot.syntaxNode);
+            boolean error = !tree.checkSyntax();
+            if (error) {
+                return null;
+            }
+            strat = StrategyBuilder.creatNewStrategy(createAdvTree(tree).getRoot(),
+                    nameProperty.getValue(), descriptionProperty.getValue());
+        }
+        return strat;
+    }
+
+    private SyntaxTree createAdvTree(SyntaxTree subTree) {
+        Strategy thenStrat = repository.getStrategyRepository().getEntityByName(thenProperty.get());
+        Strategy elseStrat = repository.getStrategyRepository().getEntityByName(elseProperty.get());
+
+        Strategy strat = StrategyBuilder.creatNewStrategy(subTree.getRoot(), "", "");
+        SyntaxNode rootNode = new SyntaxNode(null, ConcreteOperator.AND());
+
+        SyntaxNode firstNode = new SyntaxNode(null, ConcreteOperator.IMPLIES());
+        firstNode.insertNode(new SyntaxNode(strat, null));
+        firstNode.insertNode(new SyntaxNode(thenStrat, null));
+
+        SyntaxNode secondNode = new SyntaxNode(null, ConcreteOperator.IMPLIES());
+        SyntaxNode notNode = new SyntaxNode(null, ConcreteOperator.NOT());
+        notNode.insertNode(new SyntaxNode(strat, null));
+        secondNode.insertNode(notNode);
+        secondNode.insertNode(new SyntaxNode(elseStrat, null));
+        rootNode.insertNode(firstNode);
+        rootNode.insertNode(secondNode);
+
+        return new SyntaxTree(rootNode);
     }
 
     private void insertContainerNode(ContainerNode child, ContainerNode parent) {
@@ -459,47 +515,6 @@ public class StrategyController implements CreationController<Strategy> {
                 if (this != expressionRoot)
                     container.getChildren().add(getBrace(false, isHovered, selectedOperand == this));
             }
-        }
-
-        private Strategy getStrategy() {
-            Strategy strat = null;
-            if (expressionRoot == null) {
-                // TODO error
-            } else {
-                SyntaxTree tree = new SyntaxTree(expressionRoot.syntaxNode);
-                boolean error = !tree.checkSyntax();
-                if (error) {
-                    // TODO error
-                }
-                if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
-                    // TODO error
-                }
-                strat = StrategyBuilder.creatNewStrategy(createAdvTree(tree).getRoot(),
-                        nameProperty.getValue(), descriptionProperty.getValue());
-            }
-            return strat;
-        }
-
-        private SyntaxTree createAdvTree(SyntaxTree subTree) {
-            Strategy thenStrat = repository.getStrategyRepository().getEntityByName(thenProperty.get());
-            Strategy elseStrat = repository.getStrategyRepository().getEntityByName(elseProperty.get());
-
-            Strategy strat = StrategyBuilder.creatNewStrategy(subTree.getRoot(), "", "");
-            SyntaxNode rootNode = new SyntaxNode(null, ConcreteOperator.AND());
-
-            SyntaxNode firstNode = new SyntaxNode(null, ConcreteOperator.IMPLIES());
-            firstNode.insertNode(new SyntaxNode(strat, null));
-            firstNode.insertNode(new SyntaxNode(thenStrat, null));
-
-            SyntaxNode secondNode = new SyntaxNode(null, ConcreteOperator.IMPLIES());
-            SyntaxNode notNode = new SyntaxNode(null, ConcreteOperator.NOT());
-            notNode.insertNode(new SyntaxNode(strat, null));
-            secondNode.insertNode(notNode);
-            secondNode.insertNode(new SyntaxNode(elseStrat, null));
-            rootNode.insertNode(firstNode);
-            rootNode.insertNode(secondNode);
-
-            return new SyntaxTree(rootNode);
         }
 
         private HBox getBrace(boolean open, boolean isHovered, boolean selected) {
