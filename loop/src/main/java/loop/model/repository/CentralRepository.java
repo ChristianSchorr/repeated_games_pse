@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 import javafx.scene.control.Alert;
@@ -11,8 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import loop.model.Group;
 import loop.model.Population;
-import loop.model.plugin.Plugin;
-import loop.model.plugin.PluginLoader;
+import loop.model.plugin.*;
 import loop.model.simulationengine.ConcreteGame;
 import loop.model.simulationengine.CooperationConsideringPairBuilder;
 import loop.model.simulationengine.EquilibriumCriterion;
@@ -251,9 +251,9 @@ public class CentralRepository {
 		} catch (NullPointerException n) {
 			//Empty File    
 		}
-	    
+
 	    loadPlugins();
-	    
+
 	    validateGroups();
 	    validatePopulations();
 	}
@@ -313,24 +313,25 @@ public class CentralRepository {
 	}
 	
 	private void loadPlugins() {
-		List<Plugin.PairBuilderPlugin> pairBuilderPlugins = PluginLoader.loadPlugins(Plugin.PairBuilderPlugin.class);
-		for (Plugin.PairBuilderPlugin plugin : pairBuilderPlugins)
+
+		List<PairBuilderPlugin> pairBuilderPlugins = PluginLoader.loadPlugins(PairBuilderPlugin.class);
+		for (PairBuilderPlugin plugin : pairBuilderPlugins)
 			pairBuilderRepo.addEntity(plugin.getName(), plugin);
 
-		List<Plugin.SuccessQuantifierPlugin> successQuantifierPlugins = PluginLoader.loadPlugins(Plugin.SuccessQuantifierPlugin.class);
-		for (Plugin.SuccessQuantifierPlugin plugin : successQuantifierPlugins)
+		List<SuccessQuantifierPlugin> successQuantifierPlugins = PluginLoader.loadPlugins(SuccessQuantifierPlugin.class);
+		for (SuccessQuantifierPlugin plugin : successQuantifierPlugins)
 			successQuantifierRepo.addEntity(plugin.getName(), plugin);
 
-		List<Plugin.StrategyAdjusterPlugin> strategyAdjusterPlugins = PluginLoader.loadPlugins(Plugin.StrategyAdjusterPlugin.class);
-		for (Plugin.StrategyAdjusterPlugin plugin : strategyAdjusterPlugins)
+		List<StrategyAdjusterPlugin> strategyAdjusterPlugins = PluginLoader.loadPlugins(StrategyAdjusterPlugin.class);
+		for (StrategyAdjusterPlugin plugin : strategyAdjusterPlugins)
 			strategyAdjusterRepo.addEntity(plugin.getName(), plugin);
 
-		List<Plugin.EquilibriumCriterionPlugin> equilibriumCriterionPlugins = PluginLoader.loadPlugins(Plugin.EquilibriumCriterionPlugin.class);
-		for (Plugin.EquilibriumCriterionPlugin plugin : equilibriumCriterionPlugins)
+		List<EquilibriumCriterionPlugin> equilibriumCriterionPlugins = PluginLoader.loadPlugins(EquilibriumCriterionPlugin.class);
+		for (EquilibriumCriterionPlugin plugin : equilibriumCriterionPlugins)
 			equilibriumCriterionRepo.addEntity(plugin.getName(), plugin);
 
-		List<Plugin.DiscreteDistributionPlugin> discreteDistributionPlugins = PluginLoader.loadPlugins(Plugin.DiscreteDistributionPlugin.class);
-		for (Plugin.DiscreteDistributionPlugin plugin : discreteDistributionPlugins)
+		List<DiscreteDistributionPlugin> discreteDistributionPlugins = PluginLoader.loadPlugins(DiscreteDistributionPlugin.class);
+		for (DiscreteDistributionPlugin plugin : discreteDistributionPlugins)
 			discreteDistributionRepo.addEntity(plugin.getName(), plugin);
 	}
 }
