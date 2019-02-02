@@ -642,10 +642,10 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     param = new MulticonfigurationParameter(multiParamType, (int) startValue, (int) endValue, (int) stepSize);
                     break;
                 case SEGMENT_SIZE:
-                    param = new MulticonfigurationParameter(startValue, endValue, stepSize, parts[1]);
+                    param = new MulticonfigurationParameter(startValue, endValue, stepSize, parts[1].substring(1));
                     break;
                 case GROUP_SIZE:
-                    param = new MulticonfigurationParameter((int)startValue, (int)endValue, (int)stepSize, parts[1]);
+                    param = new MulticonfigurationParameter((int)startValue, (int)endValue, (int)stepSize, parts[1].substring(1));
                     break;
                 default:
                     // TODO CapitalDistribution,Group Size

@@ -197,7 +197,7 @@ public class AbstractedOutputController {
 
         if (config.isMulticonfiguration())
             this.configSliderParameterLabel.setText(String.format("%s: %s", this.config.getVariableParameterName(),
-                    (double) Math.round(this.config.getParameterValues().get(this.selectedConfigurationNumber) * 100) / 10));
+                    (double) Math.round(this.config.getParameterValues().get(this.selectedConfigurationNumber) * 100) / 100));
     }
 
     private void updateCharts() {
