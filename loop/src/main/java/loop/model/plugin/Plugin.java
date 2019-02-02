@@ -42,10 +42,4 @@ public abstract class Plugin<T> implements Nameable {
 	 * class
 	 */
 	public abstract T getNewInstance(List<Double> params);
-
-	public abstract class PairBuilderPlugin extends Plugin<PairBuilder> {}
-	public abstract class EquilibriumCriterionPlugin extends Plugin<EquilibriumCriterion> {}
-	public abstract class StrategyAdjusterPlugin extends Plugin<StrategyAdjuster> {}
-	public abstract class SuccessQuantifierPlugin extends Plugin<SuccessQuantifier> {}
-	public abstract class DiscreteDistributionPlugin extends Plugin<DiscreteDistribution> {}
 }
