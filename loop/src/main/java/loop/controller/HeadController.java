@@ -248,7 +248,21 @@ public class HeadController {
 
     @FXML
     void showInfo(ActionEvent event) {
-        //TODO
+    	Parent newAboutParent = null;
+        try {
+            newAboutParent = FXMLLoader.load(getClass().getResource("/view/windows/AboutWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newAboutScene = new Scene(newAboutParent);
+        Stage newAboutWindow = new Stage();
+        newAboutWindow.setTitle("About");
+        newAboutWindow.setScene(newAboutScene);
+
+        // Specifies the modality for new window.
+        newAboutWindow.initModality(Modality.APPLICATION_MODAL);
+        newAboutWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
+        newAboutWindow.show();
     }
 
     @FXML
