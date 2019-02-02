@@ -108,12 +108,11 @@ public class ConcreteGameTest {
 	public void testPrisonersDilemma() {
 		Game prisonDilemma = ConcreteGame.prisonersDilemma();
 		assertTrue(prisonDilemma.getName().equals("Prisoner's Dilemma"));
-		assertTrue(prisonDilemma.getDescription().equals("Two members of a criminal gang are arrested and imprisoned. Each prisoner is in solitary confinement "
-        		+ "with no means of communicating with the other. The prosecutors lack sufficient evidence to convict the pair on the principal charge, "
-        		+ "but they have enough to convict both on a lesser charge. Simultaneously, the prosecutors offer each prisoner a bargain. Each prisoner is given the opportunity either to betray the other by testifying that the other committed the crime, or to cooperate with the other by remaining silent. The offer is:\n" + 
-        		"If A and B each betray the other, each of them serves two years in prison\n" + 
-        		"If A betrays B but B remains silent, A will be set free and B will serve three years in prison (and vice versa)\n" + 
-        		"If A and B both remain silent, both of them will only serve one year in prison (on the lesser charge)."));
+		assertTrue(prisonDilemma.getDescription().equals("Two prisoners are accused of a crime. Each one can either "
+        		+ "confess or not, but doesn’t know the other one’s decision. Depending on both decisions, the two "
+        		+ "prisoners get higher or lower, and not necessarily the same prison sentence. Paradoxically, when "
+        		+ "each prisoner pursues his self-interest, both end up worse off than they would have been had when "
+        		+ "acting otherwise."));
 		GameResult gameResult = prisonDilemma.play(player1, player2, true, true);
 		assertTrue(gameResult.getAgents().get(0).getCapital() == 49);
 		assertTrue(gameResult.getAgents().get(1).getCapital() == 99);
