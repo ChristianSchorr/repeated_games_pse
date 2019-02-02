@@ -125,9 +125,9 @@
                                         <TableColumn fx:id="firstCol" sortable="false"
                                                      style="-fx-alignment: CENTER; -fx-font-weight: bold;" text=""/>
                                         <TableColumn fx:id="secondCol" sortable="false" style="-fx-alignment: CENTER;"
-                                                     text="   SP 2 koop."/>
+                                                     text="Player 2 cooperates"/>
                                         <TableColumn fx:id="thirdCol" sortable="false" style="-fx-alignment: CENTER;"
-                                                     text="    SP 2 def."/>
+                                                     text="Player 2 doesn't cooperate"/>
                                     </columns>
                                 </TableView>
                                 <Label fx:id="descriptionLabel" wrapText="true"/>

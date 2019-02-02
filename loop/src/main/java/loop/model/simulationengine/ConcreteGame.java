@@ -93,43 +93,24 @@ public class ConcreteGame implements Game {
      * @return an instance of this class representing the prisoners dilemma
      */
     public static Game prisonersDilemma() {
-        return new ConcreteGame("Prisoner's Dilemma", "Two members of a criminal gang are arrested and imprisoned. Each prisoner is in solitary confinement "
-        		+ "with no means of communicating with the other. The prosecutors lack sufficient evidence to convict the pair on the principal charge, "
-        		+ "but they have enough to convict both on a lesser charge. Simultaneously, the prosecutors offer each prisoner a bargain. Each prisoner is given the opportunity either to betray the other by testifying that the other committed the crime, or to cooperate with the other by remaining silent. The offer is:\n" + 
-        		"If A and B each betray the other, each of them serves two years in prison\n" + 
-        		"If A betrays B but B remains silent, A will be set free and B will serve three years in prison (and vice versa)\n" + 
-        		"If A and B both remain silent, both of them will only serve one year in prison (on the lesser charge).", -1, -3, 0, -2, -1, 0, -3, -2);
+        return new ConcreteGame("Prisoner's Dilemma", "Two prisoners are accused of a crime. Each one can either "
+        		+ "confess or not, but doesn’t know the other one’s decision. Depending on both decisions, the two "
+        		+ "prisoners get higher or lower, and not necessarily the same prison sentence. Paradoxically, when "
+        		+ "each prisoner pursues his self-interest, both end up worse off than they would have been had when "
+        		+ "acting otherwise.", -1, -3, 0, -2, -1, 0, -3, -2);
     }
     
     public static Game stagHunt() {
-    	return new ConcreteGame("Stag hunt", "The Stag hunt game described a situation in which two individuals go out on a hunt. Each can individually choose "
-    			+ "to hunt a stag or hunt a hare. Each player must choose an action without knowing the choice of the other. If an individual hunts a stag, "
-    			+ "they must have the cooperation of their partner in order to succeed. An individual can get a hare by himself, but a hare is worth less "
-    			+ "than a stag.", 4, 0, 3, 3, 4, 3, 0, 3);
+    	return new ConcreteGame("Stag hunt", "Two mates go out on a hunt. Each one can individually choose between hunting "
+    			+ "a stag and hunting a hare, but is not aware of the other one's choice. If one hunts a stag, he must "
+    			+ "have the cooperation of his mate in order to succeed. One can get a hare by itself, but a hare is "
+    			+ "worth less than a stag.", 4, 0, 3, 3, 4, 3, 0, 3);
     }
     
     public static Game ChickenGame() {
-    	return new ConcreteGame("Chicken game", "The game of chicken models two drivers, both headed for a single-lane bridge from opposite directions. The first "
-    			+ "to swerve away yields the bridge to the other. If neither player swerves, the result is a costly deadlock in the middle of the bridge, or a "
-    			+ "potentially fatal head-on collision. It is presumed that the best thing for each driver is to stay straight while the other swerves (since the "
-    			+ "other is the \"chicken\" while a crash is avoided). Additionally, a crash is presumed to be the worst outcome for both players. This yields a "
-    			+ "situation where each player, in attempting to secure their best outcome, risks the worst. ", 4, 2, 6, 0, 4, 6, 2, 0);
-    }
-
-    public static Game BattleOfTheSexes() {
-    	return new ConcreteGame("Battle of the sexes", "In game theory, battle of the sexes (BoS) is a two-player coordination game. Imagine a couple that agreed "
-    			+ "to meet this evening, but cannot recall if they will be attending the opera or a football game (and the fact that they forgot is common "
-    			+ "knowledge). The husband would prefer to go to the football game. The wife would rather go to the opera. Both would prefer to go to the same "
-    			+ "place rather than different ones. If they cannot communicate, where should they go? The payoff matrix labeled \"Battle of the Sexes (1)\" "
-    			+ "is an example of Battle of the Sexes, where the wife chooses a row and the husband chooses a column. In each cell, the first number represents "
-    			+ "the payoff to the wife and the second number represents the payoff to the husband.", 3, 0, 0, 1, 1, 0, 0, 3);
-    }
-    
-    public static Game PenaltyShootout() {
-    	return new ConcreteGame("Penalty shootout", "The penalty shootout game describes the situation of a penalty shootout. The first player is the scorer and the "
-    			+ "second player the goalkeeper. The left side of the goal is cooperative and the right side of the goal is not cooperative. "
-    			+ "The scorer want to achieve a goal. To get a goal he need to choose the other side than the goalkeeper (cooperate/not cooperate or not cooperate/cooperate"
-    			+ " . The goalkeeper want to catch the ball (cooperate/cooperate or not cooperate/not cooperate).", 0, 1, 1, 0, 1, 0, 0, 1);
+    	return new ConcreteGame("Chicken game", "In a test of courage, two drivers drive very fastly towards each other. One "
+    			+ "must swerve, or both may die in the crash. However, if one driver swerves and the other does not, the one who "
+    			+ "swerved will be called a \"chicken\", meaning a coward.", 4, 2, 6, 0, 4, 6, 2, 0);
     }
     
     /**

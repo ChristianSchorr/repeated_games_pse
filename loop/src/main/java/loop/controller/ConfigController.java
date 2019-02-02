@@ -673,7 +673,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         private boolean isFirst;
 
         private GameTableEntry(Game game, boolean isFirst) {
-            firstColumnContent.setValue(isFirst ? "SP 1 koop." : "SP 1 def.");
+            firstColumnContent.setValue(isFirst ? "Agent 1 cooperates" : "Agent 1 doesn't cooperate");
             this.isFirst = isFirst;
             update(game);
         }
