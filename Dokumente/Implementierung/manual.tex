@@ -306,4 +306,44 @@ Below the charts resides a dropdown menu labeled \enquote{Considered iterations}
 
 \subsection{The Plugin-System}
 
+The program features a plugin system which enables you to easily implement new algorithms and mechanism that can be dynamically loaded. 
+
+The following algorithms and mechanisms can be extended via plugins.
+
+\begin{itemize} \itemsep -10pt
+	\item the equilibrium criterion
+	\item the success quantifier
+	\item the strategy adjuster
+	\item the pair builder
+	\item the discrete distribution (used to initialise agents with capital)
+\end{itemize}
+
+The following section describes exemplary how to implement a new pair builder with eclipse.
+
+Start by creating a new Gradle-Project in eclipse. After that navigate to the projects root directory and create a new folder called \enquote{libs}. Copy the \enquote{loop.jar} file into the newly created folder. You can find the \enquote{loop.jar} file in the \enquote{lib} folder inside the program's installation folder. 
+Next, inside of eclipse edit the \enquote{build.gradle} file so afterward it looks like figure \ref{fig:build_gradle}. Finally do a gradle-refresh and now your project setup is done and you can start implementing your plugin.
+
+\begin{figure} [hbt]
+	\centering
+	\includegraphics[width=0.8\linewidth]{img_manual/edit_gradle.png}
+	\caption{The population creation window.}
+	\label{fig:build_gradle}
+\end{figure}
+
+
+Therefor add a new class called \enquote{GreedyPairBuilder}. Since this class should be a pair builder plugin the class has to extend the \enquote{PairBuilderPlugin} class. There are similar named classes for all the other algorithms and mechanisms that can be implemented as plugins. For more detailed information of how to implement the have a look at the class documentation inside the design document. Add the following code to the class (see fig. \ref{fig:impl}).
+
+\begin{figure} [hbt]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img_manual/implementation.png}
+	\caption{The population creation window.}
+	\label{fig:impl}
+\end{figure}
+
+
+After you finished your implementation of the plugin add the following folder structure to your project's root diretory \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new file named \enquote{loop.model.plugin.PairBuilderPlugin} which has to contain the class name of your plugin including the package structure. In this case it is \enquote{loop.extensions.plugins.GreedyPairBuilder}. Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file be navigating into the \enquote{build/libs} folder from your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
+
+
+
+
 \end{document}
