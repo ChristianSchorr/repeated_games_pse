@@ -1,9 +1,13 @@
 package loop.model.simulationengine.strategy.strategybuilder;
 
+import loop.model.simulationengine.AgentPair;
+import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 
 public class ConcreteOperator implements Operator {
@@ -24,7 +28,7 @@ public class ConcreteOperator implements Operator {
     @Override
     public Strategy combineStrategies(List<Strategy> strats) {
         if (strats.size() < operandCount) return null;
-        else return operator.apply(strats);
+        else return (Strategy & Serializable) operator.apply(strats);
     }
 
     @Override
@@ -43,49 +47,63 @@ public class ConcreteOperator implements Operator {
     }
 
     public static Operator AND() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) &&
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) &&
                                 strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
         return new ConcreteOperator(op,2, "AND", "");
     }
 
     public static Operator OR() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) ||
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) ||
                         strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
         return new ConcreteOperator(op,2, "OR", "");
     }
 
     public static Operator NAND() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> !(strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) &&
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> !(strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) &&
                         strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
         return new ConcreteOperator(op,2, "NAND", "");
     }
 
     public static Operator NOR() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> !(strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) ||
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> !(strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) ||
                         strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
         return new ConcreteOperator(op,2, "NOR", "");
     }
 
     public static Operator XOR() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) ^
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) ^
                         strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
         return new ConcreteOperator(op,2, "XOR", "");
     }
 
     public static Operator NOT() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> !strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> !strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
         return new ConcreteOperator(op,1, "NOT", "");
     }
 
     public static Operator IMPLIES() {
-        Function<List<Strategy>, Strategy> op = (strats) -> new PureStrategy("","",
-                (pair, hist) -> (!strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)) ||
+        Function<List<Strategy>, Strategy> op = (Function<List<Strategy>, Strategy> & Serializable)(strats) ->
+                new PureStrategy("","",
+                        (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                                (pair, hist) -> (!strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)) ||
                                   strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
         return new ConcreteOperator(op,2, "IMPLIES", "");
     }
