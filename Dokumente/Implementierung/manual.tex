@@ -71,7 +71,7 @@ After all iterations have finished, the results of the simulation are displayed.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{img_manual/Schema.png}
-	\caption{Zum Simulationsablauf}
+	\caption{The simulation process}
 	\label{fig:simulation_process}
 \end{figure}
 
@@ -180,6 +180,29 @@ Below the charts resides a dropdown menu labeled \enquote{Considered iterations}
 If you whish to save the result of a simulation so you can take a look at it again later, you may do so by clicking the  \inlinegraphics{img_manual/export_button.png} button at the top of the output view. This will open a file dialog where you can choose a place to save your result. To load a result that has been exported in this way, press \enquote{File} and then \enquote{Load simulation result} in the menu of the home window.
 
 You can also set the configuration that was used for a selected simulation as the active configuration by pressing the  \inlinegraphics{img_manual/rotate_right_button.png} button.
+
+\pagebreak
+\section{Multiconfigurations}\label{sec:multi_config}
+A multiconfiguration can be regarded as a set of (normal) configurations (the \enquote{elementary configurations}), where all parameters but one (the \enquote{multiconfiguration parameter}, short: multi-parameter) are fix and the multi-parameter varies through a certain set of values. For example, one could specify a multiconfiguration in which all parameters are as in the preconfigured configuration but the round count (the amount of rounds per adaption steps) varies from \(100\) to \(200\) in steps of \(10\) (see Fig.\ref{?}).
+
+To create a multiconfiguration, open the configuration window and choose the desired multi-parameter in the dropdown menu at the bottom right. Possible multi-parameters are:
+\begin{itemize}
+\item round count
+\item maximum number of adaption steps
+\item configurable numerical parameters in the success quantification, the pair building algorithm, the strategy adaption mechanism and the equilibrium criterion
+\item the size of a group in the selected population
+\item the size of the segments in one of the groups of the selected population\footnote{Works only for groups that consist of exactly two segments. If \(X \in [0,1]\) is the value of the mult-parameter, then the first segment has relative size \(X\) and the second segment has relative size \(1 - X\).}
+\end{itemize}
+
+Below the dropdown menu, start value, end value and step size of the multi-parameter can be entered.
+
+The output changes slightly for multiconfigurations. In the output pages \enquote{Detailed output} and \enquote{Abstracted output}, a new slider labeled \enquote{Configuration} appears, with which the considered (elementary) configuration may be selected. Next to the slider, the name of the mutli-parameter and its value in the currently selected configuration are displayed. On top of that, a third output page is available, the \enquote{Multiconfiguration output} (see ?). It contains two line graphs:
+
+\textbf{Efficiency and equilibrium frequency:} The first chart plots equilibrium frequency\footnote{The portion of iterations in which an equilibrium was reached} and mean final efficiency against the value of the multi-parameter.
+
+\textbf{Mean amount of executed adaption steps:} The second chart plots the mean amount of executed adaption steps against the value of the multi-parameter.
+
+Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be considered in the plots above.
 
 \pagebreak
 \section{Extensions}
@@ -296,31 +319,7 @@ There is another important note to make regarding the export of extensions. If a
 \item Since, for example, a population only stores the name of its contained groups, it can be modified by overwriting those groups. If a certain population contains a group with name \(X\), and you were to delete that group and create a new one with the same name \(X\), then the population would now contain that new group. This works in the same way for configurations with contained populations and games, and for groups with contained strategies.
 \end{itemize}
 
-\section{Advanced}
-
-\subsection{Multiconfigurations}\label{sec:multi_config}
-A multiconfiguration can be regarded as a set of (normal) configurations (the \enquote{elementary configurations}), where all parameters but one (the \enquote{multiconfiguration parameter}, short: multi-parameter) are fix and the multi-parameter varies through a certain set of values. For example, one could specify a multiconfiguration in which all parameters are as in the preconfigured configuration but the round count (the amount of rounds per adaption steps) varies from \(100\) to \(200\) in steps of \(10\) (see Fig.\ref{?}).
-
-To create a multiconfiguration, open the configuration window and choose the desired multi-parameter in the dropdown menu at the bottom right. Possible multi-parameters are:
-\begin{itemize}
-\item round count
-\item maximum number of adaption steps
-\item configurable numerical parameters in the success quantification, the pair building algorithm, the strategy adaption mechanism and the equilibrium criterion
-\item the size of a group in the selected population
-\item the size of the segments in one of the groups of the selected population\footnote{Works only for groups that consist of exactly two segments. If \(X \in [0,1]\) is the value of the mult-parameter, then the first segment has relative size \(X\) and the second segment has relative size \(1 - X\).}
-\end{itemize}
-
-Below the dropdown menu, start value, end value and step size of the multi-parameter can be entered.
-
-The output changes slightly for multiconfigurations. In the output pages \enquote{Detailed output} and \enquote{Abstracted output}, a new slider labeled \enquote{Configuration} appears, with which the considered (elementary) configuration may be selected. Next to the slider, the name of the mutli-parameter and its value in the currently selected configuration are displayed. On top of that, a third output page is available, the \enquote{Multiconfiguration output} (see ?). It contains two line graphs:
-
-\textbf{Efficiency and equilibrium frequency:} The first chart plots equilibrium frequency\footnote{The portion of iterations in which an equilibrium was reached} and mean final efficiency against the value of the multi-parameter.
-
-\textbf{Mean amount of executed adaption steps:} The second chart plots the mean amount of executed adaption steps against the value of the multi-parameter.
-
-Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be considered in the plots above.
-
-\subsection{The Plugin-System}
+\section{The Plugin-System}
 
 The program features a plugin system which enables you to easily implement own versions of the following algorithms and mechanisms:
 
