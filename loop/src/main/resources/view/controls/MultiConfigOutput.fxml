@@ -11,7 +11,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox xmlns:fx="http://javafx.com/fxml" style="@../style.css" fx:id="container">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="container">
     <Label styleClass="card-title" text="Applications over the multiconfiguration parameter" wrapText="true" />
     <GridPane hgap="10">
         <VBox>
