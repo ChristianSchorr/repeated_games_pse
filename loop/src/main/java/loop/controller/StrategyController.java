@@ -280,7 +280,7 @@ public class StrategyController implements CreationController<Strategy> {
         //save dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Strategy");
-        fileChooser.setInitialDirectory(FileIO.GAME_DIR);
+        fileChooser.setInitialDirectory(FileIO.STRATEGY_DIR);
         fileChooser.setInitialFileName(strat.getName().toLowerCase().replace(' ', '_'));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Loop Strategy File", ".strat");
         fileChooser.getExtensionFilters().add(extFilter);
