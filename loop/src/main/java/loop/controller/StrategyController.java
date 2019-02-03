@@ -26,10 +26,7 @@ import org.controlsfx.validation.ValidationSupport;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class StrategyController implements CreationController<Strategy> {
@@ -102,7 +99,7 @@ public class StrategyController implements CreationController<Strategy> {
     public void initialize() {
         nameField.textProperty().bindBidirectional(nameProperty);
         descriptionField.textProperty().bindBidirectional(descriptionProperty);
-        percentageBox.textProperty().bindBidirectional(percentageProperty, new NumberStringConverter());
+        percentageBox.textProperty().bindBidirectional(percentageProperty, new NumberStringConverter(Locale.ENGLISH));
 
         List<String> stratNames = repository.getStrategyRepository().getAllEntityNames();
         ObservableList<String> obsStratNames = FXCollections.observableArrayList(stratNames);
