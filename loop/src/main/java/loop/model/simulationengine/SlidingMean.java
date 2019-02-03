@@ -43,7 +43,7 @@ public class SlidingMean implements SuccessQuantifier {
             Agent agent = agents.get(i);
             games = history.getResultsByAgent(agent);
             for (int k = 0; k < R; k++) {
-                a[i][k] = games.get(k).getPayoff(agent);
+                a[i][k] = (games.size() > k) ? games.get(k).getPayoff(agent) : 0;
             }
         }
         
