@@ -70,7 +70,7 @@ After all iterations have finished, the results of the simulation are displayed.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\linewidth]{img_manual/Schema.png}
+	\includegraphics[width=0.9\linewidth]{img_manual/SchemaEnglisch.png}
 	\caption{The simulation process}
 	\label{fig:simulation_process}
 \end{figure}
@@ -183,7 +183,7 @@ You can also set the configuration that was used for a selected simulation as th
 
 \pagebreak
 \section{Multiconfigurations}\label{sec:multi_config}
-A multiconfiguration can be regarded as a set of (normal) configurations (the \enquote{elementary configurations}), where all parameters but one (the \enquote{multiconfiguration parameter}, short: multi-parameter) are fix and the multi-parameter varies through a certain set of values. For example, one could specify a multiconfiguration in which all parameters are as in the preconfigured configuration but the round count (the amount of rounds per adaption steps) varies from \(100\) to \(200\) in steps of \(10\) (see Fig.\ref{?}).
+A multiconfiguration can be regarded as a set of (normal) configurations (the \enquote{elementary configurations}), where all parameters but one (the \enquote{multiconfiguration parameter}, short: multi-parameter) are fix and the multi-parameter varies through a certain set of values. For example, one could specify a multiconfiguration in which all parameters are as in the preconfigured configuration but the round count (the amount of rounds per adaption steps) varies from \(100\) to \(200\) in steps of \(10\) (see Fig.\ref{fig:multi_config}).
 
 To create a multiconfiguration, open the configuration window and choose the desired multi-parameter in the dropdown menu at the bottom right. Possible multi-parameters are:
 \begin{itemize}
@@ -196,13 +196,27 @@ To create a multiconfiguration, open the configuration window and choose the des
 
 Below the dropdown menu, start value, end value and step size of the multi-parameter can be entered.
 
-The output changes slightly for multiconfigurations. In the output pages \enquote{Detailed output} and \enquote{Abstracted output}, a new slider labeled \enquote{Configuration} appears, with which the considered (elementary) configuration may be selected. Next to the slider, the name of the mutli-parameter and its value in the currently selected configuration are displayed. On top of that, a third output page is available, the \enquote{Multiconfiguration output} (see ?). It contains two line graphs:
+The output changes slightly for multiconfigurations. In the output pages \enquote{Detailed output} and \enquote{Abstracted output}, a new slider labeled \enquote{Configuration} appears, with which the considered (elementary) configuration may be selected. Next to the slider, the name of the mutli-parameter and its value in the currently selected configuration are displayed. On top of that, a third output page is available, the \enquote{Multiconfiguration output} (see \ref{fig:multi_ouput}). It contains two line graphs:
 
 \textbf{Efficiency and equilibrium frequency:} The first chart plots equilibrium frequency\footnote{The portion of iterations in which an equilibrium was reached} and mean final efficiency against the value of the multi-parameter.
 
 \textbf{Mean amount of executed adaption steps:} The second chart plots the mean amount of executed adaption steps against the value of the multi-parameter.
 
 Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be considered in the plots above.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{img_manual/multiparam_configwindow.PNG}
+	\caption{The configuration window with \enquote{round count} as multi-parameter.}
+	\label{fig:multi_config}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{img_manual/Multiconfiguration_output.PNG}
+	\caption{The multiconfiguration output.}
+	\label{fig:multi_ouput}
+\end{figure}
 
 \pagebreak
 \section{Extensions}
@@ -319,11 +333,12 @@ There is another important note to make regarding the export of extensions. If a
 \item Since, for example, a population only stores the name of its contained groups, it can be modified by overwriting those groups. If a certain population contains a group with name \(X\), and you were to delete that group and create a new one with the same name \(X\), then the population would now contain that new group. This works in the same way for configurations with contained populations and games, and for groups with contained strategies.
 \end{itemize}
 
+\pagebreak
 \section{The Plugin-System}
 
 The program features a plugin system which enables you to easily implement own versions of the following algorithms and mechanisms:
 
-\begin{itemize} \itemsep -10pt
+\begin{itemize} \itemsep -13pt
 	\item the equilibrium criterion
 	\item the success quantifier
 	\item the strategy adjuster
@@ -331,7 +346,7 @@ The program features a plugin system which enables you to easily implement own v
 	\item the discrete distribution (used to initialise agents with capital)
 \end{itemize}
 
-In the following, we describe how to achieve this using eclipse. Start by creating a new Gradle-Project in eclipse. Navigate to the projects root directory, create a new folder called \enquote{libs} and copy the \enquote{loop.jar} file into the newly created folder (you can find the \enquote{loop.jar} file in the \enquote{lib} folder inside the program's installation folder). Next, edit the \enquote{build.gradle} file so it looks like figure \ref{fig:build_gradle}. Finally, do a gradle-refresh (Right click on the project in eclipse and then select \enquote{Gradle} \(\rightarrow\) \enquote{Refresh Gradle Project}. Now the project setup is done and the implementation of the plugin can begin.
+In the following, we describe how to achieve this using eclipse. Start by creating a new Gradle-Project. Navigate to the projects root directory, create a new folder called \enquote{libs} and copy the \enquote{loop.jar} file into the newly created folder (you can find the \enquote{loop.jar} file in the \enquote{lib} folder inside the program's installation folder). Next, edit the \enquote{build.gradle} file so it looks like in Fig. \ref{fig:build_gradle}. Finally, do a gradle-refresh (Right click on the project in eclipse and then select \enquote{Gradle} \(\rightarrow\) \enquote{Refresh Gradle Project}. Now the project setup is done and the implementation of the plugin can begin.
 
 \begin{figure} [hbt]
 	\centering
@@ -340,17 +355,17 @@ In the following, we describe how to achieve this using eclipse. Start by creati
 	\label{fig:build_gradle}
 \end{figure}
 
-Suppose we want to create a pair builder that greedily matches each agent to another agent that he would cooperate with. Therefor we create a new class called \enquote{GreedyPairBuilder} and let it extend the \enquote{PairBuilderPlugin} class. There are similar named classes for all the other algorithms and mechanisms that can be implemented as plugins. Now we add the following code to the class (see fig. \ref{fig:impl}).
+Suppose we want to create a pair builder that greedily matches each agent to another agent that he would cooperate with. Therefor we create a new class called \enquote{GreedyPairBuilder} and let it extend the \enquote{PairBuilderPlugin} class. There are similar named classes for all the other algorithms and mechanisms that can be implemented as plugins. Now we add the following code to the class (see Fig. \ref{fig:impl}).
 
 \begin{figure} [hbt]
 	\centering
-	\includegraphics[width=0.9\linewidth]{img_manual/implementation.png}
+	\includegraphics[width=0.8\linewidth]{img_manual/implementation.png}
 	\caption{The code for the greedy pair builder plugin.}
 	\label{fig:impl}
 \end{figure}
 
 
-After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new empty file named \enquote{loop.model.plugin.PairBuilderPlugin}. After that you have to add a single line to the file. This line consist of the plugin's full class name including the package structure the class resides in. In our case the class is called \enquote{GreedyPairBuilder} and is placed in the \enquote{loop.extensions.plugins} package (see figure \ref{fig:package}). So the line's content is \enquote{loop.extensions.plugins.GreedyPairBuilder}.
+After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new empty file named \enquote{loop.model.plugin.PairBuilderPlugin}. Then add a single line to the file: The plugin's full class name including the package structure the class resides in. In our case the class is called \enquote{GreedyPairBuilder} and is placed in the \enquote{loop.extensions.plugins} package (see Fig. \ref{fig:package}). So the line's content is \enquote{loop.extensions.plugins.GreedyPairBuilder}.
 
 \begin{figure} [hbt]
 	\centering
@@ -359,7 +374,7 @@ After you finished your implementation of the plugin add the following folder st
 	\label{fig:package}
 \end{figure}
 
-Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file by navigating into the \enquote{build/libs} folder from your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
+Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file in the \enquote{build/libs} folder inside your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
 
 
 
