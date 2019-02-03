@@ -350,7 +350,16 @@ Suppose we want to create a pair builder that greedily matches each agent to ano
 \end{figure}
 
 
-After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new file named \enquote{loop.model.plugin.PairBuilderPlugin} which has to contain the class name of your plugin including the package structure. In this case it is \enquote{loop.extensions.plugins.GreedyPairBuilder}. Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file by navigating into the \enquote{build/libs} folder from your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
+After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new empty file named \enquote{loop.model.plugin.PairBuilderPlugin}. After that you have to add a single line to the file. This line consist of the plugin's full class name including the package structure the class resides in. In our case the class is called \enquote{GreedyPairBuilder} and is placed in the \enquote{loop.extensions.plugins} package (see figure \ref{fig:package}). So the line's content is \enquote{loop.extensions.plugins.GreedyPairBuilder}.
+
+\begin{figure} [hbt]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img_manual/package-structure.png}
+	\caption{The package structure of the plugin.}
+	\label{fig:package}
+\end{figure}
+
+Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file by navigating into the \enquote{build/libs} folder from your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
 
 
 
