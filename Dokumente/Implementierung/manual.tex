@@ -49,17 +49,35 @@
 	\includegraphics[width = 0.7\linewidth]{img/logo.png}\par
 	{\huge\bfseries A simulator for  repeated games\par}
 	%\vspace{1cm}
-	{\Large Manual\par}
+	{\Large User Manual\par}
 \end{titlepage}
 
 \tableofcontents
 \pagebreak
 
 \section{Introduction}
-This program is designed for scientific research in the field of game theory. 
+This program is designed for scientific research in the field of game theory. It is a simulation environment that can be used to investigate the formation of equilibriums at repeated games of multiple agents. An explanation of the underlying simulation process follows, see also Fig. \ref{fig:simulation_process}.
 
+A simulation consists of multiple iterations. An iteration begins with the initialisation of agents with strategies, capital and group affiliation\footnote{In each simulation, the agents are partitioned in a fix amount of groups. The group of an agent determines how he is initialised with strategies and capital. Also, strategies can refer to other agents group affiliation. Two agents are said to be affiliated, if both are members of the same group and that group is \enquote{cohesive}. Agents of uncohesive groups are thus effectively \enquote{groupless} in the eyes of other agents.}. Amount of agents, assignment mechanisms for initials strategies and capital as well as the group structure can be configured by the user.
+
+Afterwards, so called adaption steps are repeated until either an equilibrium is reached or a configurable maximum number of adaption steps was executed. The equilibrium criterion can be specified by the user as well.
+
+An adaption step consists of a fix amount of rounds. In each round, the agents are matched to pairs by a configurable pair building algorithm. The agents of each pair then play the underlying game (f.ex. the prisoners dilemma) according to their current strategies and receive their payoffs.
+
+After the last round is finsihed, the agents are ranked based on their performance in the elapsed rounds and they adapt their strategies. The goal that motivates their choice of strategy adaption is not the maximisation of their total capital but to obtain as high of a rank as possible. Both the success quantification and the strategy adaption mechanism can be configured by the user.
+
+After all iterations have finished, the results of the simulation are displayed.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{img_manual/Schema.png}
+	\caption{Zum Simulationsablauf}
+	\label{fig:simulation_process}
+\end{figure}
+
+\pagebreak
 \section{Getting started}
-When the program is first started, the home window will show as in Fig. \ref{fig:program_start}. Since no simulations have been executed yet, it is mostly empty.
+When the program is first started, the home window will open as in Fig. \ref{fig:program_start}. Since no simulations have been executed yet, it is mostly empty.
 
 The home window is roughly divided into three areas. In the top area, a short summary of the currently active configuration is displayed (\circled{1} in Fig.\ref{fig:program_start}). If the user hasn't created a configuration of his own yet, a predefined one will be active. On the right-hand side of the summary reside two buttons (\circled{2} and \circled{3}). The one labeled with a cog symbol opens up the configuration window, in which the currently active configuration can be modified (see \ref{sec:edit_config}). Pressing the Play-button will start a simulation with the currently active configuration. The left-hand side area (\circled{4} in Fig.\ref{fig:program_start}) will contain a list of all running, finished and cancelled simulations. If a finished simulation is selected, detailed information about its results will be displayed in area \circled{5} (This area will from now on be referred as the \enquote{output view}).
 
@@ -100,7 +118,7 @@ As soon as a simulation is finished, its list entry turns green and displays tim
 	\centering
 	\includegraphics[width=0.3\linewidth]{img_manual/finished_simulation_list_entry.png}
 \end{figure}\\
-If selected, the output view will display detailed information about the simulations results. The output is divided into two subpages: the \enquote{Detailed output} and the \enquote{Abstracted output}. To switch between the two, the  \inlinegraphics{img_manual/arrow_left_button.png} and  \inlinegraphics{img_manual/arrow_right_button.png} buttons at the bottom of the output view can be used.
+If selected, the output view will display detailed information about the simulations results. You can also open the output in a new window by pressing \inlinegraphics{img_manual/output_window_button.png}. The output is divided into two subpages: the \enquote{Detailed output} and the \enquote{Abstracted output}. To switch between the two, the  \inlinegraphics{img_manual/arrow_left_button.png} and  \inlinegraphics{img_manual/arrow_right_button.png} buttons at the bottom of the output view can be used.
 
 \subsubsection{Detailed Output}
 \begin{figure}
@@ -111,7 +129,7 @@ If selected, the output view will display detailed information about the simulat
 \end{figure}
 In the detailed output (see Fig.\ref{fig:detailed_output}), information about strategy and capital distribution of the agents are displayed for any selected iteration. To select an iteration, use the correspondingly labeled slider at the top of the output view \circled{1}. The iterations are sorted by their final efficiency, i.e. in the case of Fig.\ref{fig:detailed_output}, iteration \(1/8\) is the least, iteration \(8/8\) the most efficient among the eight executed iterations.
 
-\textbf{Strategy distribution:} The line chart labeled \enquote{Strategy distribution} \circled{2} displays the evolution of the mixture of strategies used by the agents over the time of the simulation. It contains one line for every used (pure) strategy. Each line indicates the relative frequency of the corresponding strategy being used by agents in every single adaption step. For example, consider the strategy distribution displayed in Fig.\ref{fig:strategy_distribution}. It tells us that in the beginning of the simulation, all strategies appeared with a similar frequency of \(21\%\) to \(29\%\). Towards the end, \enquote{grim} prevailed with a frequency of about \(70\%\), while \enquote{never cooperate} and \enquote{tit for tat} dropped below \(20\%\) and \enquote{always cooperate} basically vanished.
+\textbf{Strategy distribution:} The line chart labeled \enquote{Strategy distribution} \circled{2} displays the evolution of the mixture of strategies used by the agents over the time of the simulation. It contains one line for every used (pure) strategy. Each line indicates the relative frequency of the corresponding strategy being used by agents in every single adaption step. For example, consider the strategy distribution displayed in Fig.\ref{fig:strategy_distribution}. It tells us that in the beginning of the simulation, all strategies appeared with a similar frequency of \(20\%\) to \(35\%\). Towards the end, \enquote{grim} prevailed with a frequency of about \(67\%\), while \enquote{tit for tat} stayed at about \(23\%\) and \enquote{never cooperate} and \enquote{always cooperate} dropped below \(10\%\).
 
 \begin{figure}[h]
 	\centering
@@ -138,7 +156,7 @@ In the detailed output (see Fig.\ref{fig:detailed_output}), information about st
 \end{figure}
 The abstracted output (see Fig.\ref{fig:abstracted_output}) contains information abstracted from all executed iterations. At the top \circled{1} the \enquote{equilibrium frequency}, i.e. the portion of all iterations in which an equilibrium was reached is displayed. Below reside two histograms, the \enquote{Efficiency distribution} and the \enquote{Distribution of executed adaption steps}.
 
-\textbf{Efficiency distribution}: The efficiency distribution \circled{2} is a histogram of the final efficiencies of all executed iterations. Consider Fig.\ref{fig:efficiency_distribution}. In the corresponding simulation, five iterations finished with an efficiency of around \(0.9\) and the other three with efficiencies \(0.67\), \(0.42\) and \(0.04\) respectively. Again, bin width is chosen such that there is around \(15\) bins in total and the labels display the mean of the interval covered by the bins. Below the strategy distribution, the mean efficiency of all iterations is displayed, in this case \(0.722\) (see Fig.\ref{fig:abstracted_output}).
+\textbf{Efficiency distribution}: The efficiency distribution \circled{2} is a histogram of the final efficiencies of all executed iterations. Consider Fig.\ref{fig:efficiency_distribution}. In the corresponding simulation, five iterations finished with an efficiency above \(0.8\), one with about \(0.54\) and two with almost \(0.0\). Again, bin width is chosen such that there is around \(15\) bins in total and the labels display the mean of the interval covered by the bins. Below the strategy distribution, the mean efficiency of all iterations is displayed, in this case \(0.614\) (see Fig.\ref{fig:abstracted_output}).
 
 \begin{figure}[h]
 	\centering
@@ -147,7 +165,7 @@ The abstracted output (see Fig.\ref{fig:abstracted_output}) contains information
 	\label{fig:efficiency_distribution}
 \end{figure}
 
-\textbf{Distribution of executed adaption steps}: This chart \circled{3} is a histogram of the amount of executed adaption steps of all iterations. Consider Fig.\ref{fig:adapts_distribution}. In the corresponding simulation, all but one iteration finished after \(120\) to \(134\) adaption steps, just one took around \(160\). Below the distribution, the mean amount of executed adaption steps is displayed, in this case \(131\) (see Fig.\ref{fig:abstracted_output}).
+\textbf{Distribution of executed adaption steps}: This chart \circled{3} is a histogram of the amount of executed adaption steps of all iterations. Consider Fig.\ref{fig:adapts_distribution}; in the corresponding simulation, all iterations took between \(101\) and \(160\) adaption steps to finish, quite equally distributed among that range. Below the distribution, the mean amount of executed adaption steps is displayed, in this case \(129\) (see Fig.\ref{fig:abstracted_output}).
 
 \begin{figure}[h]
 	\centering
@@ -159,9 +177,9 @@ The abstracted output (see Fig.\ref{fig:abstracted_output}) contains information
 Below the charts resides a dropdown menu labeled \enquote{Considered iterations} \circled{4}. It can be used to determine whether all iterations or just the ones where an equilibrium (or no equilibrium) was reached shall be considered in the histograms above.
 
 \subsection{Save the result}
-If you whish to save the result of a simulation so you can take a look at it again later, you may do so by clicking the  \inlinegraphics{img_manual/export_button.png} button (Fig.\ref{fig:detailed_output} \circled{4}). This will open a file dialog where you can choose a place to save your result. To load a result that has been exported in this way, press \enquote{File} and then \enquote{Load simulation result} in the menu of the home window.
+If you whish to save the result of a simulation so you can take a look at it again later, you may do so by clicking the  \inlinegraphics{img_manual/export_button.png} button at the top of the output view. This will open a file dialog where you can choose a place to save your result. To load a result that has been exported in this way, press \enquote{File} and then \enquote{Load simulation result} in the menu of the home window.
 
-You can also set the configuration that was used for a selected simulation as the active configuration by pressing the  \inlinegraphics{img_manual/rotate_right_button.png} button (Fig.\ref{fig:detailed_output} \circled{5}).
+You can also set the configuration that was used for a selected simulation as the active configuration by pressing the  \inlinegraphics{img_manual/rotate_right_button.png} button.
 
 \pagebreak
 \section{Extensions}
@@ -182,27 +200,23 @@ The strategy creation window can be opened by clicking the \enquote{Create new s
 	\includegraphics[width=0.2\linewidth]{img_manual/strategy_menu.png}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/strategy_window.png}
-	\caption{The strategy creation window.}
-	\label{fig:strategy_window}
-\end{figure}
-
 It is divided into three vertically aligned sections. The topmost section \circled{1} contains two text fields in which name and description of the new strategy must be entered.
 
 Section \circled{2} contains a set of predicates and operators, where most of the predicates can be configured using dropdown menus. They can be used to compound the expression \(X\) in (\ref{eq:strategy}). Clicking the \inlinegraphics{img_manual/plus_button.png} button adds the corresponding operator or predicate to the expression, which will be displayed in section \circled{3}.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\linewidth]{img_manual/strategy_expression.png}
-	\caption{The generated expression.}
-	\label{fig:strategy_expression}
-\end{figure}
-
 When you add an operator to the expression, an empty box will be generated for every required operand (see Fig.\ref{fig:strategy_expression}). To insert a predicate or operator as one of the operands, select the correspondig box (as in \circled{4}) and then add the desired predicate by clicking the \inlinegraphics{img_manual/plus_button.png} button.
 
 To remove a predicate or an operator from the expression, click the \inlinegraphics{img_manual/blue_x_button.png} button next to it. A removed predicate will be replaced by an empty box. When you remove an operator, its operands will be removed as well.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img_manual/strategy_window.png}
+	\caption{The strategy creation window.}
+	\label{fig:strategy_window}
+	\includegraphics[width=0.55\linewidth]{img_manual/strategy_expression.png}
+	\caption{The generated expression.}
+	\label{fig:strategy_expression}
+\end{figure}
 
 Below the displayed expression reside two drop down menus \circled{5} and \circled{6}, in which the strategies \(A\) and \(B\) from (\ref{eq:strategy}) can be selected.
 
@@ -211,13 +225,7 @@ To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.
 To export the created strategy as a file, press the  \inlinegraphics{img_manual/export_button.png} button. To add the strategy to the local repository and close the window, press  \inlinegraphics{img_manual/check_button.png} (Further details and important information on exporting and saving see section \ref{sec:export_extensions}).
 
 \subsection{Create new games}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/game_window.png}
-	\caption{The game creation window.}
-	\label{fig:game_window}
-\end{figure}
-When the \enquote{Create new game} entry in the \enquote{Extensions} menu is pressed, the game creation window opens (see Fig.\ref{fig:game_window}). Here, a new game can be created. To do so, a name, a description and the players payoffs must be entered in the corresponding text fields. For example, an entry of the form \enquote{\(1 / 2\)} in the botom left part of the payoff table means: \enquote{If player 1 doensn't but player 2 does cooperate, player 1 will receive the payoff \(1\) and player 2 will receive the payoff \(2\)}.
+When the \enquote{Create new game} entry in the \enquote{Extensions} menu is pressed, the game creation window opens (see Fig.\ref{fig:game_window}). Here, a new game can be created. To do so, a name, a description and the players payoffs must be entered in the corresponding text fields (\circled{1} and \circled{2}). For example, an entry of the form \enquote{\(1 / 2\)} in the botom left part of the payoff table means: \enquote{If player 1 doensn't but player 2 does cooperate, player 1 will receive the payoff \(1\) and player 2 will receive the payoff \(2\)}.
 
 To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
 
@@ -230,18 +238,19 @@ To load an existing game press the  \inlinegraphics{img_manual/import_button.png
 \end{figure}\\
 You can either import a game from a previously exported game file or open one of the locally stored games, i.e. the preconfigured games and the ones added to the repository by the user.
 
-\subsection{Create new groups}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/group_window.png}
-	\caption{The group creation window.}
-	\label{fig:group_window}
+	\includegraphics[width=0.8\linewidth]{img_manual/game_window.png}
+	\caption{The game creation window.}
+	\label{fig:game_window}
 \end{figure}
-When the \enquote{Create new group} entry in the \enquote{Extensions} menu is pressed, the group creation window opens (see Fig.\ref{fig:group_window}). To create a new group, name and description must be entered in the corresponding text fields and at least one segment must be configured. Segments can be added by pressing the \enquote{Add segment} button and removed by pressing the \enquote{X} button at the head of the corresponding tab.
 
-For each segment, a capital distribution must be chosen and parametrised; it will be used to initialise agents of that segment with capital at the beginning of simulations. Secondly, a set of strategies must be selected out of all locally stored strategies. Those include the preconfigured ones as well as strategies created by the user (if existent).
+\subsection{Create new groups}
+When the \enquote{Create new group} entry in the \enquote{Extensions} menu is pressed, the group creation window opens (see Fig.\ref{fig:group_window}). To create a new group, name and description must be entered in the corresponding text fields \circled{1} and at least one segment must be configured. Segments can be added by pressing the \enquote{Add segment} button and removed by pressing the \enquote{X} button at the head of the corresponding tab.
 
-The multislider can be used to configure the relative sizes of the segments. For example, if \(100\) agents of the group in Fig.\ref{fig:group_window} were to be initialised, \(25\) of them would belong to segment 2, thus receiving an initial capital drawn out of a poisson distribution with mean \(15\) as well as \enquote{always cooperate} or \enquote{tit for tat} as initial strategy.
+For each segment, a capital distribution must be chosen and parametrised \circled{2}; it will be used to initialise agents of that segment with capital at the beginning of simulations. Secondly, a set of strategies must be selected out of all locally stored strategies \circled{3}. Those include the preconfigured ones as well as strategies created by the user (if existent).
+
+The multislider \circled{4} can be used to configure the relative sizes of the segments. For example, if \(100\) agents of the group in Fig.\ref{fig:group_window} were to be initialised, \(25\) of them would belong to segment 2, thus receiving an initial capital drawn out of a poisson distribution with mean \(15\) as well as \enquote{always cooperate} or \enquote{tit for tat} as initial strategy.
 
 By deselecting the checkbox labeled \enquote{Group is cohesive}, the group becomes \enquote{uncohesive}, i.e. agents of this group do not consider each other as members of the same group anymore. This becomes relevant when strategies are used that refer to other agents' group affiliation. This can be used to model agents that \enquote{aren't part of any group}, which is equivalent to being part of an uncohesive group.
 
@@ -251,16 +260,17 @@ To export the created group as a file, press the  \inlinegraphics{img_manual/exp
 
 To load an existing group press the  \inlinegraphics{img_manual/import_button.png} button. You can either import a group from a previously exported group file or open one of the locally stored groups, i.e. the preconfigured groups and the ones added to the repository by the user.
 
-\subsection{Create new populations}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{img_manual/population_window.png}
-	\caption{The population creation window.}
-	\label{fig:population_window}
+	\includegraphics[width=0.8\linewidth]{img_manual/group_window.png}
+	\caption{The group creation window.}
+	\label{fig:group_window}
 \end{figure}
-When the \enquote{Create new population} entry in the \enquote{Extensions} menu is pressed, the population creation window opens (see Fig.\ref{fig:population_window}). To create a new population, name and description must be entered in the corresponding text fields and at least one group must be added.
 
-In order to add a group, choose the group in the dropdownmenu \circled{1} and enter the amount of agents of that group that shall be added in the textfield \circled{2}. Then press the  \inlinegraphics{img_manual/plus_button.png} button. To remove a group, press the corresponding \inlinegraphics{img_manual/blue_x_button.png} button.
+\subsection{Create new populations}
+When the \enquote{Create new population} entry in the \enquote{Extensions} menu is pressed, the population creation window opens (see Fig.\ref{fig:population_window}). To create a new population, name and description must be entered in the corresponding text fields \circled{1} and at least one group must be added.
+
+In order to add a group, choose the group in the dropdownmenu and enter the amount of agents of that group that shall be added \circled{2}. Then press the  \inlinegraphics{img_manual/plus_button.png} button. To remove a group, press the corresponding \inlinegraphics{img_manual/blue_x_button.png} button. The set of all selected groups and their sizes is displayed in section \circled{3}.
 
 To reset all settings, press the  \inlinegraphics{img_manual/rotate_left_button.png} button.
 
@@ -268,6 +278,12 @@ To export the created population as a file, press the  \inlinegraphics{img_manua
 
 To load an existing population press the  \inlinegraphics{img_manual/import_button.png} button. You can either import a population from a previously exported population file or open one of the locally stored populations, i.e. the preconfigured populations and the ones added to the repository by the user.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{img_manual/population_window.png}
+	\caption{The population creation window.}
+	\label{fig:population_window}
+\end{figure}
 
 \subsection{Important Information on Saving and Exporting Extensions}\label{sec:export_extensions}
 
@@ -306,9 +322,7 @@ Below the charts resides a dropdown menu labeled \enquote{Considered iterations}
 
 \subsection{The Plugin-System}
 
-The program features a plugin system which enables you to easily implement new algorithms and mechanism that can be dynamically loaded. 
-
-The following algorithms and mechanisms can be extended via plugins.
+The program features a plugin system which enables you to easily implement own versions of the following algorithms and mechanisms:
 
 \begin{itemize} \itemsep -10pt
 	\item the equilibrium criterion
@@ -318,10 +332,7 @@ The following algorithms and mechanisms can be extended via plugins.
 	\item the discrete distribution (used to initialise agents with capital)
 \end{itemize}
 
-The following section describes exemplary how to implement a new pair builder with eclipse.
-
-Start by creating a new Gradle-Project in eclipse. After that navigate to the projects root directory and create a new folder called \enquote{libs}. Copy the \enquote{loop.jar} file into the newly created folder. You can find the \enquote{loop.jar} file in the \enquote{lib} folder inside the program's installation folder. 
-Next, inside of eclipse edit the \enquote{build.gradle} file so afterward it looks like figure \ref{fig:build_gradle}. Finally do a gradle-refresh and now your project setup is done and you can start implementing your plugin.
+In the following, we describe how to achieve this using eclipse. Start by creating a new Gradle-Project in eclipse. Navigate to the projects root directory, create a new folder called \enquote{libs} and copy the \enquote{loop.jar} file into the newly created folder (you can find the \enquote{loop.jar} file in the \enquote{lib} folder inside the program's installation folder). Next, edit the \enquote{build.gradle} file so it looks like figure \ref{fig:build_gradle}. Finally, do a gradle-refresh (Right click on the project in eclipse and then select \enquote{Gradle} \(\rightarrow\) \enquote{Refresh Gradle Project}. Now the project setup is done and the implementation of the plugin can begin.
 
 \begin{figure} [hbt]
 	\centering
@@ -330,18 +341,17 @@ Next, inside of eclipse edit the \enquote{build.gradle} file so afterward it loo
 	\label{fig:build_gradle}
 \end{figure}
 
-
-Therefor add a new class called \enquote{GreedyPairBuilder}. Since this class should be a pair builder plugin the class has to extend the \enquote{PairBuilderPlugin} class. There are similar named classes for all the other algorithms and mechanisms that can be implemented as plugins. For more detailed information of how to implement the have a look at the class documentation inside the design document. Add the following code to the class (see fig. \ref{fig:impl}).
+Suppose we want to create a pair builder that greedily matches each agent to another agent that he would cooperate with. Therefor we create a new class called \enquote{GreedyPairBuilder} and let it extend the \enquote{PairBuilderPlugin} class. There are similar named classes for all the other algorithms and mechanisms that can be implemented as plugins. Now we add the following code to the class (see fig. \ref{fig:impl}).
 
 \begin{figure} [hbt]
 	\centering
 	\includegraphics[width=0.9\linewidth]{img_manual/implementation.png}
-	\caption{The population creation window.}
+	\caption{The code for the greedy pair builder plugin.}
 	\label{fig:impl}
 \end{figure}
 
 
-After you finished your implementation of the plugin add the following folder structure to your project's root diretory \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new file named \enquote{loop.model.plugin.PairBuilderPlugin} which has to contain the class name of your plugin including the package structure. In this case it is \enquote{loop.extensions.plugins.GreedyPairBuilder}. Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file be navigating into the \enquote{build/libs} folder from your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
+After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new file named \enquote{loop.model.plugin.PairBuilderPlugin} which has to contain the class name of your plugin including the package structure. In this case it is \enquote{loop.extensions.plugins.GreedyPairBuilder}. Now you can run gradle build to generate the \enquote{GreedyPairBuilder.jar} file. You can find this file by navigating into the \enquote{build/libs} folder from your project's root. Copy the \enquote{GreedyPairBuilder.jar} file into the plugins folder of the program's installation folder and your done. When you start the program the next time, your plugin will be loaded.
 
 
 

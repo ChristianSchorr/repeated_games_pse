@@ -43,7 +43,7 @@
 \section{Einleitung}
 Nach der Spezifikation des Programms in der ersten und dem Entwurf einer Programmarchitekur in der zweiten wurde das Programm in dieser Phase nun implementiert. Der Ablauf und die Ergebnisse der Implementierungsphase sollen hier kurz vorgestellt werden.
 
-Innerhalb der letzten vier Wochen wurden durch insgesamt über X Commits im Versionierungssystem git X Klassen und Schnittstellen in X Paketen implementiert, welche  insgesamt X Java-Quellcode-Zeilen umfassen. Des Weiteren wurden zahlreiche Komponententests erstellt.
+Innerhalb der letzten vier Wochen wurden durch insgesamt über \(312\) Commits im Versionierungssystem git \(114\) Klassen und Schnittstellen in \(21\) Paketen implementiert, welche  insgesamt \(20.924\) Quellcode-Zeilen umfassen. Des Weiteren wurden zahlreiche Komponententests erstellt.
 
 Im Laufe der Implemetierung sind viele verschiedene Bibliotheken und Programme zum Einsatz gekommen, die hier kurz vorgestellt werden sollen.
 
@@ -91,7 +91,7 @@ Im Laufe der Implemetierung sind viele verschiedene Bibliotheken und Programme z
 \end{enumerate}
 \subsection{Apache Commons Math}
 \begin{enumerate}
-\item[] \textbf{Ziel:} 
+\item[] \textbf{Ziel:}  Bereitstellung einer zuverlässigen und effizienten Quelle für verschieden verteilte Pseudo-Zufallszahlen
 \item[] \textbf{Beschreibung:} Apache Commons Math ist eine Open-Source-Java-Bibliothek, die grundlegende mathematische und statistische Werkzeuge zur Verfügung stellt.
 \item[] \textbf{Erläuterung:} Bei der Kapitalinitialisierung von Agenten können diskrete Wahrscheinlichkeitsverteilungen wie die Binomial- oder Poissonverteilung verwendet werden. Für die Generierung von entsprechend verteilten Pseudo-Zufallszahlen haben wir auf diese Bibliothek zurückgegriffen.
 \end{enumerate}
@@ -103,6 +103,9 @@ Im Laufe der Implemetierung sind viele verschiedene Bibliotheken und Programme z
 Im ursprünglichen Entwurf gab es zunächst kein View-Paket, was daran liegt, dass das Verhalten der GUI in fxml-Dateien beschrieben ist und die View-Klassen daraus zur Laufzeit erzeugt werden. Es ist daher zunächst nicht notwendig, eigene Klassen für die View zu schreiben.
 
 Wie bereits im Pflichtenheft beschrieben, befindet sich im Hauptfenster eine Liste mit Einträgen für alle gestarteten und geladenen Simulationen, die deren Ausführungsstatus anzeigen. Klickt man auf den Eintrag einer abgeschlossenen Simulation, werden rechts der Liste deren Ergebnisse angezeigt. Zur Umsetzung haben wir das in JavaFX vorhandene Konzept der \texttt{ListView} verwendet. Eine \texttt{ListView} zeigt eine Liste von Elementen (Instanzen des Typs \texttt{ListCell}) an, mit denen der Nutzer durch Auswahl einzelner Einträge interagieren kann. Um die Einträge unseren sehr speziellen Anforderungen anzupassen, war es notwendig, eigene Unterklassen der \texttt{ListCell}-Klasse zu schreiben. Diese befinden sich im Paket \texttt{edu.kit.loop.view.historylistview}.
+
+\subsection{Hinzufügen des Pakets \texttt{edu.kit.loop.view.controls.multislider}}
+Da der für das Gruppenerstellungsfenster geplante Multislider kein existierendes GUI-Element in JavaFX bzw. ControlsFX ist, mussten wir einen solchen aus vorhandenen GUI-Elementen wie dem \texttt{RangeSlider} zusammensetzen und selbst die zugrundeliegende Verhaltenslogik implementieren. Der Multislider sowie zugehörige Hilfs- und Utilityklassen befinden sich im Paket \texttt{edu.kit.loop.view.controls.multislider} bzw. in dessen Unterpaket \texttt{edu.kit.loop.view.controls.multislider.skin}.
 
 \subsection{Anpassung der Ausgabe}\label{outputmod}
 Die Ausgabe der Strategieverteilung der Agenten sollte im ursprünglichen Entwurf durch ein Kuchendiagramm erfolgen, dass für jede Strategie angibt, wie häufig diese von Agenten im finalen Zustand der Simulation verwendet wird. Statt des Kuchendiagramms gibt es nun ein Diagramm, dass die Entwicklung der Strategieverteilung über den Lauf der Simulation anzeigt. Genauer gesagt bilden die Adaptionsschritte von \(1\) bis zum letzten durchgeführten Adaptionsschritt die x-Achse und es gibt für jede Strategie eine Linie im Diagramm, die für jeden Adaptionsschritt als Wert die relative Verwendungshäufigkeit dieser Strategies in diesem Adaptionsschritt annimmt (siehe Abb. \ref{fig:newoutput}). Die Informationen aus dem ursprünglich geplanten Kuchendiagramm sind in diesem enthalten, die Strategieverteilung nach dem letzten Adaptionsschritt kann im Liniendiagramm ganz rechts abgelesen werden.
@@ -147,16 +150,9 @@ Wie in der Tabelle zu sehen, konnten alle Kriterien erfolgreich umgesetzt werden
 \item[] 3) Die Struktur von Gruppen und Segmenten hat sich in der Entwurfsphase durch die Einführung von Populationen geändert (siehe Entwurfsdokument).
 \end{enumerate}
 
-Neben den in der Tabelle erwähnten Funktionen konnten wir auch erfolgreich die Funktionalitäten implementieren, die wir in der Entwurfsphase noch zur Spezifikation hinzugefügt haben, also das Konzept von Populationen, erweiterte Möglichkeiten zur Erstellung von Strategien und das Plugin-System.
+Neben den in der Tabelle erwähnten Funktionen konnten wir auch erfolgreich die Funktionalitäten implementieren, die wir in der Entwurfsphase noch zur Spezifikation hinzugefügt haben, also das Konzept von Populationen, erweiterte Möglichkeiten zur Erstellung von Strategien und das Plugin-System. Des weiteren wurde ein Benutzerhandbuch erstellt, das die Funktionen des Programms und deren Verwendung erklärt.
 
-\section{Schwierigkeiten bei der Implementierung}
-
-\subsection{Erstellung des Multisliders}
-
-\subsection{Das Plugin-System}
-wegen gradle
-
-\section{Implementierungsplan}
+\section{Zeitmanagement}
 Zu Beginn der Implementierungsphase wurde vereinbart, die Aufteilung anhand der Paketstruktur vorzunehmen. Weiterhin erachteten es die Entwickler als sinnvoll, zunächst das Model zu implementieren und zu testen, und erst danach mit Controller und View zu beginnen. Grund ist eine Vereinfachung der Fehlersuche bei der Implementierung des Controllers. Ist dann nämlich das Model bereits fertig implementiert und getestet und es entsteht ein Fehler in einem Ablauf, in dem sowohl Controller als auch Model beteiligt sind, so liegt der Fehler höchstwahrscheinlich im Controller. Diese Vorgehensweise hat sich bewährt.
 
 Bei der Implementierung des Models sind wir so vorgegangen, dass wir das aus fünf Entwicklern bestehende Team aufgeteilt haben in drei, die mit der Implementierung der Model-Pakete beginnen und zwei, die parallel Komponententests dazu schreiben. Die Implementierung des Models verlief reibungslos und war bereits nach etwa eineinhalb Woche abgeschlossen.
