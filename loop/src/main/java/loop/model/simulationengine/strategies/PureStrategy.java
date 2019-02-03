@@ -63,8 +63,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
 
         return new PureStrategy(
                 "tit-for-tat", "A player using tit-for-tat will first cooperate, afterwards he replicate the opponent's previous action."
-                		+ " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
-                		+ " the player is not cooperative.", (pair, history) ->
+                + " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
+                + " the player is not cooperative.", (pair, history) ->
                 toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent())))
                         .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()))
         );
@@ -85,9 +85,9 @@ public class PureStrategy implements Strategy, java.io.Serializable {
 
         return new PureStrategy(
                 "group tit-for-tat", "A player using group tit-for-tat use the tit-for-tat strategy, where instead of looking"
-                		+ "at the last game between the player and the opponent the last game between the opponent and an agent"
-                		+ "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group,"
-                		+ "this strategy leads to the same results as the common tit-for-tat strategy.", (pair, history) ->
+                + "at the last game between the player and the opponent the last game between the opponent and an agent"
+                + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group,"
+                + "this strategy leads to the same results as the common tit-for-tat strategy.", (pair, history) ->
                 toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result)))
                         .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()))
         );
@@ -101,8 +101,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy grim() {
         return new PureStrategy(
                 "grim", "A player using grim will first cooperate, afterwards he refer to the previous actions of the opponent."
-                		+ " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
-                		+ " not cooperative, the agent is from now on not cooperative to that opponent.", (pair, history) ->
+                + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
+                + " not cooperative, the agent is from now on not cooperative to that opponent.", (pair, history) ->
                 history.getAllWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent()))
                         .stream().allMatch((result) -> result.hasCooperated(pair.getSecondAgent()))
         );
@@ -123,9 +123,9 @@ public class PureStrategy implements Strategy, java.io.Serializable {
 
         return new PureStrategy(
                 "group grim", "A player using group grim use the grim strategy, where instead of looking at the last game between"
-                		+ " the player and the opponent the last game between the opponent and an agent of the same (cohesive) group"
-                		+ " as the player is considered. If the player is part of a non-cohesive group, this strategy leads to the same results"
-                		+ " as the common grim strategy.", (pair, history) ->
+                + " the player and the opponent the last game between the opponent and an agent of the same (cohesive) group"
+                + " as the player is considered. If the player is part of a non-cohesive group, this strategy leads to the same results"
+                + " as the common grim strategy.", (pair, history) ->
                 history.getAllWhere((result) -> relevantResult.test(pair, result))
                         .stream().allMatch((result) -> result.hasCooperated(pair.getSecondAgent()))
         );
@@ -148,15 +148,15 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy neverCooperate() {
         return new PureStrategy("never cooperate", "A player using never cooperate won't be cooperative against any opponent.", (pair, history) -> false);
     }
-    
+
     public enum TimeAdverb {
         ALWAYS, NEVER, ATLEASTONCE, LASTTIME;
     }
-    
+
     public enum AgentEntity {
         AGENT, SAME_GROUP, SIM_CAPITAL;
     }
-    
+
     //percentage ignored if coopWithWhom != SIM_CAPITAL
     public static PureStrategy stratBuilderStrategy(AgentEntity cooperatedWithWhom, TimeAdverb when, double percentage) {
         BiPredicate<AgentPair, GameResult> relevantResult;
@@ -166,18 +166,19 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 break;
             case SAME_GROUP:
                 relevantResult = (pair, result) ->
-                    result.hasAgent(pair.getSecondAgent())
-                        && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
+                        result.hasAgent(pair.getSecondAgent())
+                                && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
                 break;
             case SIM_CAPITAL:
                 relevantResult = (pair, result) -> result.hasAgent(pair.getSecondAgent())
-                    && hasSimilarCapital(pair.getFirstAgent(), result.getOtherAgent(pair.getSecondAgent()), percentage);
+                        && hasSimilarCapital(pair.getFirstAgent(), result.getOtherAgent(pair.getSecondAgent()), percentage);
                 break;
-            default: relevantResult = null;
+            default:
+                relevantResult = null;
         }
-        
+
         BiPredicate<AgentPair, SimulationHistory> condition;
-        
+
         switch (when) {
             case ALWAYS:
                 condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
@@ -195,19 +196,20 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 condition = (pair, history) -> toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result))).allMatch(
                         (result) -> result == null || result.hasCooperated(pair.getSecondAgent()));
                 break;
-            default: condition = null;
+            default:
+                condition = null;
         }
-        
+
         return new PureStrategy("stratbuilder strategy", cooperatedWithWhom.toString() + ", " + when.toString(), condition);
     }
-    
+
     private static boolean hasSimilarCapital(Agent a1, Agent a2, double percentage) {
         if (a1.getCapital() > a2.getCapital())
             return ((double) a2.getCapital() / (double) a1.getCapital()) >= 1 - percentage;
         else
             return ((double) a1.getCapital() / (double) a2.getCapital()) >= 1 - percentage;
     }
-    
+
     /**
      * Returns an instance of the {@link PureStrategy} class representing the "The opponent always cooperated" strategy.
      *
@@ -219,8 +221,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         && !res.hasCooperated(pair.getSecondAgent())).size() == 0;
 
         return new PureStrategy("The opponent always cooperated", "A player using this strategy will first cooperate, afterwards he refer to the previous actions of the opponent."
-        		+ " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time "
-        		+ "not cooperative, the agent is from now on not cooperative to that opponent.", condition);
+                + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time "
+                + "not cooperative, the agent is from now on not cooperative to that opponent.", condition);
     }
 
     /**
@@ -234,8 +236,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         && res.hasCooperated(pair.getSecondAgent())).size() > 0;
 
         return new PureStrategy("The opponent cooperated at least once", "A player using this strategy will not cooperate first, afterwards he refer to the previous actions of the opponent."
-        		+ " If the opponent previously has one time cooperated with the player, the player is cooperative. If the opponent was never"
-        		+ " cooperative, the player isn't cooperative to that opponent.", condition);
+                + " If the opponent previously has one time cooperated with the player, the player is cooperative. If the opponent was never"
+                + " cooperative, the player isn't cooperative to that opponent.", condition);
     }
 
     /**
@@ -245,12 +247,12 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      */
     public static PureStrategy opponentCooperatedLastTime() {
         BiPredicate<AgentPair, SimulationHistory> condition = (pair, history) ->
-        toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent())))
-        .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()));
+                toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent())))
+                        .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()));
 
         return new PureStrategy("The opponent cooperated last time", "A player using this strategy will first cooperate, afterwards he replicate the opponent's previous action."
-        		+ " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
-        		+ " the player is not cooperative.", condition);
+                + " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
+                + " the player is not cooperative.", condition);
     }
 
     /**
@@ -264,8 +266,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         && res.hasCooperated(pair.getSecondAgent())).size() == 0;
 
         return new PureStrategy("The opponent never cooperated", "A player using this strategy will first cooperate, afterwards he refer to the previous actions of the opponent."
-        		+ " If the opponent previously was never cooperative, the player is cooperative. If the opponent was at least one time "
-        		+ " cooperative, the player is from now on not cooperative to this opponent.", condition);
+                + " If the opponent previously was never cooperative, the player is cooperative. If the opponent was at least one time "
+                + " cooperative, the player is from now on not cooperative to this opponent.", condition);
     }
 
     //////////////
@@ -281,8 +283,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         && !res.hasCooperated(pair.getFirstAgent())).size() == 0;
 
         return new PureStrategy("I always cooperated", "A player using this strategy will first cooperate, afterwards he refer to his previous actions."
-        		+ " If the player previously was always cooperative to this opponent, the player is cooperative. If the player was at least one time "
-        		+ "not cooperative to this opponent, the player is from now on not cooperative to this opponent.", condition);
+                + " If the player previously was always cooperative to this opponent, the player is cooperative. If the player was at least one time "
+                + "not cooperative to this opponent, the player is from now on not cooperative to this opponent.", condition);
     }
 
     /**
@@ -296,8 +298,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         && res.hasCooperated(pair.getFirstAgent())).size() > 0;
 
         return new PureStrategy("I cooperated at least once", "A player using this strategy will not cooperate first, afterwards he refer to his previous actions."
-        		+ " If the player previously was at least one time cooperative to this opponent, the player is cooperative. If the player was never "
-        		+ " cooperative to this opponent, the player is not cooperative to this opponent.", condition);
+                + " If the player previously was at least one time cooperative to this opponent, the player is cooperative. If the player was never "
+                + " cooperative to this opponent, the player is not cooperative to this opponent.", condition);
     }
 
     /**
@@ -307,12 +309,12 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      */
     public static PureStrategy currAgentCooperatedLastTime() {
         BiPredicate<AgentPair, SimulationHistory> condition = (pair, history) ->
-        toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent())))
-        .allMatch((result) -> result == null || result.hasCooperated(pair.getFirstAgent()));
-                
+                toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getFirstAgent()) && result.hasAgent(pair.getSecondAgent())))
+                        .allMatch((result) -> result == null || result.hasCooperated(pair.getFirstAgent()));
+
         return new PureStrategy("I cooperated last time", "A player using this strategy will first cooperate, afterwards he refer to his previous action."
-        		+ " If the player previously was the last time cooperative to this opponent, the player is cooperative. If the player was the last time "
-        		+ "  not cooperative to this opponent, the player is not cooperative to this opponent.", condition);
+                + " If the player previously was the last time cooperative to this opponent, the player is cooperative. If the player was the last time "
+                + "  not cooperative to this opponent, the player is not cooperative to this opponent.", condition);
     }
 
     /**
@@ -326,8 +328,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                         && res.hasCooperated(pair.getFirstAgent())).size() == 0;
 
         return new PureStrategy("I never cooperated", "A player using this strategy will first cooperate, afterwards he refer to his previous actions."
-        		+ " If the player previously was never cooperative to this opponent, the player is cooperative. If the player was at least one time "
-        		+ " cooperative to this opponent, the player is not cooperative to this opponent.", condition);
+                + " If the player previously was never cooperative to this opponent, the player is cooperative. If the player was at least one time "
+                + " cooperative to this opponent, the player is not cooperative to this opponent.", condition);
     }
 
     ////////////
@@ -342,7 +344,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 pair.getFirstAgent().getCapital() < pair.getSecondAgent().getCapital();
 
         return new PureStrategy("The opponent has a higher capital", "A player using this strategy will be cooperative if the opponent "
-        		+ "has a higher capital than the player else he won't be cooperative.", condition);
+                + "has a higher capital than the player else he won't be cooperative.", condition);
     }
 
     /**
@@ -355,7 +357,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 pair.getFirstAgent().getCapital() > pair.getSecondAgent().getCapital();
 
         return new PureStrategy("The opponent has a lower capital", "A player using this strategy will be cooperative if the opponent "
-        		+ "has a lower capital than the player else he won't be cooperative.", condition);
+                + "has a lower capital than the player else he won't be cooperative.", condition);
     }
 
     /**
@@ -372,7 +374,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
         };
 
         return new PureStrategy("The opponent has a similar capital", "A player using this strategy will be cooperative if the opponent "
-        		+ "has a similar capital than the player else he won't be cooperative.", condition);
+                + "has a similar capital than the player else he won't be cooperative.", condition);
     }
 
     //////
@@ -387,7 +389,55 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 pair.getFirstAgent().getGroupId() == pair.getSecondAgent().getGroupId() && pair.getSecondAgent().getGroupId() != -1;
 
         return new PureStrategy("The opponent is in the same group", "A player using this strategy will be cooperative if the opponent "
-        		+ "is in the same group else the player is not cooperative.", condition);
+                + "is in the same group else the player is not cooperative.", condition);
+    }
+
+
+    public static PureStrategy groupMemberCooperation(TimeAdverb when) {
+        BiPredicate<AgentPair, GameResult> relevantResult = (pair, result) ->
+                result.hasAgent(pair.getSecondAgent())
+                        && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
+
+
+        BiPredicate<AgentPair, SimulationHistory> condition;
+
+        switch (when) {
+            case ALWAYS:
+                condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
+                        (result) -> result.hasCooperated(pair.getFirstAgent()));
+                break;
+            case NEVER:
+                condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
+                        (result) -> !result.hasCooperated(pair.getFirstAgent()));
+                break;
+            case ATLEASTONCE:
+                condition = (pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().anyMatch(
+                        (result) -> result.hasCooperated(pair.getFirstAgent()));
+                break;
+            case LASTTIME:
+                condition = (pair, history) -> toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result))).allMatch(
+                        (result) -> result == null || result.hasCooperated(pair.getFirstAgent()));
+                break;
+            default:
+                condition = null;
+        }
+
+        String adv = " ";
+        switch (when) {
+            case NEVER:
+                adv = "never";
+                break;
+            case ALWAYS:
+                adv = "always";
+                break;
+            case LASTTIME:
+                adv = "last time";
+                break;
+            case ATLEASTONCE:
+                adv = "at least once";
+                break;
+        }
+        return new PureStrategy("An agent of the same group has cooperated " + adv, "" , condition);
     }
 
 

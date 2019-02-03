@@ -50,13 +50,13 @@ public class StrategyController implements CreationController<Strategy> {
     private ChoiceBox<String> elseBox;
 
     @FXML
-    private ChoiceBox cooperationParticipants;
+    private ChoiceBox<String> cooperationParticipants;
 
     @FXML
-    private ChoiceBox cooperationQuantors;
+    private ChoiceBox<String> cooperationQuantors;
 
     @FXML
-    private ChoiceBox capitalBox;
+    private ChoiceBox<String> capitalBox;
 
     @FXML
     private ChoiceBox<String> timeAdvBox;
@@ -185,6 +185,13 @@ public class StrategyController implements CreationController<Strategy> {
         currentMap.put(quantors.get(3), PureStrategy.currAgentCooperatedNever());
         coopMap.put(participants.get(1), currentMap);
 
+        Map<String, Strategy> groupMap = new HashMap<>();
+        groupMap.put(quantors.get(0), PureStrategy.groupMemberCooperation(PureStrategy.TimeAdverb.ALWAYS));
+        groupMap.put(quantors.get(1), PureStrategy.groupMemberCooperation(PureStrategy.TimeAdverb.ATLEASTONCE));
+        groupMap.put(quantors.get(2), PureStrategy.groupMemberCooperation(PureStrategy.TimeAdverb.LASTTIME));
+        groupMap.put(quantors.get(3), PureStrategy.groupMemberCooperation(PureStrategy.TimeAdverb.NEVER));
+        coopMap.put(participants.get(2), groupMap);
+
         capitalMap = new HashMap<>();
         capitalMap.put(assessment.get(0), PureStrategy.opponentHasHigherCapital());
         capitalMap.put(assessment.get(1), PureStrategy.opponentHasLowerCapital());
@@ -228,7 +235,8 @@ public class StrategyController implements CreationController<Strategy> {
 
     @FXML
     private void handleAddCooperation(ActionEvent e) {
-        Map<String, Strategy> map = coopMap.get(cooperationParticipants.getValue());
+        String value = cooperationParticipants.getValue();
+        Map<String, Strategy> map = coopMap.get(value);
         if (map != null) {
             Strategy strat = coopMap.get(coopParticipantProperty.getValue()).get(coopQuantorProperty.getValue());
             if (strat != null)
