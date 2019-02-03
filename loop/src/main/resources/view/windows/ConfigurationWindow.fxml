@@ -58,14 +58,6 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="25" GridPane.rowIndex="6">
                                     <ChoiceBox fx:id="populationBox"/>
-                                    <HBox alignment="CENTER_LEFT">
-                                        <Button>
-                                            <graphic>
-                                                <Glyph fontFamily="FontAwesome" fontSize="20" icon="PENCIL"
-                                                       style="-fx-text-fill: grey"/>
-                                            </graphic>
-                                        </Button>
-                                    </HBox>
                                 </HBox>
                                 <Label styleClass="control-label" text="Selected population"
                                        GridPane.columnIndex="1" GridPane.rowIndex="6" style="-fx-padding: 15"/>
