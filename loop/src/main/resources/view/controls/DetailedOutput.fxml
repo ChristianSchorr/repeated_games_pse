@@ -44,7 +44,6 @@
                     <NumberAxis side="LEFT" label="Portion" animated="false"/>
                 </yAxis>
             </LineChart>
-            <RangeSlider fx:id="consideredAgentsRangeSlider" highValue="0.9" lowValue="0.1" visible="false"/>
         </VBox>
         <VBox GridPane.columnIndex="1">
             <BarChart fx:id="capitalDiagram">

@@ -108,7 +108,7 @@ public class DetailedOutputController {
     private Rectangle capitalBufferRectangle;
 
     @FXML
-    private RangeSlider consideredAgentsRangeSlider;
+    //private RangeSlider consideredAgentsRangeSlider;
     private int minRankIndex; //minimal index of an agent in the list of all agents (increases as max decreases)
     private int maxRankIndex; //maximal index of an agent in the list of all agents (increases as min decreases)
 
@@ -430,13 +430,13 @@ public class DetailedOutputController {
     }
 
     @FXML
-    private void handleRangeSlider(ActionEvent event) {
+    /*private void handleRangeSlider(ActionEvent event) {
         int minPercent = (int) this.consideredAgentsRangeSlider.getLowValue();
         int maxPercent = (int) this.consideredAgentsRangeSlider.getHighValue();
         updateRankIndices(minPercent, maxPercent);
 
         updateCharts();
-    }
+    }*/
 
     private void updateRankIndices(int minPercent, int maxPercent) {
         int agentCount = displayedResult.getIterationResults(selectedConfigurationNumber).get(0).getAgents().size();
