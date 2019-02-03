@@ -325,6 +325,16 @@ public class OutputController {
         }
     }
 
+    private void disableButtons() {
+        importButton.setVisible(false);
+        saveButton.setVisible(false);
+        openWindow.setVisible(false);
+        sep1.setVisible(false);
+        importButton.setDisable(true);
+        saveButton.setDisable(true);
+        openWindow.setDisable(true);
+    }
+
     @FXML
     private void openWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/controls/outputView.fxml"));
@@ -332,6 +342,7 @@ public class OutputController {
             Parent parent = loader.load();
             OutputController controller = loader.getController();
             controller.setDisplayedResult(displayedResult, (res) -> {});
+            controller.disableButtons();
             Scene outputScene = new Scene(parent);
             Stage outputWindow = new Stage();
 
