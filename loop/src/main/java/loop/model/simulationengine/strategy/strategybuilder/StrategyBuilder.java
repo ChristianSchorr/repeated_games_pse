@@ -5,6 +5,7 @@ import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -30,7 +31,7 @@ public class StrategyBuilder {
      */
     public static Strategy creatNewStrategy(SyntaxNode root, String name, String description) {
         Strategy rootStrat = buildStrategy(root);
-        BiPredicate<AgentPair, SimulationHistory> condition = (pair, history) ->
+        BiPredicate<AgentPair, SimulationHistory> condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) ->
             rootStrat.isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), history);
         return new PureStrategy(name, description, condition);
     }
