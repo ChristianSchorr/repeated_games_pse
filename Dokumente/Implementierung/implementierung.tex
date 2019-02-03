@@ -117,6 +117,9 @@ Die Ausgabe der Strategieverteilung der Agenten sollte im ursprünglichen Entwur
 	\label{fig:newoutput}
 \end{figure}
 
+\subsection{Rangeslider entfernt}
+Ursprünglich war geplant, auf der ersten Seite im Output-Fenster (\enquote{Detailed output}) einen Rangeslider zu platzieren, mit dem man den Anteil von Agenten auswählen kann, die in den darüber liegenden Diagrammen abgebildet werden (etwa die besten oder schlechtesten \(x\%\), geordnet nach finalem Rang). Nun hat sich aber bereits bei den ersten Simulationsläufen unsere ursprüngliche Vermutung bestätigt, dass ein Gleichgewicht immer damit einhergeht, dass alle Agenten (fast) dieselbe Strategie haben\footnote{Das liegt einfach daran, dass umso mehr und stärkere Anpassungen vonstatten gehen, desto größer die Strategie-Diskrepanzen zwischen den Agenten sind.}. Die Rangliste in den letzten Adaptionsschritten (insbesondere am Ende der Simulation) ist somit effektiv rein zufällig und es macht keinen Sinn, die Agenten danach zu sortieren.
+
 \newpage
 \section{Implementierte Funktionalitäten}
 Die folgende Tabelle liefert einen Überblick über die im Pflichtenheft beschriebenen Funktionalitäten und deren Umsetzung.
