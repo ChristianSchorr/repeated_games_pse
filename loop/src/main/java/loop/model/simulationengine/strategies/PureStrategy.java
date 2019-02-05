@@ -204,7 +204,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
         return new PureStrategy("stratbuilder strategy", cooperatedWithWhom.toString() + ", " + when.toString(),condition);
     }
 
-    private static boolean hasSimilarCapital(Agent a1, Agent a2, double percentage) {
+    public static boolean hasSimilarCapital(Agent a1, Agent a2, double percentage) {
         if (a1.getCapital() > a2.getCapital())
             return ((double) a2.getCapital() / (double) a1.getCapital()) >= 1 - percentage;
         else
