@@ -78,7 +78,7 @@ public class SimulationEngine {
         while (!interrupted && equilibriumReached == false && adaptionsteps < configuration.getMaxAdapts()) {
             executeAdaptionStep();
             calculateStrategyPortions();
-            printStepInfo();
+            //printStepInfo();
             interrupted = Thread.currentThread().isInterrupted();
         }
         
@@ -169,7 +169,7 @@ public class SimulationEngine {
         efficiency /= agents.size() * (agents.size() - 1);
         return efficiency;
     }
-    
+    /*
     private void printStepInfo() {
         if (!printInfo) return;
         if (printCounter++ < printPeriod && this.equilibriumReached == false && this.adaptionsteps != 1) {
@@ -284,6 +284,6 @@ public class SimulationEngine {
             }
         }
         System.out.println(String.format("efficiency: %s", percentFormatter.format(calculateEfficiency())));
-    }
+    }*/
     
 }

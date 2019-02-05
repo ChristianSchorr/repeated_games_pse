@@ -22,7 +22,7 @@ public class ThreadPoolSimulatorTest {
 	private SimulationResult result;
 	private CountDownLatch lock = new CountDownLatch(16);
 	
-	@Ignore @Test
+	@Test
 	public void startSimulationTest() {
 		ThreadPoolSimulator simulator = new ThreadPoolSimulator(2);
 		UserConfiguration config = UserConfiguration.getDefaultConfiguration();

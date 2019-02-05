@@ -78,7 +78,7 @@ public class SimulationEngineTest {
         assertTrue(result.getHistory() != null);
     }
     
-    //@Test
+    @Test
     public void testTwoGroups() {
         int agentCount = 50;
         int roundCount  = 200;
