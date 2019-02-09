@@ -41,14 +41,18 @@ public class SyntaxTree implements Tree<SyntaxNode> {
         if (checkSyntax()) return null;
         else {
             SyntaxNode node = root;
-            while (!check(root)) {
+            while (!check(node)) {
                 List<TreeNode<Strategy>> children = node.getChildren();
+                if (children.size() != node.getOperator().getOperandCount()) return node;
                 for (TreeNode<Strategy> child: children) {
-                    if (!check((SyntaxNode) child))
+                    if (!check((SyntaxNode) child)) {
                         node = (SyntaxNode) child;
+                        break;
+                    }                       
                 }
+                return node; 
             }
-            return root;
+            return node;
         }
     }
 
@@ -58,10 +62,12 @@ public class SyntaxTree implements Tree<SyntaxNode> {
             List<TreeNode<Strategy>> children = node.getChildren();
             if (children.size() != node.getOperator().getOperandCount()) return false;
             for (TreeNode<Strategy> child: children) {
-                return check((SyntaxNode)child);
+                if (check((SyntaxNode)child) == false) {
+                    return false;
+                };
             }
         }
-        return false;
+        return true;
     }
 
     @Override
