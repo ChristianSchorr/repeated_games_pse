@@ -37,7 +37,7 @@ public class PureStrategyTest {
 		testPureStrategy = PureStrategy.titForTat();
 		inSameGroupAsPlayer = new Agent(0, PureStrategy.titForTat(), 1);
 		opponent = new Agent(5, PureStrategy.neverCooperate(), 2);
-		history = new SimulationHistoryTable();
+		history = new SimulationHistoryTable(); 
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class PureStrategyTest {
     @Test
     public void testGrim() {
         testPureStrategy = PureStrategy.grim();
-        player = new Agent(0, testPureStrategy, 1);
+        player = new Agent(0, testPureStrategy, 1); 
         testGetName("grim");
         testGetDescription("A player using grim will first cooperate, afterwards he refer to the previous actions of the opponent."
                 + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"

@@ -27,7 +27,7 @@ public class ConcreteOperator implements Operator {
 
     @Override
     public Strategy combineStrategies(List<Strategy> strats) {
-        if (strats.size() < operandCount) return null;
+        if (strats.size() < operandCount) return null; 
         else return (Strategy & Serializable) operator.apply(strats);
     }
 
@@ -43,7 +43,7 @@ public class ConcreteOperator implements Operator {
 
     @Override
     public String getDescription() {
-        return description;
+        return description; 
     }
 
     public static Operator AND() {
@@ -52,7 +52,7 @@ public class ConcreteOperator implements Operator {
                         (BiPredicate<AgentPair, SimulationHistory> & Serializable)
                                 (pair, hist) -> strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) &&
                                 strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist));
-        return new ConcreteOperator(op,2, "AND", "");
+        return new ConcreteOperator(op,2, "AND", ""); 
     }
 
     public static Operator OR() {
@@ -70,7 +70,7 @@ public class ConcreteOperator implements Operator {
                         (BiPredicate<AgentPair, SimulationHistory> & Serializable)
                                 (pair, hist) -> !(strats.get(0).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist) &&
                         strats.get(1).isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
-        return new ConcreteOperator(op,2, "NAND", "");
+        return new ConcreteOperator(op,2, "NAND", ""); 
     }
 
     public static Operator NOR() {

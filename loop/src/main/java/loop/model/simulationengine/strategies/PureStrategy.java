@@ -25,6 +25,10 @@ import org.checkerframework.dataflow.qual.Pure;
  */
 public class PureStrategy implements Strategy, java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7070470743541221391L;
     private String name;
     private String description;
     private BiPredicate<AgentPair, SimulationHistory> condition;
@@ -90,7 +94,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group,"
                 + "this strategy leads to the same results as the common tit-for-tat strategy.", (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) ->
                 toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result)))
-                        .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent()))
+                        .allMatch((result) -> result == null || result.hasCooperated(pair.getSecondAgent())) 
         );
     }
 
@@ -117,7 +121,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      *
      * @return an instance of the {@link PureStrategy} class representing the group grim strategy
      */
-    public static PureStrategy groupGrim() {
+    public static PureStrategy groupGrim() { 
         BiPredicate<AgentPair, GameResult> relevantResult = (pair, result) ->
                 result.hasAgent(pair.getSecondAgent())
                         && pair.getFirstAgent().isGroupAffiliated(result.getOtherAgent(pair.getSecondAgent()));
