@@ -290,6 +290,74 @@ public class PureStrategyTest {
     }
     
     /**
+     * Test the currAgentAlwaysCooperated strategy
+     */
+    @Test
+    public void testCurrAgentAlwaysCooperated() {
+        testPureStrategy = PureStrategy.currAgentAlwaysCooperated();
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("I always cooperated"));
+        assertTrue(testPureStrategy.getDescription().equals("A player using this strategy will first cooperate, afterwards he refer to his previous actions."
+                + " If the player previously was always cooperative to this opponent, the player is cooperative. If the player was at least one time "
+                + "not cooperative to this opponent, the player is from now on not cooperative to this opponent."));
+        boolean[] cooperate = {true, true, false, false, false};
+        testIsCooperative(cooperate);
+        history.reset();
+        testGetCooperationProbability(cooperate);
+    }
+    
+    /**
+     * Test the currAgentCooperatedAtLeastOnce strategy
+     */
+    @Test
+    public void testCurrAgentCooperatedAtLeastOnce() {
+        testPureStrategy = PureStrategy.currAgentCooperatedAtLeastOnce();
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("I cooperated at least once"));
+        assertTrue(testPureStrategy.getDescription().equals("A player using this strategy will not cooperate first, afterwards he refer to his previous actions."
+                + " If the player previously was at least one time cooperative to this opponent, the player is cooperative. If the player was never "
+                + " cooperative to this opponent, the player is not cooperative to this opponent."));
+        boolean[] cooperate = {false, true, true, true, true};
+        testIsCooperative(cooperate);
+        history.reset();
+        testGetCooperationProbability(cooperate);
+    }
+    
+    /**
+     * Test the currAgentCooperatedLastTime strategy
+     */
+    @Test
+    public void testCurrAgentCooperatedLastTime() {
+        testPureStrategy = PureStrategy.currAgentCooperatedLastTime();
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("I cooperated last time"));
+        assertTrue(testPureStrategy.getDescription().equals("A player using this strategy will first cooperate, afterwards he refer to his previous action."
+                + " If the player previously was the last time cooperative to this opponent, the player is cooperative. If the player was the last time "
+                + "  not cooperative to this opponent, the player is not cooperative to this opponent."));
+        boolean[] cooperate = {true, true, false, false, true};
+        testIsCooperative(cooperate);
+        history.reset();
+        testGetCooperationProbability(cooperate);
+    }
+    
+    /**
+     * Test the currAgentCooperatedNever strategy
+     */
+    @Test
+    public void testCurrAgentCooperatedNever() {
+        testPureStrategy = PureStrategy.currAgentCooperatedNever();
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("I never cooperated"));
+        assertTrue(testPureStrategy.getDescription().equals("A player using this strategy will first cooperate, afterwards he refer to his previous actions."
+                + " If the player previously was never cooperative to this opponent, the player is cooperative. If the player was at least one time "
+                + " cooperative to this opponent, the player is not cooperative to this opponent."));
+        boolean[] cooperate = {true, false, false, false, false};
+        testIsCooperative(cooperate);
+        history.reset();
+        testGetCooperationProbability(cooperate);
+    }
+    
+    /**
      * Tests the stratBuilderStrategy method to generate a new strategy
      */
     @Test
@@ -304,6 +372,7 @@ public class PureStrategyTest {
         testIsCooperative(cooperate);
         history.reset();
         testGetCooperationProbability(cooperate);
+        history.reset();
         
         when = TimeAdverb.LASTTIME;
         cooperatedWithWhom = AgentEntity.AGENT;        
@@ -315,6 +384,19 @@ public class PureStrategyTest {
         testIsCooperative(cooperate2);
         history.reset();
         testGetCooperationProbability(cooperate2);
+        history.reset();
+        
+        //Set the initial capital       
+        player.addCapital(-16);
+        opponent.addCapital(-10);
+        
+        when = TimeAdverb.NEVER;
+        cooperatedWithWhom = AgentEntity.SIM_CAPITAL;
+        player = new Agent(0, testPureStrategy, 1);
+        testPureStrategy = PureStrategy.stratBuilderStrategy(cooperatedWithWhom, when, 0.5); 
+        assertTrue(testPureStrategy.getDescription().equals("SIM_CAPITAL, NEVER"));
+        boolean[] cooperate3 = {true, true, false, false, false};
+        testIsCooperative(cooperate3);        
     }
     
     /**
@@ -403,7 +485,7 @@ public class PureStrategyTest {
         
         assertTrue(((cooperate[i++]) ? 1 : 0) == testPureStrategy.getCooperationProbability(player, opponent, history));
         
-        history.addResult(new GameResult(player, opponent, true, false, 0, 8)); 
+        history.addResult(new GameResult(player, opponent, false, false, 0, 8)); 
         player.addCapital(8);
         
         assertTrue(((cooperate[i++]) ? 1 : 0) == testPureStrategy.getCooperationProbability(player, opponent, history)); 
