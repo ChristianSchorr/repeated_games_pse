@@ -15,9 +15,9 @@ import loop.model.simulationengine.strategies.PureStrategy;
  *
  */
 public class ConcreteGameTest {
-	ConcreteGame testGame;
 	Agent player1;
 	Agent player2;
+	ConcreteGame actualGame;
 
 	/**
 	 * Initialize the ConcreteGame testGame, PureStrategies grim and neverCooperate and
@@ -26,105 +26,86 @@ public class ConcreteGameTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		testGame = new ConcreteGame("Test Dilemma", "This Dilemma only exist to"
-				+ " test the ConcreteGame class.", 5, 4, -1, 2, 5, -1, 4, 2);
-		PureStrategy grim = PureStrategy.grim();
-		PureStrategy neverCooperate = PureStrategy.neverCooperate();
-		player1 = new Agent(50, grim, 0);
-		player2 = new Agent(100, neverCooperate, 1);
+		player1 = new Agent(50, PureStrategy.grim(), 0);
+		player2 = new Agent(100, PureStrategy.neverCooperate(), 1);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	/**
-	 * Creates a new ConcreteGame hawksGame, test his parameters and player1 and player2
-	 * play the game four times.
-	 */
+	
 	@Test
-	public void testConcreteGame() {
-		ConcreteGame hawksGame = new ConcreteGame("hawks Dilemma", "Two hawks fly towards each other."
-				+ "If a hawk cooperate he slow down. If no hawk cooperate they crash into each other"
-				, -2, -2, 5, -10, -2, 5, -2, -10);
-		assertTrue(hawksGame.getName().equals("hawks Dilemma"));
-		assertTrue(hawksGame.getDescription().equals("Two hawks fly towards each other."
-				+ "If a hawk cooperate he slow down. If no hawk cooperate they crash into each other"));
-		GameResult gameResult = hawksGame.play(player1, player2, true, true);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 48);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 98);
-		gameResult = hawksGame.play(player1, player2, true, false);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 46);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 103);
-		gameResult = hawksGame.play(player1, player2, false, true);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 51);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 101);
-		gameResult = hawksGame.play(player1, player2, false, false);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 41);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 91);
+	public void testPrisonersDilemma() {
+	    actualGame = (ConcreteGame) ConcreteGame.prisonersDilemma();
+	    testName("Prisoner's Dilemma");
+	    testDescription("Two prisoners are accused of a crime. Each one can either "
+                + "confess or not, but doesn’t know the other one’s decision. Depending on both decisions, the two "
+                + "prisoners get higher or lower, and not necessarily the same prison sentence. Paradoxically, when "
+                + "each prisoner pursues his self-interest, both end up worse off than they would have been had when "
+                + "acting otherwise.");
+	    testPayoffs(-1, -3, 0, -2, -1, 0, -3, -2);
 	}
-
-	/**
-	 * Test the implementation of the method getName
-	 */
+	
 	@Test
-	public void testGetName() {
-		assertTrue(testGame.getName().equals("Test Dilemma"));
-	}
-
-	/**
-	 * Test the implementation of the method getDiscription
-	 */
+    public void testStagHunt() {
+        actualGame = (ConcreteGame) ConcreteGame.stagHunt();
+        testName("Stag hunt");
+        testDescription("Two mates go out on a hunt. Each one can individually choose between hunting "
+                + "a stag and hunting a hare, but is not aware of the other one's choice. If one hunts a stag, he must "
+                + "have the cooperation of his mate in order to succeed. One can get a hare by itself, but a hare is "
+                + "worth less than a stag.");
+        testPayoffs(4, 0, 3, 3, 4, 3, 0, 3);
+    }
+	
 	@Test
-	public void testGetDescription() {
-		assertTrue(testGame.getDescription().equals("This Dilemma only exist to"
-				+ " test the ConcreteGame class."));
+    public void testChickenGame() {
+        actualGame = (ConcreteGame) ConcreteGame.ChickenGame();
+        testName("Chicken game");
+        testDescription("In a test of courage, two drivers drive very fastly towards each other. One "
+                + "must swerve, or both may die in the crash. However, if one driver swerves and the other does not, the one who "
+                + "swerved will be called a \"chicken\", meaning a coward.");
+        testPayoffs(4, 2, 6, 0, 4, 6, 2, 0);
+    }
+	
+	private void testName(String name) {
+	    assertEquals(name, actualGame.getName());
 	}
+	
+	private void testDescription(String description) {
+        assertEquals(description, actualGame.getDescription());
+    }
+	
+	private void testPayoffs(int cc1, int cn1, int nc1, int nn1, int cc2, int cn2, int nc2, int nn2) {
+	    assertEquals(cc1, actualGame.getCC1());
+	    assertEquals(cn1, actualGame.getCN1());
+	    assertEquals(nc1, actualGame.getNC1());
+        assertEquals(nn1, actualGame.getNN1());
+        assertEquals(cc2, actualGame.getCC2());
+        assertEquals(cn2, actualGame.getCN2());
+        assertEquals(nc2, actualGame.getNC2());
+        assertEquals(nn1, actualGame.getNN2());
+	}
+	
 
 	/**
-	 * Test the implementation of the method play four times
+	 * Test the implementation of the method play for the game Prisoners Dilemma
 	 */
 	@Test
 	public void testPlay() {
-		GameResult gameResult = testGame.play(player1, player2, true, true);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 55);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 105);
-		gameResult = testGame.play(player1, player2, true, false);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 59);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 104);
-		gameResult = testGame.play(player1, player2, false, true);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 58);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 108);
-		gameResult = testGame.play(player1, player2, false, false);
-		assertTrue(gameResult.getAgents().get(0).getCapital() == 60);
-		assertTrue(gameResult.getAgents().get(1).getCapital() == 110);
-	}
-
-	/**
-	 * Creates a new ConcreteGame prisonDilemma, test his parameters and player1 and player2
-	 * play the game four times.
-	 */
-	@Test
-	public void testPrisonersDilemma() {
-		Game prisonDilemma = ConcreteGame.prisonersDilemma();
-		assertTrue(prisonDilemma.getName().equals("Prisoner's Dilemma"));
-		assertTrue(prisonDilemma.getDescription().equals("Two prisoners are accused of a crime. Each one can either "
-        		+ "confess or not, but doesn’t know the other one’s decision. Depending on both decisions, the two "
-        		+ "prisoners get higher or lower, and not necessarily the same prison sentence. Paradoxically, when "
-        		+ "each prisoner pursues his self-interest, both end up worse off than they would have been had when "
-        		+ "acting otherwise."));
-		GameResult gameResult = prisonDilemma.play(player1, player2, true, true);
+		GameResult gameResult = ConcreteGame.prisonersDilemma().play(player1, player2, true, true);
 		assertTrue(gameResult.getAgents().get(0).getCapital() == 49);
 		assertTrue(gameResult.getAgents().get(1).getCapital() == 99);
-		gameResult = prisonDilemma.play(player1, player2, true, false);
+		
+		gameResult = ConcreteGame.prisonersDilemma().play(player1, player2, true, false);
 		assertTrue(gameResult.getAgents().get(0).getCapital() == 46);
 		assertTrue(gameResult.getAgents().get(1).getCapital() == 99);
-		gameResult = prisonDilemma.play(player1, player2, false, true);
+		
+		gameResult = ConcreteGame.prisonersDilemma().play(player1, player2, false, true);
 		assertTrue(gameResult.getAgents().get(0).getCapital() == 46);
 		assertTrue(gameResult.getAgents().get(1).getCapital() == 96);
-		gameResult = prisonDilemma.play(player1, player2, false, false);
+		
+		gameResult = ConcreteGame.prisonersDilemma().play(player1, player2, false, false);
 		assertTrue(gameResult.getAgents().get(0).getCapital() == 44);
 		assertTrue(gameResult.getAgents().get(1).getCapital() == 94);
 	}
-
 }
