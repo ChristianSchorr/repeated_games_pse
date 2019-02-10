@@ -24,7 +24,9 @@ public class IterationResultTest {
 	double efficiency;
 	boolean equilibriumReached;
 	SimulationHistory history;
-	List<Agent> agents;
+	List<Agent> agents = new ArrayList<Agent>();
+	List<String> strategyNames = new ArrayList<String>();
+	List<double[]> strategyPortions = new ArrayList<>();
 
 	/**
 	 * Initialize the IterationResult
@@ -34,26 +36,32 @@ public class IterationResultTest {
 	public void setUp() throws Exception {
 		Strategy titForTat = PureStrategy.titForTat();
 		Strategy grim = PureStrategy.grim();
-		Strategy neverCooperate = PureStrategy.neverCooperate();
-		Strategy groupGrim = PureStrategy.groupGrim();
-		agents = new ArrayList<Agent>();
-		agents.add(new Agent(10, groupGrim, 2));
+		
+		strategyNames.add(titForTat.getName());
+		strategyNames.add(grim.getName());
+
+		agents.add(new Agent(10, titForTat, 2));
 		agents.add(new Agent(12, grim, 2));
-		agents.add(new Agent(50, neverCooperate, 1));
-		agents.add(new Agent(20, neverCooperate, 0));
-		agents.add(new Agent(25, titForTat, 0));
-		agents.add(new Agent(100, neverCooperate, 3));
+		agents.add(new Agent(50, grim, 1));
+		agents.add(new Agent(100, titForTat, 3));
+		
+		//just for testing, is not valid with the given simulationHistory
+		double[] portion1 = {0.5, 0.75}; 
+		double[] portion2 = {0.5, 0.25};
+		strategyPortions.add(portion1);
+		strategyPortions.add(portion2);
+		
 		equilibriumReached = true;
 		efficiency = 0.5;
-		adapts = 103;
+		adapts = 20;
+		
 		history = new SimulationHistoryTable();
 		GameResult result1 = new GameResult(agents.get(0), agents.get(1), true, true, 3, 3);
         GameResult result2 = new GameResult(agents.get(2), agents.get(3), false, false, 0, 0); 
-        GameResult result3 = new GameResult(agents.get(4), agents.get(5), true, false, 0, 5); 
         history.addResult(result1);       
         history.addResult(result2);
-        history.addResult(result3);
-		iterationResult = new IterationResult(agents, history, equilibriumReached, efficiency, adapts, null, null); //TODO null vorläufig
+        
+		iterationResult = new IterationResult(agents, history, equilibriumReached, efficiency, adapts, strategyPortions, strategyNames);
 	}
 
 	@After
@@ -65,89 +73,66 @@ public class IterationResultTest {
 	 */
 	@Test
 	public void testIterationResult() {
-		Strategy alwaysCooperate = PureStrategy.alwaysCooperate();
-		Strategy grim = PureStrategy.grim();
-		Strategy neverCooperate = PureStrategy.neverCooperate();
-		List<Agent> testAgents = new ArrayList<Agent>();
-		testAgents.add(new Agent(0, alwaysCooperate, 1));
-		testAgents.add(new Agent(42, grim, 0));
-		testAgents.add(new Agent(0, alwaysCooperate, 1));
-		testAgents.add(new Agent(100, neverCooperate, 2));
-		testAgents.add(new Agent(42, grim, 0));
-		testAgents.add(new Agent(0, alwaysCooperate, 1));
-		boolean testEquilibriumReached = false;
-		double testEfficiency = 0.833;
-		int testAdapts = 200;
-		SimulationHistory simulationhistory = new SimulationHistoryTable();
-		GameResult result1 = new GameResult(testAgents.get(4), testAgents.get(1), true, true, 6, 6);
-        GameResult result2 = new GameResult(testAgents.get(0), testAgents.get(5), true, true, 6, 6); 
-        GameResult result3 = new GameResult(testAgents.get(2), testAgents.get(3), true, false, 0, 10); 
-        simulationhistory.addResult(result1);       
-        simulationhistory.addResult(result2);
-        simulationhistory.addResult(result3);
-		IterationResult testIterationResult = new IterationResult(testAgents, simulationhistory,
-												testEquilibriumReached, testEfficiency, testAdapts, null, null); //TODO s.o.
-		
-		List<Agent> verifyAgents = testIterationResult.getAgents();
-		assertEquals(6, verifyAgents.size());
-		assertTrue(verifyAgents.contains(testAgents.get(0)));
-		assertTrue(verifyAgents.contains(testAgents.get(1)));
-		assertTrue(verifyAgents.contains(testAgents.get(2)));
-		assertTrue(verifyAgents.contains(testAgents.get(3)));
-		assertTrue(verifyAgents.contains(testAgents.get(4)));
-		assertTrue(verifyAgents.contains(testAgents.get(5)));
-		
-		assertTrue(simulationhistory.equals(testIterationResult.getHistory()));
-		assertFalse(testIterationResult.equilibriumReached());
-		assertEquals(0.833, testIterationResult.getEfficiency(),0.0);
-		assertEquals(200, testIterationResult.getAdapts());
+	    testGetAgents(iterationResult);
+	    testGetHistory(iterationResult);
+	    testEquilibriumReached(iterationResult);
+	    testGetEfficiency(iterationResult);
+	    testGetAdapts(iterationResult);
+	    testGetStrategyPortions(iterationResult);
+	    testGetStrategyNames(iterationResult);
 	}
 
 	/**
 	 * Tests the implementation of the method getAgents
 	 */
-	@Test
-	public void testGetAgents() {
-		List<Agent> testAgent = iterationResult.getAgents();
-		assertEquals(6, testAgent.size());
-		assertTrue(testAgent.contains(agents.get(0)));
-		assertTrue(testAgent.contains(agents.get(1)));
-		assertTrue(testAgent.contains(agents.get(2)));
-		assertTrue(testAgent.contains(agents.get(3)));
-		assertTrue(testAgent.contains(agents.get(4)));
-		assertTrue(testAgent.contains(agents.get(5)));
+	public void testGetAgents(IterationResult result) {
+		assertEquals(4, result.getAgents().size());
+		assertEquals(agents.get(0), result.getAgents().get(0));
+		assertEquals(agents.get(1), result.getAgents().get(1));
+		assertEquals(agents.get(2), result.getAgents().get(2));
+		assertEquals(agents.get(3), result.getAgents().get(3));
 	}
 
 	/**
 	 * Tests the implementation of the method getHistory
 	 */
-	@Test
-	public void testGetHistory() {
-		assertTrue(history.equals(iterationResult.getHistory()));
+	public void testGetHistory(IterationResult result) {
+		assertTrue(history.equals(result.getHistory()));
 	}
 
 	/**
 	 * Tests the implementation of the method equilibriumReached
 	 */
-	@Test
-	public void testEquilibriumReached() {
-		assertTrue(iterationResult.equilibriumReached());
+	public void testEquilibriumReached(IterationResult result) {
+		assertTrue(result.equilibriumReached());
 	}
 
 	/**
 	 * Tests the implementation of the method getEfficiency
 	 */
-	@Test
-	public void testGetEfficiency() {
-		assertEquals(0.5, iterationResult.getEfficiency(),0.0);
+	public void testGetEfficiency(IterationResult result) {
+		assertTrue(0.5 == result.getEfficiency());
 	}
 
 	/**
 	 * Tests the implementation of the method getAdapts
 	 */
-	@Test
-	public void testGetAdapts() {
-		assertEquals(103, iterationResult.getAdapts());
+	public void testGetAdapts(IterationResult result) {
+		assertEquals(20, result.getAdapts());
 	}
+	
+	/**
+     * Tests the implementation of the method getStrategyPortions
+     */
+    public void testGetStrategyPortions(IterationResult result) {
+        assertEquals(strategyPortions, result.getStrategyPortions());
+    }
+    
+    /**
+     * Tests the implementation of the method getStrategyNames
+     */
+    public void testGetStrategyNames(IterationResult result) {
+        assertEquals(strategyNames, result.getStrategyNames());
+    }
 
 }
