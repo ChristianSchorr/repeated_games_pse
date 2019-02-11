@@ -91,6 +91,12 @@ public class HeadController {
     private Pane mainPane;
 
     private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
+    private static final String CONFIGURATIONWINDOW_FXML = "/view/windows/ConfigurationWindow.fxml";
+    private static final String ABOUTWINDOW_FXML = "/view/windows/AboutWindow.fxml";
+    private static final String GAMEWINDOW_FXML = "/view/windows/GameWindow.fxml";
+    private static final String STRATEGYWINDOW_FXML = "/view/windows/StrategyWindow.fxml";
+    private static final String GROUPWINDOW_FXML = "/view/windows/GroupWindow.fxml";
+    private static final String POPULATIONWINDOW_FXML = "/view/windows/PopulationWindow.fxml";
 
     private CentralRepository repository = CentralRepository.getInstance();
 
@@ -160,7 +166,7 @@ public class HeadController {
         try {
             ConfigController controller = new ConfigController();
             controller.registerElementCreated((config) -> updateConfiguration(config, false));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/ConfigurationWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(CONFIGURATONWINDOW_FXML));
             loader.setController(controller);
             configParent = loader.load();
             controller.setConfiguration(activeConfiguration);
@@ -250,7 +256,7 @@ public class HeadController {
     void showInfo(ActionEvent event) {
     	Parent newAboutParent = null;
         try {
-            newAboutParent = FXMLLoader.load(getClass().getResource("/view/windows/AboutWindow.fxml"));
+            newAboutParent = FXMLLoader.load(getClass().getResource(ABOUTWINDOW_FXML));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -275,7 +281,7 @@ public class HeadController {
         Parent newGameParent;
         NewGameController controller;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/GameWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GAMEWINDOW_FXML));
             newGameParent = loader.load();
             controller = (NewGameController) loader.getController();
         } catch (IOException e) {
@@ -300,7 +306,7 @@ public class HeadController {
     void openNewStrategyWindow(ActionEvent event) {
         Parent newStrategyParent = null;
         try {
-            newStrategyParent = FXMLLoader.load(getClass().getResource("/view/windows/StrategyWindow.fxml"));
+            newStrategyParent = FXMLLoader.load(getClass().getResource(STRATEGYWINDOW_FXML));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -320,7 +326,7 @@ public class HeadController {
         Parent newGroupParent;
         GroupController controller;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/GroupWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GROUPWINDOW_FXML));
             newGroupParent = loader.load();
             controller = (GroupController) loader.getController();
         } catch (IOException e) {
@@ -346,7 +352,7 @@ public class HeadController {
         Parent newPopulationParent;
         PopulationController controller;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/windows/PopulationWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(POPULATIONWINDOW_FXML));
             newPopulationParent = loader.load();
             controller = (PopulationController) loader.getController();
         } catch (IOException e) {
