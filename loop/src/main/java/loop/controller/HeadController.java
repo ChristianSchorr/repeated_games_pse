@@ -166,7 +166,7 @@ public class HeadController {
         try {
             ConfigController controller = new ConfigController();
             controller.registerElementCreated((config) -> updateConfiguration(config, false));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(CONFIGURATONWINDOW_FXML));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(CONFIGURATIONWINDOW_FXML));
             loader.setController(controller);
             configParent = loader.load();
             controller.setConfiguration(activeConfiguration);
