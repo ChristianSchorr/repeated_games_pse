@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import loop.model.simulationengine.distributions.BinomialDistribution;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
 import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;

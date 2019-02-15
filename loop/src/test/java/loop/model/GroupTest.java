@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import loop.model.simulationengine.distributions.BinomialDistribution;
-
 /**
  * Tests the methods of the {@link Group} class.
  * 
@@ -140,5 +138,6 @@ public class GroupTest {
 		assertEquals(segments, group.getSegments());
 		assertEquals(segmentSizes, group.getSegmentSizes());	
 		assertEquals(true, group.isCohesive());
+		assertEquals(2, group.getSegmentCount());
 	}
 }

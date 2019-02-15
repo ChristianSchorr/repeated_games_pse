@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import jdk.internal.agent.resources.agent;
 import loop.model.simulationengine.Agent;
 import loop.model.simulationengine.GameResult;
 import loop.model.simulationengine.SimulationHistory;
