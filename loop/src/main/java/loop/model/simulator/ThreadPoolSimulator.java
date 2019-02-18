@@ -26,7 +26,6 @@ public class ThreadPoolSimulator implements Simulator {
     private static final int DEFAULT_MAX_THREAD_COUNT = 4;
 
     private ThreadPoolExecutor threadPool;
-    private int threadCount;
 
     private LinkedList<SimulatorTask> runningSimulations;
     private ArrayList<SimulationResult> finishedSimulations;
@@ -47,7 +46,6 @@ public class ThreadPoolSimulator implements Simulator {
      * @param maxThreads the maximum amount of running threads in the thread pool
      */
     public ThreadPoolSimulator(int maxThreads) {
-        threadCount = maxThreads;
         threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads, r -> {
             Thread t = Executors.defaultThreadFactory().newThread(r);
             t.setDaemon(true);
