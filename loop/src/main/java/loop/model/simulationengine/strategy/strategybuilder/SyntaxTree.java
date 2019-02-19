@@ -50,7 +50,6 @@ public class SyntaxTree implements Tree<SyntaxNode> {
                         break;
                     }                       
                 }
-                return node; 
             }
             return node;
         }

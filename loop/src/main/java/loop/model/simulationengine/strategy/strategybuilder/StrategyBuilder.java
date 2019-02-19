@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -36,15 +35,15 @@ public class StrategyBuilder {
         return new PureStrategy(name, description, condition);
     }
 
+    // creates an anonymous strategy from a syntax tree
     private static Strategy buildStrategy(SyntaxNode root) {
         if (!root.isInnerNode()) return root.getContent();
         else {
             List<TreeNode<Strategy>> children = root.getChildren();
             Operator op = root.getOperator();
-            List<Strategy> operands = new ArrayList<>();
-            for (TreeNode<Strategy> node : children) {
-                operands.add(buildStrategy((SyntaxNode)node));
-            }
+            List<Strategy> operands = root.getChildren().stream()
+                    .map(c -> buildStrategy((SyntaxNode)c))
+                    .collect(Collectors.toList());
             return op.combineStrategies(operands);
         }
     }

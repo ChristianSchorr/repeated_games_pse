@@ -40,8 +40,8 @@ import java.util.stream.Collectors;
 public class ConfigController implements CreationController<UserConfiguration> {
 
     private static final int VARIABLE_PARAM_CNT = 8;
-    private static final String CONFIG_ERR_MSG = "";
-    private static final String ALERT_TITLE = "";
+    private static final String CONFIG_ERR_MSG = "There are some errors in this configuration!\nPlease make sure all parameters are set properly";
+    private static final String ALERT_TITLE = "The configuration is faulty";
 
     @FXML
     private ChoiceBox gameBox;
@@ -343,8 +343,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private void applyConfig(ActionEvent actionEvent) {
         if (support.isInvalid() || isPluginConfigurationInvalid()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("The configuration is faulty");
-            alert.setContentText("There are some errors in this configuration!\nPlease make sure all parameters are set properly");
+            alert.setTitle(ALERT_TITLE);
+            alert.setContentText(CONFIG_ERR_MSG);
             alert.showAndWait();
             return;
         }
@@ -697,10 +697,6 @@ public class ConfigController implements CreationController<UserConfiguration> {
         private String displayString;
         private Validator<String> validator;
         private TextField parameterField;
-
-        /*private MultiParamItem(MulticonfigurationParameterType type, String displayString) {
-            this(type, displayString, new DoubleValidator(""));
-        }*/
 
         private MultiParamItem(MulticonfigurationParameterType type, String displayString,
                                Validator<String> validator, TextField field) {

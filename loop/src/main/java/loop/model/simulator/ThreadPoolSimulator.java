@@ -7,7 +7,6 @@ import java.util.Queue;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import loop.model.UserConfiguration;
 import loop.model.simulationengine.Configuration;
@@ -27,7 +26,6 @@ public class ThreadPoolSimulator implements Simulator {
     private static final int DEFAULT_MAX_THREAD_COUNT = 4;
 
     private ThreadPoolExecutor threadPool;
-    private int threadCount;
 
     private LinkedList<SimulatorTask> runningSimulations;
     private ArrayList<SimulationResult> finishedSimulations;
@@ -48,7 +46,6 @@ public class ThreadPoolSimulator implements Simulator {
      * @param maxThreads the maximum amount of running threads in the thread pool
      */
     public ThreadPoolSimulator(int maxThreads) {
-        threadCount = maxThreads;
         threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads, r -> {
             Thread t = Executors.defaultThreadFactory().newThread(r);
             t.setDaemon(true);
@@ -57,20 +54,21 @@ public class ThreadPoolSimulator implements Simulator {
         runningSimulations = new LinkedList<>();
         finishedSimulations = new ArrayList<>();
     }
-    
+
     /**
      * Increments the SimulationId by 1
      */
     public void incrementSimulationId() {
-    	nextSimulationId++;
+        nextSimulationId++;
     }
-    
+
     /**
      * Returns the Id of the next Simulation
+     *
      * @return Id of the next Simulation
      */
     public int getSimulationId() {
-    	return nextSimulationId;
+        return nextSimulationId;
     }
 
     /**
@@ -82,7 +80,7 @@ public class ThreadPoolSimulator implements Simulator {
         threadPool.shutdownNow();
         threadPool = null;
     }
-    
+
     @Override
     public SimulationResult startSimulation(UserConfiguration config) throws ConfigurationException {
         return startSimulation(config, (res) -> {
@@ -93,7 +91,7 @@ public class ThreadPoolSimulator implements Simulator {
     public SimulationResult startSimulation(UserConfiguration config, Consumer<SimulationResult> action)
             throws ConfigurationException {
         SimulationResult simResult = new SimulationResult(config, nextSimulationId++);
-        ConfigurationBuffer configBuffer = new ConfigurationBuffer(config, threadCount);
+        ConfigurationBuffer configBuffer = new ConfigurationBuffer(config);
 
         SimulatorTask task = new SimulatorTask(simResult, configBuffer, action);
         runningSimulations.add(task);
@@ -102,36 +100,31 @@ public class ThreadPoolSimulator implements Simulator {
             return null;
         }, threadPool));
         final int iterationCount = simResult.getTotalIterations();
-        try {
-            for (int i = 0; i < iterationCount - 1; i++) {
-                task.runningIterations.add(runIteration(task, false));
-            }
-            task.runningIterations.add(runIteration(task, true));
-        } catch (ConfigurationException ex) {
+        for (int i = 0; i < iterationCount - 1; i++) {
+            task.runningIterations.add(runIteration(task, false));
         }
+        task.runningIterations.add(runIteration(task, true));
         return simResult;
     }
 
-    private Future<IterationResult> runIteration(SimulatorTask task, boolean last) throws ConfigurationException {
+    private Future<IterationResult> runIteration(SimulatorTask task, boolean last) {
 
         Future<IterationResult> future = threadPool.submit(() -> {
-                ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
+            ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
             try {
                 SimulationEngine engine = new SimulationEngine();
                 IterationResult result = engine.executeIteration(configNum.config);
                 task.simResult.addIterationResult(result, configNum.index);
-                //task.buffer.addConfiguration(configNum.config, configNum.index);
 
                 if (last) {
                     finishedSimulations.add(task.simResult);
                     runningSimulations.remove(task);
+                    task.finishedHandler.accept(task.simResult);
                 }
                 return result;
             } catch (Exception ex) {
-                ex.printStackTrace(System.out);
                 task.simResult.addIterationResult(null, configNum.index);
                 task.simResult.addSimulationEngineException(new SimulationEngineException());
-                //task.buffer.addConfiguration(configNum.config, configNum.index);
                 if (last) {
                     finishedSimulations.add(task.simResult);
                     runningSimulations.remove(task);
@@ -144,10 +137,10 @@ public class ThreadPoolSimulator implements Simulator {
 
     @Override
     public boolean stopSimulation(SimulationResult sim) {
-        SimulatorTask task = runningSimulations.stream().filter((tsk) -> tsk.simResult.equals(sim)).findFirst()
-                .orElse(null);
-        if (task == null)
-            return false;
+        SimulatorTask task = runningSimulations.stream()
+                .filter((tsk) -> tsk.simResult.equals(sim))
+                .findFirst().orElse(null);
+        if (task == null) return false;
         for (Future<IterationResult> future : task.runningIterations)
             future.cancel(true);
         runningSimulations.remove(task);
@@ -157,8 +150,9 @@ public class ThreadPoolSimulator implements Simulator {
 
     @Override
     public boolean stopSimulation(int id) {
-        SimulatorTask task = runningSimulations.stream().filter((tsk) -> tsk.simResult.getId() == id).findFirst()
-                .orElse(null);
+        SimulatorTask task = runningSimulations.stream()
+                .filter((tsk) -> tsk.simResult.getId() == id)
+                .findFirst().orElse(null);
         if (task == null)
             return false;
         return stopSimulation(task.simResult);
@@ -172,8 +166,10 @@ public class ThreadPoolSimulator implements Simulator {
 
     @Override
     public SimulationResult getSimulation(int id) {
-        SimulationResult result = runningSimulations.stream().filter((tsk) -> tsk.simResult.getId() == id)
-                .map((tsk) -> tsk.simResult).findFirst().orElse(null);
+        SimulationResult result = runningSimulations.stream()
+                .filter((tsk) -> tsk.simResult.getId() == id)
+                .map((tsk) -> tsk.simResult)
+                .findFirst().orElse(null);
         return result;
     }
 
@@ -219,7 +215,7 @@ public class ThreadPoolSimulator implements Simulator {
             this.buffer = buffer;
             this.finishedHandler = finishedHandler;
             runningIterations = new ArrayList<>();
-            iterationsLeft = new ArrayList<Integer>();
+            iterationsLeft = new ArrayList<>();
 
             List<Configuration> configs = buffer.peekAllConfigurations();
             for (Configuration config : configs) {
@@ -229,7 +225,8 @@ public class ThreadPoolSimulator implements Simulator {
             simResult.setTotalIterations(totalIterationsLeft);
         }
 
-        private synchronized ConfigurationBuffer.ConfigNumber getNextConfiguration() throws ConfigurationException {
+        private synchronized ConfigurationBuffer.ConfigNumber getNextConfiguration()
+                throws ConfigurationException {
             if (totalIterationsLeft <= 0)
                 return null;
             totalIterationsLeft--;
@@ -248,14 +245,14 @@ public class ThreadPoolSimulator implements Simulator {
         private UserConfiguration config;
         private ArrayList<Queue<Configuration>> buffer;
 
-        public ConfigurationBuffer(UserConfiguration config, int threads) throws ConfigurationException {
+        public ConfigurationBuffer(UserConfiguration config) throws ConfigurationException {
             this.config = config;
 
             // initialize the buffer
-            buffer = new ArrayList<Queue<Configuration>>();
+            buffer = new ArrayList<>();
             List<Configuration> configs = ConfigurationCreator.generateConfigurations(config);
             for (Configuration engineConfig : configs) {
-                Queue<Configuration> configBuffer = new LinkedList<Configuration>();
+                Queue<Configuration> configBuffer = new LinkedList<>();
                 configBuffer.add(engineConfig);
                 buffer.add(configBuffer);
             }
@@ -269,16 +266,8 @@ public class ThreadPoolSimulator implements Simulator {
             }
         }
 
-        private synchronized void addConfiguration(Configuration engineConfig, int index) {
-            buffer.get(index).add(engineConfig);
-        }
-
-        private synchronized boolean hasConfiguration(int index) {
-            return !buffer.get(index).isEmpty();
-        }
-
         private synchronized ConfigNumber getConfiguration(int index) throws ConfigurationException {
-            // generate new configuration if buffer is empty
+            // generate new configuration if buffer is empty (should never happen)
             if (buffer.get(index).isEmpty()) {
                 List<Configuration> configs = ConfigurationCreator.generateConfigurations(config);
                 for (int j = 0; j < configs.size(); j++) {
