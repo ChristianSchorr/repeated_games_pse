@@ -30,7 +30,6 @@ package loop.view.controls.multislider.skin;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
@@ -38,25 +37,17 @@ import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
-import javafx.scene.control.Skin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import javafx.util.converter.FormatStringConverter;
-import javafx.util.converter.NumberStringConverter;
 import loop.view.controls.multislider.MultiSlider;
 import loop.view.controls.multislider.Range;
 import loop.view.controls.multislider.Utils;
 
-import java.text.Format;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * Created by alberto on 09/01/2017.
@@ -591,17 +582,6 @@ public class MultiSliderSkin extends SkinBase<MultiSlider> {
             box.setStyle("-fx-padding: 10 0 0 0");
             box.getChildren().add(label);
             box.setAlignment(Pos.CENTER);
-
-
-            //high.getChildren().add(box);
-           /* high.setOnMouseEntered((e) -> {
-                fadeOutAll.stop();
-                fadeInAll.play();
-            });
-            high.setOnMouseExited((e) -> {
-                fadeOutAll.play();
-                fadeInAll.stop();
-            });*/
 
             high.setDisable(true);
             high.setVisible(false);
