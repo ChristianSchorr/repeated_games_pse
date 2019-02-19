@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import loop.model.simulationengine.Agent;
@@ -427,20 +428,35 @@ public class PureStrategy implements Strategy, java.io.Serializable {
 
         switch (when) {
             case ALWAYS:
-                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
-                        (result) -> result.hasCooperated(pair.getFirstAgent()));
+                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) -> {
+                        List<GameResult> results = history.getAllWhere((result) -> relevantResult.test(pair, result));
+                        return results.stream()
+                                .map((result) -> result.getOtherAgent(pair.getSecondAgent()))
+                                .anyMatch((agent) -> results.stream()
+                                    .filter((result) -> result.hasAgent(agent))
+                                    .allMatch((result) -> result.hasCooperated(agent)));
+                };
                 break;
             case NEVER:
-                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().allMatch(
-                        (result) -> !result.hasCooperated(pair.getFirstAgent()));
+                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) -> {
+                    List<GameResult> results = history.getAllWhere((result) -> relevantResult.test(pair, result));
+                    return results.stream()
+                            .map((result) -> result.getOtherAgent(pair.getSecondAgent()))
+                            .anyMatch((agent) -> !results.stream()
+                                    .filter((result) -> result.hasAgent(agent))
+                                    .anyMatch((result) -> result.hasCooperated(agent)));
+                };
                 break;
             case ATLEASTONCE:
-                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) -> history.getAllWhere((result) -> relevantResult.test(pair, result)).stream().anyMatch(
-                        (result) -> result.hasCooperated(pair.getFirstAgent()));
+                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) ->
+                        history.getAllWhere((result) -> relevantResult.test(pair, result)).stream()
+                               .anyMatch((result) -> result.hasCooperated(result.getOtherAgent(pair.getSecondAgent())));
                 break;
             case LASTTIME:
-                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) -> toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result))).allMatch(
-                        (result) -> result == null || result.hasCooperated(pair.getFirstAgent()));
+                condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable)(pair, history) ->
+                        history.getLatestResults().stream()
+                                .filter((result) -> relevantResult.test(pair, result))
+                                .anyMatch((result) -> result.hasCooperated(result.getOtherAgent(pair.getSecondAgent())));
                 break;
             default:
                 condition = null;
