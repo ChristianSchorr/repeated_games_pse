@@ -19,6 +19,8 @@ import javafx.util.converter.NumberStringConverter;
 import loop.controller.validation.DoubleValidator;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
+import loop.model.simulationengine.AgentPair;
+import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulationengine.strategy.strategybuilder.*;
@@ -26,7 +28,9 @@ import org.controlsfx.validation.ValidationSupport;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
 public class StrategyController implements CreationController<Strategy> {
@@ -228,7 +232,8 @@ public class StrategyController implements CreationController<Strategy> {
                 , percentageProperty.getValue());
         addStrategy(new PureStrategy("The opp. has " + timeAdv + " coop. with an agent that "
                 + agentEntity + " as the agent himself", "",
-                (pair, hist) -> strat.isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
+                (BiPredicate<AgentPair, SimulationHistory> & Serializable)
+                        (pair, hist) -> strat.isCooperative(pair.getFirstAgent(), pair.getSecondAgent(), hist)));
     }
 
     @FXML
