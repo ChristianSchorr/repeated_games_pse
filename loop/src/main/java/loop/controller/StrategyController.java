@@ -211,6 +211,7 @@ public class StrategyController implements CreationController<Strategy> {
         selectedOperand = null;
         nameProperty.setValue("");
         descriptionProperty.setValue("");
+        updateFlowPane();
     }
 
     @FXML
@@ -483,6 +484,7 @@ public class StrategyController implements CreationController<Strategy> {
             if (parent == null) {
                 expressionRoot = null;
                 selectedOperand = null;
+                updateFlowPane();
                 return;
             }
             int index = parent.children.indexOf(this);
