@@ -38,47 +38,4 @@ public class PayoffInLastAdapt implements SuccessQuantifier {
         agents.sort((a1, a2) -> (payoffs.get(a2) - payoffs.get(a1) < 0) ? -1 : ((payoffs.get(a2) - payoffs.get(a1) > 0) ? 1 : 0));
         return agents;
     }
-    
-    /**
-     * Returns a {@link Plugin} instance wrapping this implementation of the {@link SuccessQuantifier} interface.
-     * 
-     * @return a plugin instance.
-     */
-    public static Plugin<SuccessQuantifier> getPlugin() {
-        if (plugin == null) {
-            plugin = new PayoffInLastAdaptPlugin();
-        }
-        return plugin;
-    }
-    
-    private static PayoffInLastAdaptPlugin plugin;
-    
-    private static class PayoffInLastAdaptPlugin extends Plugin<SuccessQuantifier> {
-        
-        private List<Parameter> parameters = new ArrayList<Parameter>();
-        
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public String getDescription() {
-            return DESCRIPTION;
-        }
-
-        @Override
-        public List<Parameter> getParameters() {
-            return parameters;
-        }
-
-        @Override
-        public SuccessQuantifier getNewInstance(List<Double> params) {
-            if (!ParameterValidator.areValuesValid(params, parameters)) {
-                throw new IllegalArgumentException("Invalid parameters given for the creation of a 'payoff in last adapt' object");
-            }
-            return new PayoffInLastAdapt();
-        }
-    }
-
 }

@@ -33,47 +33,4 @@ public class RandomPairBuilder implements PairBuilder {
         }
         return pairs;
     }
-    
-    /**
-     * Returns a {@link Plugin} instance wrapping this implementation of the {@link PairBuilder} interface.
-     * 
-     * @return a plugin instance.
-     */
-    public static Plugin<PairBuilder> getPlugin() {
-        if (plugin == null) {
-            plugin = new RandomPairBuilderPlugin();
-        }
-        return plugin;
-    }
-    
-    private static RandomPairBuilderPlugin plugin;
-    
-    private static class RandomPairBuilderPlugin extends Plugin<PairBuilder> {
-        
-        private List<Parameter> parameters = new ArrayList<Parameter>();
-        
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public String getDescription() {
-            return DESCRIPTION;
-        }
-
-        @Override
-        public List<Parameter> getParameters() {
-            return parameters;
-        }
-
-        @Override
-        public PairBuilder getNewInstance(List<Double> params) {
-            if (!ParameterValidator.areValuesValid(params, parameters)) {
-                throw new IllegalArgumentException("Invalid parameters given for the creation of a 'random pair builder' object");
-            }
-            return new RandomPairBuilder();
-        }
-    }
-    
 }

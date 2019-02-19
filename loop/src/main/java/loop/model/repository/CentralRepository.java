@@ -1,10 +1,8 @@
 package loop.model.repository;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 import javafx.scene.control.Alert;
@@ -31,12 +29,23 @@ import loop.model.simulationengine.StrategyEquilibrium;
 import loop.model.simulationengine.SuccessQuantifier;
 import loop.model.simulationengine.TotalCapital;
 import loop.model.simulationengine.TotalPayoff;
-import loop.model.simulationengine.distributions.BinomialDistribution;
 import loop.model.simulationengine.distributions.DiscreteDistribution;
-import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
-import loop.model.simulationengine.distributions.PoissonDistribution;
 import loop.model.simulationengine.strategies.PureStrategy;
 import loop.model.simulationengine.strategies.Strategy;
+import loop.plugins.distributions.BinomialDistributionPlugin;
+import loop.plugins.distributions.DiscreteUniformDistributionPlugin;
+import loop.plugins.distributions.PoissonDistributionPlugin;
+import loop.plugins.equilibriumcriterion.RankingEquilibriumPlugin;
+import loop.plugins.equilibriumcriterion.StrategyEquilibriumPlugin;
+import loop.plugins.pairbuilder.CooperationConsideringPairBuilderPlugin;
+import loop.plugins.pairbuilder.RandomCooperationConsideringPairBuilderPlugin;
+import loop.plugins.pairbuilder.RandomPairBuilderPlugin;
+import loop.plugins.strategyadjuster.PreferentialAdaptionPlugin;
+import loop.plugins.strategyadjuster.ReplicatorDynamicPlugin;
+import loop.plugins.successquantifier.PayoffInLastAdaptPlugin;
+import loop.plugins.successquantifier.SlidingMeanPlugin;
+import loop.plugins.successquantifier.TotalCapitalPlugin;
+import loop.plugins.successquantifier.TotalPayoffPlugin;
 
 /**
  * This class provides central access to all loaded plugins as well as all
@@ -179,30 +188,43 @@ public class CentralRepository {
 	    this.stratRepo.addEntity(PureStrategy.groupTitForTat().getName(), PureStrategy.groupTitForTat());
 	    
 		//pair builders
-	    this.pairBuilderRepo.addEntity(RandomPairBuilder.getPlugin().getName(), RandomPairBuilder.getPlugin());
-	    this.pairBuilderRepo.addEntity(CooperationConsideringPairBuilder.getPlugin().getName(), CooperationConsideringPairBuilder.getPlugin());
-	    this.pairBuilderRepo.addEntity(RandomCooperationConsideringPairBuilder.getPlugin().getName(),
-	            RandomCooperationConsideringPairBuilder.getPlugin());
-	    
+        Plugin<PairBuilder> pairBuilderPlugin = new RandomPairBuilderPlugin();
+        this.pairBuilderRepo.addEntity(pairBuilderPlugin.getName(), pairBuilderPlugin);
+        pairBuilderPlugin = new CooperationConsideringPairBuilderPlugin();
+        this.pairBuilderRepo.addEntity(pairBuilderPlugin.getName(), pairBuilderPlugin);
+        pairBuilderPlugin = new RandomCooperationConsideringPairBuilderPlugin();
+        this.pairBuilderRepo.addEntity(pairBuilderPlugin.getName(), pairBuilderPlugin);
+
 	    //success quantifiers
-	    this.successQuantifierRepo.addEntity(PayoffInLastAdapt.getPlugin().getName(), PayoffInLastAdapt.getPlugin());
-	    this.successQuantifierRepo.addEntity(SlidingMean.getPlugin().getName(), SlidingMean.getPlugin());
-	    this.successQuantifierRepo.addEntity(TotalPayoff.getPlugin().getName(), TotalPayoff.getPlugin());
-	    this.successQuantifierRepo.addEntity(TotalCapital.getPlugin().getName(), TotalCapital.getPlugin());
-	    
+		Plugin<SuccessQuantifier> successQuantifierPlugin = new PayoffInLastAdaptPlugin();
+		this.successQuantifierRepo.addEntity(successQuantifierPlugin.getName(), successQuantifierPlugin);
+		successQuantifierPlugin = new SlidingMeanPlugin();
+		this.successQuantifierRepo.addEntity(successQuantifierPlugin.getName(), successQuantifierPlugin);
+		successQuantifierPlugin = new TotalCapitalPlugin();
+		this.successQuantifierRepo.addEntity(successQuantifierPlugin.getName(), successQuantifierPlugin);
+		successQuantifierPlugin = new TotalPayoffPlugin();
+		this.successQuantifierRepo.addEntity(successQuantifierPlugin.getName(), successQuantifierPlugin);
+
 	    //strategy adjusters
-	    this.strategyAdjusterRepo.addEntity(ReplicatorDynamic.getPlugin().getName(), ReplicatorDynamic.getPlugin());
-	    this.strategyAdjusterRepo.addEntity(PreferentialAdaption.getPlugin().getName(), PreferentialAdaption.getPlugin());
-	    
+		Plugin<StrategyAdjuster> strategyAdjusterPlugin = new ReplicatorDynamicPlugin();
+		this.strategyAdjusterRepo.addEntity(strategyAdjusterPlugin.getName(), strategyAdjusterPlugin);
+		strategyAdjusterPlugin = new PreferentialAdaptionPlugin();
+		this.strategyAdjusterRepo.addEntity(strategyAdjusterPlugin.getName(), strategyAdjusterPlugin);
+
 	    //equilibrium criteria
-	    this.equilibriumCriterionRepo.addEntity(StrategyEquilibrium.getPlugin().getName(), StrategyEquilibrium.getPlugin());
-	    this.equilibriumCriterionRepo.addEntity(RankingEquilibrium.getPlugin().getName(), RankingEquilibrium.getPlugin());
-	    
+		Plugin<EquilibriumCriterion> equilibriumCriterionPlugin = new StrategyEquilibriumPlugin();
+		this.equilibriumCriterionRepo.addEntity(equilibriumCriterionPlugin.getName(), equilibriumCriterionPlugin);
+		equilibriumCriterionPlugin = new RankingEquilibriumPlugin();
+	    this.equilibriumCriterionRepo.addEntity(equilibriumCriterionPlugin.getName(), equilibriumCriterionPlugin);
+
 	    //discrete distributions
-	    this.discreteDistributionRepo.addEntity(PoissonDistribution.getPlugin().getName(), PoissonDistribution.getPlugin());
-	    this.discreteDistributionRepo.addEntity(BinomialDistribution.getPlugin().getName(), BinomialDistribution.getPlugin());
-	    this.discreteDistributionRepo.addEntity(DiscreteUniformDistribution.getPlugin().getName(), DiscreteUniformDistribution.getPlugin());
-	    
+		Plugin<DiscreteDistribution> distributionPlugin = new PoissonDistributionPlugin();
+	    this.discreteDistributionRepo.addEntity(distributionPlugin.getName(), distributionPlugin);
+	    distributionPlugin = new BinomialDistributionPlugin();
+		this.discreteDistributionRepo.addEntity(distributionPlugin.getName(), distributionPlugin);
+		distributionPlugin = new DiscreteUniformDistributionPlugin();
+		this.discreteDistributionRepo.addEntity(distributionPlugin.getName(), distributionPlugin);
+
 	    //games
 	    this.gameRepo.addEntity(ConcreteGame.prisonersDilemma().getName(), ConcreteGame.prisonersDilemma());
 	    this.gameRepo.addEntity(ConcreteGame.stagHunt().getName(), ConcreteGame.stagHunt());

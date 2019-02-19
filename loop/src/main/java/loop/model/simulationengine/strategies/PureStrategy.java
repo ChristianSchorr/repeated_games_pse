@@ -1,17 +1,12 @@
 package loop.model.simulationengine.strategies;
 
+import loop.model.simulationengine.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.stream.Stream;
-
-import loop.model.simulationengine.Agent;
-import loop.model.simulationengine.AgentPair;
-import loop.model.simulationengine.ConcreteAgentPair;
-import loop.model.simulationengine.GameResult;
-import loop.model.simulationengine.SimulationHistory;
-import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * This class represents a pure strategy. It is uniquely determined by a condition on the
