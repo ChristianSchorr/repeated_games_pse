@@ -118,7 +118,8 @@ public class ThreadPoolSimulator implements Simulator {
                 ConfigurationBuffer.ConfigNumber configNum = task.getNextConfiguration();
             try {
                 SimulationEngine engine = new SimulationEngine();
-                IterationResult result = engine.executeIteration(configNum.config);
+                engine.executeIteration(configNum.config);
+                IterationResult result = new ConcreteIterationResultCreator().createIterationResult(engine, task.simResult.getUserConfiguration());
                 task.simResult.addIterationResult(result, configNum.index);
                 //task.buffer.addConfiguration(configNum.config, configNum.index);
 
