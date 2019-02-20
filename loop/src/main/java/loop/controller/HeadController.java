@@ -1,5 +1,6 @@
 package loop.controller;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -273,7 +274,16 @@ public class HeadController {
 
     @FXML
     void showHelp(ActionEvent event) {
-    	//TODO
+    	try {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop != null && desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(new File("src/main/resources/manual.pdf"));
+            } else {
+                System.err.println("PDF-Datei kann nicht angezeigt werden!");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
