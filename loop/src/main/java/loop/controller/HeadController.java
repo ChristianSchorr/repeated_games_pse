@@ -279,7 +279,7 @@ public class HeadController {
             if (desktop != null && desktop.isSupported(Desktop.Action.OPEN)) {
                 desktop.open(new File("src/main/resources/manual.pdf"));
             } else {
-                System.err.println("PDF-Datei kann nicht angezeigt werden!");
+                System.err.println("PDF file can not be displayed!");
             }
         } catch (IOException ex) {
             ex.printStackTrace();
