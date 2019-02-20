@@ -28,10 +28,10 @@ public class IterationResult implements Serializable {
     private List<String> strategyNames;
     
     //strategy chart    
-    private List<double[]> strategyPortions;
+    private Map<String, List<double[]>> strategyPortions;
     
     //capital chart
-    Map<String, List<Integer>> groupCapitals;
+    private Map<String, List<Integer>> groupCapitals;
     
     
     /**
@@ -43,8 +43,8 @@ public class IterationResult implements Serializable {
      * @param efficiency the efficiency of the final state
      * @param adapts the number of performed adaption steps
      */
-    public IterationResult(boolean equilibriumReached, double efficiency, int adapts, List<String> strategyNames, List<double[]> strategyPortions,
-            Map<String, List<Integer>> groupCapitals) {
+    public IterationResult(boolean equilibriumReached, double efficiency, int adapts, List<String> strategyNames,
+            Map<String, List<double[]>> strategyPortions, Map<String, List<Integer>> groupCapitals) {
         this.equilibriumReached = equilibriumReached;
         this.efficiency = efficiency;
         this.adapts = adapts;
@@ -85,7 +85,7 @@ public class IterationResult implements Serializable {
      * 
      * @return the portions of all strategies throughout all adaption steps
      */
-    public List<double[]> getStrategyPortions() {
+    public Map<String, List<double[]>> getStrategyPortions() {
         return this.strategyPortions;
     }
     

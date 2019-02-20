@@ -31,16 +31,24 @@ public class ConcreteIterationResultCreator implements IterationResultCreator {
         double efficiency = engine.getEfficiency();
         int adapts = engine.getAdapts();
         List<String> strategyNames = engine.getStrategyNames();
-        List<double[]> strategyPortions = engine.getStrategyPortions();
         
-        
-        //group capitals
-        Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
-        
+        //used for strategy portions and group capitals
         List<String> groupNames = CentralRepository.getInstance().getPopulationRepository()
                 .getEntityByName(configuration.getPopulationName()).getGroupNames();
         List<Group> groups = groupNames.stream().map(
                 name -> CentralRepository.getInstance().getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
+        
+        //strategy portions
+        Map<Integer, List<double[]>> strategyPortionsByGroupId = engine.getStrategyPortions();
+        Map<String, List<double[]>> strategyPortionsByGroupName = new HashMap<String, List<double[]>>();
+        if (strategyPortionsByGroupId.containsKey(-1)) {
+            strategyPortionsByGroupName.put("Groupless Agents", strategyPortionsByGroupId.get(-1));
+        }
+        strategyPortionsByGroupId.keySet().stream().filter(id -> id != -1).forEach(id ->
+            strategyPortionsByGroupName.put(groupNames.get(id), strategyPortionsByGroupId.get(id)));
+        
+        //group capitals
+        Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
         
         groups.stream().filter(group -> group.isCohesive()).forEach((group) -> groupCapitals.put(group.getName(), new ArrayList<Integer>()));
         if (groups.stream().anyMatch(group -> !group.isCohesive()))
@@ -53,7 +61,7 @@ public class ConcreteIterationResultCreator implements IterationResultCreator {
         engine.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
                 a -> groupCapitals.get("Groupless Agents").add(a.getCapital()));
         
-        return new IterationResult(equilibriumReached, efficiency, adapts, strategyNames, strategyPortions, groupCapitals);
+        return new IterationResult(equilibriumReached, efficiency, adapts, strategyNames, strategyPortionsByGroupName, groupCapitals);
     }
 
 }

@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import loop.model.UserConfiguration;
+import loop.model.repository.CentralRepository;
 import loop.model.simulationengine.IterationResult;
 import loop.model.simulator.SimulationResult;
 
@@ -287,6 +288,13 @@ public class DetailedOutputController {
                 setStrategyChartData(null);
                 return;
             }
+            
+            //strategy combo box
+            strategyComboBox.getItems().clear();
+            List<String> groupNames = CentralRepository.getInstance().getPopulationRepository()
+                    .getEntityByName(displayedResult.getUserConfiguration().getPopulationName()).getGroupNames();
+            strategyComboBox.getItems().addAll(groupNames);
+            strategyComboBox.getCheckModel().checkAll();
 
             List<XYChart.Series<Number, Number>> allSeries = new ArrayList<XYChart.Series<Number, Number>>();
 
