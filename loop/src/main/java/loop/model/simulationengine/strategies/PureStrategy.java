@@ -97,12 +97,15 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                     Agent opponent = pair.getSecondAgent();
                     for (Agent a : history.getAgents()) {
                         if (agent.isGroupAffiliated(a)) {
+                            boolean ret = true;
                             for (GameResult result : history.getResultsByAgent(a)) {
                                 // first hit is also latest result; maybe not so pretty but efficient
-                                if (result.hasAgent(opponent))
-                                    return result.hasCooperated(opponent);
+                                if (result.hasAgent(opponent)) {
+                                    ret = false;
+                                    if(result.hasCooperated(opponent)) return true;
+                                }
                             }
-                            return true;
+                            if (ret) return true;
                         }
                     }
                     return false;
@@ -149,11 +152,12 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                     Agent opponent = pair.getSecondAgent();
                     for (Agent a : history.getAgents()) {
                         if (agent.isGroupAffiliated(a)) {
+                            boolean ret = true;
                             for (GameResult result : history.getResultsByAgent(a)) {
                                 if (result.hasAgent(opponent) && !result.hasCooperated(opponent))
-                                    return false;
+                                    ret = false;
                             }
-                            return true;
+                            if(ret) return true;
                         }
                     }
                     return false;
