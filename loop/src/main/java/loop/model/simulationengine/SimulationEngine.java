@@ -30,6 +30,7 @@ public class SimulationEngine {
     private EquilibriumCriterion equilibriumCriterion;
     private int adaptionsteps;
     private boolean equilibriumReached;
+    private double efficiency;
     private Configuration configuration;
     
     //for the strategy distributions over time
@@ -41,15 +42,14 @@ public class SimulationEngine {
     private int printCounter;
 
     private boolean interrupted = false;
+    private boolean finished = false;
     
     /**
-     * Executes an iteration to the given elementary configuration and returns the result
-     * as an instance of the {@link IterationResult} class.
+     * Executes an iteration to the given elementary configuration.
      * 
      * @param configuration the elementary configuration to which an iteration shall be executed
-     * @return the result of the iteration
      */
-    public IterationResult executeIteration(Configuration configuration) {
+    public void executeIteration(Configuration configuration) {
         this.configuration = configuration;
         
         initialiseAgents();
@@ -82,8 +82,9 @@ public class SimulationEngine {
             interrupted = Thread.currentThread().isInterrupted();
         }
         
-        IterationResult result = createResult();
-        return result;
+        calculateEfficiency();
+        
+        finished = true;
     }
     
     private void initialiseAgents() {
@@ -145,11 +146,6 @@ public class SimulationEngine {
         strategyPortions.add(portions);
     }
     
-    private IterationResult createResult() {
-        double efficiency = calculateEfficiency();
-        return new IterationResult(agents, history, equilibriumReached, efficiency, adaptionsteps, strategyPortions, strategyNames);
-    }
-    
     private void playGame(AgentPair pair) {
         Agent p1 = pair.getFirstAgent();
         Agent p2 = pair.getSecondAgent();
@@ -158,8 +154,8 @@ public class SimulationEngine {
         history.addResult(configuration.getGame().play(p1, p2, p1Cooperates, p2Cooperates));
     }
     
-    private double calculateEfficiency() {
-        double efficiency = 0.0;
+    private void calculateEfficiency() {
+        efficiency = 0.0;
         for (Agent a: agents) {
             for (Agent b: agents) {
                 if (a == b) continue;
@@ -167,8 +163,94 @@ public class SimulationEngine {
             }
         }
         efficiency /= agents.size() * (agents.size() - 1);
+    }
+    
+    /**
+     * Returns, whether this engine has already finished the execution of at least one iteration.
+     * 
+     * @return whether this engine has already finished the execution of at least one iteration
+     */
+    public boolean isFinished() {
+        return finished;
+    }
+    
+    /**
+     * Returns the agents of the last executed simulation, or {@code null} if none has been executed yet.
+     * 
+     * @return the agents
+     */
+    public List<Agent> getAgents() {
+        if (!finished) return null;
+        return agents;
+    }
+    
+    /**
+     * Returns the history of the last adaption step of the last executed simulation, or {@code null}
+     *  if none has been executed yet.
+     *  
+     * @return the history of the last adaption step
+     */
+    public SimulationHistory getHistory() {
+        if (!finished) return null;
+        return history;
+    }
+    
+    /**
+     * Returns, whether an equilibrium was reached in the last executed simulation, or {@code false} if none has been executed yet.
+     * 
+     * @return whether an equilibrium was reached
+     */
+    public boolean equilibriumReached() {
+        if (!finished) return false;
+        return equilibriumReached;
+    }
+    
+    /**
+     * Returns the efficiency of the final state of the last executed simulation, or {@code 0.0} if none has been executed yet.
+     * 
+     * @return the efficiency of the final state
+     */
+    public double getEfficiency() {
+        if (!finished) return 0.0;
         return efficiency;
     }
+    
+    /**
+     * Returns the number of executed adaption steps in the last executed simulation, or {@code 0} if none has been executed yet.
+     * 
+     * @return the number of executed adaption steps
+     */
+    public int getAdapts() {
+        if (!finished) return 0;
+        return adaptionsteps;
+    }
+    
+    /**
+     * Returns the names of all used strategies in the last executed simulation, or {@code null} if none has been executed yet.
+     * 
+     * @return the name sof all used strategies
+     */
+    public List<String> getStrategyNames() {
+        if (!finished) return null;
+        return strategyNames;
+    }
+    
+    /**
+     * Returns a list with one {@code double} array for each executed adaption step. In each of the arrays there is one entry for every used
+     * strategy, in the order as returned by {@link getStrategyNames()}. The entries in that array indicate the frequency with which the corresponding
+     * strategy was used in that adaption step: In the case of pure strategies, it is the portion of agents that used that strategy; in the case of
+     * mixed strategies, it is the mean probability of that strategy being used.
+     * 
+     * For example, if pure strategies are used, {@link getStrategyNames()} returns {@code ["tit for tat", "grim"]} and the first entry in the list
+     * returned by this method is the array {@code [0.3, 0.7]}, then after initialisation, 30% of all agents used tit for tat, 70% used grim.  
+     * 
+     * @return the strategy portions
+     */
+    public List<double[]> getStrategyPortions() {
+        if (!finished) return null;
+        return strategyPortions;
+    }
+    
     /*
     private void printStepInfo() {
         if (!printInfo) return;

@@ -1,5 +1,6 @@
 package loop.model.simulationengine;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -14,15 +15,24 @@ import java.util.Map;
  * @author Peter Koepernik
  *
  */
-public class IterationResult {
+public class IterationResult implements Serializable {
     
-    private List<Agent> agents;
-    private SimulationHistory history;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
     private boolean equilibriumReached;
     private double efficiency;
     private int adapts;
-    private List<double[]> strategyPortions;
     private List<String> strategyNames;
+    
+    //strategy chart    
+    private List<double[]> strategyPortions;
+    
+    //capital chart
+    Map<String, List<Integer>> groupCapitals;
+    
     
     /**
      * Creates a new iteration result.
@@ -33,33 +43,14 @@ public class IterationResult {
      * @param efficiency the efficiency of the final state
      * @param adapts the number of performed adaption steps
      */
-    public IterationResult(List<Agent> agents, SimulationHistory history, boolean equilibriumReached,
-            double efficiency, int adapts, List<double[]> strategyPortions, List<String> strategyNames) {
-        this.agents = agents;
-        this.history = history;
+    public IterationResult(boolean equilibriumReached, double efficiency, int adapts, List<String> strategyNames, List<double[]> strategyPortions,
+            Map<String, List<Integer>> groupCapitals) {
         this.equilibriumReached = equilibriumReached;
         this.efficiency = efficiency;
         this.adapts = adapts;
         this.strategyPortions = strategyPortions;
         this.strategyNames = strategyNames;
-    }
-    
-    /**
-     * Returns a list of all agents, sorted by final rank.
-     * 
-     * @return a list of all agents, sorted by final rank
-     */
-    public List<Agent> getAgents() {
-        return this.agents;
-    }
-    
-    /**
-     * Returns the {@link SimulationHistory} of the final adaption step.
-     * 
-     * @return the {@link SimulationHistory} of the final adaption step
-     */
-    public SimulationHistory getHistory() {
-        return this.history;
+        this.groupCapitals = groupCapitals;
     }
     
     /**
@@ -106,5 +97,14 @@ public class IterationResult {
      */
     public List<String> getStrategyNames() {
         return this.strategyNames;
+    }
+    
+    /**
+     * Returns the capitals of all agents, partitioned into their groups.
+     * 
+     * @return the capitals of all agents
+     */
+    public Map<String, List<Integer>> getGroupCapitals() {
+        return this.groupCapitals;
     }
 }
