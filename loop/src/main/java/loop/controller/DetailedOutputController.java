@@ -160,8 +160,8 @@ public class DetailedOutputController {
         this.selectedIteration = this.meanOverAllIterations ? null
                 : this.displayedResult.getIterationResults(this.selectedConfigurationNumber).get(this.selectedIterationNumber);
 
-        minRankIndex = 0;
-        maxRankIndex = displayedResult.getIterationResults(0).get(0).getAgents().size();
+        //minRankIndex = 0;
+        //maxRankIndex = displayedResult.getIterationResults(0).get(0).getAgents().size();
 
         meanOverAllIterations = false;
         meanOverAllIterationsCheckbox.selectedProperty().addListener((obs, o, n) -> handleMeanOverAllIterationsCheckbox());
@@ -317,33 +317,18 @@ public class DetailedOutputController {
         }
 
         private void updateCapitalChart() {
-            //collect capital values of all relevant agents, sorted after their groups
-            Map<String, List<Integer>> groupCapitals = new HashMap<String, List<Integer>>();
-            
-            List<String> groupNames = CentralRepository.getInstance().getPopulationRepository().getEntityByName(config.getPopulationName()).getGroupNames();
-            List<Group> groups = groupNames.stream().map(
-                    name -> CentralRepository.getInstance().getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
-            
-            groups.stream().filter(group -> group.isCohesive()).forEach((group) -> groupCapitals.put(group.getName(), new ArrayList<Integer>()));
-            if (groups.stream().anyMatch(group -> !group.isCohesive()))
-                groupCapitals.put("Groupless Agents", new ArrayList<Integer>());
+            Map<String, List<Integer>> groupCapitals;
 
             if (meanOverAllIterations) {
-                //cohesive groups
-                displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
-                        it -> it.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
-                                a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital())));
-                //groupless agents
-                displayedResult.getIterationResults(selectedConfigurationNumber).stream().forEach(
-                        it -> it.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
-                                a -> groupCapitals.get("Groupless Agents").add(a.getCapital())));
+                groupCapitals = new HashMap<String, List<Integer>>();
+                displayedResult.getIterationResults(selectedConfigurationNumber).get(0).getGroupCapitals().forEach(
+                        (groupName, capitals) -> groupCapitals.put(groupName, new ArrayList<Integer>()));
+                displayedResult.getIterationResults(selectedConfigurationNumber).forEach(
+                        it -> it.getGroupCapitals().forEach(
+                                (groupName, capitals) -> groupCapitals.get(groupName).addAll(capitals))
+                        );
             } else {
-                //cohesive groups
-                selectedIteration.getAgents().stream().filter(a -> a.getGroupId() != -1).forEach(
-                        a -> groupCapitals.get(groups.get(a.getGroupId()).getName()).add(a.getCapital()));
-                //groupless agents
-                selectedIteration.getAgents().stream().filter(a -> a.getGroupId() == -1).forEach(
-                        a -> groupCapitals.get("Groupless Agents").add(a.getCapital()));
+                groupCapitals = selectedIteration.getGroupCapitals();
             }
 
             //create histograms
@@ -429,8 +414,8 @@ public class DetailedOutputController {
         updateCharts();
     }
 
-    @FXML
-    /*private void handleRangeSlider(ActionEvent event) {
+    /*@FXML
+    private void handleRangeSlider(ActionEvent event) {
         int minPercent = (int) this.consideredAgentsRangeSlider.getLowValue();
         int maxPercent = (int) this.consideredAgentsRangeSlider.getHighValue();
         updateRankIndices(minPercent, maxPercent);
@@ -438,10 +423,10 @@ public class DetailedOutputController {
         updateCharts();
     }*/
 
-    private void updateRankIndices(int minPercent, int maxPercent) {
+    /*private void updateRankIndices(int minPercent, int maxPercent) {
         int agentCount = displayedResult.getIterationResults(selectedConfigurationNumber).get(0).getAgents().size();
         minRankIndex = (int) Math.floor((1 - maxPercent) * agentCount);
         maxRankIndex = agentCount - 1 - (int) Math.floor(minPercent * agentCount);
-    }
+    }*/
 
 }
