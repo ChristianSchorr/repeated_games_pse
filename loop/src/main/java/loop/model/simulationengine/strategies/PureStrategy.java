@@ -95,23 +95,12 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
                     Agent agent = pair.getFirstAgent();
                     Agent opponent = pair.getSecondAgent();
-                    boolean isGroup = false;
-                    for (Agent a : history.getAgents()) {
-                        if (agent.isGroupAffiliated(a)) {
-                            isGroup = true;
-                            boolean ret = true;
-                            for (GameResult result : history.getResultsByAgent(a)) {
-                                // first hit is also latest result; maybe not so pretty but efficient
-                                if (result.hasAgent(opponent)) {
-                                    ret = result.hasCooperated(opponent);
-                                    break;
-                                }
-                            }
-                            if (ret) return true;
+                    for (GameResult result: history.getResultsByAgent(opponent)) {
+                        if (result.getOtherAgent(opponent).isGroupAffiliated(agent)) {
+                            return result.hasCooperated(opponent);
                         }
                     }
-                    if (!isGroup) return true;
-                    return false;
+                    return true;
                 }
         );
     }
@@ -153,19 +142,14 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
                     Agent agent = pair.getFirstAgent();
                     Agent opponent = pair.getSecondAgent();
-                    boolean isGroup = false;
-                    for (Agent a : history.getAgents()) {
-                        if (agent.isGroupAffiliated(a)) {
-                            boolean ret = true;
-                            for (GameResult result : history.getResultsByAgent(a)) {
-                                if (result.hasAgent(opponent) && !result.hasCooperated(opponent))
-                                    ret = false;
+                    for (GameResult result: history.getResultsByAgent(opponent)) {
+                        if (result.getOtherAgent(opponent).isGroupAffiliated(agent)) {
+                            if (!result.hasCooperated(opponent)) {
+                                return false;
                             }
-                            if(ret) return true;
                         }
                     }
-                    if (!isGroup) return true;
-                    return false;
+                    return true;
                 }
         );
     }
