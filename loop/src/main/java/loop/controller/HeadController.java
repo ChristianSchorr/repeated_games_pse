@@ -195,26 +195,18 @@ public class HeadController {
         fileChooser.getExtensionFilters().add(extFilter);
         File openFile = fileChooser.showOpenDialog(new Stage());
         if (openFile == null) return;
-        new Thread(new ResultLoader(openFile)).start();
-    }
-
-    private class ResultLoader implements Runnable {
-
-        File openFile;
-
-        private ResultLoader(File openFile) {
-            this.openFile = openFile;
+        SimulationResult loadedResult;
+        try {
+            loadedResult = (SimulationResult) FileIO.loadEntity(openFile);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "File could not be opened", ButtonType.OK);
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
         }
-
-        @Override
-        public void run() {
-            setBufferingCursor();
-            SimulationResult loadedResult = FileIO.loadResult(openFile);
-            loadedResult.setId(simulator.getSimulationId());
-            simulator.incrementSimulationId();
-            addSimulationToHistoryController(loadedResult);
-            setDefaultCursor();
-        }
+        loadedResult.setId(simulator.getSimulationId());
+        simulator.incrementSimulationId();
+        addSimulationToHistoryController(loadedResult);
     }
 
     private synchronized void addSimulationToHistoryController(SimulationResult result) {

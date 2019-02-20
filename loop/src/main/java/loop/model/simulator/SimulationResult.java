@@ -1,5 +1,6 @@
 package loop.model.simulator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -19,9 +20,14 @@ import loop.model.simulator.exception.SimulationEngineException;
  * @author Christian Schorr
  *
  */
-public class SimulationResult {
+public class SimulationResult implements Serializable {
 
-	private UserConfiguration configuration;
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    private UserConfiguration configuration;
 	private int id;
 	private SimulationStatus status;
 	private int totalIterations;
@@ -262,6 +268,7 @@ public class SimulationResult {
 	 * Only use when iteration is finished and shall be saved as JSON!
 	 */
 	public void clearHandlers() {
+	    exceptions.clear();
 	    exceptionHandlers.clear();
 	    resultHandlers.clear();
 	    statusChangedHandler.clear();

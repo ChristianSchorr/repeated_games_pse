@@ -20,12 +20,15 @@ import org.controlsfx.glyphfont.Glyph;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -350,7 +353,7 @@ public class OutputController {
             outputWindow.setScene(outputScene);
             outputWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
 
-            // Specifies the modality for new window.
+            // Specifies the modality of the new window.
             outputWindow.initModality(Modality.NONE);
             outputWindow.show();
         } catch (IOException e) {
@@ -384,23 +387,15 @@ public class OutputController {
         fileChooser.getExtensionFilters().add(extFilter);
         File saveFile = fileChooser.showSaveDialog(new Stage());
         if (saveFile == null) return;
-        new Thread(new ResultSaver(saveFile, displayedResult)).run();
-    }
-
-    private class ResultSaver implements Runnable {
-
-        File saveFile;
-        SimulationResult result;
-
-        private ResultSaver(File saveFile, SimulationResult result) {
-            this.saveFile = saveFile;
-            this.result = result;
-        }
-
-        @Override
-        public void run() {
-            result.clearHandlers();
-            FileIO.saveResult(result, saveFile);
+        
+        displayedResult.clearHandlers();
+        try {
+            FileIO.saveEntity(saveFile, displayedResult);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
         }
     }
 
