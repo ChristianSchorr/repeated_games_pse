@@ -2,6 +2,7 @@ package loop.model.simulationengine;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SimulationHistoryMap implements SimulationHistory {
 
@@ -31,9 +32,19 @@ public class SimulationHistoryMap implements SimulationHistory {
     }
 
     @Override
+    public List<GameResult> getResultsByGroup(Agent agent) {
+        List<GameResult> relevantResults = new LinkedList<>();
+        for (Agent a : map.keySet()) {
+            if (a.isGroupAffiliated(agent))
+                relevantResults.addAll(map.get(a));
+        }
+        return relevantResults;
+    }
+
+    @Override
     public List<GameResult> getLatestResults() {
         List<GameResult> results = new ArrayList<>();
-        for (Agent agent: map.keySet()) {
+        for (Agent agent : map.keySet()) {
             List<GameResult> res = map.get(agent);
             if (res != null) results.add(res.get(0));
         }
@@ -48,6 +59,19 @@ public class SimulationHistoryMap implements SimulationHistory {
     }
 
     @Override
+    public List<GameResult> getLatestResultsByGroup(Agent agent) {
+        List<GameResult> relevantResults = new ArrayList<>();
+        for (Agent a : map.keySet()) {
+            if (a.isGroupAffiliated(agent)) {
+                List<GameResult> results = map.get(a);
+                if (results != null)
+                    relevantResults.add(map.get(a).get(0));
+            }
+        }
+        return relevantResults;
+    }
+
+    @Override
     public List<GameResult> getAllWhere(Predicate<GameResult> condition) {
         List<GameResult> results = new ArrayList<>();
         for (GameResult res : allResults) {
@@ -58,11 +82,17 @@ public class SimulationHistoryMap implements SimulationHistory {
 
     @Override
     public GameResult getLatestWhere(Predicate<GameResult> condition) {
-        for (GameResult result: allResults) {
+        for (GameResult result : allResults) {
             if (condition.test(result)) return result;
         }
         return null;
     }
+
+    @Override
+    public List<Agent> getAgents() {
+        return map.keySet().stream().collect(Collectors.toList());
+    }
+
 
     @Override
     public void reset() {
