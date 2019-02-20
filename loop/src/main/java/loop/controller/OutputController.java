@@ -351,7 +351,7 @@ public class OutputController {
             outputWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
 
             // Specifies the modality for new window.
-            outputWindow.initModality(Modality.APPLICATION_MODAL);
+            outputWindow.initModality(Modality.NONE);
             outputWindow.show();
         } catch (IOException e) {
             e.printStackTrace();
