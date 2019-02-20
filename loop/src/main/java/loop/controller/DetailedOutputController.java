@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
+
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
@@ -157,6 +159,14 @@ public class DetailedOutputController {
 
         strategyChart.setTitle("Strategy Distribution");
         capitalDiagram.setTitle("Capital Distribution");
+        
+        strategyComboBox.getItems().clear();
+        List<String> groupNames = CentralRepository.getInstance().getPopulationRepository()
+                .getEntityByName(displayedResult.getUserConfiguration().getPopulationName()).getGroupNames();
+        strategyComboBox.getItems().addAll(groupNames);
+        strategyComboBox.getCheckModel().checkAll();
+        strategyComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener.Change<? extends String> c)
+                -> new ChartUpdater().updateStrategyChart());
 
         //TODO change listener slider
 
@@ -290,26 +300,41 @@ public class DetailedOutputController {
             }
             
             //strategy combo box
-            strategyComboBox.getItems().clear();
-            List<String> groupNames = CentralRepository.getInstance().getPopulationRepository()
-                    .getEntityByName(displayedResult.getUserConfiguration().getPopulationName()).getGroupNames();
-            strategyComboBox.getItems().addAll(groupNames);
-            strategyComboBox.getCheckModel().checkAll();
-
+            List<String> consideredGroups = strategyComboBox.getCheckModel().getCheckedItems();
+            double groupCount = (double) consideredGroups.size();
+            List<double[]> strategyPortions = new ArrayList<double[]>();
+            Map<String, List<double[]>> strategyPortionsByGroup = selectedIteration.getStrategyPortions();
+            for (int adapt = 0; adapt < selectedIteration.getAdapts(); adapt++) {
+                double[] portions = new double[selectedIteration.getStrategyNames().size()];
+                for (String grp: consideredGroups) {
+                    add(portions, strategyPortionsByGroup.get(grp).get(adapt)); 
+                }
+                for (int i = 0; i < portions.length; i++) {
+                    portions[i] /= groupCount;
+                }
+                strategyPortions.add(portions);
+            }
+            
             List<XYChart.Series<Number, Number>> allSeries = new ArrayList<XYChart.Series<Number, Number>>();
-
-            List<double[]> strategyDistributions = selectedIteration.getStrategyPortions();
+            
             List<String> strategyNames = selectedIteration.getStrategyNames();
 
             for (int i = 0; i < strategyNames.size(); i++) {
                 XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
                 series.setName(strategyNames.get(i));
                 for (int adapt = 0; adapt < selectedIteration.getAdapts(); adapt++) {
-                    series.getData().add(new XYChart.Data<Number, Number>(adapt + 1, strategyDistributions.get(adapt)[i]));
+                    series.getData().add(new XYChart.Data<Number, Number>(adapt + 1, strategyPortions.get(adapt)[i]));
                 }
                 allSeries.add(series);
             }
             setStrategyChartData(allSeries);
+        }
+        
+        private void add(double[] array1, double[] array2) {
+            if (array1.length != array2.length) return;
+            for (int i = 0; i < array1.length; i++) {
+                array1[i] += array2[i];
+            }
         }
 
         private void updateCapitalChart() {

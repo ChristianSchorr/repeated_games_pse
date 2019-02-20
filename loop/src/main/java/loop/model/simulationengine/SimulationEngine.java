@@ -62,6 +62,7 @@ public class SimulationEngine {
         equilibriumCriterion = configuration.getEquilibriumCriterion();
         
         strategyPortions = new HashMap<Integer, List<double[]>>();
+        groupSizes = new HashMap<Integer, Integer>();
         configuration.getSegments().forEach(seg -> strategyPortions.putIfAbsent(seg.getGroupId(), new ArrayList<double[]>()));
         
         agents.forEach(agent -> {
@@ -132,7 +133,6 @@ public class SimulationEngine {
                 portions[i] = 0.0;
             }
             portionList.add(portions);
-            System.out.println(portionList.size() == adaptionsteps - 1);
         });
         
         int lastIndex = adaptionsteps - 1;
