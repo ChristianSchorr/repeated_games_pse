@@ -191,6 +191,12 @@ public class DetailedOutputController {
         if (config.isMulticonfiguration())
             this.configSlider.setMax(config.getParameterValues().size());
         
+        strategyComboBox.getItems().clear();
+        List<String> groupNames = CentralRepository.getInstance().getPopulationRepository()
+                .getEntityByName(displayedResult.getUserConfiguration().getPopulationName()).getGroupNames();
+        strategyComboBox.getItems().addAll(groupNames);
+        strategyComboBox.getCheckModel().checkAll();
+        
         /*this.consideredAgentsRangeSlider.highValueProperty().addListener((source, oldHigh, newHigh) -> {
             updateRankIndices(minPercent, newHigh.intValue());
             if (minRankIndex >= maxRankIndex) {
