@@ -54,7 +54,7 @@ public class SimulationEngine {
         
         initialiseAgents();
         
-        history = new SimulationHistoryTable();
+        history = new SimulationHistoryMap();
         pairBuilder = configuration.getPairBuilder();
         successQuantifier = configuration.getSuccessQuantifier();
         strategyAdjuster = configuration.getStrategyAdjuster();
