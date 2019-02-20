@@ -34,7 +34,8 @@ public class SimulationEngine {
     private Configuration configuration;
     
     //for the strategy distributions over time
-    private List<double[]> strategyPortions;
+    private Map<Integer, List<double[]>> strategyPortions;
+    private Map<Integer, Integer> groupSizes;
     private List<String> strategyNames;
     
     private boolean printInfo = false;
@@ -59,7 +60,16 @@ public class SimulationEngine {
         successQuantifier = configuration.getSuccessQuantifier();
         strategyAdjuster = configuration.getStrategyAdjuster();
         equilibriumCriterion = configuration.getEquilibriumCriterion();
-        strategyPortions = new ArrayList<double[]>();
+        
+        strategyPortions = new HashMap<Integer, List<double[]>>();
+        configuration.getSegments().forEach(seg -> strategyPortions.putIfAbsent(seg.getGroupId(), new ArrayList<double[]>()));
+        
+        agents.forEach(agent -> {
+            int id = agent.getGroupId();
+            groupSizes.putIfAbsent(id, 0);
+            groupSizes.put(id, groupSizes.get(id) + 1);
+        });
+        
         strategyNames = new ArrayList<String>();
         if (configuration.allowsMixedStrategies()) {
             strategyNames = ((MixedStrategy) agents.get(0).getStrategy()).getComponentStrategies().stream().map(
@@ -116,34 +126,37 @@ public class SimulationEngine {
     }
     
     private void calculateStrategyPortions() {
-        double[] portions = new double[strategyNames.size()];
-        
-        if (configuration.allowsMixedStrategies()) {
-            //cast to mixed strategies
-            List<MixedStrategy> mixedStrategies = agents.stream().map(a -> (MixedStrategy) a.getStrategy()).collect(Collectors.toList());
-            
+        strategyPortions.forEach((grpId, portionList) -> {
+            double[] portions = new double[strategyNames.size()];
             for (int i = 0; i < strategyNames.size(); i++) {
                 portions[i] = 0.0;
             }
-            
-            //calculate portions
-            for (MixedStrategy s : mixedStrategies) {
+            portionList.add(portions);
+            System.out.println(portionList.size() == adaptionsteps - 1);
+        });
+        
+        int lastIndex = adaptionsteps - 1;
+        
+        if (configuration.allowsMixedStrategies()) {
+            agents.forEach(agent -> {
+                MixedStrategy s = (MixedStrategy) agent.getStrategy();
                 for (int i = 0; i < s.getSize(); i++) {
-                    portions[i] += s.getComponent(i);
+                    strategyPortions.get(agent.getGroupId()).get(lastIndex)[i] += s.getComponent(i);
                 }
-            }
+            });
         } else { //only pure strategies
-            List<Strategy> strategies = agents.stream().map(a -> a.getStrategy()).collect(Collectors.toList());
-            //calculate strategy counts
-            for (Strategy s : strategies) {
-                portions[strategyNames.indexOf(s.getName())] += 1.0;
+            agents.forEach(agent -> {
+                Strategy s = agent.getStrategy();
+                strategyPortions.get(agent.getGroupId()).get(lastIndex)[strategyNames.indexOf(s.getName())] += 1.0;
+            });
+        }
+        
+        strategyPortions.forEach((grpId, portionsList) -> {
+            double[] portions = portionsList.get(lastIndex);
+            for (int i = 0; i < strategyNames.size(); i++) {
+                portions[i] /= groupSizes.get(grpId).doubleValue();
             }
-        }
-        double n = (double) agents.size();
-        for (int i = 0; i < portions.length; i++) {
-            portions[i] /= n;
-        }
-        strategyPortions.add(portions);
+        });
     }
     
     private void playGame(AgentPair pair) {
@@ -246,7 +259,7 @@ public class SimulationEngine {
      * 
      * @return the strategy portions
      */
-    public List<double[]> getStrategyPortions() {
+    public Map<Integer, List<double[]>> getStrategyPortions() {
         if (!finished) return null;
         return strategyPortions;
     }

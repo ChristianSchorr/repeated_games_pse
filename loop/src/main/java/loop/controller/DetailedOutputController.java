@@ -1,27 +1,17 @@
 package loop.controller;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -29,16 +19,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import loop.model.Group;
 import loop.model.UserConfiguration;
-import loop.model.repository.CentralRepository;
-import loop.model.simulationengine.Agent;
 import loop.model.simulationengine.IterationResult;
-import loop.model.simulationengine.strategies.MixedStrategy;
-import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.SimulationResult;
 
-import org.controlsfx.control.RangeSlider;
+import org.controlsfx.control.CheckComboBox;
 
 /**
  * This class represents the controller responsible for the detailed output of a simulation�s
@@ -90,6 +75,9 @@ public class DetailedOutputController {
     @FXML
     private LineChart<Number, Number> strategyChart;
 
+    @FXML
+    private CheckComboBox<String> strategyComboBox;
+    
     @FXML
     private ImageView strategyBufferGifView;
 
