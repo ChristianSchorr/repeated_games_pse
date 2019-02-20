@@ -3,6 +3,7 @@ package loop;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -49,9 +50,11 @@ public class Main extends Application {
         
         stage.setTitle("loop");
         stage.setScene(scene);
-        stage.setOnHidden(e -> {
+        stage.setOnCloseRequest(e -> {
             try {
                 controller.closeSimulator(null);
+                Platform.exit();
+                System.exit(0);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
