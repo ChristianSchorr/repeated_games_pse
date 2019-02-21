@@ -100,6 +100,44 @@ public class MixedStrategyTest {
 	}
 
 	/**
+	 * Tests the constructor of the class MixedStrategy with illegal arguments(4 strategies and 3 probabilities)
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	public void testMixedStrategy2() {
+		List <Strategy> falsestrategies = new ArrayList <Strategy>();
+		falsestrategies.addAll(strategies);
+		falsestrategies.add(neverCooperate);
+		
+		MixedStrategy mixedStrategy = new MixedStrategy("tit-for-tat/grim/neverCooperate/alwlaysCooperate",
+				"This MixedStrategy exist also only for test reasons.", falsestrategies, probabilities);
+	}
+
+	/**
+	 * Tests the constructor of the class MixedStrategy with illegal arguments(probability > 1)
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	public void testMixedStrategy3() {
+		List <Double> falseprobabilities = new ArrayList <Double>();
+		falseprobabilities.addAll(probabilities);
+		falseprobabilities.set(0, 1.1);
+		MixedStrategy mixedStrategy = new MixedStrategy("tit-for-tat/grim/alwlaysCooperate",
+				"This MixedStrategy exist also only for test reasons.", strategies, falseprobabilities);
+	}
+	
+	/**
+	 * Tests the constructor of the class MixedStrategy with illegal arguments(sum of probabilities > 1)
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	public void testMixedStrategy4() {
+		List <Double> falseprobabilities = new ArrayList <Double>();
+		falseprobabilities.addAll(probabilities);
+		falseprobabilities.set(0, 0.9);
+		falseprobabilities.set(1, 0.7);
+		MixedStrategy mixedStrategy = new MixedStrategy("tit-for-tat/grim/alwlaysCooperate",
+				"This MixedStrategy exist also only for test reasons.", strategies, falseprobabilities);
+	}
+	
+	/**
 	 * Tests the implementation of the method getName
 	 */
 	@Test

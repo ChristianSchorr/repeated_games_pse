@@ -39,7 +39,7 @@ public class ConcreteGameTest {
 	    actualGame = (ConcreteGame) ConcreteGame.prisonersDilemma();
 	    testName("Prisoner's Dilemma");
 	    testDescription("Two prisoners are accused of a crime. Each one can either "
-                + "confess or not, but doesn’t know the other one’s decision. Depending on both decisions, the two "
+                + "confess or not, but doesn't know the other ones decision. Depending on both decisions, the two "
                 + "prisoners get higher or lower, and not necessarily the same prison sentence. Paradoxically, when "
                 + "each prisoner pursues his self-interest, both end up worse off than they would have been had when "
                 + "acting otherwise.");
