@@ -34,6 +34,15 @@ public interface SimulationHistory {
      * @return a list of the results of all games of the given agent
      */
     List<GameResult> getResultsByAgent(Agent agent);
+
+    /**
+     * Returns a list of the results of all games of the given agents group members
+     * including the agent himself;
+     *
+     * @param agent the agents whose group shall be considered
+     * @return a list of all relevant results
+     */
+    List<GameResult> getResultsByGroup(Agent agent);
     
     /**
      * Returns the results of the most recent games result of every agent.
@@ -49,6 +58,15 @@ public interface SimulationHistory {
      * @return the result of the most recent game of the given agent
      */
     GameResult getLatesResultsByAgent(Agent agent);
+
+    /**
+     * Returns the results of the most recent games of the agent's group members
+     * including the agent himself;
+     *
+     * @param agent the agent whose group shall be considered
+     * @return returns all relevant results
+     */
+    List<GameResult> getLatestResultsByGroup(Agent agent);
     
     /**
      * Filters all game results with the given condition and returns them.
@@ -64,6 +82,12 @@ public interface SimulationHistory {
      * @return the latest game result that meets the given condition
      */
     GameResult getLatestWhere(Predicate<GameResult> condition);
+
+    /**
+     * Returns a list of all agents
+     * @return a list of all agents
+     */
+    List<Agent> getAgents();
     
     /**
      * Resets the history;

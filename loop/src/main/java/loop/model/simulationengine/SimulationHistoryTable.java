@@ -42,6 +42,16 @@ public class SimulationHistoryTable implements SimulationHistory {
     }
 
     @Override
+    public List<GameResult> getResultsByGroup(Agent agent) {
+        List<GameResult> relevantResults = new ArrayList<>();
+        for (Agent a : agents) {
+            if (a.isGroupAffiliated(agent))
+                relevantResults.addAll(getResultsByAgent(a));
+        }
+        return relevantResults;
+    }
+
+    @Override
     public List<GameResult> getLatestResults() {
         List<GameResult> queriedResults = new ArrayList<GameResult>();
         
@@ -70,6 +80,16 @@ public class SimulationHistoryTable implements SimulationHistory {
     }
 
     @Override
+    public List<GameResult> getLatestResultsByGroup(Agent agent) {
+        List<GameResult> relevantResults = new ArrayList<>();
+        for (Agent a: agents) {
+            if (a.isGroupAffiliated(agent))
+                relevantResults.add(getLatesResultsByAgent(a));
+        }
+        return relevantResults;
+    }
+
+    @Override
     public List<GameResult> getAllWhere(Predicate<GameResult> condition) {
         List<GameResult> queriedResults = new ArrayList<GameResult>();
         
@@ -88,6 +108,11 @@ public class SimulationHistoryTable implements SimulationHistory {
             if (condition.test(result)) return result;
         }
         return null;
+    }
+
+    @Override
+    public List<Agent> getAgents() {
+        return agents;
     }
 
     @Override
