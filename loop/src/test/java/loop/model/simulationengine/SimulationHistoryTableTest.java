@@ -91,6 +91,15 @@ public class SimulationHistoryTableTest {
         assertEquals(simulationHistoryTable.getLatestWhere((result) -> result.getPayoff(agents.get(0)) > 2), result1);  
 	}
 	
+	@Test
+	public void testGetResultsByGroup() {
+	    List<GameResult> resultsByGroup = simulationHistoryTable.getResultsByGroup(agents.get(0));
+	    assertTrue(resultsByGroup.size() == 2);
+	    	    
+	    List<GameResult> latestResultsByGroup = simulationHistoryTable.getLatestResultsByGroup(agents.get(0));
+	    assertTrue(latestResultsByGroup.size() == 1);
+	}
+	
 		
 
 }
