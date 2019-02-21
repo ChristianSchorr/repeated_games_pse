@@ -3,7 +3,9 @@ package loop.model.simulationengine;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +28,8 @@ public class IterationResultTest {
 	SimulationHistory history;
 	List<Agent> agents = new ArrayList<Agent>();
 	List<String> strategyNames = new ArrayList<String>();
-	List<double[]> strategyPortions = new ArrayList<>();
+	Map<String, List <double[]>> strategyPortions = new HashMap<String, List <double[]>>();
+	Map<String, List <Integer>> groupCapitals = new HashMap<String, List <Integer>>();
 
 	/**
 	 * Initialize the IterationResult
@@ -40,28 +43,35 @@ public class IterationResultTest {
 		strategyNames.add(titForTat.getName());
 		strategyNames.add(grim.getName());
 
-		agents.add(new Agent(10, titForTat, 2));
-		agents.add(new Agent(12, grim, 2));
-		agents.add(new Agent(50, grim, 1));
-		agents.add(new Agent(100, titForTat, 3));
-		
 		//just for testing, is not valid with the given simulationHistory
-		double[] portion1 = {0.5, 0.75}; 
-		double[] portion2 = {0.5, 0.25};
-		strategyPortions.add(portion1);
-		strategyPortions.add(portion2);
+		double[] portion1 = {0.5, 0.5}; 
+		double[] portion2 = {0.75, 0.25};
+		List <double[]> testgroupPortion = new ArrayList <double[]>();
+		testgroupPortion.add(portion1);
+		testgroupPortion.add(portion2);
+		List <double[]> normalPeoplePortion = new ArrayList <double[]>();
+		double[] portion3 = {0.33, 0.67}; 
+		double[] portion4 = {0.1, 0.9};
+		normalPeoplePortion.add(portion3);
+		normalPeoplePortion.add(portion4);
+		strategyPortions.put("Testgroup", testgroupPortion);
+		strategyPortions.put("normalPeople", normalPeoplePortion);
+		
+		List <Integer> testgroupCapital = new ArrayList<Integer>();
+		testgroupCapital.add(10);
+		testgroupCapital.add(100);
+		List <Integer> normalPeopleCapital = new ArrayList<Integer>();
+		normalPeopleCapital.add(50);
+		normalPeopleCapital.add(12);
+		
+		groupCapitals.put("Testgroup", testgroupCapital);
+		groupCapitals.put("normalPeople", normalPeopleCapital);
 		
 		equilibriumReached = true;
 		efficiency = 0.5;
 		adapts = 20;
 		
-		history = new SimulationHistoryTable();
-		GameResult result1 = new GameResult(agents.get(0), agents.get(1), true, true, 3, 3);
-        GameResult result2 = new GameResult(agents.get(2), agents.get(3), false, false, 0, 0); 
-        history.addResult(result1);       
-        history.addResult(result2);
-        
-		iterationResult = new IterationResult(agents, history, equilibriumReached, efficiency, adapts, strategyPortions, strategyNames);
+        iterationResult = new IterationResult(equilibriumReached, efficiency, adapts, strategyNames, strategyPortions, groupCapitals);
 	}
 
 	@After
@@ -73,33 +83,16 @@ public class IterationResultTest {
 	 */
 	@Test
 	public void testIterationResult() {
-	    testGetAgents(iterationResult);
-	    testGetHistory(iterationResult);
 	    testEquilibriumReached(iterationResult);
 	    testGetEfficiency(iterationResult);
 	    testGetAdapts(iterationResult);
 	    testGetStrategyPortions(iterationResult);
 	    testGetStrategyNames(iterationResult);
+	    testGetGroupCapitals(iterationResult);
+	    
 	}
 
-	/**
-	 * Tests the implementation of the method getAgents
-	 */
-	public void testGetAgents(IterationResult result) {
-		assertEquals(4, result.getAgents().size());
-		assertEquals(agents.get(0), result.getAgents().get(0));
-		assertEquals(agents.get(1), result.getAgents().get(1));
-		assertEquals(agents.get(2), result.getAgents().get(2));
-		assertEquals(agents.get(3), result.getAgents().get(3));
-	}
-
-	/**
-	 * Tests the implementation of the method getHistory
-	 */
-	public void testGetHistory(IterationResult result) {
-		assertTrue(history.equals(result.getHistory()));
-	}
-
+	
 	/**
 	 * Tests the implementation of the method equilibriumReached
 	 */
@@ -135,4 +128,10 @@ public class IterationResultTest {
         assertEquals(strategyNames, result.getStrategyNames());
     }
 
+    /**
+     * Tests the implementation of the method getStrategyNames
+     */
+    public void testGetGroupCapitals(IterationResult result) {
+        assertEquals(groupCapitals, result.getGroupCapitals());
+    }
 }
