@@ -448,6 +448,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             items.add(new MultiParamItem(type, param.getName() + " : " + newPlugin.getName(),
                     new DoubleValidator(errorMsg, d -> ParameterValidator.isValueValid(d, param)), null));
         }
+        multiParamBox.getSelectionModel().select(0);
         multiParamBox.requestLayout();
     }
 
@@ -470,6 +471,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
                         new DoubleValidator("segment size has to be between 0 and 1", (d) -> d >= 0 && d <= 1), null));
             }
         }
+        multiParamBox.getSelectionModel().select(0);
+        multiParamBox.requestLayout();
     }
 
     @Override
