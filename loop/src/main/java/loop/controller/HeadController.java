@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import loop.LoopSettings;
 import loop.Main;
 import loop.model.Group;
 import loop.model.Population;
@@ -88,7 +89,7 @@ public class HeadController {
     @FXML
     private Button startSimulationButton;
 
-    @FXML
+	@FXML
     private Pane mainPane;
 
     private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
@@ -99,8 +100,11 @@ public class HeadController {
     private static final String STRATEGYWINDOW_FXML = "/view/windows/StrategyWindow.fxml";
     private static final String GROUPWINDOW_FXML = "/view/windows/GroupWindow.fxml";
     private static final String POPULATIONWINDOW_FXML = "/view/windows/PopulationWindow.fxml";
+    private static final String SETTINGS_FXML = "/view/windows/Settings.fxml";
 
     private CentralRepository repository = CentralRepository.getInstance();
+    
+    private LoopSettings settings;
 
     @FXML
     void initialize() {
@@ -109,10 +113,14 @@ public class HeadController {
 
         //create simulator
         simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors() - 1);
-
         //register callback for the import of configurations from simulation results
         historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
         historyViewController.registerCancleRequestHandler(sim -> simulator.stopSimulation(sim));
+		try {
+			settings = FileIO.loadEntity(new File(FileIO.SETTINGS_DIR + "currentSettings"));
+		} catch (Exception e) {
+			settings = new LoopSettings();
+		} 
     }
 
     private void importConfiguration(UserConfiguration config) {
@@ -278,6 +286,30 @@ public class HeadController {
             ex.printStackTrace();
         }
     }
+    
+    @FXML
+    void openSettings(ActionEvent event) {
+    	Parent settingParent;
+    	SettingsController controller;
+        try {
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource(SETTINGS_FXML));
+            settingParent = loader.load();
+            controller = (SettingsController) loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Scene settingScene = new Scene(settingParent);
+        Stage settingWindow = new Stage();
+        settingWindow.setTitle("Settings");
+        settingWindow.setScene(settingScene);
+        controller.setStage(settingWindow);
+
+        // Specifies the modality for new window.
+        settingWindow.initModality(Modality.APPLICATION_MODAL);
+        settingWindow.getIcons().add(new Image(Main.RING_LOGO_PATH));
+        settingWindow.show();
+    }
 
     @FXML
     void openNewGameWindow(ActionEvent event) {
@@ -442,5 +474,13 @@ public class HeadController {
         this.mixedStrategiesLabel.setText(activeConfiguration.getMixedAllowed() ? "Yes" : "No");
         this.populationNameLabel.setText(activeConfiguration.getPopulationName());
         this.roundCountLabel.setText(String.valueOf(activeConfiguration.getRoundCount()));
-    }
+    }    
+
+    public LoopSettings getSettings() {
+		return settings;
+	}
+
+	public void setSettings(LoopSettings settings) {
+		this.settings = settings;
+	}
 }

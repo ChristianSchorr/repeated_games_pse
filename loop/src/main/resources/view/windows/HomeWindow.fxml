@@ -57,6 +57,11 @@
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem />
+                    <MenuItem text="Settings" onAction="#openSettings">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="GEAR" style="-fx-text-fill: grey" />
+                        </graphic>
+                    </MenuItem>
                     <MenuItem text="Close simulator" onAction="#closeSimulator">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="CLOSE" style="-fx-text-fill: grey" />
