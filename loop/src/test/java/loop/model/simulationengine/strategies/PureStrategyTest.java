@@ -409,11 +409,11 @@ public class PureStrategyTest {
         assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated last time"));
         assertTrue(testPureStrategy.getDescription().equals(""));
         
-        assertTrue(testPureStrategy.isCooperative(player, inSameGroupAsPlayer, history));
-        history.addResult(new GameResult(player, inSameGroupAsPlayer, false, false, 3, 3));
-        assertFalse(testPureStrategy.isCooperative(player, inSameGroupAsPlayer, history));
-        history.addResult(new GameResult(player, inSameGroupAsPlayer, true, true, 1, 1));
-        assertTrue(testPureStrategy.isCooperative(player, inSameGroupAsPlayer, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 0, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        
     }
     
     /**
