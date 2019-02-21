@@ -48,9 +48,8 @@ public class PureStrategyTest {
 	    testPureStrategy = PureStrategy.titForTat();
 	    player = new Agent(0, testPureStrategy, 1);
 	    testGetName("tit-for-tat");
-	    testGetDescription("A player using tit-for-tat will first cooperate, afterwards he replicate the opponent's previous action."
-                + " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
-                + " the player is not cooperative.");
+	    testGetDescription("A player using tit-for-tat will cooperate in the first game and replicate the"
+                + " opponent's previous action in the following games.");
 	    boolean[] cooperate = {true, true, false, false, true};
 	    testIsCooperative(cooperate);
 	    history.reset();
@@ -65,7 +64,7 @@ public class PureStrategyTest {
         testPureStrategy = PureStrategy.grim();
         player = new Agent(0, testPureStrategy, 1); 
         testGetName("grim");
-        testGetDescription("A player using grim will first cooperate, afterwards he refer to the previous actions of the opponent."
+        testGetDescription("A player using grim will cooperate in the first game, afterwards he refer to the previous actions of the opponent."
                 + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
                 + " not cooperative, the agent is from now on not cooperative to that opponent.");
         boolean[] cooperate = {true, true, false, false, false};
@@ -82,9 +81,9 @@ public class PureStrategyTest {
         testPureStrategy = PureStrategy.groupTitForTat();
         player = new Agent(0, testPureStrategy, 1);
         testGetName("group tit-for-tat");
-        testGetDescription("A player using group tit-for-tat use the tit-for-tat strategy, where instead of looking"
-                + "at the last game between the player and the opponent the last game between the opponent and an agent"
-                + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group,"
+        testGetDescription("A player using group tit-for-tat uses the tit-for-tat strategy, where instead of looking "
+                + "at the last game between the player and the opponent the last game between the opponent and an agent "
+                + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group, "
                 + "this strategy leads to the same results as the common tit-for-tat strategy.");
         boolean[] cooperate = {true, false, false, true, true};
         testIsCooperative(cooperate);
@@ -402,8 +401,38 @@ public class PureStrategyTest {
     /**
      * Tests the groupMemberCooperation to generate a new strategy
      */
-    @Ignore @Test
+    @Test
     public void testGroupMemberCooperation() {
+        when = TimeAdverb.ALWAYS;
+        testPureStrategy = PureStrategy.groupMemberCooperation(when);
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated always"));
+        assertTrue(testPureStrategy.getDescription().equals(""));
+        
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 0, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 3, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        
+        history.reset();
+        
+        when = TimeAdverb.NEVER;
+        testPureStrategy = PureStrategy.groupMemberCooperation(when);
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated never"));
+        assertTrue(testPureStrategy.getDescription().equals(""));
+        
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 0, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        
+        history.reset();
+        
         when = TimeAdverb.LASTTIME;     
         testPureStrategy = PureStrategy.groupMemberCooperation(when);
         player = new Agent(0, testPureStrategy, 1);
@@ -415,6 +444,20 @@ public class PureStrategyTest {
         history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 0, 3));
         assertFalse(testPureStrategy.isCooperative(player, opponent, history));
         
+        history.reset();
+        
+        when = TimeAdverb.ATLEASTONCE;     
+        testPureStrategy = PureStrategy.groupMemberCooperation(when);
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated at least once"));
+        assertTrue(testPureStrategy.getDescription().equals(""));
+        
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 0, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));  
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
     }
     
     /**

@@ -13,7 +13,10 @@ public class SimulationHistoryMap implements SimulationHistory {
     public void addResult(GameResult result) {
         for (Agent agent : result.getAgents()) {
             List<GameResult> list = map.get(agent);
-            if (list == null) list = new LinkedList<>();
+            if (list == null) {
+                list = new LinkedList<>();
+                map.put(agent, list);
+            }
             list.add(0, result);
         }
         allResults.add(0, result);
