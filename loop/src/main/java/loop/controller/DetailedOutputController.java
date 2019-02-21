@@ -242,7 +242,7 @@ public class DetailedOutputController {
         this.configSlider.setVisible(config.isMulticonfiguration());
         this.configSliderLabel.setVisible(config.isMulticonfiguration());
         this.configSliderParameterLabel.setVisible(config.isMulticonfiguration());
-        this.configSliderLabel.setText("Configuraion: " + String.format("%s/%s", this.selectedConfigurationNumber + 1, (int) this.configSlider.getMax()));
+        this.configSliderLabel.setText("Configuration: " + String.format("%s/%s", this.selectedConfigurationNumber + 1, (int) this.configSlider.getMax()));
 
         if (config.isMulticonfiguration())
             this.configSliderParameterLabel.setText(String.format("%s: %s", this.config.getVariableParameterName(),
