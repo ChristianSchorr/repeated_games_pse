@@ -29,7 +29,7 @@
     		<VBox>
     			<Label text="Version: 1.0.0" wrapText="true"/>
     			<Label text="Build: 142" wrapText="true" />
-    			<Label text="The program loop was designed to create a simulation environment for repeated games. The project is created for scientist researches. It offers the possibility to analyze formation of equilibriums to answer questions that occur in the game theory." wrapText="true" />
+    			<Label text="Loop is a simulation environment that was motivated by and designed for research in the field of game theory. It can be used to investigate when and how equilibria occur when multiple agents repeatedly play against each other." wrapText="true" />
     			<Label text="This product has been created by Sebastian Feurer, Peter Koepernik, Luc Mercatoris, Christian Schorr, Pierre Toussing." wrapText="true"/>	
     		</VBox>
     	</bottom>
