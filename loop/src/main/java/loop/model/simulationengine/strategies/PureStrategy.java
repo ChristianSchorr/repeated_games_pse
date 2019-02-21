@@ -62,7 +62,6 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the tit-for-tat strategy
      */
     public static PureStrategy titForTat() {
-
         return new PureStrategy(
                 "tit-for-tat", "A player using tit-for-tat will cooperate in the first game and replicate the"
                  + " opponent's previous action in the following games."
@@ -70,8 +69,9 @@ public class PureStrategy implements Strategy, java.io.Serializable {
             Agent opponent = pair.getSecondAgent();
             for (GameResult result : history.getResultsByAgent(pair.getFirstAgent())) {
                 // first hit is also latest result; maybe not so pretty but efficient
-                if (result.hasAgent(opponent))
+                if (result.hasAgent(opponent)) {
                     return result.hasCooperated(opponent);
+                }
             }
             return true;
         });
