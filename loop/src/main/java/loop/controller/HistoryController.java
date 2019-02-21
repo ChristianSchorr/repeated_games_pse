@@ -6,12 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 import loop.view.historylistview.HistoryListCell;
+import loop.view.historylistview.templates.FinishedSimulationResultCellTemplate;
+import loop.view.historylistview.templates.RunningSimulationResultCellTemplate;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,6 +87,8 @@ public class HistoryController {
     public void addSimulation(SimulationResult simulationResult) {
         simulationResult.registerSimulationStatusChangedHandler((res, stat) -> {
             Platform.runLater(() -> historyList.refresh());
+            if (res.getStatus() == SimulationStatus.FINISHED)
+                showFinishNotification(simulationResult);
             if (selectedItem == null || res != selectedItem) return;
             int index = historyList.getSelectionModel().getSelectedIndex();
             historyList.getSelectionModel().clearSelection();
@@ -88,6 +96,19 @@ public class HistoryController {
         });
         simulationResult.registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));
         history.add(simulationResult);
+    }
+
+    private void showFinishNotification(SimulationResult result) {
+        NotificationController template = new NotificationController(result);
+        HBox container = template.getContainer();
+        String css = this.getClass().getResource("/view/style.css").toExternalForm();
+        container.getStylesheets().add(css);
+        Platform.runLater(() ->
+                Notifications.create()
+                        .hideCloseButton()
+                        .position(Pos.TOP_RIGHT)
+                        .graphic(container)
+                        .show());
     }
 
     /**

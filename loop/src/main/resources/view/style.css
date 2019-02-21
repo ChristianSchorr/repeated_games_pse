@@ -1193,3 +1193,42 @@
 .default-color1.chart-line-symbol { -fx-background-color: #E51400; }
 .default-color2.chart-line-symbol { -fx-background-color: #FEDE06; }
 .default-color3.chart-line-symbol { -fx-background-color: #008A00; }
+
+
+/* Notifications */
+
+.notification-bar>.pane {
+    -fx-background-color: red, yellow, blue;
+    -fx-padding: 5 5 5 5;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.notification-bar>.pane .title {
+    -fx-font-size: 1.333em; /*16px;*/
+    -fx-text-fill: #000;
+    -fx-font-weight: bold;
+}
+
+.notification-bar>.pane .label {
+    -fx-font-size: 1em; /*12px;*/
+    -fx-text-fill: #000;
+    -fx-alignment: top-left;
+}
+
+/******************************************************************************
+ *
+ * Close button
+ *
+ *****************************************************************************/
+
+.notification-bar>.pane .close-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0 0 0 0;
+    -fx-alignment: center;
+}
+
+.notification-bar > .pane .close-button:hover {
+     -fx-background-color: linear-gradient(#a3a3a3, #8b8b8b 34%, #777777 36%, #777777 63%, #8b8b8b 65%, #adadad);
+}
