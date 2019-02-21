@@ -441,13 +441,14 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private <T> void updateMultiParamBox(Plugin<T> oldPlugin, Plugin<T> newPlugin, MulticonfigurationParameterType type) {
         ObservableList<MultiParamItem> items = multiParamBox.getItems();
         if (oldPlugin != null)
-            items.removeIf((item) -> item.toString().substring(item.toString().indexOf(':') + 1).equals(oldPlugin.getName()));
+            items.removeIf((item) -> item.toString().substring(item.toString().indexOf(':') + 2).equals(oldPlugin.getName()));
 
         for (Parameter param : newPlugin.getParameters()) {
             String errorMsg = "Not a valid value for the " + param.getName() + " parameter";
-            items.add(new MultiParamItem(type, param.getName() + ":" + newPlugin.getName(),
+            items.add(new MultiParamItem(type, param.getName() + " : " + newPlugin.getName(),
                     new DoubleValidator(errorMsg, d -> ParameterValidator.isValueValid(d, param)), null));
         }
+        multiParamBox.getSelectionModel().select(0);
         multiParamBox.requestLayout();
     }
 
@@ -460,16 +461,18 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 name -> repository.getGroupRepository().getEntityByName(name)).collect(Collectors.toList());
         
         for (Group grp : groups) {
-            String grpSize = "group size: " + grp.getName();
+            String grpSize = "group size : " + grp.getName();
             items.add(new MultiParamItem(MulticonfigurationParameterType.GROUP_SIZE, grpSize,
                     new DoubleValidator("group size has to be an integer greater than 0",
                             d -> d >= 0 && Math.abs(d - d.intValue()) < 0.00000001), null));
             if (grp.getSegmentCount() == 2) {
-                String str = "segment size: " + grp.getName();
+                String str = "segment size : " + grp.getName();
                 items.add(new MultiParamItem(MulticonfigurationParameterType.SEGMENT_SIZE, str,
                         new DoubleValidator("segment size has to be between 0 and 1", (d) -> d >= 0 && d <= 1), null));
             }
         }
+        multiParamBox.getSelectionModel().select(0);
+        multiParamBox.requestLayout();
     }
 
     @Override
@@ -544,16 +547,16 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     newItem.parameterField.setDisable(enable);
                     break;
                 case SA_PARAM:
-                    strategyAdjusterControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    strategyAdjusterControl.disableParamert(newItem.displayString.split(" : ")[0], enable);
                     break;
                 case PB_PARAM:
-                    pairBuilderControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    pairBuilderControl.disableParamert(newItem.displayString.split(" : ")[0], enable);
                     break;
                 case EC_PARAM:
-                    equilibriumCriterionControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    equilibriumCriterionControl.disableParamert(newItem.displayString.split(" : ")[0], enable);
                     break;
                 case SQ_PARAM:
-                    successQuantifierControl.disableParamert(newItem.displayString.split(":")[0], enable);
+                    successQuantifierControl.disableParamert(newItem.displayString.split(" : ")[0], enable);
                     break;
                 default:
                     break;
@@ -583,11 +586,11 @@ public class ConfigController implements CreationController<UserConfiguration> {
                 break;
             case SEGMENT_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.displayString.endsWith("segment size: " + param.getGroupName())).get(0));
+                        .filtered((item) -> item.displayString.endsWith("segment size : " + param.getGroupName())).get(0));
                 break;
             case GROUP_SIZE:
                 multiParamProperty.setValue(multiParamBox.getItems()
-                        .filtered((item) -> item.displayString.endsWith("group size: " + param.getGroupName())).get(0));
+                        .filtered((item) -> item.displayString.endsWith("group size : " + param.getGroupName())).get(0));
             default:
                 // TODO CapitalDistribution, Segment size, Group Size
                 break;
@@ -599,7 +602,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         Plugin<T> plugin = repo.getEntityByName(entityName);
         boolean hasParameter = plugin.getParameters().stream().anyMatch(p -> p.getName().equals(parameterName));
         if (hasParameter)
-            multiParamProperty.setValue(multiParamBox.getItems().filtered((item) -> item.displayString.equals(parameterName + ":" + plugin.getName())).get(0));
+            multiParamProperty.setValue(multiParamBox.getItems().filtered((item) -> item.displayString.equals(parameterName + " : " + plugin.getName())).get(0));
         else multiParamProperty.setValue(null);
     }
 
@@ -628,7 +631,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
             double startValue = startValueProperty.getValue();
             double endValue = endValueProperty.getValue();
             double stepSize = stepSizeProperty.getValue();
-            String[] parts = multiParamProperty.getValue().toString().split(":");
+            String[] parts = multiParamProperty.getValue().toString().split(" : ");
             MulticonfigurationParameterType multiParamType = multiParamProperty.getValue().type;
             switch (multiParamType) {
                 case SQ_PARAM:
@@ -645,7 +648,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
                     param = new MulticonfigurationParameter(startValue, endValue, stepSize, parts[1].substring(1));
                     break;
                 case GROUP_SIZE:
-                    param = new MulticonfigurationParameter((int)startValue, (int)endValue, (int)stepSize, parts[1].substring(1));
+                    param = new MulticonfigurationParameter((int)startValue, (int)endValue, (int)stepSize, parts[1]);
                     break;
                 default:
                     // TODO CapitalDistribution,Group Size

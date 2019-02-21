@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import org.controlsfx.glyphfont.Glyph?>
+
+<HBox style="-fx-padding: -10" xmlns:fx="http://javafx.com/fxml" fx:id="container" prefWidth="300">
+    <HBox style="-fx-background-color: #FFFFFF; -fx-border-color: #008A00; -fx-border-width: 1;"
+          prefWidth="400">
+        <Rectangle fill="#008A00" height="100" width="10"/>
+        <VBox spacing="1" style="-fx-padding: 10 10 0 10;">
+            <Label style="-fx-text-fill: #008A00; -fx-font-size: 25" text="Finished simulation" />
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-text-fill: grey; -fx-font-size: 20; -fx-font-size: 16.0px; -fx-padding: 5 0 5 0;" fx:id="gameNameLabel"/>
+                <Label style="-fx-text-fill: grey; -fx-font-size: 20; -fx-font-size: 16.0px; -fx-padding: 5 0 5 0;" fx:id="simulationIdLabel"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</HBox>

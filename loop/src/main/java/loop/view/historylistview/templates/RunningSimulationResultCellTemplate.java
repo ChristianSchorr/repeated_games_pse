@@ -62,7 +62,7 @@ public class RunningSimulationResultCellTemplate extends SimulationResultCellTem
             double timeRun = (item.getLastTimeUpdated() - item.getStartTime());
             double timeLeft = (timeRun / progress) -timeRun;
             long updatedTimeLeft = (long)timeLeft - (System.currentTimeMillis() - item.getLastTimeUpdated());
-            if (updatedTimeLeft < 0) updatedTimeLeft = (long)timeLeft;
+            if (updatedTimeLeft < 0) updatedTimeLeft = (long)(2*timeLeft) - (System.currentTimeMillis() - item.getLastTimeUpdated());
             final Duration duration = Duration.ofMillis(updatedTimeLeft);
             durationLeft.setText(formatDuration(duration));
         }

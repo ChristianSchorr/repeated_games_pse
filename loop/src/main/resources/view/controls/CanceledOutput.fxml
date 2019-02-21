@@ -35,6 +35,14 @@
         </HBox>
         <HBox alignment="CENTER_RIGHT">
             <Separator orientation="VERTICAL" style="-fx-padding: 10 0"/>
+            <Button fx:id="removeResult" onAction="#removeResult">
+                <graphic>
+                    <Glyph fontFamily="FontAwesome" fontSize="40" icon="TRASH_ALT" style="-fx-text-fill: grey"/>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="Deletes the result from the history"/>
+                </tooltip>
+            </Button>
             <Button styleClass="setting-button" fx:id="cancleButton" disable="true">
                 <graphic>
                     <Glyph fontFamily="FontAwesome" fontSize="40" icon="CLOSE" style="-fx-text-fill: #E51400"/>
