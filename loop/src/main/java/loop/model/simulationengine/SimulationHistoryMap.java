@@ -49,7 +49,7 @@ public class SimulationHistoryMap implements SimulationHistory {
         List<GameResult> results = new ArrayList<>();
         for (Agent agent : map.keySet()) {
             List<GameResult> res = map.get(agent);
-            if (res != null) results.add(res.get(0));
+            if (res != null && !results.contains(res.get(0))) results.add(res.get(0));
         }
         return results;
     }
