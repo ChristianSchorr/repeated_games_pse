@@ -14,6 +14,9 @@ import loop.model.plugin.Plugin;
  *
  */
 public class TotalPayoff implements SuccessQuantifier {
+    
+    
+    public static final String NAME = "Total Payoff";
 
     @Override
     public List<Agent> createRanking(final List<Agent> agents, final SimulationHistory history) {
