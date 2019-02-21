@@ -64,9 +64,9 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy titForTat() {
 
         return new PureStrategy(
-                "tit-for-tat", "A player using tit-for-tat will first cooperate, afterwards he replicate the opponent's previous action."
-                + " If the opponent previously was cooperative, the player is cooperative. If the opponent previously wasn't cooperative,"
-                + " the player is not cooperative.", (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
+                "tit-for-tat", "A player using tit-for-tat will cooperate in the first game and replicate the"
+                 + " opponent's previous action in the following games."
+                , (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
             Agent opponent = pair.getSecondAgent();
             for (GameResult result : history.getResultsByAgent(pair.getFirstAgent())) {
                 // first hit is also latest result; maybe not so pretty but efficient
@@ -88,9 +88,9 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy groupTitForTat() {
 
         return new PureStrategy(
-                "group tit-for-tat", "A player using group tit-for-tat use the tit-for-tat strategy, where instead of looking"
-                + "at the last game between the player and the opponent the last game between the opponent and an agent"
-                + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group,"
+                "group tit-for-tat", "A player using group tit-for-tat uses the tit-for-tat strategy, where instead of looking "
+                + "at the last game between the player and the opponent the last game between the opponent and an agent "
+                + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group, "
                 + "this strategy leads to the same results as the common tit-for-tat strategy.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
                     Agent agent = pair.getFirstAgent();
@@ -112,7 +112,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      */
     public static PureStrategy grim() {
         return new PureStrategy(
-                "grim", "A player using grim will first cooperate, afterwards he refer to the previous actions of the opponent."
+                "grim", "A player using grim will cooperate in the first game, afterwards he refer to the previous actions of the opponent."
                 + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
                 + " not cooperative, the agent is from now on not cooperative to that opponent.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {

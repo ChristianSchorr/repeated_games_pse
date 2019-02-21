@@ -90,7 +90,7 @@ public class SimulationHistoryMap implements SimulationHistory {
 
     @Override
     public List<Agent> getAgents() {
-        return map.keySet().stream().collect(Collectors.toList());
+        return new ArrayList<Agent>(map.keySet());
     }
 
 
