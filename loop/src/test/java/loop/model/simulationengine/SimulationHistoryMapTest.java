@@ -47,7 +47,7 @@ public class SimulationHistoryMapTest {
         GameResult newGameResult = new GameResult(player1, player2, true, false, 2, 0);
         simulationHistoryMap.addResult(newGameResult);
         relevantResults = simulationHistoryMap.getLatestResults();
-        assertTrue(relevantResults.size() == 3);
+        assertTrue(relevantResults.size() == 2);
         
         GameResult gameResult = simulationHistoryMap.getLatesResultsByAgent(player1);
         assertEquals(gameResult, newGameResult);
