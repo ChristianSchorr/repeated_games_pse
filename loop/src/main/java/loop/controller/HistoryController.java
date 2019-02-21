@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
@@ -20,6 +22,8 @@ import loop.view.historylistview.templates.FinishedSimulationResultCellTemplate;
 import loop.view.historylistview.templates.RunningSimulationResultCellTemplate;
 import org.controlsfx.control.Notifications;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +55,17 @@ public class HistoryController {
     private List<Consumer<UserConfiguration>> configImportHandlers = new ArrayList<Consumer<UserConfiguration>>();
     private List<Consumer<SimulationResult>> cancleHandlers = new ArrayList<>();
 
+    private MediaPlayer mediaPlayer;
+    private final static String soundFile = "/notificationSound.mp3";
+
     /**
      * Initializes the history controller
      */
     public void initialize() {
+
+        Media sound = new Media(this.getClass().getResource(soundFile).toExternalForm());
+        mediaPlayer = new MediaPlayer(sound);
+
         history = FXCollections.observableArrayList();
         historyList.setItems(history);
 
@@ -104,13 +115,17 @@ public class HistoryController {
         HBox container = template.getContainer();
         String css = this.getClass().getResource("/view/style.css").toExternalForm();
         container.getStylesheets().add(css);
-        Platform.runLater(() ->
-                Notifications.create()
-                        .hideCloseButton()
-                        .position(Pos.TOP_RIGHT)
-                        .graphic(container)
-                        .hideAfter(new Duration(3000))
-                        .show());
+        Platform.runLater(() -> {
+            Notifications.create()
+                    .hideCloseButton()
+                    .position(Pos.TOP_RIGHT)
+                    .graphic(container)
+                    .hideAfter(new Duration(3000))
+                    .show();
+
+            mediaPlayer.seek(new Duration(0));
+            mediaPlayer.play();
+        });
     }
 
     /**
