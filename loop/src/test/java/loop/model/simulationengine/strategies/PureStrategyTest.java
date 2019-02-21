@@ -401,8 +401,38 @@ public class PureStrategyTest {
     /**
      * Tests the groupMemberCooperation to generate a new strategy
      */
-    @Ignore @Test
+    @Test
     public void testGroupMemberCooperation() {
+        when = TimeAdverb.ALWAYS;
+        testPureStrategy = PureStrategy.groupMemberCooperation(when);
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated always"));
+        assertTrue(testPureStrategy.getDescription().equals(""));
+        
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 0, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 3, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        
+        history.reset();
+        
+        when = TimeAdverb.NEVER;
+        testPureStrategy = PureStrategy.groupMemberCooperation(when);
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated never"));
+        assertTrue(testPureStrategy.getDescription().equals(""));
+        
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 0, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        
+        history.reset();
+        
         when = TimeAdverb.LASTTIME;     
         testPureStrategy = PureStrategy.groupMemberCooperation(when);
         player = new Agent(0, testPureStrategy, 1);
@@ -414,6 +444,20 @@ public class PureStrategyTest {
         history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 0, 3));
         assertFalse(testPureStrategy.isCooperative(player, opponent, history));
         
+        history.reset();
+        
+        when = TimeAdverb.ATLEASTONCE;     
+        testPureStrategy = PureStrategy.groupMemberCooperation(when);
+        player = new Agent(0, testPureStrategy, 1);
+        assertTrue(testPureStrategy.getName().equals("An agent of the same group has cooperated at least once"));
+        assertTrue(testPureStrategy.getDescription().equals(""));
+        
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertFalse(testPureStrategy.isCooperative(player, opponent, history));
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, true, true, 0, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));  
+        history.addResult(new GameResult(inSameGroupAsPlayer, opponent, false, true, 3, 3));
+        assertTrue(testPureStrategy.isCooperative(player, opponent, history));
     }
     
     /**
