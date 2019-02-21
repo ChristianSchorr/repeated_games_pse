@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import loop.model.simulationengine.Agent;
@@ -401,7 +402,7 @@ public class PureStrategyTest {
     /**
      * Tests the groupMemberCooperation to generate a new strategy
      */
-    @Test
+    @Ignore @Test
     public void testGroupMemberCooperation() {
         when = TimeAdverb.LASTTIME;     
         testPureStrategy = PureStrategy.groupMemberCooperation(when);
