@@ -1,8 +1,14 @@
 package loop;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+
+import loop.model.repository.CentralRepository;
+import loop.model.repository.FileIO;
 /**
  * This class represents some global settings for the loop programm
  * @author Pierre Toussing
@@ -15,7 +21,26 @@ public class LoopSettings implements Serializable {
 	private int threadcount = Runtime.getRuntime().availableProcessors();
 	private List<String> personalURLs;
 	
-	public LoopSettings() {
+	private static LoopSettings instance;
+	
+	/**
+	 * Returns the singleton instance
+	 * 
+	 * @return the singleton instance
+	 */
+	public static LoopSettings getInstance() {
+		if (instance == null) {
+				instance = new LoopSettings();
+				try {
+					instance = FileIO.loadEntity(new File(FileIO.SETTINGS_DIR + "/currentSettings"));
+				} catch (Exception e) {
+					//Not available yet
+				}			
+		}
+		return instance;
+	}
+	
+	private LoopSettings() {
 		this.personalURLs = new LinkedList<String>();
 	}
 	
@@ -56,5 +81,13 @@ public class LoopSettings implements Serializable {
 	
 	public List<String> getPersonalURLs() {
 		return personalURLs;
+	}
+	
+	public void save() {
+		try {
+			FileIO.saveEntity(new File(FileIO.SETTINGS_DIR + "/currentSettings") , instance);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

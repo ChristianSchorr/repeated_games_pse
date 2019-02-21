@@ -104,7 +104,7 @@ public class HeadController {
 
     private CentralRepository repository = CentralRepository.getInstance();
     
-    private LoopSettings settings;
+    private LoopSettings settings = LoopSettings.getInstance();
 
     @FXML
     void initialize() {
@@ -116,11 +116,6 @@ public class HeadController {
         //register callback for the import of configurations from simulation results
         historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
         historyViewController.registerCancleRequestHandler(sim -> simulator.stopSimulation(sim));
-		try {
-			settings = FileIO.loadEntity(new File(FileIO.SETTINGS_DIR + "currentSettings"));
-		} catch (Exception e) {
-			settings = new LoopSettings();
-		} 
     }
 
     private void importConfiguration(UserConfiguration config) {
@@ -475,12 +470,4 @@ public class HeadController {
         this.populationNameLabel.setText(activeConfiguration.getPopulationName());
         this.roundCountLabel.setText(String.valueOf(activeConfiguration.getRoundCount()));
     }    
-
-    public LoopSettings getSettings() {
-		return settings;
-	}
-
-	public void setSettings(LoopSettings settings) {
-		this.settings = settings;
-	}
 }

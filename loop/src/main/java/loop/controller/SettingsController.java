@@ -15,6 +15,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import loop.LoopSettings;
@@ -22,7 +23,7 @@ import loop.model.repository.FileIO;
 
 public class SettingsController {
 	private Stage stage;
-	private LoopSettings settings;
+	private LoopSettings settings = LoopSettings.getInstance();
 	
 	@FXML
 	private CheckBox notification_CheckBox;
@@ -79,29 +80,30 @@ public class SettingsController {
 					sliderVal.setValue(threadCount - 1);
 			}
 		});
-
-		url_ListView.getItems().add("/home/loop_user/custom_folder_structure");
-
+		url_ListView.getItems().addAll(settings.getPersonalURLs());
 	}
 	
 	@FXML
 	void addURL(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Add your own folder");
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        File openFile = fileChooser.showOpenDialog(new Stage());
+		DirectoryChooser dirChooser = new DirectoryChooser();
+        dirChooser.setTitle("Add your own folder");
+        dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File openFile = dirChooser.showDialog(new Stage());
         if (!openFile.isDirectory()) {
         	Alert alert = new Alert(AlertType.ERROR, "Please choose a folder", ButtonType.OK);
             alert.showAndWait();
             return;
         }
-        else settings.addURL(openFile.getAbsolutePath());
-        //TODO Add to List
+        else {
+        	settings.addURL(openFile.getAbsolutePath());
+        	url_ListView.getItems().add(openFile.getAbsolutePath());
+        }
 	}
 	
 	@FXML
 	void deleteURL(ActionEvent event) {
-		//TODO
+		settings.deleteURL((String) url_ListView.getSelectionModel().getSelectedItem());
+		url_ListView.getItems().remove(url_ListView.getSelectionModel().getSelectedIndex());
 	}
 	
 	@FXML
@@ -110,11 +112,7 @@ public class SettingsController {
 		settings.setEnable_tooltip(this.tooltip_CheckBox.isSelected());
 		settings.setReserveThread(this.reserveThread_CheckBox.isSelected());
 		settings.setThreadcount((int) this.threadcount_Slider.getValue());
-		try {
-			FileIO.saveEntity(FileIO.SETTINGS_DIR, settings);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//TODO Pass to HeadController
+		settings.save();
+		this.stage.close();
 	}
 }
