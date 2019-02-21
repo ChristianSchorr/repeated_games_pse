@@ -118,7 +118,7 @@ public class PopulationController implements CreationController<Population> {
     @FXML
     private void handleAddGroupButton(ActionEvent action) {
         if (agentCountProperty.getValue() <= 0) {
-            Alert alert = new Alert(AlertType.ERROR, "A group must consits of at least one agent.", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "A group must consist of at least one agent.", ButtonType.OK);
             alert.showAndWait();
             return;
         } 

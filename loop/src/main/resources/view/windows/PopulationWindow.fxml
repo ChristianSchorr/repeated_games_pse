@@ -67,7 +67,7 @@
             <Label text="Group:"/>
             <ChoiceBox fx:id="groupSelectionBox" prefHeight="42.0" prefWidth="189.0"/>
             <Label text="Number of agents in the group:"/>
-            <TextField fx:id="agentCountTextField" alignment="TOP_CENTER" maxWidth="50" promptText="100"/>
+            <TextField fx:id="agentCountTextField" alignment="TOP_CENTER" maxWidth="50"/>
             <Button onAction="#handleAddGroupButton">
                 <graphic>
                     <Glyph fontFamily="FontAwesome" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
