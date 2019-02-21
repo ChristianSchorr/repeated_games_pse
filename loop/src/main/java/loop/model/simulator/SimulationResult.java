@@ -122,7 +122,7 @@ public class SimulationResult implements Serializable {
 	 * @param action the action that shall be executed whenever an iteration
 	 *               finishes
 	 */
-	public void registerIterationFinished(BiConsumer<SimulationResult, IterationResult> action) {
+	public synchronized void registerIterationFinished(BiConsumer<SimulationResult, IterationResult> action) {
 		resultHandlers.add(action);
 	}
 
@@ -133,7 +133,7 @@ public class SimulationResult implements Serializable {
 	 * @param handler the handler that shall be executed whenever an exception
 	 *                occurs
 	 */
-	public void registerExceptionHandler(BiConsumer<SimulationResult, SimulationEngineException> handler) {
+	public synchronized void registerExceptionHandler(BiConsumer<SimulationResult, SimulationEngineException> handler) {
 		exceptionHandlers.add(handler);
 	}
 
@@ -146,7 +146,7 @@ public class SimulationResult implements Serializable {
 	 * @return a list of all yet available results of iterations with the i -th
 	 *         elementary configuration
 	 */
-	public List<IterationResult> getIterationResults(int i) {
+	public synchronized List<IterationResult> getIterationResults(int i) {
 		if (i < 0 || i > iterationResults.size() - 1)
 			return null;
 		iterationResults.get(i).sort((it1, it2) -> Double.compare(it1.getEfficiency(), it2.getEfficiency()));
@@ -158,7 +158,7 @@ public class SimulationResult implements Serializable {
 	 * 
 	 * @return all yet available iteration results
 	 */
-	public List<List<IterationResult>> getAllIterationResults() {
+	public synchronized List<List<IterationResult>> getAllIterationResults() {
 	    return iterationResults;
 	}
 
@@ -167,7 +167,7 @@ public class SimulationResult implements Serializable {
 	 * 
 	 * @return the {@link UserConfiguration} of this simulation
 	 */
-	public UserConfiguration getUserConfiguration() {
+	public synchronized UserConfiguration getUserConfiguration() {
 		return configuration;
 	}
 
@@ -177,7 +177,7 @@ public class SimulationResult implements Serializable {
 	 * 
 	 * @return the amount of elementary configurations of this simulation
 	 */
-	public int getConfigurationCount() {
+	public synchronized int getConfigurationCount() {
 		return iterationResults.size();
 	}
 
@@ -186,7 +186,7 @@ public class SimulationResult implements Serializable {
 	 * 
 	 * @return the id of this simulation
 	 */
-	public int getId() {
+	public synchronized int getId() {
 		return id;
 	}
 
@@ -196,7 +196,7 @@ public class SimulationResult implements Serializable {
 	 *
 	 * @return the current status of this simulation
 	 */
-	public SimulationStatus getStatus() {
+	public synchronized SimulationStatus getStatus() {
 		return status;
 	}
 
@@ -205,19 +205,21 @@ public class SimulationResult implements Serializable {
 	 *
 	 * @param handler the handler that shall be executed whenever the simulation's status changes
 	 */
-	public void registerSimulationStatusChangedHandler(BiConsumer<SimulationResult, SimulationStatus> handler) {
+	public synchronized void registerSimulationStatusChangedHandler(BiConsumer<SimulationResult, SimulationStatus> handler) {
 		statusChangedHandler.add(handler);
 	}
 
 	protected synchronized void setStatus(SimulationStatus status) {
 		this.status = status;
-		if (status == SimulationStatus.RUNNING) startTime = System.currentTimeMillis();
+		if (status == SimulationStatus.RUNNING) {
+			startTime = System.currentTimeMillis();
+		}
 		for(BiConsumer<SimulationResult, SimulationStatus> handler : statusChangedHandler) {
 			handler.accept(this, status);
 		}
 	}
 
-	protected void setTotalIterations(int totalIterations) {
+	protected synchronized void setTotalIterations(int totalIterations) {
 		this.totalIterations = totalIterations;
 	}
 
@@ -225,7 +227,7 @@ public class SimulationResult implements Serializable {
 	 * Returns the total number of iterations in this simulation
 	 * @return the total number of iterations in this simulation
 	 */
-	public int getTotalIterations() {
+	public synchronized int getTotalIterations() {
 		return totalIterations;
 	}
 
@@ -233,7 +235,7 @@ public class SimulationResult implements Serializable {
 	 * Returns the number of finished iterations in this simulation
 	 * @return the number of finished iterations in this simulation
 	 */
-	public int getFinishedIterations() {
+	public synchronized int getFinishedIterations() {
 		return finishedIterations;
 	}
 
@@ -242,7 +244,7 @@ public class SimulationResult implements Serializable {
 	 * Returns the last time this result has been updated
 	 * @return the last updated time
 	 */
-	public long getLastTimeUpdated() {
+	public synchronized long getLastTimeUpdated() {
 		return lastTimeUpdated;
 	}
 
@@ -250,7 +252,7 @@ public class SimulationResult implements Serializable {
 	 * Returns the start time of this simulation
 	 * @return the start time of this simulation
 	 */
-	public long getStartTime() {
+	public synchronized long getStartTime() {
 		return startTime;
 	}
 
@@ -258,7 +260,7 @@ public class SimulationResult implements Serializable {
 	 * Returns the finish time of this simulation
 	 * @return the finish time of this simulation;
 	 */
-	public long getFinishTime() {
+	public synchronized long getFinishTime() {
 		return finishTime;
 	}
 
