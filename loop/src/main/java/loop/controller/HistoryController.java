@@ -54,9 +54,13 @@ public class HistoryController {
         historyList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             selectedItem = newValue;
             if (selectedItem != null)
-                Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem,(i) -> {
-                for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i);
-            } ));
+                Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem, (i) -> {
+                    for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i);
+                }, res -> {
+                    history.remove(res);
+                    if (history.isEmpty())
+                        outputViewController.setDisplayedResult(null, null, null);
+                }));
         });
         historyList.setCellFactory(param -> new HistoryListCell());
         outputViewController.registerImportUserConfiguration(config -> configImportHandlers.forEach(c -> c.accept(config)));

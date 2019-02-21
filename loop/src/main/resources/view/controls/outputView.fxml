@@ -63,6 +63,14 @@
                         <Tooltip text="Open the output in a new window"/>
                     </tooltip>
                 </Button>
+                <Button fx:id="removeResult" onAction="#removeResult">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="40" icon="TRASH_ALT" style="-fx-text-fill: grey"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Deletes the result from the history"/>
+                    </tooltip>
+                </Button>
             </HBox>
         </HBox>
         <Separator fx:id="sep2" style="-fx-padding: 10 0"/>

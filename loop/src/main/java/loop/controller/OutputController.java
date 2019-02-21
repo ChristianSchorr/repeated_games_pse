@@ -127,6 +127,9 @@ public class OutputController {
     private Button openWindow;
 
     @FXML
+    private Button removeResult;
+
+    @FXML
     private VBox box;
 
     private List<Node> boxContent = new ArrayList<>();
@@ -173,7 +176,7 @@ public class OutputController {
     private static final String RUNNING_STYLE = "-fx-border-color: #FEDE06; -fx-padding: 16;";
     private static final String CANCELED_STYLE = "-fx-border-color: #E51400; -fx-padding: 16;";
 
-    private void setNotFinished(SimulationResult resultItem,  Consumer<SimulationResult> cancleHandler) {
+    private void setNotFinished(SimulationResult resultItem,  Consumer<SimulationResult> cancleHandler, Consumer<SimulationResult> removeHandler) {
         String style = RUNNING_STYLE;
         String view = RUNNING_VIEW;
         if (resultItem.getStatus() == SimulationStatus.CANCELED) {
@@ -183,7 +186,7 @@ public class OutputController {
         box.setStyle(style);
         box.getChildren().clear();
 
-        RunningOutputController controller = new RunningOutputController(resultItem, cancleHandler);
+        RunningOutputController controller = new RunningOutputController(resultItem, cancleHandler, removeHandler);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
         fxmlLoader.setController(controller);
         try {
@@ -195,23 +198,26 @@ public class OutputController {
     }
 
 
+    private Consumer<SimulationResult> removeHandler;
+
     /**
      * Sets the result that shall be displayed. If {@code null} is given as an argument, no result will
      * be shown.
      *
-     * @param resultItem the result that shall be displayed
+     * @param result the result that shall be displayed
      */
-    public void setDisplayedResult(SimulationResult result, Consumer<SimulationResult> cancleHandler) {
+    public void setDisplayedResult(SimulationResult result, Consumer<SimulationResult> cancleHandler, Consumer<SimulationResult> removeHandler) {
         this.displayedResult = result;
 
         if (result == null) {
-            tabPane.getSelectionModel().select(noOutputTab);
             deactivateAll();
+            box.setStyle("-fx-border-color: -swatch-500; -fx-padding: 16;");
+            tabPane.getSelectionModel().select(noOutputTab);
             return;
         }
 
         if (result.getStatus() != SimulationStatus.FINISHED) {
-            setNotFinished(result, cancleHandler);
+            setNotFinished(result, cancleHandler, removeHandler);
             return;
         }
         box.setStyle("-fx-border-color: #008A00; -fx-padding: 16;");
@@ -219,6 +225,7 @@ public class OutputController {
         box.getChildren().addAll(boxContent);
         activateAll();
 
+        this.removeHandler = removeHandler;
         this.config = result.getUserConfiguration();
 
         if (this.detailedOutputController == null) {
@@ -332,10 +339,12 @@ public class OutputController {
         importButton.setVisible(false);
         saveButton.setVisible(false);
         openWindow.setVisible(false);
+        removeResult.setVisible(false);
         sep1.setVisible(false);
         importButton.setDisable(true);
         saveButton.setDisable(true);
         openWindow.setDisable(true);
+        removeResult.setDisable(true);
     }
 
     @FXML
@@ -344,7 +353,7 @@ public class OutputController {
         try {
             Parent parent = loader.load();
             OutputController controller = loader.getController();
-            controller.setDisplayedResult(displayedResult, (res) -> {});
+            controller.setDisplayedResult(displayedResult, (res) -> {}, (res) -> {});
             controller.disableButtons();
             Scene outputScene = new Scene(parent);
             Stage outputWindow = new Stage();
@@ -359,6 +368,11 @@ public class OutputController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void removeResult() {
+        removeHandler.accept(displayedResult);
     }
 
     private void toDetailedOutput() {
@@ -409,6 +423,7 @@ public class OutputController {
 
     private void deactivateAll() {
         hide(this.openWindow);
+        hide(this.removeResult);
         hide(this.checkGlyph);
         hide(this.gameNameLabel);
         hide(this.gameIdLabel);
@@ -426,6 +441,7 @@ public class OutputController {
 
     private void activateAll() {
         unHide(this.openWindow);
+        unHide(this.removeResult);
         unHide(this.checkGlyph);
         unHide(this.gameNameLabel);
         unHide(this.gameIdLabel);

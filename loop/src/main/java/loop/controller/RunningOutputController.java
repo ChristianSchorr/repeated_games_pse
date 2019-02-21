@@ -47,14 +47,17 @@ public class RunningOutputController {
 
     private SimulationResult result;
     private Consumer<SimulationResult> cancleHandler;
+    private Consumer<SimulationResult> removeHandler;
 
     /**
      * Creates a new output controller for a running simulation
      * @param resultItem the running simulation to display
      */
-    public RunningOutputController(SimulationResult resultItem,  Consumer<SimulationResult> cancleHandler) {
+    public RunningOutputController(SimulationResult resultItem, Consumer<SimulationResult> cancleHandler,
+                                   Consumer<SimulationResult> removeHandler) {
         this.result = resultItem;
         this.cancleHandler = cancleHandler;
+        this.removeHandler = removeHandler;
     }
 
     @FXML
@@ -100,6 +103,11 @@ public class RunningOutputController {
             final Duration duration = Duration.ofMillis(updatedTimeLeft);
             durationLeft.setText(formatDuration(duration));
         }
+    }
+
+    @FXML
+    private void removeResult() {
+        removeHandler.accept(result);
     }
 
     @FXML
