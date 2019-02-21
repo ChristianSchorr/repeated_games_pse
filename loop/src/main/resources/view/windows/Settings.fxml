@@ -19,11 +19,11 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="container" stylesheets="@../style.css"
       xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="loop.controller.SettingsController"
-      style="-fx-background-color: #EAEAeA; -fx-padding: 10;" prefWidth="600" prefHeight="400">
+      style="-fx-background-color: #EAEAeA; -fx-padding: 10;" prefWidth="600" prefHeight="600">
     <VBox styleClass="card">
         <HBox spacing="25" alignment="CENTER_LEFT" style="-fx-padding: 5">
             <Label text="Settings" styleClass="card-title" style="-fx-padding: 10 0"/>
-            <Button>
+            <Button onAction="#confirmSettings">
                 <graphic>
                     <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
                 </graphic>
@@ -57,12 +57,12 @@
             <Label text="Folder structures from which saved extensions are loaded at program start:"/>
             <ListView fx:id="url_ListView"/>
             <HBox>
-                <Button>
+                <Button onAction="#addURL">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#deleteURL">
                     <graphic>
                         <Glyph fontFamily="FontAwesome" fontSize="20" icon="MINUS" style="-fx-text-fill: -swatch-500"/>
                     </graphic>

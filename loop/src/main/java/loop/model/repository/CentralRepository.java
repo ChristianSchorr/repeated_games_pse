@@ -1,5 +1,6 @@
 package loop.model.repository;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import loop.LoopSettings;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.UserConfiguration;
@@ -276,6 +278,29 @@ public class CentralRepository {
 		} catch (NullPointerException n) {
 			//Empty File    
 		}
+	    
+	    //Load own folders
+	    for (String url : LoopSettings.getInstance().getPersonalURLs()) {
+	    	try {
+				for (Object p : FileIO.loadAllEntities(new File(url))) {
+					if(p instanceof Population) {
+						populationRepo.addEntity(((Population) p).getName(), (Population) p);
+					}
+					else if(p instanceof Game) {
+						gameRepo.addEntity(((Game) p).getName(), (Game) p);
+					}
+					else if(p instanceof Group) {
+						groupRepo.addEntity(((Group) p).getName(), (Group) p);
+					}
+					else if(p instanceof Strategy) {
+						stratRepo.addEntity(((Strategy) p).getName(), (Strategy) p);
+					}
+					
+				}
+				} catch (FileNotFoundException e) {
+				//Invalid FIle
+			}
+	    }
 
 	    loadPlugins();
 
