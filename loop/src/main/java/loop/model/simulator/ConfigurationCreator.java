@@ -78,6 +78,7 @@ public class ConfigurationCreator {
 	            multiParam.getParameterValues().stream().mapToInt(d -> d.intValue()).forEach(
 	                    (rounds) -> {
 	                        roundCount = rounds;
+	                        configureAllExcept(multiParam.getType(), config);
 	                        configurations.add(createConfiguration());
 	                    });
 	            return configurations;
@@ -86,6 +87,7 @@ public class ConfigurationCreator {
 	            multiconfiguredParameters(pluginPB, config.getPairBuilderParameters(), config.getMulticonfigurationParameter()).forEach(
 	                            params -> {
 	                                pairBuilder = pluginPB.getNewInstance(params);
+	                                configureAllExcept(multiParam.getType(), config);
 	                                configurations.add(createConfiguration());
 	                            });
 	            return configurations;
@@ -94,6 +96,7 @@ public class ConfigurationCreator {
                 multiconfiguredParameters(pluginSQ, config.getSuccessQuantifierParameters(), config.getMulticonfigurationParameter()).forEach(
                                 params -> {
                                     successQuantifier = pluginSQ.getNewInstance(params);
+                                    configureAllExcept(multiParam.getType(), config);
                                     configurations.add(createConfiguration());
                                 });
                 return configurations;
@@ -102,6 +105,7 @@ public class ConfigurationCreator {
                 multiconfiguredParameters(pluginSA, config.getStrategyAdjusterParameters(), config.getMulticonfigurationParameter()).forEach(
                                 params -> {
                                     strategyAdjuster = pluginSA.getNewInstance(params);
+                                    configureAllExcept(multiParam.getType(), config);
                                     configurations.add(createConfiguration());
                                 });
                 return configurations;
@@ -110,6 +114,7 @@ public class ConfigurationCreator {
                 multiconfiguredParameters(pluginEC, config.getEquilibriumCriterionParameters(), config.getMulticonfigurationParameter()).forEach(
                                 params -> {
                                     equilibriumCriterion = pluginEC.getNewInstance(params);
+                                    configureAllExcept(multiParam.getType(), config);
                                     configurations.add(createConfiguration());
                                 });
                 return configurations;
@@ -117,6 +122,7 @@ public class ConfigurationCreator {
 	            multiParam.getParameterValues().stream().mapToInt(d -> d.intValue()).forEach(
                         (adapts) -> {
                             maxAdapts = adapts;
+                            configureAllExcept(multiParam.getType(), config);
                             configurations.add(createConfiguration());
                         });
                 return configurations;
@@ -124,6 +130,7 @@ public class ConfigurationCreator {
                 multiconfiguredPopulations(config.getMulticonfigurationParameter().getType(), config).forEach(
                         (pop) -> {
                             initialiseEngineSegments(pop);
+                            configureAllExcept(multiParam.getType(), config);
                             configurations.add(createConfiguration());
                         });
                 return configurations;

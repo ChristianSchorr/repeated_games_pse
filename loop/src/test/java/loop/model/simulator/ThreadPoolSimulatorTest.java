@@ -33,7 +33,6 @@ public class ThreadPoolSimulatorTest {
 			assertEquals(result.getUserConfiguration(), config);
 			try {
 				lock.await(2, TimeUnit.MINUTES);
-				System.out.println("skipped2");
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -47,7 +46,6 @@ public class ThreadPoolSimulatorTest {
 	
 	private void simulationFinishedHandler(SimulationResult res) {
 		assertEquals(result, res);
-		System.out.println("hIER!");
 		lock.countDown();
 	}
 

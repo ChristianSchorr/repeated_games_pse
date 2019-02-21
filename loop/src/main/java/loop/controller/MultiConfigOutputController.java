@@ -165,6 +165,9 @@ public class MultiConfigOutputController {
         }
         
         private void updateEfficiencyAndFrequencyChart() {
+            //update label
+            efficiencyAndFrequencyChart.getXAxis().setLabel(config.getVariableParameterName());
+            
             //efficiency
             XYChart.Series<Number, Number> efficiencySeries = new XYChart.Series<Number, Number>();
             efficiencySeries.setName("Mean Efficiency");
@@ -192,6 +195,9 @@ public class MultiConfigOutputController {
         }
         
         private void updateExecutedAdaptsChart() {
+            //update label
+            executedAdaptsChart.getXAxis().setLabel(config.getVariableParameterName());
+            
             //calculate chart data
             XYChart.Series<Number, Number> adaptsSeries = new XYChart.Series<Number, Number>();
             //adaptsSeries.setName("Executed Adapts");
