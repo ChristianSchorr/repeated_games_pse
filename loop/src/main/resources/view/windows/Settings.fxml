@@ -18,29 +18,57 @@
 <?import javafx.scene.control.Slider?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="container" stylesheets="@../style.css"
-	  xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="loop.controller.SettingsController"
-	  style="-fx-background-color: white; -fx-padding: 10;" prefWidth="600" prefHeight="400">
-    <BorderPane>
-    	<VBox>
-            <CheckBox fx:id="notification_CheckBox"></CheckBox>
-            <Label fx:id="notification_Label"></Label>
-        </VBox>
+      xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="loop.controller.SettingsController"
+      style="-fx-background-color: #EAEAeA; -fx-padding: 10;" prefWidth="600" prefHeight="400">
+    <VBox styleClass="card">
+        <HBox spacing="25" alignment="CENTER_LEFT" style="-fx-padding: 5">
+            <Label text="Settings" styleClass="card-title" style="-fx-padding: 10 0"/>
+            <Button>
+                <graphic>
+                    <Glyph fontFamily="FontAwesome" fontSize="25" icon="CHECK" style="-fx-text-fill: #008A00"/>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="Apply settings"/>
+                </tooltip>
+            </Button>
+        </HBox>
+        <Separator style="-fx-padding: 10 0"/>
+        <HBox alignment="CENTER_LEFT">
+            <CheckBox fx:id="notification_CheckBox"/>
+            <Label text="Show notifications when simulations finish"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT">
+            <CheckBox fx:id="tooltip_CheckBox"/>
+            <Label text="Show tooltips when hovering controls"/>
+        </HBox>
+        <Separator style="-fx-padding: 10 0"/>
         <VBox>
-            <CheckBox fx:id="tooltip_CheckBox"></CheckBox>
-            <Label fx:id="tooltip_Label"></Label>
-        </VBox>
-        <VBox>
-            <Slider fx:id="threadcount_Slider"></Slider>
-            <CheckBox fx:id="reserveThread_CheckBox"></CheckBox>
-        </VBox>
-        <VBox>
-            <ListView fx:id="url_ListView"></ListView>
-            <HBox>
-                <Button fx:id="deleteURL_Button">Delete</Button>
-                <Button fx:id="addURL_Button">Add</Button>
+            <Label text="Number of threds that shall be used for simulations:"/>
+            <HBox alignment="TOP_LEFT" spacing="10">
+                <Slider fx:id="threadcount_Slider" showTickLabels="true" showTickMarks="true" snapToTicks="true"/>
+                <HBox alignment="CENTER_LEFT">
+                    <CheckBox fx:id="reserveThread_CheckBox"/>
+                    <Label text="Reserve one thread for the user interface"/>
+                </HBox>
             </HBox>
         </VBox>
-    </BorderPane>
-    
-    
+        <Separator style="-fx-padding: 10 0"/>
+        <VBox spacing="10">
+            <Label text="Folder structures from which saved extensions are loaded at program start:"/>
+            <ListView fx:id="url_ListView"/>
+            <HBox>
+                <Button>
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="20" icon="PLUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+                <Button>
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="20" icon="MINUS" style="-fx-text-fill: -swatch-500"/>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </VBox>
+
 </VBox>

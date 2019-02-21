@@ -3,14 +3,16 @@ package loop.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.stage.FileChooser;
@@ -24,16 +26,11 @@ public class SettingsController {
 	
 	@FXML
 	private CheckBox notification_CheckBox;
-	
-	@FXML
-	private Label notification_Label;
+
 	
 	@FXML
 	private CheckBox tooltip_CheckBox;
-	
-	@FXML
-	private Label tooltip_Label;
-	
+
 	@FXML
 	private Slider threadcount_Slider;
 	
@@ -42,12 +39,11 @@ public class SettingsController {
 	
 	@FXML
 	private ListView url_ListView;
-	
-	@FXML
-	private Button deleteURL_Button;
-	
-	@FXML
-	private Button addURL_Button;
+
+	private int threadCount;
+
+	private BooleanProperty saveThread = new SimpleBooleanProperty();
+	private IntegerProperty sliderVal = new SimpleIntegerProperty();
 
 	public void setStage(Stage s) {
 		this.stage = s;
@@ -59,10 +55,33 @@ public class SettingsController {
 	
 	@FXML
 	void initialize() {
-		this.notification_Label.setText("Get a notification when a simulation finished");
+		threadCount = Runtime.getRuntime().availableProcessors();
 		this.notification_CheckBox.setSelected(true);
-		this.tooltip_Label.setText("Show tooltips");
 		this.tooltip_CheckBox.setSelected(true);
+
+		threadcount_Slider.setMin(1);
+		threadcount_Slider.setMax(threadCount);
+		threadcount_Slider.setMajorTickUnit(1);
+		threadcount_Slider.setMinorTickCount(1);
+		threadcount_Slider.setBlockIncrement(1);
+		threadcount_Slider.valueProperty().bindBidirectional(sliderVal);
+		sliderVal.addListener(c -> {
+					if (saveThread.getValue()) {
+						if (sliderVal.getValue() == threadCount)
+							sliderVal.setValue(threadCount - 1);
+					}
+				});
+
+		reserveThread_CheckBox.selectedProperty().bindBidirectional(saveThread);
+		saveThread.addListener(c -> {
+			if (saveThread.getValue()) {
+				if (sliderVal.getValue() == threadCount)
+					sliderVal.setValue(threadCount - 1);
+			}
+		});
+
+		url_ListView.getItems().add("/home/loop_user/custom_folder_structure");
+
 	}
 	
 	@FXML
