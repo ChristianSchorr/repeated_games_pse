@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
@@ -108,6 +109,7 @@ public class HistoryController {
                         .hideCloseButton()
                         .position(Pos.TOP_RIGHT)
                         .graphic(container)
+                        .hideAfter(new Duration(3000))
                         .show());
     }
 
