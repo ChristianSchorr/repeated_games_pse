@@ -92,6 +92,7 @@ public class HeadController {
     private Pane mainPane;
 
     private static final String LOOP_BUFFER_PATH = "/loop_buffer.gif";
+    private static final String MANUAL_PDF = "src/main/resources/manual.pdf";
     private static final String CONFIGURATIONWINDOW_FXML = "/view/windows/ConfigurationWindow.fxml";
     private static final String ABOUTWINDOW_FXML = "/view/windows/AboutWindow.fxml";
     private static final String GAMEWINDOW_FXML = "/view/windows/GameWindow.fxml";
@@ -277,7 +278,7 @@ public class HeadController {
     	try {
             Desktop desktop = Desktop.getDesktop();
             if (desktop != null && desktop.isSupported(Desktop.Action.OPEN)) {
-                desktop.open(new File("src/main/resources/manual.pdf"));
+                desktop.open(new File(MANUAL_PDF));
             } else {
                 System.err.println("PDF file can not be displayed!");
             }
