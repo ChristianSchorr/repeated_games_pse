@@ -39,13 +39,14 @@ public class FileIO {
 	public final static File GROUP_DIR = new File(currentUsersDir + "/groups");
 	public final static File POPULATION_DIR = new File(currentUsersDir + "/populations");
 	public final static File SIMULATIONRESULTS_DIR = new File(currentUsersDir + "/simulationresults");
+	public final static File SETTINGS_DIR = new File(currentUsersDir + "/settings");
 
 	/**
 	 * Creates the directories necessary to save and load objects in loop.
 	 */
 	public static void initializeDirectories() {
 		String[] directories = {"/configurations" , "/games" , "/strategies" ,
-				"/populations" , "/simulationresults" , "/groups"
+				"/populations" , "/simulationresults" , "/groups" , "/settings"
 		};
 		File file;
 		for(String s: directories) {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import org.controlsfx.glyphfont.Glyph?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="container" stylesheets="@../style.css"
+	  xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="loop.controller.SettingsController"
+	  style="-fx-background-color: white; -fx-padding: 10;" prefWidth="600" prefHeight="400">
+    <BorderPane>
+    	<VBox>
+            <CheckBox fx:id="notification_CheckBox"></CheckBox>
+            <Label fx:id="notification_Label"></Label>
+        </VBox>
+        <VBox>
+            <CheckBox fx:id="tooltip_CheckBox"></CheckBox>
+            <Label fx:id="tooltip_Label"></Label>
+        </VBox>
+        <VBox>
+            <Slider fx:id="threadcount_Slider"></Slider>
+            <CheckBox fx:id="reserveThread_CheckBox"></CheckBox>
+        </VBox>
+        <VBox>
+            <ListView fx:id="url_ListView"></ListView>
+            <HBox>
+                <Button fx:id="deleteURL_Button">Delete</Button>
+                <Button fx:id="addURL_Button">Add</Button>
+            </HBox>
+        </VBox>
+    </BorderPane>
+    
+    
+</VBox>
