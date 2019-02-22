@@ -3,16 +3,6 @@ package loop.model.simulationengine.distributions;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.HBox;
-import loop.model.plugin.*;
-
 /**
  * Represents a Poisson distribution.
  * 
@@ -22,7 +12,7 @@ import loop.model.plugin.*;
 public class PoissonDistribution implements DiscreteDistribution {
     
     public static final String NAME = "Poisson Distribution";
-    private static final String DESCRIPTION = "This is a poisson distribution.";
+    public static final String DESCRIPTION = "This is a poisson distribution.";
     
     private double lambda;
     private org.apache.commons.math3.distribution.PoissonDistribution dist;

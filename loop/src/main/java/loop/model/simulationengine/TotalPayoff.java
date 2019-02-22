@@ -1,11 +1,6 @@
 package loop.model.simulationengine;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
 
 /**
  * Realises the "Absolutkapital ohne Initialkapital" success quantification.

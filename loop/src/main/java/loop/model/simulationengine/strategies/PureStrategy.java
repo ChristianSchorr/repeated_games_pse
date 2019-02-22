@@ -1,8 +1,6 @@
 package loop.model.simulationengine.strategies;
 
 import loop.model.simulationengine.*;
-import org.checkerframework.dataflow.qual.Pure;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

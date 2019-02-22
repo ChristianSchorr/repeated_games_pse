@@ -13,11 +13,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import loop.controller.HeadController;
-import loop.model.repository.FileIO;
 import loop.preloader.SplashScreenLoader;
 
 import java.lang.reflect.Field;
-import java.net.URL;
 
 /**
  * This class contains the main method of the program and initialises the main window.

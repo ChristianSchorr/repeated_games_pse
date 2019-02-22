@@ -1,12 +1,10 @@
 package loop.view.historylistview.templates;
 
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.shape.Rectangle;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 

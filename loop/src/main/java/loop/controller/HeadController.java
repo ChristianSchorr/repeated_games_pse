@@ -29,12 +29,10 @@ import loop.Main;
 import loop.model.Group;
 import loop.model.Population;
 import loop.model.UserConfiguration;
-import loop.model.plugin.Plugin;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 import loop.model.simulationengine.Game;
 import loop.model.simulator.SimulationResult;
-import loop.model.simulator.Simulator;
 import loop.model.simulator.ThreadPoolSimulator;
 import loop.model.simulator.exception.ConfigurationException;
 

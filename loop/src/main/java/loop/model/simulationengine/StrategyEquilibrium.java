@@ -3,9 +3,6 @@ package loop.model.simulationengine;
 import java.util.ArrayList;
 import java.util.List;
 
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
 import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.Strategy;
 
@@ -18,7 +15,7 @@ import loop.model.simulationengine.strategies.Strategy;
 public class StrategyEquilibrium extends CountingEquilibriumCriterion {
     
     public static final String NAME = "Strategy Equilibrium";
-    private static final String DESCRIPTION = "After every adaption step, calculates a measure for the amount of change in the agents strategies."
+    public static final String DESCRIPTION = "After every adaption step, calculates a measure for the amount of change in the agents strategies."
             + " In case of pure strategies that is just the proportion of agents who changed their strategy; in case of mixed strategies, the"
             + " mean absolute distance of each agents strategy to his preceeding strategy is used, where the mixed strategies are regarded as real"
             + " vectors with entries between 0 and 1. This is normalized such that both measures coincide when regarding a pure strategy as (a rather"

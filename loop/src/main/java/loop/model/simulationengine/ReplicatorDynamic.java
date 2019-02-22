@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;
 import loop.model.simulationengine.strategies.MixedStrategy;
 import loop.model.simulationengine.strategies.Strategy;
@@ -20,7 +17,7 @@ import loop.model.simulationengine.strategies.Strategy;
 public class ReplicatorDynamic implements StrategyAdjuster {
     
     public static final String NAME = "Replicator Dynamic";
-    private static final String DESCRIPTION = "At the end of an adaption step, each agent will consider changing his strategy with a certain,"
+    public static final String DESCRIPTION = "At the end of an adaption step, each agent will consider changing his strategy with a certain,"
             + " configurable 'comparing probability'. If an agent, say A, chooses to do so, he randomly picks another agent B. He then compares"
             + " ranks, and if A is ranked higher then B, he keeps his strategy. Otherwise, he takes B's strategy with a probability p that"
             + " is proportional to the configurable 'adjusting probability' and the difference in ranks. If mixed strategies are used,"

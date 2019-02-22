@@ -1,11 +1,8 @@
 package loop.view.historylistview.templates;
 
-import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
 import loop.model.simulator.SimulationResult;
 
 

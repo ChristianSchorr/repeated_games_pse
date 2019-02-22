@@ -13,15 +13,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.function.BiPredicate;
-
 import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.SimulationResult;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 
 /**
  * This class provides static functionality for loading and storing entities in files.

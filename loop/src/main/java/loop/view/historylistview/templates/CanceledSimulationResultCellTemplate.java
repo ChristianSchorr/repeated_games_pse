@@ -1,8 +1,5 @@
 package loop.view.historylistview.templates;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import loop.model.simulator.SimulationResult;
 
