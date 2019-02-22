@@ -96,7 +96,7 @@ public class FileIO {
 	    		try {
 					list.add(FileIO.loadEntity(f));
 				} catch (IOException e) {
-					e.printStackTrace();
+					System.err.println("Invalid file : " + f.getAbsolutePath());
 				}
 	    	}
 	    }
