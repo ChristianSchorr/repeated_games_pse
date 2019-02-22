@@ -8,9 +8,7 @@ import javafx.scene.control.Skin;
 import javafx.util.StringConverter;
 import loop.view.controls.multislider.skin.MultiSliderSkin;
 
-import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**

@@ -1,6 +1,5 @@
 package loop.view.historylistview;
 
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import loop.model.simulator.SimulationResult;

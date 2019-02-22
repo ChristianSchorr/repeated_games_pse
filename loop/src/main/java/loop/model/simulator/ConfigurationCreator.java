@@ -3,8 +3,6 @@ package loop.model.simulator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-
 import loop.model.Group;
 import loop.model.MulticonfigurationParameter;
 import loop.model.MulticonfigurationParameterType;
@@ -20,7 +18,6 @@ import loop.model.simulationengine.Game;
 import loop.model.simulationengine.PairBuilder;
 import loop.model.simulationengine.StrategyAdjuster;
 import loop.model.simulationengine.SuccessQuantifier;
-import loop.model.simulationengine.distributions.DiscreteDistribution;
 import loop.model.simulationengine.distributions.UniformFiniteDistribution;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.exception.ConfigurationException;

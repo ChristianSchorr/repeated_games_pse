@@ -1,11 +1,6 @@
 package loop.model.simulationengine;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
 
 /**
  * Realises the �Ranggleichgewicht� described in the specification.
@@ -16,7 +11,7 @@ import loop.model.plugin.Plugin;
 public class RankingEquilibrium extends CountingEquilibriumCriterion {
     
     public static final String NAME = "Ranking Equilibrium";
-    private static final String DESCRIPTION = "After every adaption step, calculates the mean distance of the agents ranks to their previous ones."
+    public static final String DESCRIPTION = "After every adaption step, calculates the mean distance of the agents ranks to their previous ones."
             + " Then the determined amount of change is compared with a configurable 'strictness', and if the change"
             + " in rankings is lower than that strictness for a configurable amount of consecutive adaption steps, an equilibrium is reached.";
     

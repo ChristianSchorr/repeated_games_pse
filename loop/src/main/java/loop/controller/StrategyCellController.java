@@ -6,8 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import loop.model.simulationengine.strategies.Strategy;
-import loop.model.simulationengine.strategy.strategybuilder.Operator;
-
 import java.io.IOException;
 import java.util.function.Consumer;
 

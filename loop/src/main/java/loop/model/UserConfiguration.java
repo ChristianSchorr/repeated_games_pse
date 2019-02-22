@@ -6,10 +6,7 @@ import java.util.List;
 
 import loop.model.repository.CentralRepository;
 import loop.model.simulationengine.ConcreteGame;
-import loop.model.simulationengine.Configuration;
-import loop.model.simulationengine.EngineSegment;
 import loop.model.simulationengine.EquilibriumCriterion;
-import loop.model.simulationengine.Game;
 import loop.model.simulationengine.PairBuilder;
 import loop.model.simulationengine.PayoffInLastAdapt;
 import loop.model.simulationengine.RandomPairBuilder;
@@ -17,12 +14,8 @@ import loop.model.simulationengine.ReplicatorDynamic;
 import loop.model.simulationengine.StrategyAdjuster;
 import loop.model.simulationengine.StrategyEquilibrium;
 import loop.model.simulationengine.SuccessQuantifier;
-import loop.model.simulationengine.distributions.DiscreteDistribution;
 import loop.model.simulationengine.distributions.DiscreteUniformDistribution;
-import loop.model.simulationengine.distributions.UniformFiniteDistribution;
 import loop.model.simulationengine.strategies.PureStrategy;
-import loop.model.simulationengine.strategies.RealVector;
-import loop.model.simulationengine.strategies.Strategy;
 
 /**
  * This class represents a user-created configuration. It provides getter methods for all

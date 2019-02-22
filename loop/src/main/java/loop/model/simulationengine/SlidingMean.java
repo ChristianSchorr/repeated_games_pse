@@ -3,10 +3,6 @@ package loop.model.simulationengine;
 import java.util.ArrayList;
 import java.util.List;
 
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
-
 /**
  * Realises the "Gleitender Durchschnitt" success quantification.
  * 
@@ -16,7 +12,7 @@ import loop.model.plugin.Plugin;
 public class SlidingMean implements SuccessQuantifier {
     
     public static final String NAME = "Sliding Mean";
-    private static final String DESCRIPTION = "Calculates a sliding mean with window size w over the payoffs received in the elapsed"
+    public static final String DESCRIPTION = "Calculates a sliding mean with window size w over the payoffs received in the elapsed"
             + " adaption step for each agent. Details in the specification";
     
     private int w;

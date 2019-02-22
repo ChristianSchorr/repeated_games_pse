@@ -22,7 +22,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.NumberStringConverter;
-import loop.model.Group;
 import loop.model.Population;
 import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;

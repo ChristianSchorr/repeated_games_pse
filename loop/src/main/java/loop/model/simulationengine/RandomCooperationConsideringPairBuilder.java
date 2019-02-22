@@ -1,12 +1,7 @@
 package loop.model.simulationengine;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
 
 /**
  * Realises the "Paarbildung nach Wunsch mit Zufall" pairing mechanism as described in the specification.
@@ -17,7 +12,7 @@ import loop.model.plugin.Plugin;
 public class RandomCooperationConsideringPairBuilder implements PairBuilder {
     
     public static final String NAME = "Random Cooperation Considering Pair Builder";
-    private static final String DESCRIPTION = "Tries to maximize mutual cooperation probability for each builded pair, i.e. builds pairs"
+    public static final String DESCRIPTION = "Tries to maximize mutual cooperation probability for each builded pair, i.e. builds pairs"
             + " such that the probability of both agents cooperating is as high as possible for each pair. Though with a certain probability,"
             + " given by the randomness factor, pairs the agents completely at random instead.";
     

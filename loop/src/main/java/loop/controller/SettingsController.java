@@ -1,8 +1,6 @@
 package loop.controller;
 
 import java.io.File;
-import java.io.IOException;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,10 +14,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import loop.LoopSettings;
-import loop.model.repository.FileIO;
 
 public class SettingsController {
 	private Stage stage;

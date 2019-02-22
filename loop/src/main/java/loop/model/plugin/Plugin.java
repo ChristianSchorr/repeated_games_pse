@@ -3,11 +3,6 @@ package loop.model.plugin;
 import java.util.List;
 
 import loop.model.Nameable;
-import loop.model.simulationengine.EquilibriumCriterion;
-import loop.model.simulationengine.PairBuilder;
-import loop.model.simulationengine.StrategyAdjuster;
-import loop.model.simulationengine.SuccessQuantifier;
-import loop.model.simulationengine.distributions.DiscreteDistribution;
 
 /**
  * This class represents a dynamically loadable plugin. It is a generic container for another

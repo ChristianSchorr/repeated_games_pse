@@ -1,13 +1,8 @@
 package loop.model.simulationengine;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import loop.model.plugin.Parameter;
-import loop.model.plugin.ParameterValidator;
-import loop.model.plugin.Plugin;
 
 /**
  * Realises the "Absolutkapital" success quantification.
@@ -18,7 +13,7 @@ import loop.model.plugin.Plugin;
 public class PayoffInLastAdapt implements SuccessQuantifier {
     
     public static final String NAME = "Payoff in the Last Adaption Step";
-    private static final String DESCRIPTION = "Uses the total payoff received within the games "
+    public static final String DESCRIPTION = "Uses the total payoff received within the games "
             + "of the elapsed adaption step as success quantification for each agent.";
     
     @Override

@@ -1,17 +1,12 @@
 package loop.model.simulationengine;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
-import javafx.scene.chart.PieChart;
 import loop.model.simulationengine.strategies.MixedStrategy;
-import loop.model.simulationengine.strategies.RealVector;
 import loop.model.simulationengine.strategies.Strategy;
 
 /**

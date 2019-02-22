@@ -1,14 +1,11 @@
 package loop.controller;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
@@ -18,19 +15,13 @@ import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
 import loop.view.historylistview.HistoryListCell;
-import loop.view.historylistview.templates.FinishedSimulationResultCellTemplate;
-import loop.view.historylistview.templates.RunningSimulationResultCellTemplate;
 import org.controlsfx.control.Notifications;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * This controller manages the list of all running and finsihed simulations in the main win-

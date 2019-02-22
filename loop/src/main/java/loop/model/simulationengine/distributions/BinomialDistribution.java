@@ -3,16 +3,6 @@ package loop.model.simulationengine.distributions;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.HBox;
-import loop.model.plugin.*;
-
 /**
  * Represents a binomial distribution.
  * 
@@ -22,7 +12,7 @@ import loop.model.plugin.*;
 public class BinomialDistribution implements DiscreteDistribution {
     
     public static final String NAME = "Binomial Distribution";
-    private static final String DESCRIPTION = "This is a binomial distribution that is shifted such that instead of taking values between"
+    public static final String DESCRIPTION = "This is a binomial distribution that is shifted such that instead of taking values between"
             + " 0 and n, it takes values between specifiable bounds a and b, where a and b must be non-negative integers.";
     
     private int min;
