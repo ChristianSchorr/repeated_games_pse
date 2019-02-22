@@ -110,7 +110,7 @@ public class HeadController {
         updateConfiguration(UserConfiguration.getDefaultConfiguration(), false);
 
         //create simulator
-        simulator = new ThreadPoolSimulator(Runtime.getRuntime().availableProcessors() - 1);
+        simulator = new ThreadPoolSimulator(settings.getThreadCount());
         //register callback for the import of configurations from simulation results
         historyViewController.registerImportUserConfiguration(config -> importConfiguration(config));
         historyViewController.registerCancleRequestHandler(sim -> simulator.stopSimulation(sim));

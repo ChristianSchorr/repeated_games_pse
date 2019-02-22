@@ -43,7 +43,7 @@
         </HBox>
         <Separator style="-fx-padding: 10 0"/>
         <VBox>
-            <Label text="Number of threads that shall be used for simulations:"/>
+            <Label text="Number of threads that shall be used for simulations (applied after a restart):"/>
             <HBox alignment="TOP_LEFT" spacing="20">
                 <Slider fx:id="threadcount_Slider" showTickLabels="true" showTickMarks="true" snapToTicks="true"/>
                 <HBox alignment="CENTER_LEFT">
