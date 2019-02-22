@@ -1,20 +1,15 @@
 package loop.controller;
 
 import java.io.File;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import loop.LoopSettings;
 
 public class SettingsController {
@@ -30,17 +25,15 @@ public class SettingsController {
 
 	@FXML
 	private Slider threadcount_Slider;
-	
-	@FXML
-	private CheckBox reserveThread_CheckBox;
-	
+
 	@FXML
 	private ListView url_ListView;
 
+	@FXML
+	private Label warning;
+
 	private int threadCount;
 
-	private BooleanProperty saveThread = new SimpleBooleanProperty();
-	private IntegerProperty sliderVal = new SimpleIntegerProperty();
 
 	public void setStage(Stage s) {
 		this.stage = s;
@@ -48,35 +41,35 @@ public class SettingsController {
 	
 	public void setSettings(LoopSettings settings) {
 		this.settings = settings;
+		notification_CheckBox.setSelected(settings.isEnable_notification());
+		tooltip_CheckBox.setSelected(settings.isEnable_tooltip());
+		threadcount_Slider.setValue(settings.getThreadCount());
+		url_ListView.getItems().addAll(settings.getPersonalURLs());
 	}
-	
+
+	FadeTransition fadeIn = new FadeTransition(Duration.millis(750));
+	FadeTransition fadeOut = new FadeTransition(Duration.millis(750));
+
 	@FXML
 	void initialize() {
 		threadCount = Runtime.getRuntime().availableProcessors();
-		this.notification_CheckBox.setSelected(true);
-		this.tooltip_CheckBox.setSelected(true);
+
+		fadeIn.setByValue(1);
+		fadeIn.setNode(warning);
+
+		fadeOut.setByValue(-1);
+		fadeOut.setNode(warning);
+		warning.setOpacity(0);
 
 		threadcount_Slider.setMin(1);
 		threadcount_Slider.setMax(threadCount);
 		threadcount_Slider.setMajorTickUnit(1);
 		threadcount_Slider.setMinorTickCount(1);
 		threadcount_Slider.setBlockIncrement(1);
-		threadcount_Slider.valueProperty().bindBidirectional(sliderVal);
-		sliderVal.addListener(c -> {
-					if (saveThread.getValue()) {
-						if (sliderVal.getValue() == threadCount)
-							sliderVal.setValue(threadCount - 1);
-					}
-				});
-
-		reserveThread_CheckBox.selectedProperty().bindBidirectional(saveThread);
-		saveThread.addListener(c -> {
-			if (saveThread.getValue()) {
-				if (sliderVal.getValue() == threadCount)
-					sliderVal.setValue(threadCount - 1);
-			}
+		threadcount_Slider.valueProperty().addListener((c, o , n) -> {
+			if (n.intValue() == threadCount) fadeIn.playFromStart();
+			else fadeOut.playFromStart();
 		});
-		url_ListView.getItems().addAll(settings.getPersonalURLs());
 	}
 	
 	@FXML
@@ -106,8 +99,7 @@ public class SettingsController {
 	void confirmSettings(ActionEvent event) {
 		settings.setEnable_notification(this.notification_CheckBox.isSelected());
 		settings.setEnable_tooltip(this.tooltip_CheckBox.isSelected());
-		settings.setReserveThread(this.reserveThread_CheckBox.isSelected());
-		settings.setThreadcount((int) this.threadcount_Slider.getValue());
+		settings.setThreadCount((int) this.threadcount_Slider.getValue());
 		settings.save();
 		this.stage.close();
 	}

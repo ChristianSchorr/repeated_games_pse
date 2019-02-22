@@ -3,8 +3,14 @@ package loop;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 import loop.model.repository.FileIO;
 /**
  * This class represents some global and persistent settings for the loop programm
@@ -16,8 +22,7 @@ public class LoopSettings implements Serializable {
 	private static final long serialVersionUID = 4601976642416292878L;
 	private boolean enable_tooltip;
 	private boolean enable_notification;
-	private boolean reserveThread;
-	private int threadcount;
+	private int threadCount;
 	private List<String> personalURLs;
 	
 	private static LoopSettings instance;
@@ -40,28 +45,13 @@ public class LoopSettings implements Serializable {
 	}
 	
 	private LoopSettings() {
+		hackTooltip(true);
 		this.enable_notification = true;
 		this.enable_tooltip = true;
-		this.reserveThread = true;
-		this.threadcount = Runtime.getRuntime().availableProcessors();
+		this.threadCount = Runtime.getRuntime().availableProcessors() - 1;
 		this.personalURLs = new LinkedList<String>();
 	}
-	
-	/**
-	 * Returns if one thread should be reserved for the GUI
-	 * @return true if one thread should be reserved for the GUI
-	 */
-	public boolean isReserveThread() {
-		return reserveThread;
-	}
 
-	/**
-	 * Sets one thread should be reserved for the GUI
-	 * @param reserveThread true if one thread should be reserved for the GUI
-	 */
-	public void setReserveThread(boolean reserveThread) {
-		this.reserveThread = reserveThread;
-	}
 
 	/**
 	 * Returns if tooltips are enabled
@@ -77,6 +67,7 @@ public class LoopSettings implements Serializable {
 	 */
 	public void setEnable_tooltip(boolean enable_tooltip) {
 		this.enable_tooltip = enable_tooltip;
+		hackTooltip(enable_tooltip);
 	}
 	
 	/**
@@ -99,16 +90,16 @@ public class LoopSettings implements Serializable {
 	 * Returns the number of threads available 
 	 * @return the number of threads available
 	 */
-	public int getThreadcount() {
-		return threadcount;
+	public int getThreadCount() {
+		return threadCount;
 	}
 	
 	/**
 	 * Sets the number of threads used in the programm
-	 * @param threadcount the number of threads 
+	 * @param threadCount the number of threads
 	 */
-	public void setThreadcount(int threadcount) {
-		this.threadcount = threadcount;
+	public void setThreadCount(int threadCount) {
+		this.threadCount = threadCount;
 	}
 	
 	/**
@@ -142,6 +133,33 @@ public class LoopSettings implements Serializable {
 		try {
 			FileIO.saveEntity(new File(FileIO.SETTINGS_DIR + "/currentSettings") , instance);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
+	private static void hackTooltip(boolean enable) {
+		Tooltip tooltip = new Tooltip();
+		try {
+			Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+			fieldBehavior.setAccessible(true);
+			Object objBehavior = fieldBehavior.get(tooltip);
+
+			Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+			fieldTimer.setAccessible(true);
+			Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+			objTimer.getKeyFrames().clear();
+			objTimer.getKeyFrames().add(new KeyFrame(new Duration(enable ? 500 : 50000000)));
+
+			Field hideTimer = objBehavior.getClass().getDeclaredField("hideTimer");
+			hideTimer.setAccessible(true);
+			objTimer = (Timeline) hideTimer.get(objBehavior);
+
+			objTimer.getKeyFrames().clear();
+			objTimer.getKeyFrames().add(new KeyFrame(new Duration(10000)));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
