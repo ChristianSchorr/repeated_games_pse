@@ -16,7 +16,6 @@ import java.util.Stack;
 import loop.model.simulationengine.SimulationHistory;
 import loop.model.simulationengine.strategies.Strategy;
 import loop.model.simulator.SimulationResult;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,14 +36,15 @@ public class FileIO {
 	public final static File POPULATION_DIR = new File(currentUsersDir + "/populations");
 	public final static File SIMULATIONRESULTS_DIR = new File(currentUsersDir + "/simulationresults");
 	public final static File SETTINGS_DIR = new File(currentUsersDir + "/settings");
-
+	
+	private final static String[] extensions = {".gam", ".strt", ".pop", ".grp" };
+	private final static String[] directories = {"/configurations" , "/games" , "/strategies" ,
+					"/populations" , "/simulationresults" , "/groups" , "/settings" };
+			
 	/**
 	 * Creates the directories necessary to save and load objects in loop.
 	 */
 	public static void initializeDirectories() {
-		String[] directories = {"/configurations" , "/games" , "/strategies" ,
-				"/populations" , "/simulationresults" , "/groups" , "/settings"
-		};
 		File file;
 		for(String s: directories) {
 			file = new File(currentUsersDir + s);
@@ -89,11 +89,11 @@ public class FileIO {
 	    	if (f.isDirectory()) {
 	    		pushFilesOnStack(files, f);
 	    	}
-	    	else {
-	    		try {
+	    	else if (validExtension(f)) {				
+				try {
 					list.add(FileIO.loadEntity(f));
 				} catch (IOException e) {
-					System.err.println("Invalid file : " + f.getAbsolutePath());
+					e.printStackTrace();
 				}
 	    	}
 	    }
@@ -171,5 +171,19 @@ public class FileIO {
 		for(int i = 0; i < dir.listFiles().length; i++) {
 			s.push(dir.listFiles()[i]);
 		}
+	}
+	
+	private static boolean validExtension(File f) {
+		String extension = "";
+		int i = f.getName().lastIndexOf('.');
+		if (i > 0) {
+		    extension = f.getName().substring(i);
+		}
+		for (int k = 0; k < extensions.length; k++) {
+			if (extension.equals(extensions[k])) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
