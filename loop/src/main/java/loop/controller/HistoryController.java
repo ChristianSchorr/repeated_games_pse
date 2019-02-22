@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import loop.LoopSettings;
 import loop.model.UserConfiguration;
 import loop.model.simulator.SimulationResult;
 import loop.model.simulator.SimulationStatus;
@@ -99,7 +100,7 @@ public class HistoryController {
                 }));
             }
             Platform.runLater(() -> historyList.refresh());
-            if (res.getStatus() == SimulationStatus.FINISHED)
+            if (res.getStatus() == SimulationStatus.FINISHED && LoopSettings.getInstance().isEnable_notification())
                 showFinishNotification(simulationResult);
         });
         simulationResult.registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));

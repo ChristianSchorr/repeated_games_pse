@@ -67,32 +67,6 @@ public class Main extends Application {
      * @param args the commandline arguments (unused)
      */
     public static void main(String[] args) {
-        hackTooltip();
         launch(args);
-    }
-
-    private static void hackTooltip() {
-        Tooltip tooltip = new Tooltip();
-        try {
-            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
-            fieldBehavior.setAccessible(true);
-            Object objBehavior = fieldBehavior.get(tooltip);
-
-            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
-            fieldTimer.setAccessible(true);
-            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
-
-            objTimer.getKeyFrames().clear();
-            objTimer.getKeyFrames().add(new KeyFrame(new Duration(500)));
-
-            Field hideTimer = objBehavior.getClass().getDeclaredField("hideTimer");
-            hideTimer.setAccessible(true);
-            objTimer = (Timeline) hideTimer.get(objBehavior);
-
-            objTimer.getKeyFrames().clear();
-            objTimer.getKeyFrames().add(new KeyFrame(new Duration(10000)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

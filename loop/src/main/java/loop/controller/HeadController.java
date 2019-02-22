@@ -297,6 +297,7 @@ public class HeadController {
         settingWindow.setTitle("Settings");
         settingWindow.setScene(settingScene);
         controller.setStage(settingWindow);
+        controller.setSettings(LoopSettings.getInstance());
 
         // Specifies the modality for new window.
         settingWindow.initModality(Modality.APPLICATION_MODAL);
