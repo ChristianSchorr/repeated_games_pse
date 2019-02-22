@@ -63,13 +63,13 @@ public class HistoryController {
         historyList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             selectedItem = newValue;
             if (selectedItem != null)
-                Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem, (i) -> {
+                outputViewController.setDisplayedResult(selectedItem, (i) -> {
                     for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i);
                 }, res -> {
                     history.remove(res);
                     if (history.isEmpty())
                         outputViewController.setDisplayedResult(null, null, null);
-                }));
+                });
         });
         historyList.setCellFactory(param -> new HistoryListCell());
         outputViewController.registerImportUserConfiguration(config -> configImportHandlers.forEach(c -> c.accept(config)));
@@ -89,13 +89,18 @@ public class HistoryController {
      */
     public void addSimulation(SimulationResult simulationResult) {
         simulationResult.registerSimulationStatusChangedHandler((res, stat) -> {
+            if (!(selectedItem == null || res != selectedItem)) {
+                Platform.runLater(() -> outputViewController.setDisplayedResult(selectedItem, (i) -> {
+                    for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(i);
+                }, result -> {
+                    history.remove(result);
+                    if (history.isEmpty())
+                        outputViewController.setDisplayedResult(null, null, null);
+                }));
+            }
             Platform.runLater(() -> historyList.refresh());
             if (res.getStatus() == SimulationStatus.FINISHED)
                 showFinishNotification(simulationResult);
-            if (selectedItem == null || res != selectedItem) return;
-            int index = historyList.getSelectionModel().getSelectedIndex();
-            historyList.getSelectionModel().clearSelection();
-            historyList.getSelectionModel().select(index);
         });
         simulationResult.registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));
         history.add(simulationResult);
