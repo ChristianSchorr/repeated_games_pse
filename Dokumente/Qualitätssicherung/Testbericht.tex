@@ -1,0 +1,136 @@
+\documentclass[parskip=full,11pt,openany]{scrreprt}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage{inconsolata}
+\usepackage[ngerman]{babel}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage[section]{placeins}
+\usepackage{booktabs}
+
+\usepackage{amsmath}
+
+\usepackage{enumitem} 
+
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}% 
+
+\usepackage[]{hyperref}
+\usepackage{makecell}
+
+
+%Change enummeration pattern from 1. to 1)
+\renewcommand\labelenumi{\theenumi)}
+
+%align lambda terms left, no spacing before or after environment
+\newenvironment{nospaceflalign*}
+ {\setlength{\abovedisplayskip}{0pt}\setlength{\belowdisplayskip}{0pt}%
+  \csname flalign*\endcsname}
+ {\csname endflalign*\endcsname\ignorespacesafterend}
+
+
+\titlehead{\centering\includegraphics[width=6cm]{img/logo.pdf}}
+\title{Testbericht}
+\subtitle{Wavelength--$\bm{\lambda}$-IDE}
+\author{Muhammet Gümüs, Markus Himmel, Marc Huisinga,\\Philip Klemens, Julia Schmid, Jean-Pierre von der Heydt}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{5cm}
+	\includegraphics[width = 0.7\linewidth]{images/logo.png}\par
+	{\huge\bfseries Ein Simulator für wiederholte Spiele\par}
+	%\vspace{1cm}
+	{\Large Implementierungsbericht\par}
+	\vspace{2cm}
+	{\Large\itshape Sebastian Feurer, Peter Koepernik, Luc Mercatoris,\\Christian Schorr, Pierre Toussing\par}
+	\vfill
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\pagebreak
+
+\chapter{Überblick}
+
+\section{Einleitung}
+
+In diesem Dokument werden die Ergebnisse der Qualitätssicherungsphase des Loop-Projekts festgehalten.
+In dieser Phase wurden neben ausführlichem Testen Performance-Verbesserungen vorgenommen und noch einige neue Features implementiert.
+
+\section{Änderungen in der Applikation}
+
+
+\section{Abdeckung der Tests im Pflichtenheft}
+
+Die folgende Tabelle greift die im Pflichtenheft definierten Test auf und gibt an, welche davon getestet wurden. Da es sich fast ausschließlich um GUI-Tests handelt, erfolgte das Testen größtenteils manuell.
+
+Einige Testszenarien wurden an Spezifikationsänderungen angepasst. Etwa hat sich die Struktur des Konfigurationsfensters durch das Einführen von Populationen in der Entwurfsphase geändert.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}ll|c|r@{}}
+		\toprule
+		&\textbf{Test Nr.} & \textbf{Getestet} &\textbf{Anmerkung} \\ 
+		\midrule
+		\multicolumn{3}{l|}{\small \textsc{\textbf{T1} Grundeinstellungen}} \\ 
+		&T1.1 - T1.4 & \cmark & \\
+		&T1.5 & (\xmark) & \makecell{Einstellung wurde mit dem Einführen\\ von Populationen entfernt}\\
+		&T1.6 & \cmark & Der Slider wurde durch ein Textfeld ersetzt\\
+		&T1.7 & \cmark & \\
+		&T1.8 & \cmark & \\
+		&T1.9 - T1.10 & (\xmark) & \makecell{Einstellungen wurden mit dem Einführen\\ von Populationen entfernt}\\
+		&T1.11 & \cmark & \\ 
+		\multicolumn{4}{l}{\small \textsc{\textbf{T2} Simulationen starten und abbrechen, Ergebnisanzeige}}\\ 
+		&T2.1 & \cmark & \\
+		&T2.2 - T2.3 & \cmark & Der Knopf zum Abbrechen wurde verschoben\\
+		&T2.4 - T2.6 & \cmark & \\
+		\multicolumn{4}{l}{\small \textsc{\textbf{T3} Konfigurationen und Simulationen speichern und laden}}\\ 	
+		&T3.1 - T3.4 & \cmark & \makecell{Konfigurationen werden nun vom Hauptfenster aus\\ geladen und gespeichert}\\
+		&T3.5 - T3.9 & \cmark & \\
+		\multicolumn{4}{l}{\small \textsc{\textbf{T4} Gruppen- und Segmenteinteilung}}\\ 
+		&T4.1 - T4.8 & (\cmark) & \makecell{Die Gruppenerstellung wurde mit dem Einführen von\\ Populationen überarbeitet und entsprechend getestet} \\
+		\multicolumn{3}{l|}{\small \textsc{\textbf{T5} Stufenspiel erstellen}}\\ 
+		&T5.1 - T5.2 & \cmark & \\
+		\multicolumn{4}{l}{\small \textsc{\textbf{T6} Festlegung des Algorithmus zur Paarbildung}}\\ 
+		&T6.1 - T6.2 & \cmark & \\
+		\multicolumn{4}{l}{\small \textsc{\textbf{T7} Festlegung der Erfolgsquantifizierung}}\\ 
+		&T7.1 - T7.3 & \cmark & \\
+		\multicolumn{4}{l}{\small \textsc{\textbf{T8} Festlegung des Adaptionsmechanismus}}\\ 
+		&T8.1 - T8.3 & \cmark & \\
+		\multicolumn{4}{l}{\small \textsc{\textbf{T9} Gleichgewichtskriterium und Schranke für Adaptionsschritte festlegen}}\\ 
+		&T9.1 - T9.4 & \cmark & \\
+		\multicolumn{3}{l|}{\small \textsc{\textbf{T10} Multikonfiguration}}\\ 
+		&T10.1, T10.3 & \cmark & \makecell{Die Einstellung des Multi-Parameters erfolgt nun\\ über ein dediziertes Dropdown-Menü}\\
+		&T10.2, T10.4 - T10.6 & \cmark & \\
+		\multicolumn{3}{l|}{\small \textsc{\textbf{T11} Strategie erstellen}}\\
+		&T11.1 - T11.3 & \cmark & \\
+		\multicolumn{3}{l|}{\small \textsc{\textbf{T12} Fehlerbehandlung}}\\ 
+		&T12.1, T12.3 - T12.7 & (\xmark) & \makecell{Einstellungen wurden mit dem Einführen\\ von Populationen entfernt}\\
+		&T12.2 & (\cmark) & \makecell{Statt einer Autokorrektur wird eine fehlerhafte\\ Eingabe entsprechend markiert}\\
+		\bottomrule
+	\end{tabular}
+	\caption{Übersicht zur Abdeckung der Test aus dem Pflichtenheft}
+\end{table}
+
+\section{Statistiken}
+
+X testklassen, X tests, X zeilen testcode
+
+prozent testabdeckung
+
+\end{document}
