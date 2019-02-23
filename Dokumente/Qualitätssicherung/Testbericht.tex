@@ -74,10 +74,62 @@ In der ursprünglichen Version des Programms wurden Simulationsergebnisse sehr i
 
 Wir konnten die Simulationsergebnisse komprimieren, indem wir die von der Ausgabe benötigten Informationen (wie Strategie- oder Kapitalverteilung) direkt nach Abschluss jeder Wiederholung berechnen und nur diese abspeichern. Simulationen, die zuvor im \(10\)-\(100\) MB Bereich lagen, benötigen nun nur noch \(30\) - \(200\) KB; Größere Simulationen können nun also auch ohne Probleme abgespeichert werden.
 
+\subsection{Laufzeit}
+Um die Laufzeit der Simulationen zu verbessern, mussten wir zunächst herausfinden, welche Prozesse im Simulationsablauf die meiste Zeit benötigen. Dazu verwendeten wir einen Profiler, der die Zeit misst, die verschiedene Methodenaufrufe benötigen. Wie in Abb. \ref{profiler_old} zu sehen, ist die Auswertung der Strategien (\texttt{MixedStrategy.isCooperative} und \texttt{MixedStrategy.getCooperationProbability}) mit \(99.6\%\) der benötigten Zeit das größte Bottleneck. Das liegt daran, dass Strategien wie tit-for-tat oder grim darauf Bezug nehmen, wie sich die anderen Agenten in vorherigen Spielen verhalten haben. Das wird ermöglicht durch die \texttt{SimulationHistory} (siehe Entwurfsdokument), die in jedem Adaptionsschritt eine Liste aller bisherigen Spiele speichert. Spielt nun ein Agent etwa mit der Strategie tit-for-tat gegen einen anderen, wird die Liste \textit{aller} bisherigen Spiele gefiltert nach denjenigen, in denen der Agent und sein Gegner beteiligt waren und davon das neueste betrachtet. Um diesen Prozess zu beschleunigen, speichern wir nun in der \texttt{SimulationHistory} neben einer Liste aller Spiele für jeden Agenten separat eine Liste aller Spiele, an denen dieser Agent beteiligt war\footnote{So werden alle Spiele dreimal abgespeichert. Das ist zwar redundant, da Arbeitsspeicher im Gegensatz zu Zeitbedarf jedoch kein Problem ist, nehmen wir das in Kauf.}. In obiger Situation muss nun nur noch aus der Liste aller Spiele des Agenten das letzte gesucht werden, in dem auch der Gegner beteiligt war. Da nach \(R\) Runden eines Adaptionsschritts bei \(N\) Agenten insgesamt \(O(N\cdot R)\) Spiele gespielt wurden und ein einzelner Agent \(O(R)\) Spiele gespielt hat, wird so eine Beschleunigung um den Faktor \(N\) erreicht. Dadurch und durch einige kleinere Optimierungen konnten wir den Simulationsprozess siginifikant beschleunigen, etwa benötigt eine Simulation der Standardkonfiguration statt zuvor \(2\) - \(3\) Minuten nur noch etwa \(6\) Sekunden\footnote{Auf einem LENOVO ideapad 310 mit drei Threads}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{images/profiler_old.png}
+	\caption{Ausgabe des Profilers während einer Simulation}
+	\label{profiler_old}
+\end{figure}
+
+
 \section{Änderungen in der Applikation}
 
 \subsection{Erweiterung der Ausgabe}
+Es ist nun möglich, die Entwicklung der Strategieverteilung auf der ersten Seite im Ausgabefenster für einzelne Gruppen getrennt zu betrachten. Dazu befindet sich unter dem Diagramm ein Dropdown-Menü, in dem eine Teilmenge aller beteiligten Gruppen ausgewählt werden kann (siehe Abb. \ref{strategydiagram}). Die Strategieverteilung wird dann für die Agenten der ausgewählten Gruppen angezeigt. Insbesondere ergibt sich dasselbe Diagramm wie zuvor, wenn man alle Gruppen auswählt.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/strategydiagram.png}
+	\caption{Gruppenauswahl für die Strategieverteilung}
+	\label{strategydiagram}
+\end{figure}
+
+\subsection{Einstellungsfenster}
+Es gibt nun ein Einstellungsfenster, in dem persistente Einstellungen vorgenommen werden können (siehe Abb. \ref{settings_window}):
+
+\begin{itemize}
+\item[] \textbf{Benachrichtigungen:} Sind Benachrichtigungen aktiviert, so wird der Nutzer durch eine kurze Nachricht auf abgeschlossene Simulationen hingewiesen (siehe Abb \ref{notification})
+\item[] \textbf{Tooltips:} Das Einblenden von Tooltips beim hovern über Knöpfe und andere Elemente kann (de-)aktiviert werden.
+\item[] \textbf{Verwendete Threads:} Der Nutzer kann spezifizieren, wie viele der zur Verfügung stehenden (logischen) Prozessorkerne für Simulationen verwendet werde sollen. Damit die GUI auch während dem Ausführen von Simulationen noch flüssig läuft, ist es zu empfehlen, einen Kern freizuhalten.
+\item[] \textbf{Ordnerstruktur:} Der Nutzer kann Dateipfade angeben, aus denen (zusätzlich zur vom Programm angelegten Ordnerstruktur) bei Programmstart alle hinterlegten Spiele, Populationen, Gruppen und Strategien geladen werden.
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/settings_window.png}
+	\caption{Einstellungsfenster}
+	\label{settings_window}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\linewidth]{images/notification.png}
+	\caption{Benachrichtigung bei abgeschlossener Simulation.}
+	\label{notification}
+\end{figure}
+
+\subsection{Entfernen von Simulationen}
+Es ist nun möglich, abgeschlossene und abgebrochene Simulationen aus der Ansicht zu entfernen (siehe dazu Abb. \ref{deletesimulation}).
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{images/deletesimulation.png}
+	\caption{Knopf zum Entfernen einer abgeschlossenen Simulation.}
+	\label{deletesimulation}
+\end{figure}
 
 \section{Abdeckung der Tests im Pflichtenheft}
 
@@ -136,5 +188,14 @@ Einige Testszenarien wurden an Spezifikationsänderungen angepasst. Etwa hat sic
 X testklassen, X tests, X zeilen testcode
 
 prozent testabdeckung
+
+\chapter{Fehlerprotokoll}
+
+\section{Fehler mit Ursprung im Model}
+%TODO
+
+\section{Fehler mit Ursprung in der Benutzeroberfläche}
+%TODO
+
 
 \end{document}
