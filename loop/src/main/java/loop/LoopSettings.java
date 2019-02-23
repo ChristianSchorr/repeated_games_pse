@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import loop.model.UserConfiguration;
+import loop.model.repository.CentralRepository;
 import loop.model.repository.FileIO;
 /**
  * This class represents some global and persistent settings for the loop programm
@@ -28,6 +29,8 @@ public class LoopSettings implements Serializable {
 	private UserConfiguration configuration;
 	
 	private static LoopSettings instance;
+	
+	private static CentralRepository repo = CentralRepository.getInstance();
 	
 	/**
 	 * Returns the singleton instance

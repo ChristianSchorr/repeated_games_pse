@@ -21,6 +21,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import loop.model.Population;
 import loop.model.UserConfiguration;
 import loop.model.repository.CentralRepository;
 import loop.model.simulationengine.IterationResult;
@@ -306,6 +307,8 @@ public class DetailedOutputController {
             }
             
             //strategy combo box
+            Population population = CentralRepository.getInstance().getPopulationRepository()
+                    .getEntityByName(displayedResult.getUserConfiguration().getPopulationName());
             List<String> consideredGroups = strategyComboBox.getCheckModel().getCheckedItems();
             double groupCount = (double) consideredGroups.size();
             List<double[]> strategyPortions = new ArrayList<double[]>();
@@ -313,10 +316,10 @@ public class DetailedOutputController {
             for (int adapt = 0; adapt < selectedIteration.getAdapts(); adapt++) {
                 double[] portions = new double[selectedIteration.getStrategyNames().size()];
                 for (String grp: consideredGroups) {
-                    add(portions, strategyPortionsByGroup.get(grp).get(adapt)); 
+                    add(portions, strategyPortionsByGroup.get(grp).get(adapt), population.getGroupSize(grp)); 
                 }
                 for (int i = 0; i < portions.length; i++) {
-                    portions[i] /= groupCount;
+                    portions[i] /= population.getSize();
                 }
                 strategyPortions.add(portions);
             }
@@ -336,10 +339,10 @@ public class DetailedOutputController {
             setStrategyChartData(allSeries);
         }
         
-        private void add(double[] array1, double[] array2) {
+        private void add(double[] array1, double[] array2, double factor) {
             if (array1.length != array2.length) return;
             for (int i = 0; i < array1.length; i++) {
-                array1[i] += array2[i];
+                array1[i] += array2[i] * factor;
             }
         }
 

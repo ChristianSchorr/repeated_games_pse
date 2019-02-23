@@ -106,8 +106,9 @@ public class HeadController {
 
     @FXML
     void initialize() {
-        //load default configuration
-        updateConfiguration(settings.getConfiguration(), false);
+        //load default configuration if valid
+        updateConfiguration(UserConfiguration.getDefaultConfiguration(), false, "");
+        updateConfiguration(settings.getConfiguration(), true, "configuration that was set as default");
 
         //create simulator
         simulator = new ThreadPoolSimulator(settings.getThreadCount());
@@ -117,7 +118,7 @@ public class HeadController {
     }
 
     private void importConfiguration(UserConfiguration config) {
-        updateConfiguration(config, true);
+        updateConfiguration(config, true, "opened configuration");
     }
 
     @FXML
@@ -142,7 +143,7 @@ public class HeadController {
     void setToDefaultConfiguration() {
     	settings.setConfiguration(this.activeConfiguration);
     	settings.save();
-    	Alert alert = new Alert(AlertType.CONFIRMATION, "Default Configuration updated", ButtonType.OK);
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Default Configuration updated. Remember to persistently store all self created populations, groups, strategies and games that are used in this configuration as well!", ButtonType.OK);
         alert.showAndWait();
     }
 
@@ -176,7 +177,7 @@ public class HeadController {
         Parent configParent = null;
         try {
             ConfigController controller = new ConfigController();
-            controller.registerElementCreated((config) -> updateConfiguration(config, false));
+            controller.registerElementCreated((config) -> updateConfiguration(config, false, ""));
             FXMLLoader loader = new FXMLLoader(getClass().getResource(CONFIGURATIONWINDOW_FXML));
             loader.setController(controller);
             configParent = loader.load();
@@ -431,10 +432,10 @@ public class HeadController {
         }
     }
 
-    private void updateConfiguration(UserConfiguration configuration, boolean checkForUnknownEntities) {
+    private boolean updateConfiguration(UserConfiguration configuration, boolean checkForUnknownEntities, String configName) {
         if (checkForUnknownEntities) {
             boolean error = false;
-            String errorMsg = "The opened configuration contains unknown entities:";
+            String errorMsg = "The " + configName + " contains unknown entities:";
             if (!repository.getGameRepository().containsEntityName(configuration.getGameName())) {
                 errorMsg += "\n - the game '" + configuration.getGameName() + "'";
             }
@@ -460,12 +461,14 @@ public class HeadController {
             if (error) {
                 Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
                 alert.showAndWait();
-                return;
+                return true;
             }
         }
 
         activeConfiguration = configuration;
         updateConfigurationPreview();
+        
+        return false;
     }
 
     private void updateConfigurationPreview() {
