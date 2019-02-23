@@ -142,6 +142,8 @@ public class HeadController {
     void setToDefaultConfiguration() {
     	settings.setConfiguration(this.activeConfiguration);
     	settings.save();
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Default Configuration updated", ButtonType.OK);
+        alert.showAndWait();
     }
 
     @FXML
