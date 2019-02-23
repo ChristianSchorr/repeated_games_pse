@@ -6,12 +6,12 @@
 \contentsline {subsection}{\numberline {2.3}View the simulation results}{7}{subsection.2.3}
 \contentsline {subsubsection}{\numberline {2.3.1}Detailed Output}{8}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}Abstracted Output}{9}{subsubsection.2.3.2}
-\contentsline {subsection}{\numberline {2.4}Save the result}{11}{subsection.2.4}
-\contentsline {section}{\numberline {3}Multiconfigurations}{12}{section.3}
-\contentsline {section}{\numberline {4}Extensions}{14}{section.4}
-\contentsline {subsection}{\numberline {4.1}Create new strategies}{14}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Create new games}{16}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Create new groups}{16}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Create new populations}{18}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Important Information on Saving and Exporting Extensions}{20}{subsection.4.5}
-\contentsline {section}{\numberline {5}The Plugin-System}{21}{section.5}
+\contentsline {subsection}{\numberline {2.4}Save the result}{10}{subsection.2.4}
+\contentsline {section}{\numberline {3}Multiconfigurations}{13}{section.3}
+\contentsline {section}{\numberline {4}Extensions}{15}{section.4}
+\contentsline {subsection}{\numberline {4.1}Create new strategies}{15}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Create new games}{17}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Create new groups}{17}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Create new populations}{19}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Important Information on Saving and Exporting Extensions}{21}{subsection.4.5}
+\contentsline {section}{\numberline {5}The Plugin-System}{22}{section.5}

@@ -43,18 +43,18 @@
         </HBox>
         <Separator style="-fx-padding: 10 0"/>
         <VBox>
-            <Label text="Number of threads that shall be used for simulations (applied after a restart):"/>
+            <Label text="Number of cores that shall be used for simulations (applied after a restart):"/>
             <HBox alignment="TOP_LEFT" spacing="20">
                 <Slider fx:id="threadcount_Slider" showTickLabels="true" showTickMarks="true" snapToTicks="true"/>
                 <HBox alignment="CENTER_LEFT">
-                    <Label text="WARNING! You might want to reserve one thread for the user interface" wrapText="true" prefWidth="350"
+                    <Label text="WARNING! You might want to reserve one core for the user interface." wrapText="true" prefWidth="350"
                             style="-fx-font-size: 15; -fx-text-fill: #E51400" fx:id="warning"/>
                 </HBox>
             </HBox>
         </VBox>
         <Separator style="-fx-padding: 10 0"/>
         <VBox spacing="10">
-            <Label text="Folder structures from which saved extensions are loaded at program start:"/>
+            <Label text="Directories from which stored extensions are loaded at program start:"/>
             <ListView fx:id="url_ListView"/>
             <HBox>
                 <Button onAction="#addURL">

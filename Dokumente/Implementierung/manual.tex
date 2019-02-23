@@ -129,13 +129,20 @@ If selected, the output view will display detailed information about the simulat
 \end{figure}
 In the detailed output (see Fig.\ref{fig:detailed_output}), information about strategy and capital distribution of the agents are displayed for any selected iteration. To select an iteration, use the correspondingly labeled slider at the top of the output view \circled{1}. The iterations are sorted by their final efficiency, i.e. in the case of Fig.\ref{fig:detailed_output}, iteration \(1/8\) is the least, iteration \(8/8\) the most efficient among the eight executed iterations.
 
-\textbf{Strategy distribution:} The line chart labeled \enquote{Strategy distribution} \circled{2} displays the evolution of the mixture of strategies used by the agents over the time of the simulation. It contains one line for every used (pure) strategy. Each line indicates the relative frequency of the corresponding strategy being used by agents in every single adaption step. For example, consider the strategy distribution displayed in Fig.\ref{fig:strategy_distribution}. It tells us that in the beginning of the simulation, all strategies appeared with a similar frequency of \(20\%\) to \(35\%\). Towards the end, \enquote{grim} prevailed with a frequency of about \(67\%\), while \enquote{tit for tat} stayed at about \(23\%\) and \enquote{never cooperate} and \enquote{always cooperate} dropped below \(10\%\).
+\textbf{Strategy distribution:} The line chart labeled \enquote{Strategy distribution} \circled{2} displays the evolution of the mixture of strategies used by the agents over the time of the simulation. It contains one line for every used (pure) strategy. Each line indicates the relative frequency of the corresponding strategy being used by agents in every single adaption step. For example, consider the strategy distribution displayed in Fig.\ref{fig:strategy_distribution}. It tells us that in the beginning of the simulation, all strategies appeared with a similar frequency of \(20\%\) to \(35\%\). Towards the end, \enquote{grim} prevailed with a frequency of about \(67\%\), while \enquote{tit for tat} stayed at about \(23\%\) and \enquote{never cooperate} and \enquote{always cooperate} dropped below \(10\%\). Below the chart, a dropdown menu can be used to specify the groups of which the strategy distribution shall be shown (see Fig. \ref{consideredgroups}). This can be used to seperately investigate the evolution of agents in different groups.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{img_manual/strategy_distribution.png}
 	\caption{An exemplary strategy distribution.}
 	\label{fig:strategy_distribution}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 0.6\linewidth]{img_manual/strategydiagram.png}
+	\caption{The dropdown menu that can be used to specify the considered groups.}
+	\label{consideredgroups}
 \end{figure}
 
 \textbf{Capital distribution:} The bar chart labeled \enquote{Capital distribution} \circled{3} displays a histogramm of the final total capitals of all agents at the end of the simulation. The width of the bins of the histogram are chosen in a way such that there is always about \(15\) bins. Each bin is then labeled with the mean of the interval covered by it. Note that final capitals might be negative (as in Fig.\ref{fig:capital_distribution}) if the payoffs of the used game are negative (such as in the prisoner's dilemma).
