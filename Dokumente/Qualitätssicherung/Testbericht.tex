@@ -192,7 +192,17 @@ prozent testabdeckung
 \chapter{Fehlerprotokoll}
 
 \section{Fehler mit Ursprung im Model}
-%TODO
+
+\textbf{Die Syntax von selbsterstellten Strategien wurde nicht korrekt geprüft.} \newline
+\textbf{Grund: } Der Algorithmus zum Erkennen von fehlerhaften Teilbäumen des Syntaxbaumes war nicht korrekt implementiert. Der kleinste fehlerhafte Teilbau, wird nicht richtig erkannt. Insbesondere konnte manchen Fällen eine Endlosschleife auftreten.
+\newline
+\textbf{Behebung: } Der entsprechende Algorithmus wurde korrigiert.
+
+\textbf{Strategien, bei denen sich der Agent darauf bezieht, ob Agenten aus seiner Gruppe gegen diesen bestimmten Gegner kooperiert haben, schlugen Fehl.} 
+\newline
+\textbf{Grund: } Bei der Implementierung der jeweiligen Strategien, wurde auf falsche Agenten zugegriffen, sodass auch Spiele zwischen Agenten berücksichtigt wurden, die nicht hätten dürfen.
+\newline
+\textbf{Behebung: } Größere Umstrukturierungen bei der Implementierung von den jeweiligen Strategien. 
 
 \section{Fehler mit Ursprung in der Benutzeroberfläche}
 %TODO
