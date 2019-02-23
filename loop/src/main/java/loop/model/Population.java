@@ -40,15 +40,9 @@ public class Population implements Nameable, Serializable {
 	        throw new IllegalArgumentException("A group cannot be contained more than once in a population.");
 	    }
 	    
-	    int sizeSum = 0;
         for (Integer a: groupSizes) {
             if (a < 1)
                 throw new IllegalArgumentException("Invalid parameters in creation of new population: groups must have sizes larger than zero.");
-            
-            sizeSum += a;
-        }
-        if (sizeSum % 2 == 1) {
-            throw new IllegalArgumentException("Invalid parameters in creation of new population: agent count must be even.");
         }
 	    
 	    this.name = name;

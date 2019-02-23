@@ -101,7 +101,8 @@ public class UserConfiguration implements Serializable {
 	 * @return a default configuration
 	 */
 	public static UserConfiguration getDefaultConfiguration() {
-	    int agentCount = 50;
+	    int agentCountBad = 15;
+	    int agentCountGood = 30;
         int roundCount  = 200;
         int iterationCount = 8;
         int maxAdapts = 500;
@@ -121,13 +122,22 @@ public class UserConfiguration implements Serializable {
         
         String capitalDistributionName = DiscreteUniformDistribution.NAME;
         List<Double> distParameters = toList(0.0, 10.0);
-        List<String> strategyNames = toList(PureStrategy.alwaysCooperate().getName(), PureStrategy.neverCooperate().getName(),
-                PureStrategy.titForTat().getName(), PureStrategy.grim().getName());
-        Segment segment = new Segment(capitalDistributionName, distParameters, strategyNames);
-        Group group = new Group("Die Manfreds", "Manfreds sind sehr launisch. Mal sind sie ganz lieb und mal auch eben nicht.", toList(segment), toList(1.0), true);
-        CentralRepository.getInstance().getGroupRepository().addEntity(group.getName(), group);
-        Population population = new Population("Manfreds unter sich", "Fünfzig Manfreds ungestört unter sich.", toList(group.getName()), toList(agentCount));
+        
+        List<String> strategyNamesBad = toList(PureStrategy.neverCooperate().getName());
+        Segment segmentBad = new Segment(capitalDistributionName, distParameters, strategyNamesBad);
+        Group groupBad = new Group("Bad Guys", "These guys are bad guys.", toList(segmentBad), toList(1.0), true);
+        CentralRepository.getInstance().getGroupRepository().addEntity(groupBad.getName(), groupBad);
+        
+        List<String> strategyNamesGood = toList(PureStrategy.alwaysCooperate().getName(),PureStrategy.titForTat().getName(),
+                PureStrategy.grim().getName());
+        Segment segmentGood = new Segment(capitalDistributionName, distParameters, strategyNamesGood);
+        Group groupGood = new Group("Good Guys", "These guys are good guys.", toList(segmentGood), toList(1.0), true);
+        CentralRepository.getInstance().getGroupRepository().addEntity(groupGood.getName(), groupGood);
+        
+        Population population = new Population("Good vs Bad", "Let them fight!", toList(groupBad.getName(), groupGood.getName()), toList(agentCountBad, agentCountGood));
         CentralRepository.getInstance().getPopulationRepository().addEntity(population.getName(), population);
+        
+        
         
         UserConfiguration defaultConfiguration = new UserConfiguration(gameName, roundCount, iterationCount, mixedStrategies, population.getName(),
                 pairBuilderName, pairBuilderParameters, successQuantifierName, successQuantifierParameters, strategyAdjusterName,

@@ -21,10 +21,11 @@ public class RandomPairBuilder implements PairBuilder {
 
     @Override
     public List<AgentPair> buildPairs(final List<Agent> agents, final SimulationHistory history) {
-        List<AgentPair> pairs = new ArrayList<AgentPair>(agents.size() / 2);
+        int pairCount = agents.size() / 2;
+        List<AgentPair> pairs = new ArrayList<AgentPair>(pairCount);
         UniformFiniteDistribution<Agent> agentDist = new UniformFiniteDistribution<Agent>(agents);
         
-        while (2 * pairs.size() < agents.size() - 1) {
+        while (pairs.size() < pairCount) {
             pairs.add(new ConcreteAgentPair(agentDist.pickAndRemove(), agentDist.pickAndRemove()));
         }
         return pairs;
