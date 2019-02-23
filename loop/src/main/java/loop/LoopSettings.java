@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
+import loop.model.UserConfiguration;
 import loop.model.repository.FileIO;
 /**
  * This class represents some global and persistent settings for the loop programm
@@ -24,6 +25,7 @@ public class LoopSettings implements Serializable {
 	private boolean enable_notification;
 	private int threadCount;
 	private List<String> personalURLs;
+	private UserConfiguration configuration;
 	
 	private static LoopSettings instance;
 	
@@ -50,6 +52,7 @@ public class LoopSettings implements Serializable {
 		this.enable_tooltip = true;
 		this.threadCount = Runtime.getRuntime().availableProcessors() - 1;
 		this.personalURLs = new LinkedList<String>();
+		this.configuration = UserConfiguration.getDefaultConfiguration();
 	}
 
 
@@ -94,6 +97,22 @@ public class LoopSettings implements Serializable {
 		return threadCount;
 	}
 	
+	/**
+	 * Returns the selected default configuration
+	 * @return the selected default configuration
+	 */
+	public UserConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	/**
+	 * Sets the default configuration
+	 * @param configuration the default configuration
+	 */
+	public void setConfiguration(UserConfiguration configuration) {
+		this.configuration = configuration;
+	}
+
 	/**
 	 * Sets the number of threads used in the programm
 	 * @param threadCount the number of threads

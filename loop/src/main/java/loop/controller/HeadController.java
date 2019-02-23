@@ -107,7 +107,7 @@ public class HeadController {
     @FXML
     void initialize() {
         //load default configuration
-        updateConfiguration(UserConfiguration.getDefaultConfiguration(), false);
+        updateConfiguration(settings.getConfiguration(), false);
 
         //create simulator
         simulator = new ThreadPoolSimulator(settings.getThreadCount());
@@ -136,6 +136,12 @@ public class HeadController {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
             alert.showAndWait();
         }
+    }
+    
+    @FXML
+    void setToDefaultConfiguration() {
+    	settings.setConfiguration(this.activeConfiguration);
+    	settings.save();
     }
 
     @FXML

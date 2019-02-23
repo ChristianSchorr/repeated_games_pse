@@ -44,6 +44,11 @@
                             <Glyph fontFamily="FontAwesome" icon="DOWNLOAD" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
+                    <MenuItem text="Set to default configuration" onAction="#setToDefaultConfiguration">
+                        <graphic>
+                            <Glyph fontFamily="FontAwesome" icon="SAVE" style="-fx-text-fill: grey" />
+                        </graphic>
+                    </MenuItem>
                     <SeparatorMenuItem />
                     <MenuItem text="Load simulation result" onAction="#loadResults">
                         <graphic>
