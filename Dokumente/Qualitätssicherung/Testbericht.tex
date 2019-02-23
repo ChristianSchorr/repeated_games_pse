@@ -43,11 +43,6 @@
  {\csname endflalign*\endcsname\ignorespacesafterend}
 
 
-\titlehead{\centering\includegraphics[width=6cm]{img/logo.pdf}}
-\title{Testbericht}
-\subtitle{Wavelength--$\bm{\lambda}$-IDE}
-\author{Muhammet Gümüs, Markus Himmel, Marc Huisinga,\\Philip Klemens, Julia Schmid, Jean-Pierre von der Heydt}
-
 \begin{document}
 \begin{titlepage}
 	\centering
@@ -72,7 +67,16 @@
 In diesem Dokument werden die Ergebnisse der Qualitätssicherungsphase des Loop-Projekts festgehalten.
 In dieser Phase wurden neben ausführlichem Testen Performance-Verbesserungen vorgenommen und noch einige neue Features implementiert.
 
+\section{Performance Optimierungen}
+
+\subsection{Speichern von Simulationsergebnissen}
+In der ursprünglichen Version des Programms wurden Simulationsergebnisse sehr ineffizient abgespeichert. Etwa wurden die Agenten - Instanzen aller Wiederholungen mitsamt referenzierten Strategien direkt serialisiert.. Dadurch wurden die Ergebnis-Dateien sehr groß, es konnte bei der Serialisierung sogar zu \texttt{OutOfMemoryException}s kommen. Außerdem dauerten sowohl laden als auch speichern bis zu \(20\)-\(30\) Sekunden.
+
+Wir konnten die Simulationsergebnisse komprimieren, indem wir die von der Ausgabe benötigten Informationen (wie Strategie- oder Kapitalverteilung) direkt nach Abschluss jeder Wiederholung berechnen und nur diese abspeichern. Simulationen, die zuvor im \(10\)-\(100\) MB Bereich lagen, benötigen nun nur noch \(30\) - \(200\) KB; Größere Simulationen können nun also auch ohne Probleme abgespeichert werden.
+
 \section{Änderungen in der Applikation}
+
+\subsection{Erweiterung der Ausgabe}
 
 
 \section{Abdeckung der Tests im Pflichtenheft}

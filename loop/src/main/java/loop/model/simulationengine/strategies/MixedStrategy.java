@@ -22,6 +22,8 @@ public class MixedStrategy implements Strategy, RealVector {
     private List<Strategy> strategies;
     private List<Double> probabilities;
     
+    private Random random;
+    
     /**
      * The accuracy with which the sum of all probabilities must be equal to one.
      */
@@ -59,6 +61,8 @@ public class MixedStrategy implements Strategy, RealVector {
         
         this.strategies = new ArrayList<Strategy>(strategies);
         this.probabilities = new ArrayList<Double>(probabilities);
+        
+        random = new Random();
     }
     
     @Override
@@ -146,8 +150,7 @@ public class MixedStrategy implements Strategy, RealVector {
 
     @Override
     public boolean isCooperative(Agent player, Agent opponent, SimulationHistory history) {
-        double prob = this.getCooperationProbability(player, opponent, history);
-        return (new Random().nextDouble() <= prob) ? true : false;
+        return chooseStrategy().isCooperative(player, opponent, history);
     }
 
     @Override
@@ -158,5 +161,15 @@ public class MixedStrategy implements Strategy, RealVector {
         }
         return prob;
     }
-
+    
+    private Strategy chooseStrategy() {
+        double r = random.nextDouble();
+        int strat = 0;
+        double accProb = this.probabilities.get(0);
+        while (r >= accProb) {
+            accProb += probabilities.get(++strat);
+        }
+        return strategies.get(strat);
+    }
+    
 }
