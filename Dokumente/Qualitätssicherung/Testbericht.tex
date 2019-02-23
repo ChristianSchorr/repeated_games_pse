@@ -204,8 +204,32 @@ prozent testabdeckung
 \newline
 \textbf{Behebung: } Größere Umstrukturierungen bei der Implementierung von den jeweiligen Strategien. 
 
-\section{Fehler mit Ursprung in der Benutzeroberfläche}
-%TODO
+\textbf{Selbsterstellte Strategien konnten nicht abgespeichert werden, wenn bestimmte Prädikate verwendet wurden.} 
+\newline
+\textbf{Grund: } Manche der Prädikate, die zum Erstelle eigener Strategien verwendet werden können waren nicht serialisierbar, da bei der Implementierung Java 8 Lambda-Ausdrücke verwendet wurden, die standardmäßig nicht serialisierbar sind.
+\newline
+\textbf{Behebung: } Die Lambda-Ausdrücke wurden durch serialisierbare Lambda-Ausdrücke ersetzt.
 
+\textbf{Simulationen mit einer \enquote{Multiconfiguration} erzeugten teilweise falsche Ergebnisse (bspw. wurden Gleichgewichte nicht erkannt).} 
+\newline
+\textbf{Grund: } Beim Erstellen der einzelnen Konfigurationen aus einer \texttt{UserConfiguration} wurden die gleichen Instanzen der verwendeten Algorithmen für alle elementaren Konfigurationen verwendet. Dies führte bei der Ausführung einer Simulation zu Wettlaufbedingungen zwischen verschiedenen threads.
+\newline
+\textbf{Behebung: } Alle elementaren Konfigurationen erhalten eine eigene Instanz der verwendeten Algorithmen.
+
+\textbf{Simulationen mit einer Simulationsdauer im Millisekundenbereich erzeugten teilweise Fehler} 
+\newline
+\textbf{Grund: } Solche kurzen Simulationen wurden manchmal bereits abgeschlossen, bevor im Conroller die nötigen Behandlungsroutinen registriert wurden. Das führte dazu, dass das Beenden einer Simulation nicht erfasst wurde, oder  \texttt{ConcurrencyException}s geworfen wurden.
+\newline
+\textbf{Behebung: } Die Klasse \texttt{SimulationResult} wurde um verschiedene Synchronisationsmechanismen erweitert.
+
+
+
+\section{Fehler mit Ursprung in der Benutzeroberfläche}
+
+\textbf{Wurden im Fenster zum Erstellen eigener Strategien Prädikate auf Wurzeleben des Syntaxbaums gelöscht, blieb die Benutzeroberfläche unverändert. } 
+\newline
+\textbf{Grund: } Die internen Datenstrukturen wurden  korrekt aktualisiert, jedoch nicht die Benutzeroberfläche
+\newline
+\textbf{Behebung: } Die Benutzeroberfläche wird korrekt aktualisiert, indem der entsprechene Methodenaufruf ergänzt wurde.
 
 \end{document}
