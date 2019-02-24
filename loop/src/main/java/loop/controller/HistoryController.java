@@ -6,8 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -104,7 +107,19 @@ public class HistoryController {
                 showFinishNotification(simulationResult);
         });
         simulationResult.registerIterationFinished((res, iter) -> Platform.runLater(() -> historyList.refresh()));
+        simulationResult.registerExceptionHandler((res, ex) -> handleSimulationException(res));
         history.add(simulationResult);
+    }
+
+    private void handleSimulationException(SimulationResult res) {
+        String errorMsg = String.format("An error has occurred in Simulation #%03d and therefore the simulation has been cancelled!\n" +
+                          "This might have happened due to a faulty plugin.", res.getId());
+        for (Consumer<SimulationResult> handler : cancleHandlers) handler.accept(res);
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR, errorMsg, ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        });
     }
 
     private void showFinishNotification(SimulationResult result) {

@@ -130,6 +130,7 @@ public class TextFieldPluginControl extends PluginControl {
     private Tooltip createTooltip(String desc) {
         Tooltip tooltip = new Tooltip(desc);
         tooltip.getStyleClass().add("ttip");
+        tooltip.setStyle("-fx-text-fill: white; -fx-font-size: 12;");
         tooltip.setWrapText(true);
         tooltip.setPrefWidth(600);
         return tooltip;

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Region;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -80,7 +81,8 @@ public class SettingsController {
         File openFile = dirChooser.showDialog(new Stage());
         if (!openFile.isDirectory()) {
         	Alert alert = new Alert(AlertType.ERROR, "Please choose a folder", ButtonType.OK);
-            alert.showAndWait();
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        	alert.showAndWait();
             return;
         }
         else {

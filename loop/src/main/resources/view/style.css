@@ -1034,6 +1034,7 @@
 
 .ttip {
     -fx-background-color: -swatch-400;
+    -fx-text-fill: white;
 }
 
 

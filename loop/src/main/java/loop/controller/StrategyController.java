@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
@@ -222,6 +223,7 @@ public class StrategyController implements CreationController<Strategy> {
     private void handleAddInd() {
         if (support.isInvalid()) {
             Alert alert = new Alert(AlertType.ERROR, "Invalid value for deviation!", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
@@ -279,11 +281,13 @@ public class StrategyController implements CreationController<Strategy> {
         Strategy strat = getStrategy();
         if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
             Alert alert = new Alert(AlertType.ERROR, "Name and description have to be filled out", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
         if (strat == null) {
             Alert alert = new Alert(AlertType.ERROR, "Strategy expression is faulty", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
@@ -306,6 +310,7 @@ public class StrategyController implements CreationController<Strategy> {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
@@ -319,11 +324,13 @@ public class StrategyController implements CreationController<Strategy> {
         Strategy strat = getStrategy();
         if (nameProperty.getValue() == null || descriptionProperty.getValue() == null) {
             Alert alert = new Alert(AlertType.ERROR, "Name and description have to be filled out", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
         if (strat == null) {
             Alert alert = new Alert(AlertType.ERROR, "Strategy expression is faulty", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
