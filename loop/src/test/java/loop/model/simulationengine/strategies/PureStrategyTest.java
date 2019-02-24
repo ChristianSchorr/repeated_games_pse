@@ -48,8 +48,8 @@ public class PureStrategyTest {
 	    testPureStrategy = PureStrategy.titForTat();
 	    player = new Agent(0, testPureStrategy, 1);
 	    testGetName("tit-for-tat");
-	    testGetDescription("A player using tit-for-tat will cooperate in the first game and replicate the"
-                + " opponent's previous action in the following games.");
+	    testGetDescription("A player using tit-for-tat will cooperate in the first game. In every following game, he will"
+                + " cooperate if and only if the opponent cooperated in the previous game.");
 	    boolean[] cooperate = {true, true, false, false, true};
 	    testIsCooperative(cooperate);
 	    history.reset();
@@ -64,9 +64,8 @@ public class PureStrategyTest {
         testPureStrategy = PureStrategy.grim();
         player = new Agent(0, testPureStrategy, 1); 
         testGetName("grim");
-        testGetDescription("A player using grim will cooperate in the first game, afterwards he refer to the previous actions of the opponent."
-                + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
-                + " not cooperative, the agent is from now on not cooperative to that opponent.");
+        testGetDescription("A player using grim will cooperate in the first game. In the following games, he cooperates if and only if the opponent"
+                + " cooperated in all previous games.");
         boolean[] cooperate = {true, true, false, false, false};
         testIsCooperative(cooperate);
         history.reset();
@@ -82,7 +81,7 @@ public class PureStrategyTest {
         player = new Agent(0, testPureStrategy, 1);
         testGetName("group tit-for-tat");
         testGetDescription("A player using group tit-for-tat uses the tit-for-tat strategy, where instead of looking "
-                + "at the last game between the player and the opponent the last game between the opponent and an agent "
+                + "at the last game between the player and the opponent the last game between the opponent and any agent "
                 + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group, "
                 + "this strategy leads to the same results as the common tit-for-tat strategy.");
         boolean[] cooperate = {true, false, false, true, true};
@@ -99,8 +98,8 @@ public class PureStrategyTest {
         testPureStrategy = PureStrategy.groupGrim();
         player = new Agent(0, testPureStrategy, 1);
         testGetName("group grim");
-        testGetDescription("A player using group grim use the grim strategy, where instead of looking at the last game between"
-                + " the player and the opponent the last game between the opponent and an agent of the same (cohesive) group"
+        testGetDescription("A player using group grim uses the grim strategy, where instead of looking at the last game between"
+                + " the player and the opponent the last game between the opponent and any agent of the same (cohesive) group"
                 + " as the player is considered. If the player is part of a non-cohesive group, this strategy leads to the same results"
                 + " as the common grim strategy.");
         boolean[] cooperate = {true, false, false, false, false};
@@ -117,7 +116,7 @@ public class PureStrategyTest {
 	    testPureStrategy = PureStrategy.alwaysCooperate();
 	    player = new Agent(0, testPureStrategy, 1);
 	    testGetName("always cooperate");
-	    testGetDescription("A player using always cooperate will be cooperative against all opponents");
+	    testGetDescription("A player using this strategy will cooperate in every game.");
 	    boolean[] cooperate = {true, true, true, true, true};
         testIsCooperative(cooperate);
         history.reset();
@@ -366,7 +365,7 @@ public class PureStrategyTest {
         testPureStrategy = PureStrategy.stratBuilderStrategy(cooperatedWithWhom, when, 0.5); 
         player = new Agent(0, testPureStrategy, 1);
         assertTrue(testPureStrategy.getName().equals("stratbuilder strategy"));
-        assertTrue(testPureStrategy.getDescription().equals("SAME_GROUP, ATLEASTONCE"));
+        assertTrue(testPureStrategy.getDescription().equals("opponent cooperated with " + cooperatedWithWhom.toString() + ", " + when.toString()));
         boolean[] cooperate = {false, true, true, true, true};
         testIsCooperative(cooperate);
         history.reset();
@@ -378,7 +377,7 @@ public class PureStrategyTest {
         testPureStrategy = PureStrategy.stratBuilderStrategy(cooperatedWithWhom, when, 0.5); 
         player = new Agent(0, testPureStrategy, 1);
         assertTrue(testPureStrategy.getName().equals("stratbuilder strategy"));
-        assertTrue(testPureStrategy.getDescription().equals("AGENT, LASTTIME"));
+        assertTrue(testPureStrategy.getDescription().equals("opponent cooperated with " + cooperatedWithWhom.toString() + ", " + when.toString()));
         boolean[] cooperate2 = {true, true, false, false, true};
         testIsCooperative(cooperate2);
         history.reset();
@@ -393,7 +392,7 @@ public class PureStrategyTest {
         cooperatedWithWhom = AgentEntity.SIM_CAPITAL;
         player = new Agent(0, testPureStrategy, 1);
         testPureStrategy = PureStrategy.stratBuilderStrategy(cooperatedWithWhom, when, 0.5); 
-        assertTrue(testPureStrategy.getDescription().equals("SIM_CAPITAL, NEVER"));
+        assertTrue(testPureStrategy.getDescription().equals("opponent cooperated with " + cooperatedWithWhom.toString() + ", " + when.toString()));
         boolean[] cooperate3 = {true, true, false, false, false};
         testIsCooperative(cooperate3);        
     }

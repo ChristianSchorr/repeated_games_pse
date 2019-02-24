@@ -103,7 +103,6 @@ public class UserConfigurationTest {
 		assertEquals(200, testUserConfiguration.getRoundCount());
 		assertEquals(8, testUserConfiguration.getIterationCount());
 		assertTrue(testUserConfiguration.getMixedAllowed());
-		assertTrue(testUserConfiguration.getPopulationName().equals("Manfreds unter sich"));
 		assertTrue(testUserConfiguration.getPairBuilderName().equals(RandomPairBuilder.NAME));
 		List<Double> testPairBuilderParameters = testUserConfiguration.getPairBuilderParameters();
 		assertEquals(0, testPairBuilderParameters.size());
