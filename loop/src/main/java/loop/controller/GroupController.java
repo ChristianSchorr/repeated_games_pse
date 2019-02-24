@@ -487,6 +487,7 @@ public class GroupController implements CreationController<Group> {
         @FXML
         void initialize() {
             //setup strategy choice
+            strategyChoice.setCellFactory(view -> new TooltipCell());
             for (String s : CentralRepository.getInstance().getStrategyRepository().getAllEntityNames()) {
                 strategyChoice.getSourceItems().add(s);
             }
@@ -510,7 +511,28 @@ public class GroupController implements CreationController<Group> {
             distributionPluginPane.getChildren().add(p);
         }
 
-
+        private class TooltipCell extends ListCell<String> {
+            
+            @Override
+            protected void updateItem(String strategy, boolean empty) {
+                super.updateItem(strategy, empty);
+                
+                if (!empty) {
+                    setText(strategy);
+                    Tooltip.install(this,
+                            createTooltip(CentralRepository.getInstance().getStrategyRepository().getEntityByName(strategy).getDescription()));
+                }
+            }
+            
+            private Tooltip createTooltip(String desc) {
+                Tooltip tooltip = new Tooltip(desc);
+                tooltip.getStyleClass().add("ttip");
+                tooltip.setWrapText(true);
+                tooltip.setPrefWidth(600);
+                return tooltip;
+            }
+        }
+        
         @FXML
         void handleClosed(ActionEvent event) {
             parent.removeTab(this);
