@@ -372,7 +372,7 @@ Suppose we want to create a pair builder that greedily matches each agent to ano
 \end{figure}
 
 
-After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new empty file named \enquote{loop.model.plugin.PairBuilderPlugin}. Then add a single line to the file: The plugin's full class name including the package structure the class resides in. In our case the class is called \enquote{GreedyPairBuilder} and is placed in the \enquote{loop.extensions.plugins} package (see Fig. \ref{fig:package}). So the line's content is \enquote{loop.extensions.plugins.GreedyPairBuilder}.
+After you finished your implementation of the plugin add the following folder structure to the project's root diretory: \enquote{src/main/resources/META-INF/services}. Inside the \enquote{services} folder add a new empty file named \enquote{loop.model.plugin.PairBuilderPlugin}. Then add a single line to the file: The plugin's full class name including the package structure the class resides in. In our case the class is called \enquote{GreedyPairBuilder} and is placed in the \enquote{loop.extensions.plugins} package (see Fig. \ref{fig:package}), thus the line's content is\\ \enquote{loop.extensions.plugins.GreedyPairBuilder}.
 
 \begin{figure} [hbt]
 	\centering
