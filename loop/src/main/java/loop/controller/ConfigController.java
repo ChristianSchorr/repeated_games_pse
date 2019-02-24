@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
@@ -621,6 +622,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(ALERT_TITLE);
         alert.setContentText(CONFIG_ERR_MSG);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 

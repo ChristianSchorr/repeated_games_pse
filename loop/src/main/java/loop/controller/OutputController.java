@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import loop.Main;
@@ -407,6 +408,7 @@ public class OutputController {
             FileIO.saveEntity(saveFile, displayedResult);
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             e.printStackTrace();
             return;

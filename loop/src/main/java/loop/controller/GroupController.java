@@ -1,6 +1,7 @@
 package loop.controller;
 
 //import com.sun.webkit.dom.DocumentImpl;
+
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -12,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -153,6 +155,7 @@ public class GroupController implements CreationController<Group> {
     void resetGroup(ActionEvent event) {
         //confirm
         Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.NO) {
             return;
@@ -205,7 +208,7 @@ public class GroupController implements CreationController<Group> {
         if (!validateSettings(true)) return;
 
         Group group = createGroup();
-        
+
         //TODO unsch�n, aber wie sonst?
         if (CentralRepository.getInstance().getGroupRepository().containsEntityName(groupNameTextField.getText())) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "A group with this name already exists. Do you want to overwrite it? Note that"
@@ -214,7 +217,7 @@ public class GroupController implements CreationController<Group> {
             alert.showAndWait();
             boolean override = (alert.getResult() == ButtonType.YES);
             if (!override) return;
-            
+
             //overwrite group in repository and populations
             String groupName = groupNameTextField.getText();
             CentralRepository.getInstance().getGroupRepository().removeEntity(groupName);
@@ -264,14 +267,14 @@ public class GroupController implements CreationController<Group> {
             e.printStackTrace();
             return;
         }
-        
+
         List<String> unknownStrategies = new ArrayList<String>();
         List<String> unknownCapitalDistributionNames = new ArrayList<String>();
         group.getSegments().forEach(seg -> {
             seg.getStrategyNames().forEach(stratName -> {
                 if (!CentralRepository.getInstance().getStrategyRepository().containsEntityName(stratName))
                     if (!unknownStrategies.contains(stratName)) unknownStrategies.add(stratName);
-                });
+            });
             String distName = seg.getCapitalDistributionName();
             if (!CentralRepository.getInstance().getDiscreteDistributionRepository().containsEntityName(distName)) {
                 if (!unknownCapitalDistributionNames.contains(distName)) {
@@ -279,24 +282,24 @@ public class GroupController implements CreationController<Group> {
                 }
             }
         });
-        
+
         if (unknownStrategies.isEmpty() && unknownCapitalDistributionNames.isEmpty()) {
             setGroup(group);
             return;
         }
-        
+
         String errorMsg = "";
         if (!unknownStrategies.isEmpty()) {
             errorMsg += "The selected group contains the following unknown strategies:";
-            for (String strat: unknownStrategies) errorMsg += "\n - " + strat;
+            for (String strat : unknownStrategies) errorMsg += "\n - " + strat;
             errorMsg += "\n";
         }
-        
+
         if (!unknownCapitalDistributionNames.isEmpty()) {
             errorMsg += "\nThe selected group contains the following unknown capital distributions:";
-            for (String dist: unknownCapitalDistributionNames) errorMsg += "\n - " + dist;
+            for (String dist : unknownCapitalDistributionNames) errorMsg += "\n - " + dist;
         }
-        
+
         Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
         alert.showAndWait();
     }
@@ -512,18 +515,18 @@ public class GroupController implements CreationController<Group> {
         }
 
         private class TooltipCell extends ListCell<String> {
-            
+
             @Override
             protected void updateItem(String strategy, boolean empty) {
                 super.updateItem(strategy, empty);
-                
+
                 if (!empty) {
                     setText(strategy);
                     Tooltip.install(this,
                             createTooltip(CentralRepository.getInstance().getStrategyRepository().getEntityByName(strategy).getDescription()));
                 }
             }
-            
+
             private Tooltip createTooltip(String desc) {
                 Tooltip tooltip = new Tooltip(desc);
                 tooltip.getStyleClass().add("ttip");
@@ -532,7 +535,7 @@ public class GroupController implements CreationController<Group> {
                 return tooltip;
             }
         }
-        
+
         @FXML
         void handleClosed(ActionEvent event) {
             parent.removeTab(this);
@@ -557,7 +560,7 @@ public class GroupController implements CreationController<Group> {
         public Node getContent() {
             return content;
         }
-        
+
         private Tooltip createTooltip(String desc) {
             Tooltip tooltip = new Tooltip(desc);
             tooltip.getStyleClass().add("ttip");

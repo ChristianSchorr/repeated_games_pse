@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -118,6 +119,7 @@ public class PopulationController implements CreationController<Population> {
     private void handleAddGroupButton(ActionEvent action) {
         if (agentCountProperty.getValue() <= 0) {
             Alert alert = new Alert(AlertType.ERROR, "A group must consist of at least one agent.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         } 
@@ -159,6 +161,7 @@ public class PopulationController implements CreationController<Population> {
     private void resetPopulation(ActionEvent event) {
         //confirm
         Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.NO) {
             return;
@@ -201,6 +204,7 @@ public class PopulationController implements CreationController<Population> {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
@@ -210,11 +214,12 @@ public class PopulationController implements CreationController<Population> {
     void savePopulation() {
         if (!validateSettings(true)) return;
         
-        //TODO unschön, aber wie sonst?
+        //TODO unschï¿½n, aber wie sonst?
         if (CentralRepository.getInstance().getPopulationRepository().containsEntityName(populationNameTextField.getText())) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "A population with this name already exists. Do you want to overwrite it? Note that"
                     + " in that case all configurations that currently use the overwritten population would from now on use this one instead.",
                     ButtonType.YES, ButtonType.NO);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             boolean override = (alert.getResult() == ButtonType.YES);
             if (!override) return;
@@ -231,12 +236,14 @@ public class PopulationController implements CreationController<Population> {
         if (populationNameTextField.getText().trim().equals("") || populationDescriptionTextField.getText().trim().equals("")) {
             if (alertIfFaulty) {
                 Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
             }
             return false;
         } else if (this.selectedGroups.isEmpty()) {
             if (alertIfFaulty) {
                 Alert alert = new Alert(AlertType.ERROR, "A population must consist of at least one group.", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
             }
             return false;
@@ -262,6 +269,7 @@ public class PopulationController implements CreationController<Population> {
             population = (Population) FileIO.loadEntity(file);
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             e.printStackTrace();
             return;
@@ -278,6 +286,7 @@ public class PopulationController implements CreationController<Population> {
         String errorMsg = "The chosen population contains unknown groups:";
         for (String name: unknownGroups) errorMsg += "\n - " + name;
         Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
     

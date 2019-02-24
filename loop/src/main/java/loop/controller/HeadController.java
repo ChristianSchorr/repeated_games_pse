@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -135,6 +136,7 @@ public class HeadController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
         }
     }
@@ -144,7 +146,8 @@ public class HeadController {
     	settings.setConfiguration(this.activeConfiguration);
     	settings.save();
     	Alert alert = new Alert(AlertType.CONFIRMATION, "Default Configuration updated. Remember to persistently store all self created populations, groups, strategies and games that are used in this configuration as well!", ButtonType.OK);
-        alert.showAndWait();
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+    	alert.showAndWait();
     }
 
     @FXML
@@ -165,6 +168,7 @@ public class HeadController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
@@ -212,6 +216,7 @@ public class HeadController {
             loadedResult = (SimulationResult) FileIO.loadEntity(openFile);
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             e.printStackTrace();
             return;
@@ -242,6 +247,7 @@ public class HeadController {
         } catch (ConfigurationException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "Active configuration is faulty.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         }
@@ -460,6 +466,7 @@ public class HeadController {
             }
             if (error) {
                 Alert alert = new Alert(AlertType.ERROR, errorMsg, ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
                 return true;
             }

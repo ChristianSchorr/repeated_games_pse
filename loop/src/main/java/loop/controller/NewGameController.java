@@ -13,6 +13,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import loop.model.repository.CentralRepository;
@@ -91,6 +92,7 @@ public class NewGameController implements CreationController<Game> {
     void resetGame() {
     	 //confirm
         Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to reset all settings?", ButtonType.YES, ButtonType.NO);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.NO) {
             return;
@@ -133,6 +135,7 @@ public class NewGameController implements CreationController<Game> {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR, "File could not be saved.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             return;
         };
@@ -142,11 +145,12 @@ public class NewGameController implements CreationController<Game> {
     void saveGame() {
         if (!validateSettings(true)) return;
         
-        //TODO unschön, aber wie sonst?
+        //TODO unschï¿½n, aber wie sonst?
         if (CentralRepository.getInstance().getGameRepository().containsEntityName(gameNameTextField.getText())) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "A game with this name already exists. Do you want to overwrite it? Note that"
                     + " in that case all configurations that currently use the overwritten game would from now on use this one instead.",
                     ButtonType.YES, ButtonType.NO);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             boolean override = (alert.getResult() == ButtonType.YES);
             if (!override) return;
@@ -163,6 +167,7 @@ public class NewGameController implements CreationController<Game> {
         if (gameNameTextField.getText().trim().equals("") || gameDescriptionTextField.getText().trim().equals("")) {
             if (alertIfFaulty) {
                 Alert alert = new Alert(AlertType.ERROR, "Name and description must not be empty.", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
             }
             return false;
@@ -179,6 +184,7 @@ public class NewGameController implements CreationController<Game> {
         } catch (NumberFormatException e) {
             if (alertIfFaulty) {
                 Alert alert = new Alert(AlertType.ERROR, "Payoffs must be integers.", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
             }
             return false;
@@ -204,6 +210,7 @@ public class NewGameController implements CreationController<Game> {
             game = (Game) FileIO.loadEntity(file);
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, "File could not be opened.", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             e.printStackTrace();
             return;
@@ -219,6 +226,7 @@ public class NewGameController implements CreationController<Game> {
         } catch(ClassCastException e) {
             if (showErrorDialog) {
                 Alert alert = new Alert(AlertType.ERROR, "Failed to load game.", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
             }
             return;
