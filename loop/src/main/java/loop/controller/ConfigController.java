@@ -48,6 +48,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
 
     @FXML
     private CheckBox mixedStrategyCheckBox;
+    
+    @FXML
+    private Label mixedLabel;
 
     @FXML
     private ChoiceBox populationBox;
@@ -208,6 +211,7 @@ public class ConfigController implements CreationController<UserConfiguration> {
         // initialize mixedStrategies
         mixedStrategyProperty.setValue(config.getMixedAllowed());
         mixedStrategyCheckBox.selectedProperty().bindBidirectional(mixedStrategyProperty);
+        mixedLabel.setTooltip(createTooltip("Allows the agents to develop mixed strategies, i.e. strategies of the form 'Use Strategy A with probability 0.3 and Strategy B with probability 0.7'. The agents will still be initialised with pure strategies."));
 
         // initialize populations
         List<String> populationNames = repository.getPopulationRepository().getAllEntityNames();

@@ -133,7 +133,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy groupGrim() {
 
         return new PureStrategy(
-                "group grim", "A player using group grim use the grim strategy, where instead of looking at the last game between"
+                "group grim", "A player using group grim uses the grim strategy, where instead of looking at the last game between"
                 + " the player and the opponent the last game between the opponent and any agent of the same (cohesive) group"
                 + " as the player is considered. If the player is part of a non-cohesive group, this strategy leads to the same results"
                 + " as the common grim strategy.",
@@ -158,7 +158,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the "always cooperate" strategy
      */
     public static PureStrategy alwaysCooperate() {
-        return new PureStrategy("always cooperate", "A player using this strategy will cooperate in ever game.",
+        return new PureStrategy("always cooperate", "A player using this strategy will cooperate in every game.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> true);
     }
 
@@ -168,7 +168,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the "never cooperate" strategy
      */
     public static PureStrategy neverCooperate() {
-        return new PureStrategy("never cooperate", "A player using this strategy wom't cooperate in any game.",
+        return new PureStrategy("never cooperate", "A player using this strategy won't cooperate in any game.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> false);
     }
 
@@ -183,7 +183,6 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     //percentage ignored if coopWithWhom != SIM_CAPITAL
     public static PureStrategy stratBuilderStrategy(AgentEntity cooperatedWithWhom, TimeAdverb when, double percentage) {
         BiPredicate<AgentPair, GameResult> relevantResult;
-        List<GameResult> results;
         switch (cooperatedWithWhom) {
             case AGENT:
                 relevantResult = (BiPredicate<AgentPair, GameResult> & Serializable)
@@ -202,7 +201,6 @@ public class PureStrategy implements Strategy, java.io.Serializable {
         }
 
         BiPredicate<AgentPair, SimulationHistory> condition;
-
         switch (when) {
             case ALWAYS:
                 condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) ->

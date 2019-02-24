@@ -53,7 +53,7 @@
                                            text="Number of iterations" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <HBox alignment="CENTER_LEFT" spacing="0" GridPane.rowIndex="5">
                                     <Label alignment="TOP_LEFT" styleClass="control-label"
-                                           text="Allow mixed strategies"/>
+                                           text="Allow mixed strategies" fx:id="mixedLabel"/>
                                     <CheckBox fx:id="mixedStrategyCheckBox"/>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="25" GridPane.rowIndex="6">
@@ -172,7 +172,7 @@
                                         <Glyph fontFamily="FontAwesome" fontSize="50" icon="CHECK" style="-fx-text-fill: #008A00" />
                                     </graphic>
 		                            <tooltip>
-		                        		<Tooltip text="Save the created configuration and close this wondow"/>
+		                        		<Tooltip text="Save the created configuration and close this window"/>
 		                    		</tooltip>
                                 </Button>
                             </HBox>

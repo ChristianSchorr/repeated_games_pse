@@ -125,7 +125,7 @@ public class StrategyController implements CreationController<Strategy> {
         participants = new ArrayList<>();
         participants.add("The opponent");
         participants.add("The agent himself");
-        participants.add("An agent of the same group");
+        participants.add("Any agent of the same group as the agent");
 
         quantors = new ArrayList<>();
         quantors.add("every time");
