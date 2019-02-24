@@ -211,7 +211,9 @@ public class ConfigController implements CreationController<UserConfiguration> {
         // initialize mixedStrategies
         mixedStrategyProperty.setValue(config.getMixedAllowed());
         mixedStrategyCheckBox.selectedProperty().bindBidirectional(mixedStrategyProperty);
-        mixedLabel.setTooltip(createTooltip("Allows the agents to develop mixed strategies, i.e. strategies of the form 'Use Strategy A with probability 0.3 and Strategy B with probability 0.7'. The agents will still be initialised with pure strategies."));
+        mixedLabel.setTooltip(createTooltip("Allows the agents to develop mixed strategies, " +
+                "i.e. strategies of the form 'Use Strategy A with probability 0.3 and Strategy B with probability 0.7'. " +
+                "The agents will still be initialised with pure strategies."));
 
         // initialize populations
         List<String> populationNames = repository.getPopulationRepository().getAllEntityNames();
@@ -431,6 +433,8 @@ public class ConfigController implements CreationController<UserConfiguration> {
     private Tooltip createTooltip(String desc) {
         Tooltip tooltip = new Tooltip(desc);
         tooltip.getStyleClass().add("ttip");
+        tooltip.setStyle("-fx-text-fill: white; -fx-font-size: 12;");
+
         tooltip.setWrapText(true);
         tooltip.setPrefWidth(600);
         return tooltip;
