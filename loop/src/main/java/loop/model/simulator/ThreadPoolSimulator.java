@@ -124,7 +124,6 @@ public class ThreadPoolSimulator implements Simulator {
                 }
                 return result;
             } catch (Exception ex) {
-                task.simResult.addIterationResult(null, configNum.index);
                 task.simResult.addSimulationEngineException(new SimulationEngineException());
                 if (last) {
                     finishedSimulations.add(task.simResult);
