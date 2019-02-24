@@ -62,8 +62,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      */
     public static PureStrategy titForTat() {
         return new PureStrategy(
-                "tit-for-tat", "A player using tit-for-tat will cooperate in the first game and replicate the"
-                + " opponent's previous action in the following games."
+                "tit-for-tat", "A player using tit-for-tat will cooperate in the first game. In every following game, he will"
+                        + " cooperate if and only if the opponent cooperated in the previous game."
                 , (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
             Agent opponent = pair.getSecondAgent();
             for (GameResult result : history.getResultsByAgent(pair.getFirstAgent())) {
@@ -88,7 +88,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
 
         return new PureStrategy(
                 "group tit-for-tat", "A player using group tit-for-tat uses the tit-for-tat strategy, where instead of looking "
-                + "at the last game between the player and the opponent the last game between the opponent and an agent "
+                + "at the last game between the player and the opponent the last game between the opponent and any agent "
                 + "of the same (cohesive) group as the player is considered. If the player is part of a non-cohesive group, "
                 + "this strategy leads to the same results as the common tit-for-tat strategy.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
@@ -111,9 +111,8 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      */
     public static PureStrategy grim() {
         return new PureStrategy(
-                "grim", "A player using grim will cooperate in the first game, afterwards he refer to the previous actions of the opponent."
-                + " If the opponent previously was always cooperative, the agent is cooperative. If the opponent was at least one time"
-                + " not cooperative, the agent is from now on not cooperative to that opponent.",
+                "grim", "A player using grim will cooperate in the first game. In the following games, he cooperates if and only if the opponent"
+                        + " cooperated in all previous games.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
                     for (GameResult result : history.getResultsByAgent(pair.getFirstAgent())) {
                         if (result.hasAgent(pair.getSecondAgent()) && !result.hasCooperated(pair.getSecondAgent()))
@@ -135,7 +134,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
 
         return new PureStrategy(
                 "group grim", "A player using group grim use the grim strategy, where instead of looking at the last game between"
-                + " the player and the opponent the last game between the opponent and an agent of the same (cohesive) group"
+                + " the player and the opponent the last game between the opponent and any agent of the same (cohesive) group"
                 + " as the player is considered. If the player is part of a non-cohesive group, this strategy leads to the same results"
                 + " as the common grim strategy.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> {
@@ -159,7 +158,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the "always cooperate" strategy
      */
     public static PureStrategy alwaysCooperate() {
-        return new PureStrategy("always cooperate", "A player using always cooperate will be cooperative against all opponents",
+        return new PureStrategy("always cooperate", "A player using this strategy will cooperate in ever game.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> true);
     }
 
@@ -169,7 +168,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
      * @return an instance of the {@link PureStrategy} class representing the "never cooperate" strategy
      */
     public static PureStrategy neverCooperate() {
-        return new PureStrategy("never cooperate", "A player using never cooperate won't be cooperative against any opponent.",
+        return new PureStrategy("never cooperate", "A player using this strategy wom't cooperate in any game.",
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) -> false);
     }
 
@@ -225,14 +224,14 @@ public class PureStrategy implements Strategy, java.io.Serializable {
                 break;
             case LASTTIME:
                 condition = (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, history) ->
-                        toStream(history.getLatestWhere((result) -> relevantResult.test(pair, result))).allMatch(
+                        toStream(history.getLatestWhere((result) -> result.hasAgent(pair.getSecondAgent()) && relevantResult.test(pair, result))).allMatch(
                                 (result) -> result == null || result.hasCooperated(pair.getSecondAgent()));
                 break;
             default:
                 condition = null;
         }
 
-        return new PureStrategy("stratbuilder strategy", cooperatedWithWhom.toString() + ", " + when.toString(),
+        return new PureStrategy("stratbuilder strategy", "opponent cooperated with " + cooperatedWithWhom.toString() + ", " + when.toString(),
                 condition);
     }
 
@@ -472,7 +471,7 @@ public class PureStrategy implements Strategy, java.io.Serializable {
     public static PureStrategy opponentIsInTheSameGroup() {
         BiPredicate<AgentPair, SimulationHistory> condition =
                 (BiPredicate<AgentPair, SimulationHistory> & Serializable) (pair, hist) ->
-                        pair.getFirstAgent().getGroupId() == pair.getSecondAgent().getGroupId() && pair.getSecondAgent().getGroupId() != -1;
+                        pair.getFirstAgent().isGroupAffiliated(pair.getSecondAgent());
 
         return new PureStrategy("The opponent is in the same group", "A player using this strategy will be cooperative if the opponent "
                 + "is in the same group else the player is not cooperative.", condition);
