@@ -140,7 +140,7 @@ public class HeadController {
     }
     
     @FXML
-    void setToDefaultConfiguration() {
+    void setAsDefaultConfiguration() {
     	settings.setConfiguration(this.activeConfiguration);
     	settings.save();
     	Alert alert = new Alert(AlertType.CONFIRMATION, "Default Configuration updated. Remember to persistently store all self created populations, groups, strategies and games that are used in this configuration as well!", ButtonType.OK);

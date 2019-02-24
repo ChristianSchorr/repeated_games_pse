@@ -44,7 +44,7 @@
                             <Glyph fontFamily="FontAwesome" icon="DOWNLOAD" style="-fx-text-fill: grey" />
                         </graphic>
                     </MenuItem>
-                    <MenuItem text="Set to Default Configuration" onAction="#setToDefaultConfiguration">
+                    <MenuItem text="Set as Default Configuration" onAction="#setAsDefaultConfiguration">
                         <graphic>
                             <Glyph fontFamily="FontAwesome" icon="SAVE" style="-fx-text-fill: grey" />
                         </graphic>
