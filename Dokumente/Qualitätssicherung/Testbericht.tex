@@ -253,7 +253,6 @@ Es folgt eine Liste aller erwähnenswerten Fehler\footnote{Banalitäten wie Schr
 \textbf{Grund: }Die geschätzte verbleibende Zeit wird bei jeder abgeschlossenen Iteration neu berechnet und dann herunter gezählt. Wurde in dieser Zeit jedoch keine weitere Iteration abgeschlossen, kam es zu einem Unterlauf des Zählers. 
 \newline
 \textbf{Behebung: }Kommt es zu einem Unterlauf des Zählers, wird er auf den letzten geschätzten Wert zurückgesetzt.
-\newpage
 \textbf{Wurden im Fenster zum Erstellen eigener Strategien Prädikate auf Wurzelebene des Syntaxbaums gelöscht, blieb die Benutzeroberfläche unverändert.} 
 \newline
 \textbf{Grund: } Die internen Datenstrukturen wurden  korrekt aktualisiert, jedoch nicht die Benutzeroberfläche.
