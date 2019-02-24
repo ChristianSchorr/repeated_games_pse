@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import loop.model.UserConfiguration;
@@ -46,7 +47,7 @@ public class FileIOTest {
 	/**
 	 * Tests saving and loading a serializable
 	 */
-	@Test
+	@Ignore@Test
 	public void testSaveAndLoad() {
 		try {
 			FileIO.saveEntity(file1, p1);
@@ -63,7 +64,7 @@ public class FileIOTest {
 	/**
 	 * Tests the functionalitiy to find all files and get their objects
 	 */
-	@Test
+	@Ignore@Test
 	public void testLoadAll() {
 		try {
 			FileIO.saveEntity(file1, p1);
@@ -93,7 +94,7 @@ public class FileIOTest {
 		assertTrue(nameList.contains(p5.getName()));
 	}
 	
-	@Test
+	@Ignore@Test
 	public void testSavingResults() {
 		FileIO.saveResult(result, new File("./src/test/resources/JavaIOResult"));
 		SimulationResult test = FileIO.loadResult(new File("./src/test/resources/JavaIOResult"));
