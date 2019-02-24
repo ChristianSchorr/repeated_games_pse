@@ -187,22 +187,11 @@ Einige Testszenarien wurden an Spezifikationsänderungen angepasst. Etwa hat sic
 
 Unser Programm wurde in 41 Testklassen und 186 Tests in insgesamt 2728 Zeilen Testcode getestet.
 
-Betrachtet man die mit JUnit sinnvoll zu testenden Pakete, so wird eine Testabdeckung von 96,7\% erreicht. Das entspricht 86,7\% des Models und 30,2\% des gesamten Quellcodes, wo auch Controller und View mit inbegriffen sind.
+Betrachtet man die mit JUnit sinnvoll zu testenden Pakete, so wird eine Testabdeckung von 96,7\% erreicht. Das entspricht 86,7\% des Models und 30,2\% des gesamten Quellcodes.
 
 \chapter{Fehlerprotokoll}
 
 \section{Fehler mit Ursprung im Model}
-
-\textbf{Die Syntax von selbsterstellten Strategien wurde nicht korrekt geprüft.} \newline
-\textbf{Grund: } Der Algorithmus zum Erkennen von fehlerhaften Teilbäumen des Syntaxbaumes war nicht korrekt implementiert. Der kleinste fehlerhafte Teilbau, wird nicht richtig erkannt. Insbesondere konnte manchen Fällen eine Endlosschleife auftreten.
-\newline
-\textbf{Behebung: } Der entsprechende Algorithmus wurde korrigiert.
-
-\textbf{Strategien, bei denen sich der Agent darauf bezieht, ob Agenten aus seiner Gruppe gegen diesen bestimmten Gegner kooperiert haben, schlugen Fehl.} 
-\newline
-\textbf{Grund: } Bei der Implementierung der jeweiligen Strategien, wurde auf falsche Agenten zugegriffen, sodass auch Spiele zwischen Agenten berücksichtigt wurden, die nicht hätten dürfen.
-\newline
-\textbf{Behebung: } Größere Umstrukturierungen bei der Implementierung von den jeweiligen Strategien. 
 
 \textbf{Selbsterstellte Strategien konnten nicht abgespeichert werden, wenn bestimmte Prädikate verwendet wurden.} 
 \newline
@@ -210,9 +199,20 @@ Betrachtet man die mit JUnit sinnvoll zu testenden Pakete, so wird eine Testabde
 \newline
 \textbf{Behebung: } Die Lambda-Ausdrücke wurden durch serialisierbare Lambda-Ausdrücke ersetzt.
 
-\textbf{Simulationen mit einer \enquote{Multiconfiguration} erzeugten teilweise falsche Ergebnisse (bspw. wurden Gleichgewichte nicht erkannt).} 
+\textbf{Die Syntax von selbsterstellten Strategien wurde nicht korrekt geprüft.} \newline
+\textbf{Grund: } Der Algorithmus zum Erkennen von fehlerhaften Teilbäumen des Syntaxbaumes war nicht korrekt implementiert.
 \newline
-\textbf{Grund: } Beim Erstellen der einzelnen Konfigurationen aus einer \texttt{UserConfiguration} wurden die gleichen Instanzen der verwendeten Algorithmen für alle elementaren Konfigurationen verwendet. Dies führte bei der Ausführung einer Simulation zu Wettlaufbedingungen zwischen verschiedenen threads.
+\textbf{Behebung: } Der entsprechende Algorithmus wurde korrigiert.
+
+\textbf{Strategien, bei denen sich der Agent auf das Verhalten von Agenten aus seiner Gruppe in vorigen Spielen bezieht, funktionierten nicht korrekt.} 
+\newline
+\textbf{Grund: } Bei der Implementierung der entsprechenden Strategien wurden die in Betracht zu ziehenden Spiele nicht korrekt gefiltert.
+\newline
+\textbf{Behebung: } Die Implementierungen der betroffenen Strategien wurden korrigiert.
+
+\textbf{Simulationen mit einer Multikonfiguration erzeugten teilweise falsche Ergebnisse (bspw. wurden Gleichgewichte nicht erkannt).} 
+\newline
+\textbf{Grund: } Beim Erstellen der einzelnen Konfigurationen aus einer \texttt{UserConfiguration} wurden die gleichen Instanzen der verwendeten Algorithmen für alle elementaren Konfigurationen verwendet. Dies führte bei der Ausführung einer Simulation zu Wettlaufbedingungen zwischen verschiedenen Threads.
 \newline
 \textbf{Behebung: } Alle elementaren Konfigurationen erhalten eine eigene Instanz der verwendeten Algorithmen.
 
@@ -222,14 +222,26 @@ Betrachtet man die mit JUnit sinnvoll zu testenden Pakete, so wird eine Testabde
 \newline
 \textbf{Behebung: } Die Klasse \texttt{SimulationResult} wurde um verschiedene Synchronisationsmechanismen erweitert.
 
+\textbf{Bei mehreren verschieden großen Gruppen war die Ausgabe der Strategieverteilung fehlerhaft.}\\
+\textbf{Grund: } Die Strategieverteilungen werden intern pro Gruppe separat gespeichert. Um daraus die Gesamt-Strategieverteilung der Agenten mehrerer Gruppen zu berechnen, müssen die Verteilungen der Gruppen jeweils mit der Anzahl zugehöriger Agenten gewichtet werden. Stattdessen wurden alle gleich gewichtet, also nur der Durchschnitt gebildet.\\
+\textbf{Behebung: } Die Berechnung der Strategieverteilung wurde korrigiert.
 
+\textbf{Wurde eine Konfiguration als Standardkonfiguration festgelegt, die eine selbst erstellte Erweiterung (Population oder Spiel) enthält, die selbst nicht persistent gespeichert wurde und nach dem nächsten Programmstart eine Simulation gestartet, wurde dem Nutzer eine Fehlermeldung wegen ungültiger Konfiguration angezeigt.}\\
+\textbf{Grund: } Beim Laden der Standardkonfiguration wurde nicht geprüft, ob sie eine Population oder ein Spiel enthält, welche(s) nicht im Repository ist, also nicht persistent gespeichert wurde. Damit war die aktive Konfiguration nach Programmstart ungültig und beim Starten einer Simulation (mit dieser Konfiguration) wurde eine entsprechende Fehlermeldung angezeigt.\\
+\textbf{Behebung: } Beim Festlegen der Standardkonfiguration wird der Nutzer darauf hingewiesen, dass möglicherweise verwendete selbst erstellte Populationen/Spiele auch persistent abgespeichert werden müssen. Bei Programmstart wird geprüft, ob die geladene Standardkonfiguration in diesem Sinne gültig ist. Falls nicht, wird eine entsprechende Warnung angezeigt und die programmeigene Standardkonfiguration als aktive Konfiguration gesetzt.
 
 \section{Fehler mit Ursprung in der Benutzeroberfläche}
 
-\textbf{Wurden im Fenster zum Erstellen eigener Strategien Prädikate auf Wurzeleben des Syntaxbaums gelöscht, blieb die Benutzeroberfläche unverändert. } 
+\textbf{Wurden im Fenster zum Erstellen eigener Strategien Prädikate auf Wurzelebene des Syntaxbaums gelöscht, blieb die Benutzeroberfläche unverändert.} 
 \newline
-\textbf{Grund: } Die internen Datenstrukturen wurden  korrekt aktualisiert, jedoch nicht die Benutzeroberfläche
+\textbf{Grund: } Die internen Datenstrukturen wurden  korrekt aktualisiert, jedoch nicht die Benutzeroberfläche.
 \newline
-\textbf{Behebung: } Die Benutzeroberfläche wird korrekt aktualisiert, indem der entsprechene Methodenaufruf ergänzt wurde.
+\textbf{Behebung: } Die Benutzeroberfläche wird nun korrekt aktualisiert.
+
+\textbf{Wurde im Konfigurationsfenster die Multikonfiguration für einen Parameter aktiviert und dann der entsprechende Algorithmus geändert, wurde beim Starten einer Simulation eine Fehlermeldung wegen ungültiger Konfiguration angezeigt.}\\
+\textbf{Grund: } Die Multikonfigurationseinstellung für einen Parameter wurde nicht zurückgesetzt, wenn der Algorithmus geändert wurde, zu dem der Parameter gehört. Dadurch enthielt die Konfiguration nach der Änderung des Algorithmus einen Multikonfigurationsparameter, den es gar nicht gab; wurde in diesem Zustand die Simulation gestartet, wurde im Model eine Exception wegen ungültiger Konfiguration geworfen und dem Nutzer eine Fehlermeldung angezeigt.\\
+\textbf{Behebung:} Im Konfigurationsfenster wird nun die Multikonfigurationseinstellung zurückgesetzt, wenn der betroffene Algorithmus geändert wird.
+
+
 
 \end{document}
